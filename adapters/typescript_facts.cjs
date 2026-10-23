@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 
-function analyze(ts, root, relativeFiles) {
+function analyze(ts, root, relativeFiles, extension=null) {
   root = path.resolve(root);
   const allowed = new Set(relativeFiles.map(p => path.resolve(root,p)));
   const options = {target:ts.ScriptTarget.ES2020, module:ts.ModuleKind.ESNext,
@@ -22,8 +22,16 @@ function analyze(ts, root, relativeFiles) {
     if (data.name) packages.push({dir:path.dirname(path.join(root,p)),data});
   }
   const moduleMisses = [];
+  const pathConfigs=[];
+  if(extension?.pathsFromConfigs)for(const p of relativeFiles.filter(p=>p.endsWith('/tsconfig.json')||p==='tsconfig.json')) {
+    const parsed=ts.parseConfigFileTextToJson(p,fs.readFileSync(path.join(root,p),'utf8'));
+    if(!parsed.error && parsed.config?.compilerOptions?.paths)
+      pathConfigs.push({path:p,dir:path.resolve(root,path.dirname(p)),paths:parsed.config.compilerOptions.paths});
+  }
   host.resolveModuleNames = (names, containingFile) => names.map(name => {
-    let resolved = ts.resolveModuleName(name,containingFile,options,host).resolvedModule;
+    const config=pathConfigs.filter(c=>path.resolve(containingFile).startsWith(c.dir+path.sep)).sort((a,b)=>b.dir.length-a.dir.length)[0];
+    const localOptions=config?{...options,baseUrl:config.dir,paths:config.paths}:options;
+    let resolved = ts.resolveModuleName(name,containingFile,localOptions,host).resolvedModule;
     if (resolved && allowed.has(path.resolve(resolved.resolvedFileName))) return resolved;
     // Resolve workspace package exports from supplied package.json files.
     for (const pkg of packages) {
@@ -160,11 +168,16 @@ function analyze(ts, root, relativeFiles) {
       line:sf.getLineAndCharacterOfPosition(d.start||0).line+1,message:ts.flattenDiagnosticMessageText(d.messageText,' ')});
   }
   diagnostics.push(...moduleMisses);
-  return {schema_version:1,extractor:'typescript_facts',version:'0.1.0',compiler_version:ts.version,
+  const result={schema_version:1,extractor:'typescript_facts',version:'0.1.0',compiler_version:ts.version,
     compiler_options:options,compiler_options_origin:'fixed_analysis_preset_not_product_tsconfig',
     coverage:sfList.map(f=>({path:rel(f.fileName),status:'parsed'})),nodes:[...nodes.values()],edges,diagnostics,
     limits:['input_closed_no_external_package_types','static_declaration_not_runtime_dispatch',
       'global_binding_edges_require_recorded_execution_condition','factory_returns_limited_to_direct_function_literals']};
+  if(extension) {
+    result.path_configs=pathConfigs.map(c=>({path:c.path,paths:c.paths}));
+    result.protocol=extension.run({ts,program,checker,root,relativeFiles,sfList,loc,id,qualified,walk,calls,assignments,callableOwner,appScope,targetOf,facts:result});
+  }
+  return result;
 }
 
 module.exports={analyze};

@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "evidence_kind": "configured_analysis_scope",
+  "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+  "services": [
+    {"id": "insight-backend", "consumer_paths": ["modules/framework"], "provider_paths": ["server"]}
+  ]
+}
