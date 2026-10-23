@@ -66,6 +66,7 @@ flowchart TD
 | [P3 响应字段生产](experiments/2026-10-23-p3/output-fields.md) | 按调用位置展开引用参数，自动找到响应字段的七处写入 |
 | [P3 响应序列化](experiments/2026-10-23-p3/serialization.md) | 从源码恢复注册回调及 34 个 JSON 字段/集合路径，保留条件和缺口 |
 | [P3 响应对象与路由](experiments/2026-10-23-p3/response-routing.md) | 按对象、模块与命令连接四个发送位置到序列化回调，区分发送前后的写入 |
+| [P3 前端消费与状态](experiments/2026-10-23-p3/frontend-consumers.md) | 区分返回字段依赖和请求完成后更新，查询两个入口的状态赋值 |
 | [下一轮实验](experiments/README.md) | 如何公平比较，优先验证哪些问题 |
 | [讨论清单](docs/04-research-agenda.md) | 今天要逐项回答的问题与决策门槛 |
 | [资料来源](research/sources.md) | 论文、仓库、官方文档及固定版本 |
@@ -87,10 +88,11 @@ python scripts/check_p3_selection.py
 python scripts/check_p3_output_fields.py
 python scripts/check_p3_serialization.py
 python scripts/check_p3_response_routing.py
+python scripts/check_p3_frontend_consumers.py
 python scripts/verify_case_sources.py --repo /path/to/msinsight
 ```
 
-前十条检查文档、案例和实测证据的一致性，不重新核验文件哈希。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网。适配器测试需 `python -m pip install -r requirements-store.txt`，随后执行 `python -m unittest discover -s tests -v`；TS 测试执行 `npm ci --ignore-scripts --no-audit --no-fund` 和 `npm test`。源码构图和查询见 [P1 复现步骤](experiments/2026-10-23-p1-completion/reproduce.md)。
+前十一条检查文档、案例和实测证据的一致性，不重新核验文件哈希。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网。适配器测试需 `python -m pip install -r requirements-store.txt`，随后执行 `python -m unittest discover -s tests -v`；TS 测试执行 `npm ci --ignore-scripts --no-audit --no-fund` 和 `npm test`。源码构图和查询见 [P1 复现步骤](experiments/2026-10-23-p1-completion/reproduce.md)。
 
 ## 协作原则
 

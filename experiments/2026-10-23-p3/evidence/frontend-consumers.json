@@ -1,0 +1,5048 @@
+{
+  "evidence_kind": "executed_source_extraction_and_scoped_frontend_query",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v6",
+  "phase_status": "P3_in_progress",
+  "gate_under_test": "D02_incomplete",
+  "counts": {
+    "files": 148,
+    "nodes": 23725,
+    "edges": 34474,
+    "entries_analyzed": 3,
+    "api_calls_extracted": 3,
+    "field_reads_extracted": 25,
+    "state_writes_extracted": 6,
+    "target_requests": 2,
+    "target_value_writes": 2,
+    "target_continuation_writes": 4
+  },
+  "query": {
+    "status": "source_frontend_candidates",
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v6",
+    "api": "ts:922f26ccc99ac699aa030c2c",
+    "entry": null,
+    "field_path": null,
+    "state": null,
+    "api_calls": [
+      {
+        "api": "ts:922f26ccc99ac699aa030c2c",
+        "api_call": "ts:d95d09c628ec29b5e5f8efad",
+        "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "evidence_refs": [
+          "source:0"
+        ],
+        "result_node": "api-result:[\"ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad\"]"
+      },
+      {
+        "api": "ts:922f26ccc99ac699aa030c2c",
+        "api_call": "ts:877b8a6847767e08dee6d539",
+        "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "evidence_refs": [
+          "source:1"
+        ],
+        "result_node": "api-result:[\"ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539\"]"
+      }
+    ],
+    "writes": [
+      {
+        "id": "frontend-write:[\"ts:5699454f50c140c37b3d62bd\",\"ts:6d9438d012e6d13c6667cd7c\",0]",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "source_symbol": "ts:8c816811b646f5f1141a1abf",
+        "target": {
+          "root": "ts:1db84d8dbe02fb38c61ad23a",
+          "path": [
+            "drawLineMode"
+          ]
+        },
+        "operation": "=",
+        "value_dependencies": [],
+        "continuation_apis": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "conditions_ref": "conditions:0",
+        "evidence_refs": [
+          "source:2"
+        ],
+        "call_chain": [
+          {
+            "call_site": "ts:3b06745d7b98cc1071c476ab",
+            "target": "ts:8c816811b646f5f1141a1abf",
+            "evidence_refs": [
+              "source:3",
+              "source:4"
+            ]
+          }
+        ],
+        "source_site": "ts:6d9438d012e6d13c6667cd7c",
+        "state_node": "frontend-state:[\"ts:5699454f50c140c37b3d62bd\",\"ts:1db84d8dbe02fb38c61ad23a\",[\"drawLineMode\"]]",
+        "matching_dependencies": [],
+        "matching_continuations": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "relationship": "fulfillment_continuation"
+      },
+      {
+        "id": "frontend-write:[\"ts:5699454f50c140c37b3d62bd\",\"ts:594bb70639fbe33f0fd82207\",1]",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "source_symbol": "ts:8c816811b646f5f1141a1abf",
+        "target": {
+          "root": "ts:1db84d8dbe02fb38c61ad23a",
+          "path": [
+            "linkLines"
+          ]
+        },
+        "operation": "=",
+        "value_dependencies": [],
+        "continuation_apis": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "conditions_ref": "conditions:0",
+        "evidence_refs": [
+          "source:5"
+        ],
+        "call_chain": [
+          {
+            "call_site": "ts:3b06745d7b98cc1071c476ab",
+            "target": "ts:8c816811b646f5f1141a1abf",
+            "evidence_refs": [
+              "source:3",
+              "source:4"
+            ]
+          }
+        ],
+        "source_site": "ts:594bb70639fbe33f0fd82207",
+        "state_node": "frontend-state:[\"ts:5699454f50c140c37b3d62bd\",\"ts:1db84d8dbe02fb38c61ad23a\",[\"linkLines\"]]",
+        "matching_dependencies": [],
+        "matching_continuations": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "relationship": "fulfillment_continuation"
+      },
+      {
+        "id": "frontend-write:[\"ts:5699454f50c140c37b3d62bd\",\"ts:e22f20672347ed66d930fd9a\",2]",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "source_symbol": "ts:8c816811b646f5f1141a1abf",
+        "target": {
+          "root": "ts:1db84d8dbe02fb38c61ad23a",
+          "path": [
+            "singleLinkLine"
+          ]
+        },
+        "operation": "=",
+        "value_dependencies": [
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:8"
+            ],
+            "conditions_ref": "conditions:1",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:12"
+            ],
+            "conditions_ref": "conditions:2",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:859ae890526a213fa8e1bf63",
+                "target": "ts:2dcb735347328b8b4f545df6",
+                "evidence_refs": [
+                  "source:15",
+                  "source:16"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:17"
+            ],
+            "conditions_ref": "conditions:2",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:17",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:3",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:429536ad22806c477d18dc43",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:21",
+                  "source:22"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:23"
+            ],
+            "conditions_ref": "conditions:2",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:23",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:3",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:24",
+                  "source:22"
+                ]
+              }
+            ]
+          }
+        ],
+        "continuation_apis": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "conditions_ref": "conditions:0",
+        "evidence_refs": [
+          "source:25"
+        ],
+        "call_chain": [
+          {
+            "call_site": "ts:3b06745d7b98cc1071c476ab",
+            "target": "ts:8c816811b646f5f1141a1abf",
+            "evidence_refs": [
+              "source:3",
+              "source:4"
+            ]
+          }
+        ],
+        "source_site": "ts:e22f20672347ed66d930fd9a",
+        "state_node": "frontend-state:[\"ts:5699454f50c140c37b3d62bd\",\"ts:1db84d8dbe02fb38c61ad23a\",[\"singleLinkLine\"]]",
+        "matching_dependencies": [
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:8"
+            ],
+            "conditions_ref": "conditions:1",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:12"
+            ],
+            "conditions_ref": "conditions:2",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:859ae890526a213fa8e1bf63",
+                "target": "ts:2dcb735347328b8b4f545df6",
+                "evidence_refs": [
+                  "source:15",
+                  "source:16"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:17"
+            ],
+            "conditions_ref": "conditions:2",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:17",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:3",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:429536ad22806c477d18dc43",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:21",
+                  "source:22"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:23"
+            ],
+            "conditions_ref": "conditions:2",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+            "api_call": "ts:d95d09c628ec29b5e5f8efad",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:0",
+              "source:6",
+              "source:7",
+              "source:11",
+              "source:23",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:3",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:23fd7b7222e8397afcc8d725",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:9",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:24",
+                  "source:22"
+                ]
+              }
+            ]
+          }
+        ],
+        "matching_continuations": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "relationship": "value_dependency_candidate"
+      },
+      {
+        "id": "frontend-write:[\"ts:5699454f50c140c37b3d62bd\",\"ts:b460331a728febe0058b47da\",3]",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "source_symbol": "ts:8c816811b646f5f1141a1abf",
+        "target": {
+          "root": "ts:1db84d8dbe02fb38c61ad23a",
+          "path": [
+            "renderTrigger"
+          ]
+        },
+        "operation": "=",
+        "value_dependencies": [],
+        "continuation_apis": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "conditions_ref": "conditions:0",
+        "evidence_refs": [
+          "source:26"
+        ],
+        "call_chain": [
+          {
+            "call_site": "ts:3b06745d7b98cc1071c476ab",
+            "target": "ts:8c816811b646f5f1141a1abf",
+            "evidence_refs": [
+              "source:3",
+              "source:4"
+            ]
+          }
+        ],
+        "source_site": "ts:b460331a728febe0058b47da",
+        "state_node": "frontend-state:[\"ts:5699454f50c140c37b3d62bd\",\"ts:1db84d8dbe02fb38c61ad23a\",[\"renderTrigger\"]]",
+        "matching_dependencies": [],
+        "matching_continuations": [
+          "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad"
+        ],
+        "relationship": "fulfillment_continuation"
+      },
+      {
+        "id": "frontend-write:[\"ts:af6dc998441fd9a1bc5bb201\",\"ts:04be1de74fe59eae7eff6c4f\",4]",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "source_symbol": "ts:094cd3af95e06efcc36a7335",
+        "target": {
+          "root": "ts:3f03d6a51c99e0064faf658c",
+          "path": [
+            "singleLinkLine"
+          ]
+        },
+        "operation": "=",
+        "value_dependencies": [
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:8"
+            ],
+            "conditions_ref": "conditions:4",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:12"
+            ],
+            "conditions_ref": "conditions:5",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:859ae890526a213fa8e1bf63",
+                "target": "ts:2dcb735347328b8b4f545df6",
+                "evidence_refs": [
+                  "source:15",
+                  "source:16"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:17"
+            ],
+            "conditions_ref": "conditions:5",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:17",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:6",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:429536ad22806c477d18dc43",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:21",
+                  "source:22"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:23"
+            ],
+            "conditions_ref": "conditions:5",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:23",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:6",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:24",
+                  "source:22"
+                ]
+              }
+            ]
+          }
+        ],
+        "continuation_apis": [
+          "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539"
+        ],
+        "conditions_ref": "conditions:7",
+        "evidence_refs": [
+          "source:29"
+        ],
+        "call_chain": [
+          {
+            "call_site": "ts:e36c5ed94643bc93bf44d553",
+            "target": "ts:094cd3af95e06efcc36a7335",
+            "evidence_refs": [
+              "source:30",
+              "source:31"
+            ]
+          }
+        ],
+        "source_site": "ts:04be1de74fe59eae7eff6c4f",
+        "state_node": "frontend-state:[\"ts:af6dc998441fd9a1bc5bb201\",\"ts:3f03d6a51c99e0064faf658c\",[\"singleLinkLine\"]]",
+        "matching_dependencies": [
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:8"
+            ],
+            "conditions_ref": "conditions:4",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "cat"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:12"
+            ],
+            "conditions_ref": "conditions:5",
+            "gaps": [],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:859ae890526a213fa8e1bf63",
+                "target": "ts:2dcb735347328b8b4f545df6",
+                "evidence_refs": [
+                  "source:15",
+                  "source:16"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:17"
+            ],
+            "conditions_ref": "conditions:5",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "from",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:17",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:6",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:429536ad22806c477d18dc43",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:21",
+                  "source:22"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:23"
+            ],
+            "conditions_ref": "conditions:5",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              }
+            ]
+          },
+          {
+            "api": "ts:922f26ccc99ac699aa030c2c",
+            "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+            "api_call": "ts:877b8a6847767e08dee6d539",
+            "path": [
+              "unitAllFlows",
+              "*",
+              "flows",
+              "*",
+              "to",
+              "dbPath"
+            ],
+            "evidence_refs": [
+              "source:1",
+              "source:27",
+              "source:7",
+              "source:11",
+              "source:23",
+              "source:20"
+            ],
+            "conditions_ref": "conditions:6",
+            "gaps": [
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 424,
+                "column": 69,
+                "expression": "getFlowPointIdentity(flow[attr])"
+              },
+              {
+                "kind": "possible_mutation_by_unresolved_call",
+                "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                "line": 421,
+                "column": 22,
+                "expression": "getFlowPointIdentity(flow[lineType])"
+              }
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                "target": "ts:17208c1067ce871e2a106091",
+                "evidence_refs": [
+                  "source:28",
+                  "source:10"
+                ]
+              },
+              {
+                "call_site": "ts:5ee041cad49e1736abb4d754",
+                "target": "ts:698e0f9f6693d6806c70d9a0",
+                "evidence_refs": [
+                  "source:13",
+                  "source:14"
+                ]
+              },
+              {
+                "call_site": "ts:2acac43c9e194a82b09df321",
+                "target": "ts:428a665db55d2ad9d71379ad",
+                "evidence_refs": [
+                  "source:18",
+                  "source:19"
+                ]
+              },
+              {
+                "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                "target": "ts:b66259e7afa88285d7eae4c1",
+                "evidence_refs": [
+                  "source:24",
+                  "source:22"
+                ]
+              }
+            ]
+          }
+        ],
+        "matching_continuations": [
+          "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539"
+        ],
+        "relationship": "value_dependency_candidate"
+      },
+      {
+        "id": "frontend-write:[\"ts:af6dc998441fd9a1bc5bb201\",\"ts:e4f06049b5e8b00253c2a87c\",5]",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "source_symbol": "ts:094cd3af95e06efcc36a7335",
+        "target": {
+          "root": "ts:3f03d6a51c99e0064faf658c",
+          "path": [
+            "renderTrigger"
+          ]
+        },
+        "operation": "=",
+        "value_dependencies": [],
+        "continuation_apis": [
+          "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539"
+        ],
+        "conditions_ref": "conditions:7",
+        "evidence_refs": [
+          "source:32"
+        ],
+        "call_chain": [
+          {
+            "call_site": "ts:e36c5ed94643bc93bf44d553",
+            "target": "ts:094cd3af95e06efcc36a7335",
+            "evidence_refs": [
+              "source:30",
+              "source:31"
+            ]
+          }
+        ],
+        "source_site": "ts:e4f06049b5e8b00253c2a87c",
+        "state_node": "frontend-state:[\"ts:af6dc998441fd9a1bc5bb201\",\"ts:3f03d6a51c99e0064faf658c\",[\"renderTrigger\"]]",
+        "matching_dependencies": [],
+        "matching_continuations": [
+          "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539"
+        ],
+        "relationship": "fulfillment_continuation"
+      }
+    ],
+    "total_writes": 6,
+    "max_writes": 200,
+    "truncated": false,
+    "gaps": [
+      {
+        "kind": "assignment_receiver_unresolved",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 789,
+        "column": 13,
+        "expression": "linkFlow.isSimulation = session.isSimulation",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": []
+      },
+      {
+        "kind": "assignment_receiver_unresolved",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 791,
+        "column": 13,
+        "expression": "linkFlow.startTime = timestampOffset + (linkFlow.startTime as number)",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": []
+      },
+      {
+        "kind": "assignment_receiver_unresolved",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 792,
+        "column": 13,
+        "expression": "linkFlow.endTime = timestampOffset + (linkFlow.endTime as number)",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": []
+      },
+      {
+        "kind": "assignment_receiver_unresolved",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 418,
+        "column": 5,
+        "expression": "flow.from = normalizedFlow.from",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "assignment_receiver_unresolved",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 419,
+        "column": 5,
+        "expression": "flow.to = normalizedFlow.to",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 421,
+        "column": 22,
+        "expression": "getFlowPointIdentity(flow[lineType])",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 424,
+        "column": 69,
+        "expression": "getFlowPointIdentity(flow[attr])",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          },
+          {
+            "call_site": "ts:f1fa0bdc29fce5cb55eaec48",
+            "target": "ts:3419f02cf738bedb01149da3",
+            "evidence_refs": [
+              "source:33",
+              "source:34"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 425,
+        "column": 13,
+        "expression": "mVal[attr].push(flow[attr])",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 426,
+        "column": 13,
+        "expression": "session.mapOfLinkLines.set(mKey, mVal)",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [],
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "cat"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:12"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:859ae890526a213fa8e1bf63",
+                  "target": "ts:2dcb735347328b8b4f545df6",
+                  "evidence_refs": [
+                    "source:15",
+                    "source:16"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 421,
+        "column": 22,
+        "expression": "getFlowPointIdentity(flow[lineType])",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 424,
+        "column": 69,
+        "expression": "getFlowPointIdentity(flow[attr])",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          },
+          {
+            "call_site": "ts:f1fa0bdc29fce5cb55eaec48",
+            "target": "ts:3419f02cf738bedb01149da3",
+            "evidence_refs": [
+              "source:33",
+              "source:34"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 425,
+        "column": 13,
+        "expression": "mVal[attr].push(flow[attr])",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 426,
+        "column": 13,
+        "expression": "session.mapOfLinkLines.set(mKey, mVal)",
+        "entry": "ts:5699454f50c140c37b3d62bd",
+        "call_chain": [
+          {
+            "call_site": "ts:23fd7b7222e8397afcc8d725",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:9",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [],
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "cat"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:12"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:859ae890526a213fa8e1bf63",
+                  "target": "ts:2dcb735347328b8b4f545df6",
+                  "evidence_refs": [
+                    "source:15",
+                    "source:16"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:2",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:5699454f50c140c37b3d62bd/ts:d95d09c628ec29b5e5f8efad",
+              "api_call": "ts:d95d09c628ec29b5e5f8efad",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:0",
+                "source:6",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:23fd7b7222e8397afcc8d725",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:9",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "assignment_receiver_unresolved",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 418,
+        "column": 5,
+        "expression": "flow.from = normalizedFlow.from",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "assignment_receiver_unresolved",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 419,
+        "column": 5,
+        "expression": "flow.to = normalizedFlow.to",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          }
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 421,
+        "column": 22,
+        "expression": "getFlowPointIdentity(flow[lineType])",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 424,
+        "column": 69,
+        "expression": "getFlowPointIdentity(flow[attr])",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          },
+          {
+            "call_site": "ts:f1fa0bdc29fce5cb55eaec48",
+            "target": "ts:3419f02cf738bedb01149da3",
+            "evidence_refs": [
+              "source:33",
+              "source:34"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 425,
+        "column": 13,
+        "expression": "mVal[attr].push(flow[attr])",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 426,
+        "column": 13,
+        "expression": "session.mapOfLinkLines.set(mKey, mVal)",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:859ae890526a213fa8e1bf63",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:15",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [],
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "cat"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:12"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:859ae890526a213fa8e1bf63",
+                  "target": "ts:2dcb735347328b8b4f545df6",
+                  "evidence_refs": [
+                    "source:15",
+                    "source:16"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 421,
+        "column": 22,
+        "expression": "getFlowPointIdentity(flow[lineType])",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 424,
+        "column": 69,
+        "expression": "getFlowPointIdentity(flow[attr])",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          },
+          {
+            "call_site": "ts:f1fa0bdc29fce5cb55eaec48",
+            "target": "ts:3419f02cf738bedb01149da3",
+            "evidence_refs": [
+              "source:33",
+              "source:34"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 425,
+        "column": 13,
+        "expression": "mVal[attr].push(flow[attr])",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "from",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:17",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:429536ad22806c477d18dc43",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:21",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "unresolved_call_with_response_argument",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 426,
+        "column": 13,
+        "expression": "session.mapOfLinkLines.set(mKey, mVal)",
+        "entry": "ts:af6dc998441fd9a1bc5bb201",
+        "call_chain": [
+          {
+            "call_site": "ts:315e9a98bbf1e30be9f23b09",
+            "target": "ts:17208c1067ce871e2a106091",
+            "evidence_refs": [
+              "source:28",
+              "source:10"
+            ]
+          },
+          {
+            "call_site": "ts:5ee041cad49e1736abb4d754",
+            "target": "ts:698e0f9f6693d6806c70d9a0",
+            "evidence_refs": [
+              "source:13",
+              "source:14"
+            ]
+          },
+          {
+            "call_site": "ts:6a0997924940f64802c7cf56",
+            "target": "ts:2dcb735347328b8b4f545df6",
+            "evidence_refs": [
+              "source:35",
+              "source:16"
+            ]
+          }
+        ],
+        "argument_dependencies": [
+          [],
+          [
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "cat"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:12"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:859ae890526a213fa8e1bf63",
+                  "target": "ts:2dcb735347328b8b4f545df6",
+                  "evidence_refs": [
+                    "source:15",
+                    "source:16"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23"
+              ],
+              "conditions_ref": "conditions:5",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                }
+              ]
+            },
+            {
+              "api": "ts:922f26ccc99ac699aa030c2c",
+              "request_context": "ts:af6dc998441fd9a1bc5bb201/ts:877b8a6847767e08dee6d539",
+              "api_call": "ts:877b8a6847767e08dee6d539",
+              "path": [
+                "unitAllFlows",
+                "*",
+                "flows",
+                "*",
+                "to",
+                "dbPath"
+              ],
+              "evidence_refs": [
+                "source:1",
+                "source:27",
+                "source:7",
+                "source:11",
+                "source:23",
+                "source:20"
+              ],
+              "conditions_ref": "conditions:6",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 424,
+                  "column": 69,
+                  "expression": "getFlowPointIdentity(flow[attr])"
+                },
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+                  "line": 421,
+                  "column": 22,
+                  "expression": "getFlowPointIdentity(flow[lineType])"
+                }
+              ],
+              "call_chain": [
+                {
+                  "call_site": "ts:315e9a98bbf1e30be9f23b09",
+                  "target": "ts:17208c1067ce871e2a106091",
+                  "evidence_refs": [
+                    "source:28",
+                    "source:10"
+                  ]
+                },
+                {
+                  "call_site": "ts:5ee041cad49e1736abb4d754",
+                  "target": "ts:698e0f9f6693d6806c70d9a0",
+                  "evidence_refs": [
+                    "source:13",
+                    "source:14"
+                  ]
+                },
+                {
+                  "call_site": "ts:2acac43c9e194a82b09df321",
+                  "target": "ts:428a665db55d2ad9d71379ad",
+                  "evidence_refs": [
+                    "source:18",
+                    "source:19"
+                  ]
+                },
+                {
+                  "call_site": "ts:cff62e8c94f2e2dada42c62d",
+                  "target": "ts:b66259e7afa88285d7eae4c1",
+                  "evidence_refs": [
+                    "source:24",
+                    "source:22"
+                  ]
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    ],
+    "extraction_truncated": false,
+    "transport_status": "pending_transport_join",
+    "runtime_execution": "unknown",
+    "limits": [
+      "API_fulfillment_is_an_input_boundary_pending_transport_join",
+      "source_dependencies_not_executed_values",
+      "range_iterations_symbolic",
+      "external_callbacks_require_callee_invocation",
+      "unresolved_call_results_keep_unknown",
+      "exceptions_and_some_control_flow_not_expanded",
+      "state_roots_are_entry_parameters",
+      "conditional_alias_and_callback_effects_are_candidates",
+      "branch_caller_alias_effects_not_composed",
+      "opaque_mutations_keep_candidate_with_gap"
+    ]
+  },
+  "field_query_write_ids": [
+    "frontend-write:[\"ts:5699454f50c140c37b3d62bd\",\"ts:e22f20672347ed66d930fd9a\",2]",
+    "frontend-write:[\"ts:af6dc998441fd9a1bc5bb201\",\"ts:04be1de74fe59eae7eff6c4f\",4]"
+  ],
+  "negative_checks": {
+    "unrelated_field": true,
+    "unrelated_api": true,
+    "state_receiver_scope": true
+  },
+  "symbols": {
+    "ts:81d4036d80b5832a56d29a96": "<lambda@1212:43>.<lambda@1218:51>",
+    "ts:922f26ccc99ac699aa030c2c": "getUnitFlows",
+    "ts:18a01f3e3ff3e8808c89db3a": "queryAllSameOperatorsDuration",
+    "ts:5699454f50c140c37b3d62bd": "onClick",
+    "ts:af6dc998441fd9a1bc5bb201": "getSingleFlow"
+  },
+  "compiler": {
+    "compiler_version": "5.9.3",
+    "compiler_options": {
+      "target": 7,
+      "module": 99,
+      "moduleResolution": 100,
+      "jsx": 2,
+      "strict": true,
+      "skipLibCheck": true,
+      "noEmit": true,
+      "allowJs": false,
+      "experimentalDecorators": true
+    },
+    "compiler_options_origin": "fixed_analysis_preset_not_product_tsconfig",
+    "path_configs": [
+      {
+        "path": "modules/framework/tsconfig.json",
+        "paths": {
+          "@/*": [
+            "src/*"
+          ]
+        }
+      },
+      {
+        "path": "modules/timeline/tsconfig.json",
+        "paths": {
+          "@insight/lib/*": [
+            "../lib/*"
+          ],
+          "@insight/lib": [
+            "../lib"
+          ]
+        }
+      }
+    ]
+  },
+  "remaining": [
+    "D02 JSON transport and request/response callback correlation",
+    "D02 frontend unpacking and join to API fulfillment boundary",
+    "D03 response field reverse influence across transport",
+    "D05 whole-chain explanation",
+    "conditional queue transfer model"
+  ],
+  "file_hash_verification": "not_run_per_user_preference",
+  "rules_revision": "090f31bbe477850ec0dd5633243f8dae72fab527",
+  "tests": {
+    "python": 158,
+    "typescript": 36,
+    "passed": true
+  },
+  "storage": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v6",
+    "nodes": 23725,
+    "edges": 34474,
+    "payload_roundtrip": true,
+    "stored_frontend_query_pass": true,
+    "stored_response_query_pass": true,
+    "native_rows_unchanged": 790,
+    "buffer_pool_mb": 1024
+  },
+  "source_evidence": {
+    "source:0": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 793,
+      "column": 31,
+      "expression": "getUnitFlows(linkFlow as GetUnitFlowsParams)"
+    },
+    "source:1": {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 434,
+      "column": 27,
+      "expression": "getUnitFlows({\n            dbPath,\n            rankId: cardId,\n            tid: threadId,\n            pid: processId,\n            startTime: timestamp ?? startTimeWithOffset,\n            endTime: (timestamp ?? startTimeWithOffset) + duration,\n            id,\n            metaType,\n            isSimulation: session.isSimulation,\n        })"
+    },
+    "source:2": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 800,
+      "column": 17,
+      "expression": "session.drawLineMode = 'single'"
+    },
+    "source:3": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 799,
+      "column": 13,
+      "expression": "runInAction(() => {\n                session.drawLineMode = 'single';\n                session.linkLines = {};\n                session.singleLinkLine = newLines;\n                session.renderTrigger = !session.renderTrigger;\n            })"
+    },
+    "source:4": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 799,
+      "column": 25,
+      "expression": "() => {\n                session.drawLineMode = 'single';\n                session.linkLines = {};\n                session.singleLinkLine = newLines;\n                session.renderTrigger = !session.renderTrigger;\n            }"
+    },
+    "source:5": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 801,
+      "column": 17,
+      "expression": "session.linkLines = {}"
+    },
+    "source:6": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 794,
+      "column": 40,
+      "expression": "raw.unitAllFlows"
+    },
+    "source:7": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 463,
+      "column": 37,
+      "expression": "categoryFlowEvents"
+    },
+    "source:8": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 474,
+      "column": 18,
+      "expression": "categoryFlowEvent.cat"
+    },
+    "source:9": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 795,
+      "column": 30,
+      "expression": "buildSingleLinkLines(session, categoryFlowEvents, {\n                rankId: linkFlow.rankId as string,\n                dbPath: linkFlow.dbPath as string,\n            })"
+    },
+    "source:10": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 459,
+      "column": 1,
+      "expression": "export function buildSingleLinkLines(session: Session, categoryFlowEvents: FlowItem[],\n    referFlow: { rankId: string; dbPath: string }): LinkLines {\n    const newLines: LinkLines = {};\n    session.mapOfLinkLines.clear();\n    for (const categoryFlowEvent of categoryFlowEvents) {\n        const singleCatLinkLine: LinkLine = [];\n        for (const flow of categoryFlowEvent.flows) {\n            handleLinkLinesMap(session, flow, referFlow);\n            singleCatLinkLine.push({\n                catego"
+    },
+    "source:11": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 465,
+      "column": 28,
+      "expression": "categoryFlowEvent.flows"
+    },
+    "source:12": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 422,
+      "column": 66,
+      "expression": "flow.cat"
+    },
+    "source:13": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 466,
+      "column": 13,
+      "expression": "handleLinkLinesMap(session, flow, referFlow)"
+    },
+    "source:14": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 416,
+      "column": 1,
+      "expression": "export function handleLinkLinesMap(session: Session, flow: FlowEvent, referFlow: { rankId: string; dbPath: string }): void {\n    const normalizedFlow = normalizeFlowEventSource(flow, referFlow, true);\n    flow.from = normalizedFlow.from;\n    flow.to = normalizedFlow.to;\n    const setLinkLinesMap = (lineType: 'from' | 'to'): void => {\n        const mKey = getFlowPointIdentity(flow[lineType]);\n        const mVal = (session.mapOfLinkLines.get(mKey) ?? { cat: flow.cat, from: [], to: [], current: flo"
+    },
+    "source:15": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 429,
+      "column": 5,
+      "expression": "setLinkLinesMap('from')"
+    },
+    "source:16": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 420,
+      "column": 29,
+      "expression": "(lineType: 'from' | 'to'): void => {\n        const mKey = getFlowPointIdentity(flow[lineType]);\n        const mVal = (session.mapOfLinkLines.get(mKey) ?? { cat: flow.cat, from: [], to: [], current: flow[lineType] }) as MapValueOfLinkLines;\n        const attr = lineType === 'from' ? 'to' : 'from';\n        if (!mVal[attr].find(item => getFlowPointIdentity(item) === getFlowPointIdentity(flow[attr]))) {\n            mVal[attr].push(flow[attr]);\n            session.mapOfLinkLines.set(mKey, mVal);\n    "
+    },
+    "source:17": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 448,
+      "column": 30,
+      "expression": "flow.from"
+    },
+    "source:18": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 417,
+      "column": 28,
+      "expression": "normalizeFlowEventSource(flow, referFlow, true)"
+    },
+    "source:19": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 438,
+      "column": 1,
+      "expression": "export function normalizeFlowEventSource<T extends { from: FlowSourcePoint; to: FlowSourcePoint }>(\n    flow: T, referFlow: { rankId: string; dbPath?: string }, forceRankId = false,\n): T {\n    const normalizePoint = <P extends FlowSourcePoint>(point: P): P => ({\n        ...point,\n        rankId: forceRankId || point.rankId === undefined || point.rankId === '' ? referFlow.rankId : point.rankId,\n        dbPath: point.dbPath === undefined || point.dbPath === '' ? referFlow.dbPath : point.dbPath,\n  "
+    },
+    "source:20": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 444,
+      "column": 17,
+      "expression": "point.dbPath"
+    },
+    "source:21": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 448,
+      "column": 15,
+      "expression": "normalizePoint(flow.from)"
+    },
+    "source:22": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 441,
+      "column": 28,
+      "expression": "<P extends FlowSourcePoint>(point: P): P => ({\n        ...point,\n        rankId: forceRankId || point.rankId === undefined || point.rankId === '' ? referFlow.rankId : point.rankId,\n        dbPath: point.dbPath === undefined || point.dbPath === '' ? referFlow.dbPath : point.dbPath,\n    } as P)"
+    },
+    "source:23": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 449,
+      "column": 28,
+      "expression": "flow.to"
+    },
+    "source:24": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 449,
+      "column": 13,
+      "expression": "normalizePoint(flow.to)"
+    },
+    "source:25": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 802,
+      "column": 17,
+      "expression": "session.singleLinkLine = newLines"
+    },
+    "source:26": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 803,
+      "column": 17,
+      "expression": "session.renderTrigger = !session.renderTrigger"
+    },
+    "source:27": {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 445,
+      "column": 36,
+      "expression": "raw.unitAllFlows"
+    },
+    "source:28": {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 446,
+      "column": 26,
+      "expression": "buildSingleLinkLines(session, categoryFlowEvents, { rankId: cardId, dbPath: dbPath ?? '' })"
+    },
+    "source:29": {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 448,
+      "column": 13,
+      "expression": "session.singleLinkLine = newLines"
+    },
+    "source:30": {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 447,
+      "column": 9,
+      "expression": "runInAction(() => {\n            session.singleLinkLine = newLines;\n            session.renderTrigger = !session.renderTrigger;\n        })"
+    },
+    "source:31": {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 447,
+      "column": 21,
+      "expression": "() => {\n            session.singleLinkLine = newLines;\n            session.renderTrigger = !session.renderTrigger;\n        }"
+    },
+    "source:32": {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 449,
+      "column": 13,
+      "expression": "session.renderTrigger = !session.renderTrigger"
+    },
+    "source:33": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 424,
+      "column": 14,
+      "expression": "mVal[attr].find(item => getFlowPointIdentity(item) === getFlowPointIdentity(flow[attr]))"
+    },
+    "source:34": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 424,
+      "column": 30,
+      "expression": "item => getFlowPointIdentity(item) === getFlowPointIdentity(flow[attr])"
+    },
+    "source:35": {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "line": 430,
+      "column": 5,
+      "expression": "setLinkLinesMap('to')"
+    }
+  },
+  "shared_records": {
+    "conditions:0": [
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 787,
+        "column": 17,
+        "expression": "data === undefined",
+        "when": false
+      },
+      {
+        "kind": "external_callee_invokes_callback",
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 799,
+        "column": 13,
+        "expression": "runInAction(() => {\n                session.drawLineMode = 'single';\n                session.linkLines = {};\n                session.singleLinkLine = newLines;\n                session.renderTrigger = !session.renderTrigger;\n            })"
+      }
+    ],
+    "conditions:1": [
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 787,
+        "column": 17,
+        "expression": "data === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 463,
+        "column": 37,
+        "expression": "categoryFlowEvents",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      }
+    ],
+    "conditions:2": [
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 787,
+        "column": 17,
+        "expression": "data === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 463,
+        "column": 37,
+        "expression": "categoryFlowEvents",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 465,
+        "column": 28,
+        "expression": "categoryFlowEvent.flows",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      }
+    ],
+    "conditions:3": [
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 787,
+        "column": 17,
+        "expression": "data === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 463,
+        "column": 37,
+        "expression": "categoryFlowEvents",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 465,
+        "column": 28,
+        "expression": "categoryFlowEvent.flows",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 444,
+        "column": 17,
+        "expression": "point.dbPath === undefined || point.dbPath === ''",
+        "when": false
+      }
+    ],
+    "conditions:4": [
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 416,
+        "column": 9,
+        "expression": "session.drawLineMode === 'single' && isNotEmpty(session.singleLinkLine) && isNotEmpty(session.selectedData)",
+        "when": true
+      },
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 429,
+        "column": 13,
+        "expression": "cardId === undefined || id === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 463,
+        "column": 37,
+        "expression": "categoryFlowEvents",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      }
+    ],
+    "conditions:5": [
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 416,
+        "column": 9,
+        "expression": "session.drawLineMode === 'single' && isNotEmpty(session.singleLinkLine) && isNotEmpty(session.selectedData)",
+        "when": true
+      },
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 429,
+        "column": 13,
+        "expression": "cardId === undefined || id === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 463,
+        "column": 37,
+        "expression": "categoryFlowEvents",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 465,
+        "column": 28,
+        "expression": "categoryFlowEvent.flows",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      }
+    ],
+    "conditions:6": [
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 416,
+        "column": 9,
+        "expression": "session.drawLineMode === 'single' && isNotEmpty(session.singleLinkLine) && isNotEmpty(session.selectedData)",
+        "when": true
+      },
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 429,
+        "column": 13,
+        "expression": "cardId === undefined || id === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 463,
+        "column": 37,
+        "expression": "categoryFlowEvents",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 465,
+        "column": 28,
+        "expression": "categoryFlowEvent.flows",
+        "kind": "range_iteration",
+        "cardinality": "runtime_unknown"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": 444,
+        "column": 17,
+        "expression": "point.dbPath === undefined || point.dbPath === ''",
+        "when": false
+      }
+    ],
+    "conditions:7": [
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 416,
+        "column": 9,
+        "expression": "session.drawLineMode === 'single' && isNotEmpty(session.singleLinkLine) && isNotEmpty(session.selectedData)",
+        "when": true
+      },
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 429,
+        "column": 13,
+        "expression": "cardId === undefined || id === undefined",
+        "when": false
+      },
+      {
+        "kind": "external_callee_invokes_callback",
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": 447,
+        "column": 9,
+        "expression": "runInAction(() => {\n            session.singleLinkLine = newLines;\n            session.renderTrigger = !session.renderTrigger;\n        })"
+      }
+    ]
+  }
+}
