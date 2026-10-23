@@ -1,0 +1,66 @@
+{
+  "evidence_kind": "reconstructed_from_executed_build_logs_and_commits",
+  "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+  "upstream_base": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "capture_driver_version": "5a199a30547aa6577ecb9b613fe5503725ae5dda",
+  "configuration": {
+    "type": "Release",
+    "target": "profiler_server",
+    "generator": "Ninja",
+    "compiler": "MinGW GCC 11.5.0 x86_64-msvcrt-posix-seh",
+    "cmake": "3.30.1",
+    "node": "22.23.3",
+    "pnpm": "9.15.9",
+    "playwright": "1.57.0",
+    "source_date_epoch": "1792773720",
+    "timezone": "Asia/Shanghai +08:00",
+    "database_version": "2026102400",
+    "shared_linker_flags": "-Wl,--exclude-libs,libssp.a",
+    "stack_protector": "original all/strong flags preserved",
+    "frontend_modules": [
+      "framework",
+      "timeline"
+    ],
+    "frontend_env": {
+      "NODE_OPTIONS": "--max-old-space-size=4096 --openssl-legacy-provider",
+      "GENERATE_SOURCEMAP": "false",
+      "DISABLE_ESLINT_PLUGIN": "true",
+      "CI": "false"
+    }
+  },
+  "components": [
+    {
+      "name": "profiler_server_and_msinsight",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "log_ref": "p5-runtime-01/backend-native-thread.log",
+      "success_marker": "Linking CXX executable"
+    },
+    {
+      "name": "Framework",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "log_ref": "p5-runtime-01/framework-guard-restored.log",
+      "success_marker": "The build folder is ready to be deployed."
+    },
+    {
+      "name": "Timeline",
+      "source_commit": "f76b3db12717c6e5ab33764a9f49d9ff8b89be7d",
+      "log_ref": "p5-runtime-01/timeline-instrumented.log",
+      "success_marker": "The build folder is ready to be deployed.",
+      "source_equivalence": {
+        "method": "git_diff_name_only",
+        "against_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+        "scope": [
+          "modules/timeline",
+          "modules/lib",
+          "modules/tsconfig.json",
+          "modules/package.json",
+          "modules/pnpm-lock.yaml",
+          "package.json"
+        ],
+        "changed_paths": []
+      }
+    }
+  ],
+  "provenance_limit": "Build commands/logs and committed source scopes establish provenance; binaries were not rehashed or independently attested.",
+  "file_hash_verification": "not_run_per_user_preference"
+}
