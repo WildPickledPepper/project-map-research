@@ -18,6 +18,7 @@ from adapters.transmission_queries import explain_transmission
 from adapters.socket_queries import explain_socket_receivers
 from adapters.server_channel_queries import explain_server_channels
 from adapters.return_bridge_queries import explain_return_bridge
+from adapters.chain_queries import explain_chain
 from adapters.fact_queries import find_path
 from scripts.query_protocol_graph import resolve
 
@@ -41,9 +42,12 @@ if __name__=='__main__':
     ap.add_argument('--socket-requester',help='Promise-producing callable ID or unique name for socket receiver bindings')
     ap.add_argument('--server-channel-provider',help='P2 provider ID for accepted socket / stored session / response send joins')
     ap.add_argument('--return-provider',help='P2 provider ID for reply packaging / iframe / API / state links; accepts --field-path or --frontend-state')
+    ap.add_argument('--chain-provider',help='P2 provider ID for combined source chain; requires --field-path')
+    ap.add_argument('--details',action='store_true',help='include underlying query results with a combined chain')
     ap.add_argument('--instance-impact',action='store_true',help='use source receiver-instance contexts')
     ap.add_argument('--depth',type=int,default=16);a=ap.parse_args();graph=json.loads(a.graph.read_text(encoding='utf-8'))
-    if a.receiver:result=explain_receiver(graph,a.receiver)
+    if a.chain_provider:result=explain_chain(graph,a.chain_provider,json.loads(a.field_path) if a.field_path else None,include_details=a.details)
+    elif a.receiver:result=explain_receiver(graph,a.receiver)
     elif a.writes:result=explain_writes(graph,resolve(graph,a.writes),max_depth=a.depth)
     elif a.serialization:result=explain_serialization(graph,resolve(graph,a.serialization))
     elif a.response_provider:result=explain_response(graph,a.response_provider,max_depth=a.depth)

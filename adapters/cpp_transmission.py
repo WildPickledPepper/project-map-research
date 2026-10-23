@@ -37,6 +37,8 @@ class Transmission:
         self.d = data; self.x = data.x; self.types = LibraryTypes(self.x)
         self.max_steps = max_steps; self.max_depth = max_depth; self.max_states = max_states
         self.sources = {}; self.sends = []; self.gaps = []; self.entries = []; self.steps = 0
+        from adapters.cpp_encoding import EncodingBuffers
+        self.encoding = EncodingBuffers(self)
 
     def evidence(self, info, node): return self.d.evidence(info['path'], node)
 
@@ -154,7 +156,9 @@ class Transmission:
             if left.type == 'identifier':
                 if text(node.child_by_field_name('operator')) != '=': v = value(reason='compound_assignment_not_expanded')
                 env[text(left)] = self.step(v, 'assignment', info, node, conditions)
-            else: self.gap('nonlocal_assignment_not_expanded', info, node, context)
+            else:
+                self.encoding.invalidate([env[text(n)] for n in walk(left) if n.type == 'identifier' and text(n) in env], node, info, context)
+                self.gap('nonlocal_assignment_not_expanded', info, node, context)
             return v
         if kind != 'call_expression': return value(reason='expression_not_expanded:' + kind)
         fn = node.child_by_field_name('function'); spelling = text(fn); args = arguments(node)
@@ -164,6 +168,8 @@ class Transmission:
             receiver = self.evaluate(fn.child_by_field_name('argument'), state, info, context)
             method = text(fn.child_by_field_name('field')); native = self.native(receiver, info)
         else: receiver = None; method = spelling; native = set()
+        encoded = self.encoding.call(spelling, node, actuals, receiver, method, state, info, context)
+        if encoded is not None: return encoded
         if receiver and method == 'value' and re.match(r'(?:const\s+)?std::optional\s*<', receiver['value_type']):
             return self.step({**receiver, 'value_type': split_template(receiver['value_type'].strip('& '))[1][0]}, 'optional_value', info, node, conditions)
         if receiver and method == 'has_value' and re.match(r'(?:const\s+)?std::optional\s*<', receiver['value_type']): return value('scalar', 'bool')
@@ -224,6 +230,7 @@ class Transmission:
         else:
             if tracked: self.gap('unresolved_call_with_payload', info, node, context, sources=sorted({t['source'] for t in tracked}), conditions=conditions)
             result = value(reason='call_return_not_expanded')
+        self.encoding.invalidate([*actuals, *([receiver] if receiver else [])], node, info, context)
         for arg in [*actuals, *([receiver] if receiver else [])]:
             buffer = arg.get('buffer') if arg['kind'] == 'writer' else arg if arg['kind'] == 'buffer' else None
             if buffer is not None and 'payload' in buffer:
@@ -326,7 +333,7 @@ class Transmission:
             if not parameter_seed and not call_seed: continue
             self.entries.append(uid); self.steps = 0
             self.run_function(uid, [], None, {'entry': uid, 'active': [], 'calls': [], 'conditions': [], 'deferred': []})
-        return {'version': '0.1.0', 'entries': self.entries, 'sources': list(self.sources.values()), 'transmissions': self.sends,
+        return {'version': '0.2.0', 'entries': self.entries, 'sources': list(self.sources.values()), 'transmissions': self.sends,
                 'diagnostics': unique(self.gaps), 'budgets': {'max_steps_per_entry': self.max_steps, 'max_depth': self.max_depth, 'max_states': self.max_states},
                 'limits': ['source_type_candidates', 'explicit_copy_captures_only', 'conditional_payload_lineage',
                            'unmodeled_mutations_and_returns_remain_gaps', 'receiver_identity_is_source_context',
