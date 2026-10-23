@@ -12,6 +12,7 @@ from adapters.field_queries import explain_writes
 from adapters.serialization_queries import explain_serialization
 from adapters.response_queries import explain_response
 from adapters.frontend_queries import explain_frontend
+from adapters.callback_queries import explain_callbacks
 from adapters.fact_queries import find_path
 from scripts.query_protocol_graph import resolve
 
@@ -26,12 +27,17 @@ if __name__=='__main__':
     ap.add_argument('--frontend-api',help='API callable ID or unique name; fulfillment boundary to consumers')
     ap.add_argument('--frontend-state',help='exact scoped state node ID; reverse lookup of API-result dependencies')
     ap.add_argument('--field-path',help='JSON array of API-result selectors, e.g. ["items","*","name"]')
+    ap.add_argument('--response-requester',help='Promise-producing callable ID or unique name')
+    ap.add_argument('--response-receiver',help='Registry-consuming callable ID or unique name')
     ap.add_argument('--instance-impact',action='store_true',help='use source receiver-instance contexts')
     ap.add_argument('--depth',type=int,default=16);a=ap.parse_args();graph=json.loads(a.graph.read_text(encoding='utf-8'))
     if a.receiver:result=explain_receiver(graph,a.receiver)
     elif a.writes:result=explain_writes(graph,resolve(graph,a.writes),max_depth=a.depth)
     elif a.serialization:result=explain_serialization(graph,resolve(graph,a.serialization))
     elif a.response_provider:result=explain_response(graph,a.response_provider,max_depth=a.depth)
+    elif a.response_requester or a.response_receiver:result=explain_callbacks(graph,
+        requester=resolve(graph,a.response_requester) if a.response_requester else None,
+        receiver=resolve(graph,a.response_receiver) if a.response_receiver else None)
     elif a.frontend_api or a.frontend_state:result=explain_frontend(graph,
         api=resolve(graph,a.frontend_api) if a.frontend_api else None,state=a.frontend_state,
         field_path=json.loads(a.field_path) if a.field_path is not None else None)

@@ -5,17 +5,30 @@
 const fs=require('node:fs'),path=require('node:path');
 const {analyze}=require('./typescript_facts.cjs');
 
-function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12}={}) {
+function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistries=false}={}) {
   const {ts,checker,loc,id,callableOwner,qualified}=ctx,apis=new Set(apiSymbols);
   const src=n=>({...loc(n),expression:n.getText().slice(0,500)});
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
   const entries=new Map(),writes=[],reads=[],calls=[],diagnostics=[];let steps=0,currentEntry=null;
+  const promiseEntries=new Map(),lookupEntries=new Map(),registrations=[],lookups=[],settlements=[],promises=[],deletions=[],callbackBindings=[];
+  let phase='consumers';
   const unwrap=n=>{while(n&&(ts.isAsExpression(n)||ts.isParenthesizedExpression(n)||ts.isNonNullExpression(n)||ts.isTypeAssertionExpression(n)))n=n.expression;return n;};
   function decl(n){let s=ts.isIdentifier(n)&&ts.isShorthandPropertyAssignment(n.parent)?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration||s?.declarations?.[0];}
   const inside=n=>n&&ctx.relativeFiles.includes(loc(n).path);
   function target(n){const d=checker.getResolvedSignature(n)?.declaration;return inside(d)&&ts.isFunctionLike(d)?d:null;}
+  const standard=(n,name)=>{const d=decl(n);return n.getText()===name&&d&&loc(d).path.startsWith('<typescript-lib>/');};
+  function platform(n,name){
+    const check=t=>t?.isUnion?.()?t.types.some(check):t?.symbol?.getName()===name&&t.symbol.declarations?.some(d=>loc(d).path.startsWith('<typescript-lib>/'));
+    return check(checker.getTypeAtLocation(n));
+  }
   for(const call of ctx.calls){const t=target(call);if(t&&apis.has(id(t,'callable'))){const owner=callableOwner(call);if(owner?.body)entries.set(id(owner,'callable'),owner);}}
+  if(responseRegistries)for(const call of ctx.calls){
+    const owner=callableOwner(call);if(!owner?.body)continue;
+    if(ts.isNewExpression(call)&&standard(call.expression,'Promise'))promiseEntries.set(id(owner,'callable'),owner);
+    if(ts.isCallExpression(call)&&ts.isPropertyAccessExpression(call.expression)&&call.expression.name.text==='get'&&platform(call.expression.expression,'Map'))lookupEntries.set(id(owner,'callable'),owner);
+  }
   function uniq(items){return [...new Map(items.map(v=>[JSON.stringify(v),v])).values()];}
+  const contextualId=(n,kind,c)=>[currentEntry,...c.chain.map(s=>s.call_site),id(n,kind)].join('/');
   function dependencies(v,seen=new Set()) {
     if(!v||seen.has(v))return [];seen.add(v);
     if(v.tag==='promise')return [];
@@ -39,16 +52,73 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12}={}) {
       for(const y of Object.values(x.props||{}))visit(y);for(const y of x.values||[])visit(y);}
     visit(out);return out;
   }
+  function ownerClass(n){for(let q=n;q;q=q.parent)if(ts.isClassDeclaration(q))return q;return null;}
+  function baseClass(n){const h=n?.heritageClauses?.find(h=>h.token===ts.SyntaxKind.ExtendsKeyword)?.types?.[0];return h?decl(h.expression):null;}
+  function member(cls,key){for(let q=cls;q;q=baseClass(q)){const m=q.members?.find(x=>x.name?.getText().replace(/^['"]|['"]$/g,'')===key);if(m)return m;}return null;}
+  function resolverRefs(v,seen=new Set()){
+    if(!v||seen.has(v))return [];seen.add(v);if(v.tag==='resolver')return [{promise:v.promise,mode:v.mode}];
+    const children=[...Object.values(v.props||{}),...(v.values||[]),...(v.tag==='function'?[...v.env.values()]:[])];
+    return uniq(children.flatMap(x=>resolverRefs(x,seen)));
+  }
+  function describe(v,depth=0,seen=new Set()){
+    if(!v)return {kind:'undefined'};if(depth>8||seen.has(v))return {kind:'unknown',reason:'value_description_limit'};seen.add(v);
+    if(v.tag==='literal')return v.value===undefined?{kind:'undefined'}:{kind:'constant',value:v.value};
+    if(v.tag==='input')return {kind:'input_path',root:v.root,path:v.path,transforms:v.transforms||[],evidence:v.evidence||[],conditions:v.conditions||[],gaps:v.gaps||[]};
+    if(v.tag==='function')return {kind:'source_callback',source_symbol:id(v.node,'callable'),resolvers:resolverRefs(v)};
+    if(v.tag==='resolver')return {kind:'promise_resolver',promise:v.promise,mode:v.mode};
+    if(v.tag==='union')return {kind:'alternatives',values:v.values.map(x=>describe(x,depth+1,new Set(seen)))};
+    if(v.tag==='registry_lookup')return {kind:'registry_lookup',lookup:v.lookup,selectors:v.selectors};
+    if(v.tag==='object')return {kind:'object',fields:Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,describe(x,depth+1,new Set(seen))]))};
+    return {kind:'unknown',reason:v.reason||v.tag};
+  }
+  function settle(resolver,args,c,n){
+    settlements.push({id:id(n,'promise_settlement'),promise:resolver.promise,mode:resolver.mode,entry:currentEntry,
+      source_symbol:id(c.current,'callable'),value:describe(args[0]),registry_context:c.registryContext||null,
+      conditions:c.conditions,evidence:[src(n)],call_chain:c.chain});return literal(undefined);
+  }
+  function invokeLookup(value,args,c,n){
+    const lookup=lookups.find(r=>r.id===value.lookup);if(!lookup)return unknown('lookup_not_recorded');
+    const selected=[];
+    for(const registration of registrations){
+      const r=registration.record;
+      if(r.registry!==lookup.registry||r.receiver_type!==lookup.receiver_type)continue;
+      function constants(v){if(v.kind==='constant')return [v.value];if(v.kind!=='alternatives')return null;
+        const parts=v.values.map(constants);return parts.every(Boolean)?parts.flat():null;}
+      const left=constants(r.key),right=constants(lookup.key);
+      if(left&&right&&!left.some(a=>right.includes(a)))continue;
+      let callback=registration.value;for(const key of value.selectors)callback=get(callback,key,n,c);
+      const condition={kind:'registered_value_selected',registration:r.id,lookup:lookup.id,
+        receiver:'same_runtime_instance',key:'registration_key_equals_lookup_key',lifetime:'registration_reaches_lookup_without_replacement_or_deletion',
+        callback_value:'captured_callback_fields_not_modified_before_invocation'};
+      const cc={...c,conditions:[...c.conditions,...r.conditions,condition],registryContext:{registration:r.id,lookup:lookup.id,selectors:value.selectors}};
+      if(callback.tag==='resolver')selected.push(settle(callback,args,cc,n));
+      else if(callback.tag==='function')selected.push(invoke(callback,args,cc,n));
+      else note(n,'registered_value_not_callable',cc);
+    }
+    if(!selected.length)note(n,'registry_callback_unresolved',c,{lookup:lookup.id,selectors:value.selectors});
+    return selected.length?selected.reduce(merge):unknown('registry_callback_unresolved');
+  }
   function get(v,key,n,c) {
     if(v?.tag==='union')return v.values.map(x=>get(x,key,n,c)).reduce(merge);
     if(v?.props&&Object.hasOwn(v.props,key))return v.props[key];
+    if(responseRegistries&&v?.tag==='registry_lookup')return {...v,selectors:[...v.selectors,key]};
+    if(responseRegistries&&v?.tag==='instance'){
+      const m=member(v.classNode,key);if(!m)return unknown('instance_member_unresolved');
+      if(ts.isFunctionLike(m))return {...fn(m,c),receiver:v};
+      if(m.initializer&&(ts.isArrowFunction(m.initializer)||ts.isFunctionExpression(m.initializer)))return {...fn(m.initializer,c),receiver:v};
+      let value;
+      if(m.initializer&&ts.isNewExpression(m.initializer)&&standard(m.initializer.expression,'Map'))
+        value={tag:'registry',registry:id(m,'map_binding'),receiver_type:id(v.classNode,'type'),evidence:[src(m)]};
+      else value={tag:'input',root:id(m,'instance_binding'),path:[],props:{},evidence:[src(m)]};
+      v.props[key]=value;return value;
+    }
     if(v?.tag==='response'){
       const out={...v,path:[...v.path,key],evidence:[...v.evidence,src(n)],call_chain:c.chain,props:{}};
       reads.push({id:id(n,'response_read'),entry:currentEntry,source_symbol:id(c.current,'callable'),
         response:dependencies(out)[0],conditions:uniq([...c.conditions,...(v.conditions||[])]),evidence:[src(n)],call_chain:c.chain});
       v.props[key]=out;return out;
     }
-    if(v?.tag==='input'){const out={...v,path:[...v.path,key],props:{}};v.props[key]=out;return out;}
+    if(v?.tag==='input'){const out={...v,path:[...v.path,key],props:{},...(responseRegistries?{evidence:[...(v.evidence||[]),src(n)]}:{})};v.props[key]=out;return out;}
     if(v?.tag==='object')return key==='*'&&v.array?Object.values(v.props).reduce(merge,literal(undefined)):v.props['*']||literal(undefined);
     return unknown('property_source_unresolved');
   }
@@ -71,6 +141,8 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12}={}) {
     if(!ts.isPropertyAccessExpression(left)&&!ts.isElementAccessExpression(left))return;
     const receiver=ev(left.expression,c),key=ts.isPropertyAccessExpression(left)?literal(left.name.text):ev(left.argumentExpression,c);
     const prop=key.tag==='literal'?String(key.value):'*';
+    if(responseRegistries&&value.tag==='function')callbackBindings.push({id:id(at,'callback_assignment'),entry:currentEntry,
+      receiver:describe(receiver),property:prop,callback:id(value.node,'callable'),conditions:c.conditions,evidence:[src(at)]});
     function put(r){
       if(r.tag==='union'){r.values.forEach(put);return;}
       if(r.tag==='input')writes.push({id:id(at,'state_write'),entry:currentEntry,source_symbol:id(c.current,'callable'),
@@ -154,8 +226,10 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12}={}) {
     }
     if(ts.isPrefixUnaryExpression(n)){
       const value=ev(n.operand,c);if(n.operator===ts.SyntaxKind.ExclamationToken&&value.tag==='literal')return literal(!value.value);
+      if(responseRegistries&&n.operator===ts.SyntaxKind.MinusToken&&value.tag==='literal')return literal(-value.value);
       return {tag:'computed',dependencies:dependencies(value)};
     }
+    if(responseRegistries&&ts.isPostfixUnaryExpression(n))return {tag:'input',root:id(n,'runtime_counter_read'),path:[],props:{},evidence:[src(n)]};
     if(ts.isBinaryExpression(n)){
       const op=n.operatorToken.kind;if(op===ts.SyntaxKind.EqualsToken){const value=ev(n.right,c);assign(n.left,value,c,n);return value;}
       if(op>=ts.SyntaxKind.FirstCompoundAssignment&&op<=ts.SyntaxKind.LastCompoundAssignment){const value={tag:'computed',dependencies:uniq([...dependencies(ev(n.left,c)),...dependencies(ev(n.right,c))])};assign(n.left,value,c,n,n.operatorToken.getText());return value;}
@@ -183,17 +257,43 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12}={}) {
       }
       if(ts.isPropertyAccessExpression(n.expression)) {
         const receiver=ev(n.expression.expression,c),name=n.expression.name.text;
+        if(responseRegistries&&standard(n.expression.expression,'JSON')&&name==='parse'){
+          function decode(value){
+            if(value?.tag==='union')return value.values.map(decode).reduce(merge);
+            if(value?.tag==='input')return {...value,props:{},transforms:[...(value.transforms||[]),{kind:'JSON.parse',at_path:value.path,evidence:[src(n)]}],conditions:c.conditions};
+            return unknown('json_input_unresolved');
+          }
+          return decode(args[0]);
+        }
+        if(responseRegistries&&receiver.tag==='registry'){
+          const record={id:contextualId(n,'registry_'+name,c),source_site:id(n,'call_site'),registry:receiver.registry,receiver_type:receiver.receiver_type,
+            entry:currentEntry,key:describe(args[0]),conditions:c.conditions,evidence:[...receiver.evidence,src(n)],call_chain:c.chain};
+          if(name==='set'&&phase==='register'&&resolverRefs(args[1]).length){
+            const captured=resolverRefs(args[1]);registrations.push({record:{...record,value:describe(args[1]),promises:uniq(captured.map(r=>r.promise))},value:args[1]});
+          }
+          if(name==='get'&&phase==='lookup'){lookups.push(record);return {tag:'registry_lookup',lookup:record.id,selectors:[]};}
+          if(name==='delete')deletions.push(record);
+          return unknown('runtime_registry_operation');
+        }
         if(receiver.tag==='object'&&receiver.array&&name==='push'){
           receiver.props['*']=receiver.props['*']?merge(receiver.props['*'],args[0]):args[0];return literal(undefined);
         }
         if(callee?.body)return invoke({...fn(callee,c),receiver},args,c,n);
       }
       const callable=ev(n.expression,c);
+      if(responseRegistries&&callable.tag==='resolver')return settle(callable,args,c,n);
+      if(responseRegistries&&callable.tag==='registry_lookup'&&phase==='lookup')return invokeLookup(callable,args,c,n);
       if(callable.tag==='function'&&callable.node.body)return invoke(callable,args,c,n);
       if(callee?.body)return invoke(fn(callee,c),args,c,n);
       // A passed closure has a conditional execution edge, not an assumed library
       // implementation. Known local callees are interpreted before this fallback.
       for(const arg of args)if(arg.tag==='function')invoke(arg,[],{...c,conditions:[...c.conditions,{kind:'external_callee_invokes_callback',...src(n)}]},n);
+      if(responseRegistries){
+        const seen=new Set(),affected=[];function mark(v){if(!v||seen.has(v))return;seen.add(v);
+          if(v.tag==='input'){const gap={kind:'possible_mutation_by_unresolved_call',...src(n)};v.gaps=uniq([...(v.gaps||[]),gap]);affected.push(describe(v));}
+          for(const x of Object.values(v.props||{}))mark(x);for(const x of v.values||[])mark(x);}
+        args.forEach(mark);if(affected.length)note(n,'unresolved_call_with_input_argument',c,{inputs:affected});
+      }
       if(args.some(a=>dependencies(a).length)){
         note(n,'unresolved_call_with_response_argument',c,{argument_dependencies:args.map(a=>dependencies(a))});
         const seen=new Set();function taint(v){if(!v||seen.has(v))return;seen.add(v);
@@ -205,15 +305,34 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12}={}) {
       }
       return unknown('external_or_unresolved_call');
     }
-    if(ts.isNewExpression(n))return {tag:'object',root:id(n,'allocation'),props:{},dependencies:[]};
+    if(ts.isNewExpression(n)){
+      if(responseRegistries&&standard(n.expression,'Promise')){
+        const uid=contextualId(n,'promise',c),args=(n.arguments||[]).map(a=>ev(a,c));
+        promises.push({id:uid,entry:currentEntry,source_symbol:id(c.current,'callable'),conditions:c.conditions,evidence:[src(n)]});
+        if(args[0]?.tag==='function')invoke(args[0],[{tag:'resolver',promise:uid,mode:'resolve'},{tag:'resolver',promise:uid,mode:'reject'}],c,n);
+        return {tag:'promise',value:unknown('settlement_deferred'),awaited:[]};
+      }
+      if(responseRegistries&&standard(n.expression,'Map'))return {tag:'registry',registry:id(n,'map_binding'),receiver_type:'local:'+currentEntry,evidence:[src(n)]};
+      return {tag:'object',root:id(n,'allocation'),props:{},dependencies:[]};
+    }
     return unknown('expression_not_modeled:'+ts.SyntaxKind[n.kind]);
   }
   const analyzed=[];
-  for(const [uid,entry] of entries){
-    currentEntry=uid;steps=0;const c={env:new Map(),receiver:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0};
-    entry.parameters.forEach(p=>bind(p.name,{tag:'input',root:id(p,'input_binding'),path:[],props:{}},c));
+  function analyzeEntry(uid,entry){
+    currentEntry=uid;steps=0;const cls=responseRegistries&&ownerClass(entry);
+    const c={env:new Map(),receiver:cls?{tag:'instance',classNode:cls,props:{}}:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0};
+    entry.parameters.forEach(p=>bind(p.name,{tag:'input',root:id(p,'input_binding'),path:[],props:{},...(responseRegistries?{evidence:[src(p)]}:{})},c));
     if(ts.isBlock(entry.body))block(entry.body.statements,c);else ev(entry.body,c);
-    analyzed.push({source_symbol:uid,name:qualified(entry),...loc(entry),steps,truncated:steps>maxSteps});
+    analyzed.push({source_symbol:uid,name:qualified(entry),...loc(entry),steps,truncated:steps>maxSteps,...(responseRegistries?{phase}:{})});
+  }
+  for(const [uid,entry] of entries)analyzeEntry(uid,entry);
+  if(responseRegistries){phase='register';for(const [uid,entry] of promiseEntries)analyzeEntry(uid,entry);
+    phase='lookup';for(const [uid,entry] of lookupEntries)analyzeEntry(uid,entry);
+    return {version:'0.1.0',entries:analyzed,promises:uniq(promises),registrations:uniq(registrations.map(r=>r.record)),
+      lookups:uniq(lookups),settlements:uniq(settlements),deletions:uniq(deletions),callback_bindings:uniq(callbackBindings),diagnostics:uniq(diagnostics),
+      limits:['registry_join_requires_same_runtime_instance_and_equal_key','registration_lifetime_requires_runtime_or_reaching_definition_validation',
+        'source_projection_not_observed_fulfillment','callback_and_promise_selection_is_contextual_candidate','network_transport_and_API_boundary_join_pending',
+        'unsupported_expressions_and_exception_paths_keep_unknown'],budgets:{max_steps:maxSteps,max_depth:maxDepth}};
   }
   return {version:'0.1.0',api_symbols:[...apis],entries:analyzed,api_calls:uniq(calls),field_reads:uniq(reads),
     state_writes:uniq(writes.filter(w=>w.value_dependencies.length||w.continuation_apis.length)),diagnostics:uniq(diagnostics),
