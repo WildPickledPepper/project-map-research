@@ -19,6 +19,7 @@ jobs:
       - run: python scripts/check_p3_selection.py
       - run: python scripts/check_p3_output_fields.py
       - run: python scripts/check_p3_serialization.py
+      - run: python scripts/check_p3_response_routing.py
   facts:
     runs-on: ubuntu-latest
     steps:
