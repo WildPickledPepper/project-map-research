@@ -10,6 +10,7 @@ import unittest
 
 from adapters.snapshot_inputs import commit, normalize_config
 from adapters.snapshot_refresh import Refresher, atomic_json, read_snapshot, read_state
+from adapters.snapshot_records import append_record, query_record, snapshot_basis
 from scripts.build_project_snapshot import build
 from tests.test_cpp_protocol import SOURCE
 
@@ -94,6 +95,12 @@ class AutomaticGraphTests(unittest.TestCase):
                 self.assertFalse(any(n['path'] == 'client/second.ts' for n in graph['nodes']))
 
                 old_handlers = {n['id'] for n in graph['nodes'] if n['name'] == 'SpecificWork::execute'}
+                original_basis = snapshot_basis(store)
+                historical = append_record(store, {'kind': 'asset_anchor', 'basis': original_basis,
+                    'provenance': {'evidence_kind': 'synthetic', 'source_ref': 'synthetic:p4/handler-rename',
+                                   'producer': {'name': 'watch_test', 'version': '1'}},
+                    'payload': {'asset_id': 'synthetic-only', 'revision': '1', 'verification': 'passed_in_fixture'},
+                    'anchors': [{'label': 'handler', 'node_id': sorted(old_handlers)[0]}]})
                 git('mv', 'server/main.cpp', 'server/renamed.cpp')
                 revision = save({'server/renamed.cpp': SERVER.replace('SpecificWork', 'NewWork'),
                                  'client/api.ts': client.replace('entry()', 'renamedEntry()'),
@@ -104,6 +111,11 @@ class AutomaticGraphTests(unittest.TestCase):
                 names = {n['id']: n['name'] for n in graph['nodes']}
                 self.assertIn('Other::SpecificWork::execute', names.values())
                 self.assertEqual({names[h] for p in graph['protocol']['providers'] for h in p['handler_methods']}, {'NewWork::execute'})
+                relocated = query_record(store, historical['id'])
+                self.assertEqual(relocated['anchors'][0]['status'], 'dangling')
+                self.assertFalse(relocated['eligible_for_direct_overlay'])
+                self.assertFalse(relocated['verification_carried_forward'])
+                self.assertEqual(query_record(store, historical['id'], snapshot_id=original_basis['id'])['anchors'][0]['status'], 'mapped')
 
                 config['deployment']['services'] = [
                     {'id': 'client_service', 'consumer_paths': ['client'], 'provider_paths': ['unrelated']},

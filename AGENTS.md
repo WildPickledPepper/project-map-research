@@ -12,3 +12,4 @@
 - When parallel agents are explicitly authorized, isolate their inputs and outputs. They must not read or send each other intermediate conclusions; the coordinator aggregates after completion. A shared filesystem is not a security boundary, so document the isolation actually achieved.
 - Run `python scripts/check_research.py` before committing research changes.
 - User preference: do not re-verify file hashes. Track Git revisions/tool versions and run behavior tests; preserve historical hash records without recomputing them.
+- Keep the upstream GitCode repository and the original downloaded Insight checkout unchanged. Source mutations and runtime instrumentation belong in separate local experimental copies; publish this project's tools and reports only to the research GitHub repository.

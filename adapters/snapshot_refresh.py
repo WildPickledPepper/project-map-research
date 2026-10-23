@@ -10,6 +10,7 @@ import json
 import os
 from pathlib import Path
 import tempfile
+import time
 import traceback
 import uuid
 
@@ -35,7 +36,16 @@ def atomic_json(path, value):
             name = stream.name
             json.dump(value, stream, ensure_ascii=False, allow_nan=False, separators=(',', ':'))
             stream.write('\n'); stream.flush(); os.fsync(stream.fileno())
-        os.replace(name, path)
+        # Windows readers can briefly deny delete sharing. Keep the old file
+        # intact while retrying the same atomic replacement for at most 0.95 s.
+        for attempt in range(10):
+            try:
+                os.replace(name, path)
+                break
+            except PermissionError as error:
+                if getattr(error, 'winerror', None) not in {5, 32, 33} or attempt == 9:
+                    raise
+                time.sleep(0.01 * 2**min(attempt, 4))
         if os.name != 'nt':
             fd = os.open(path.parent, os.O_RDONLY)
             try: os.fsync(fd)
