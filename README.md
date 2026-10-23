@@ -72,6 +72,7 @@ flowchart TD
 | [P3 C++ 响应发送](experiments/2026-10-23-p3/transmission.md) | JSON 字符串、按值捕获、延迟回调和 socket 发送参数，保留编码分支缺口 |
 | [P3 socket 接收绑定](experiments/2026-10-23-p3/socket-receivers.md) | 原生创建、发送字段、接收函数及事件参数到回调表的来源关系 |
 | [P3 服务端通道来源](experiments/2026-10-23-p3/server-channels.md) | 接受连接、会话 channel 初始化、管理器保存/读取和响应发送的来源关系 |
+| [P3 iframe 返回与 API 解包](experiments/2026-10-23-p3/return-bridge.md) | 返回包装、消息编号与目标窗口、API 字段投影、状态赋值和反查 |
 | [下一轮实验](experiments/README.md) | 如何公平比较，优先验证哪些问题 |
 | [讨论清单](docs/04-research-agenda.md) | 今天要逐项回答的问题与决策门槛 |
 | [资料来源](research/sources.md) | 论文、仓库、官方文档及固定版本 |
@@ -99,6 +100,7 @@ python scripts/check_p3_request_correlation.py
 python scripts/check_p3_transmission.py
 python scripts/check_p3_socket_receivers.py
 python scripts/check_p3_server_channels.py
+python scripts/check_p3_return_bridge.py
 python scripts/verify_case_sources.py --repo /path/to/msinsight
 ```
 

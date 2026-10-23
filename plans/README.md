@@ -53,7 +53,9 @@ P3 已通过所选 140 文件上的 D01 数据库候选与 D04 共享实例检�
 
 此前 [socket 接收绑定增量](../experiments/2026-10-23-p3/socket-receivers.md)将原生 socket 创建、发送字段、业务 onmessage 绑定和事件参数连接到响应回调表，组合首链四个后端响应出口及三种 Promise 交付候选。195 项 Python、67 项 TypeScript 测试和存储读回通过。该批保留服务端连接来源与 API 返回关联缺口。
 
-最新 [服务端通道来源增量](../experiments/2026-10-23-p3/server-channels.md)已连接接受连接、会话 channel 初始化、同一管理器实例的保存/读取和四个响应出口，并接入前后端组合查询。154 文件输入，217 项 Python、67 项 TypeScript 测试及存储读回通过。继续补 iframe 返回包装和 API 解包、必要编码/队列来源缺口，随后验收 D02、D03、D05。
+此前 [服务端通道来源增量](../experiments/2026-10-23-p3/server-channels.md)已连接接受连接、会话 channel 初始化、同一管理器实例的保存/读取和四个响应出口，并接入前后端组合查询。154 文件输入，217 项 Python、67 项 TypeScript 测试及存储读回通过。该批完成服务端来源连接。
+
+最新 [iframe 返回与 API 解包增量](../experiments/2026-10-23-p3/return-bridge.md)已连接四个响应出口、两处字段状态赋值，并验证两处状态反查和六组断链负例。154 文件输入，223 项 Python、76 项 TypeScript 测试及存储读回通过。D02、D03、D05 进入合并验收：统一首链说明，集中列清编码、队列与运行条件。
 
 ## 当前选型方向
 
