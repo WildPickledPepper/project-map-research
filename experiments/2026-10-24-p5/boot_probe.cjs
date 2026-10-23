@@ -51,8 +51,11 @@ async function main() {
       observed_commands: [...new Set(events.map(e => e.message.command).filter(Boolean))],
       scope: 'R01 preparation: UI import and timeline availability; unit/flows state assertions remain separate'
     }, null, 2));
-    await context.tracing.stop({path: path.join(output, 'playwright-trace.zip')});
-    await browser.close();
+    try {
+      await context.tracing.stop({path: path.join(output, 'playwright-trace.zip')});
+    } finally {
+      await browser.close();
+    }
   }
   if (failure) throw new Error(failure);
 }
