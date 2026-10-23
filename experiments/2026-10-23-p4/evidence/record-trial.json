@@ -1,0 +1,94 @@
+{
+  "evidence_kind": "executed_record_envelope_test_on_real_Insight_graphs",
+  "records_evidence_kind": "synthetic",
+  "producer_commit": "a93bafff11e6ac985b08412372953cc2ceec2a31",
+  "before": {
+    "id": "c655ac04f09748e29a82bf28a1476e5e",
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:c655ac04f09748e29a82bf28a1476e5e",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "build_version": {
+      "rules_commit": "b19fa52b8e7bd6d4063cf7c63c8dc8840c1074c2",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  },
+  "after": {
+    "id": "12d860beb00541d3bb8fd2662bd689e5",
+    "snapshot": "6e1fb17b884ed27d1deaa05fa5eb71f80e9d1298:full:12d860beb00541d3bb8fd2662bd689e5",
+    "source_commit": "6e1fb17b884ed27d1deaa05fa5eb71f80e9d1298",
+    "build_version": {
+      "rules_commit": "b19fa52b8e7bd6d4063cf7c63c8dc8840c1074c2",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  },
+  "results": [
+    {
+      "kind": "trace",
+      "id": "9315925bc0c549c3a298f5c0d6d5662e",
+      "original_overlay": true,
+      "new_overlay": false,
+      "original_record_unchanged": true,
+      "new_anchor_statuses": {
+        "client": "candidate",
+        "registration": "dangling",
+        "unmapped_event": "unmapped"
+      },
+      "verification_carried_forward": false
+    },
+    {
+      "kind": "summary",
+      "id": "6903f8203db243b7bfad0edb3e8a3a37",
+      "original_overlay": true,
+      "new_overlay": false,
+      "original_record_unchanged": true,
+      "new_anchor_statuses": {
+        "client": "candidate",
+        "registration": "dangling",
+        "unmapped_event": "unmapped"
+      },
+      "verification_carried_forward": false
+    },
+    {
+      "kind": "verification",
+      "id": "b14c576360694dbfb25b1dd1dbfe5fd6",
+      "original_overlay": true,
+      "new_overlay": false,
+      "original_record_unchanged": true,
+      "new_anchor_statuses": {
+        "client": "candidate",
+        "registration": "dangling",
+        "unmapped_event": "unmapped"
+      },
+      "verification_carried_forward": false
+    },
+    {
+      "kind": "asset_anchor",
+      "id": "70bf56d38f3d40e38821b78ab1fdf032",
+      "original_overlay": true,
+      "new_overlay": false,
+      "original_record_unchanged": true,
+      "new_anchor_statuses": {
+        "client": "candidate",
+        "registration": "dangling",
+        "unmapped_event": "unmapped"
+      },
+      "verification_carried_forward": false
+    }
+  ],
+  "graph_publication_unchanged": true,
+  "scope": "P4 version binding; real product runs and real external assets are not inputs",
+  "file_hash_verification": "not_run_per_user_preference"
+}

@@ -37,4 +37,6 @@ python scripts/snapshot_records.py --store ../work/repo-map-research/results/ins
 
 ## 验收归属
 
+已在 Insight 两份已发布图上执行四类记录的版本试验：旧记录完整保留，新图中的旧注册锚点悬空，未变客户端仅为候选，全部关闭跨版本直接叠加与验证继承。见 [公开结果](evidence/record-trial.json)和 [完成报告](completion.md)。
+
 以上检查补足 U03 的历史锚点失效和 U06 的非图记录版本隔离。U01、U02、U04 的证据见 [自动刷新报告](automatic-refresh.md)。首版只读取已提交源码，未提交工作区不纳入；增量关闭，U05 不适用。真实运行关联及资产业务适用性仍按后续阶段验收。
