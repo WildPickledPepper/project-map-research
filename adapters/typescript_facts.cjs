@@ -175,7 +175,7 @@ function analyze(ts, root, relativeFiles, extension=null) {
       'global_binding_edges_require_recorded_execution_condition','factory_returns_limited_to_direct_function_literals']};
   if(extension) {
     result.path_configs=pathConfigs.map(c=>({path:c.path,paths:c.paths}));
-    result.protocol=extension.run({ts,program,checker,root,relativeFiles,sfList,loc,id,qualified,walk,calls,assignments,callableOwner,appScope,targetOf,facts:result});
+    result[extension.outputKey||'protocol']=extension.run({ts,program,checker,root,relativeFiles,sfList,loc,id,qualified,walk,calls,assignments,callableOwner,appScope,targetOf,facts:result});
   }
   return result;
 }
