@@ -1,0 +1,231 @@
+"""C++ value selection, scoped container access and factory source evidence.
+
+Records source dependencies and path predicates, not execution or alias proofs.
+Project identifiers are extracted; only std container/allocation APIs are modeled.
+"""
+from collections import defaultdict
+import re
+
+from adapters.cpp_facts import Extractor, declared_name, parameter_type, scoped_name
+from adapters.syntax_supplement import cpp_scope, identity, parents, text, walk
+
+
+def canonical(name):
+    """Remove balanced template arguments from a qualified owner spelling."""
+    anonymous=[]
+    def protect(match):
+        anonymous.append(match.group());return '\x00'+str(len(anonymous)-1)+'\x00'
+    name=re.sub(r'<anonymous@[^>]+>',protect,name)
+    result=[];depth=0
+    for c in name:
+        if c=='<':depth+=1
+        elif c=='>':depth=max(0,depth-1)
+        elif not depth:result.append(c)
+    return re.sub(r'\x00(\d+)\x00',lambda m:anonymous[int(m[1])],''.join(result))
+
+
+def arguments(node):
+    value=node.child_by_field_name('arguments') if node else None
+    return list(value.named_children) if value else []
+
+
+def enclosing_function(node):
+    return next((p for p in parents(node) if p.type in {'function_definition','lambda_expression'}),None)
+
+
+def predicates(node):
+    """Retain then/else, ternary and switch label polarity and source position."""
+    result=[]
+    for parent in reversed(list(parents(node))):
+        if parent.type in {'if_statement','conditional_expression'}:
+            condition=parent.child_by_field_name('condition');yes=parent.child_by_field_name('consequence');no=parent.child_by_field_name('alternative')
+            branch=True if yes and yes.start_byte<=node.start_byte<yes.end_byte else False if no and no.start_byte<=node.start_byte<no.end_byte else None
+            if branch is not None:result.append({'kind':'branch','expression':text(condition),'when':branch,'line':condition.start_point[0]+1})
+        elif parent.type=='case_statement':
+            switch=next((p for p in parents(parent) if p.type=='switch_statement'),None)
+            if switch:
+                condition=switch.child_by_field_name('condition');value=parent.child_by_field_name('value')
+                result.append({'kind':'switch_label','expression':text(condition),'label':text(value) if value else 'default',
+                               'line':parent.start_point[0]+1,'fallthrough':'not_evaluated'})
+        elif parent.type.startswith('preproc_if'):
+            result.append({'kind':'preprocessor','expression':text(parent).splitlines()[0],'line':parent.start_point[0]+1})
+    return result
+
+
+class DataExtractor:
+    CONTAINERS={'map','unordered_map','multimap','unordered_multimap','set','unordered_set','deque','vector','list'}
+    READS={'at','find','count','contains','begin','end','front','back','size','empty'}
+    WRITES={'emplace','insert','insert_or_assign','try_emplace','erase','clear','push_back','emplace_back','pop_front','pop_back'}
+
+    def __init__(self,sources,parser):
+        self.x=Extractor(sources,parser);self.facts=self.x.build();self.fields={};self.diagnostics=[]
+        self.accesses=[];self.allocations=[];self.selections=[];self.summaries=[];self.callbacks=[]
+        self.by_owner=defaultdict(list);self.functions=defaultdict(list)
+        for uid,info in self.x.functions_by_id.items():
+            if self.x.nodes[uid]['definition']:
+                self.by_owner[canonical('::'.join(info['scope']))].append((uid,info))
+                self.functions[canonical(info['signature'][0])].append((uid,info))
+        self.discover_fields()
+
+    @staticmethod
+    def evidence(path,node):return {'path':path,'line':node.start_point[0]+1,'expression':text(node)[:700]}
+
+    def discover_fields(self):
+        for path,unit in self.x.units.items():
+            for node in walk(unit['tree'].root_node):
+                if node.type not in {'class_specifier','struct_specifier'}:continue
+                name=node.child_by_field_name('name');body=node.child_by_field_name('body')
+                if name is None or body is None:continue
+                owner=scoped_name(canonical('::'.join(cpp_scope(node)+[text(name)])),path)
+                for member in body.named_children:
+                    if member.type!='field_declaration':continue
+                    field=declared_name(member)
+                    if field is None:continue
+                    typ=text(member.child_by_field_name('type'));match=re.match(r'std::(\w+)\s*<',typ)
+                    self.fields[(owner,text(field))]={'id':'storage:'+identity(path,'member',member),'owner':owner,'name':text(field),
+                        'path':path,'line':member.start_point[0]+1,'type':typ,
+                        'container':match[1] if match and match[1] in self.CONTAINERS else None,
+                        'instance_identity':'class_member_instance_unresolved','evidence':[self.evidence(path,member)]}
+
+    def field(self,name,owner,seen=None):
+        owner=canonical(owner);seen=set() if seen is None else seen
+        if owner in seen:return None
+        seen.add(owner)
+        if (owner,name) in self.fields:return self.fields[(owner,name)]
+        for base in sorted(self.x.base_names.get(owner,[])):
+            found=self.field(name,base,seen)
+            if found:return found
+        return None
+
+    def receiver_field(self,node,uid,info):
+        if node is None:return None
+        if node.type=='identifier':
+            if self.x.variables(text(node),node,info['path'],uid):return None
+            return self.field(text(node),'::'.join(info['scope']))
+        if node.type=='field_expression':
+            receiver=node.child_by_field_name('argument');name=text(node.child_by_field_name('field'))
+            if text(receiver)=='this':return self.field(name,'::'.join(info['scope']))
+            types=self.x.infer(receiver,info['path'],info['scope'],uid)['names']
+            found=[self.field(name,t) for t in types];found=[f for f in found if f]
+            if len(found)==1:return found[0]
+        return None
+
+    def targets(self,call,uid,info):
+        function=call.child_by_field_name('function')
+        if function is None:return []
+        groups,_=self.x.targets(call,info['path'],info['scope'],uid)
+        result=[]
+        for group in groups:
+            for tid in group:
+                target=self.x.functions_by_id[tid]
+                for did,d in self.functions.get(canonical(target['signature'][0]),[]):
+                    if d['signature'][1:]==target['signature'][1:]:result.append(did)
+        if function.type=='identifier':
+            name=text(function)
+            for length in range(len(info['scope']),-1,-1):
+                q=canonical('::'.join(info['scope'][:length]+[name]));found=[]
+                for tid,f in self.functions.get(q,[]):
+                    if len(f['parameter_nodes'])==len(arguments(call)):found.append(tid)
+                if found:result.extend(found);break
+        return sorted(set(result))
+
+    def expr(self,node,uid,info,depth=0,seen=None):
+        """A bounded expression tree retaining aliases, calls and branch inputs."""
+        if node is None:return {'kind':'missing'}
+        if depth>8:return {'kind':'unknown','reason':'depth_limit','expression':text(node)}
+        seen=set() if seen is None else seen
+        result={'kind':node.type,**self.evidence(info['path'],node)}
+        if node.type=='identifier':
+            variables=self.x.variables(text(node),node,info['path'],uid)
+            if variables:
+                var=variables[0];key=(var['node'].start_byte,info['path'])
+                result['binding']={'path':info['path'],'line':var['node'].start_point[0]+1,'type':var['type']}
+                writes=[n for n in walk(info['container']) if n.type=='assignment_expression' and text(n.child_by_field_name('left'))==text(node)
+                        and var['node'].end_byte<=n.start_byte<node.start_byte]
+                if writes:result.update(kind='unknown',reason='intervening_assignment',writes=[self.evidence(info['path'],n) for n in writes])
+                elif var['value'] is not None and key not in seen:result['initializer']=self.expr(var['value'],uid,info,depth+1,seen|{key})
+        elif node.type=='call_expression':
+            result['targets']=self.targets(node,uid,info)
+            result['arguments']=[self.expr(a,uid,info,depth+1,seen) for a in arguments(node)]
+            f=node.child_by_field_name('function')
+            if f and f.type=='field_expression':result['receiver']=self.expr(f.child_by_field_name('argument'),uid,info,depth+1,seen)
+            if not result['targets']:result['target_status']='unresolved_or_library_call'
+        elif node.type=='conditional_expression':
+            result['condition']=self.expr(node.child_by_field_name('condition'),uid,info,depth+1,seen)
+            result['branches']=[{'when':b,'value':self.expr(node.child_by_field_name(k),uid,info,depth+1,seen)} for b,k in [(True,'consequence'),(False,'alternative')]]
+        elif node.type in {'field_expression','subscript_expression','parenthesized_expression','pointer_expression','binary_expression'}:
+            result['parts']=[self.expr(c,uid,info,depth+1,seen) for c in node.named_children]
+        return result
+
+    def collect_access(self,node,uid,info):
+        field=None;operation=None;key=None;value=None;role=None
+        if node.type=='call_expression':
+            f=node.child_by_field_name('function')
+            if f is None or f.type!='field_expression':return
+            field=self.receiver_field(f.child_by_field_name('argument'),uid,info);operation=text(f.child_by_field_name('field'))
+            if not field or not field['container']:return
+            if operation in self.READS:role='read'
+            elif operation in self.WRITES:role='write'
+            else:
+                self.diagnostics.append({'kind':'container_operation_unmodeled','operation':operation,**self.evidence(info['path'],node)});return
+            a=arguments(node);key=a[0] if a else None;value=a[1] if len(a)>1 else None
+        elif node.type=='subscript_expression':
+            field=self.receiver_field(node.child_by_field_name('argument'),uid,info)
+            if not field or not field['container']:return
+            ix=node.child_by_field_name('indices');key=ix.named_children[0] if ix and ix.named_children else None
+            parent=node.parent
+            if parent and parent.type=='assignment_expression' and parent.child_by_field_name('left')==node:
+                role='write';operation=text(parent.child_by_field_name('operator')) or '=';value=parent.child_by_field_name('right')
+            else:role='read';operation='operator[]'
+        else:return
+        rec={'id':'access:'+identity(info['path'],'storage_access',node),'storage':field['id'],'role':role,'operation':operation,
+             'source_symbol':uid,'conditions':predicates(node),'key':self.expr(key,uid,info),'value':self.expr(value,uid,info) if value else None,
+             'evidence':[self.evidence(info['path'],node)],'path':info['path'],'line':node.start_point[0]+1,
+             'alias_status':'candidate','runtime_key_equality':'not_observed'}
+        self.accesses.append(rec)
+
+    def allocation(self,node,uid,info):
+        typ=None;factory=None
+        if node.type=='new_expression':typ=text(node.child_by_field_name('type'));factory='new'
+        elif node.type=='call_expression':
+            f=node.child_by_field_name('function')
+            if text(f).startswith(('std::make_shared<','std::make_unique<')):
+                template=next((n for n in walk(f) if n.type=='template_argument_list'),None)
+                if template and template.named_children:typ=text(template.named_children[0]);factory=canonical(text(f))
+        if not typ:return
+        targets=self.x.resolve_type(canonical(typ),info['path'],info['scope'])['names']
+        parent_factory=next((p for p in parents(node) if p.type=='call_expression' and text(p.child_by_field_name('function')).startswith(('std::make_shared<','std::make_unique<'))),None)
+        self.allocations.append({'id':'allocation:'+identity(info['path'],'allocation',node),'source_symbol':uid,'type_spelling':typ,
+            'type_candidates':targets,'factory':factory,'callback':any(p.type=='lambda_expression' for p in parents(node)),
+            'enclosing_allocation':'allocation:'+identity(info['path'],'allocation',parent_factory) if parent_factory else None,
+            'conditions':predicates(node),'arguments':[self.expr(a,uid,info) for a in arguments(node)],
+            'path':info['path'],'line':node.start_point[0]+1,'evidence':[self.evidence(info['path'],node)]})
+
+    def build(self):
+        for uid,info in self.x.functions_by_id.items():
+            if not self.x.nodes[uid]['definition']:continue
+            returns=[];calls=[]
+            for node in walk(info['container']):
+                self.collect_access(node,uid,info);self.allocation(node,uid,info)
+                if node.type=='return_statement' and node.named_children:
+                    returns.append({'value':self.expr(node.named_children[0],uid,info),'conditions':predicates(node),
+                                    'callback_return':enclosing_function(node).type=='lambda_expression' if enclosing_function(node) else False})
+                if node.type=='call_expression':
+                    targets=self.targets(node,uid,info)
+                    function=node.child_by_field_name('function')
+                    calls.append({'call_site':'cpp:'+identity(info['path'],'call_site',node),'targets':targets,
+                                  'expression':text(node),'path':info['path'],'line':node.start_point[0]+1,'conditions':predicates(node),
+                                  'receiver':self.expr(function.child_by_field_name('argument'),uid,info) if function and function.type=='field_expression' else None})
+                if node.type=='conditional_expression':
+                    self.selections.append({'id':'selection:'+identity(info['path'],'selection',node),'source_symbol':uid,
+                        'path':info['path'],'line':node.start_point[0]+1,'value':self.expr(node,uid,info),'conditions':predicates(node)})
+            self.summaries.append({'source_symbol':uid,'name':self.x.nodes[uid]['name'],'path':info['path'],'line':self.x.nodes[uid]['line'],
+                'parameters':[{'name':text(declared_name(p)),'type':parameter_type(p)} for p in info['parameter_nodes']],
+                'return_type':info['return_type'],'returns':returns,'calls':calls})
+        return {'facts':self.facts,'data':{'version':'0.3.0','storages':[f for f in self.fields.values() if f['container']],
+            'accesses':self.accesses,'allocations':self.allocations,'selections':self.selections,'summaries':self.summaries,
+            'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',
+                'bounded_expression_dependencies','switch_fallthrough_not_evaluated','branch_predicates_are_lexical_not_complete_path_conditions']}}
+
+
+def analyze_data(sources,parser):return DataExtractor(sources,parser).build()
