@@ -12,6 +12,8 @@ def read_json(path):
 def verify(directory, command='unit/flows'):
     directory = Path(directory)
     inputs = read_json(directory/'input.json')
+    late = inputs.get('scenario') == 'late'
+    scenario_result = read_json(directory/'scenario-result.json') if late else None
     wire = read_json(directory/'browser-events.json')
     frames = read_json(directory/'browser-probe.json')
     browser = [event for frame in frames for event in frame.get('events', [])]
@@ -77,13 +79,25 @@ def verify(directory, command='unit/flows'):
             e['message'].get('command') == command))
         classified = one('response.classified', (e for e in browser if e['stage'] == 'response.classified' and
                          e.get('requestId') == request_id and e.get('command') == command))
-        if classified and (classified.get('isOldRequest') or classified.get('requestProject') != project or
-                           classified.get('currentProject') != project):
-            issues.append({'code': 'unexpected_project_decision_in_normal_run'})
-        one('response.delivered', (e for e in browser if e['stage'] == 'response.delivered' and
-                                  e.get('requestId') == request_id and e.get('command') == command))
-        for stage in ('api.resolved', 'state.applied'):
-            one(stage, (e for e in browser if e['stage'] == stage and e.get('trace_id') == trace_id))
+        if late:
+            if classified and (not classified.get('isOldRequest') or classified.get('requestProject') != project or
+                               classified.get('currentProject') != scenario_result['projectB'] or
+                               project != scenario_result['projectA']):
+                issues.append({'code': 'unexpected_project_decision_in_late_run'})
+            one('response.discarded', (e for e in browser if e['stage'] == 'response.discarded' and
+                                      e.get('requestId') == request_id and e.get('command') == command))
+            for event in browser:
+                if (event['stage'] == 'response.delivered' and event.get('requestId') == request_id) or (
+                        event['stage'] in ('api.resolved', 'state.applied') and event.get('trace_id') == trace_id):
+                    issues.append({'code': 'unexpected_adoption_of_late_response', 'stage': event['stage']})
+        else:
+            if classified and (classified.get('isOldRequest') or classified.get('requestProject') != project or
+                               classified.get('currentProject') != project):
+                issues.append({'code': 'unexpected_project_decision_in_normal_run'})
+            one('response.delivered', (e for e in browser if e['stage'] == 'response.delivered' and
+                                      e.get('requestId') == request_id and e.get('command') == command))
+            for stage in ('api.resolved', 'state.applied'):
+                one(stage, (e for e in browser if e['stage'] == stage and e.get('trace_id') == trace_id))
         if response and not response['message'].get('result'): issues.append({'code': 'request_failed'})
         resolved = observations.get('api.resolved')
         if response and resolved and resolved.get('result') != response['message'].get('body'):
@@ -103,8 +117,25 @@ def verify(directory, command='unit/flows'):
                        'implementation': implementation, 'complete': not issues, 'diagnostics': issues,
                        'observations': observations, 'links': links})
     if not traces: diagnostics.append({'code': 'no_target_requests'})
+    if late:
+        control = read_json(directory/'delivery-control.json')
+        phases = [event['phase'] for event in control['audit']]
+        if phases != ['armed', 'held', 'B_state_verified_before_release', 'released']:
+            diagnostics.append({'code': 'late_delivery_order_unproven', 'phases': phases})
+        if len(control['held']) != 1 or not control['held'][0].get('released'):
+            diagnostics.append({'code': 'held_response_release_unproven'})
+        before, after = scenario_result['before'], scenario_result['after']
+        final_states = [frame['state'] for frame in frames if frame.get('name') == 'Timeline']
+        if final_states != [after] or after.get('project') != scenario_result['projectB']:
+            diagnostics.append({'code': 'final_B_state_unproven'})
+        for field in ('selectedData', 'singleLinkLine', 'drawLineMode'):
+            if after.get(field) != before.get(field):
+                diagnostics.append({'code': 'late_response_changed_B_state', 'field': field})
+        if before.get('selectedData') or before.get('singleLinkLine'):
+            diagnostics.append({'code': 'B_empty_selection_precondition_unproven'})
+        if not scenario_result.get('passed'): diagnostics.append({'code': 'scenario_assertions_failed'})
     return {'evidence_kind': 'identity_join_of_real_runtime_observations', 'source_commit': inputs['source_commit'],
-            'connection_id': connection_id, 'scope': 'one connection; normal request adoption',
+            'connection_id': connection_id, 'scope': 'one connection; ' + ('late response discarded after project switch' if late else 'normal request adoption'),
             'complete': not diagnostics and bool(traces) and all(t['complete'] for t in traces),
             'traces': traces, 'diagnostics': diagnostics,
             'causality': 'explicit trace metadata and requestId; timestamps are not used for joining',

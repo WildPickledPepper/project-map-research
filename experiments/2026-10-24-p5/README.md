@@ -1,6 +1,6 @@
 # P5 真实运行验证
 
-日期：2026-10-24。R01、R02 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R03–R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
+日期：2026-10-24。R01–R03 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R04–R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
 
 ## 输入与隔离
 
@@ -81,9 +81,20 @@ python experiments/2026-10-24-p5/check_capture_controls.py --run NEW_EXTERNAL_RU
 
 采集器对单次运行限定一条 WebSocket 连接；重连需要补充服务端连接代际标识后再扩大关联范围。原始页面、日志和截图含本机路径，均保存在仓库外。
 
+### R03 查询中切换项目
+
+[late_scenario.cjs](late_scenario.cjs)先通过 UI 导入 A、B 两份独立的公开数据，再从项目树切回 A，搜索并点击目标算子。[ws_gate.cjs](ws_gate.cjs)使用安装版本 Playwright 1.57 的 `routeWebSocket` / `connectToServer` 暂存真实 `unit/flows` 响应。切换到 B、确认其选中项与连线为空后，发送原响应字节；其余通信持续正常转发。
+
+`p5-late-01`、`02`、`03` 三次全部通过。实际 `response.classified` 显示请求属于 A、当前项目为 B，随后出现 `response.discarded`；该追踪标识没有 API 返回或状态采用记录。独立读取的 B 最终状态与放行前相同，连线、选中项和绘制模式均未被 A 覆盖。[结果与顺序证据](evidence/late.json)包含三次完整摘要和两次驱动调试失败；正常场景回归及三个采集负例也通过。
+
+```sh
+python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOUT --output NEW_EXTERNAL_RUN --scenario late
+python experiments/2026-10-24-p5/verify_capture.py --run NEW_EXTERNAL_RUN
+```
+
 1. R01（通过）：真实构建、启动、导入和数据/配置清单。
 2. R02（通过）：通过 UI 触发 `unit/flows`，关联实际数据库实现、返回及最终状态；正常场景重复三次。
-3. R03：控制 A 的响应晚于切换 B，验证 B 状态不受污染并找到丢弃/拒绝位置；重复三次。
+3. R03（通过）：控制 A 的响应晚于切换 B，验证 B 状态不受污染并找到丢弃/拒绝位置；重复三次。
 4. R04：并行请求和异步边界的身份不混合；人为缺少一个采集点时明确保留缺口。
 5. R05：独立副本注入迟到错误更新，确认状态断言会失败。
 6. R06：运行记录绑定实际源码/构建/配置，映射同版本静态图，跨版本及未映射事件有明确状态。

@@ -1,0 +1,322 @@
+{
+  "evidence_kind": "executed_real_UI_project_switch",
+  "acceptance": "R03",
+  "status": "passed",
+  "runs": [
+    {
+      "run": "p5-late-01",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "passed": true,
+      "capture_complete": true,
+      "request_id": 73,
+      "trace_id": "p5-late-01:Timeline:late-A-click:2",
+      "before": {
+        "name": "entry",
+        "id": "entry",
+        "project": "PROJECT_B",
+        "singleLinkLine": {},
+        "linkLines": {},
+        "drawLineMode": "all",
+        "renderTrigger": true
+      },
+      "after": {
+        "name": "entry",
+        "id": "entry",
+        "project": "PROJECT_B",
+        "singleLinkLine": {},
+        "linkLines": {},
+        "drawLineMode": "all",
+        "renderTrigger": true
+      },
+      "decisions": [
+        {
+          "requestId": 73,
+          "command": "unit/flows",
+          "requestProject": "PROJECT_A",
+          "currentProject": "PROJECT_B",
+          "isOldRequest": true,
+          "stage": "response.classified",
+          "run_id": "p5-late-01",
+          "frame": "framework",
+          "action": "switch-to-B",
+          "event_id": "p5-late-01:framework:168",
+          "observed_at": "2026-10-23T17:41:04.110Z"
+        },
+        {
+          "requestId": 73,
+          "command": "unit/flows",
+          "stage": "response.discarded",
+          "run_id": "p5-late-01",
+          "frame": "framework",
+          "action": "switch-to-B",
+          "event_id": "p5-late-01:framework:169",
+          "observed_at": "2026-10-23T17:41:04.110Z"
+        }
+      ],
+      "delivery_control": [
+        {
+          "sequence": 1,
+          "phase": "armed",
+          "command": "unit/flows"
+        },
+        {
+          "sequence": 2,
+          "phase": "held",
+          "request_id": 73,
+          "trace_id": "p5-late-01:Timeline:late-A-click:2",
+          "project": "PROJECT_A",
+          "connection_id": "p5-late-01:socket:1"
+        },
+        {
+          "sequence": 3,
+          "phase": "B_state_verified_before_release",
+          "project": "PROJECT_B"
+        },
+        {
+          "sequence": 4,
+          "phase": "released",
+          "request_id": 73,
+          "connection_id": "p5-late-01:socket:1"
+        }
+      ],
+      "observed_stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.discarded"
+      ],
+      "implementation": "N3Dic6Module8Timeline17TextTraceDatabaseE",
+      "diagnostics": []
+    },
+    {
+      "run": "p5-late-02",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "passed": true,
+      "capture_complete": true,
+      "request_id": 73,
+      "trace_id": "p5-late-02:Timeline:late-A-click:2",
+      "before": {
+        "name": "entry",
+        "id": "entry",
+        "project": "PROJECT_B",
+        "singleLinkLine": {},
+        "linkLines": {},
+        "drawLineMode": "all",
+        "renderTrigger": true
+      },
+      "after": {
+        "name": "entry",
+        "id": "entry",
+        "project": "PROJECT_B",
+        "singleLinkLine": {},
+        "linkLines": {},
+        "drawLineMode": "all",
+        "renderTrigger": true
+      },
+      "decisions": [
+        {
+          "requestId": 73,
+          "command": "unit/flows",
+          "requestProject": "PROJECT_A",
+          "currentProject": "PROJECT_B",
+          "isOldRequest": true,
+          "stage": "response.classified",
+          "run_id": "p5-late-02",
+          "frame": "framework",
+          "action": "switch-to-B",
+          "event_id": "p5-late-02:framework:168",
+          "observed_at": "2026-10-23T17:41:23.005Z"
+        },
+        {
+          "requestId": 73,
+          "command": "unit/flows",
+          "stage": "response.discarded",
+          "run_id": "p5-late-02",
+          "frame": "framework",
+          "action": "switch-to-B",
+          "event_id": "p5-late-02:framework:169",
+          "observed_at": "2026-10-23T17:41:23.005Z"
+        }
+      ],
+      "delivery_control": [
+        {
+          "sequence": 1,
+          "phase": "armed",
+          "command": "unit/flows"
+        },
+        {
+          "sequence": 2,
+          "phase": "held",
+          "request_id": 73,
+          "trace_id": "p5-late-02:Timeline:late-A-click:2",
+          "project": "PROJECT_A",
+          "connection_id": "p5-late-02:socket:1"
+        },
+        {
+          "sequence": 3,
+          "phase": "B_state_verified_before_release",
+          "project": "PROJECT_B"
+        },
+        {
+          "sequence": 4,
+          "phase": "released",
+          "request_id": 73,
+          "connection_id": "p5-late-02:socket:1"
+        }
+      ],
+      "observed_stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.discarded"
+      ],
+      "implementation": "N3Dic6Module8Timeline17TextTraceDatabaseE",
+      "diagnostics": []
+    },
+    {
+      "run": "p5-late-03",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "passed": true,
+      "capture_complete": true,
+      "request_id": 73,
+      "trace_id": "p5-late-03:Timeline:late-A-click:2",
+      "before": {
+        "name": "entry",
+        "id": "entry",
+        "project": "PROJECT_B",
+        "singleLinkLine": {},
+        "linkLines": {},
+        "drawLineMode": "all",
+        "renderTrigger": true
+      },
+      "after": {
+        "name": "entry",
+        "id": "entry",
+        "project": "PROJECT_B",
+        "singleLinkLine": {},
+        "linkLines": {},
+        "drawLineMode": "all",
+        "renderTrigger": true
+      },
+      "decisions": [
+        {
+          "requestId": 73,
+          "command": "unit/flows",
+          "requestProject": "PROJECT_A",
+          "currentProject": "PROJECT_B",
+          "isOldRequest": true,
+          "stage": "response.classified",
+          "run_id": "p5-late-03",
+          "frame": "framework",
+          "action": "switch-to-B",
+          "event_id": "p5-late-03:framework:168",
+          "observed_at": "2026-10-23T17:41:41.147Z"
+        },
+        {
+          "requestId": 73,
+          "command": "unit/flows",
+          "stage": "response.discarded",
+          "run_id": "p5-late-03",
+          "frame": "framework",
+          "action": "switch-to-B",
+          "event_id": "p5-late-03:framework:169",
+          "observed_at": "2026-10-23T17:41:41.147Z"
+        }
+      ],
+      "delivery_control": [
+        {
+          "sequence": 1,
+          "phase": "armed",
+          "command": "unit/flows"
+        },
+        {
+          "sequence": 2,
+          "phase": "held",
+          "request_id": 73,
+          "trace_id": "p5-late-03:Timeline:late-A-click:2",
+          "project": "PROJECT_A",
+          "connection_id": "p5-late-03:socket:1"
+        },
+        {
+          "sequence": 3,
+          "phase": "B_state_verified_before_release",
+          "project": "PROJECT_B"
+        },
+        {
+          "sequence": 4,
+          "phase": "released",
+          "request_id": 73,
+          "connection_id": "p5-late-03:socket:1"
+        }
+      ],
+      "observed_stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.discarded"
+      ],
+      "implementation": "N3Dic6Module8Timeline17TextTraceDatabaseE",
+      "diagnostics": []
+    }
+  ],
+  "delivery_method": "Playwright 1.57 routeWebSocket.connectToServer: hold the actual response and later send the original bytes",
+  "sequence": [
+    "import A and B",
+    "switch to A through project tree",
+    "search and click the public Enqueue slice",
+    "hold actual A unit/flows response",
+    "switch to B through project tree",
+    "verify B active with empty selection/flow state",
+    "release original A response",
+    "observe project guard discard and unchanged B state"
+  ],
+  "scenario_runner": "late_scenario.cjs",
+  "data": "two isolated copies of the repository public Text sample",
+  "development_runs": [
+    {
+      "run": "p5-late-dev-01",
+      "passed": false,
+      "reason": "Project root uses content-name; selector expected content-text. Use leaf-node content-text to select the target project file"
+    },
+    {
+      "run": "p5-late-dev-02",
+      "passed": false,
+      "reason": "After cached project switch the selected lane is collapsed. Driver now expands it via the real UI before clicking"
+    },
+    {
+      "run": "p5-late-dev-03",
+      "passed": true
+    }
+  ],
+  "regression": {
+    "normal_run": "p5-normal-after-late-01",
+    "normal_passed": true,
+    "capture_controls": "p5-capture-controls-02",
+    "capture_controls_passed": true
+  },
+  "raw_root": "external results/ directories named above; all failures and successes retained",
+  "remaining": [
+    "R04 parallel requests",
+    "R05 controlled product fault",
+    "R06 static/runtime version mapping"
+  ],
+  "file_hash_verification": "not_run_per_user_preference"
+}

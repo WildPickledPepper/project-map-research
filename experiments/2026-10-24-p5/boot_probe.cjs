@@ -12,9 +12,11 @@ async function main() {
   await context.tracing.start({screenshots: true, snapshots: true, sources: true});
   const page = await context.newPage();
   const events = [], errors = [], consoleMessages = [], connections = [];
+  const gate = scenario === 'late' ? await require('./ws_gate.cjs').installGate(context, path.basename(output), events, connections) : null;
   page.on('pageerror', error => errors.push(String(error)));
   page.on('console', message => consoleMessages.push({type: message.type(), text: message.text()}));
   page.on('websocket', ws => {
+    if (gate) return; // Routed runs record bytes at the explicit forwarding/delivery boundary.
     const connection = {id: `${path.basename(output)}:socket:${connections.length + 1}`, url: ws.url(), closed: false};
     connections.push(connection);
     ws.on('close', () => { connection.closed = true; });
@@ -47,6 +49,8 @@ async function main() {
     await page.screenshot({path: path.join(output, 'loaded.png'), fullPage: true});
     if (scenario === 'normal') {
       await require('./flow_scenario.cjs').runNormal({page, events, source, output, data});
+    } else if (scenario === 'late') {
+      await require('./late_scenario.cjs').runLate({page, events, source, output, data, gate});
     }
   } catch (error) {
     failure = String(error.stack || error);
@@ -54,6 +58,8 @@ async function main() {
   } finally {
     fs.writeFileSync(path.join(output, 'browser-events.json'), JSON.stringify({events, errors, connections}, null, 2));
     fs.writeFileSync(path.join(output, 'browser-console.json'), JSON.stringify(consoleMessages, null, 2));
+    if (gate) fs.writeFileSync(path.join(output, 'delivery-control.json'), JSON.stringify({audit: gate.audit,
+      held: gate.held.map(({message, request, connection_id, released}) => ({message, request, connection_id, released}))}, null, 2));
     if (scenario !== 'boot') fs.writeFileSync(path.join(output, 'browser-probe.json'), JSON.stringify(await collectProbe(page), null, 2));
     fs.writeFileSync(path.join(output, 'page-text.txt'), await page.locator('body').innerText().catch(() => 'unavailable'));
     fs.writeFileSync(path.join(output, 'boot-result.json'), JSON.stringify({

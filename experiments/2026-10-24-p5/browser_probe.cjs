@@ -6,7 +6,7 @@ async function installProbe(context, runId) {
     const frame = () => window === window.top ? 'framework' : window.name || 'unnamed-frame';
     const clone = value => value === undefined ? null : JSON.parse(JSON.stringify(value));
     const state = session => session ? clone({
-      name: session.name, id: session.id, project: session.activeDataSource?.projectName,
+      name: session.name, id: session.id, project: session.activeDataSource?.projectName ?? session.projectName,
       selectedData: session.selectedData, singleLinkLine: session.singleLinkLine,
       linkLines: session.linkLines, drawLineMode: session.drawLineMode, renderTrigger: session.renderTrigger
     }) : null;

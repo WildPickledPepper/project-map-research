@@ -42,6 +42,16 @@ async function selectFlowSlice({page, expected, expect}) {
     {timeout: 20000}).toBe(expected.selection.name);
   await expect.poll(() => frame.evaluate(() => globalThis.__projectMapReadSession?.()?.selectedDataUnit?.isTraceLoading),
     {timeout: 20000}).toBe(false);
+  await timeline.getByTestId('tool-search').click();
+  const lane = timeline.locator('.unit').filter({has: timeline.locator('.chart-selected')});
+  await expect(lane).toHaveCount(1);
+  if (await frame.evaluate(() => globalThis.__projectMapReadSession().selectedDataUnit.chart.config.isCollapse)) {
+    await lane.getByTestId('expand-btn').click();
+  }
+  await expect.poll(() => frame.evaluate(() => globalThis.__projectMapReadSession().selectedDataUnit.chart.config.isCollapse),
+    {timeout: 10000}).toBe(false);
+  await expect.poll(() => frame.evaluate(() => globalThis.__projectMapReadSession().selectedDataUnit.isTraceLoading),
+    {timeout: 20000}).toBe(false);
   const geometry = await frame.evaluate(() => {
     const session = globalThis.__projectMapReadSession();
     return {selected: session.selectedData, range: session.domainRange, timeOrigin: session.startTime,
@@ -51,9 +61,6 @@ async function selectFlowSlice({page, expected, expect}) {
   assert.equal(String(geometry.selected.threadId), expected.selection.tid);
   assert.equal(BigInt(geometry.timeOrigin) + BigInt(geometry.selected.startTime), BigInt(expected.selection.start_ns));
   assert.equal(BigInt(geometry.selected.duration), BigInt(expected.selection.duration_ns));
-  await timeline.getByTestId('tool-search').click();
-  const lane = timeline.locator('.unit').filter({has: timeline.locator('.chart-selected')});
-  await expect(lane).toHaveCount(1);
   const canvas = lane.locator('canvas.drawCanvas').first();
   await expect(canvas).toBeVisible();
   const box = await canvas.boundingBox();

@@ -45,6 +45,8 @@ def run(source, output, scenario='boot'):
     site = output/'site'; shutil.copytree(source/'modules/framework/build', site)
     shutil.copytree(source/'modules/timeline/build', site/'plugins/Timeline')
     data = output/'data/project-A/trace_view.json'; data.parent.mkdir(parents=True); shutil.copyfile(source/SAMPLE, data)
+    if scenario == 'late':
+        data_b = output/'data/project-B/trace_view.json'; data_b.parent.mkdir(parents=True); shutil.copyfile(source/SAMPLE, data_b)
     logs = output/'server-log'; logs.mkdir()
     backend_port, port_range = available_backend_port(source)
     flags = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
@@ -59,7 +61,9 @@ def run(source, output, scenario='boot'):
                 'sample': SAMPLE, 'sample_bytes': data.stat().st_size,
                 'product_source_changes': source_changes, 'listen_host': '127.0.0.1', 'frontend_port': http.server_port,
                 'backend_port': backend_port, 'backend_port_range': port_range, 'strict_mode': True, 'browser': 'headless',
-                'dataset_copy': 'data/project-A/trace_view.json', 'file_hash_verification': 'not_run_per_user_preference'}
+                'dataset_copy': 'data/project-A/trace_view.json',
+                'additional_dataset_copies': ['data/project-B/trace_view.json'] if scenario == 'late' else [],
+                'file_hash_verification': 'not_run_per_user_preference'}
     (output/'input.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
     backend = None
     try:
@@ -94,5 +98,5 @@ def run(source, output, scenario='boot'):
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
     for name in ('source', 'output'): ap.add_argument('--' + name, type=Path, required=True)
-    ap.add_argument('--scenario', choices=('boot', 'normal'), default='boot')
+    ap.add_argument('--scenario', choices=('boot', 'normal', 'late'), default='boot')
     a = ap.parse_args(); run(a.source, a.output, a.scenario)
