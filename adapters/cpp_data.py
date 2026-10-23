@@ -234,9 +234,12 @@ class DataExtractor:
             self.summaries.append({'source_symbol':uid,'name':self.x.nodes[uid]['name'],'path':info['path'],'line':self.x.nodes[uid]['line'],
                 'parameters':[{'name':text(declared_name(p)),'type':parameter_type(p)} for p in info['parameter_nodes']],
                 'return_type':info['return_type'],'returns':returns,'calls':calls,'controls':controls})
+        from adapters.cpp_instances import extract_instances
+        instances=extract_instances(self)
         return {'facts':self.facts,'data':{'version':'0.3.1','storages':[f for f in self.fields.values() if f['container']],
             'accesses':self.accesses,'allocations':self.allocations,'selections':self.selections,'summaries':self.summaries,
             'callbacks':self.callbacks,
+            'instances':instances,
             'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',
                 'bounded_expression_dependencies','switch_entries_are_source_candidates','exceptions_goto_and_path_feasibility_not_solved']}}
 

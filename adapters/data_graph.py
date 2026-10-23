@@ -7,6 +7,7 @@ from adapters.protocol_graph import PROTOCOL_KINDS
 IMPLEMENTATION_KINDS={'OBSERVES_CALL','MEMBER_TARGET_CANDIDATE','OVERRIDE_CANDIDATE','DECLARES_DEFINITION'}
 END_TO_END_KINDS=PROTOCOL_KINDS|IMPLEMENTATION_KINDS
 RESOURCE_IMPACT_KINDS={'OBSERVES_STORAGE_WRITE','POTENTIALLY_READ_BY','AFFECTS_READER'}
+INSTANCE_IMPACT_KINDS={'OBSERVES_INSTANCE_WRITE','INSTANCE_VALUE_READ_BY','AFFECTS_INSTANCE_READER'}
 
 
 def literal_key(value):
@@ -66,6 +67,23 @@ def augment(base,cpp,paths):
             if reader['role']!='read' or writer['storage']!=reader['storage'] or not keys_compatible(writer,reader):continue
             edge(writer['id'],reader['id'],'POTENTIALLY_READ_BY',writer['evidence']+reader['evidence'],
                  ['same_runtime_instance','matching_runtime_key','write_reaches_read_without_intervening_update'])
+    instances=data.get('instances',{});objects={o['id']:o for o in instances.get('objects',[])}
+    accesses={a['id']:a for a in data['accesses']};contextual=[]
+    for obj in objects.values():node(obj,'source_object_instance',obj['name'])
+    for context in instances.get('accesses',[]):
+        access=accesses[context['access']];oid=context['instance'];uid=access['source_symbol']
+        rec={**access,'id':access['id']+':'+oid,'instance':oid,'instance_scope':objects[oid]['identity_scope']}
+        node(rec,'instance_storage_access',rec['operation']);contextual.append(rec)
+        conditions=[objects[oid]['identity_scope'],*access['conditions']]
+        edge(rec['id'],oid,'REFERS_TO_INSTANCE',objects[oid]['evidence'],conditions)
+        if access['role']=='write' or access.get('implicit_write'):edge(uid,rec['id'],'OBSERVES_INSTANCE_WRITE',access['evidence'],conditions)
+        if access['role']=='read':edge(rec['id'],uid,'AFFECTS_INSTANCE_READER',access['evidence'],conditions)
+    for writer in contextual:
+        if writer['role']!='write' and not writer.get('implicit_write'):continue
+        for reader in contextual:
+            if reader['role']!='read' or writer['instance']!=reader['instance'] or writer['storage']!=reader['storage'] or not keys_compatible(writer,reader):continue
+            edge(writer['id'],reader['id'],'INSTANCE_VALUE_READ_BY',writer['evidence']+reader['evidence'],
+                 [writer['instance_scope'],'matching_runtime_key','write_reaches_read_without_intervening_update'])
     for access in data['accesses']:
         if access['role']!='write' or not access['value']:continue
         for expr in set(expression_ids(access['value'])):

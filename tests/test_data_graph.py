@@ -1,7 +1,7 @@
 import unittest
 import tests.test_cpp_data as data_tests
 from adapters.cpp_data import analyze_data
-from adapters.data_graph import augment,RESOURCE_IMPACT_KINDS
+from adapters.data_graph import augment,RESOURCE_IMPACT_KINDS,INSTANCE_IMPACT_KINDS
 from adapters.data_queries import explain_receiver
 from adapters.fact_queries import find_path
 from adapters.sqlite_fact_graph import _prepare
@@ -45,3 +45,15 @@ class DataGraphTests(unittest.TestCase):
     def test_removing_writer_removes_influence_edges_on_rebuild(self):
         g=self.graph('struct A{std::map<int,int> state;void write(){}int read(){return state.at(1);}};')
         self.assertFalse(any(e['kind']=='POTENTIALLY_READ_BY' for e in g['edges']))
+
+    def test_instance_impact_rejects_two_distinct_local_receivers(self):
+        from tests.test_cpp_instances import BASE
+        g=self.graph(BASE+'void use(){Cache a;Cache b;a.put(1);b.read(1);}')
+        self.assertFalse(find_path(g,self.symbol(g,'Cache::put'),self.symbol(g,'Cache::read'),INSTANCE_IMPACT_KINDS)['found'])
+
+    def test_instance_impact_connects_a_shared_static_receiver(self):
+        from tests.test_cpp_instances import BASE
+        g=self.graph(BASE+'void use(){Cache::owner().put(1);Cache::owner().wrapper(1);}')
+        path=find_path(g,self.symbol(g,'Cache::put'),self.symbol(g,'Cache::read'),INSTANCE_IMPACT_KINDS)
+        self.assertTrue(path['found']);self.assertTrue(any(e['kind']=='INSTANCE_VALUE_READ_BY' for e in path['edges']))
+        self.assertTrue(all('process_and_link_image' in e['conditions'] for e in path['edges']))
