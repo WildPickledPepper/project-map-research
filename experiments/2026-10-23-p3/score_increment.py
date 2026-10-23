@@ -20,7 +20,12 @@ def score(graph):
         return candidates[0]['id']
     def brief(path):
         assert path['found']
-        return {**path,'nodes':[{k:n[k] for k in ['id','name','kind','path','line']} for n in path['nodes']]}
+        edges=[]
+        for edge in path['edges']:
+            value={k:edge[k] for k in ['source','target','kind','status','conditions','condition','basis','runtime_selection','receiver_types'] if k in edge}
+            value['evidence']=[{k:e[k] for k in ['path','line','kind','field'] if k in e} for e in edge['evidence']]
+            edges.append(value)
+        return {**path,'nodes':[{k:n[k] for k in ['id','name','kind','path','line']} for n in path['nodes']],'edges':edges}
     start=symbol('getUnitFlows');paths={}
     for label,name in [('db','Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows'),('text','Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows')]:
         end=symbol(name)
