@@ -1,6 +1,6 @@
 {
   "evidence_kind": "executed_source_extraction_fixtures_and_native_store_copy",
-  "rules_revision": "5317eb2f3dc1c893598a83e5dbdf118079856a03",
+  "rules_revision": "b4b74920ff2b8ac773903cd342b5b5da2d43dd77",
   "facts": {
     "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
     "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p2-protocol-v1",
@@ -3117,7 +3117,7 @@
         "tests",
         "-v"
       ],
-      "count": 73,
+      "count": 74,
       "passed": true
     },
     "typescript": {

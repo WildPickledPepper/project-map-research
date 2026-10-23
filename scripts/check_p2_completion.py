@@ -24,7 +24,7 @@ def check():
                 assert e['status']=='conditional' and e['conditions'] and e['evidence']
     assert all(not x['forward_found'] and not x['reverse_found'] for x in r['facts']['cross_request_checks'])
     assert all(x['passed'] for x in r['tests'].values())
-    assert r['tests']['python']['count']>=73 and r['tests']['typescript']['count']>=22
+    assert r['tests']['python']['count']>=74 and r['tests']['typescript']['count']>=22
     assert all(r['lifecycle'][k] for k in ['payload_roundtrip','stored_forward_reverse_paths','replacement_removes_protocol_edges','deletion_removes_snapshot','restored'])
     assert r['reuse']['rules_frozen_before_final_run'] and r['reuse']['assessment_after_extraction']
     for module in r['reference_independence']['extraction_modules']:

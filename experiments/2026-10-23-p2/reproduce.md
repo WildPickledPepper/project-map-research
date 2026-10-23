@@ -26,10 +26,10 @@ python experiments/2026-10-23-p2/run_completion.py --graph /outside/new-p2-graph
 
 成功运行的工作区相对位置：
 
-- `work/repo-map-research/results/p2-completion-02/`：规则冻结后的真实源码图。
-- `work/repo-map-research/results/p2-stores-01/`：最终评分、测试日志和存储试验。
+- `work/repo-map-research/results/p2-completion-03/`：规则冻结后的真实源码图。
+- `work/repo-map-research/results/p2-stores-02/`：最终评分、测试日志和存储试验。
 
-开发期间修正了简写对象属性取值、C++ 包含上下文、析构函数被当作入口、未知值覆盖后保留旧值、空集合回调以及条件返回合并。相应行为已加入最终测试。所有运行均使用源码副本/新输出目录，保留产品源码。
+开发期间修正了简写对象属性取值、C++ 包含上下文、析构函数被当作入口、未知值覆盖后保留旧值、空集合回调、引用输出再次覆盖以及条件返回合并。相应行为已加入最终测试。所有运行均使用源码副本/新输出目录，保留产品源码。
 
 ```sh
 python scripts/check_research.py
