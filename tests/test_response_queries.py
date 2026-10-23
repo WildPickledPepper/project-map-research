@@ -68,7 +68,7 @@ class ResponseTests(unittest.TestCase):
         self.assertEqual(explain_response(g,'provider')['routes'],[])
 
     def test_unknown_and_conditional_key_writes_remain_unknown(self):
-        for expr in ['r.code=opaque();','if(mode)r.code="different";']:
+        for expr in ['r.code=opaque();','if(mode)r.code="different";','r.code+="execute";']:
             r=explain_response(self.graph(SOURCE.replace('r.value=1;','r.value=1;'+expr)),'provider')
             self.assertEqual(r['routes'],[])
             self.assertTrue(any(g['kind']=='callback_key_unknown' for g in r['gaps']))

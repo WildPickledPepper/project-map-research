@@ -82,10 +82,10 @@ def explain_response(graph,provider_id,max_depth=12,max_states=2000):
             dest=mapped(e,state)
             if dest is None:continue
             value=None
-            if len(e.get('value_origins',[]))==1 and e['value_origins'][0]:
+            if e['operation']=='=' and len(e.get('value_origins',[]))==1 and e['value_origins'][0]:
                 origin=e['value_origins'][0];source=mapped(origin,state)
                 value=values.get(source) if source is not None else request_values.get((origin['root'],tuple(origin['selectors'])))
-            if value is None and len(e.get('values',[]))==1:
+            if value is None and e['operation']=='=' and len(e.get('values',[]))==1:
                 scalar=literal(e['values'][0])
                 if scalar is not None:value={'values':[scalar],'unknown':False,'evidence':[]}
             value=deepcopy(value) if value else {'values':[],'unknown':True,'evidence':[]}
