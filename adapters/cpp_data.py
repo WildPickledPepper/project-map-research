@@ -134,7 +134,7 @@ class DataExtractor:
         if node is None:return {'kind':'missing'}
         if depth>8:return {'kind':'unknown','reason':'depth_limit','expression':text(node)}
         seen=set() if seen is None else seen
-        result={'kind':node.type,**self.evidence(info['path'],node)}
+        result={'kind':node.type,'expression_id':'expr:'+identity(info['path'],'expression',node),**self.evidence(info['path'],node)}
         if node.type=='identifier':
             variables=self.x.variables(text(node),node,info['path'],uid)
             if variables:
@@ -142,7 +142,11 @@ class DataExtractor:
                 result['binding']={'path':info['path'],'line':var['node'].start_point[0]+1,'type':var['type']}
                 writes=[n for n in walk(info['container']) if n.type=='assignment_expression' and text(n.child_by_field_name('left'))==text(node)
                         and var['node'].end_byte<=n.start_byte<node.start_byte]
-                if writes:result.update(kind='unknown',reason='intervening_assignment',writes=[self.evidence(info['path'],n) for n in writes])
+                if writes:
+                    result.update(kind='unknown',reason='intervening_assignment',writes=[self.evidence(info['path'],n) for n in writes])
+                    if key not in seen:
+                        result['write_candidates']=[{'value':self.expr(n.child_by_field_name('right'),uid,info,depth+1,seen|{key}),
+                                                     'conditions':predicates(n)} for n in writes]
                 elif var['value'] is not None and key not in seen:result['initializer']=self.expr(var['value'],uid,info,depth+1,seen|{key})
         elif node.type=='call_expression':
             result['targets']=self.targets(node,uid,info)
@@ -153,7 +157,7 @@ class DataExtractor:
         elif node.type=='conditional_expression':
             result['condition']=self.expr(node.child_by_field_name('condition'),uid,info,depth+1,seen)
             result['branches']=[{'when':b,'value':self.expr(node.child_by_field_name(k),uid,info,depth+1,seen)} for b,k in [(True,'consequence'),(False,'alternative')]]
-        elif node.type in {'field_expression','subscript_expression','parenthesized_expression','pointer_expression','binary_expression'}:
+        elif node.type in {'field_expression','subscript_expression','subscript_argument_list','argument_list','condition_clause','parenthesized_expression','pointer_expression','binary_expression'}:
             result['parts']=[self.expr(c,uid,info,depth+1,seen) for c in node.named_children]
         return result
 
@@ -182,6 +186,8 @@ class DataExtractor:
              'source_symbol':uid,'conditions':predicates(node),'key':self.expr(key,uid,info),'value':self.expr(value,uid,info) if value else None,
              'evidence':[self.evidence(info['path'],node)],'path':info['path'],'line':node.start_point[0]+1,
              'alias_status':'candidate','runtime_key_equality':'not_observed'}
+        if role=='read' and operation=='operator[]' and field['container'] in {'map','unordered_map'}:
+            rec['implicit_write']='default_insertion_if_key_absent'
         self.accesses.append(rec)
 
     def allocation(self,node,uid,info):
@@ -196,6 +202,7 @@ class DataExtractor:
         targets=self.x.resolve_type(canonical(typ),info['path'],info['scope'])['names']
         parent_factory=next((p for p in parents(node) if p.type=='call_expression' and text(p.child_by_field_name('function')).startswith(('std::make_shared<','std::make_unique<'))),None)
         self.allocations.append({'id':'allocation:'+identity(info['path'],'allocation',node),'source_symbol':uid,'type_spelling':typ,
+            'expression_id':'expr:'+identity(info['path'],'expression',node),
             'type_candidates':targets,'factory':factory,'callback':any(p.type=='lambda_expression' for p in parents(node)),
             'enclosing_allocation':'allocation:'+identity(info['path'],'allocation',parent_factory) if parent_factory else None,
             'conditions':predicates(node),'arguments':[self.expr(a,uid,info) for a in arguments(node)],
@@ -204,7 +211,7 @@ class DataExtractor:
     def build(self):
         for uid,info in self.x.functions_by_id.items():
             if not self.x.nodes[uid]['definition']:continue
-            returns=[];calls=[]
+            returns=[];calls=[];controls=[]
             for node in walk(info['container']):
                 self.collect_access(node,uid,info);self.allocation(node,uid,info)
                 if node.type=='return_statement' and node.named_children:
@@ -216,14 +223,33 @@ class DataExtractor:
                     calls.append({'call_site':'cpp:'+identity(info['path'],'call_site',node),'targets':targets,
                                   'expression':text(node),'path':info['path'],'line':node.start_point[0]+1,'conditions':predicates(node),
                                   'receiver':self.expr(function.child_by_field_name('argument'),uid,info) if function and function.type=='field_expression' else None})
+                    if function and function.type=='identifier':
+                        field=self.receiver_field(function,uid,info)
+                        if field and field['type'].startswith('std::function<'):
+                            self.callbacks.append({'kind':'invoke','member':field['id'],'owner':field['owner'],'source_symbol':uid,
+                                'path':info['path'],'line':node.start_point[0]+1,'conditions':predicates(node),'evidence':[self.evidence(info['path'],node)]})
+                if node.type=='field_initializer':
+                    field=self.field(text(node.named_children[0]),'::'.join(info['scope'])) if node.named_children else None
+                    args=next((c for c in node.named_children if c.type=='argument_list'),None)
+                    if field and field['type'].startswith('std::function<') and args and len(args.named_children)==1:
+                        value=args.named_children[0]
+                        if value.type=='call_expression' and text(value.child_by_field_name('function'))=='std::move' and len(arguments(value))==1:value=arguments(value)[0]
+                        names=[text(declared_name(p)) for p in info['parameter_nodes']]
+                        if text(value) in names:
+                            self.callbacks.append({'kind':'bind_constructor_parameter','member':field['id'],'owner':field['owner'],'source_symbol':uid,
+                                'parameter_index':names.index(text(value)),'path':info['path'],'line':node.start_point[0]+1,
+                                'evidence':[self.evidence(info['path'],node)]})
+                if node.type in {'if_statement','switch_statement'}:
+                    controls.append({'kind':node.type,'test':self.expr(node.child_by_field_name('condition'),uid,info),'conditions':predicates(node)})
                 if node.type=='conditional_expression':
                     self.selections.append({'id':'selection:'+identity(info['path'],'selection',node),'source_symbol':uid,
                         'path':info['path'],'line':node.start_point[0]+1,'value':self.expr(node,uid,info),'conditions':predicates(node)})
             self.summaries.append({'source_symbol':uid,'name':self.x.nodes[uid]['name'],'path':info['path'],'line':self.x.nodes[uid]['line'],
                 'parameters':[{'name':text(declared_name(p)),'type':parameter_type(p)} for p in info['parameter_nodes']],
-                'return_type':info['return_type'],'returns':returns,'calls':calls})
+                'return_type':info['return_type'],'returns':returns,'calls':calls,'controls':controls})
         return {'facts':self.facts,'data':{'version':'0.3.0','storages':[f for f in self.fields.values() if f['container']],
             'accesses':self.accesses,'allocations':self.allocations,'selections':self.selections,'summaries':self.summaries,
+            'callbacks':self.callbacks,
             'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',
                 'bounded_expression_dependencies','switch_fallthrough_not_evaluated','branch_predicates_are_lexical_not_complete_path_conditions']}}
 

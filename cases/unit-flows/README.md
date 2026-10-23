@@ -2,7 +2,7 @@
 
 研究对象：[MindStudio Insight](https://gitcode.com/Ascend/msinsight)，固定提交 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。
 
-状态：人工源码核对的参考链路，部分中间节点和条件待完整提取。未实现一个自动恢复整条链的工具，也未执行动态场景。
+状态：本文保留人工源码核对的参考链路。自动结果见 [P2 协议连接](../../experiments/2026-10-23-p2/README.md)和 [P3 数据增量](../../experiments/2026-10-23-p3/README.md)：前端到数据库候选可双向查询，完整选择与返回传播继续验收。动态场景尚未执行。
 
 新增：[CodeGraph / code-map 原版实测](../../experiments/2026-10-23-unit-flows/README.md)，附自动输出、断点和复现脚本；[适配边界](adaptation-boundaries.md) 是人工源码补充审计，不能当作工具自动生成结果。
 

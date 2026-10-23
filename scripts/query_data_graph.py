@@ -1,0 +1,23 @@
+"""Query implementation/impact paths or explain one C++ receiver's sources."""
+import argparse
+import json
+from pathlib import Path
+import sys
+
+ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
+from adapters.data_graph import END_TO_END_KINDS,RESOURCE_IMPACT_KINDS
+from adapters.data_queries import explain_receiver
+from adapters.fact_queries import find_path
+from scripts.query_protocol_graph import resolve
+
+
+if __name__=='__main__':
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('graph',type=Path)
+    ap.add_argument('--from',dest='start');ap.add_argument('--to',dest='target');ap.add_argument('--reverse',action='store_true')
+    ap.add_argument('--impact',action='store_true');ap.add_argument('--receiver',help='exact C++ call-site ID')
+    ap.add_argument('--depth',type=int,default=16);a=ap.parse_args();graph=json.loads(a.graph.read_text(encoding='utf-8'))
+    if a.receiver:result=explain_receiver(graph,a.receiver)
+    else:result=find_path(graph,resolve(graph,a.start),resolve(graph,a.target),RESOURCE_IMPACT_KINDS if a.impact else END_TO_END_KINDS,
+                          reverse=a.reverse,max_depth=a.depth)
+    print(json.dumps(result,ensure_ascii=False,indent=2))

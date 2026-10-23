@@ -72,3 +72,21 @@ class CppDataTests(unittest.TestCase):
         a,b=self.data(source)['data'],self.data(renamed)['data']
         self.assertEqual([x['role'] for x in a['accesses']],[x['role'] for x in b['accesses']])
         self.assertEqual(b['storages'][0]['owner'],'Things');self.assertEqual(b['accesses'][0]['value']['expression'],'mode')
+
+    def test_reference_factory_callback_binding_and_invocation_are_found(self):
+        source='template<typename T> struct Holder{std::function<T*()> make;Holder(std::function<T*()> fn);T* get();}; template<typename T> Holder<T>::Holder(std::function<T*()> fn):make(std::move(fn)){} template<typename T> T* Holder<T>::get(){return make();}'
+        data=self.data(source)['data'];bindings=[b for b in data['callbacks'] if b['kind']=='bind_constructor_parameter']
+        invokes=[b for b in data['callbacks'] if b['kind']=='invoke']
+        self.assertEqual(len(bindings),1);self.assertEqual(len(invokes),1)
+        self.assertEqual(bindings[0]['member'],invokes[0]['member']);self.assertEqual(bindings[0]['parameter_index'],0)
+
+    def test_map_subscript_read_preserves_possible_default_insertion(self):
+        data=self.data('struct S{std::map<int,int> m;std::vector<int> v;int read(){return m[1]+v[1];}};')['data']
+        a,b=data['accesses'];self.assertEqual(a['implicit_write'],'default_insertion_if_key_absent');self.assertNotIn('implicit_write',b)
+
+    def test_switch_condition_follows_local_value_to_its_source_function(self):
+        from adapters.data_queries import walk_values
+        data=self.data('struct S{int load(int key){return key;}void create(int key){auto choice=load(key);switch(choice){case 1:break;default:break;}}};')['data']
+        source=next(s['source_symbol'] for s in data['summaries'] if s['name']=='S::load')
+        method=next(s for s in data['summaries'] if s['name']=='S::create')
+        self.assertIn(source,{t for v in walk_values(method['controls']) for t in v.get('targets',[])})
