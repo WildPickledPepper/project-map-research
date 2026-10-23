@@ -15,8 +15,8 @@ def evidence_in(value):
     if isinstance(value, dict):
         if isinstance(value.get('path'), str) and isinstance(value.get('line'), int):
             yield {k: value[k] for k in ['path', 'line', 'column', 'expression', 'kind'] if k in value}
-        for k, v in value.items():
-            if k != 'path': yield from evidence_in(v)
+        for k in sorted(value):
+            if k != 'path': yield from evidence_in(value[k])
     elif isinstance(value, list):
         for v in value: yield from evidence_in(v)
 
