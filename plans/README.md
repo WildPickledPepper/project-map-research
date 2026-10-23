@@ -39,6 +39,8 @@ P3 已通过所选 140 文件上的 D01 数据库候选与 D04 共享实例检�
 
 随后增加 [响应字段生产增量](../experiments/2026-10-23-p3/output-fields.md)：141 文件输入，七处写入可按实参展开到同一响应对象，126 项 Python 测试及存储读回查询通过。D02 继续补序列化与前端消费。
 
+[响应序列化增量](../experiments/2026-10-23-p3/serialization.md) 已在同一输入上恢复注册回调和 34 个 JSON 字段/集合路径，142 项 Python 测试及存储读回通过。继续按协议与响应对象上下文连接字段生产和序列化，再补传输与前端消费。
+
 ## 当前选型方向
 
 选定 CGC/Kuzu 为主底座，复用 TypeScript 编译器和 Tree-sitter 补齐必要事实。CodeGraph 同一输入对照及 SQLite 扩展维护均已执行，保留为替换方案；CBM 保留导航与更新对照。code-map 的接口机制和 CoderMind 的职责层按相应阶段评估。真实 C++ SCIP 仍为未执行路径；P1 采用有依据的类型候选和显式未知，见 [决策依据](../experiments/2026-10-23-p1-completion/README.md)。
