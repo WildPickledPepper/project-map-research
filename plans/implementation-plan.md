@@ -179,6 +179,8 @@ D02 已恢复字段生产与序列化、前端消费、回调与编号来源，�
 
 已完成[运行材料盘点](../experiments/2026-10-24-runtime-readiness/README.md)：源码中已有 Playwright 测试框架、DB/Text 样例和构建说明，真实运行与场景验收尚未执行。
 
+当前[环境准备](../experiments/2026-10-24-p5/README.md)已完成独立副本、固定依赖安装和 Framework/Timeline 编译，后端编译进行中。真实启动、场景与断言仍按 R01–R06 验收。
+
 前置条件：可复现的 Insight 构建/启动、最小测试数据、可控制延迟的位置、P3 静态图。产物：场景说明、运行命令、配置/数据摘要、紧凑 trace/事件、断言结果和静态关联报告。
 
 从已调查的 OpenTelemetry/Jaeger/Playwright 候选中验证接入方案，补充自定义协议、异步队列和线程池上的上下文传播。

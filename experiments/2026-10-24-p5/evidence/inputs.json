@@ -1,0 +1,68 @@
+{
+  "evidence_kind": "executed_fixture_inventory",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "dependencies": {
+    "libuv": "0c1fa696aa502eb749c2c4735005f41ba00a27b8",
+    "uSockets": "8cd4cb66eb061b2594ca114b9ea1ead64613ad4b",
+    "uWebSockets": "bc2815d95b6ff4cad0973226d0058eadaaec99ad",
+    "rapidjson": "d621dc9e9c77f81e5c8a35b8dcc16dcd63351321"
+  },
+  "db": {
+    "path": "test/data/pytorch/db/level0/rank0_ascend_pt/ASCEND_PROFILER_OUTPUT/ascend_pytorch_profiler_0.db",
+    "bytes": 679936,
+    "tables": [
+      "ACC_PMU",
+      "AICORE_FREQ",
+      "CANN_API",
+      "COMMUNICATION_OP",
+      "COMMUNICATION_TASK_INFO",
+      "COMPUTE_TASK_INFO",
+      "CONNECTION_IDS",
+      "ENUM_API_TYPE",
+      "ENUM_HCCL_DATA_TYPE",
+      "ENUM_HCCL_LINK_TYPE",
+      "ENUM_HCCL_RDMA_TYPE",
+      "ENUM_HCCL_TRANSPORT_TYPE",
+      "ENUM_MODULE",
+      "ENUM_MSTX_EVENT_TYPE",
+      "HBM",
+      "HOST_INFO",
+      "LLC",
+      "MEMORY_RECORD",
+      "META_DATA",
+      "NPU_INFO",
+      "NPU_MEM",
+      "NPU_MODULE_MEM",
+      "NPU_OP_MEM",
+      "OP_MEMORY",
+      "PYTORCH_API",
+      "PYTORCH_CALLCHAINS",
+      "RANK_DEVICE_MAP",
+      "SESSION_TIME_INFO",
+      "SOC_BANDWIDTH_LEVEL",
+      "STEP_TIME",
+      "STRING_IDS",
+      "TASK"
+    ],
+    "selected_row_counts": {
+      "TASK": 550,
+      "CANN_API": 713,
+      "PYTORCH_API": 2460,
+      "STRING_IDS": 1141
+    }
+  },
+  "trace": {
+    "path": "test/data/pytorch/text/level0/rank0_ascend_pt/ASCEND_PROFILER_OUTPUT/trace_view.json",
+    "bytes": 1805798,
+    "event_count": 8375,
+    "phase_counts": {
+      "X": 3379,
+      "s": 606,
+      "f": 611,
+      "M": 63,
+      "C": 3716
+    }
+  },
+  "scope": "Presence and structure; actual import, query results and state behavior are separate checks",
+  "file_hash_verification": "not_run_per_user_preference"
+}
