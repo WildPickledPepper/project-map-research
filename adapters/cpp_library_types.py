@@ -9,6 +9,8 @@ from adapters.cpp_value_types import split_template
 
 class LibraryTypes:
     JSON={'rapidjson::Value','rapidjson::Document','rapidjson::GenericValue','rapidjson::GenericDocument'}
+    EXTERNAL=JSON|{'std::string','std::string_view','rapidjson::StringBuffer','rapidjson::GenericStringBuffer',
+                  'rapidjson::Writer','rapidjson::PrettyWriter','uWS::WebSocket','uWS::Loop'}
 
     def __init__(self,extractor):
         self.x=extractor;self.aliases=defaultdict(list)
@@ -26,7 +28,7 @@ class LibraryTypes:
         head,args=split_template(atom)
         if head=='std::optional' and len(args)==1:return self.resolve(args[0],path,scope,seen)
         if head.startswith('::'):head=head[2:]
-        if head in self.JSON or head in {'std::string','std::string_view'}:return {head}
+        if head in self.EXTERNAL:return {head}
         key=(head,path,tuple(scope))
         if key in seen:return set()
         seen=seen|{key};visible=self.x.visibility.get(path,{path})
@@ -44,7 +46,7 @@ class LibraryTypes:
                 prefix='::'.join(prefix);current='::'.join(scope)
                 if prefix and current!=prefix and not current.startswith(prefix+'::'):continue
                 q=namespace+'::'+head
-                if q in self.JSON:candidates.add(q)
+                if q in self.EXTERNAL:candidates.add(q)
         return candidates if len(candidates)==1 else set()
 
     def is_json(self,spelling,path,scope):return bool(self.resolve(spelling,path,scope)&self.JSON)

@@ -14,6 +14,7 @@ from adapters.response_queries import explain_response
 from adapters.frontend_queries import explain_frontend
 from adapters.callback_queries import explain_callbacks
 from adapters.correlation_queries import explain_correlation
+from adapters.transmission_queries import explain_transmission
 from adapters.fact_queries import find_path
 from scripts.query_protocol_graph import resolve
 
@@ -31,6 +32,8 @@ if __name__=='__main__':
     ap.add_argument('--response-requester',help='Promise-producing callable ID or unique name')
     ap.add_argument('--response-receiver',help='Registry-consuming callable ID or unique name')
     ap.add_argument('--correlation-provider',help='P2 provider ID for sent-key / response-lookup source correlation')
+    ap.add_argument('--transmission-provider',help='P2 provider ID for serializer-to-C++-send paths')
+    ap.add_argument('--transmission-entry',help='C++ callable ID or unique name for JSON-to-send paths')
     ap.add_argument('--instance-impact',action='store_true',help='use source receiver-instance contexts')
     ap.add_argument('--depth',type=int,default=16);a=ap.parse_args();graph=json.loads(a.graph.read_text(encoding='utf-8'))
     if a.receiver:result=explain_receiver(graph,a.receiver)
@@ -38,6 +41,8 @@ if __name__=='__main__':
     elif a.serialization:result=explain_serialization(graph,resolve(graph,a.serialization))
     elif a.response_provider:result=explain_response(graph,a.response_provider,max_depth=a.depth)
     elif a.correlation_provider:result=explain_correlation(graph,a.correlation_provider)
+    elif a.transmission_provider or a.transmission_entry:result=explain_transmission(graph,
+        provider=a.transmission_provider,entry=resolve(graph,a.transmission_entry) if a.transmission_entry else None)
     elif a.response_requester or a.response_receiver:result=explain_callbacks(graph,
         requester=resolve(graph,a.response_requester) if a.response_requester else None,
         receiver=resolve(graph,a.response_receiver) if a.response_receiver else None)
