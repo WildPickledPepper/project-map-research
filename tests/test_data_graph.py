@@ -27,7 +27,21 @@ class DataGraphTests(unittest.TestCase):
         relation,=[e for e in g['edges'] if e['source']==write['id'] and e['kind']=='WRITES_OBJECT_PATH']
         location=next(n for n in g['nodes'] if n['id']==relation['target'])
         self.assertEqual(location['selectors'],['member:value'])
-        self.assertTrue(relation['evidence']);self.assertEqual(g['snapshot'],'source:p3-data-v3')
+        self.assertTrue(relation['evidence']);self.assertEqual(g['snapshot'],'source:p3-data-v4')
+
+    def test_serializer_fields_are_scoped_by_callback_and_query_is_bounded(self):
+        from adapters.serialization_queries import explain_serialization
+        g=self.graph('using J=rapidjson::Value;J first(int x){J j;j.AddMember("n",x,a);return j;}'
+            'J second(int x){J j;j.AddMember("n",x,a);return j;}')
+        wires=[n for n in g['nodes'] if n['kind']=='serialized_field']
+        self.assertEqual(len(wires),2);self.assertNotEqual(wires[0]['id'],wires[1]['id'])
+        uid=self.symbol(g,'first');query=explain_serialization(g,uid)
+        self.assertEqual(len(query['field_mappings']),1)
+        self.assertEqual(query['field_mappings'][0]['wire_path'],['n'])
+        self.assertTrue(explain_serialization(g,uid,max_mappings=0)['truncated'])
+        self.assertEqual(explain_serialization(g,'missing')['status'],'not_extracted')
+        with self.assertRaises(ValueError):explain_serialization(g,uid,max_mappings=-1)
+        self.assertFalse(find_path(g,uid,self.symbol(g,'second'),{'READS_SERIALIZATION_SOURCE','VALUE_SERIALIZED_AS'},reverse=True)['found'])
 
     def test_shared_state_forward_reverse_and_unrelated_member_isolation(self):
         g=self.graph('struct A{std::map<int,int> state;void write(int key){state[key]=7;}int read(int key){return state.at(key);}};struct B{std::map<int,int> state;int read(int key){return state.at(key);}};')

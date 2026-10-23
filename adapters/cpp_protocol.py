@@ -24,9 +24,9 @@ def make_type(n):
 
 
 class ProtocolExtractor:
-    def __init__(self,sources,parser):
-        self.x=Extractor(sources,parser)
-        self.facts=self.x.build()
+    def __init__(self,sources,parser,*,extractor=None,facts=None):
+        self.x=extractor if extractor is not None else Extractor(sources,parser)
+        self.facts=facts if facts is not None else self.x.build()
         self.constants=defaultdict(list)
         self.functions=defaultdict(list)
         self.registrations=[];self.lookups=[];self.groups=[];self.diagnostics=[]

@@ -115,14 +115,35 @@ def augment(base,cpp,paths):
         edge(write['id'],write['location'],'WRITES_OBJECT_PATH',write['evidence'],write['conditions'])
     # Cross-call effects are composed by field_queries using each invocation's
     # argument bindings; a global formal-parameter join would mix callers.
+    for serializer in data.get('serialization',{}).get('functions',[]):
+        uid=serializer['source_symbol'];symbol=by_id[uid]
+        for mapping in serializer['field_mappings']:
+            source=mapping['source'];wire=mapping['wire_path']
+            suffix=json.dumps([source['parameter'],source['selectors']],separators=(',',':'))
+            pid='serialization-source:'+uid+':'+suffix
+            wid='wire-field:'+uid+':'+json.dumps(wire,separators=(',',':'))
+            location={'path':symbol['path'],'line':symbol['line'],'source_symbol':uid}
+            node({'id':pid,**location,'parameter':source['parameter'],'selectors':source['selectors'],
+                  'root_types':source.get('root_types',[])},'serialization_parameter_path',suffix)
+            node({'id':wid,**location,'wire_path':wire},'serialized_field','/'.join(wire))
+            edge(uid,pid,'READS_SERIALIZATION_SOURCE',mapping['evidence'],mapping['conditions'])
+            edge(pid,wid,'COLLECTION_SERIALIZED_AS' if mapping['relation']=='array_iteration_source' else 'VALUE_SERIALIZED_AS',
+                 mapping['evidence'],mapping['conditions'])
+            edges[-1]['conversion']=source.get('conversion');edges[-1]['relation']=mapping['relation']
+    for registration in data.get('serialization',{}).get('registrations',[]):
+        rid='serialization:'+registration['id']
+        node({**registration,'id':rid},'serializer_registration',registration['key'])
+        for uid in registration['functions']:
+            edge(rid,uid,'REGISTERS_SERIALIZER_CANDIDATE',registration['evidence'],['registration_executed','matching_protocol_instance_and_key'])
     # Parallel evidence edges remain distinct; exact duplicates are redundant.
     unique={json.dumps(e,sort_keys=True):e for e in edges}
     graph['nodes']=list(by_id.values());graph['edges']=list(unique.values())
-    graph['snapshot']=graph['source_commit']+':p3-data-v3';graph['input_paths']=sorted(paths)
+    graph['snapshot']=graph['source_commit']+':p3-data-v4';graph['input_paths']=sorted(paths)
     coverage={c['path']:c for c in base['coverage']};coverage.update({c['path']:c for c in facts['coverage']})
     graph['coverage']=[coverage[p] for p in paths]
-    graph['data']=data;graph['extractors']['cpp_data']='cpp_data/0.4.0';graph['extractors']['cpp_value_types']='cpp_value_types/0.1.0'
+    graph['data']=data;graph['extractors']['cpp_data']='cpp_data/0.5.0';graph['extractors']['cpp_value_types']='cpp_value_types/0.1.0'
     graph['extractors']['cpp_field_flow']='cpp_field_flow/0.1.0'
+    graph['extractors']['cpp_serialization']='cpp_serialization/0.1.0'
     graph['provenance']['data_base_snapshot']=base['snapshot']
     graph['diagnostics']+=data['diagnostics']
     return graph
