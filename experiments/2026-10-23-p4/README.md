@@ -57,4 +57,4 @@ python experiments/2026-10-23-p4/verify_full_build.py \
   --output ../work/repo-map-research/results/p4-full-build/verification.json
 ```
 
-当前入口完成一次构建。提交监测、临时快照原子发布、`last_success`、锁及中断恢复、连续提交追赶尚待实现；U01–U04、U06 保持待验收，U05 因增量关闭不适用。真实运行仍由 P5 验收。
+后续增量：[自动刷新、发布与恢复](automatic-refresh.md)已实现提交/配置检测、完整快照发布、`last_success`、锁与进程中断恢复、连续提交追赶。15 项新增测试及完整 Python 套件 260 项通过。旧非图证据、摘要和资产锚点的跨版本处理待完成，P4 保持进行中；增量关闭，U05 不适用。真实运行仍由 P5 验收。

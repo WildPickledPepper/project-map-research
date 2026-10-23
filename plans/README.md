@@ -1,6 +1,6 @@
 # 研究与实施计划 v0.1
 
-日期：2026-10-23。设计依据：[设计基线 v0.1](../docs/05-design-baseline.md)，基线提交 `547269e`。**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过；P4–P7 待实施。** [P2 证据](../experiments/2026-10-23-p2/README.md)覆盖三条真实协议链、改名和作用域反例。 主底座选用 CGC/Kuzu，见 [P1 完成证据与决策](../experiments/2026-10-23-p1-completion/README.md)。
+日期：2026-10-23。设计依据：[设计基线 v0.1](../docs/05-design-baseline.md)，基线提交 `547269e`。**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过；P4 进行中，P5–P7 待实施。** [P2 证据](../experiments/2026-10-23-p2/README.md)覆盖三条真实协议链、改名和作用域反例。 主底座选用 CGC/Kuzu，见 [P1 完成证据与决策](../experiments/2026-10-23-p1-completion/README.md)。
 
 ## 要交付什么
 
