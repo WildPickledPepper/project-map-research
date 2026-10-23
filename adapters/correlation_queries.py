@@ -137,7 +137,9 @@ def explain_correlation(graph, provider_id, max_links=100):
                             for decoder in graph['data']['response_routing']['decoded_fields']:
                                 if decoder['source_symbol'] not in reachable or not types(root['type']) & set(decoder['owner_types']): continue
                                 if origin['selectors'] != deref + ['member:' + decoder['member']]: continue
-                                if decoder['wire_fields'] != binding['wire_path']: continue
+                                # wire_fields is a set of possible top-level keys,
+                                # not a nested path. Ambiguous decoder keys remain open.
+                                if len(decoder['wire_fields']) != 1 or decoder['wire_fields'] != binding['wire_path']: continue
                                 for message, match in scoped_messages:
                                     record = {'message': message['id'], 'provider': provider_id, 'request_key_binding': binding,
                                         'response_lookup': lookup, 'request_decoder': decoder, 'copy_effect': effect,

@@ -83,6 +83,13 @@ class CorrelationTests(unittest.TestCase):
     def test_field_copy_and_wire_name_are_both_required(self):
         g, r, e = fixture(); e['effects'][0]['value_origins'][0]['selectors'] = ['member:different']
         self.assertFalse(self.query(g, r, e)['links'])
+
+    def test_decoder_key_alternatives_are_not_a_nested_wire_path(self):
+        g, r, e = fixture()
+        payload = g['response_callbacks']['transmissions'][0]['payload']['value']
+        payload['fields'] = {'ticket': {'kind': 'object', 'fields': {'nested': source()}}}
+        g['data']['response_routing']['decoded_fields'][0]['wire_fields'] = ['ticket', 'nested']
+        self.assertFalse(self.query(g, r, e)['links'])
         g, r, e = fixture(); g['data']['response_routing']['decoded_fields'][0]['wire_fields'] = ['different']
         self.assertFalse(self.query(g, r, e)['links'])
 
