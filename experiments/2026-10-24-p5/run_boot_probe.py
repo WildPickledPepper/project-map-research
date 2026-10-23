@@ -104,6 +104,6 @@ def run(source, output, scenario='boot', allow_stale_response=False):
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
     for name in ('source', 'output'): ap.add_argument('--' + name, type=Path, required=True)
-    ap.add_argument('--scenario', choices=('boot', 'normal', 'late'), default='boot')
+    ap.add_argument('--scenario', choices=('boot', 'normal', 'late', 'parallel'), default='boot')
     ap.add_argument('--allow-stale-response', action='store_true', help='Enable the controlled guard fault in a rebuilt experimental source')
     a = ap.parse_args(); run(a.source, a.output, a.scenario, a.allow_stale_response)

@@ -13,7 +13,8 @@ def verify(directory, command='unit/flows'):
     directory = Path(directory)
     inputs = read_json(directory/'input.json')
     late = inputs.get('scenario') == 'late'
-    scenario_result = read_json(directory/'scenario-result.json') if late else None
+    parallel = inputs.get('scenario') == 'parallel'
+    scenario_result = read_json(directory/'scenario-result.json') if late or parallel else None
     wire = read_json(directory/'browser-events.json')
     frames = read_json(directory/'browser-probe.json')
     browser = [event for frame in frames for event in frame.get('events', [])]
@@ -117,6 +118,24 @@ def verify(directory, command='unit/flows'):
                        'implementation': implementation, 'complete': not issues, 'diagnostics': issues,
                        'observations': observations, 'links': links})
     if not traces: diagnostics.append({'code': 'no_target_requests'})
+    if parallel:
+        control = read_json(directory/'delivery-control.json')
+        phases = [event['phase'] for event in control['audit']]
+        expected_phases = ['armed', 'held', 'held', 'two_distinct_requests_pending_before_delivery', 'released', 'released']
+        if phases != expected_phases:
+            diagnostics.append({'code': 'parallel_pending_order_unproven', 'phases': phases})
+        if len(traces) != 2 or len({trace['trace_id'] for trace in traces}) != 2:
+            diagnostics.append({'code': 'parallel_trace_scope_unproven'})
+        held = control['held']
+        if len(held) != 2 or not all(item.get('released') for item in held):
+            diagnostics.append({'code': 'parallel_release_unproven'})
+        elif held[0]['request']['params']['id'] == held[1]['request']['params']['id']:
+            diagnostics.append({'code': 'parallel_requests_not_distinct'})
+        if not scenario_result.get('passed'):
+            diagnostics.append({'code': 'parallel_scenario_assertions_failed'})
+        final_states = [frame['state'] for frame in frames if frame.get('name') == 'Timeline']
+        if final_states != [scenario_result['finalState']]:
+            diagnostics.append({'code': 'parallel_final_state_mismatch'})
     if late:
         control = read_json(directory/'delivery-control.json')
         phases = [event['phase'] for event in control['audit']]
@@ -135,7 +154,8 @@ def verify(directory, command='unit/flows'):
             diagnostics.append({'code': 'B_empty_selection_precondition_unproven'})
         if not scenario_result.get('passed'): diagnostics.append({'code': 'scenario_assertions_failed'})
     return {'evidence_kind': 'identity_join_of_real_runtime_observations', 'source_commit': inputs['source_commit'],
-            'connection_id': connection_id, 'scope': 'one connection; ' + ('late response discarded after project switch' if late else 'normal request adoption'),
+            'connection_id': connection_id, 'scope': 'one connection; ' + ('late response discarded after project switch' if late else
+                'two distinct outstanding requests through asynchronous boundaries' if parallel else 'normal request adoption'),
             'complete': not diagnostics and bool(traces) and all(t['complete'] for t in traces),
             'traces': traces, 'diagnostics': diagnostics,
             'causality': 'explicit trace metadata and requestId; timestamps are not used for joining',

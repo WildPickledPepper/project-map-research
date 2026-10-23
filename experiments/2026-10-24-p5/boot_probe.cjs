@@ -12,7 +12,7 @@ async function main() {
   await context.tracing.start({screenshots: true, snapshots: true, sources: true});
   const page = await context.newPage();
   const events = [], errors = [], consoleMessages = [], connections = [];
-  const gate = scenario === 'late' ? await require('./ws_gate.cjs').installGate(context, path.basename(output), events, connections) : null;
+  const gate = ['late', 'parallel'].includes(scenario) ? await require('./ws_gate.cjs').installGate(context, path.basename(output), events, connections) : null;
   page.on('pageerror', error => errors.push(String(error)));
   page.on('console', message => consoleMessages.push({type: message.type(), text: message.text()}));
   page.on('websocket', ws => {
@@ -51,6 +51,8 @@ async function main() {
       await require('./flow_scenario.cjs').runNormal({page, events, source, output, data});
     } else if (scenario === 'late') {
       await require('./late_scenario.cjs').runLate({page, events, source, output, data, gate});
+    } else if (scenario === 'parallel') {
+      await require('./parallel_scenario.cjs').runParallel({page, events, source, output, data, gate});
     }
   } catch (error) {
     failure = String(error.stack || error);
@@ -67,7 +69,7 @@ async function main() {
       browser: browser.version(), event_count: events.length, page_errors: errors,
       received_events: [...new Set(events.filter(e => e.direction === 'framereceived').map(e => e.message.event).filter(Boolean))],
       observed_commands: [...new Set(events.map(e => e.message.command).filter(Boolean))],
-      scope: scenario === 'boot' ? 'UI import and timeline availability' : 'UI import and normal unit/flows result/state assertions; identity join runs separately'
+      scope: scenario === 'boot' ? 'UI import and timeline availability' : 'UI import and selected unit/flows scenario assertions; identity join runs separately'
     }, null, 2));
     try {
       await context.tracing.stop({path: path.join(output, 'playwright-trace.zip')});

@@ -8,17 +8,17 @@ function ns(value) {
   return BigInt(whole) * 1000n + BigInt((fraction + '000').slice(0, 3));
 }
 
-function expectedFlow(data) {
+function expectedFlow(data, selectionIndex = 0) {
   const input = JSON.parse(fs.readFileSync(data, 'utf8'));
   const events = Array.isArray(input) ? input : input.traceEvents;
   const selected = events.filter(e => e.ph === 'X' && e.name === 'Enqueue')
-    .sort((a, b) => ns(a.ts) < ns(b.ts) ? -1 : 1)[0];
+    .sort((a, b) => ns(a.ts) < ns(b.ts) ? -1 : 1)[selectionIndex];
   assert(selected, 'Public fixture must contain an Enqueue slice');
   const starts = events.filter(e => e.ph === 's' && e.pid === selected.pid && e.tid === selected.tid &&
     ns(e.ts) >= ns(selected.ts) && ns(e.ts) < ns(selected.ts) + ns(selected.dur));
   assert(starts.length > 0, 'Independent input must contain a flow beginning in the selected slice');
   return {
-    selection: {name: selected.name, pid: String(selected.pid), tid: String(selected.tid),
+    selection: {name: selected.name, searchIndex: selectionIndex + 1, pid: String(selected.pid), tid: String(selected.tid),
       start_ns: ns(selected.ts).toString(), duration_ns: ns(selected.dur).toString()},
     flows: starts.map(start => {
       const finish = events.find(e => e.ph === 'f' && String(e.id) === String(start.id) && e.cat === start.cat);
@@ -40,6 +40,14 @@ async function selectFlowSlice({page, expected, expect}) {
   await input.press('Enter');
   await expect.poll(() => frame.evaluate(() => globalThis.__projectMapReadSession?.()?.selectedData?.name),
     {timeout: 20000}).toBe(expected.selection.name);
+  if (expected.selection.searchIndex > 1) {
+    const pageInput = timeline.locator('.insight-category-search-overlay .searchResult input');
+    await pageInput.fill(String(expected.selection.searchIndex)); await pageInput.press('Enter');
+  }
+  await expect.poll(() => frame.evaluate(() => {
+    const session = globalThis.__projectMapReadSession();
+    return session.selectedData ? (BigInt(session.startTime) + BigInt(session.selectedData.startTime)).toString() : null;
+  }), {timeout: 20000}).toBe(expected.selection.start_ns);
   await expect.poll(() => frame.evaluate(() => globalThis.__projectMapReadSession?.()?.selectedDataUnit?.isTraceLoading),
     {timeout: 20000}).toBe(false);
   await timeline.getByTestId('tool-search').click();
@@ -91,22 +99,7 @@ async function runNormal({page, events, source, output, data}) {
     e.message.command === request.command)?.message;
   assert(response?.result, 'Server accepted traced request');
   const state = await target.frame.evaluate(() => globalThis.__projectMapProbe.readState());
-  const actualFlows = response.body.unitAllFlows.flatMap(group => group.flows.map(flow => ({...flow, group: group.cat})));
-  assert.equal(actualFlows.length, expected.flows.length, 'Returned flow count matches the selected public input slice');
-  for (const expectedItem of expected.flows) {
-    // TextTraceDatabase::AssembleUnitFlowsBody does not populate UnitSingleFlow.id.
-    // Match the independent input's category and both endpoint identities/times.
-    const actual = actualFlows.find(flow => flow.group === expectedItem.category && ['from', 'to'].every(side =>
-      String(flow[side].pid) === expectedItem[side].pid && String(flow[side].tid) === expectedItem[side].tid &&
-      BigInt(target.geometry.timeOrigin) + BigInt(flow[side].timestamp) === BigInt(expectedItem[side].timestamp_ns)));
-    assert(actual, 'Expected input flow must be returned: ' + expectedItem.id);
-    assert.equal(actual.group, expectedItem.category);
-    for (const side of ['from', 'to']) {
-      assert.equal(String(actual[side].pid), expectedItem[side].pid);
-      assert.equal(String(actual[side].tid), expectedItem[side].tid);
-      assert.equal(BigInt(target.geometry.timeOrigin) + BigInt(actual[side].timestamp), BigInt(expectedItem[side].timestamp_ns));
-    }
-  }
+  const actualFlows = assertFlowResponse(response, expected, target.geometry.timeOrigin);
   assert.equal(state.drawLineMode, 'single');
   assert.equal(state.selectedData.id, request.params.id);
   assert.equal(state.selectedData.cardId, request.params.rankId);
@@ -125,4 +118,25 @@ async function runNormal({page, events, source, output, data}) {
     state, assertion_source: 'public input events plus independent live frontend state'}, null, 2));
 }
 
-module.exports = {expectedFlow, selectFlowSlice, runNormal};
+function assertFlowResponse(response, expected, timeOrigin) {
+  assert.equal(response.result, true);
+  const actualFlows = response.body.unitAllFlows.flatMap(group => group.flows.map(flow => ({...flow, group: group.cat})));
+  assert.equal(actualFlows.length, expected.flows.length, 'Returned flow count matches the selected public input slice');
+  for (const expectedItem of expected.flows) {
+    // TextTraceDatabase::AssembleUnitFlowsBody does not populate UnitSingleFlow.id.
+    // Match the independent input's category and both endpoint identities/times.
+    const actual = actualFlows.find(flow => flow.group === expectedItem.category && ['from', 'to'].every(side =>
+      String(flow[side].pid) === expectedItem[side].pid && String(flow[side].tid) === expectedItem[side].tid &&
+      BigInt(timeOrigin) + BigInt(flow[side].timestamp) === BigInt(expectedItem[side].timestamp_ns)));
+    assert(actual, 'Expected input flow must be returned: ' + expectedItem.id);
+    assert.equal(actual.group, expectedItem.category);
+    for (const side of ['from', 'to']) {
+      assert.equal(String(actual[side].pid), expectedItem[side].pid);
+      assert.equal(String(actual[side].tid), expectedItem[side].tid);
+      assert.equal(BigInt(timeOrigin) + BigInt(actual[side].timestamp), BigInt(expectedItem[side].timestamp_ns));
+    }
+  }
+  return actualFlows;
+}
+
+module.exports = {expectedFlow, selectFlowSlice, assertFlowResponse, runNormal};

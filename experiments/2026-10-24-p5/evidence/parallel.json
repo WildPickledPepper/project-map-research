@@ -1,0 +1,128 @@
+{
+  "evidence_kind": "executed_real_UI_two_outstanding_requests",
+  "acceptance": "R04",
+  "status": "passed",
+  "run": "p5-r04-parallel-01",
+  "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+  "scope": "Two distinct UI requests outstanding across asynchronous boundaries; responses delivered in request order",
+  "capture_complete": true,
+  "requests": [
+    {
+      "request_key": "p5-r04-parallel-01:socket:1:request:36",
+      "trace_id": "p5-r04-parallel-01:Timeline:parallel-click-1:2",
+      "slice_id": "861",
+      "complete": true,
+      "stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.delivered",
+        "api.resolved",
+        "state.applied"
+      ],
+      "native_threads": {
+        "request.decoded": "13072",
+        "handler.invoke": "35464",
+        "database.call": "35464",
+        "database.return": "35464",
+        "handler.complete": "35464"
+      },
+      "flow_count": 1
+    },
+    {
+      "request_key": "p5-r04-parallel-01:socket:1:request:47",
+      "trace_id": "p5-r04-parallel-01:Timeline:parallel-click-2:4",
+      "slice_id": "862",
+      "complete": true,
+      "stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.delivered",
+        "api.resolved",
+        "state.applied"
+      ],
+      "native_threads": {
+        "request.decoded": "13072",
+        "handler.invoke": "27256",
+        "database.call": "27256",
+        "database.return": "27256",
+        "handler.complete": "27256"
+      },
+      "flow_count": 1
+    }
+  ],
+  "delivery_order": [
+    "armed",
+    "held",
+    "held",
+    "two_distinct_requests_pending_before_delivery",
+    "released",
+    "released"
+  ],
+  "controls": {
+    "evidence_kind": "derived_negative_controls_on_real_capture",
+    "baseline": "p5-r04-parallel-01",
+    "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+    "passed": true,
+    "controls": [
+      {
+        "control": "missing_database_return",
+        "expected_diagnostic": "missing_observation",
+        "passed": true,
+        "complete_chain_claim_rejected": true
+      },
+      {
+        "control": "wrong_decoded_trace",
+        "expected_diagnostic": "decoded_trace_mismatch",
+        "passed": true,
+        "complete_chain_claim_rejected": true
+      },
+      {
+        "control": "reused_request_id",
+        "expected_diagnostic": "duplicate_request_identity",
+        "passed": true,
+        "complete_chain_claim_rejected": true
+      },
+      {
+        "control": "swapped_api_results",
+        "expected_diagnostic": "api_response_payload_mismatch",
+        "passed": true,
+        "complete_chain_claim_rejected": true
+      }
+    ],
+    "scope": "Collector/identity checker controls; product behavior was not changed; R05 remains separate"
+  },
+  "regressions": [
+    {
+      "run": "p5-r04-normal-01",
+      "scenario_passed": true,
+      "capture_complete": true
+    },
+    {
+      "run": "p5-r04-late-01",
+      "scenario_passed": true,
+      "capture_complete": true
+    }
+  ],
+  "developer_trial": {
+    "run": "p5-parallel-dev-01",
+    "passed": true
+  },
+  "limits": [
+    "Two UI requests remain outstanding before ordered delivery; simultaneous SQL execution is not asserted.",
+    "Missing-point and mixed-identity controls are derived capture variants."
+  ]
+}

@@ -13,20 +13,31 @@ def run(source, output):
         raise ValueError('Control artifacts must stay outside the source run and research repository')
     baseline = verify(source)
     if not baseline['complete']: raise ValueError('Controls require a complete real baseline capture')
+    target_id = baseline['traces'][0]['observations']['request.decoded']['request_id']
     output.mkdir(parents=True, exist_ok=False)
     rows = []
-    for name, expected_code in [('missing_database_return', 'missing_observation'),
+    cases = [('missing_database_return', 'missing_observation'),
                                 ('wrong_decoded_trace', 'decoded_trace_mismatch'),
-                                ('reused_request_id', 'duplicate_request_identity')]:
+                                ('reused_request_id', 'duplicate_request_identity')]
+    if len(baseline['traces']) > 1: cases.append(('swapped_api_results', 'api_response_payload_mismatch'))
+    for name, expected_code in cases:
         target = output/name; target.mkdir()
         for filename in ('input.json', 'browser-events.json', 'browser-probe.json'):
             shutil.copyfile(source/filename, target/filename)
+        for filename in ('scenario-result.json', 'delivery-control.json'):
+            if (source/filename).exists(): shutil.copyfile(source/filename, target/filename)
         shutil.copytree(source/'server-log', target/'server-log', ignore=shutil.ignore_patterns('*.db', '*.db-*'))
         if name == 'reused_request_id':
             wire = read_json(target/'browser-events.json')
             sent = next(e for e in wire['events'] if e['direction'] == 'framesent' and e['message'].get('command') == 'unit/flows')
             wire['events'].append(copy.deepcopy(sent))
             (target/'browser-events.json').write_text(json.dumps(wire), encoding='utf-8')
+        elif name == 'swapped_api_results':
+            frames = read_json(target/'browser-probe.json')
+            resolved = [event for frame in frames for event in frame['events'] if event['stage'] == 'api.resolved']
+            assert len(resolved) == 2 and resolved[0]['result'] != resolved[1]['result']
+            resolved[0]['result'], resolved[1]['result'] = resolved[1]['result'], resolved[0]['result']
+            (target/'browser-probe.json').write_text(json.dumps(frames), encoding='utf-8')
         else:
             changed = 0
             for logfile in (target/'server-log').glob('*.log'):
@@ -35,7 +46,7 @@ def run(source, output):
                     if 'PROJECT_MAP_EVENT ' in line:
                         prefix, payload = line.split('PROJECT_MAP_EVENT ', 1)
                         event = json.loads(payload)
-                        if event['command'] == 'unit/flows':
+                        if event['command'] == 'unit/flows' and event['request_id'] == target_id:
                             if name == 'missing_database_return' and event['stage'] == 'database.return':
                                 changed += 1; continue
                             if name == 'wrong_decoded_trace' and event['stage'] == 'request.decoded':
@@ -51,6 +62,8 @@ def run(source, output):
         if name == 'missing_database_return':
             assert any(d.get('stage') == 'database.return' and d.get('execution_status') == 'unknown_from_this_capture'
                        for d in all_diagnostics)
+            if len(baseline['traces']) == 2:
+                assert sum(trace['complete'] for trace in result['traces']) == 1, 'Unrelated complete request must remain intact'
         (target/'correlation.json').write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
         rows.append({'control': name, 'expected_diagnostic': expected_code, 'passed': True,
                      'complete_chain_claim_rejected': True})

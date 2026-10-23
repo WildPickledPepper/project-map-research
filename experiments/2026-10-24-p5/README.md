@@ -1,6 +1,6 @@
 # P5 真实运行验证
 
-日期：2026-10-24。R01–R03、R05 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R04、R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
+日期：2026-10-24。R01–R05 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
 
 ## 输入与隔离
 
@@ -95,7 +95,7 @@ python experiments/2026-10-24-p5/verify_capture.py --run NEW_EXTERNAL_RUN
 1. R01（通过）：真实构建、启动、导入和数据/配置清单。
 2. R02（通过）：通过 UI 触发 `unit/flows`，关联实际数据库实现、返回及最终状态；正常场景重复三次。
 3. R03（通过）：控制 A 的响应晚于切换 B，验证 B 状态不受污染并找到丢弃/拒绝位置；重复三次。
-4. R04：并行请求和异步边界的身份不混合；人为缺少一个采集点时明确保留缺口。
+4. R04（通过）：并行请求和异步边界的身份不混合；人为缺少一个采集点时明确保留缺口。
 5. R05（通过）：独立副本注入迟到错误更新，确认状态断言会失败。
 6. R06：运行记录绑定实际源码/构建/配置，映射同版本静态图，跨版本及未映射事件有明确状态。
 
@@ -118,4 +118,18 @@ python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOU
 python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOUT --output NEW_FAULT_RUN --scenario late --allow-stale-response
 # 上一条命令预期退出 1；下一条验证是否命中了预定的状态违例。
 python experiments/2026-10-24-p5/check_fault_result.py --control NEW_CONTROL_RUN --fault NEW_FAULT_RUN
+```
+
+### R04 两个待返回请求与采集缺口
+
+[parallel_scenario.cjs](parallel_scenario.cjs)通过真实搜索和画布点击选择两个不同的 Enqueue。两条真实响应均暂存在传输门，确认两个请求同时处于等待状态后按请求顺序放行。`p5-r04-parallel-01` 通过：算子 861、862 对应不同 flow，API 结果和各自状态赋值分别与其线上响应一致，最终选中项与连线属于第二条请求。解码及 handler/数据库线程均记录为原生系统线程，跨异步边界通过显式身份连接。
+
+四项派生采集负例全部通过：删除一条请求的数据库返回只使该链出现“执行未知”，另一条仍完整；替换解码追踪标识、重复请求编号、交换两个 API 结果均被识别。正常查询和切换项目场景使用当前驱动回归通过。[紧凑证据](evidence/parallel.json)保存请求、线程、顺序及负例结果。
+
+本项验证两个 UI 请求同时未完成时的身份关联；响应按请求顺序放行，数据库执行的时间重叠不在本项断言范围。
+
+```sh
+python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOUT --output NEW_EXTERNAL_RUN --scenario parallel
+python experiments/2026-10-24-p5/verify_capture.py --run NEW_EXTERNAL_RUN
+python experiments/2026-10-24-p5/check_capture_controls.py --run NEW_EXTERNAL_RUN --output NEW_EXTERNAL_CONTROLS
 ```
