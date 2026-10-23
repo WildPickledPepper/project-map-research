@@ -24,6 +24,7 @@ jobs:
       - run: python scripts/check_p3_response_callbacks.py
       - run: python scripts/check_p3_request_correlation.py
       - run: python scripts/check_p3_transmission.py
+      - run: python scripts/check_p3_socket_receivers.py
   facts:
     runs-on: ubuntu-latest
     steps:

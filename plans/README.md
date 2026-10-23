@@ -49,7 +49,9 @@ P3 已通过所选 140 文件上的 D01 数据库候选与 D04 共享实例检�
 
 [请求编号关联增量](../experiments/2026-10-23-p3/request-correlation.md) 将发送字段、请求解码、响应复制和序列化接到前端查找键，覆盖首链四个响应出口。当时 170 项 Python、53 项 TypeScript 测试和存储读回通过。
 
-最新 [C++ 响应发送增量](../experiments/2026-10-23-p3/transmission.md)已将四个响应出口经 JSON 字符串、显式捕获和延迟回调接到 socket 发送参数，得到 12 条带编码分支条件的来源路径。150 文件输入，190 项 Python、53 项 TypeScript 测试及存储读回通过；Windows GBK 转换保留来源缺口。D02 继续连接端点对应、iframe 返回包装和业务 API 解包，D03、D05 随整链验收。
+[C++ 响应发送增量](../experiments/2026-10-23-p3/transmission.md)已将四个响应出口经 JSON 字符串、显式捕获和延迟回调接到 socket 发送参数，得到 12 条带编码分支条件的来源路径。当时 150 文件输入，190 项 Python、53 项 TypeScript 测试及存储读回通过；Windows GBK 转换保留来源缺口。
+
+最新 [socket 接收绑定增量](../experiments/2026-10-23-p3/socket-receivers.md)将原生 socket 创建、发送字段、业务 onmessage 绑定和事件参数连接到响应回调表，组合首链四个后端响应出口及三种 Promise 交付候选。195 项 Python、67 项 TypeScript 测试和存储读回通过。跨网络组合沿用逻辑服务配置；服务端接受连接到会话 channel 的来源、iframe 返回包装和 API 解包继续实施，D03、D05 随整链验收。
 
 ## 当前选型方向
 

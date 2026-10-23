@@ -70,6 +70,7 @@ flowchart TD
 | [P3 响应回调与 Promise](experiments/2026-10-23-p3/response-callbacks.md) | 回调表、查找键、闭包与成功/失败交付，保留项目切换条件 |
 | [P3 请求编号关联](experiments/2026-10-23-p3/request-correlation.md) | 发送字段、C++ 解码/复制/序列化和响应查找键的来源关系 |
 | [P3 C++ 响应发送](experiments/2026-10-23-p3/transmission.md) | JSON 字符串、按值捕获、延迟回调和 socket 发送参数，保留编码分支缺口 |
+| [P3 socket 接收绑定](experiments/2026-10-23-p3/socket-receivers.md) | 原生创建、发送字段、接收函数及事件参数到回调表的来源关系 |
 | [下一轮实验](experiments/README.md) | 如何公平比较，优先验证哪些问题 |
 | [讨论清单](docs/04-research-agenda.md) | 今天要逐项回答的问题与决策门槛 |
 | [资料来源](research/sources.md) | 论文、仓库、官方文档及固定版本 |
@@ -95,10 +96,11 @@ python scripts/check_p3_frontend_consumers.py
 python scripts/check_p3_response_callbacks.py
 python scripts/check_p3_request_correlation.py
 python scripts/check_p3_transmission.py
+python scripts/check_p3_socket_receivers.py
 python scripts/verify_case_sources.py --repo /path/to/msinsight
 ```
 
-前十四条检查文档、案例和实测证据的一致性，不重新核验文件哈希。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网。适配器测试需 `python -m pip install -r requirements-store.txt`，随后执行 `python -m unittest discover -s tests -v`；TS 测试执行 `npm ci --ignore-scripts --no-audit --no-fund` 和 `npm test`。源码构图和查询见 [P1 复现步骤](experiments/2026-10-23-p1-completion/reproduce.md)。
+前十五条检查文档、案例和实测证据的一致性，不重新核验文件哈希。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网。适配器测试需 `python -m pip install -r requirements-store.txt`，随后执行 `python -m unittest discover -s tests -v`；TS 测试执行 `npm ci --ignore-scripts --no-audit --no-fund` 和 `npm test`。源码构图和查询见 [P1 复现步骤](experiments/2026-10-23-p1-completion/reproduce.md)。
 
 ## 协作原则
 

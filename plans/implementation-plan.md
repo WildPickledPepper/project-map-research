@@ -138,7 +138,7 @@ P1 原版对照包含 CBM、CGC、CodeGraph 三者；独立补充事实在 CGC �
 
 当前：**实施中，D01、D04 在所选源码范围通过**。容器迭代器、模板参数、提前退出与 switch 入口已补入数据库候选说明；共享状态可按源对象双向查询，完整图存储生命周期通过。继续完成 D02 响应字段生产/消费、D03 返回字段反查、D05 统一路径说明。证据和复现见 [P3 实施记录](../experiments/2026-10-23-p3/README.md)。
 
-D02 已连接七处字段写入、响应对象和序列化，并在 API 返回值一侧提取两个入口的字段消费、两处连线状态赋值和四处请求完成后更新。两张回调表、五条 Promise 交付候选及请求编号来源可查，见 [编号关联证据](../experiments/2026-10-23-p3/request-correlation.md)。最新 [C++ 响应发送增量](../experiments/2026-10-23-p3/transmission.md)已将四个响应出口经 JSON 字符串、显式捕获和延迟回调接到 socket 发送参数，得到 12 条带编码分支条件的来源路径。150 文件输入，190 项 Python、53 项 TypeScript 测试及存储读回通过；Windows GBK 转换保留来源缺口。D02 继续连接端点对应、iframe 返回包装和业务 API 解包，D03、D05 随整链验收。
+D02 已恢复字段生产与序列化、前端消费、回调与编号来源，以及 C++ JSON 到 socket 的发送过程，见 [编号关联](../experiments/2026-10-23-p3/request-correlation.md)和 [C++ 发送证据](../experiments/2026-10-23-p3/transmission.md)。最新 [socket 接收绑定增量](../experiments/2026-10-23-p3/socket-receivers.md)将原生 socket 创建、发送字段、业务 onmessage 绑定和事件参数连接到响应回调表，组合首链四个后端响应出口及三种 Promise 交付候选。195 项 Python、67 项 TypeScript 测试和存储读回通过。跨网络组合沿用逻辑服务配置；服务端接受连接到会话 channel 的来源、iframe 返回包装和 API 解包继续实施，D03、D05 随整链验收。
 
 输入：P2 关系。产物：首链完整静态查询、字段/状态传播记录、间接耦合样例、反向查询和条件清单。
 
