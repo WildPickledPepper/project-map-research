@@ -59,7 +59,7 @@ class CppDataTests(unittest.TestCase):
         self.assertEqual({a['type_spelling'] for a in callbacks},{'X','Y'})
         self.assertTrue(all(a['enclosing_allocation'] for a in callbacks))
         self.assertEqual({a['conditions'][0]['label'] for a in callbacks},{'1','default'})
-        self.assertTrue(all(a['conditions'][0]['fallthrough']=='not_evaluated' for a in callbacks))
+        self.assertTrue(all(a['conditions'][0]['entry_labels']==[a['conditions'][0]['label']] for a in callbacks))
 
     def test_else_polarity_and_deletion_are_preserved(self):
         source='struct S{std::map<int,int> map;void run(bool yes){if(yes){map[1]=2;}else{map.erase(1);}}};'

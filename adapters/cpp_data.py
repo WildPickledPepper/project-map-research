@@ -8,6 +8,7 @@ import re
 
 from adapters.cpp_facts import Extractor, declared_name, parameter_type, scoped_name
 from adapters.syntax_supplement import cpp_scope, identity, parents, text, walk
+from adapters.cpp_control import predicates
 
 
 def canonical(name):
@@ -31,25 +32,6 @@ def arguments(node):
 
 def enclosing_function(node):
     return next((p for p in parents(node) if p.type in {'function_definition','lambda_expression'}),None)
-
-
-def predicates(node):
-    """Retain then/else, ternary and switch label polarity and source position."""
-    result=[]
-    for parent in reversed(list(parents(node))):
-        if parent.type in {'if_statement','conditional_expression'}:
-            condition=parent.child_by_field_name('condition');yes=parent.child_by_field_name('consequence');no=parent.child_by_field_name('alternative')
-            branch=True if yes and yes.start_byte<=node.start_byte<yes.end_byte else False if no and no.start_byte<=node.start_byte<no.end_byte else None
-            if branch is not None:result.append({'kind':'branch','expression':text(condition),'when':branch,'line':condition.start_point[0]+1})
-        elif parent.type=='case_statement':
-            switch=next((p for p in parents(parent) if p.type=='switch_statement'),None)
-            if switch:
-                condition=switch.child_by_field_name('condition');value=parent.child_by_field_name('value')
-                result.append({'kind':'switch_label','expression':text(condition),'label':text(value) if value else 'default',
-                               'line':parent.start_point[0]+1,'fallthrough':'not_evaluated'})
-        elif parent.type.startswith('preproc_if'):
-            result.append({'kind':'preprocessor','expression':text(parent).splitlines()[0],'line':parent.start_point[0]+1})
-    return result
 
 
 class DataExtractor:
@@ -256,7 +238,7 @@ class DataExtractor:
             'accesses':self.accesses,'allocations':self.allocations,'selections':self.selections,'summaries':self.summaries,
             'callbacks':self.callbacks,
             'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',
-                'bounded_expression_dependencies','switch_fallthrough_not_evaluated','branch_predicates_are_lexical_not_complete_path_conditions']}}
+                'bounded_expression_dependencies','switch_entries_are_source_candidates','exceptions_goto_and_path_feasibility_not_solved']}}
 
 
 def analyze_data(sources,parser):return DataExtractor(sources,parser).build()
