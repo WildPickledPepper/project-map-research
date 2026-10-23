@@ -1,0 +1,464 @@
+{
+  "schema_version": 1,
+  "tool": {
+    "url": "https://github.com/abbaing/code-map",
+    "commit": "d57c92bda4c3b1f62be8d2e75c9a45dddd430bb4",
+    "version": "0.1.0",
+    "license": "AGPL-3.0-only"
+  },
+  "source": {
+    "url": "https://gitcode.com/Ascend/msinsight",
+    "commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688"
+  },
+  "environment": {
+    "os": "Windows",
+    "os_release": "10",
+    "python": "3.11.9",
+    "node": "v22.23.3"
+  },
+  "execution": {
+    "llm_calls": false,
+    "gui_or_server_started": false,
+    "runtime_links_used": false,
+    "upstream_modified": false,
+    "source_checkout_modified": false,
+    "mode": "scan-only; explicit full rescans"
+  },
+  "runs": [
+    {
+      "name": "insight-auto",
+      "exit_code": 0,
+      "seconds": 0.317,
+      "command": "node <code-map>/cli.mjs --scan",
+      "cwd": "fixtures/insight"
+    },
+    {
+      "name": "insight-explicit",
+      "exit_code": 0,
+      "seconds": 0.452,
+      "command": "node <code-map>/cli.mjs --scan --config explicit.project-map.json",
+      "cwd": "fixtures/insight"
+    },
+    {
+      "name": "insight-query-export",
+      "exit_code": 0,
+      "seconds": 0.363
+    },
+    {
+      "name": "insight-submap-inspect",
+      "exit_code": 0,
+      "seconds": 0.308
+    },
+    {
+      "name": "insight-missing-handler-query",
+      "exit_code": 3,
+      "seconds": 0.331
+    },
+    {
+      "name": "insight-mutated",
+      "exit_code": 0,
+      "seconds": 0.447,
+      "command": "node <code-map>/cli.mjs --scan --config explicit.project-map.json",
+      "cwd": "fixtures/insight"
+    },
+    {
+      "name": "http-baseline",
+      "exit_code": 0,
+      "seconds": 0.338,
+      "command": "node <code-map>/cli.mjs --scan --config explicit.project-map.json",
+      "cwd": "fixtures/http-controls"
+    },
+    {
+      "name": "http-provider-deleted",
+      "exit_code": 0,
+      "seconds": 0.327,
+      "command": "node <code-map>/cli.mjs --scan --config explicit.project-map.json",
+      "cwd": "fixtures/http-controls"
+    },
+    {
+      "name": "http-path-changed",
+      "exit_code": 0,
+      "seconds": 0.34,
+      "command": "node <code-map>/cli.mjs --scan --config explicit.project-map.json",
+      "cwd": "fixtures/http-controls"
+    },
+    {
+      "name": "http-final-clean",
+      "exit_code": 0,
+      "seconds": 0.33,
+      "command": "node <code-map>/cli.mjs --scan --config explicit.project-map.json",
+      "cwd": "fixtures/http-final-clean"
+    }
+  ],
+  "checks": {
+    "insight_semantic_graph_unchanged_after_cpp_mutation": true,
+    "http_final_graph_matches_clean_rebuild": true,
+    "cpp_paths_in_slice_after_mutation": [
+      "server/msinsight/src/base/BaseModule.cpp",
+      "server/msinsight/src/base/ModuleRequestHandler.cpp",
+      "server/src/modules/defs/ProtocolDefs.h",
+      "server/src/modules/ModuleManager.cpp",
+      "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+      "server/src/modules/timeline/core/database/DataBaseManager.h",
+      "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+      "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+      "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+      "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+      "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+      "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+      "server/src/modules/timeline/TimelineModule.cpp"
+    ],
+    "cpp_nodes_in_explicit_graph": [],
+    "insight_business_token_in_graph": false,
+    "anchor_file_presence": [
+      {
+        "id": "frontend-request",
+        "path": "modules/timeline/src/api/request.ts",
+        "in_slice": true,
+        "in_explicit_graph": true
+      },
+      {
+        "id": "request-binding",
+        "path": "modules/timeline/src/bootstrap.tsx",
+        "in_slice": true,
+        "in_explicit_graph": true
+      },
+      {
+        "id": "request-wrapper",
+        "path": "modules/lib/src/utils/Request.ts",
+        "in_slice": true,
+        "in_explicit_graph": true
+      },
+      {
+        "id": "client-send",
+        "path": "modules/lib/src/connection/index.ts",
+        "in_slice": true,
+        "in_explicit_graph": true
+      },
+      {
+        "id": "protocol-value",
+        "path": "server/src/modules/defs/ProtocolDefs.h",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "handler-registration",
+        "path": "server/src/modules/timeline/TimelineModule.cpp",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "module-dispatch",
+        "path": "server/src/modules/ModuleManager.cpp",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "command-lookup",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "database-call",
+        "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "database-type",
+        "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "database-interface",
+        "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "db-implementation",
+        "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "text-implementation",
+        "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "in_slice": true,
+        "in_explicit_graph": false
+      },
+      {
+        "id": "old-response-condition",
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "in_slice": true,
+        "in_explicit_graph": true
+      },
+      {
+        "id": "outdated-request",
+        "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+        "in_slice": true,
+        "in_explicit_graph": false
+      }
+    ]
+  },
+  "unverified": [
+    "GUI trace rendering",
+    "watch/continuous updates",
+    "runtime behavior/scenarios",
+    "full target repository",
+    "custom C++ plugin",
+    "target implementation selection and dataflow",
+    "rapid commits/failure retry/cross-version snapshots"
+  ],
+  "query_diagnostic": {
+    "error": {
+      "code": "SUBMAP_SEED_NOT_FOUND",
+      "message": "An explicit selector references nodes absent from the source graph.",
+      "details": {
+        "nodeIds": [
+          "file:server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+        ]
+      }
+    }
+  },
+  "scans": {
+    "insight-auto": {
+      "nodes": 0,
+      "edges": 0,
+      "node_types": {},
+      "edge_types": {},
+      "warnings": [
+        "Static analysis is heuristic. Configure project.runtimeLinks to add runtime-only relationships."
+      ]
+    },
+    "insight-explicit": {
+      "nodes": 24,
+      "edges": 20,
+      "node_types": {
+        "auxiliary": 23,
+        "component": 1
+      },
+      "edge_types": {
+        "imports": 20
+      },
+      "warnings": [
+        "Static analysis is heuristic. Configure project.runtimeLinks to add runtime-only relationships."
+      ]
+    },
+    "insight-mutated": {
+      "nodes": 24,
+      "edges": 20,
+      "node_types": {
+        "auxiliary": 23,
+        "component": 1
+      },
+      "edge_types": {
+        "imports": 20
+      },
+      "warnings": [
+        "Static analysis is heuristic. Configure project.runtimeLinks to add runtime-only relationships."
+      ]
+    },
+    "http-baseline": {
+      "nodes": 9,
+      "edges": 12,
+      "node_types": {
+        "endpoint": 5,
+        "controller": 2,
+        "auxiliary": 2
+      },
+      "edge_types": {
+        "handled-by": 4,
+        "resolved-controller": 3,
+        "calls-api": 4,
+        "imports": 1
+      },
+      "warnings": [
+        "Static analysis is heuristic. Configure project.runtimeLinks to add runtime-only relationships."
+      ]
+    },
+    "http-provider-deleted": {
+      "nodes": 8,
+      "edges": 10,
+      "node_types": {
+        "endpoint": 5,
+        "controller": 1,
+        "auxiliary": 2
+      },
+      "edge_types": {
+        "handled-by": 3,
+        "resolved-controller": 2,
+        "calls-api": 4,
+        "imports": 1
+      },
+      "warnings": [
+        "Static analysis is heuristic. Configure project.runtimeLinks to add runtime-only relationships."
+      ]
+    },
+    "http-path-changed": {
+      "nodes": 9,
+      "edges": 9,
+      "node_types": {
+        "endpoint": 6,
+        "controller": 1,
+        "auxiliary": 2
+      },
+      "edge_types": {
+        "handled-by": 3,
+        "resolved-controller": 1,
+        "calls-api": 4,
+        "imports": 1
+      },
+      "warnings": [
+        "Static analysis is heuristic. Configure project.runtimeLinks to add runtime-only relationships."
+      ]
+    },
+    "http-final-clean": {
+      "nodes": 9,
+      "edges": 9,
+      "node_types": {
+        "endpoint": 6,
+        "controller": 1,
+        "auxiliary": 2
+      },
+      "edge_types": {
+        "handled-by": 3,
+        "resolved-controller": 1,
+        "calls-api": 4,
+        "imports": 1
+      },
+      "warnings": [
+        "Static analysis is heuristic. Configure project.runtimeLinks to add runtime-only relationships."
+      ]
+    }
+  },
+  "auto_detected_roots": {
+    "frontend": "src"
+  },
+  "explicit_roots": {
+    "frontend": "modules",
+    "backend": "server"
+  },
+  "query_export": {
+    "selector": "file:modules/timeline/src/api/request.ts",
+    "direction": "both",
+    "depth": 3,
+    "node_ids": [
+      "file:modules/lib/index.ts",
+      "file:modules/timeline/src/api/interface.ts",
+      "file:modules/timeline/src/api/request.ts",
+      "file:modules/timeline/src/bootstrap.tsx",
+      "file:modules/timeline/src/components/FilterLinkLine.tsx",
+      "file:modules/timeline/src/connection/baseline.ts",
+      "file:modules/timeline/src/connection/defs.ts",
+      "file:modules/timeline/src/connection/handler.ts",
+      "file:modules/timeline/src/connection/index.ts",
+      "file:modules/timeline/src/insight/units/AscendUnit.tsx"
+    ]
+  },
+  "http_baseline": {
+    "endpoints": [
+      {
+        "id": "endpoint:GET /api/absent",
+        "backend": null
+      },
+      {
+        "id": "endpoint:GET /api/items",
+        "backend": {
+          "action": "Items",
+          "controller": "ItemsController",
+          "path": "backend/ServiceA/Controllers/ItemsController.cs"
+        }
+      },
+      {
+        "id": "endpoint:GET /api/onlyget",
+        "backend": {
+          "action": "OnlyGet",
+          "controller": "ItemsController",
+          "path": "backend/ServiceA/Controllers/ItemsController.cs"
+        }
+      },
+      {
+        "id": "endpoint:GET /api/shared",
+        "backend": {
+          "action": "Shared",
+          "controller": "SharedController",
+          "path": "backend/ServiceB/Controllers/SharedController.cs"
+        }
+      },
+      {
+        "id": "endpoint:POST /api/onlyget",
+        "backend": null
+      }
+    ],
+    "edges": [
+      {
+        "from": "endpoint:GET /api/items",
+        "to": "file:backend/ServiceA/Controllers/ItemsController.cs",
+        "type": "handled-by"
+      },
+      {
+        "from": "endpoint:GET /api/items",
+        "to": "file:backend/ServiceA/Controllers/ItemsController.cs",
+        "type": "resolved-controller"
+      },
+      {
+        "from": "endpoint:GET /api/onlyget",
+        "to": "file:backend/ServiceA/Controllers/ItemsController.cs",
+        "type": "handled-by"
+      },
+      {
+        "from": "endpoint:GET /api/shared",
+        "to": "file:backend/ServiceA/Controllers/ItemsController.cs",
+        "type": "handled-by"
+      },
+      {
+        "from": "endpoint:GET /api/shared",
+        "to": "file:backend/ServiceB/Controllers/SharedController.cs",
+        "type": "handled-by"
+      },
+      {
+        "from": "endpoint:GET /api/shared",
+        "to": "file:backend/ServiceA/Controllers/ItemsController.cs",
+        "type": "resolved-controller"
+      },
+      {
+        "from": "endpoint:GET /api/shared",
+        "to": "file:backend/ServiceB/Controllers/SharedController.cs",
+        "type": "resolved-controller"
+      },
+      {
+        "from": "file:src/api.ts",
+        "to": "endpoint:GET /api/absent",
+        "type": "calls-api"
+      },
+      {
+        "from": "file:src/api.ts",
+        "to": "endpoint:GET /api/items",
+        "type": "calls-api"
+      },
+      {
+        "from": "file:src/api.ts",
+        "to": "endpoint:GET /api/shared",
+        "type": "calls-api"
+      },
+      {
+        "from": "file:src/api.ts",
+        "to": "endpoint:POST /api/onlyget",
+        "type": "calls-api"
+      }
+    ]
+  },
+  "http_deletion_removed": {
+    "node_ids": [
+      "file:backend/ServiceB/Controllers/SharedController.cs"
+    ],
+    "edge_ids": [
+      "endpoint:GET /api/shared::handled-by::file:backend/ServiceB/Controllers/SharedController.cs",
+      "endpoint:GET /api/shared::resolved-controller::file:backend/ServiceB/Controllers/SharedController.cs"
+    ]
+  }
+}

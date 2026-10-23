@@ -1,0 +1,54 @@
+{
+  "evidence_type": "coordinator_executed_published_runners_in_new_external_directories",
+  "date": "2026-10-23",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "runner_changes": "Require explicit/new external output paths, verify clean pinned checkouts, and check code-map anchor presence against the initial slice manifest; upstream tools unchanged.",
+  "codegraph": {
+    "selected_evidence_fields_identical": {
+      "provenance": true,
+      "input": true,
+      "counts": true,
+      "slice": true,
+      "cpp_fixture": true,
+      "update": true
+    },
+    "full_index_seconds": 0.2218,
+    "update_comparison": {
+      "edges_identical": false,
+      "nodes_identical": false,
+      "comparison": "CLI SQL rows ordered by ids; semantic nodes and edges, excludes metrics/meta/cache bytes"
+    },
+    "methodology": "Exact comparison of native symbol/call evidence, counts, provenance, fixture parser rows and update delta; not a bytewise database comparison."
+  },
+  "code-map": {
+    "selected_evidence_fields_identical": {
+      "tool": true,
+      "source": true,
+      "execution": true,
+      "checks": true,
+      "scans": true,
+      "auto_detected_roots": true,
+      "explicit_roots": true,
+      "query_export": true,
+      "http_baseline": true,
+      "http_deletion_removed": true,
+      "query_diagnostic": true
+    },
+    "explicit_scan_seconds": 0.488,
+    "scan_invocations": 7,
+    "native_missing_seed_exit": {
+      "error": {
+        "code": "SUBMAP_SEED_NOT_FOUND",
+        "message": "An explicit selector references nodes absent from the source graph.",
+        "details": {
+          "nodeIds": [
+            "file:server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+          ]
+        }
+      }
+    },
+    "methodology": "Exact comparison of compact graph summaries, relevant nodes/edges, diagnostics and explicit-rescan checks; measured durations excluded."
+  },
+  "all_reference_anchors_in_each_slice": 15,
+  "no_llm_gui_or_target_application_execution": true
+}

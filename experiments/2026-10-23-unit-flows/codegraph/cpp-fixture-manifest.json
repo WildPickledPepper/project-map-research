@@ -1,0 +1,17 @@
+[
+  {
+    "path": "sample.cpp",
+    "bytes": 222,
+    "sha256": "b797711107547847f1cce637103bafdc8f9dd04be989e0b6a1f3ad4e59da2ee8"
+  },
+  {
+    "path": "sample.h",
+    "bytes": 67,
+    "sha256": "9b2be6cccb98b377abaa67cf53466dbb341f541e3be91cff81f6b8380c5e13ee"
+  },
+  {
+    "path": "sample.hpp",
+    "bytes": 61,
+    "sha256": "8adc48e47891ec6c3fe86ff644384a27569c622f722e75e7043852f9dae6b2fa"
+  }
+]

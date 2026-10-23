@@ -1,0 +1,5 @@
+{
+  "edges_identical": false,
+  "nodes_identical": false,
+  "comparison": "CLI SQL rows ordered by ids; semantic nodes and edges, excludes metrics/meta/cache bytes"
+}

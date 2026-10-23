@@ -1,0 +1,39 @@
+{
+  "files": [
+    {
+      "path": "backend/ServiceA/Controllers/ItemsController.cs",
+      "bytes": 300,
+      "sha256": "3a1c918df77a9e65f6638e2fbb32a049211435e977982814bcbb078655da81c0"
+    },
+    {
+      "path": "backend/ServiceA/ServiceA.csproj",
+      "bytes": 119,
+      "sha256": "65bdabbe864ecddd27667bc07133e331bca64c9828e7617e2fa5960b13b484b7"
+    },
+    {
+      "path": "backend/ServiceB/Controllers/SharedController.cs",
+      "bytes": 193,
+      "sha256": "e6950f76c066a45b3bbd51b40c8cde4a2e0ed5ad9861b8aaac9b656299cabae0"
+    },
+    {
+      "path": "backend/ServiceB/ServiceB.csproj",
+      "bytes": 119,
+      "sha256": "65bdabbe864ecddd27667bc07133e331bca64c9828e7617e2fa5960b13b484b7"
+    },
+    {
+      "path": "package.json",
+      "bytes": 62,
+      "sha256": "a44d6178b1725e17b975e9e67bb4526d51db7795d14c4a59a4eee94d12628dd7"
+    },
+    {
+      "path": "src/api.ts",
+      "bytes": 392,
+      "sha256": "8e8c81777f2f06c364a03fb277e564dd607ca3284e0f8f28ba45670ac61b144d"
+    },
+    {
+      "path": "src/App.tsx",
+      "bytes": 121,
+      "sha256": "967650cb3bb7c92a49bbc8c2b534f9baff437867305ed67d62cfc5c053b86c8b"
+    }
+  ]
+}

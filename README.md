@@ -48,6 +48,7 @@ flowchart TD
 | [动态行为与审查](docs/03-runtime-and-review.md) | 状态、时序、追踪、场景和回归验证 |
 | [工具调查](research/tools.md) | 已实测工具、源码核对候选、许可证与限制 |
 | [已有实测记录](research/experiments/2026-10-23.md) | Windows 试验的版本、结果和证据边界 |
+| [CodeGraph / code-map 新实测](experiments/2026-10-23-unit-flows/README.md) | 原版能连接到哪里、HTTP 对照、更新差异、证据与复现脚本 |
 | [下一轮实验](experiments/README.md) | 如何公平比较，优先验证哪些问题 |
 | [讨论清单](docs/04-research-agenda.md) | 今天要逐项回答的问题与决策门槛 |
 | [资料来源](research/sources.md) | 论文、仓库、官方文档及固定版本 |
@@ -60,10 +61,11 @@ flowchart TD
 
 ```sh
 python scripts/check_research.py
+python scripts/check_trial_evidence.py
 python scripts/verify_case_sources.py --repo /path/to/msinsight
 ```
 
-第一条检查文档内部链接和案例记录。第二条在固定提交的本地 Insight checkout 中核实案例锚点；不执行 Insight，不联网，也不构建完整调用图。
+前两条检查文档、案例和新实测证据的一致性。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网，也不构建完整调用图。实际工具复现步骤见新实测文档。
 
 ## 协作原则
 

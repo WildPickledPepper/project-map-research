@@ -1,0 +1,60 @@
+{
+  "comparison": "incremental query-healed final fixture versus forced-full index of identical final source",
+  "only_in_incremental_edges": [
+    {
+      "data": {
+        "confidence": "Extracted",
+        "dst": "route._shared.GET",
+        "metadata": {},
+        "relation": "Defines",
+        "src": "http_fixture.frontend.client_ts",
+        "src_file": "frontend/client.ts",
+        "src_line": 5,
+        "tier": "TreeSitter"
+      },
+      "dst": "route._shared.GET",
+      "relation": "Defines",
+      "src": "http_fixture.frontend.client_ts"
+    }
+  ],
+  "only_in_full_edges": [
+    {
+      "data": {
+        "confidence": "Extracted",
+        "dst": "route._shared.GET",
+        "metadata": {},
+        "relation": "Defines",
+        "src": "http_fixture.service_b.routes_py",
+        "src_file": "service-b/routes.py",
+        "src_line": 5,
+        "tier": "TreeSitter"
+      },
+      "dst": "route._shared.GET",
+      "relation": "Defines",
+      "src": "http_fixture.service_b.routes_py"
+    }
+  ],
+  "changed_node_rows": [
+    {
+      "id": "route._shared.GET",
+      "incremental": {
+        "id": "route._shared.GET",
+        "name": "GET /shared",
+        "label": "Route",
+        "file_path": "frontend/client.ts",
+        "line_start": "5",
+        "line_end": "5"
+      },
+      "full": {
+        "id": "route._shared.GET",
+        "name": "GET /shared",
+        "label": "Route",
+        "file_path": "service-b/routes.py",
+        "line_start": "5",
+        "line_end": "5"
+      }
+    }
+  ],
+  "Calls_and_HttpCalls_rows_identical": true,
+  "interpretation": "In this fixture the surviving shared hub changes file ownership and its Defines relation endpoint; call/HTTP-call rows remain equal. This is a structural and source-location difference, not solely a metrics/metadata difference."
+}

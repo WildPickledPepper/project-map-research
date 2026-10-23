@@ -11,3 +11,4 @@ jobs:
         with:
           python-version: '3.11'
       - run: python scripts/check_research.py
+      - run: python scripts/check_trial_evidence.py

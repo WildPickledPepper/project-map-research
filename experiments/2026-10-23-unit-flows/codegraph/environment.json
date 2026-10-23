@@ -1,0 +1,9 @@
+{
+  "os": "Windows-10-10.0.26200-SP0",
+  "python": "3.11.9",
+  "execution": "original official x64 release binary; no GUI; no LLM; no SCIP/compiler oracle; process-local cache override",
+  "environment_overrides": {
+    "CODEGRAPH_CACHE_DIR": "<output>/cache",
+    "CODEGRAPH_AUTO_SCIP": "0"
+  }
+}

@@ -1,0 +1,1610 @@
+[
+  {
+    "label": "version",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "--version"
+    ],
+    "elapsed_seconds": 0.0154,
+    "exit_code": 0,
+    "stdout": "raw/version.stdout.txt",
+    "stderr": "raw/version.stderr.txt"
+  },
+  {
+    "label": "tag-commit",
+    "command": [
+      "git",
+      "-C",
+      "<workspace>\\work\\repo-map-research\\CodeGraph-new",
+      "rev-list",
+      "-n",
+      "1",
+      "v1.39.0"
+    ],
+    "elapsed_seconds": 0.025,
+    "exit_code": 0,
+    "stdout": "raw/tag-commit.stdout.txt",
+    "stderr": "raw/tag-commit.stderr.txt"
+  },
+  {
+    "label": "slice-index",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "index",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice",
+      "--full"
+    ],
+    "elapsed_seconds": 0.2271,
+    "exit_code": 0,
+    "stdout": "raw/slice-index.stdout.txt",
+    "stderr": "raw/slice-index.stderr.txt"
+  },
+  {
+    "label": "slice-routes",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "routes",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0496,
+    "exit_code": 0,
+    "stdout": "raw/slice-routes.stdout.txt",
+    "stderr": "raw/slice-routes.stderr.txt"
+  },
+  {
+    "label": "slice-search-getUnitFlows",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "getUnitFlows",
+      "--limit",
+      "50",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0461,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-getUnitFlows.stdout.txt",
+    "stderr": "raw/slice-search-getUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-search-REQ_RES_UNIT_FLOWS",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "REQ_RES_UNIT_FLOWS",
+      "--limit",
+      "50",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0476,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-REQ_RES_UNIT_FLOWS.stdout.txt",
+    "stderr": "raw/slice-search-REQ_RES_UNIT_FLOWS.stderr.txt"
+  },
+  {
+    "label": "slice-search-QueryFlowsBySliceInfoHandler",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "QueryFlowsBySliceInfoHandler",
+      "--limit",
+      "50",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0455,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-QueryFlowsBySliceInfoHandler.stdout.txt",
+    "stderr": "raw/slice-search-QueryFlowsBySliceInfoHandler.stderr.txt"
+  },
+  {
+    "label": "slice-search-QueryUnitFlows",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "QueryUnitFlows",
+      "--limit",
+      "50",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0477,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-QueryUnitFlows.stdout.txt",
+    "stderr": "raw/slice-search-QueryUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-search-RegisterRequestHandlers",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "RegisterRequestHandlers",
+      "--limit",
+      "50",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0458,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-RegisterRequestHandlers.stdout.txt",
+    "stderr": "raw/slice-search-RegisterRequestHandlers.stderr.txt"
+  },
+  {
+    "label": "slice-search-OnRequest",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "OnRequest",
+      "--limit",
+      "50",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0499,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-OnRequest.stdout.txt",
+    "stderr": "raw/slice-search-OnRequest.stderr.txt"
+  },
+  {
+    "label": "slice-search-HandleRequest",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "HandleRequest",
+      "--limit",
+      "50",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.046,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-HandleRequest.stdout.txt",
+    "stderr": "raw/slice-search-HandleRequest.stderr.txt"
+  },
+  {
+    "label": "slice-callers-getUnitFlows",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "callers",
+      "getUnitFlows",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0458,
+    "exit_code": 0,
+    "stdout": "raw/slice-callers-getUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callers-getUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-callees-getUnitFlows",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "callees",
+      "getUnitFlows",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0495,
+    "exit_code": 0,
+    "stdout": "raw/slice-callees-getUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callees-getUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-callers-QueryUnitFlows",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "callers",
+      "QueryUnitFlows",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0506,
+    "exit_code": 0,
+    "stdout": "raw/slice-callers-QueryUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callers-QueryUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-callees-QueryUnitFlows",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "callees",
+      "QueryUnitFlows",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0494,
+    "exit_code": 0,
+    "stdout": "raw/slice-callees-QueryUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callees-QueryUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-implementers",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "implementers",
+      "VirtualTraceDatabase",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0483,
+    "exit_code": 0,
+    "stdout": "raw/slice-implementers.stdout.txt",
+    "stderr": "raw/slice-implementers.stderr.txt"
+  },
+  {
+    "label": "slice-trace-handler",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "trace",
+      "getUnitFlows",
+      "QueryFlowsBySliceInfoHandler",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0552,
+    "exit_code": 0,
+    "stdout": "raw/slice-trace-handler.stdout.txt",
+    "stderr": "raw/slice-trace-handler.stderr.txt"
+  },
+  {
+    "label": "slice-trace-database",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "trace",
+      "getUnitFlows",
+      "QueryUnitFlows",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.055,
+    "exit_code": 0,
+    "stdout": "raw/slice-trace-database.stdout.txt",
+    "stderr": "raw/slice-trace-database.stderr.txt"
+  },
+  {
+    "label": "slice-impact",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "impact",
+      "QueryUnitFlows",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0551,
+    "exit_code": 0,
+    "stdout": "raw/slice-impact.stdout.txt",
+    "stderr": "raw/slice-impact.stderr.txt"
+  },
+  {
+    "label": "slice-schema",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,sql FROM sqlite_master WHERE type='table'",
+      "--limit",
+      "100",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0492,
+    "exit_code": 0,
+    "stdout": "raw/slice-schema.stdout.txt",
+    "stderr": "raw/slice-schema.stderr.txt"
+  },
+  {
+    "label": "slice-counts",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT label,count(*) AS n FROM nodes GROUP BY label",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0478,
+    "exit_code": 0,
+    "stdout": "raw/slice-counts.stdout.txt",
+    "stderr": "raw/slice-counts.stderr.txt"
+  },
+  {
+    "label": "slice-relation-counts",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT relation,count(*) AS n FROM edges GROUP BY relation",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0501,
+    "exit_code": 0,
+    "stdout": "raw/slice-relation-counts.stdout.txt",
+    "stderr": "raw/slice-relation-counts.stderr.txt"
+  },
+  {
+    "label": "slice-named-nodes",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,label,file_path,line_start,data FROM nodes WHERE name LIKE '%UnitFlows%' OR name LIKE '%FlowsBySlice%' OR name='VirtualTraceDatabase' OR name='DbTraceDataBase' OR name='TextTraceDatabase'",
+      "--limit",
+      "100",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0471,
+    "exit_code": 0,
+    "stdout": "raw/slice-named-nodes.stdout.txt",
+    "stderr": "raw/slice-named-nodes.stderr.txt"
+  },
+  {
+    "label": "slice-named-edges",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT a.name AS source,a.file_path AS source_file,b.name AS target,b.file_path AS target_file,e.relation,e.data FROM edges e JOIN nodes a ON a.id=e.src JOIN nodes b ON b.id=e.dst WHERE a.name LIKE '%UnitFlows%' OR b.name LIKE '%UnitFlows%' OR a.file_path LIKE '%QueryFlowsBySliceInfoHandler%' OR b.file_path LIKE '%QueryFlowsBySliceInfoHandler%'",
+      "--limit",
+      "300",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0473,
+    "exit_code": 0,
+    "stdout": "raw/slice-named-edges.stdout.txt",
+    "stderr": "raw/slice-named-edges.stderr.txt"
+  },
+  {
+    "label": "slice-raw-calls",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT n.name,c.callee_name,c.file_path,c.line,c.receiver FROM calls c LEFT JOIN nodes n ON n.id=c.caller_id WHERE c.callee_name LIKE '%UnitFlows%' OR c.callee_name LIKE '%REQ_RES_UNIT_FLOWS%' OR n.name='getUnitFlows'",
+      "--limit",
+      "100",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0495,
+    "exit_code": 0,
+    "stdout": "raw/slice-raw-calls.stdout.txt",
+    "stderr": "raw/slice-raw-calls.stderr.txt"
+  },
+  {
+    "label": "http-index",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "index",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture",
+      "--full"
+    ],
+    "elapsed_seconds": 0.1188,
+    "exit_code": 0,
+    "stdout": "raw/http-index.stdout.txt",
+    "stderr": "raw/http-index.stderr.txt"
+  },
+  {
+    "label": "http-routes",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "routes",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0453,
+    "exit_code": 0,
+    "stdout": "raw/http-routes.stdout.txt",
+    "stderr": "raw/http-routes.stderr.txt"
+  },
+  {
+    "label": "http-all-edges",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT a.name AS source,a.file_path AS source_file,b.name AS target,b.file_path AS target_file,e.relation,e.data FROM edges e JOIN nodes a ON a.id=e.src JOIN nodes b ON b.id=e.dst",
+      "--limit",
+      "300",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0435,
+    "exit_code": 0,
+    "stdout": "raw/http-all-edges.stdout.txt",
+    "stderr": "raw/http-all-edges.stderr.txt"
+  },
+  {
+    "label": "http-route-nodes",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,file_path,data FROM nodes WHERE label='Route'",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0418,
+    "exit_code": 0,
+    "stdout": "raw/http-route-nodes.stdout.txt",
+    "stderr": "raw/http-route-nodes.stderr.txt"
+  },
+  {
+    "label": "http-trace-positive",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "trace",
+      "loadPositive",
+      "positive_handler",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0426,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-positive.stdout.txt",
+    "stderr": "raw/http-trace-positive.stderr.txt"
+  },
+  {
+    "label": "http-trace-positive-db",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "trace",
+      "loadPositive",
+      "db_positive",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0428,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-positive-db.stdout.txt",
+    "stderr": "raw/http-trace-positive-db.stderr.txt"
+  },
+  {
+    "label": "http-trace-same-a",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "trace",
+      "loadSamePathA",
+      "handler_a",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0425,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-same-a.stdout.txt",
+    "stderr": "raw/http-trace-same-a.stderr.txt"
+  },
+  {
+    "label": "http-trace-same-b",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "trace",
+      "loadSamePathA",
+      "handler_b",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0437,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-same-b.stdout.txt",
+    "stderr": "raw/http-trace-same-b.stderr.txt"
+  },
+  {
+    "label": "http-trace-method-negative",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "trace",
+      "loadPostNegative",
+      "handler_a",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0441,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-method-negative.stdout.txt",
+    "stderr": "raw/http-trace-method-negative.stderr.txt"
+  },
+  {
+    "label": "http-impact-positive",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "impact",
+      "positive_handler",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0449,
+    "exit_code": 0,
+    "stdout": "raw/http-impact-positive.stdout.txt",
+    "stderr": "raw/http-impact-positive.stderr.txt"
+  },
+  {
+    "label": "http-impact-a",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "impact",
+      "handler_a",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0461,
+    "exit_code": 0,
+    "stdout": "raw/http-impact-a.stdout.txt",
+    "stderr": "raw/http-impact-a.stderr.txt"
+  },
+  {
+    "label": "http-update-no-autoheal",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "--no-autoheal",
+      "search",
+      "loadSamePathA",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0185,
+    "exit_code": 0,
+    "stdout": "raw/http-update-no-autoheal.stdout.txt",
+    "stderr": "raw/http-update-no-autoheal.stderr.txt"
+  },
+  {
+    "label": "http-update-query-autoheal",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "search",
+      "loadSamePathA",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.1373,
+    "exit_code": 0,
+    "stdout": "raw/http-update-query-autoheal.stdout.txt",
+    "stderr": "raw/http-update-query-autoheal.stderr.txt"
+  },
+  {
+    "label": "http-update-routes",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "routes",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0428,
+    "exit_code": 0,
+    "stdout": "raw/http-update-routes.stdout.txt",
+    "stderr": "raw/http-update-routes.stderr.txt"
+  },
+  {
+    "label": "http-update-edges",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT src,dst,relation,data FROM edges ORDER BY src,dst,relation",
+      "--limit",
+      "300",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0434,
+    "exit_code": 0,
+    "stdout": "raw/http-update-edges.stdout.txt",
+    "stderr": "raw/http-update-edges.stderr.txt"
+  },
+  {
+    "label": "http-update-nodes",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,label,file_path,line_start,line_end FROM nodes ORDER BY id",
+      "--limit",
+      "300",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0437,
+    "exit_code": 0,
+    "stdout": "raw/http-update-nodes.stdout.txt",
+    "stderr": "raw/http-update-nodes.stderr.txt"
+  },
+  {
+    "label": "http-update-full",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "index",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture",
+      "--full"
+    ],
+    "elapsed_seconds": 0.1093,
+    "exit_code": 0,
+    "stdout": "raw/http-update-full.stdout.txt",
+    "stderr": "raw/http-update-full.stderr.txt"
+  },
+  {
+    "label": "http-rebuild-edges",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT src,dst,relation,data FROM edges ORDER BY src,dst,relation",
+      "--limit",
+      "300",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0442,
+    "exit_code": 0,
+    "stdout": "raw/http-rebuild-edges.stdout.txt",
+    "stderr": "raw/http-rebuild-edges.stderr.txt"
+  },
+  {
+    "label": "http-rebuild-nodes",
+    "command": [
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,label,file_path,line_start,line_end FROM nodes ORDER BY id",
+      "--limit",
+      "300",
+      "--path",
+      "<workspace>\\work\\repo-map-research\\results\\codegraph-unitflows\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0439,
+    "exit_code": 0,
+    "stdout": "raw/http-rebuild-nodes.stdout.txt",
+    "stderr": "raw/http-rebuild-nodes.stderr.txt"
+  },
+  {
+    "label": "slice-exact-symbols",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE name IN ('QueryUnitFlows','HandleRequest','OnRequest','RegisterRequestHandlers','REQ_RES_UNIT_FLOWS','DbTraceDataBase','TextTraceDatabase','VirtualTraceDatabase') ORDER BY name,file_path",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0476,
+    "exit_code": 0,
+    "stdout": "raw/slice-exact-symbols.stdout.txt",
+    "stderr": "raw/slice-exact-symbols.stderr.txt"
+  },
+  {
+    "label": "slice-handler-definitions",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE file_path LIKE '%QueryFlowsBySliceInfoHandler%'",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0505,
+    "exit_code": 0,
+    "stdout": "raw/slice-handler-definitions.stdout.txt",
+    "stderr": "raw/slice-handler-definitions.stderr.txt"
+  },
+  {
+    "label": "slice-db-file-definitions",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE file_path IN ('server/src/modules/timeline/core/database/DbTraceDataBase2.cpp','server/src/modules/timeline/core/database/TextTraceDatabase.cpp')",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0464,
+    "exit_code": 0,
+    "stdout": "raw/slice-db-file-definitions.stdout.txt",
+    "stderr": "raw/slice-db-file-definitions.stderr.txt"
+  },
+  {
+    "label": "slice-protocol-value-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE file_path='server/src/modules/defs/ProtocolDefs.h'",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0462,
+    "exit_code": 0,
+    "stdout": "raw/slice-protocol-value-nodes.stdout.txt",
+    "stderr": "raw/slice-protocol-value-nodes.stderr.txt"
+  },
+  {
+    "label": "slice-cpp-vs-c",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT language,label,count(*) AS n FROM nodes GROUP BY language,label",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0493,
+    "exit_code": 0,
+    "stdout": "raw/slice-cpp-vs-c.stdout.txt",
+    "stderr": "raw/slice-cpp-vs-c.stderr.txt"
+  },
+  {
+    "label": "http-trace-hub",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "loadPositive",
+      "GET /renamed",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0449,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-hub.stdout.txt",
+    "stderr": "raw/http-trace-hub.stderr.txt"
+  },
+  {
+    "label": "http-impact-shared-hub",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "impact",
+      "GET /shared",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0476,
+    "exit_code": 0,
+    "stdout": "raw/http-impact-shared-hub.stdout.txt",
+    "stderr": "raw/http-impact-shared-hub.stderr.txt"
+  },
+  {
+    "label": "http-absolute-callees",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "callees",
+      "loadAbsolute",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0461,
+    "exit_code": 0,
+    "stdout": "raw/http-absolute-callees.stdout.txt",
+    "stderr": "raw/http-absolute-callees.stderr.txt"
+  },
+  {
+    "label": "cpp-index",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "index",
+      "<output>\\cpp-fixture",
+      "--full"
+    ],
+    "elapsed_seconds": 0.1074,
+    "exit_code": 0,
+    "stdout": "raw/cpp-index.stdout.txt",
+    "stderr": "raw/cpp-index.stderr.txt"
+  },
+  {
+    "label": "cpp-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,language,file_path,line_start FROM nodes ORDER BY file_path,line_start",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\cpp-fixture"
+    ],
+    "elapsed_seconds": 0.0407,
+    "exit_code": 0,
+    "stdout": "raw/cpp-nodes.stdout.txt",
+    "stderr": "raw/cpp-nodes.stderr.txt"
+  },
+  {
+    "label": "version",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "--version"
+    ],
+    "elapsed_seconds": 0.0153,
+    "exit_code": 0,
+    "stdout": "raw/version.stdout.txt",
+    "stderr": "raw/version.stderr.txt"
+  },
+  {
+    "label": "tag-commit",
+    "command": [
+      "git",
+      "-C",
+      "<tool-repo>",
+      "rev-list",
+      "-n",
+      "1",
+      "v1.39.0"
+    ],
+    "elapsed_seconds": 0.0259,
+    "exit_code": 0,
+    "stdout": "raw/tag-commit.stdout.txt",
+    "stderr": "raw/tag-commit.stderr.txt"
+  },
+  {
+    "label": "slice-index",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "index",
+      "<output>\\unit-flows-slice",
+      "--full"
+    ],
+    "elapsed_seconds": 0.2603,
+    "exit_code": 0,
+    "stdout": "raw/slice-index.stdout.txt",
+    "stderr": "raw/slice-index.stderr.txt"
+  },
+  {
+    "label": "slice-routes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "routes",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0493,
+    "exit_code": 0,
+    "stdout": "raw/slice-routes.stdout.txt",
+    "stderr": "raw/slice-routes.stderr.txt"
+  },
+  {
+    "label": "slice-search-getUnitFlows",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "getUnitFlows",
+      "--limit",
+      "50",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0498,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-getUnitFlows.stdout.txt",
+    "stderr": "raw/slice-search-getUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-search-REQ_RES_UNIT_FLOWS",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "REQ_RES_UNIT_FLOWS",
+      "--limit",
+      "50",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0495,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-REQ_RES_UNIT_FLOWS.stdout.txt",
+    "stderr": "raw/slice-search-REQ_RES_UNIT_FLOWS.stderr.txt"
+  },
+  {
+    "label": "slice-search-QueryFlowsBySliceInfoHandler",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "QueryFlowsBySliceInfoHandler",
+      "--limit",
+      "50",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0484,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-QueryFlowsBySliceInfoHandler.stdout.txt",
+    "stderr": "raw/slice-search-QueryFlowsBySliceInfoHandler.stderr.txt"
+  },
+  {
+    "label": "slice-search-QueryUnitFlows",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "QueryUnitFlows",
+      "--limit",
+      "50",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0485,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-QueryUnitFlows.stdout.txt",
+    "stderr": "raw/slice-search-QueryUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-search-RegisterRequestHandlers",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "RegisterRequestHandlers",
+      "--limit",
+      "50",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0488,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-RegisterRequestHandlers.stdout.txt",
+    "stderr": "raw/slice-search-RegisterRequestHandlers.stderr.txt"
+  },
+  {
+    "label": "slice-search-OnRequest",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "OnRequest",
+      "--limit",
+      "50",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0473,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-OnRequest.stdout.txt",
+    "stderr": "raw/slice-search-OnRequest.stderr.txt"
+  },
+  {
+    "label": "slice-search-HandleRequest",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "HandleRequest",
+      "--limit",
+      "50",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0488,
+    "exit_code": 0,
+    "stdout": "raw/slice-search-HandleRequest.stdout.txt",
+    "stderr": "raw/slice-search-HandleRequest.stderr.txt"
+  },
+  {
+    "label": "slice-callers-getUnitFlows",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "callers",
+      "getUnitFlows",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0511,
+    "exit_code": 0,
+    "stdout": "raw/slice-callers-getUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callers-getUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-callees-getUnitFlows",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "callees",
+      "getUnitFlows",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0534,
+    "exit_code": 0,
+    "stdout": "raw/slice-callees-getUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callees-getUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-callers-QueryUnitFlows",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "callers",
+      "QueryUnitFlows",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0528,
+    "exit_code": 0,
+    "stdout": "raw/slice-callers-QueryUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callers-QueryUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-callees-QueryUnitFlows",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "callees",
+      "QueryUnitFlows",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0584,
+    "exit_code": 0,
+    "stdout": "raw/slice-callees-QueryUnitFlows.stdout.txt",
+    "stderr": "raw/slice-callees-QueryUnitFlows.stderr.txt"
+  },
+  {
+    "label": "slice-implementers",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "implementers",
+      "VirtualTraceDatabase",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0527,
+    "exit_code": 0,
+    "stdout": "raw/slice-implementers.stdout.txt",
+    "stderr": "raw/slice-implementers.stderr.txt"
+  },
+  {
+    "label": "slice-trace-handler",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "getUnitFlows",
+      "QueryFlowsBySliceInfoHandler",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0544,
+    "exit_code": 0,
+    "stdout": "raw/slice-trace-handler.stdout.txt",
+    "stderr": "raw/slice-trace-handler.stderr.txt"
+  },
+  {
+    "label": "slice-trace-database",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "getUnitFlows",
+      "QueryUnitFlows",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0567,
+    "exit_code": 0,
+    "stdout": "raw/slice-trace-database.stdout.txt",
+    "stderr": "raw/slice-trace-database.stderr.txt"
+  },
+  {
+    "label": "slice-impact",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "impact",
+      "QueryUnitFlows",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0533,
+    "exit_code": 0,
+    "stdout": "raw/slice-impact.stdout.txt",
+    "stderr": "raw/slice-impact.stderr.txt"
+  },
+  {
+    "label": "slice-schema",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,sql FROM sqlite_master WHERE type='table'",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0507,
+    "exit_code": 0,
+    "stdout": "raw/slice-schema.stdout.txt",
+    "stderr": "raw/slice-schema.stderr.txt"
+  },
+  {
+    "label": "slice-counts",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT label,count(*) AS n FROM nodes GROUP BY label",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0476,
+    "exit_code": 0,
+    "stdout": "raw/slice-counts.stdout.txt",
+    "stderr": "raw/slice-counts.stderr.txt"
+  },
+  {
+    "label": "slice-relation-counts",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT relation,count(*) AS n FROM edges GROUP BY relation",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0466,
+    "exit_code": 0,
+    "stdout": "raw/slice-relation-counts.stdout.txt",
+    "stderr": "raw/slice-relation-counts.stderr.txt"
+  },
+  {
+    "label": "slice-named-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,label,file_path,line_start,data FROM nodes WHERE name LIKE '%UnitFlows%' OR name LIKE '%FlowsBySlice%' OR name='VirtualTraceDatabase' OR name='DbTraceDataBase' OR name='TextTraceDatabase'",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0471,
+    "exit_code": 0,
+    "stdout": "raw/slice-named-nodes.stdout.txt",
+    "stderr": "raw/slice-named-nodes.stderr.txt"
+  },
+  {
+    "label": "slice-named-edges",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT a.name AS source,a.file_path AS source_file,b.name AS target,b.file_path AS target_file,e.relation,e.data FROM edges e JOIN nodes a ON a.id=e.src JOIN nodes b ON b.id=e.dst WHERE a.name LIKE '%UnitFlows%' OR b.name LIKE '%UnitFlows%' OR a.file_path LIKE '%QueryFlowsBySliceInfoHandler%' OR b.file_path LIKE '%QueryFlowsBySliceInfoHandler%'",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0483,
+    "exit_code": 0,
+    "stdout": "raw/slice-named-edges.stdout.txt",
+    "stderr": "raw/slice-named-edges.stderr.txt"
+  },
+  {
+    "label": "slice-raw-calls",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT n.name,c.callee_name,c.file_path,c.line,c.receiver FROM calls c LEFT JOIN nodes n ON n.id=c.caller_id WHERE c.callee_name LIKE '%UnitFlows%' OR c.callee_name LIKE '%REQ_RES_UNIT_FLOWS%' OR n.name='getUnitFlows'",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.056,
+    "exit_code": 0,
+    "stdout": "raw/slice-raw-calls.stdout.txt",
+    "stderr": "raw/slice-raw-calls.stderr.txt"
+  },
+  {
+    "label": "http-index",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "index",
+      "<output>\\http-fixture",
+      "--full"
+    ],
+    "elapsed_seconds": 0.1138,
+    "exit_code": 0,
+    "stdout": "raw/http-index.stdout.txt",
+    "stderr": "raw/http-index.stderr.txt"
+  },
+  {
+    "label": "http-routes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "routes",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0487,
+    "exit_code": 0,
+    "stdout": "raw/http-routes.stdout.txt",
+    "stderr": "raw/http-routes.stderr.txt"
+  },
+  {
+    "label": "http-all-edges",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT a.name AS source,a.file_path AS source_file,b.name AS target,b.file_path AS target_file,e.relation,e.data FROM edges e JOIN nodes a ON a.id=e.src JOIN nodes b ON b.id=e.dst",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0493,
+    "exit_code": 0,
+    "stdout": "raw/http-all-edges.stdout.txt",
+    "stderr": "raw/http-all-edges.stderr.txt"
+  },
+  {
+    "label": "http-route-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,file_path,data FROM nodes WHERE label='Route'",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0474,
+    "exit_code": 0,
+    "stdout": "raw/http-route-nodes.stdout.txt",
+    "stderr": "raw/http-route-nodes.stderr.txt"
+  },
+  {
+    "label": "http-hub-impact-before",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "impact",
+      "GET /shared",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0507,
+    "exit_code": 0,
+    "stdout": "raw/http-hub-impact-before.stdout.txt",
+    "stderr": "raw/http-hub-impact-before.stderr.txt"
+  },
+  {
+    "label": "http-trace-positive",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "loadPositive",
+      "positive_handler",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0574,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-positive.stdout.txt",
+    "stderr": "raw/http-trace-positive.stderr.txt"
+  },
+  {
+    "label": "http-trace-positive-db",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "loadPositive",
+      "db_positive",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0482,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-positive-db.stdout.txt",
+    "stderr": "raw/http-trace-positive-db.stderr.txt"
+  },
+  {
+    "label": "http-trace-same-a",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "loadSamePathA",
+      "handler_a",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.045,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-same-a.stdout.txt",
+    "stderr": "raw/http-trace-same-a.stderr.txt"
+  },
+  {
+    "label": "http-trace-same-b",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "loadSamePathA",
+      "handler_b",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0454,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-same-b.stdout.txt",
+    "stderr": "raw/http-trace-same-b.stderr.txt"
+  },
+  {
+    "label": "http-trace-method-negative",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "loadPostNegative",
+      "handler_a",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0437,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-method-negative.stdout.txt",
+    "stderr": "raw/http-trace-method-negative.stderr.txt"
+  },
+  {
+    "label": "http-impact-positive",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "impact",
+      "positive_handler",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0467,
+    "exit_code": 0,
+    "stdout": "raw/http-impact-positive.stdout.txt",
+    "stderr": "raw/http-impact-positive.stderr.txt"
+  },
+  {
+    "label": "http-impact-a",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "impact",
+      "handler_a",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0453,
+    "exit_code": 0,
+    "stdout": "raw/http-impact-a.stdout.txt",
+    "stderr": "raw/http-impact-a.stderr.txt"
+  },
+  {
+    "label": "http-update-no-autoheal",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "--no-autoheal",
+      "search",
+      "loadSamePathA",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0201,
+    "exit_code": 0,
+    "stdout": "raw/http-update-no-autoheal.stdout.txt",
+    "stderr": "raw/http-update-no-autoheal.stderr.txt"
+  },
+  {
+    "label": "http-update-query-autoheal",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "search",
+      "loadSamePathA",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.1419,
+    "exit_code": 0,
+    "stdout": "raw/http-update-query-autoheal.stdout.txt",
+    "stderr": "raw/http-update-query-autoheal.stderr.txt"
+  },
+  {
+    "label": "http-update-routes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "routes",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.043,
+    "exit_code": 0,
+    "stdout": "raw/http-update-routes.stdout.txt",
+    "stderr": "raw/http-update-routes.stderr.txt"
+  },
+  {
+    "label": "http-update-edges",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT src,dst,relation,data FROM edges ORDER BY src,dst,relation",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0446,
+    "exit_code": 0,
+    "stdout": "raw/http-update-edges.stdout.txt",
+    "stderr": "raw/http-update-edges.stderr.txt"
+  },
+  {
+    "label": "http-update-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,label,file_path,line_start,line_end FROM nodes ORDER BY id",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0457,
+    "exit_code": 0,
+    "stdout": "raw/http-update-nodes.stdout.txt",
+    "stderr": "raw/http-update-nodes.stderr.txt"
+  },
+  {
+    "label": "http-update-full",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "index",
+      "<output>\\http-fixture",
+      "--full"
+    ],
+    "elapsed_seconds": 0.1063,
+    "exit_code": 0,
+    "stdout": "raw/http-update-full.stdout.txt",
+    "stderr": "raw/http-update-full.stderr.txt"
+  },
+  {
+    "label": "http-rebuild-edges",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT src,dst,relation,data FROM edges ORDER BY src,dst,relation",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0428,
+    "exit_code": 0,
+    "stdout": "raw/http-rebuild-edges.stdout.txt",
+    "stderr": "raw/http-rebuild-edges.stderr.txt"
+  },
+  {
+    "label": "http-rebuild-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT id,name,label,file_path,line_start,line_end FROM nodes ORDER BY id",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0449,
+    "exit_code": 0,
+    "stdout": "raw/http-rebuild-nodes.stdout.txt",
+    "stderr": "raw/http-rebuild-nodes.stderr.txt"
+  },
+  {
+    "label": "slice-exact-symbols",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE name IN ('QueryUnitFlows','HandleRequest','OnRequest','RegisterRequestHandlers','REQ_RES_UNIT_FLOWS','DbTraceDataBase','TextTraceDatabase','VirtualTraceDatabase') ORDER BY name,file_path",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.052,
+    "exit_code": 0,
+    "stdout": "raw/slice-exact-symbols.stdout.txt",
+    "stderr": "raw/slice-exact-symbols.stderr.txt"
+  },
+  {
+    "label": "slice-handler-definitions",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE file_path LIKE '%QueryFlowsBySliceInfoHandler%'",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.048,
+    "exit_code": 0,
+    "stdout": "raw/slice-handler-definitions.stdout.txt",
+    "stderr": "raw/slice-handler-definitions.stderr.txt"
+  },
+  {
+    "label": "slice-db-file-definitions",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE file_path IN ('server/src/modules/timeline/core/database/DbTraceDataBase2.cpp','server/src/modules/timeline/core/database/TextTraceDatabase.cpp')",
+      "--limit",
+      "300",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0461,
+    "exit_code": 0,
+    "stdout": "raw/slice-db-file-definitions.stdout.txt",
+    "stderr": "raw/slice-db-file-definitions.stderr.txt"
+  },
+  {
+    "label": "slice-protocol-value-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,file_path,line_start FROM nodes WHERE file_path='server/src/modules/defs/ProtocolDefs.h'",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.045,
+    "exit_code": 0,
+    "stdout": "raw/slice-protocol-value-nodes.stdout.txt",
+    "stderr": "raw/slice-protocol-value-nodes.stderr.txt"
+  },
+  {
+    "label": "slice-cpp-vs-c",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT language,label,count(*) AS n FROM nodes GROUP BY language,label",
+      "--path",
+      "<output>\\unit-flows-slice"
+    ],
+    "elapsed_seconds": 0.0461,
+    "exit_code": 0,
+    "stdout": "raw/slice-cpp-vs-c.stdout.txt",
+    "stderr": "raw/slice-cpp-vs-c.stderr.txt"
+  },
+  {
+    "label": "http-trace-hub",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "trace",
+      "loadPositive",
+      "GET /renamed",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0447,
+    "exit_code": 0,
+    "stdout": "raw/http-trace-hub.stdout.txt",
+    "stderr": "raw/http-trace-hub.stderr.txt"
+  },
+  {
+    "label": "http-impact-shared-hub",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "impact",
+      "GET /shared",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0443,
+    "exit_code": 0,
+    "stdout": "raw/http-impact-shared-hub.stdout.txt",
+    "stderr": "raw/http-impact-shared-hub.stderr.txt"
+  },
+  {
+    "label": "http-absolute-callees",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "callees",
+      "loadAbsolute",
+      "--path",
+      "<output>\\http-fixture"
+    ],
+    "elapsed_seconds": 0.0458,
+    "exit_code": 0,
+    "stdout": "raw/http-absolute-callees.stdout.txt",
+    "stderr": "raw/http-absolute-callees.stderr.txt"
+  },
+  {
+    "label": "cpp-index",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "index",
+      "<output>\\cpp-fixture",
+      "--full"
+    ],
+    "elapsed_seconds": 0.1167,
+    "exit_code": 0,
+    "stdout": "raw/cpp-index.stdout.txt",
+    "stderr": "raw/cpp-index.stderr.txt"
+  },
+  {
+    "label": "cpp-nodes",
+    "command": [
+      "<output>\\bin\\codegraph.exe",
+      "query",
+      "SELECT name,label,language,file_path,line_start FROM nodes ORDER BY file_path,line_start",
+      "--limit",
+      "100",
+      "--path",
+      "<output>\\cpp-fixture"
+    ],
+    "elapsed_seconds": 0.0426,
+    "exit_code": 0,
+    "stdout": "raw/cpp-nodes.stdout.txt",
+    "stderr": "raw/cpp-nodes.stderr.txt"
+  }
+]

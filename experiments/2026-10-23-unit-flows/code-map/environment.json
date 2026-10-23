@@ -1,0 +1,7 @@
+{
+  "install_command": "npm ci --omit=dev --ignore-scripts --cache <results>/npm-cache --no-audit --no-fund",
+  "package_lock_sha256": "8b6dfd480afe74b8300b20f115b6648356eb7167ca081ef461bb4887de90d892",
+  "cli_sha256": "2b6fa5bb9c92ab0071f2272114ccec854767300de7b853fb75ddd33ebf967699",
+  "node": "v22.23.3",
+  "npm": "10.9.9"
+}

@@ -17,12 +17,14 @@ RPG 的研究目录 `zerorepo/rpg_encoder` 中存在 `.py` 过滤，不能直接
 
 Code-Craft：做过论文层面调查，尚未取得可核实运行的官方开源实现，不纳入源码实测排行。
 
-## 新增候选：接口发现与跨服务关联
+## 新一轮：接口发现与跨服务关联
+
+CodeGraph 和 code-map 已追加原版实际执行：[unit/flows 结果与复现](../experiments/2026-10-23-unit-flows/README.md)。两个原版都未通过 Insight 端到端验收。
 
 | 项目 | 已看到的实现/声明 | Insight 适配与状态 |
 |---|---|---|
-| [sina-parsania/CodeGraph](https://github.com/sina-parsania/CodeGraph) | 源码有按 HTTP 方法和路径生成公共 Route 节点并建边；支持多语言解析 | 已核对部分源码，未运行；简化路由身份可能缺服务作用域，待查方向、歧义及命令协议扩展 |
-| [abbaing/code-map](https://github.com/abbaing/code-map) | React 到 .NET endpoint、handler、持久化和表的静态展示；源码有 endpoint matcher | 已核对文档、匹配器和部分测试；专用分析器目前是 React/.NET，不提供现成 C++ 后端适配 |
+| [sina-parsania/CodeGraph](https://github.com/sina-parsania/CodeGraph) | 原版 v1.39.0 已扫描 42 文件切片；有前端局部调用和 HTTP hub | C++ 限定方法遗漏，unit/flows 未贯通；HTTP hub 缺到 handler 的有向边、服务身份合并，更新与 full rebuild 不等价 |
+| [abbaing/code-map](https://github.com/abbaing/code-map) | 原版固定提交已扫描 46 文件切片；显式配置得到前端 import 图，React/.NET HTTP 对照有方向正确的关联 | C++ 未索引，自定义协议未恢复；同路径多服务合并；只验证了显式全量重扫，未测 watch |
 | [OWASP Noir](https://github.com/owasp-noir/noir) | 按框架规则静态发现接口、参数和源码位置，AI fallback 可选 | 已核对官方材料；未运行。接口清单不等于完整链路，自定义协议支持待验证 |
 | [MetaCall meta-ast](https://github.com/metacall/meta-ast) | 多语言统一符号/依赖结构，并含 MetaCall 特定连接检测 | 文档调查；“跨语言”不直接证明支持任意 HTTP/WS 协议关联 |
 

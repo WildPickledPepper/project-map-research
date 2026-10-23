@@ -1,0 +1,381 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "files": [
+    {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "bytes": 11918,
+      "sha256": "89f12764af3c735688ab592026341687a47b45a832d1939702ea757cded57d5a",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "old-response-condition"
+      ],
+      "sha256_lf_utf8": "996469dcc801c305415b54c8401d3da65f8dcf549e9bb01ddca32d4f68557f90"
+    },
+    {
+      "path": "modules/lib/src/connection/index.ts",
+      "bytes": 10560,
+      "sha256": "d5ed6948259d85c39c6c28e1b76157c06ba8df8d66dc868fee72cd978641bec0",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "client-send"
+      ],
+      "sha256_lf_utf8": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2"
+    },
+    {
+      "path": "modules/lib/src/utils/Request.ts",
+      "bytes": 2958,
+      "sha256": "8bbb73b6271a81721bc23a788e35960c87fa2e66c1f1d9288149eb356cd1e5f9",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "request-wrapper"
+      ],
+      "sha256_lf_utf8": "5ca8dffdfd415d961f612fb26f5b16d56d2dccf7d684f5f8feffb20e652382d1"
+    },
+    {
+      "path": "modules/timeline/src/api/interface.ts",
+      "bytes": 10185,
+      "sha256": "6c26928a5d439de4e78665f5e08c2dfa43e8af84c054db32cb05151fa56d9741",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "993673ebc567fe4ffddc0639ec801b394b5c10cbef6e49678ce251b1fe2fb4d4"
+    },
+    {
+      "path": "modules/timeline/src/api/request.ts",
+      "bytes": 7398,
+      "sha256": "13f38f8c75fc2caeb2f0dbf4b1f61c7ce8746cf60d13f60f937bfaec32accce3",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "frontend-request"
+      ],
+      "sha256_lf_utf8": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35"
+    },
+    {
+      "path": "modules/timeline/src/bootstrap.tsx",
+      "bytes": 3599,
+      "sha256": "7c2d192fbed87b9e4a11d4b62b67bdd5c85b2fd7766856834ab9a9ef1f35620d",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "request-binding"
+      ],
+      "sha256_lf_utf8": "3ba98c0d83468a9a2b6fe54faa6f81c0d4016730836175616d6c801c013c47a6"
+    },
+    {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "bytes": 23183,
+      "sha256": "f771d7aaf7b096116a3ee980a2ea2cfe081eda7db825814f93d96cecb02517d8",
+      "reason": "frontend_direct_caller",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "da083517d44697538a93181be54fa63e6cfc481ff727545f89eebb00023d7a14"
+    },
+    {
+      "path": "modules/timeline/src/connection/index.ts",
+      "bytes": 950,
+      "sha256": "120fb6ddc894f7c85fef1f06ae98b821f030a7988c69cd43281e7f99803eb9bd",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "34f3bd07578035f083f5b592c86dbe463ad71a71402acdc9d0f0cb530d8c3287"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+      "bytes": 34133,
+      "sha256": "bdf745dc1170660a73b2bce4b6dbfca245fd437f0b1361c9045a63436d500154",
+      "reason": "frontend_direct_caller",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "abbc0219fd67267ffbb2bd6c68b14e3b78add6f5ead9bfc381f89d87b261c2d4"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "bytes": 58875,
+      "sha256": "5bf21d6aeaecb3bdeb3e77819d0a49ed23c1f2622df0ac32a75830173f2adf35",
+      "reason": "frontend_direct_caller",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "267bdcf284861db08afb46325e09b0404cf0bb0f8a77a6d938370610b6e6bbce"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+      "bytes": 7896,
+      "sha256": "34899c8743ba918bd1ee841c12cf772b7609236236fa5a211bf7d3542a1088a4",
+      "reason": "frontend_direct_caller",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "351b2589ca97806ba35e8be0db4ef61268fc59aa71d1dc440f48c3d1f811c820"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+      "bytes": 10072,
+      "sha256": "c25a49a82f3205f4e3ff6dac024265453fe8509ca647085811747cbbc33c2b59",
+      "reason": "frontend_direct_caller",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "6bce2e6bb46f0c7580df787ccc0fb57c6e11be644223c5b543f4a1218d781f69"
+    },
+    {
+      "path": "server/msinsight/include/base/BaseModule.h",
+      "bytes": 1357,
+      "sha256": "0da03bb37841fd5fe1d8e2f994057e5d679df2dc469a1a359c4e21e146a9051f",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "4806150697442497b605307b6d715328548896a3336fdf4ec2afa0613705dd6d"
+    },
+    {
+      "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+      "bytes": 1969,
+      "sha256": "5f470c2596c7805e42435a74ec1f989abcf9c9cddf405dc5c64cf0ac95459405",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "a55661836f94df4417b0c90e106227ea5385ec87df444164e9e2b31b4d831250"
+    },
+    {
+      "path": "server/msinsight/src/base/BaseModule.cpp",
+      "bytes": 1994,
+      "sha256": "05bc71953cddfc17fb12798da07a84943b34115b6874dd2012844b48a3898ed9",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "command-lookup"
+      ],
+      "sha256_lf_utf8": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+    },
+    {
+      "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+      "bytes": 4218,
+      "sha256": "89f9ce8e3df0c56d79e0b369ece92e2bc2675b22f78004b2e6f924cbcef4944f",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "outdated-request"
+      ],
+      "sha256_lf_utf8": "ca1fdd8bfe5cfee788dc0f0206bfa34a749429be6e7934330dbc6bc72eb65f45"
+    },
+    {
+      "path": "server/src/modules/defs/ProtocolDefs.h",
+      "bytes": 14008,
+      "sha256": "9ae5da047efc2f18e9c30fecd83849febf53a2b1f3bbc9ec92dec46d6f27b50d",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "protocol-value"
+      ],
+      "sha256_lf_utf8": "b5371dfbdbcd6a0f2d9b9e0adcb6cddeee4802b59ff9544cf16efbdafba7a340"
+    },
+    {
+      "path": "server/src/modules/ModuleManager.cpp",
+      "bytes": 2237,
+      "sha256": "eef0b029a6b9eb305a186d08b8d2a6d9a0992e6e131f0399f78a2e1cdffaa668",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "module-dispatch"
+      ],
+      "sha256_lf_utf8": "3658df6098d0db49cbcc9e25e3bab2f9e9edf3aaa873cf672b1782a272290204"
+    },
+    {
+      "path": "server/src/modules/ModuleManager.h",
+      "bytes": 1441,
+      "sha256": "4eb1f69e46b6f2517c15365a55a0c09bed1cb4f7e4e96a58830b8f385886271e",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "1b7583ff6b74ac2dabec5fcea02d745b40048a0b5136e1bdd237b1a299ec55ff"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+      "bytes": 36435,
+      "sha256": "ad267f276e247c54f533d3221d3db9d5a8ebaa428f681a4729e9024fdc99d9e6",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "56b5372f1209929ffe673dd26358163a62d928ac191c07e7b5b5b5eb58788447"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+      "bytes": 10110,
+      "sha256": "7bfdab34a221bc3b46b917c557a11502ca8d05af42d37b246bb981033b5dfc73",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "database-type"
+      ],
+      "sha256_lf_utf8": "e1324415c21860bc795fb7451bf82d4b5889b83150e068ae67a4950f48f60faf"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+      "bytes": 146432,
+      "sha256": "c468729f30d738bba2e9a6d21562534b1fe2c668354467138b938ec73f152127",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "d4eae48d0a15ffe34df0ae314a2aa8bce13d13711001f062a02a95360a9519ee"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+      "bytes": 25196,
+      "sha256": "ec4a60a3b831e159fbb177d38e8135920d78d04bbfb073a7a905e259f65cef0c",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "9b9aa26b47c3b5a661dc285c8b775a25f619f5efe9dd68dfb7583b012b8d4964"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+      "bytes": 32462,
+      "sha256": "ac3489f5e3e6e1d6f6a4495621edf3d09230d4d3d4f0c42a6362afd647dbc544",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "db-implementation"
+      ],
+      "sha256_lf_utf8": "2cea03216c3ca5acaeba1e37173e7dcac9c2c4ecdd103c9fecdf08c4e7a39593"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+      "bytes": 118892,
+      "sha256": "38ea1c7087ab1650302d517f64946e715f337848c7a9e6f417a7f92abe70ea21",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "text-implementation"
+      ],
+      "sha256_lf_utf8": "65c731fa0281e9b59253bad2ab7439194d50e15ae4891ee9d616f0f52259da54"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+      "bytes": 18343,
+      "sha256": "b2a6e72f34fbbbf979395260a1799d8fef010fd536ce954398a1a3158b37e4d3",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "accb71081878de9042db53db3f82c2df3e9c35dbff3b5042f376feed986b836c"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp",
+      "bytes": 13977,
+      "sha256": "36477cf81155fc0d6053b1efff97ad38d99e634cfaeaa87ae972e18b0fcca3f2",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "df79037d674e02b00ada7eba2b9fb4258c17312c5d037d6ea0e2c32d62444db5"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+      "bytes": 17335,
+      "sha256": "0fa9ae4c3ce83e00fb2630233850eb741da512191b4887519396fe13bab0472c",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "database-interface"
+      ],
+      "sha256_lf_utf8": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "bytes": 3161,
+      "sha256": "b8f7fc99b8dd6b55c49d9f9f901285bc15620dbb43ee6ef0cc99cf4e31d08c15",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "database-call"
+      ],
+      "sha256_lf_utf8": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+      "bytes": 1433,
+      "sha256": "5c59beda786fb2a48a85cb461239e25ea151870a1a5b80e73f831f2922d9944b",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "8ea8fa1410efa366d11008daf93b49f6e553070110e80f77cc5c11c87cdc40d1"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h",
+      "bytes": 3517,
+      "sha256": "2e51e9f923f0fe44e16af8b25bdbe4a740fca093e874d8cd8e70bb6bba083270",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "634750d914d7c2551cb59152b450f228820d0b7fab3f65a2f21582dc135ecbad"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+      "bytes": 3484,
+      "sha256": "bd65805786e3501b2ecd38f709d5095b8b2f977ee439d7d10524c6fab9d1729f",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "28690d2c2b8e6f98328a626e12b13fe2b01762e874b9358c9e6995d3fc3babff"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+      "bytes": 64069,
+      "sha256": "93ff9efc32a8cb3a1a0fe82c5923896b4de10b06f622bff5b40c6c1e9e3fb17d",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "c5972829efc24eadfd11b0f52788304880612249607197d40b7d3d27d0290b17"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.h",
+      "bytes": 9174,
+      "sha256": "f65bdb7c2e057695e29b633877ba479b60d87b4a88aafd4353dd4fdb5bef9264",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "38168a37531c7ba73f6b78fa2d7086f974756b348b513022b43842128e8e972e"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h",
+      "bytes": 6212,
+      "sha256": "9b261ca7d24c7a6fdc4e62aca589a950add1c9fc8b8860727ecf2d25378ab478",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "89f1a54ce81d4d77d94b418db51fd38d6cd3778630d8b1fff4703d90c4e62772"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp",
+      "bytes": 12618,
+      "sha256": "ea4fa85b3b47d7d59c0d137826635f4f0e01bea1b79d4ac3c0ff87b576bf3d88",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "6b4811a7a53d6f07e3545a3805b51f44cabea1882566c20c65e2c8df930e70bc"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+      "bytes": 22707,
+      "sha256": "4f3d53dc2cba388d86d218c5a1676d45427e7364af0321f1a450c55663bc1a0c",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "6bf320fa4f1220f9ea0d46cba0ff868627b6e6d309ce593d651a3e0b43d86297"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+      "bytes": 20200,
+      "sha256": "39bcaa48a6e9a4764d5e72a67dcbebdbc44b2fe3e7a201eed463969e1f168170",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "dd07ab68ad726973ac0457ebcf7b49852712e1b5a6d59950943e8420c7407a3f"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+      "bytes": 68816,
+      "sha256": "ba4b400c44677950bcd10f36638307da355c89b8a014fb652d856cae6c814bd6",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "77e03a3da8dad5ff7d53ad023cd3cd93dd4d61487212f59700258e5f1108184a"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h",
+      "bytes": 6258,
+      "sha256": "72df6ddbb94bb78533ba657053dab372443ded8ec80bb479ee376c394b4651aa",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "14b859ee51f2f4eb11a265f2d53be2aa22aa7c1afd7131ff4cb62560fb105bdd"
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.cpp",
+      "bytes": 7360,
+      "sha256": "6a66bfc6931fae8d518a294906b58c85fe391d8bab509e590879dadb5fd16783",
+      "reason": "reference_anchor",
+      "anchor_ids": [
+        "handler-registration"
+      ],
+      "sha256_lf_utf8": "611b46ae85486111105982ae0701b74756a7190521993bc3046a1c8d50cc9a23"
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.h",
+      "bytes": 1261,
+      "sha256": "00ec1c83d8ea1cf2306bc55df688106b5cd75fe199045e204058820298502886",
+      "reason": "supporting_declaration_or_implementation",
+      "anchor_ids": [],
+      "sha256_lf_utf8": "a722cac41d710ac49640d149a68fe4706ce136b755435761a2d6efb5619f6f68"
+    }
+  ],
+  "total_bytes": 858403,
+  "scope": "selected real source slice; includes all reference anchors and all rg-discovered getUnitFlows callers; not a build closure",
+  "repository": {
+    "url": "https://gitcode.com/Ascend/msinsight",
+    "commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688"
+  },
+  "coordinator_checks": {
+    "original_byte_hashes_verified_against_source": true,
+    "portable_content_hash": "sha256_lf_utf8 normalizes UTF-8 CRLF to LF only; original sha256 retained"
+  }
+}

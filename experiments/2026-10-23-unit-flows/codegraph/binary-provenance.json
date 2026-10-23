@@ -1,0 +1,12 @@
+{
+  "source": "https://github.com/sina-parsania/CodeGraph",
+  "source_commit": "7bac941c1916d34fae0e93dd0ffeaef360d741fb",
+  "release": "v1.39.0",
+  "release_tag_commit_matches_source": true,
+  "execution": "official prebuilt Windows x64 release, not a local source build",
+  "url": "https://github.com/sina-parsania/CodeGraph/releases/download/v1.39.0/codegraph-windows-x64.exe",
+  "sha256": "54156dd1f6481b4d7658f1435b97939a606ff7447caca196bb4b89499773df22",
+  "official_sha256": "54156dd1f6481b4d7658f1435b97939a606ff7447caca196bb4b89499773df22",
+  "license": "MIT OR Apache-2.0",
+  "source_modified": false
+}

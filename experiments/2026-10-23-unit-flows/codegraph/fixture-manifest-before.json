@@ -1,0 +1,17 @@
+[
+  {
+    "path": "frontend/client.ts",
+    "bytes": 513,
+    "sha256": "c8132f3e7e905130b7931bea1ce70ed29455274d3e4978bf3dd7bb3569c17ef5"
+  },
+  {
+    "path": "service-a/routes.py",
+    "bytes": 252,
+    "sha256": "9207e28cd808e886bd9a72b0cdc7fa3f331709c99d722c3a80379bfc94fb502f"
+  },
+  {
+    "path": "service-b/routes.py",
+    "bytes": 135,
+    "sha256": "86d8c64ec6970faa3cca63c20eb7551ba6ce86c20ce1306f4fff4b8ab0e17c27"
+  }
+]

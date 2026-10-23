@@ -1,0 +1,712 @@
+{
+  "schema_version": 1,
+  "evidence_type": "executed_original_release_cli_and_read_only_native_SQL_queries",
+  "provenance": {
+    "source": "https://github.com/sina-parsania/CodeGraph",
+    "source_commit": "7bac941c1916d34fae0e93dd0ffeaef360d741fb",
+    "release": "v1.39.0",
+    "release_tag_commit_matches_source": true,
+    "execution": "official prebuilt Windows x64 release, not a local source build",
+    "url": "https://github.com/sina-parsania/CodeGraph/releases/download/v1.39.0/codegraph-windows-x64.exe",
+    "sha256": "54156dd1f6481b4d7658f1435b97939a606ff7447caca196bb4b89499773df22",
+    "official_sha256": "54156dd1f6481b4d7658f1435b97939a606ff7447caca196bb4b89499773df22",
+    "license": "MIT OR Apache-2.0",
+    "source_modified": false
+  },
+  "input": {
+    "commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "files": 42,
+    "bytes": 858403,
+    "manifest": "slice-manifest.json"
+  },
+  "counts": {
+    "nodes_by_label": [
+      {
+        "label": "Class",
+        "n": "203"
+      },
+      {
+        "label": "Enum",
+        "n": "3"
+      },
+      {
+        "label": "File",
+        "n": "42"
+      },
+      {
+        "label": "Function",
+        "n": "195"
+      },
+      {
+        "label": "Interface",
+        "n": "68"
+      },
+      {
+        "label": "Method",
+        "n": "30"
+      },
+      {
+        "label": "Module",
+        "n": "24"
+      },
+      {
+        "label": "Type",
+        "n": "12"
+      }
+    ],
+    "edges_by_relation": [
+      {
+        "relation": "Calls",
+        "n": "120"
+      },
+      {
+        "relation": "Defines",
+        "n": "535"
+      },
+      {
+        "relation": "Inherits",
+        "n": "2"
+      },
+      {
+        "relation": "Tests",
+        "n": "23"
+      }
+    ]
+  },
+  "slice": {
+    "exact_symbols": [
+      {
+        "name": "VirtualTraceDatabase",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+        "line_start": "91"
+      },
+      {
+        "name": "VirtualTraceDatabase",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+        "line_start": "36"
+      },
+      {
+        "name": "VirtualTraceDatabase",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+        "line_start": "64"
+      }
+    ],
+    "handler_file_definitions": [
+      {
+        "name": "QueryFlowsBySliceInfoHandler.cpp",
+        "label": "File",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line_start": "1"
+      },
+      {
+        "name": "Dic",
+        "label": "Module",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line_start": "24"
+      },
+      {
+        "name": "Module",
+        "label": "Module",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line_start": "25"
+      },
+      {
+        "name": "Timeline",
+        "label": "Module",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line_start": "26"
+      },
+      {
+        "name": "QueryFlowsBySliceInfoHandler.h",
+        "label": "File",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+        "line_start": "1"
+      },
+      {
+        "name": "Dic",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+        "line_start": "22"
+      },
+      {
+        "name": "Module",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+        "line_start": "23"
+      },
+      {
+        "name": "Timeline",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+        "line_start": "24"
+      },
+      {
+        "name": "QueryFlowsBySliceInfoHandler",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+        "line_start": "25"
+      }
+    ],
+    "database_file_definitions": [
+      {
+        "name": "DbTraceDataBase2.cpp",
+        "label": "File",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line_start": "1"
+      },
+      {
+        "name": "Dic::Module::FullDb",
+        "label": "Module",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line_start": "29"
+      },
+      {
+        "name": "TextTraceDatabase.cpp",
+        "label": "File",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line_start": "1"
+      },
+      {
+        "name": "ConvertSliceDtoToTraceSlice",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line_start": "31"
+      },
+      {
+        "name": "GetTextPythonFunctionFilterSql",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line_start": "50"
+      },
+      {
+        "name": "GetTextSearchThreadId",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line_start": "58"
+      },
+      {
+        "name": "GetTextSearchMetaType",
+        "label": "Function",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line_start": "62"
+      },
+      {
+        "name": "Dic::Module::Timeline",
+        "label": "Module",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line_start": "68"
+      }
+    ],
+    "protocol_file_definitions": [
+      {
+        "name": "ProtocolDefs.h",
+        "label": "File",
+        "file_path": "server/src/modules/defs/ProtocolDefs.h",
+        "line_start": "1"
+      },
+      {
+        "name": "Dic",
+        "label": "Function",
+        "file_path": "server/src/modules/defs/ProtocolDefs.h",
+        "line_start": "24"
+      },
+      {
+        "name": "Protocol",
+        "label": "Function",
+        "file_path": "server/src/modules/defs/ProtocolDefs.h",
+        "line_start": "25"
+      }
+    ],
+    "raw_calls": [
+      {
+        "name": "getUnitFlows",
+        "callee_name": "requestData",
+        "file_path": "modules/timeline/src/api/request.ts",
+        "line": "175",
+        "receiver": "{\"Named\":\"window\"}"
+      },
+      {
+        "name": "getSingleFlow",
+        "callee_name": "getUnitFlows",
+        "file_path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "line": "434",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "AscendUnit.tsx",
+        "callee_name": "getUnitFlows",
+        "file_path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "line": "793",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "DbTraceDataBase2.cpp",
+        "callee_name": "ExecuteQueryUnitFlowsForTable",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line": "350",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "DbTraceDataBase2.cpp",
+        "callee_name": "ExecuteQueryUnitFlowsForTable",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line": "352",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "DbTraceDataBase2.cpp",
+        "callee_name": "ExecuteQueryUnitFlowsForTable",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line": "354",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "DbTraceDataBase2.cpp",
+        "callee_name": "ExecuteQueryUnitFlowsForTable",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line": "357",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "DbTraceDataBase2.cpp",
+        "callee_name": "ExecuteQueryUnitFlowsForTable",
+        "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line": "359",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "TextTraceDatabase.cpp",
+        "callee_name": "AssembleUnitFlowsBody",
+        "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line": "714",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "QueryFlowsBySliceInfoHandler.cpp",
+        "callee_name": "std::make_unique<UnitFlowsResponse>",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line": "30",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "QueryFlowsBySliceInfoHandler.cpp",
+        "callee_name": "PythonStackHelper::RestoreUnitFlowsParams",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line": "51",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "QueryFlowsBySliceInfoHandler.cpp",
+        "callee_name": "QueryUnitFlows",
+        "file_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line": "57",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "TimelineProtocol.cpp",
+        "callee_name": "std::make_unique<UnitFlowsRequest>",
+        "file_path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+        "line": "307",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "Request",
+        "callee_name": "UnitFlowsRequest",
+        "file_path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+        "line": "214",
+        "receiver": "\"Bare\""
+      },
+      {
+        "name": "Response",
+        "callee_name": "UnitFlowsResponse",
+        "file_path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+        "line": "193",
+        "receiver": "\"Bare\""
+      }
+    ],
+    "getUnitFlows_incoming_edges": [
+      {
+        "src": "unit_flows_slice.modules.timeline.src.components.filterlinkline_tsx.getsingleflow",
+        "dst": "unit_flows_slice.modules.timeline.src.api.request_ts.getunitflows",
+        "relation": "Calls",
+        "tier": "TreeSitter",
+        "confidence": "Inferred",
+        "src_file": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "src_line": 434,
+        "metadata": {
+          "justification": "ImportNarrowed"
+        }
+      },
+      {
+        "src": "unit_flows_slice.modules.timeline.src.insight.units.ascendunit_tsx",
+        "dst": "unit_flows_slice.modules.timeline.src.api.request_ts.getunitflows",
+        "relation": "Calls",
+        "tier": "TreeSitter",
+        "confidence": "Inferred",
+        "src_file": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "src_line": 793,
+        "metadata": {
+          "justification": "ImportNarrowed"
+        }
+      }
+    ],
+    "getUnitFlows_callers_stdout": "getSingleFlow            Function  modules/timeline/src/components/FilterLinkLine.tsx:415\nAscendUnit.tsx           File  modules/timeline/src/insight/units/AscendUnit.tsx:1\ntype usages (3 file(s)):\n  modules/timeline/src/api/request.ts  [definition]\n  modules/timeline/src/components/FilterLinkLine.tsx  [import]\n  modules/timeline/src/insight/units/AscendUnit.tsx  [import]\n✓ Coverage: all 2 call sites naming 'getUnitFlows' resolved — this callers list is complete.",
+    "getUnitFlows_callees_stdout": "✓ This symbol makes no calls in the indexed sources.",
+    "QueryUnitFlows_callers_stdout": "no resolved callers of \"QueryUnitFlows\"\n⚠ Coverage: 0/1 call sites naming 'QueryUnitFlows' resolved into the graph; 1 were dropped (ambiguous, external, or unresolved). This callers list may be INCOMPLETE — fall back to text search for 'QueryUnitFlows(' to be sure.\n~ textual call sites (unresolved, parser-verified) in 1 more file(s):\n    server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+    "trace_handler_stdout": "no path from \"getUnitFlows\" to \"QueryFlowsBySliceInfoHandler\"",
+    "trace_database_stdout": "symbol not found",
+    "implementers_stdout": "no implementers/subtypes of \"VirtualTraceDatabase\"",
+    "routes_stdout": "no routes detected"
+  },
+  "http": {
+    "initial_routes": [
+      {
+        "id": "route._positive.GET",
+        "label": "Route",
+        "name": "GET /positive",
+        "file_path": "service-a/routes.py",
+        "line_start": 7,
+        "line_end": 7,
+        "language": "python",
+        "metadata": {
+          "method": "GET",
+          "path": "/positive",
+          "fan_in": 0,
+          "fan_out": 0
+        },
+        "community": 2,
+        "pagerank": 0.0839355793356351,
+        "betweenness": 0.0
+      },
+      {
+        "id": "route._shared.GET",
+        "label": "Route",
+        "name": "GET /shared",
+        "file_path": "service-b/routes.py",
+        "line_start": 5,
+        "line_end": 5,
+        "language": "python",
+        "metadata": {
+          "method": "GET",
+          "path": "/shared",
+          "fan_in": 0,
+          "fan_out": 0
+        },
+        "community": 4,
+        "pagerank": 0.132249948927131,
+        "betweenness": 0.0
+      },
+      {
+        "id": "route._shared.POST",
+        "label": "Route",
+        "name": "POST /shared",
+        "file_path": "frontend/client.ts",
+        "line_start": 8,
+        "line_end": 8,
+        "language": "typescript",
+        "metadata": {
+          "handler": "http_fixture.frontend.client_ts.loadpostnegative",
+          "method": "POST",
+          "path": "/shared",
+          "fan_in": 0,
+          "fan_out": 0
+        },
+        "community": 1,
+        "pagerank": 0.080098059908193,
+        "betweenness": 0.0
+      }
+    ],
+    "initial_call_edges": [
+      {
+        "src": "http_fixture.frontend.client_ts.loadpositive",
+        "dst": "route._positive.GET",
+        "relation": "HttpCalls",
+        "tier": "TreeSitter",
+        "confidence": "Extracted",
+        "src_file": "frontend/client.ts",
+        "src_line": 4,
+        "metadata": {
+          "justification": "HttpPath"
+        }
+      },
+      {
+        "src": "http_fixture.frontend.client_ts.loadsamepatha",
+        "dst": "route._shared.GET",
+        "relation": "HttpCalls",
+        "tier": "TreeSitter",
+        "confidence": "Extracted",
+        "src_file": "frontend/client.ts",
+        "src_line": 5,
+        "metadata": {
+          "justification": "HttpPath"
+        }
+      },
+      {
+        "src": "http_fixture.frontend.client_ts.loadsamepathb",
+        "dst": "route._shared.GET",
+        "relation": "HttpCalls",
+        "tier": "TreeSitter",
+        "confidence": "Extracted",
+        "src_file": "frontend/client.ts",
+        "src_line": 6,
+        "metadata": {
+          "justification": "HttpPath"
+        }
+      },
+      {
+        "src": "http_fixture.frontend.client_ts.loadpostnegative",
+        "dst": "route._shared.POST",
+        "relation": "HttpCalls",
+        "tier": "TreeSitter",
+        "confidence": "Extracted",
+        "src_file": "frontend/client.ts",
+        "src_line": 8,
+        "metadata": {
+          "justification": "HttpPath"
+        }
+      },
+      {
+        "src": "http_fixture.service_a.routes_py",
+        "dst": "route._positive.GET",
+        "relation": "HttpCalls",
+        "tier": "TreeSitter",
+        "confidence": "Extracted",
+        "src_file": "service-a/routes.py",
+        "src_line": 7,
+        "metadata": {
+          "justification": "HttpPath"
+        }
+      },
+      {
+        "src": "http_fixture.service_a.routes_py.positive_handler",
+        "dst": "http_fixture.service_a.routes_py.db_positive",
+        "relation": "Calls",
+        "tier": "TreeSitter",
+        "confidence": "Inferred",
+        "src_file": "service-a/routes.py",
+        "src_line": 9,
+        "metadata": {
+          "justification": "SameFileUnique"
+        }
+      },
+      {
+        "src": "http_fixture.service_a.routes_py",
+        "dst": "route._shared.GET",
+        "relation": "HttpCalls",
+        "tier": "TreeSitter",
+        "confidence": "Extracted",
+        "src_file": "service-a/routes.py",
+        "src_line": 10,
+        "metadata": {
+          "justification": "HttpPath"
+        }
+      },
+      {
+        "src": "http_fixture.service_a.routes_py.handler_a",
+        "dst": "http_fixture.service_a.routes_py.db_a",
+        "relation": "Calls",
+        "tier": "TreeSitter",
+        "confidence": "Inferred",
+        "src_file": "service-a/routes.py",
+        "src_line": 12,
+        "metadata": {
+          "justification": "SameFileUnique"
+        }
+      },
+      {
+        "src": "http_fixture.service_b.routes_py",
+        "dst": "route._shared.GET",
+        "relation": "HttpCalls",
+        "tier": "TreeSitter",
+        "confidence": "Extracted",
+        "src_file": "service-b/routes.py",
+        "src_line": 5,
+        "metadata": {
+          "justification": "HttpPath"
+        }
+      },
+      {
+        "src": "http_fixture.service_b.routes_py.handler_b",
+        "dst": "http_fixture.service_b.routes_py.db_b",
+        "relation": "Calls",
+        "tier": "TreeSitter",
+        "confidence": "Inferred",
+        "src_file": "service-b/routes.py",
+        "src_line": 7,
+        "metadata": {
+          "justification": "SameFileUnique"
+        }
+      }
+    ],
+    "traces": {
+      "positive": "no path from \"loadPositive\" to \"positive_handler\"",
+      "positive-db": "no path from \"loadPositive\" to \"db_positive\"",
+      "same-a": "no path from \"loadSamePathA\" to \"handler_a\"",
+      "same-b": "no path from \"loadSamePathA\" to \"handler_b\"",
+      "method-negative": "no path from \"loadPostNegative\" to \"handler_a\""
+    },
+    "shared_route_impact_stdout": "routes.py                File  service-b/routes.py:1\nroutes.py                File  service-a/routes.py:1\nloadSamePathB            Function  frontend/client.ts:6\nloadSamePathA            Function  frontend/client.ts:5\nclient.ts                File  frontend/client.ts:1\n✓ No call sites reference this name in the indexed sources.",
+    "absolute_client_callees_stdout": "✓ This symbol makes no calls in the indexed sources.",
+    "updated_consumer_to_hub_trace_stdout": "loadPositive             Function  frontend/client.ts:4\nGET /renamed             Route  frontend/client.ts:4"
+  },
+  "cpp_fixture": [
+    {
+      "name": "sample.cpp",
+      "label": "File",
+      "language": "cpp",
+      "file_path": "sample.cpp",
+      "line_start": "1"
+    },
+    {
+      "name": "InlineDatabase",
+      "label": "Class",
+      "language": "cpp",
+      "file_path": "sample.cpp",
+      "line_start": "1"
+    },
+    {
+      "name": "QueryInline",
+      "label": "Function",
+      "language": "cpp",
+      "file_path": "sample.cpp",
+      "line_start": "1"
+    },
+    {
+      "name": "ExternalDatabase",
+      "label": "Class",
+      "language": "cpp",
+      "file_path": "sample.cpp",
+      "line_start": "2"
+    },
+    {
+      "name": "QueryFree",
+      "label": "Function",
+      "language": "cpp",
+      "file_path": "sample.cpp",
+      "line_start": "4"
+    },
+    {
+      "name": "sample.h",
+      "label": "File",
+      "language": "c",
+      "file_path": "sample.h",
+      "line_start": "1"
+    },
+    {
+      "name": "HeaderDatabase",
+      "label": "Function",
+      "language": "c",
+      "file_path": "sample.h",
+      "line_start": "1"
+    },
+    {
+      "name": "sample.hpp",
+      "label": "File",
+      "language": "cpp",
+      "file_path": "sample.hpp",
+      "line_start": "1"
+    },
+    {
+      "name": "HppDatabase",
+      "label": "Class",
+      "language": "cpp",
+      "file_path": "sample.hpp",
+      "line_start": "1"
+    }
+  ],
+  "update": {
+    "stale_search_stdout": "loadSamePathA            Function  frontend/client.ts:5",
+    "autoheal_search_stdout": "loadSamePathB            Function  frontend/client.ts:5",
+    "comparison": {
+      "edges_identical": false,
+      "nodes_identical": false,
+      "comparison": "CLI SQL rows ordered by ids; semantic nodes and edges, excludes metrics/meta/cache bytes"
+    },
+    "delta": {
+      "comparison": "incremental query-healed final fixture versus forced-full index of identical final source",
+      "only_in_incremental_edges": [
+        {
+          "data": {
+            "confidence": "Extracted",
+            "dst": "route._shared.GET",
+            "metadata": {},
+            "relation": "Defines",
+            "src": "http_fixture.frontend.client_ts",
+            "src_file": "frontend/client.ts",
+            "src_line": 5,
+            "tier": "TreeSitter"
+          },
+          "dst": "route._shared.GET",
+          "relation": "Defines",
+          "src": "http_fixture.frontend.client_ts"
+        }
+      ],
+      "only_in_full_edges": [
+        {
+          "data": {
+            "confidence": "Extracted",
+            "dst": "route._shared.GET",
+            "metadata": {},
+            "relation": "Defines",
+            "src": "http_fixture.service_b.routes_py",
+            "src_file": "service-b/routes.py",
+            "src_line": 5,
+            "tier": "TreeSitter"
+          },
+          "dst": "route._shared.GET",
+          "relation": "Defines",
+          "src": "http_fixture.service_b.routes_py"
+        }
+      ],
+      "changed_node_rows": [
+        {
+          "id": "route._shared.GET",
+          "incremental": {
+            "id": "route._shared.GET",
+            "name": "GET /shared",
+            "label": "Route",
+            "file_path": "frontend/client.ts",
+            "line_start": "5",
+            "line_end": "5"
+          },
+          "full": {
+            "id": "route._shared.GET",
+            "name": "GET /shared",
+            "label": "Route",
+            "file_path": "service-b/routes.py",
+            "line_start": "5",
+            "line_end": "5"
+          }
+        }
+      ],
+      "Calls_and_HttpCalls_rows_identical": true,
+      "interpretation": "In this fixture the surviving shared hub changes file ownership and its Defines relation endpoint; call/HTTP-call rows remain equal. This is a structural and source-location difference, not solely a metrics/metadata difference."
+    },
+    "scope": "one removed TS consumer and changed relative HTTP path, another shared-path consumer survives; query-triggered healing; MCP watch not run"
+  },
+  "timings": {
+    "slice-index": 0.2603,
+    "slice-callers-getUnitFlows": 0.0511,
+    "slice-callers-QueryUnitFlows": 0.0528,
+    "http-index": 0.1138,
+    "http-trace-positive": 0.0574,
+    "http-update-query-autoheal": 0.1419,
+    "http-update-full": 0.1063
+  },
+  "untested": [
+    "full repository",
+    "SCIP/compiler oracle",
+    "MCP server watcher",
+    "MindStudio dynamic runtime scenarios",
+    "unit/flows source-change updates",
+    "provider removal",
+    "handler rename",
+    "custom module-command collision update matrix",
+    "fast successive commits",
+    "failed reindex retry",
+    "cross-version snapshots"
+  ]
+}
