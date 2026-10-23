@@ -61,5 +61,20 @@ class KuzuGraphTests(unittest.TestCase):
         with self.assertRaisesRegex(RuntimeError,'injected'):replace_snapshot(FailOnInsert(),fixture())
         self.assertEqual(read_snapshot(self.conn,'v1'),fixture())
 
+    def test_commit_error_is_preserved_when_engine_already_aborted(self):
+        replace_snapshot(self.conn,fixture())
+        class AbortAtCommit:
+            def execute(inner,query,*args):
+                if query=='COMMIT':
+                    self.conn.execute('ROLLBACK')
+                    raise RuntimeError('injected commit allocation failure')
+                return self.conn.execute(query,*args)
+        for operation in [lambda:replace_snapshot(AbortAtCommit(),fixture()),
+                          lambda:delete_snapshot(AbortAtCommit(),'v1')]:
+            with self.subTest(operation=operation):
+                with self.assertRaisesRegex(RuntimeError,'commit allocation') as raised:operation()
+                self.assertIn('Rollback also failed',raised.exception.__notes__[0])
+                self.assertEqual(read_snapshot(self.conn,'v1'),fixture())
+
 
 if __name__=='__main__':unittest.main()

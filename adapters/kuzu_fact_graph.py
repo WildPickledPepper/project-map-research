@@ -28,6 +28,14 @@ def _delete(connection,snapshot):
     connection.execute('MATCH (n:PMGraphSnapshot {id:$s}) DELETE n',{'s':snapshot})
 
 
+def _rollback_after_failure(connection,error):
+    try:
+        connection.execute('ROLLBACK')
+    except Exception as cleanup_error:
+        # Kuzu may already have aborted the transaction after a commit failure.
+        error.add_note(f'Rollback also failed: {cleanup_error}')
+
+
 def replace_snapshot(connection,graph):
     snapshot,metadata,node_rows,edge_rows = _prepare(graph)
     nodes = [{'key':key(snapshot,n[1]),'snapshot':snapshot,'id':n[1],'ordinal':i,
@@ -44,8 +52,8 @@ def replace_snapshot(connection,graph):
         for start in range(0,len(edges),200):
             connection.execute('UNWIND $items AS i MATCH (a:PMGraphNode {key:i.source}),(b:PMGraphNode {key:i.target}) CREATE (a)-[:PMGraphEdge {snapshot:i.snapshot,ordinal:i.ordinal,kind:i.kind,status:i.status,payload:i.payload}]->(b)',{'items':edges[start:start+200]})
         connection.execute('COMMIT')
-    except BaseException:
-        connection.execute('ROLLBACK')
+    except BaseException as error:
+        _rollback_after_failure(connection,error)
         raise
     return {'snapshot':snapshot,'nodes':len(nodes),'edges':len(edges)}
 
@@ -57,8 +65,8 @@ def delete_snapshot(connection,snapshot):
     try:
         _delete(connection,snapshot)
         connection.execute('COMMIT')
-    except BaseException:
-        connection.execute('ROLLBACK')
+    except BaseException as error:
+        _rollback_after_failure(connection,error)
         raise
 
 
