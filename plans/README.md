@@ -45,7 +45,9 @@ P3 已通过所选 140 文件上的 D01 数据库候选与 D04 共享实例检�
 
 [前端消费与状态增量](../experiments/2026-10-23-p3/frontend-consumers.md) 提取两个入口的 API 返回字段消费、两处连线赋值及四处请求完成后更新。当时 158 项 Python、36 项 TypeScript 测试及完整图存储读回通过。
 
-最新 [响应回调与 Promise 增量](../experiments/2026-10-23-p3/response-callbacks.md) 自动恢复两张回调表、五条交付候选及项目切换筛选条件。162 项 Python、48 项 TypeScript 测试和图存储读回通过。D02 继续连接编号传播、实际传输及 Promise 到业务 API 的返回转换；D03、D05 随整链验收。
+[响应回调与 Promise 增量](../experiments/2026-10-23-p3/response-callbacks.md) 自动恢复两张回调表、五条交付候选及项目切换筛选条件。当时 162 项 Python、48 项 TypeScript 测试和图存储读回通过。
+
+最新 [请求编号关联增量](../experiments/2026-10-23-p3/request-correlation.md) 将发送字段、请求解码、响应复制和序列化接到前端查找键，覆盖首链四个响应出口。170 项 Python、53 项 TypeScript 测试和存储读回通过。D02 继续补 C++ 响应实际发送、端点对应与 API 返回转换；D03、D05 随整链验收。
 
 ## 当前选型方向
 

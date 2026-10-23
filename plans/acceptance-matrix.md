@@ -16,7 +16,9 @@ D02 的 [字段生产增量](../experiments/2026-10-23-p3/output-fields.md) 从�
 
 [前端消费与状态增量](../experiments/2026-10-23-p3/frontend-consumers.md) 在 API 返回值边界一侧恢复两处连线赋值和四处请求完成后更新，支持按字段和有作用域的状态查询。当时 158 项 Python、36 项 TypeScript 测试和图存储读回通过。
 
-最新 [响应回调与 Promise 增量](../experiments/2026-10-23-p3/response-callbacks.md) 恢复两张表、五条交付候选、JSON 解析与成功/失败字段。162 项 Python、48 项 TypeScript 测试和存储读回通过。D02 仍待编号传播、发送/接收与 Promise 到 API 返回转换；D03 跨传输反查和 D05 整链说明继续实施。
+[响应回调与 Promise 增量](../experiments/2026-10-23-p3/response-callbacks.md) 恢复两张表、五条交付候选、JSON 解析与成功/失败字段。当时 162 项 Python、48 项 TypeScript 测试和存储读回通过。
+
+最新 [请求编号关联增量](../experiments/2026-10-23-p3/request-correlation.md) 提取三条发送字段/回调键绑定，跨 C++ 解码、复制和序列化连接四个响应出口。170 项 Python、53 项 TypeScript 测试和存储读回通过。D02 仍待响应实际发送、端点对应及 API 返回转换；D03、D05 继续实施。
 
 ## 使用方式与证据要求
 
