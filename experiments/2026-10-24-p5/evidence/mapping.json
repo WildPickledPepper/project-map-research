@@ -1,0 +1,252 @@
+{
+  "evidence_kind": "executed_real_captures_and_extracted_graph_projection",
+  "acceptance": "R06",
+  "status": "passed",
+  "producer_version": "a2e39a6086e2069aedb57600b19e2fac58911beb",
+  "graphs": [
+    {
+      "snapshot_id": "8bd79423fd0049d39340e90d12c0104c",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "nodes": 25480,
+      "edges": 36709,
+      "input_files": 157,
+      "builder_version": {
+        "rules_commit": "a93bafff11e6ac985b08412372953cc2ceec2a31",
+        "python": "3.11.9",
+        "node": "v22.23.3",
+        "typescript": "5.9.3",
+        "packages": {
+          "tree-sitter": "0.25.2",
+          "tree-sitter-language-pack": "1.20.0",
+          "kuzu": "0.11.3"
+        }
+      },
+      "storage": "kuzu",
+      "storage_roundtrip": true
+    },
+    {
+      "snapshot_id": "a51f4e5957c746af91e61dc5e8f9b4f3",
+      "source_commit": "7f851c66b12a833ebeb2e3b12bf527a1cf0aea7a",
+      "nodes": 25480,
+      "edges": 36709,
+      "input_files": 157,
+      "builder_version": {
+        "rules_commit": "a93bafff11e6ac985b08412372953cc2ceec2a31",
+        "python": "3.11.9",
+        "node": "v22.23.3",
+        "typescript": "5.9.3",
+        "packages": {
+          "tree-sitter": "0.25.2",
+          "tree-sitter-language-pack": "1.20.0",
+          "kuzu": "0.11.3"
+        }
+      },
+      "storage": "kuzu",
+      "storage_roundtrip": true
+    }
+  ],
+  "records": [
+    {
+      "label": "normal",
+      "run": "p5-r06-normal-01",
+      "record_id": "e011c638759544d0913568c972672ce6",
+      "snapshot_id": "8bd79423fd0049d39340e90d12c0104c",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "stage_counts": {
+        "api.begin": 1,
+        "ui.action": 1,
+        "request.decoded": 1,
+        "handler.invoke": 1,
+        "database.call": 1,
+        "database.return": 1,
+        "handler.complete": 1,
+        "wire.response": 1,
+        "response.classified": 1,
+        "response.delivered": 1,
+        "api.resolved": 1,
+        "state.applied": 1,
+        "wire.request": 1
+      },
+      "anchors": {
+        "mapped": 14,
+        "unmapped": 3
+      },
+      "unmapped_stages": [
+        "ui.action",
+        "wire.request",
+        "wire.response"
+      ],
+      "observed_dispatch_targets": [
+        "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+        "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows"
+      ],
+      "same_context_direct_overlay": true
+    },
+    {
+      "label": "late",
+      "run": "p5-r06-late-01",
+      "record_id": "c02ff191f9e34eba981bc15e09ee6b13",
+      "snapshot_id": "8bd79423fd0049d39340e90d12c0104c",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "stage_counts": {
+        "api.begin": 1,
+        "ui.action": 1,
+        "request.decoded": 1,
+        "handler.invoke": 1,
+        "database.call": 1,
+        "database.return": 1,
+        "handler.complete": 1,
+        "wire.response": 1,
+        "response.classified": 1,
+        "response.discarded": 1,
+        "wire.request": 1
+      },
+      "anchors": {
+        "mapped": 12,
+        "unmapped": 3
+      },
+      "unmapped_stages": [
+        "ui.action",
+        "wire.request",
+        "wire.response"
+      ],
+      "observed_dispatch_targets": [
+        "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+        "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows"
+      ],
+      "same_context_direct_overlay": true
+    },
+    {
+      "label": "parallel",
+      "run": "p5-r06-parallel-01",
+      "record_id": "5fdadc76b71b4e7db642ff2b6f2be82c",
+      "snapshot_id": "8bd79423fd0049d39340e90d12c0104c",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "stage_counts": {
+        "api.begin": 2,
+        "ui.action": 2,
+        "request.decoded": 2,
+        "handler.invoke": 2,
+        "database.call": 2,
+        "database.return": 2,
+        "handler.complete": 2,
+        "wire.response": 2,
+        "response.classified": 2,
+        "response.delivered": 2,
+        "api.resolved": 2,
+        "state.applied": 2,
+        "wire.request": 2
+      },
+      "anchors": {
+        "mapped": 28,
+        "unmapped": 6
+      },
+      "unmapped_stages": [
+        "ui.action",
+        "wire.request",
+        "wire.response"
+      ],
+      "observed_dispatch_targets": [
+        "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+        "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows"
+      ],
+      "same_context_direct_overlay": true
+    },
+    {
+      "label": "fault_control",
+      "run": "p5-fault-control-01",
+      "record_id": "9ee8e4dd2c174a3d84019b109065e6dd",
+      "snapshot_id": "a51f4e5957c746af91e61dc5e8f9b4f3",
+      "source_commit": "7f851c66b12a833ebeb2e3b12bf527a1cf0aea7a",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "stage_counts": {
+        "api.begin": 1,
+        "ui.action": 1,
+        "request.decoded": 1,
+        "handler.invoke": 1,
+        "database.call": 1,
+        "database.return": 1,
+        "handler.complete": 1,
+        "wire.response": 1,
+        "response.classified": 1,
+        "response.discarded": 1,
+        "wire.request": 1
+      },
+      "anchors": {
+        "mapped": 12,
+        "unmapped": 3
+      },
+      "unmapped_stages": [
+        "ui.action",
+        "wire.request",
+        "wire.response"
+      ],
+      "observed_dispatch_targets": [
+        "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+        "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows"
+      ],
+      "same_context_direct_overlay": true
+    },
+    {
+      "label": "fault",
+      "run": "p5-fault-01",
+      "record_id": "8a5c7297f91646faaa4e9389267a9595",
+      "snapshot_id": "a51f4e5957c746af91e61dc5e8f9b4f3",
+      "source_commit": "7f851c66b12a833ebeb2e3b12bf527a1cf0aea7a",
+      "scenario_passed": false,
+      "capture_complete": false,
+      "stage_counts": {
+        "api.begin": 1,
+        "ui.action": 1,
+        "request.decoded": 1,
+        "handler.invoke": 1,
+        "database.call": 1,
+        "database.return": 1,
+        "handler.complete": 1,
+        "wire.response": 1,
+        "response.classified": 1,
+        "response.delivered": 1,
+        "api.resolved": 1,
+        "state.applied": 1,
+        "wire.request": 1,
+        "fault.activated": 1
+      },
+      "anchors": {
+        "mapped": 14,
+        "unmapped": 4
+      },
+      "unmapped_stages": [
+        "fault.activated",
+        "ui.action",
+        "wire.request",
+        "wire.response"
+      ],
+      "observed_dispatch_targets": [
+        "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+        "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows"
+      ],
+      "same_context_direct_overlay": true
+    }
+  ],
+  "checks": {
+    "same_context_overlay": true,
+    "cross_source_overlay_rejected": true,
+    "cross_runtime_config_overlay_rejected": true,
+    "cross_fault_flag_overlay_rejected": true,
+    "wrong_source_import_rejected": true,
+    "unmapped_real_events_retained": true,
+    "historical_record_unchanged": true,
+    "fault_failure_and_adoption_retained": true,
+    "normal_and_late_paths_differ_but_both_assertions_pass": true
+  },
+  "path_difference_interpretation": "Normal adopts the result; late discards A after switching to B. Both match their scenario assertions.",
+  "scope": "Capture-hook adapter maps real events onto automatically extracted nodes; identity links and static edges remain separate.",
+  "build_provenance": "Reconstructed from executed build logs and source commits; component source differences checked by scoped git diff, no file hash verification."
+}

@@ -6,9 +6,9 @@
 
 **设计范围 v0.1**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 
-**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过。** 主底座 CGC/Kuzu，复用 TypeScript 编译器与 C++ 语法/类型候选。首链的协议、数据库候选、返回字段、前端状态和反向影响已在 154 文件范围合并验收，237 项 Python、76 项 TypeScript 测试及存储读回通过。见 [P3 完成报告](experiments/2026-10-23-p3/completion.md)、[P2 完成报告](experiments/2026-10-23-p2/README.md)和 [P1 底座决策](experiments/2026-10-23-p1-completion/README.md)。接下来实施 P4 自动刷新，P5–P7 保持原计划，详见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
+**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过。** 主底座 CGC/Kuzu，复用 TypeScript 编译器与 C++ 语法/类型候选。首链的协议、数据库候选、返回字段、前端状态和反向影响已在 154 文件范围合并验收，237 项 Python、76 项 TypeScript 测试及存储读回通过。见 [P3 完成报告](experiments/2026-10-23-p3/completion.md)、[P2 完成报告](experiments/2026-10-23-p2/README.md)和 [P1 底座决策](experiments/2026-10-23-p1-completion/README.md)。P4–P5 也已完成，P6–P7 保持待办，详见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
 
-**P4 已完成**：[自动刷新、发布与恢复](experiments/2026-10-23-p4/automatic-refresh.md)及[历史记录版本关联](experiments/2026-10-23-p4/versioned-records.md)通过验收，完整 Python 套件 274 项通过。见 [P4 完成报告](experiments/2026-10-23-p4/completion.md)。当前推进 P5 真实运行验证；按最新工作目标，完成 P5 后暂停，P6–P7 暂不实施。
+**P4 已完成**：[自动刷新、发布与恢复](experiments/2026-10-23-p4/automatic-refresh.md)及[历史记录版本关联](experiments/2026-10-23-p4/versioned-records.md)通过验收，完整 Python 套件 274 项通过。见 [P4 完成报告](experiments/2026-10-23-p4/completion.md)。**P5 已完成**：R01–R06 的真实运行、状态断言、故障自检和同版本图关联通过，见 [P5 完成报告](experiments/2026-10-24-p5/completion.md)。本轮到此停止，P6–P7 暂不实施。
 
 ## 我们要解决的问题
 

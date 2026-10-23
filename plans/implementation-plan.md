@@ -1,6 +1,6 @@
 # 项目模型与历史问题资产协作：详细计划书 v0.1
 
-日期：2026-10-24。状态：**P1–P4 已完成，P5 进行中，P6–P7 暂不实施**。本轮按最新目标完成 P5 后暂停。F01–F05、组件选择和复现见 [完成报告](../experiments/2026-10-23-p1-completion/README.md)。范围依据 [设计基线](../docs/05-design-baseline.md)，阶段与工作量见 [总计划](README.md)，检查项见 [验收矩阵](acceptance-matrix.md)。
+日期：2026-10-24。状态：**P1–P5 已完成，P6–P7 暂不实施**。本轮 P5 已完成，到此停止。F01–F05、组件选择和复现见 [完成报告](../experiments/2026-10-23-p1-completion/README.md)。范围依据 [设计基线](../docs/05-design-baseline.md)，阶段与工作量见 [总计划](README.md)，检查项见 [验收矩阵](acceptance-matrix.md)。
 
 本文定义整体数据和查询约定。P1 已实现必要事实的 JSON 交换、CGC/Kuzu 与 CodeGraph/SQLite 存储；P2 起扩展协议、资源和运行实体。
 
@@ -136,7 +136,7 @@ P1 原版对照包含 CBM、CGC、CodeGraph 三者；独立补充事实在 CGC �
 
 ### P3：数据库选择、返回数据与影响查询
 
-P3 最新验收：**D01–D05 在 154 文件的同一快照通过**，237 项 Python、76 项 TypeScript 测试及存储读回通过。统一查询与源码条件见 [完成报告](../experiments/2026-10-23-p3/completion.md)，第三条跨模块链见 [登记](../cases/memory-usage/README.md)。后续推进 P4 自动刷新，P5–P7 的运行、历史资产与综合验收保持原范围。
+P3 最新验收：**D01–D05 在 154 文件的同一快照通过**，237 项 Python、76 项 TypeScript 测试及存储读回通过。统一查询与源码条件见 [完成报告](../experiments/2026-10-23-p3/completion.md)，第三条跨模块链见 [登记](../cases/memory-usage/README.md)。P4 自动刷新与 P5 真实运行已完成；P6 历史资产与 P7 综合验收保留原范围，暂不展开。
 
 D02 已恢复字段生产与序列化、前端消费、回调与编号来源，以及 C++ JSON 到 socket 的发送过程，见 [编号关联](../experiments/2026-10-23-p3/request-correlation.md)和 [C++ 发送证据](../experiments/2026-10-23-p3/transmission.md)。此前 [socket 接收绑定增量](../experiments/2026-10-23-p3/socket-receivers.md)将原生 socket 创建、发送字段、业务 onmessage 绑定和事件参数连接到响应回调表，组合首链四个后端响应出口及三种 Promise 交付候选。195 项 Python、67 项 TypeScript 测试和存储读回通过。该批保留服务端连接来源与 API 返回关联缺口。
 
@@ -177,9 +177,9 @@ D02 已恢复字段生产与序列化、前端消费、回调与编号来源，�
 
 ### P5：真实运行与状态验证
 
-已完成[运行材料盘点](../experiments/2026-10-24-runtime-readiness/README.md)：源码中已有 Playwright 测试框架、DB/Text 样例和构建说明，真实运行与场景验收尚未执行。
+已完成[运行材料盘点](../experiments/2026-10-24-runtime-readiness/README.md)：源码提供 Playwright 测试框架、DB/Text 样例和构建说明；基于这些材料完成下述真实运行验收。
 
-当前 [R01 真实启动](../experiments/2026-10-24-p5/README.md)已通过：独立副本完成前后端构建，公开 Text 样例通过 UI 导入并显示 Timeline 泳道。R02 正常场景三次重复、跨层身份关联与最终连线断言已通过；R03 三次查询中切换项目也已通过，旧响应被实际前端守卫丢弃，B 状态不变；R05 受控放行旧响应导致 B 状态污染，独立断言按预期失败，恢复原守卫后通过；R04 两个不同请求同时等待时的跨线程身份关联及四项采集负例通过；继续实施 R06。
+当前 [R01 真实启动](../experiments/2026-10-24-p5/README.md)已通过：独立副本完成前后端构建，公开 Text 样例通过 UI 导入并显示 Timeline 泳道。R02 正常场景三次重复、跨层身份关联与最终连线断言已通过；R03 三次查询中切换项目也已通过，旧响应被实际前端守卫丢弃，B 状态不变；R05 受控放行旧响应导致 B 状态污染，独立断言按预期失败，恢复原守卫后通过；R04 两个不同请求同时等待时的跨线程身份关联及四项采集负例通过；R06 五份真实记录映射同版本图，跨源码/配置拒绝直接叠加，未映射事件与失败记录保留。**P5 全部完成**，见 [完成报告](../experiments/2026-10-24-p5/completion.md)。
 
 前置条件：可复现的 Insight 构建/启动、最小测试数据、可控制延迟的位置、P3 静态图。产物：场景说明、运行命令、配置/数据摘要、紧凑 trace/事件、断言结果和静态关联报告。
 

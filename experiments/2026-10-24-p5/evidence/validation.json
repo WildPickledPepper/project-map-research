@@ -1,0 +1,38 @@
+{
+  "evidence_kind": "executed_regression_tests",
+  "python": {
+    "tests": 280,
+    "passed": 280,
+    "skipped": 0,
+    "failed": 0,
+    "log": "p5-r06-01/python-tests-configured.txt"
+  },
+  "typescript": {
+    "tests": 76,
+    "passed": 76,
+    "skipped": 0,
+    "failed": 0,
+    "log": "p5-r06-01/typescript-tests-configured.txt"
+  },
+  "runtime_record_unit_tests": 6,
+  "environment": {
+    "python": "3.11.9",
+    "node": "22.23.3",
+    "typescript": "5.9.3",
+    "windows_kuzu_dll_directory": "PROJECT_MAP_DLL_DIR",
+    "typescript_resolution": "NODE_PATH",
+    "parser_cache": "PROJECT_MAP_PARSER_CACHE"
+  },
+  "setup_attempts": [
+    {
+      "log": "p5-r06-01/typescript-tests.txt",
+      "result": "dependency loading failed before tests; corrected NODE_PATH to existing pinned TypeScript installation"
+    },
+    {
+      "log": "p5-r06-01/python-tests.txt",
+      "result": "Kuzu DLL environment absent and TypeScript unavailable; reran with existing PROJECT_MAP_DLL_DIR and NODE_PATH configured"
+    }
+  ],
+  "raw_logs": "external results directory",
+  "file_hash_verification": "not_run_per_user_preference"
+}

@@ -2,7 +2,7 @@
 
 研究对象：[MindStudio Insight](https://gitcode.com/Ascend/msinsight)，固定提交 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。
 
-状态：本文保留人工源码核对的参考链路。自动结果见 [P2 协议连接](../../experiments/2026-10-23-p2/README.md)和 [P3 完成报告](../../experiments/2026-10-23-p3/completion.md)：首链在 154 文件范围完成 D01–D05，字段生产、返回与两处状态赋值可关联查询。动态场景由 P5 执行。
+状态：本文保留人工源码核对的参考链路。自动结果见 [P2 协议连接](../../experiments/2026-10-23-p2/README.md)和 [P3 完成报告](../../experiments/2026-10-23-p3/completion.md)：首链在 154 文件范围完成 D01–D05，字段生产、返回与两处状态赋值可关联查询。[P5 真实运行](../../experiments/2026-10-24-p5/completion.md)已验证正常查询、项目切换、并发关联、故障断言和同版本图映射。
 
 新增：[CodeGraph / code-map 原版实测](../../experiments/2026-10-23-unit-flows/README.md)，附自动输出、断点和复现脚本；[适配边界](adaptation-boundaries.md) 是人工源码补充审计，不能当作工具自动生成结果。
 

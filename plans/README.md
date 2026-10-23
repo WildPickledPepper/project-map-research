@@ -1,8 +1,8 @@
 # 研究与实施计划 v0.1
 
-日期：2026-10-23。设计依据：[设计基线 v0.1](../docs/05-design-baseline.md)，基线提交 `547269e`。**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过；P4 已完成，P5 进行中，P6–P7 暂不实施。** [P2 证据](../experiments/2026-10-23-p2/README.md)覆盖三条真实协议链、改名和作用域反例。 主底座选用 CGC/Kuzu，见 [P1 完成证据与决策](../experiments/2026-10-23-p1-completion/README.md)。
+日期：2026-10-24。设计依据：[设计基线 v0.1](../docs/05-design-baseline.md)，基线提交 `547269e`。**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过；P4–P5 已完成，P6–P7 暂不实施。** [P2 证据](../experiments/2026-10-23-p2/README.md)覆盖三条真实协议链、改名和作用域反例。 主底座选用 CGC/Kuzu，见 [P1 完成证据与决策](../experiments/2026-10-23-p1-completion/README.md)。
 
-当前推进 [P5 真实运行验证](../experiments/2026-10-24-runtime-readiness/README.md)，按 2026-10-24 更新目标完成 P5 后暂停。P4 的 U01–U04、U06 通过，U05 不适用，见 [完成报告](../experiments/2026-10-23-p4/completion.md)。
+[P5 真实运行验证已完成](../experiments/2026-10-24-p5/completion.md)，R01–R06 通过；按 2026-10-24 目标到此停止。P4 的 U01–U04、U06 通过，U05 不适用，见 [完成报告](../experiments/2026-10-23-p4/completion.md)。
 
 ## 要交付什么
 
@@ -29,7 +29,7 @@ P1 同时确认动态场景环境是否可用；P2 即可开始资产格式对�
 
 ## 三个里程碑
 
-P3 最新验收：**D01–D05 在 154 文件的同一快照通过**，237 项 Python、76 项 TypeScript 测试及存储读回通过。统一查询与源码条件见 [完成报告](../experiments/2026-10-23-p3/completion.md)，第三条跨模块链见 [登记](../cases/memory-usage/README.md)。后续推进 P4 自动刷新，P5–P7 的运行、历史资产与综合验收保持原范围。
+P3 最新验收：**D01–D05 在 154 文件的同一快照通过**，237 项 Python、76 项 TypeScript 测试及存储读回通过。统一查询与源码条件见 [完成报告](../experiments/2026-10-23-p3/completion.md)，第三条跨模块链见 [登记](../cases/memory-usage/README.md)。P4 自动刷新与 P5 真实运行已完成；P6 历史资产与 P7 综合验收保留原范围，暂不展开。
 
 | 里程碑 | 范围 | 成功条件 |
 |---|---|---|

@@ -46,6 +46,7 @@ def run_trial(args):
         if label == 'late':
             assert stage_counts['response.discarded'] == 1 and not stage_counts['state.applied']
         write(args.output/(label+'-record.json'), record)
+        write(args.output/(label+'-context.json'), context)
         write(args.output/(label+'-same-context.json'), same)
         records[label] = record
         summaries.append({'label': label, 'run': run_id, 'record_id': record['id'], 'snapshot_id': snapshot,

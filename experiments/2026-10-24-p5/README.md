@@ -1,6 +1,6 @@
 # P5 真实运行验证
 
-日期：2026-10-24。R01–R05 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
+日期：2026-10-24。**R01–R06 全部通过，P5 完成。** 真实正常查询、项目切换、两个待返回请求和受控故障已执行；运行记录已关联同版本静态图。见 [完成报告](completion.md)。按当前目标到此停止，P6–P7 暂不展开。
 
 ## 输入与隔离
 
@@ -53,7 +53,7 @@ python experiments/2026-10-24-p5/run_boot_probe.py \
   --output ../work/repo-map-research/results/p5-boot
 ```
 
-## 待完成的运行验收
+## 运行验收
 
 采集实现：[instrument_runtime.py](instrument_runtime.py)已在独立副本应用十个文件的采集改动。[C++ 辅助代码](ProjectMapProbe.h)记录解码、实际 handler、数据库虚调用和系统线程身份；[浏览器采集](browser_probe.cjs)记录 UI 动作、API、响应处置和状态赋值。实验提交 `f76b3db12717c6e5ab33764a9f49d9ff8b89be7d` 完成前后端重建；后续 `ccd0d88080861b0c7185bcca70a85bd61f823168` 将 C++ 线程编号改为 `GetCurrentThreadId` 并重建后端，前端源码保持相同。最终三次运行使用后一个提交。上述提交仅存在于禁用 push 的本地产品副本。
 
@@ -97,7 +97,7 @@ python experiments/2026-10-24-p5/verify_capture.py --run NEW_EXTERNAL_RUN
 3. R03（通过）：控制 A 的响应晚于切换 B，验证 B 状态不受污染并找到丢弃/拒绝位置；重复三次。
 4. R04（通过）：并行请求和异步边界的身份不混合；人为缺少一个采集点时明确保留缺口。
 5. R05（通过）：独立副本注入迟到错误更新，确认状态断言会失败。
-6. R06：运行记录绑定实际源码/构建/配置，映射同版本静态图，跨版本及未映射事件有明确状态。
+6. R06（通过）：运行记录绑定实际源码/构建/配置，映射同版本静态图，跨版本及未映射事件有明确状态。
 
 独立预期以请求所属项目、选定公开数据中的 flow 和最终前端状态为准；采集轨迹用于解释过程。真实场景和故障自检结果全部保留，不能以启动成功替代运行验收。
 
@@ -133,3 +133,7 @@ python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOU
 python experiments/2026-10-24-p5/verify_capture.py --run NEW_EXTERNAL_RUN
 python experiments/2026-10-24-p5/check_capture_controls.py --run NEW_EXTERNAL_RUN --output NEW_EXTERNAL_CONTROLS
 ```
+
+### R06 运行记录与静态图
+
+[run_mapping_trial.py](run_mapping_trial.py)已完成五份真实记录与两份 157 文件图的关联。正常、切换、并发、故障关闭四个场景保留通过结果；故障开启保留状态断言失败和实际旧响应采用。跨源码、strict mode 变化和故障开关变化均拒绝直接叠加，旧记录内容不变；浏览器侧未映射事件继续保存。[紧凑证据](evidence/mapping.json)与 [完整说明](completion.md)记录映射规则、构建来源和复现命令。
