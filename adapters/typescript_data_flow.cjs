@@ -5,13 +5,15 @@
 const fs=require('node:fs'),path=require('node:path');
 const {analyze}=require('./typescript_facts.cjs');
 
-function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistries=false}={}) {
+function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistries=false,socketOnly=false}={}) {
   const {ts,checker,loc,id,callableOwner,qualified}=ctx,apis=new Set(apiSymbols);
   const src=n=>({...loc(n),expression:n.getText().slice(0,500)});
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
   const entries=new Map(),writes=[],reads=[],calls=[],diagnostics=[];let steps=0,currentEntry=null;
   const promiseEntries=new Map(),lookupEntries=new Map(),registrations=[],lookups=[],settlements=[],promises=[],deletions=[],callbackBindings=[];
   const transmissions=[],counterUpdates=[];
+  const socketEntries=new Map(),socketCreations=[],channelBindings=[],listenerBindings=[];
+  let socketEpoch=0;
   let phase='consumers';
   const unwrap=n=>{while(n&&(ts.isAsExpression(n)||ts.isParenthesizedExpression(n)||ts.isNonNullExpression(n)||ts.isTypeAssertionExpression(n)))n=n.expression;return n;};
   function decl(n){let s=ts.isIdentifier(n)&&ts.isShorthandPropertyAssignment(n.parent)?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration||s?.declarations?.[0];}
@@ -33,7 +35,22 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(ts.isNewExpression(call)&&standard(call.expression,'Promise'))promiseEntries.set(id(owner,'callable'),owner);
     if(ts.isCallExpression(call)&&ts.isPropertyAccessExpression(call.expression)&&call.expression.name.text==='get'&&platform(call.expression.expression,'Map'))lookupEntries.set(id(owner,'callable'),owner);
   }
+  if(socketOnly){
+    for(const call of ctx.calls){const owner=callableOwner(call);if(!owner?.body)continue;
+      if(ts.isNewExpression(call)&&standard(call.expression,'WebSocket') ||
+         ts.isCallExpression(call)&&ts.isPropertyAccessExpression(call.expression)&&call.expression.name.text==='send'&&platform(call.expression.expression,'WebSocket'))
+        socketEntries.set(id(owner,'callable'),owner);
+    }
+    for(const assignment of ctx.assignments){const left=unwrap(assignment.left),owner=callableOwner(assignment);
+      if(owner?.body&&ts.isPropertyAccessExpression(left)&&left.name.text==='onmessage'&&platform(left.expression,'WebSocket'))socketEntries.set(id(owner,'callable'),owner);
+    }
+  }
   function uniq(items){return [...new Map(items.map(v=>[JSON.stringify(v),v])).values()];}
+  function channelIdentity(v){
+    if(v.kind==='input_path')return JSON.stringify([v.kind,v.root,v.path,v.receiver_type||null]);
+    if(v.kind==='native_socket')return JSON.stringify([v.kind,v.allocation]);
+    return null;
+  }
   const contextualId=(n,kind,c)=>[currentEntry,...c.chain.map(s=>s.call_site),id(n,kind)].join('/');
   function dependencies(v,seen=new Set()) {
     if(!v||seen.has(v))return [];seen.add(v);
@@ -71,12 +88,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(!v)return {kind:'undefined'};if(depth>8||seen.has(v))return {kind:'unknown',reason:'value_description_limit'};seen.add(v);
     if(v.tag==='literal')return v.value===undefined?{kind:'undefined'}:{kind:'constant',value:v.value};
     if(v.tag==='input')return {kind:'input_path',root:v.root,path:v.path,transforms:v.transforms||[],evidence:v.evidence||[],conditions:v.conditions||[],gaps:v.gaps||[],
+      ...(v.receiver_type?{receiver_type:v.receiver_type}:{}),
       ...(v.assigned?.length?{overrides:Object.fromEntries(v.assigned.map(k=>[k,describe(v.props[k],depth+1,new Set(seen))]))}:{})};
     if(v.tag==='function')return {kind:'source_callback',source_symbol:id(v.node,'callable'),resolvers:resolverRefs(v)};
     if(v.tag==='resolver')return {kind:'promise_resolver',promise:v.promise,mode:v.mode};
     if(v.tag==='union')return {kind:'alternatives',values:v.values.map(x=>describe(x,depth+1,new Set(seen)))};
     if(v.tag==='registry_lookup')return {kind:'registry_lookup',lookup:v.lookup,selectors:v.selectors};
     if(v.tag==='json')return {kind:'json_string',value:describe(v.value,depth+1,new Set(seen)),evidence:v.evidence};
+    if(v.tag==='native_socket')return {kind:'native_socket',allocation:v.allocation,evidence:v.evidence};
+    if(socketOnly&&v.tag==='computed'&&v.inputs)return {kind:'source_expression',operation:v.operation,
+      inputs:v.inputs.map(x=>describe(x,depth+1,new Set(seen))),evidence:v.evidence||[]};
     if(v.tag==='object')return {kind:'object',fields:Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,describe(x,depth+1,new Set(seen))]))};
     return {kind:'unknown',reason:v.reason||v.tag};
   }
@@ -116,9 +137,17 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       if(ts.isFunctionLike(m))return {...fn(m,c),receiver:v};
       if(m.initializer&&(ts.isArrowFunction(m.initializer)||ts.isFunctionExpression(m.initializer)))return {...fn(m.initializer,c),receiver:v};
       let value;
+      if(socketOnly&&m.initializer&&ts.isNewExpression(m.initializer)&&standard(m.initializer.expression,'WebSocket')){
+        const cc={...c,conditions:[...c.conditions,{kind:'instance_field_initializer_not_replaced',...src(m)}]};
+        value=ev(m.initializer,cc);
+        channelBindings.push({id:contextualId(m,'channel_initializer',c)+':'+channelBindings.length,source_site:id(m,'binding'),
+          entry:currentEntry,source_symbol:id(c.current,'callable'),channel:{kind:'input_path',root:id(m,'instance_binding'),path:[],receiver_type:id(v.classNode,'type')},
+          value:describe(value),conditions:cc.conditions,evidence:[src(m)],call_chain:c.chain});
+        v.props[key]=value;return value;
+      }
       if(m.initializer&&ts.isNewExpression(m.initializer)&&standard(m.initializer.expression,'Map'))
         value={tag:'registry',registry:id(m,'map_binding'),receiver_type:id(v.classNode,'type'),evidence:[src(m)]};
-      else value={tag:'input',root:id(m,'instance_binding'),path:[],props:{},evidence:[src(m)]};
+      else value={tag:'input',root:id(m,'instance_binding'),path:[],props:{},evidence:[src(m)],...(socketOnly?{receiver_type:id(v.classNode,'type')}:{})};
       v.props[key]=value;return value;
     }
     if(v?.tag==='response'){
@@ -140,6 +169,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   function symbol(n,c) {
     const d=decl(n);if(c.env.has(d))return c.env.get(d);
     if(!d)return unknown('symbol_unresolved');
+    if(socketOnly&&loc(d).path.startsWith('<typescript-lib>/')&&platform(n,'Window'))return {tag:'input',root:id(d,'platform_binding'),path:[],props:{},evidence:[src(n)]};
     if(ts.isFunctionLike(d))return fn(d,c);
     if(ts.isVariableDeclaration(d)&&d.initializer){if(c.resolving.has(d))return unknown('initializer_cycle');c.resolving.add(d);const v=ev(d.initializer,c);c.resolving.delete(d);c.env.set(d,v);return v;}
     return unknown('external_or_runtime_value');
@@ -150,6 +180,28 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(!ts.isPropertyAccessExpression(left)&&!ts.isElementAccessExpression(left))return;
     const receiver=ev(left.expression,c),key=ts.isPropertyAccessExpression(left)?literal(left.name.text):ev(left.argumentExpression,c);
     const prop=key.tag==='literal'?String(key.value):'*';
+    if(socketOnly){
+      if(receiver.tag==='instance'&&platform(left,'WebSocket')){
+        const m=member(receiver.classNode,prop);
+        if(m)channelBindings.push({id:contextualId(at,'channel_assignment',c)+':'+channelBindings.length,source_site:id(at,'binding'),
+          entry:currentEntry,source_symbol:id(c.current,'callable'),channel:{kind:'input_path',root:id(m,'instance_binding'),path:[],receiver_type:id(receiver.classNode,'type')},
+          value:describe(value),conditions:c.conditions,evidence:[src(at),src(m)],call_chain:c.chain});
+      }
+      if(prop==='onmessage'&&platform(left.expression,'WebSocket')){
+        const callback=value.tag==='function'?value:null,cls=callback&&ownerClass(callback.node);
+        const mode=callback?(ts.isArrowFunction(callback.node)?'lexical':callback.boundReceiver?'bound':'event_target'):'unresolved';
+        const parameter=callback?.node.parameters?.[0];
+        const record={id:contextualId(at,'socket_listener',c)+':'+listenerBindings.length,source_site:id(at,'binding'),entry:currentEntry,
+          source_symbol:id(c.current,'callable'),channel:describe(receiver),property:prop,
+          callback:callback?id(callback.node,'callable'):null,event_parameter:parameter?id(parameter,'input_binding'):null,
+          this_binding:mode,callback_receiver_type:mode==='lexical'&&cls?id(cls,'type'):mode==='bound'&&callback.receiver?.classNode?id(callback.receiver.classNode,'type'):null,
+          action:callback?'install':value.tag==='literal'&&value.value===null?'clear':'unknown',
+          conditions:c.conditions,evidence:[src(at)],call_chain:c.chain,sequence_epoch:socketEpoch,superseded_by:[]};
+        for(const old of listenerBindings)if(old.entry===currentEntry&&channelIdentity(old.channel)&&channelIdentity(old.channel)===channelIdentity(record.channel)&&
+            old.sequence_epoch===socketEpoch&&JSON.stringify(old.conditions)===JSON.stringify(record.conditions)&&JSON.stringify(old.call_chain)===JSON.stringify(record.call_chain))old.superseded_by.push(record.id);
+        listenerBindings.push(record);
+      }
+    }
     if(responseRegistries&&value.tag==='function')callbackBindings.push({id:id(at,'callback_assignment'),entry:currentEntry,
       receiver:describe(receiver),property:prop,callback:id(value.node,'callable'),conditions:c.conditions,evidence:[src(at)]});
     function put(r){
@@ -217,6 +269,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(ts.isIdentifier(n))return n.text==='undefined'?literal(undefined):symbol(n,c);
     if(ts.isArrowFunction(n)||ts.isFunctionExpression(n))return fn(n,c);
     if(ts.isAwaitExpression(n)){
+      if(socketOnly)socketEpoch++;
       function fulfilled(value){
         if(value.tag==='promise'){for(const uid of value.awaited||[])c.awaited.add(uid);return fulfilled(value.value);}
         if(value.tag==='union')return value.values.map(fulfilled).reduce(merge);
@@ -224,6 +277,8 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       }
       return fulfilled(ev(n.expression,c));
     }
+    if(socketOnly&&ts.isTemplateExpression(n))return {tag:'computed',operation:'template_string',
+      inputs:[literal(n.head.text),...n.templateSpans.flatMap(s=>[ev(s.expression,c),literal(s.literal.text)])],evidence:[src(n)]};
     if(ts.isObjectLiteralExpression(n)){
       const value={tag:'object',props:{},dependencies:[]};
       for(const p of n.properties){if(ts.isSpreadAssignment(p)){const v=ev(p.expression,c);Object.assign(value.props,v.props||{});value.dependencies.push(...dependencies(v));continue;}
@@ -263,7 +318,8 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         if(op===ts.SyntaxKind.EqualsEqualsEqualsToken)return literal(a.value===b.value);
         if(op===ts.SyntaxKind.ExclamationEqualsEqualsToken)return literal(a.value!==b.value);
       }
-      return {tag:'computed',dependencies:uniq([...dependencies(a),...dependencies(b)])};
+      return {tag:'computed',dependencies:uniq([...dependencies(a),...dependencies(b)]),
+        ...(socketOnly?{operation:ts.tokenToString(op),inputs:[a,b],evidence:[src(n)]}:{})};
     }
     if(ts.isConditionalExpression(n)){const v=ev(n.condition,c);if(v.tag==='literal')return ev(v.value?n.whenTrue:n.whenFalse,c);
       const branches=[n.whenTrue,n.whenFalse].map((b,i)=>{const conditions=[...c.conditions,{...src(n.condition),when:i===0}];return guarded(ev(b,{...c,conditions}),conditions);});return branches.reduce(merge);}
@@ -276,9 +332,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       }
       if(ts.isPropertyAccessExpression(n.expression)) {
         const receiver=ev(n.expression.expression,c),name=n.expression.name.text;
+        if(socketOnly&&name==='replace'){
+          const declaration=checker.getResolvedSignature(n)?.declaration;
+          if(declaration&&loc(declaration).path.startsWith('<typescript-lib>/')&&declaration.parent?.name?.getText()==='String')
+            return {tag:'computed',operation:'String.replace',inputs:[receiver,...args],evidence:[src(n)]};
+        }
+        if(socketOnly&&name==='bind'&&receiver.tag==='function'&&loc(decl(n.expression)||n).path.startsWith('<typescript-lib>/'))
+          return {...receiver,receiver:args[0],boundReceiver:true};
         if(responseRegistries&&standard(n.expression.expression,'JSON')&&name==='stringify')return {tag:'json',value:clone(args[0]),evidence:[src(n)]};
         if(responseRegistries&&((name==='send'&&platform(n.expression.expression,'WebSocket'))||(name==='postMessage'&&platform(n.expression.expression,'Window')))){
-          transmissions.push({id:contextualId(n,'transmission',c)+':'+transmissions.length,source_site:callId,entry:currentEntry,promise_context:c.promiseContext||null,
+          transmissions.push({id:contextualId(n,socketOnly?'socket_send':'transmission',c)+':'+transmissions.length,source_site:callId,entry:currentEntry,promise_context:c.promiseContext||null,
             transport:name==='send'?'WebSocket.send':'window.postMessage',receiver:describe(receiver),payload:describe(clone(args[0])),
             conditions:c.conditions,evidence:[src(n)],call_chain:c.chain});return literal(undefined);
         }
@@ -340,6 +403,12 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       return unknown('external_or_unresolved_call');
     }
     if(ts.isNewExpression(n)){
+      if(socketOnly&&standard(n.expression,'WebSocket')){
+        const allocation=contextualId(n,'socket_allocation',c),args=(n.arguments||[]).map(a=>ev(a,c));
+        socketCreations.push({id:allocation,entry:currentEntry,source_symbol:id(c.current,'callable'),transport:'WebSocket',
+          url:describe(args[0]),url_expression:n.arguments?.[0]?src(n.arguments[0]):null,conditions:c.conditions,evidence:[src(n)],call_chain:c.chain});
+        return {tag:'native_socket',allocation,props:{},evidence:[src(n)]};
+      }
       if(responseRegistries&&standard(n.expression,'Promise')){
         const uid=contextualId(n,'promise',c),args=(n.arguments||[]).map(a=>ev(a,c));
         promises.push({id:uid,entry:currentEntry,source_symbol:id(c.current,'callable'),conditions:c.conditions,evidence:[src(n)]});
@@ -353,13 +422,20 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   }
   const analyzed=[];
   function analyzeEntry(uid,entry){
-    currentEntry=uid;steps=0;const cls=responseRegistries&&ownerClass(entry);
+    currentEntry=uid;steps=0;socketEpoch=0;const cls=responseRegistries&&ownerClass(entry);
     const c={env:new Map(),receiver:cls?{tag:'instance',classNode:cls,props:{}}:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0};
     entry.parameters.forEach(p=>bind(p.name,{tag:'input',root:id(p,'input_binding'),path:[],props:{},...(responseRegistries?{evidence:[src(p)]}:{})},c));
     if(ts.isBlock(entry.body))block(entry.body.statements,c);else ev(entry.body,c);
     analyzed.push({source_symbol:uid,name:qualified(entry),...loc(entry),steps,truncated:steps>maxSteps,...(responseRegistries?{phase}:{})});
   }
   for(const [uid,entry] of entries)analyzeEntry(uid,entry);
+  if(socketOnly){phase='socket';for(const [uid,entry] of socketEntries)analyzeEntry(uid,entry);
+    return {version:'0.1.0',entries:analyzed,creations:uniq(socketCreations),channel_bindings:uniq(channelBindings),listener_bindings:uniq(listenerBindings),
+      transmissions:uniq(transmissions),diagnostics:uniq(diagnostics),budgets:{max_steps:maxSteps,max_depth:maxDepth},
+      limits:['native_WebSocket_alternative_requires_source_branch','class_field_identity_requires_same_runtime_instance',
+        'listener_must_remain_active_until_delivery','dynamic_URL_kept_as_source_expression','source_endpoint_is_not_observed_network_connection',
+        'nonstandard_socket_alternatives_remain_unknown','unsupported_expressions_and_control_flow_keep_unknown']};
+  }
   if(responseRegistries){phase='register';for(const [uid,entry] of promiseEntries)analyzeEntry(uid,entry);
     phase='lookup';for(const [uid,entry] of lookupEntries)analyzeEntry(uid,entry);
     return {version:'0.2.0',entries:analyzed,promises:uniq(promises),registrations:uniq(registrations.map(r=>r.record)),transmissions:uniq(transmissions),counter_updates:uniq(counterUpdates),
