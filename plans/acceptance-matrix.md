@@ -18,7 +18,9 @@ D02 的 [字段生产增量](../experiments/2026-10-23-p3/output-fields.md) 从�
 
 [响应回调与 Promise 增量](../experiments/2026-10-23-p3/response-callbacks.md) 恢复两张表、五条交付候选、JSON 解析与成功/失败字段。当时 162 项 Python、48 项 TypeScript 测试和存储读回通过。
 
-最新 [请求编号关联增量](../experiments/2026-10-23-p3/request-correlation.md) 提取三条发送字段/回调键绑定，跨 C++ 解码、复制和序列化连接四个响应出口。170 项 Python、53 项 TypeScript 测试和存储读回通过。D02 仍待响应实际发送、端点对应及 API 返回转换；D03、D05 继续实施。
+[请求编号关联增量](../experiments/2026-10-23-p3/request-correlation.md) 提取三条发送字段/回调键绑定，跨 C++ 解码、复制和序列化连接四个响应出口。当时 170 项 Python、53 项 TypeScript 测试和存储读回通过。
+
+最新 [C++ 响应发送增量](../experiments/2026-10-23-p3/transmission.md)已将四个响应出口经 JSON 字符串、显式捕获和延迟回调接到 socket 发送参数，得到 12 条带编码分支条件的来源路径。150 文件输入，190 项 Python、53 项 TypeScript 测试及存储读回通过；Windows GBK 转换保留来源缺口。D02 继续连接端点对应、iframe 返回包装和业务 API 解包，D03、D05 随整链验收。
 
 ## 使用方式与证据要求
 

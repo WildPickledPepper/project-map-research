@@ -1,0 +1,3879 @@
+{
+  "evidence_kind": "executed_source_transmission_extraction_and_persisted_query",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v9",
+  "phase_status": "P3_in_progress",
+  "gate_under_test": "D02_incomplete",
+  "query": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v9",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "provider": "provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d",
+    "entry": null,
+    "status": "conditional_source_transmission",
+    "links": [
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:23"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:1"
+        },
+        "response_send_site": {
+          "call_site": "cpp:e5073d97dd7f982990ef87cf",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2993,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:2",
+          "evidence_refs": [
+            "source:30"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:23"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:1"
+        },
+        "response_send_site": {
+          "call_site": "cpp:21f3487ce7a4ab259f55dab6",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2915,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:2",
+          "evidence_refs": [
+            "source:31"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:23"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:1"
+        },
+        "response_send_site": {
+          "call_site": "cpp:d1f65f7bf08e7f38cc865c1e",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2115,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:4",
+          "evidence_refs": [
+            "source:32"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:23"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:1"
+        },
+        "response_send_site": {
+          "call_site": "cpp:e8bd90099d728ee3b563e280",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 1636,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:5",
+          "evidence_refs": [
+            "source:33"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:6"
+        },
+        "response_send_site": {
+          "call_site": "cpp:e5073d97dd7f982990ef87cf",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2993,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:2",
+          "evidence_refs": [
+            "source:30"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:6"
+        },
+        "response_send_site": {
+          "call_site": "cpp:21f3487ce7a4ab259f55dab6",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2915,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:2",
+          "evidence_refs": [
+            "source:31"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:6"
+        },
+        "response_send_site": {
+          "call_site": "cpp:d1f65f7bf08e7f38cc865c1e",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2115,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:4",
+          "evidence_refs": [
+            "source:32"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:6"
+        },
+        "response_send_site": {
+          "call_site": "cpp:e8bd90099d728ee3b563e280",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 1636,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:5",
+          "evidence_refs": [
+            "source:33"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:7"
+        },
+        "response_send_site": {
+          "call_site": "cpp:e5073d97dd7f982990ef87cf",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2993,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:2",
+          "evidence_refs": [
+            "source:30"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:7"
+        },
+        "response_send_site": {
+          "call_site": "cpp:21f3487ce7a4ab259f55dab6",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2915,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:2",
+          "evidence_refs": [
+            "source:31"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:7"
+        },
+        "response_send_site": {
+          "call_site": "cpp:d1f65f7bf08e7f38cc865c1e",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 2115,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:4",
+          "evidence_refs": [
+            "source:32"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      },
+      {
+        "json_source": {
+          "id": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_site": "cpp:d02f3f73c0791bac240f8076",
+          "targets": [
+            "cpp:8e60025b5fa4cc18738d1d8c"
+          ],
+          "parameter": null,
+          "evidence_refs": [
+            "source:0"
+          ]
+        },
+        "transmission": {
+          "id": "cpp-transmission:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:13e57c0822326bce3f440226\",5360,[{\"caller\":\"cpp:960c2d0c4c7d311a707bb52f\",\"callee\":\"cpp:e475943e947284ce3ff6ce62\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":177,\"expression\":\"SendResponse(response, responseStr)\"}]},{\"caller\":\"cpp:e475943e947284ce3ff6ce62\",\"callee\":\"cpp:13e57c0822326bce3f440226\",\"evidence\":[{\"path\":\"server/src/server/WsSessionImpl.cpp\",\"line\":192,\"expression\":\"self->Send(responseStr)\"}]}],0]",
+          "entry": "cpp:960c2d0c4c7d311a707bb52f",
+          "source_symbol": "cpp:13e57c0822326bce3f440226",
+          "source_site": "cpp:f557d83d4fee7ffb0472b7b4",
+          "transport": "uWS::WebSocket::send",
+          "receiver": {
+            "kind": "object",
+            "value_type": "WsChannel",
+            "type_path": "server/src/server/WsSessionImpl.h",
+            "type_scope": [
+              "Dic",
+              "Server",
+              "WsSessionImpl"
+            ],
+            "instance": "member:[\"this:[\\\"cpp:960c2d0c4c7d311a707bb52f\\\"]\",\"storage:6db50cec29a16f2347c8ef84\"]",
+            "field": "storage:6db50cec29a16f2347c8ef84"
+          },
+          "opcode": "uWS::OpCode::TEXT",
+          "conditions_ref": "conditions:0",
+          "deferred": [
+            {
+              "kind": "deferred_execution",
+              "model": "uWS::Loop::defer",
+              "evidence_refs": [
+                "source:6"
+              ],
+              "captures": [
+                {
+                  "name": "weakSelf",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:7"
+                  ]
+                },
+                {
+                  "name": "responseStr",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:8"
+                  ]
+                },
+                {
+                  "name": "response",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:9"
+                  ]
+                },
+                {
+                  "name": "traceId",
+                  "mode": "copy",
+                  "evidence_refs": [
+                    "source:10"
+                  ]
+                }
+              ],
+              "condition": "callback_invoked_by_event_loop"
+            }
+          ],
+          "call_chain": [
+            {
+              "caller": "cpp:960c2d0c4c7d311a707bb52f",
+              "callee": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:11"
+              ]
+            },
+            {
+              "caller": "cpp:e475943e947284ce3ff6ce62",
+              "callee": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:12"
+              ]
+            }
+          ],
+          "evidence_refs": [
+            "source:13"
+          ],
+          "runtime_execution": "unknown"
+        },
+        "lineage": {
+          "source": "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]",
+          "steps": [
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:14"
+              ],
+              "binding": "json"
+            },
+            {
+              "kind": "optional_value",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:15"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:16"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "rapidjson_accept",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:17"
+              ]
+            },
+            {
+              "kind": "rapidjson_buffer_string",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:18"
+              ]
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:98e7ce28e71ae9de97f91e82",
+              "evidence_refs": [
+                "source:19"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:20"
+              ],
+              "targets": [
+                "cpp:98e7ce28e71ae9de97f91e82"
+              ]
+            },
+            {
+              "kind": "local_binding",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:21"
+              ],
+              "binding": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:22"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "return_value",
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:34"
+              ]
+            },
+            {
+              "kind": "source_call_return",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:24"
+              ],
+              "targets": [
+                "cpp:19394dd30ff82a30d8a7d933"
+              ]
+            },
+            {
+              "kind": "assignment",
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:25"
+              ]
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:26"
+              ],
+              "parameter": 1
+            },
+            {
+              "kind": "lambda_capture",
+              "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+              "evidence_refs": [
+                "source:8"
+              ],
+              "mode": "copy",
+              "capture": "responseStr"
+            },
+            {
+              "kind": "parameter_binding",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:27"
+              ],
+              "parameter": 0
+            },
+            {
+              "kind": "socket_send_argument",
+              "source_symbol": "cpp:13e57c0822326bce3f440226",
+              "evidence_refs": [
+                "source:13"
+              ]
+            }
+          ],
+          "conditions_ref": "conditions:7"
+        },
+        "response_send_site": {
+          "call_site": "cpp:e8bd90099d728ee3b563e280",
+          "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+          "callee": "cpp:88bf980628aa71e96ede6969",
+          "parameter_index": 0,
+          "actual": "binding:1b35be209e3d9b41809da692:[]",
+          "formal": "binding:77c8925d8b752aca68cd5b53",
+          "offset": 1636,
+          "kind": "argument_transfer",
+          "mode": "value",
+          "conditions_ref": "conditions:5",
+          "evidence_refs": [
+            "source:33"
+          ]
+        },
+        "serializer": "cpp:b2121405be259e37ba6ecdd2",
+        "response_object": "binding:1b35be209e3d9b41809da692",
+        "conditions_ref": "conditions:3",
+        "runtime_delivery": "unknown"
+      }
+    ],
+    "total_links": 12,
+    "truncated": false,
+    "gaps": [
+      {
+        "kind": "statement_not_expanded",
+        "entry": "cpp:960c2d0c4c7d311a707bb52f",
+        "source_symbol": "cpp:2de314e22583846016074931",
+        "evidence_refs": [
+          "source:36"
+        ],
+        "statement": "while_statement"
+      },
+      {
+        "kind": "unresolved_call_with_payload",
+        "entry": "cpp:960c2d0c4c7d311a707bb52f",
+        "source_symbol": "cpp:e3394ddfd35f7b6dbbb48eb4",
+        "evidence_refs": [
+          "source:37"
+        ],
+        "sources": [
+          "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]"
+        ],
+        "conditions_ref": "conditions:8"
+      },
+      {
+        "kind": "mutable_argument_effect_not_expanded",
+        "entry": "cpp:960c2d0c4c7d311a707bb52f",
+        "source_symbol": "cpp:e3394ddfd35f7b6dbbb48eb4",
+        "evidence_refs": [
+          "source:39"
+        ]
+      },
+      {
+        "kind": "source_return_has_unlinked_alternative",
+        "entry": "cpp:960c2d0c4c7d311a707bb52f",
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:40"
+        ],
+        "sources": [
+          "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]"
+        ],
+        "conditions_ref": "conditions:9",
+        "alternatives": [
+          [
+            {
+              "kind": "branch",
+              "expression": "(!json.has_value())",
+              "when": false,
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:1"
+              ]
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "_WIN32",
+              "when": true,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:28"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(IsUtf8StrFast(input))",
+              "when": false,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:29"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(codePage == GBK_CODE_PAGE)",
+              "when": true,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:35"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(srcStr == nullptr)",
+              "when": true,
+              "source_symbol": "cpp:e3394ddfd35f7b6dbbb48eb4",
+              "evidence_refs": [
+                "source:38"
+              ]
+            }
+          ],
+          [
+            {
+              "kind": "branch",
+              "expression": "(!json.has_value())",
+              "when": false,
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:1"
+              ]
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "_WIN32",
+              "when": true,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:28"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(IsUtf8StrFast(input))",
+              "when": false,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:29"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(codePage == GBK_CODE_PAGE)",
+              "when": true,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:35"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(srcStr == nullptr)",
+              "when": false,
+              "source_symbol": "cpp:e3394ddfd35f7b6dbbb48eb4",
+              "evidence_refs": [
+                "source:38"
+              ]
+            }
+          ]
+        ]
+      },
+      {
+        "kind": "source_return_has_unlinked_alternative",
+        "entry": "cpp:960c2d0c4c7d311a707bb52f",
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:24"
+        ],
+        "sources": [
+          "cpp-json-source:[\"cpp:960c2d0c4c7d311a707bb52f\",\"cpp:960c2d0c4c7d311a707bb52f\",5717,[]]"
+        ],
+        "conditions_ref": "conditions:10",
+        "alternatives": [
+          [
+            {
+              "kind": "branch",
+              "expression": "(!json.has_value())",
+              "when": false,
+              "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+              "evidence_refs": [
+                "source:1"
+              ]
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "_WIN32",
+              "when": true,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:28"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(IsUtf8StrFast(input))",
+              "when": false,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:29"
+              ]
+            },
+            {
+              "kind": "branch",
+              "expression": "(codePage == GBK_CODE_PAGE)",
+              "when": true,
+              "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+              "evidence_refs": [
+                "source:35"
+              ]
+            }
+          ]
+        ]
+      }
+    ],
+    "response_route_gaps": [
+      {
+        "kind": "operator_transfer_not_expanded",
+        "source_symbol": "cpp:85cc93ea53601add514e8ea0",
+        "object_root": "binding:1b35be209e3d9b41809da692",
+        "evidence_refs": [
+          "source:41"
+        ],
+        "conditions_ref": "conditions:11"
+      },
+      {
+        "kind": "call_effects_unresolved",
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "object_root": "binding:1b35be209e3d9b41809da692",
+        "evidence_refs": [
+          "source:42"
+        ],
+        "conditions_ref": "conditions:12"
+      },
+      {
+        "kind": "call_effects_unresolved",
+        "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+        "object_root": "binding:d456d5ab69de3c0ec5efe627",
+        "evidence_refs": [
+          "source:43"
+        ],
+        "conditions_ref": "conditions:5"
+      }
+    ],
+    "remaining": [
+      "socket_endpoint_correspondence",
+      "frontend_receive_and_iframe_reply_join",
+      "api_return_transformations",
+      "runtime_execution_and_delivery"
+    ],
+    "limits": [
+      "source_type_candidates",
+      "explicit_copy_captures_only",
+      "conditional_payload_lineage",
+      "unmodeled_mutations_and_returns_remain_gaps",
+      "receiver_identity_is_source_context",
+      "endpoint_pairing_not_implemented",
+      "runtime_execution_and_delivery_not_observed"
+    ]
+  },
+  "counts": {
+    "files": 150,
+    "nodes": 24185,
+    "edges": 34713,
+    "entry_candidates": 86,
+    "json_sources": 85,
+    "transmissions": 2,
+    "response_exits": 4,
+    "response_send_paths": 12,
+    "encoding_branches_with_lineage": 3
+  },
+  "negative_checks": {
+    "removing_selected_json_callee_disconnects_provider": true
+  },
+  "file_hash_verification": "not_run_per_user_preference",
+  "rules_revision": "5764a6e76da93edbbcb6f0ef1e7be2d51621a54c",
+  "parser_versions": {
+    "tree-sitter": "0.25.2",
+    "tree-sitter-language-pack": "1.20.0"
+  },
+  "tests": {
+    "passed": true,
+    "python": 190,
+    "typescript": 53
+  },
+  "storage": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v9",
+    "nodes": 24185,
+    "edges": 34713,
+    "payload_roundtrip": true,
+    "transmission_query_pass": true,
+    "correlation_query_pass": true,
+    "native_rows_unchanged": 790,
+    "buffer_pool_mb": 1024
+  },
+  "source_evidence": {
+    "source:0": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 169,
+      "expression": "ProtocolManager::Instance().ToJson(response, error)"
+    },
+    "source:1": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 170,
+      "expression": "if (!json.has_value()) {\n        ServerLog::Error(error, \", command: \", response.command, \", moduleName: \", response.moduleName,\n            \", requestId: \", response.requestId, \", responseId: \", response.id);\n        return;\n    }"
+    },
+    "source:2": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 185,
+      "expression": "if (!self) {\n            return;\n        }"
+    },
+    "source:3": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 188,
+      "expression": "if (self->GetStatus() == Status::CLOSED) {\n            return;\n        }"
+    },
+    "source:4": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 154,
+      "expression": "if (GetStatus() == Status::CLOSED) {\n        ServerLog::Info(\"Session has been closed.\");\n        return false;\n    }"
+    },
+    "source:5": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 158,
+      "expression": "if (channel != nullptr) {\n        WsChannel::SendStatus res = channel->send(message, uWS::OpCode::TEXT, false);\n        return res == WsChannel::SendStatus::SUCCESS;\n    } else {\n        ServerLog::Error(\"Channel is null, so that message cannot be sent.\");\n        return false;\n    }"
+    },
+    "source:6": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 183,
+      "expression": "loop->defer([weakSelf, responseStr, response, traceId]() {\n        auto self = weakSelf.lock();\n        if (!self) {\n            return;\n        }\n        if (self->GetStatus() == Status::CLOSED) {\n            return;\n        }\n        TraceIdManager::SetTraceId(traceId);\n        bool res = self->Send(responseStr);\n        ServerLog::Info(\"Send response status: \", res, \", response result: \", response.result,\n            \", command: \", response.command, \", request id = \", response.requestId, \", response id = \", response.id);\n    })"
+    },
+    "source:7": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 183,
+      "expression": "weakSelf"
+    },
+    "source:8": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 183,
+      "expression": "responseStr"
+    },
+    "source:9": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 183,
+      "expression": "response"
+    },
+    "source:10": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 183,
+      "expression": "traceId"
+    },
+    "source:11": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 177,
+      "expression": "SendResponse(response, responseStr)"
+    },
+    "source:12": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 192,
+      "expression": "self->Send(responseStr)"
+    },
+    "source:13": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 159,
+      "expression": "channel->send(message, uWS::OpCode::TEXT, false)"
+    },
+    "source:14": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 169,
+      "expression": "std::optional<document_t> json = ProtocolManager::Instance().ToJson(response, error);"
+    },
+    "source:15": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 175,
+      "expression": "json.value()"
+    },
+    "source:16": {
+      "path": "server/msinsight/src/utils/JsonUtil.h",
+      "line": 140,
+      "expression": "const json_t &json"
+    },
+    "source:17": {
+      "path": "server/msinsight/src/utils/JsonUtil.h",
+      "line": 143,
+      "expression": "json.Accept(writer)"
+    },
+    "source:18": {
+      "path": "server/msinsight/src/utils/JsonUtil.h",
+      "line": 144,
+      "expression": "buffer.GetString()"
+    },
+    "source:19": {
+      "path": "server/msinsight/src/utils/JsonUtil.h",
+      "line": 144,
+      "expression": "return buffer.GetString();"
+    },
+    "source:20": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 175,
+      "expression": "JsonUtil::JsonDump(json.value())"
+    },
+    "source:21": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 175,
+      "expression": "std::string responseStr = JsonUtil::JsonDump(json.value());"
+    },
+    "source:22": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 175,
+      "expression": "const std::string &input"
+    },
+    "source:23": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 180,
+      "expression": "return input;"
+    },
+    "source:24": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 176,
+      "expression": "StringUtil::ToUtf8Str(responseStr)"
+    },
+    "source:25": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 176,
+      "expression": "responseStr = StringUtil::ToUtf8Str(responseStr)"
+    },
+    "source:26": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 180,
+      "expression": "const std::string &responseStr"
+    },
+    "source:27": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 153,
+      "expression": "const std::string &message"
+    },
+    "source:28": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 176,
+      "expression": "#ifdef _WIN32\n        static const unsigned int GBK_CODE_PAGE = 936;\n\n        if (IsUtf8StrFast(input)) {\n            return input;\n        }\n\n        UINT codePage = GetACP();\n        if (codePage == GBK_CODE_PAGE) {\n            return StringUtil::GbkToUtf8(input.c_str());\n        }\n#endif"
+    },
+    "source:29": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 179,
+      "expression": "if (IsUtf8StrFast(input)) {\n            return input;\n        }"
+    },
+    "source:30": {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "line": 65,
+      "expression": "SendResponse(std::move(responsePtr), true)"
+    },
+    "source:31": {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "line": 61,
+      "expression": "SendResponse(std::move(responsePtr), false)"
+    },
+    "source:32": {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "line": 47,
+      "expression": "SendResponse(std::move(responsePtr), false)"
+    },
+    "source:33": {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "line": 38,
+      "expression": "SendResponse(std::move(responsePtr), false)"
+    },
+    "source:34": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 188,
+      "expression": "return input;"
+    },
+    "source:35": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 184,
+      "expression": "if (codePage == GBK_CODE_PAGE) {\n            return StringUtil::GbkToUtf8(input.c_str());\n        }"
+    },
+    "source:36": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 137,
+      "expression": "while (i < str.length()) {\n            unsigned char c = static_cast<unsigned char>(str[i]);\n\n            // ASCII: 0xxxxxxx (0-127)\n            if (c <= 0x7F) {\n                i += 1;\n            }\n            // 2字节序列: 110xxxxx 10xxxxxx\n            else if ((c & 0xE0) == 0xC0) {\n                if (i + 1 >= str.length() || (static_cast<unsigned char>(str[i + 1]) & 0xC0) != 0x80) {\n                    return false;\n                }\n                i += 2;\n            }\n            // 3字节序列: 1110xxxx 10xxxxxx 10xxxxxx\n            else if ((c & 0xF0) == 0xE0) {\n                if (i + 2 >= str.length() || (static_cast<unsigned char>(str[i + 1]) & 0xC0) != 0x80 ||\n                    (static"
+    },
+    "source:37": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 270,
+      "expression": "MultiByteToWideChar(GBK_CODE_PAGE, 0, srcStr, -1, nullptr, 0)"
+    },
+    "source:38": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 266,
+      "expression": "if (srcStr == nullptr) {\n            return \"\";\n        }"
+    },
+    "source:39": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 270,
+      "expression": "srcStr"
+    },
+    "source:40": {
+      "path": "server/msinsight/src/utils/StringUtil.h",
+      "line": 185,
+      "expression": "StringUtil::GbkToUtf8(input.c_str())"
+    },
+    "source:41": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 129,
+      "expression": "responseQueue << std::move(responsePtr)"
+    },
+    "source:42": {
+      "path": "server/src/server/WsSessionImpl.cpp",
+      "line": 171,
+      "expression": "ServerLog::Error(error, \", command: \", response.command, \", moduleName: \", response.moduleName,\n            \", requestId: \", response.requestId, \", responseId: \", response.id)"
+    },
+    "source:43": {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "line": 36,
+      "expression": "ServerLog::Warn(warnMsg)"
+    }
+  },
+  "shared_records": {
+    "conditions:0": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": false,
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:1"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(!self)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:2"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(self->GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:3"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:4"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(channel != nullptr)",
+        "when": true,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:5"
+        ]
+      }
+    ],
+    "conditions:1": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": false,
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:1"
+        ]
+      },
+      {
+        "kind": "preprocessor",
+        "expression": "_WIN32",
+        "when": true,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:28"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(IsUtf8StrFast(input))",
+        "when": true,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:29"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(!self)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:2"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(self->GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:3"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:4"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(channel != nullptr)",
+        "when": true,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:5"
+        ]
+      }
+    ],
+    "conditions:2": [
+      {
+        "kind": "early_exit_guard",
+        "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+        "when": false,
+        "line": 35
+      },
+      {
+        "kind": "early_exit_guard",
+        "expression": "(database == nullptr)",
+        "when": false,
+        "line": 44
+      }
+    ],
+    "conditions:3": [
+      "provider_request_identity",
+      "source_overload_and_virtual_candidates",
+      "selected_protocol_instance_matches_factory_group",
+      "no_intervening_unmodeled_mutation",
+      "source_write_precedes_send_does_not_prove_reaching_value"
+    ],
+    "conditions:4": [
+      {
+        "kind": "early_exit_guard",
+        "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+        "when": false,
+        "line": 35
+      },
+      {
+        "kind": "branch",
+        "expression": "(database == nullptr)",
+        "when": true,
+        "line": 44
+      }
+    ],
+    "conditions:5": [
+      {
+        "kind": "branch",
+        "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+        "when": true,
+        "line": 35
+      }
+    ],
+    "conditions:6": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": false,
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:1"
+        ]
+      },
+      {
+        "kind": "preprocessor",
+        "expression": "_WIN32",
+        "when": true,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:28"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(IsUtf8StrFast(input))",
+        "when": false,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:29"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(codePage == GBK_CODE_PAGE)",
+        "when": false,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:35"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(!self)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:2"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(self->GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:3"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:4"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(channel != nullptr)",
+        "when": true,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:5"
+        ]
+      }
+    ],
+    "conditions:7": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": false,
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:1"
+        ]
+      },
+      {
+        "kind": "preprocessor",
+        "expression": "_WIN32",
+        "when": false,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:28"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(!self)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:2"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(self->GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:e475943e947284ce3ff6ce62",
+        "evidence_refs": [
+          "source:3"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(GetStatus() == Status::CLOSED)",
+        "when": false,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:4"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(channel != nullptr)",
+        "when": true,
+        "source_symbol": "cpp:13e57c0822326bce3f440226",
+        "evidence_refs": [
+          "source:5"
+        ]
+      }
+    ],
+    "conditions:8": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": false,
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:1"
+        ]
+      },
+      {
+        "kind": "preprocessor",
+        "expression": "_WIN32",
+        "when": true,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:28"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(IsUtf8StrFast(input))",
+        "when": false,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:29"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(codePage == GBK_CODE_PAGE)",
+        "when": true,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:35"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(srcStr == nullptr)",
+        "when": false,
+        "source_symbol": "cpp:e3394ddfd35f7b6dbbb48eb4",
+        "evidence_refs": [
+          "source:38"
+        ]
+      }
+    ],
+    "conditions:9": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": false,
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:1"
+        ]
+      },
+      {
+        "kind": "preprocessor",
+        "expression": "_WIN32",
+        "when": true,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:28"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(IsUtf8StrFast(input))",
+        "when": false,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:29"
+        ]
+      },
+      {
+        "kind": "branch",
+        "expression": "(codePage == GBK_CODE_PAGE)",
+        "when": true,
+        "source_symbol": "cpp:19394dd30ff82a30d8a7d933",
+        "evidence_refs": [
+          "source:35"
+        ]
+      }
+    ],
+    "conditions:10": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": false,
+        "source_symbol": "cpp:960c2d0c4c7d311a707bb52f",
+        "evidence_refs": [
+          "source:1"
+        ]
+      }
+    ],
+    "conditions:11": [
+      {
+        "kind": "branch",
+        "expression": "(responsePtr != nullptr)",
+        "when": true,
+        "line": 127
+      },
+      {
+        "kind": "branch",
+        "expression": "(useResponseQueue)",
+        "when": true,
+        "line": 128
+      }
+    ],
+    "conditions:12": [
+      {
+        "kind": "branch",
+        "expression": "(!json.has_value())",
+        "when": true,
+        "line": 170
+      }
+    ]
+  }
+}

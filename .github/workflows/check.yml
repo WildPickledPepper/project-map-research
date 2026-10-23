@@ -23,6 +23,7 @@ jobs:
       - run: python scripts/check_p3_frontend_consumers.py
       - run: python scripts/check_p3_response_callbacks.py
       - run: python scripts/check_p3_request_correlation.py
+      - run: python scripts/check_p3_transmission.py
   facts:
     runs-on: ubuntu-latest
     steps:
