@@ -73,6 +73,10 @@ class CppProtocolTests(unittest.TestCase):
         source=SOURCE.replace('return decoders.at(key)(j);','key=runtime();return decoders.at(key)(j);')
         self.assertEqual(self.graph(source)['protocol']['providers'],[])
 
+    def test_reassigned_reference_output_does_not_keep_old_wire_key(self):
+        source=SOURCE.replace('auto key=j["wireTag"].GetString();','std::string key;copyKey(key,j,"wireTag");key=runtime();')
+        self.assertEqual(self.graph(source)['protocol']['providers'],[])
+
     def test_duplicate_registration_keeps_both_candidates(self):
         source=SOURCE.replace('entries.emplace(ACTION,std::make_unique<SpecificWork>());','entries.emplace(ACTION,std::make_unique<SpecificWork>());entries.emplace(ACTION,std::make_unique<SpecificWork>());')
         self.assertEqual(len(self.graph(source)['protocol']['providers']),2)

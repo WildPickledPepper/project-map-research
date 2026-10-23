@@ -139,7 +139,10 @@ class ProtocolExtractor:
             if name in env:return env[name]
             writes=self.reference_writes.get((uid,name),[])
             before=[w for w in writes if w['position']<node.start_byte]
-            if before:return before[-1]['origins']
+            if before:
+                last=max(before,key=lambda w:w['position'])
+                if any(d.type=='assignment_expression' and text(d.child_by_field_name('left'))==name and last['position']<d.start_byte<node.start_byte for d in walk(info['container'])):return []
+                return last['origins']
             init=self.local_initializer(name,node,info)
             if init:return self.origins(init,uid,info,env,depth+1)
             ps=[text(declared_name(p)) for p in info['parameter_nodes']]
