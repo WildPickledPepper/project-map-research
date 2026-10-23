@@ -1,0 +1,1314 @@
+{
+  "evidence_kind": "executed_source_extraction_and_contextual_query",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v3",
+  "phase_status": "P3_in_progress",
+  "gate_under_test": "D02_incomplete",
+  "scope": "response field production only; 141 selected source files",
+  "counts": {
+    "files": 141,
+    "nodes": 19432,
+    "edges": 27756,
+    "roots": 2293,
+    "locations": 3424,
+    "writes": 1321,
+    "calls": 968,
+    "diagnostics": 1355
+  },
+  "entry": {
+    "id": "cpp:d7a6f20ca5a84774ae8db47d",
+    "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest"
+  },
+  "response_object": {
+    "id": "binding:1b35be209e3d9b41809da692",
+    "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+    "name": "responsePtr",
+    "kind": "local",
+    "parameter_index": null,
+    "mode": "value",
+    "const": false,
+    "type_spelling": "std::unique_ptr<UnitFlowsResponse>",
+    "type": {
+      "kind": "standard",
+      "name": "std::unique_ptr",
+      "arguments": [
+        {
+          "kind": "object",
+          "names": [
+            "Dic::Protocol::UnitFlowsResponse"
+          ],
+          "arguments": [],
+          "spelling": "UnitFlowsResponse",
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "template_bindings": {
+            "Dic::Protocol::UnitFlowsResponse": {}
+          }
+        }
+      ],
+      "spelling": "std::unique_ptr<UnitFlowsResponse>",
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+    },
+    "evidence": [
+      {
+        "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line": 30,
+        "expression": "std::unique_ptr<UnitFlowsResponse> responsePtr = std::make_unique<UnitFlowsResponse>();"
+      }
+    ]
+  },
+  "production": {
+    "db_write_sites": 5,
+    "text_write_sites": 2,
+    "total_handler_effects": 9,
+    "selected_effects": [
+      {
+        "write": "field-write:9d56389c14074ea9a779ef3f",
+        "writer": "cpp:97e8878c9a7ec4c94b080c31",
+        "root": "binding:1b35be209e3d9b41809da692",
+        "selectors": [
+          "pointee",
+          "member:body",
+          "member:unitAllFlows"
+        ],
+        "operation": "=",
+        "evidence": [
+          {
+            "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+            "line": 766,
+            "expression": "responseBody.unitAllFlows = unitAllFlow"
+          }
+        ],
+        "call_chain": [
+          {
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+            "callee": "cpp:7769ebee6acbd7410d9384eb",
+            "parameter_index": 1,
+            "actual": "binding:1b35be209e3d9b41809da692:[\"pointee\",\"member:body\"]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "expression": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId)"
+              }
+            ],
+            "runtime_target": "unknown"
+          },
+          {
+            "call_site": "cpp:6078cfbf2f561302ebf3fa7f",
+            "caller": "cpp:7769ebee6acbd7410d9384eb",
+            "callee": "cpp:97e8878c9a7ec4c94b080c31",
+            "parameter_index": 1,
+            "actual": "binding:11b96c2528315bed48cb95a7:[]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+                "line": 639,
+                "expression": "QuerySimulationUintFlows(requestParams, responseBody, minTimestamp)"
+              }
+            ],
+            "runtime_target": "unknown"
+          }
+        ],
+        "condition_scopes": [
+          {
+            "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+                "when": false,
+                "line": 35
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(database == nullptr)",
+                "when": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+            "call_site": "cpp:6078cfbf2f561302ebf3fa7f",
+            "conditions": [
+              {
+                "kind": "branch",
+                "expression": "(requestParams.isSimulation)",
+                "when": true,
+                "line": 638
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:97e8878c9a7ec4c94b080c31",
+            "conditions": []
+          }
+        ],
+        "status": "source_effect_candidate",
+        "runtime_execution": "unknown"
+      },
+      {
+        "write": "field-write:8bebe1fe3fe4932da9da97fa",
+        "writer": "cpp:b77f6b661afb669a74e9d7dc",
+        "root": "binding:1b35be209e3d9b41809da692",
+        "selectors": [
+          "pointee",
+          "member:body",
+          "member:unitAllFlows"
+        ],
+        "operation": "=",
+        "evidence": [
+          {
+            "path": "server/src/modules/timeline/core/database/TextTraceDatabaseChart.cpp",
+            "line": 57,
+            "expression": "responseBody.unitAllFlows = unitAllFlow"
+          }
+        ],
+        "call_chain": [
+          {
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+            "callee": "cpp:7769ebee6acbd7410d9384eb",
+            "parameter_index": 1,
+            "actual": "binding:1b35be209e3d9b41809da692:[\"pointee\",\"member:body\"]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "expression": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId)"
+              }
+            ],
+            "runtime_target": "unknown"
+          },
+          {
+            "call_site": "cpp:3e22cd5d938e34ba9bb174cf",
+            "caller": "cpp:7769ebee6acbd7410d9384eb",
+            "callee": "cpp:b77f6b661afb669a74e9d7dc",
+            "parameter_index": 0,
+            "actual": "binding:11b96c2528315bed48cb95a7:[]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+                "line": 714,
+                "expression": "AssembleUnitFlowsBody(responseBody, minTimestamp, flowPointMap)"
+              }
+            ],
+            "runtime_target": "unknown"
+          }
+        ],
+        "condition_scopes": [
+          {
+            "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+                "when": false,
+                "line": 35
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(database == nullptr)",
+                "when": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+            "call_site": "cpp:3e22cd5d938e34ba9bb174cf",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(requestParams.isSimulation)",
+                "when": false,
+                "line": 638
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:b77f6b661afb669a74e9d7dc",
+            "conditions": []
+          }
+        ],
+        "status": "source_effect_candidate",
+        "runtime_execution": "unknown"
+      },
+      {
+        "write": "field-write:6598383ef76dee46ec1475d4",
+        "writer": "cpp:a1845599ce82d9154b9f7236",
+        "root": "binding:1b35be209e3d9b41809da692",
+        "selectors": [
+          "pointee",
+          "member:body",
+          "member:unitAllFlows"
+        ],
+        "operation": "std::push_back",
+        "evidence": [
+          {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+            "line": 396,
+            "expression": "responseBody.unitAllFlows.push_back({.cat = singleFlow.cat, .flows = flows})"
+          }
+        ],
+        "call_chain": [
+          {
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+            "callee": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "parameter_index": 1,
+            "actual": "binding:1b35be209e3d9b41809da692:[\"pointee\",\"member:body\"]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "expression": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId)"
+              }
+            ],
+            "runtime_target": "unknown"
+          },
+          {
+            "call_site": "cpp:e04c60855de7f1f6c4a748a9",
+            "caller": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "callee": "cpp:a1845599ce82d9154b9f7236",
+            "parameter_index": 3,
+            "actual": "binding:36b23d7758bc2c3cc2f1906f:[]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+                "line": 362,
+                "expression": "AssembleUnitFlowOfTypeMSTX(mstxFlowLocationList, taskFlowLocationList, connectionId.value(), responseBody)"
+              }
+            ],
+            "runtime_target": "unknown"
+          }
+        ],
+        "condition_scopes": [
+          {
+            "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+                "when": false,
+                "line": 35
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(database == nullptr)",
+                "when": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "call_site": "cpp:e04c60855de7f1f6c4a748a9",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!connectionId.has_value() || connectionId.value() == \"-1\" ||\n        connectionId.value() == std::to_string(UINT32_MAX))",
+                "when": false,
+                "line": 342
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:a1845599ce82d9154b9f7236",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(mstxFlowLocationList.empty() || taskFlowLocationList.empty())",
+                "when": false,
+                "line": 383
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(mstxFlowLocationList[0].rankId != taskFlowLocationList[0].rankId)",
+                "when": false,
+                "line": 389
+              }
+            ]
+          }
+        ],
+        "status": "source_effect_candidate",
+        "runtime_execution": "unknown"
+      },
+      {
+        "write": "field-write:49ed116be018a47219048e40",
+        "writer": "cpp:621b5f741c554f92d5e2ab58",
+        "root": "binding:1b35be209e3d9b41809da692",
+        "selectors": [
+          "pointee",
+          "member:body",
+          "member:unitAllFlows"
+        ],
+        "operation": "std::push_back",
+        "evidence": [
+          {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+            "line": 433,
+            "expression": "responseBody.unitAllFlows.push_back({.cat = \"HostToDevice\", .flows = flows})"
+          }
+        ],
+        "call_chain": [
+          {
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+            "callee": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "parameter_index": 1,
+            "actual": "binding:1b35be209e3d9b41809da692:[\"pointee\",\"member:body\"]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "expression": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId)"
+              }
+            ],
+            "runtime_target": "unknown"
+          },
+          {
+            "call_site": "cpp:99da469099a1438e0c646097",
+            "caller": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "callee": "cpp:621b5f741c554f92d5e2ab58",
+            "parameter_index": 5,
+            "actual": "binding:36b23d7758bc2c3cc2f1906f:[]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+                "line": 365,
+                "expression": "AssembleUnitFlowOfTypePyTorchToCANNToAscendHardwareToCommunication(pytorchFlowLocationList,\n            cannFlowLocationList, taskFlowLocationList, communicationOpFlowLocationList, connectionId.value(),\n            responseBody)"
+              }
+            ],
+            "runtime_target": "unknown"
+          }
+        ],
+        "condition_scopes": [
+          {
+            "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+                "when": false,
+                "line": 35
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(database == nullptr)",
+                "when": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "call_site": "cpp:99da469099a1438e0c646097",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!connectionId.has_value() || connectionId.value() == \"-1\" ||\n        connectionId.value() == std::to_string(UINT32_MAX))",
+                "when": false,
+                "line": 342
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(AssembleUnitFlowOfTypeMSTX(mstxFlowLocationList, taskFlowLocationList, connectionId.value(), responseBody))",
+                "when": false,
+                "line": 362
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:621b5f741c554f92d5e2ab58",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(taskFlowLocationList.empty() && communicationOpFlowLocationList.empty())",
+                "when": false,
+                "line": 405
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(pytorchFlowLocationList.empty() && cannFlowLocationList.empty())",
+                "when": false,
+                "line": 408
+              },
+              {
+                "kind": "branch",
+                "expression": "(!cannFlowLocationList.empty())",
+                "when": true,
+                "line": 411
+              },
+              {
+                "kind": "branch",
+                "expression": "(!flows.empty())",
+                "when": true,
+                "line": 432
+              }
+            ]
+          }
+        ],
+        "status": "source_effect_candidate",
+        "runtime_execution": "unknown"
+      },
+      {
+        "write": "field-write:1a660509a82b6d4679f701ef",
+        "writer": "cpp:621b5f741c554f92d5e2ab58",
+        "root": "binding:1b35be209e3d9b41809da692",
+        "selectors": [
+          "pointee",
+          "member:body",
+          "member:unitAllFlows"
+        ],
+        "operation": "std::push_back",
+        "evidence": [
+          {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+            "line": 458,
+            "expression": "responseBody.unitAllFlows.push_back({.cat = \"async_npu\", .flows = flows})"
+          }
+        ],
+        "call_chain": [
+          {
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+            "callee": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "parameter_index": 1,
+            "actual": "binding:1b35be209e3d9b41809da692:[\"pointee\",\"member:body\"]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "expression": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId)"
+              }
+            ],
+            "runtime_target": "unknown"
+          },
+          {
+            "call_site": "cpp:99da469099a1438e0c646097",
+            "caller": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "callee": "cpp:621b5f741c554f92d5e2ab58",
+            "parameter_index": 5,
+            "actual": "binding:36b23d7758bc2c3cc2f1906f:[]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+                "line": 365,
+                "expression": "AssembleUnitFlowOfTypePyTorchToCANNToAscendHardwareToCommunication(pytorchFlowLocationList,\n            cannFlowLocationList, taskFlowLocationList, communicationOpFlowLocationList, connectionId.value(),\n            responseBody)"
+              }
+            ],
+            "runtime_target": "unknown"
+          }
+        ],
+        "condition_scopes": [
+          {
+            "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+                "when": false,
+                "line": 35
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(database == nullptr)",
+                "when": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "call_site": "cpp:99da469099a1438e0c646097",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!connectionId.has_value() || connectionId.value() == \"-1\" ||\n        connectionId.value() == std::to_string(UINT32_MAX))",
+                "when": false,
+                "line": 342
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(AssembleUnitFlowOfTypeMSTX(mstxFlowLocationList, taskFlowLocationList, connectionId.value(), responseBody))",
+                "when": false,
+                "line": 362
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:621b5f741c554f92d5e2ab58",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(taskFlowLocationList.empty() && communicationOpFlowLocationList.empty())",
+                "when": false,
+                "line": 405
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(pytorchFlowLocationList.empty() && cannFlowLocationList.empty())",
+                "when": false,
+                "line": 408
+              },
+              {
+                "kind": "branch",
+                "expression": "(!pytorchFlowLocationList.empty())",
+                "when": true,
+                "line": 436
+              },
+              {
+                "kind": "branch",
+                "expression": "(!flows.empty())",
+                "when": true,
+                "line": 457
+              }
+            ]
+          }
+        ],
+        "status": "source_effect_candidate",
+        "runtime_execution": "unknown"
+      },
+      {
+        "write": "field-write:1e671dd85eeee1b5a0f7ee89",
+        "writer": "cpp:2532b87c4085fc0314ea4bdf",
+        "root": "binding:1b35be209e3d9b41809da692",
+        "selectors": [
+          "pointee",
+          "member:body",
+          "member:unitAllFlows"
+        ],
+        "operation": "std::push_back",
+        "evidence": [
+          {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+            "line": 482,
+            "expression": "responseBody.unitAllFlows.push_back({.cat = singleFlow.cat, .flows = flows})"
+          }
+        ],
+        "call_chain": [
+          {
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+            "callee": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "parameter_index": 1,
+            "actual": "binding:1b35be209e3d9b41809da692:[\"pointee\",\"member:body\"]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "expression": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId)"
+              }
+            ],
+            "runtime_target": "unknown"
+          },
+          {
+            "call_site": "cpp:975bd1d68c55da6fd9521df2",
+            "caller": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "callee": "cpp:2532b87c4085fc0314ea4bdf",
+            "parameter_index": 2,
+            "actual": "binding:36b23d7758bc2c3cc2f1906f:[]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+                "line": 370,
+                "expression": "AssembleUnitFlowOfTypeAsyncTaskQueue(pytorchFlowLocationList, connectionId.value(), responseBody)"
+              }
+            ],
+            "runtime_target": "unknown"
+          }
+        ],
+        "condition_scopes": [
+          {
+            "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+                "when": false,
+                "line": 35
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(database == nullptr)",
+                "when": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "call_site": "cpp:975bd1d68c55da6fd9521df2",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!connectionId.has_value() || connectionId.value() == \"-1\" ||\n        connectionId.value() == std::to_string(UINT32_MAX))",
+                "when": false,
+                "line": 342
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(AssembleUnitFlowOfTypeMSTX(mstxFlowLocationList, taskFlowLocationList, connectionId.value(), responseBody))",
+                "when": false,
+                "line": 362
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(AssembleUnitFlowOfTypePyTorchToCANNToAscendHardwareToCommunication(pytorchFlowLocationList,\n            cannFlowLocationList, taskFlowLocationList, communicationOpFlowLocationList, connectionId.value(),\n            responseBody))",
+                "when": false,
+                "line": 365
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:2532b87c4085fc0314ea4bdf",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(queueFlowLocations.size() < 2)",
+                "when": false,
+                "line": 476
+              }
+            ]
+          }
+        ],
+        "status": "source_effect_candidate",
+        "runtime_execution": "unknown"
+      },
+      {
+        "write": "field-write:3a16be889e049f398988bfeb",
+        "writer": "cpp:7abd73334ea1c6167684356b",
+        "root": "binding:1b35be209e3d9b41809da692",
+        "selectors": [
+          "pointee",
+          "member:body",
+          "member:unitAllFlows"
+        ],
+        "operation": "std::push_back",
+        "evidence": [
+          {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+            "line": 496,
+            "expression": "responseBody.unitAllFlows.push_back({.cat = singleFlow.cat, .flows = flows})"
+          }
+        ],
+        "call_chain": [
+          {
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "caller": "cpp:d7a6f20ca5a84774ae8db47d",
+            "callee": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "parameter_index": 1,
+            "actual": "binding:1b35be209e3d9b41809da692:[\"pointee\",\"member:body\"]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "expression": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId)"
+              }
+            ],
+            "runtime_target": "unknown"
+          },
+          {
+            "call_site": "cpp:1869c8f5b45ec26edea599a2",
+            "caller": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "callee": "cpp:7abd73334ea1c6167684356b",
+            "parameter_index": 2,
+            "actual": "binding:36b23d7758bc2c3cc2f1906f:[]",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+                "line": 373,
+                "expression": "AssembleUnitFlowOfTypeFwdBwd(pytorchFlowLocationList, connectionId.value(), responseBody)"
+              }
+            ],
+            "runtime_target": "unknown"
+          }
+        ],
+        "condition_scopes": [
+          {
+            "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+            "call_site": "cpp:a2e15a2a22054e9348abea55",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!request.params.CheckParams(minTimestamp, warnMsg))",
+                "when": false,
+                "line": 35
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(database == nullptr)",
+                "when": false,
+                "line": 44
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "call_site": "cpp:1869c8f5b45ec26edea599a2",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(!connectionId.has_value() || connectionId.value() == \"-1\" ||\n        connectionId.value() == std::to_string(UINT32_MAX))",
+                "when": false,
+                "line": 342
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(AssembleUnitFlowOfTypeMSTX(mstxFlowLocationList, taskFlowLocationList, connectionId.value(), responseBody))",
+                "when": false,
+                "line": 362
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(AssembleUnitFlowOfTypePyTorchToCANNToAscendHardwareToCommunication(pytorchFlowLocationList,\n            cannFlowLocationList, taskFlowLocationList, communicationOpFlowLocationList, connectionId.value(),\n            responseBody))",
+                "when": false,
+                "line": 365
+              },
+              {
+                "kind": "early_exit_guard",
+                "expression": "(AssembleUnitFlowOfTypeAsyncTaskQueue(pytorchFlowLocationList, connectionId.value(), responseBody))",
+                "when": false,
+                "line": 370
+              }
+            ]
+          },
+          {
+            "source_symbol": "cpp:7abd73334ea1c6167684356b",
+            "conditions": [
+              {
+                "kind": "early_exit_guard",
+                "expression": "(pytorchFlowLocationList.size() < 2)",
+                "when": false,
+                "line": 489
+              }
+            ]
+          }
+        ],
+        "status": "source_effect_candidate",
+        "runtime_execution": "unknown"
+      }
+    ],
+    "symbols": {
+      "cpp:d7a6f20ca5a84774ae8db47d": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+      "cpp:7769ebee6acbd7410d9384eb": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+      "cpp:97e8878c9a7ec4c94b080c31": "Dic::Module::Timeline::TextTraceDatabase::QuerySimulationUintFlows",
+      "cpp:b77f6b661afb669a74e9d7dc": "Dic::Module::Timeline::TextTraceDatabase::AssembleUnitFlowsBody",
+      "cpp:d7ab5e9beb6d6ec70ca03837": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+      "cpp:a1845599ce82d9154b9f7236": "Dic::Module::FullDb::DbTraceDataBase::AssembleUnitFlowOfTypeMSTX",
+      "cpp:621b5f741c554f92d5e2ab58": "Dic::Module::FullDb::DbTraceDataBase::AssembleUnitFlowOfTypePyTorchToCANNToAscendHardwareToCommunication",
+      "cpp:2532b87c4085fc0314ea4bdf": "Dic::Module::FullDb::DbTraceDataBase::AssembleUnitFlowOfTypeAsyncTaskQueue",
+      "cpp:7abd73334ea1c6167684356b": "Dic::Module::FullDb::DbTraceDataBase::AssembleUnitFlowOfTypeFwdBwd"
+    },
+    "truncated": false,
+    "max_depth": 8,
+    "max_effects": 2000
+  },
+  "unresolved_query_gaps": [
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 29,
+          "expression": "dynamic_cast<UnitFlowsRequest &>(*requestPtr.get())"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 32,
+          "expression": "SetBaseResponse(request, response)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 36,
+          "expression": "ServerLog::Warn(warnMsg)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 38,
+          "expression": "SendResponse(std::move(responsePtr), false)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 38,
+          "expression": "std::move(responsePtr)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 47,
+          "expression": "SendResponse(std::move(responsePtr), false)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 47,
+          "expression": "std::move(responsePtr)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 51,
+          "expression": "PythonStackHelper::RestoreUnitFlowsParams(queryParams)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 52,
+          "expression": "TrackInfoManager::Instance().GetTrackId(queryParams.rankId, queryParams.pid, queryParams.tid)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 53,
+          "expression": "ServerLog::Info(\"Query unit flows. rankId: \", queryParams.rankId, \", pid: \", queryParams.pid,\n        \", tid: \", queryParams.tid, \", sliceId: \", queryParams.id, \", trackId: \", trackId,\n        \", isPythonStack: \", queryParams.isPythonStack)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 61,
+          "expression": "SendResponse(std::move(responsePtr), false)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 61,
+          "expression": "std::move(responsePtr)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 65,
+          "expression": "SendResponse(std::move(responsePtr), true)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7a6f20ca5a84774ae8db47d",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 65,
+          "expression": "std::move(responsePtr)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 657,
+          "expression": "sliceAnalyzerPtr->ComputeSliceDomainVecByTrackId(selectedSliceQuery, selectedSliceVec)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 659,
+          "expression": "sliceAnalyzerPtr->ComputePythonFunctionSliceVecByTimeRange(selectedSliceQuery, selectedPythonSlices)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 661,
+          "expression": "flowAnalyzerPtr->ComputeAllFlowPointBySliceId(flowQuery, requestParams.id)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 662,
+          "expression": "ServerLog::Info(\"Text unit flow points queried. rankId: \", requestParams.rankId,\n        \", selectedSliceId: \", requestParams.id, \", flowPointCount: \", flowPointVec.size())"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 668,
+          "expression": "sliceAnalyzerPtr->ComputeAllThreadInfo(threadQuery, threadInfo)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 676,
+          "expression": "std::move(selectedSliceVec)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 683,
+          "expression": "sliceAnalyzerPtr->ComputeSliceDomainVecByTrackId(sliceQuery, trackSliceCache[item.trackId])"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 685,
+          "expression": "sliceAnalyzerPtr->ComputePythonFunctionSliceVecByTimeRange(sliceQuery, pythonSlices)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 694,
+          "expression": "flowAnalyzerPtr->ComputeSliceByFlowPoint(item, sliceVec)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 700,
+          "expression": "GetTextSearchThreadId(threadInfo[item.trackId].second, isPythonStack)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 701,
+          "expression": "GetTextSearchMetaType(isPythonStack)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 702,
+          "expression": "ServerLog::Info(\"Text unit flow endpoint resolved. rankId: \", requestParams.rankId,\n                \", flowId: \", item.flowId, \", trackId: \", item.trackId, \", sliceId: \", item.id,\n                \", isPythonStack: \", isPythonStack, \", depth: \", item.depth, \", tid: \", item.tid)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:7769ebee6acbd7410d9384eb",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 715,
+          "expression": "ServerLog::Info(\"Text unit flows assembled. rankId: \", requestParams.rankId,\n        \", selectedSliceId: \", requestParams.id, \", categoryCount: \", responseBody.unitAllFlows.size())"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:97e8878c9a7ec4c94b080c31",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 742,
+          "expression": "flowIdSet.emplace(sliceDto.flagId)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:97e8878c9a7ec4c94b080c31",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 750,
+          "expression": "std::empty(simpliceVec)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:97e8878c9a7ec4c94b080c31",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 758,
+          "expression": "flowAnalyzerPtr->ComputeCategoryAndFlowMap(flowDetailVec, flowMap, minTimestamp)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:97e8878c9a7ec4c94b080c31",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 764,
+          "expression": "unitAllFlow.emplace_back(unitCatFlows)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:5ce389ea2088403fda556567",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 771,
+          "expression": "CreatPreparedStatement(sliceSql)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:5ce389ea2088403fda556567",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 776,
+          "expression": "sliceStmt->ExecuteQuery(sliceId)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:b77f6b661afb669a74e9d7dc",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabaseChart.cpp",
+          "line": 39,
+          "expression": "FlowAnalyzer::ComputeUintFlows(item.second, item.second[0].cat, flowDetailList)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:b77f6b661afb669a74e9d7dc",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabaseChart.cpp",
+          "line": 55,
+          "expression": "unitAllFlow.emplace_back(unitCatFlows)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7ab5e9beb6d6ec70ca03837",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 340,
+          "expression": "TraceDatabaseHelper::QueryConnectionId(stmt, requestParams)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:d7ab5e9beb6d6ec70ca03837",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 348,
+          "expression": "TraceDatabaseHelper::GetDeviceIdList(requestParams.rankId)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:93dd81fa3117a5d299326263",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 517,
+          "expression": "hardwareRepo->QueryCompeteSliceByIds(sliceQuery, ids, competeSliceVec)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:621b5f741c554f92d5e2ab58",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 422,
+          "expression": "flows.push_back(singleFlow)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:621b5f741c554f92d5e2ab58",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 430,
+          "expression": "flows.push_back(singleFlow)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:621b5f741c554f92d5e2ab58",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 447,
+          "expression": "flows.push_back(singleFlow)"
+        }
+      ]
+    },
+    {
+      "kind": "call_effects_unresolved",
+      "source_symbol": "cpp:621b5f741c554f92d5e2ab58",
+      "evidence": [
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 455,
+          "expression": "flows.push_back(singleFlow)"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "source_candidates_without_compiler_overload_resolution",
+    "unknown_calls_may_write_through_aliases",
+    "pointer_rebinding_not_resolved",
+    "copy_writes_do_not_escape_to_original",
+    "loop_indices_may_be_unknown",
+    "lambda_execution_not_expanded",
+    "implicit_this_member_effects_not_expanded"
+  ],
+  "remaining": [
+    "D02 serialization and wire fields",
+    "D02 response transport and frontend unpacking",
+    "D02 frontend field consumers and state writes",
+    "D03 response-field reverse impact",
+    "D05 consolidated whole-chain gaps",
+    "P4 automatic refresh",
+    "P5 runtime evidence",
+    "P6 real historical assets",
+    "P7 final reuse"
+  ],
+  "file_hash_verification": "not_run_per_user_preference",
+  "rules_revision": "b6138902214886054f00be6b79d9a8c28bfea10c",
+  "python_tests": {
+    "passed": true,
+    "count": 126
+  },
+  "storage": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v3",
+    "nodes": 19432,
+    "edges": 27756,
+    "payload_roundtrip": true,
+    "stored_output_query_pass": true,
+    "native_rows_unchanged": 790,
+    "buffer_pool_mb": 1024
+  }
+}

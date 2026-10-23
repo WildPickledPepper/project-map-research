@@ -17,6 +17,7 @@ jobs:
       - run: python scripts/check_p2_completion.py
       - run: python scripts/check_p3_increment.py
       - run: python scripts/check_p3_selection.py
+      - run: python scripts/check_p3_output_fields.py
   facts:
     runs-on: ubuntu-latest
     steps:
