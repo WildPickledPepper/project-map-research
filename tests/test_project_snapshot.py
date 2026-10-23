@@ -41,6 +41,8 @@ class FullSnapshotTests(unittest.TestCase):
                 graph = json.loads((output/'graph.json').read_text(encoding='utf-8'))
                 self.assertEqual(graph['version'], {k: request[k] for k in ['source_commit', 'snapshot', 'config', 'build_version']})
                 self.assertEqual(result['files'], 2)
+                self.assertEqual(graph['provenance']['update_mode'], 'full_rebuild')
+                self.assertEqual(graph['provenance']['trigger'], 'caller')
                 self.assertFalse(result['storage_roundtrip'])
                 graphs.append(graph)
                 # Only the provider changes. The unchanged consumer must lose its old match.

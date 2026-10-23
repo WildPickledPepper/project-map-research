@@ -73,7 +73,7 @@ def build(source, request, output, log, *, typescript):
         'nodes': facts['nodes'] + ts['nodes'], 'edges': facts['edges'] + ts['edges'],
         'diagnostics': facts['diagnostics'] + ts['diagnostics'], 'limits': facts['limits'] + ts['limits'],
         'provenance': {'reference_used_for_extraction': False, 'file_hash_verification': 'not_run_per_user_preference',
-            'deployment_scope': 'configured', 'update_mode': 'automatic_full_rebuild'}, 'path_configs': ts['path_configs']}
+            'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs']}
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     print('Extract C++ data, objects and fields', file=log, flush=True)
     graph = data_graph(graph, extractor.build(), paths)
@@ -92,7 +92,8 @@ def build(source, request, output, log, *, typescript):
     graph['version'] = {k: request[k] for k in ['source_commit', 'snapshot', 'config', 'build_version']}
     graph['provenance']['input_kind'] = 'git_committed_blob_export'
     graph['provenance']['working_tree_included'] = False
-    graph['provenance']['update_mode'] = 'automatic_full_rebuild'
+    graph['provenance']['update_mode'] = 'full_rebuild'
+    graph['provenance']['trigger'] = request.get('trigger', 'caller')
     _prepare(graph)
     write_json(output/'graph.json', graph)
     if request['config'].get('storage', 'kuzu') == 'kuzu':
@@ -136,7 +137,8 @@ if __name__ == '__main__':
     write_json(a.output/'selection.json', selection)
     export_inputs(a.source, selection, a.output/'source')
     request = {'source_commit': selection['source_commit'], 'snapshot': selection['source_commit'] + ':full:' + uuid.uuid4().hex,
-               'input_paths': [f['path'] for f in selection['files']], 'config': selection['config'], 'build_version': version}
+               'input_paths': [f['path'] for f in selection['files']], 'config': selection['config'], 'build_version': version,
+               'trigger': 'explicit_cli'}
     write_json(a.output/'request.json', request)
     with (a.output/'build.log').open('w', encoding='utf-8') as log:
         result = build(a.output/'source', request, a.output, log, typescript=a.typescript.resolve())
