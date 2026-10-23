@@ -8,7 +8,7 @@ from urllib.parse import unquote
 ROOT = Path(__file__).resolve().parents[1]
 errors = []
 for path in ROOT.rglob('*.md'):
-    if '.git' in path.parts:
+    if set(path.parts) & {'.git','node_modules','.venv','venv','artifacts','downloads'}:
         continue
     text = path.read_text(encoding='utf-8')
     for target in re.findall(r'(?<!!)\[[^\]]*\]\(([^)\s]+)\)', text):

@@ -1,0 +1,1331 @@
+{
+  "input_kind": "same_three_authored_fixtures_as_native_tools",
+  "files": [
+    "contracts.cpp",
+    "contracts.h",
+    "transport.ts"
+  ],
+  "checks": {
+    "cpp_query_occurrences": 7,
+    "overloads_distinct": true,
+    "namespace_targets_correct": true,
+    "smart_pointer_get_not_project_get": true,
+    "ts_override_correct": true,
+    "ts_binding_with_returned_callable": true
+  },
+  "counts": {
+    "cpp": {
+      "nodes": 19,
+      "edges": 20,
+      "diagnostics": 0
+    },
+    "typescript": {
+      "nodes": 19,
+      "edges": 14,
+      "diagnostics": 0
+    }
+  },
+  "graphs": {
+    "cpp": {
+      "schema_version": 1,
+      "extractor": "cpp_facts",
+      "version": "0.1.0",
+      "nodes": [
+        {
+          "id": "cpp:0efc56a7c5cf134a6b756d14",
+          "kind": "callable",
+          "path": "contracts.cpp",
+          "line": 3,
+          "name": "alpha::Live::query",
+          "parameters": [
+            "int"
+          ],
+          "definition": true,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool Live::query(int key)",
+          "source_sha256": "a2da11a69de554b84a4fc3bc4e208141a84e0a6d525ffe2dff784b078976945e",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:2dc75f11897f599fb9a0ab0f",
+          "kind": "callable",
+          "path": "contracts.cpp",
+          "line": 4,
+          "name": "alpha::Live::query",
+          "parameters": [
+            "constchar*"
+          ],
+          "definition": true,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool Live::query(const char* key)",
+          "source_sha256": "a2da11a69de554b84a4fc3bc4e208141a84e0a6d525ffe2dff784b078976945e",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:e48507e68248044ef0cacfa8",
+          "kind": "type",
+          "path": "contracts.h",
+          "line": 5,
+          "name": "alpha::Store",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "base_spellings": [],
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:23ffab8874c8b3ceaef66016",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 7,
+          "name": "alpha::Store::query",
+          "parameters": [
+            "int"
+          ],
+          "definition": false,
+          "pure_virtual": true,
+          "virtual_spelling": true,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "virtual bool query(int key) = 0;",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:dadd6b633ff0f9cdc5fddb59",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 8,
+          "name": "alpha::Store::query",
+          "parameters": [
+            "constchar*"
+          ],
+          "definition": false,
+          "pure_virtual": true,
+          "virtual_spelling": true,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "virtual bool query(const char* key) = 0;",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:5f230bf523c9060b8efb8d58",
+          "kind": "type",
+          "path": "contracts.h",
+          "line": 10,
+          "name": "alpha::Live",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "base_spellings": [
+            "Store"
+          ],
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:1e1b794f7684c672119175c5",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 12,
+          "name": "alpha::Live::query",
+          "parameters": [
+            "int"
+          ],
+          "definition": false,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": true,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool query(int key) override;",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:33134fadc63b913cb5663cf6",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 13,
+          "name": "alpha::Live::query",
+          "parameters": [
+            "constchar*"
+          ],
+          "definition": false,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": true,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool query(const char* key) override;",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:a2df8a5c9af8ce3281df50c4",
+          "kind": "type",
+          "path": "contracts.h",
+          "line": 15,
+          "name": "alpha::CacheGuard",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "base_spellings": [],
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:19b08b04d1168da623b40e75",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 15,
+          "name": "alpha::CacheGuard::get",
+          "parameters": [],
+          "definition": true,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": false,
+          "return_type_spelling": "int",
+          "signature_spelling": "int get()",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:a3df62e9b8fe17e87df05b23",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 16,
+          "name": "alpha::consume",
+          "parameters": [
+            "Store&"
+          ],
+          "definition": true,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool consume(Store& db)",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:21fa897b8e2a711bffd29a27",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 17,
+          "name": "alpha::consumeOwned",
+          "parameters": [
+            "std::unique_ptr<Store>"
+          ],
+          "definition": true,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool consumeOwned(std::unique_ptr<Store> db)",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:ef96fd3e8e9610017306bbac",
+          "kind": "type",
+          "path": "contracts.h",
+          "line": 20,
+          "name": "beta::Store",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "base_spellings": [],
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:efa2aed0a26b35921b1c8e95",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 20,
+          "name": "beta::Store::query",
+          "parameters": [
+            "int"
+          ],
+          "definition": true,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool query(int key)",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:ad8a195a1e429324259e86a1",
+          "kind": "callable",
+          "path": "contracts.h",
+          "line": 21,
+          "name": "beta::consume",
+          "parameters": [
+            "Store&"
+          ],
+          "definition": true,
+          "pure_virtual": false,
+          "virtual_spelling": false,
+          "override_spelling": false,
+          "return_type_spelling": "bool",
+          "signature_spelling": "bool consume(Store& db)",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "evidence_kind": "source_syntax",
+          "conditions": []
+        },
+        {
+          "id": "cpp:035c1149a6160d49e426ea74",
+          "kind": "call_site",
+          "path": "contracts.h",
+          "line": 16,
+          "name": "db.query",
+          "arguments": [
+            "1"
+          ],
+          "resolution": "candidate",
+          "reason": "source_type_inference_without_compiler_context",
+          "evidence_kind": "source_syntax",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "receiver_types": [
+            "alpha::Store"
+          ]
+        },
+        {
+          "id": "cpp:d193001e3574562a9376b2c4",
+          "kind": "call_site",
+          "path": "contracts.h",
+          "line": 17,
+          "name": "db.get()->query",
+          "arguments": [
+            "1"
+          ],
+          "resolution": "candidate",
+          "reason": "source_type_inference_without_compiler_context",
+          "evidence_kind": "source_syntax",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "receiver_types": [
+            "alpha::Store"
+          ]
+        },
+        {
+          "id": "cpp:841d078a005799bb7fc0c1d6",
+          "kind": "call_site",
+          "path": "contracts.h",
+          "line": 17,
+          "name": "db.get",
+          "arguments": [],
+          "resolution": "unresolved",
+          "reason": "standard_smart_pointer_member_no_project_target",
+          "evidence_kind": "source_syntax",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed"
+        },
+        {
+          "id": "cpp:e359ea3be75633d237538d93",
+          "kind": "call_site",
+          "path": "contracts.h",
+          "line": 21,
+          "name": "db.query",
+          "arguments": [
+            "2"
+          ],
+          "resolution": "candidate",
+          "reason": "source_type_inference_without_compiler_context",
+          "evidence_kind": "source_syntax",
+          "source_sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+          "receiver_types": [
+            "beta::Store"
+          ]
+        }
+      ],
+      "edges": [
+        {
+          "source": "cpp:5f230bf523c9060b8efb8d58",
+          "target": "cpp:e48507e68248044ef0cacfa8",
+          "kind": "INHERITS",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 10,
+              "node": "cpp:5f230bf523c9060b8efb8d58"
+            },
+            {
+              "path": "contracts.h",
+              "line": 5,
+              "node": "cpp:e48507e68248044ef0cacfa8"
+            }
+          ]
+        },
+        {
+          "source": "cpp:1e1b794f7684c672119175c5",
+          "target": "cpp:0efc56a7c5cf134a6b756d14",
+          "kind": "DECLARES_DEFINITION",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 12,
+              "node": "cpp:1e1b794f7684c672119175c5"
+            },
+            {
+              "path": "contracts.cpp",
+              "line": 3,
+              "node": "cpp:0efc56a7c5cf134a6b756d14"
+            }
+          ],
+          "basis": "same_qualified_owner_parameter_spelling_and_cvref",
+          "types_checked": false
+        },
+        {
+          "source": "cpp:5f230bf523c9060b8efb8d58",
+          "target": "cpp:0efc56a7c5cf134a6b756d14",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 10,
+              "node": "cpp:5f230bf523c9060b8efb8d58"
+            },
+            {
+              "path": "contracts.cpp",
+              "line": 3,
+              "node": "cpp:0efc56a7c5cf134a6b756d14"
+            }
+          ]
+        },
+        {
+          "source": "cpp:5f230bf523c9060b8efb8d58",
+          "target": "cpp:1e1b794f7684c672119175c5",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 10,
+              "node": "cpp:5f230bf523c9060b8efb8d58"
+            },
+            {
+              "path": "contracts.h",
+              "line": 12,
+              "node": "cpp:1e1b794f7684c672119175c5"
+            }
+          ]
+        },
+        {
+          "source": "cpp:23ffab8874c8b3ceaef66016",
+          "target": "cpp:1e1b794f7684c672119175c5",
+          "kind": "OVERRIDE_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 7,
+              "node": "cpp:23ffab8874c8b3ceaef66016"
+            },
+            {
+              "path": "contracts.h",
+              "line": 12,
+              "node": "cpp:1e1b794f7684c672119175c5"
+            }
+          ],
+          "basis": "inheritance_and_matching_parameter_spelling",
+          "runtime_selection": "unknown"
+        },
+        {
+          "source": "cpp:33134fadc63b913cb5663cf6",
+          "target": "cpp:2dc75f11897f599fb9a0ab0f",
+          "kind": "DECLARES_DEFINITION",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 13,
+              "node": "cpp:33134fadc63b913cb5663cf6"
+            },
+            {
+              "path": "contracts.cpp",
+              "line": 4,
+              "node": "cpp:2dc75f11897f599fb9a0ab0f"
+            }
+          ],
+          "basis": "same_qualified_owner_parameter_spelling_and_cvref",
+          "types_checked": false
+        },
+        {
+          "source": "cpp:5f230bf523c9060b8efb8d58",
+          "target": "cpp:2dc75f11897f599fb9a0ab0f",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 10,
+              "node": "cpp:5f230bf523c9060b8efb8d58"
+            },
+            {
+              "path": "contracts.cpp",
+              "line": 4,
+              "node": "cpp:2dc75f11897f599fb9a0ab0f"
+            }
+          ]
+        },
+        {
+          "source": "cpp:5f230bf523c9060b8efb8d58",
+          "target": "cpp:33134fadc63b913cb5663cf6",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 10,
+              "node": "cpp:5f230bf523c9060b8efb8d58"
+            },
+            {
+              "path": "contracts.h",
+              "line": 13,
+              "node": "cpp:33134fadc63b913cb5663cf6"
+            }
+          ]
+        },
+        {
+          "source": "cpp:dadd6b633ff0f9cdc5fddb59",
+          "target": "cpp:33134fadc63b913cb5663cf6",
+          "kind": "OVERRIDE_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 8,
+              "node": "cpp:dadd6b633ff0f9cdc5fddb59"
+            },
+            {
+              "path": "contracts.h",
+              "line": 13,
+              "node": "cpp:33134fadc63b913cb5663cf6"
+            }
+          ],
+          "basis": "inheritance_and_matching_parameter_spelling",
+          "runtime_selection": "unknown"
+        },
+        {
+          "source": "cpp:e48507e68248044ef0cacfa8",
+          "target": "cpp:23ffab8874c8b3ceaef66016",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 5,
+              "node": "cpp:e48507e68248044ef0cacfa8"
+            },
+            {
+              "path": "contracts.h",
+              "line": 7,
+              "node": "cpp:23ffab8874c8b3ceaef66016"
+            }
+          ]
+        },
+        {
+          "source": "cpp:e48507e68248044ef0cacfa8",
+          "target": "cpp:dadd6b633ff0f9cdc5fddb59",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 5,
+              "node": "cpp:e48507e68248044ef0cacfa8"
+            },
+            {
+              "path": "contracts.h",
+              "line": 8,
+              "node": "cpp:dadd6b633ff0f9cdc5fddb59"
+            }
+          ]
+        },
+        {
+          "source": "cpp:a2df8a5c9af8ce3281df50c4",
+          "target": "cpp:19b08b04d1168da623b40e75",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 15,
+              "node": "cpp:a2df8a5c9af8ce3281df50c4"
+            },
+            {
+              "path": "contracts.h",
+              "line": 15,
+              "node": "cpp:19b08b04d1168da623b40e75"
+            }
+          ]
+        },
+        {
+          "source": "cpp:ef96fd3e8e9610017306bbac",
+          "target": "cpp:efa2aed0a26b35921b1c8e95",
+          "kind": "DECLARES_MEMBER",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 20,
+              "node": "cpp:ef96fd3e8e9610017306bbac"
+            },
+            {
+              "path": "contracts.h",
+              "line": 20,
+              "node": "cpp:efa2aed0a26b35921b1c8e95"
+            }
+          ]
+        },
+        {
+          "source": "cpp:a3df62e9b8fe17e87df05b23",
+          "target": "cpp:035c1149a6160d49e426ea74",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 16,
+              "node": "cpp:a3df62e9b8fe17e87df05b23"
+            },
+            {
+              "path": "contracts.h",
+              "line": 16,
+              "node": "cpp:035c1149a6160d49e426ea74"
+            }
+          ]
+        },
+        {
+          "source": "cpp:035c1149a6160d49e426ea74",
+          "target": "cpp:23ffab8874c8b3ceaef66016",
+          "kind": "MEMBER_TARGET_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 16,
+              "node": "cpp:035c1149a6160d49e426ea74"
+            },
+            {
+              "path": "contracts.h",
+              "line": 16,
+              "basis": "declared_or_initialized_variable"
+            },
+            {
+              "path": "contracts.h",
+              "line": 7,
+              "node": "cpp:23ffab8874c8b3ceaef66016"
+            }
+          ],
+          "basis": "lexical_receiver_type_and_member_lookup",
+          "runtime_dispatch": "unknown",
+          "receiver_types": [
+            "alpha::Store"
+          ]
+        },
+        {
+          "source": "cpp:21fa897b8e2a711bffd29a27",
+          "target": "cpp:d193001e3574562a9376b2c4",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 17,
+              "node": "cpp:21fa897b8e2a711bffd29a27"
+            },
+            {
+              "path": "contracts.h",
+              "line": 17,
+              "node": "cpp:d193001e3574562a9376b2c4"
+            }
+          ]
+        },
+        {
+          "source": "cpp:d193001e3574562a9376b2c4",
+          "target": "cpp:23ffab8874c8b3ceaef66016",
+          "kind": "MEMBER_TARGET_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 17,
+              "node": "cpp:d193001e3574562a9376b2c4"
+            },
+            {
+              "path": "contracts.h",
+              "line": 17,
+              "basis": "declared_or_initialized_variable"
+            },
+            {
+              "path": "contracts.h",
+              "line": 7,
+              "node": "cpp:23ffab8874c8b3ceaef66016"
+            }
+          ],
+          "basis": "lexical_receiver_type_and_member_lookup",
+          "runtime_dispatch": "unknown",
+          "receiver_types": [
+            "alpha::Store"
+          ]
+        },
+        {
+          "source": "cpp:21fa897b8e2a711bffd29a27",
+          "target": "cpp:841d078a005799bb7fc0c1d6",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 17,
+              "node": "cpp:21fa897b8e2a711bffd29a27"
+            },
+            {
+              "path": "contracts.h",
+              "line": 17,
+              "node": "cpp:841d078a005799bb7fc0c1d6"
+            }
+          ]
+        },
+        {
+          "source": "cpp:ad8a195a1e429324259e86a1",
+          "target": "cpp:e359ea3be75633d237538d93",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 21,
+              "node": "cpp:ad8a195a1e429324259e86a1"
+            },
+            {
+              "path": "contracts.h",
+              "line": 21,
+              "node": "cpp:e359ea3be75633d237538d93"
+            }
+          ]
+        },
+        {
+          "source": "cpp:e359ea3be75633d237538d93",
+          "target": "cpp:efa2aed0a26b35921b1c8e95",
+          "kind": "MEMBER_TARGET_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "contracts.h",
+              "line": 21,
+              "node": "cpp:e359ea3be75633d237538d93"
+            },
+            {
+              "path": "contracts.h",
+              "line": 21,
+              "basis": "declared_or_initialized_variable"
+            },
+            {
+              "path": "contracts.h",
+              "line": 20,
+              "node": "cpp:efa2aed0a26b35921b1c8e95"
+            }
+          ],
+          "basis": "lexical_receiver_type_and_member_lookup",
+          "runtime_dispatch": "unknown",
+          "receiver_types": [
+            "beta::Store"
+          ]
+        }
+      ],
+      "diagnostics": [],
+      "coverage": [
+        {
+          "path": "contracts.cpp",
+          "status": "parsed"
+        },
+        {
+          "path": "contracts.h",
+          "status": "parsed"
+        }
+      ],
+      "limits": [
+        "preprocessor_not_evaluated",
+        "no_compiler_type_check",
+        "receiver_targets_are_candidates",
+        "exact_parameter_spelling_links_do_not_expand_aliases",
+        "runtime_implementation_selection_unknown"
+      ]
+    },
+    "typescript": {
+      "schema_version": 1,
+      "extractor": "typescript_facts",
+      "version": "0.1.0",
+      "compiler_version": "5.9.3",
+      "compiler_options": {
+        "target": 7,
+        "module": 99,
+        "moduleResolution": 100,
+        "jsx": 2,
+        "strict": true,
+        "skipLibCheck": true,
+        "noEmit": true,
+        "allowJs": false,
+        "experimentalDecorators": true
+      },
+      "compiler_options_origin": "fixed_analysis_preset_not_product_tsconfig",
+      "coverage": [
+        {
+          "path": "transport.ts",
+          "status": "parsed"
+        }
+      ],
+      "nodes": [
+        {
+          "id": "ts:7c270d0d6dda37ae00c694e9",
+          "kind": "type",
+          "path": "transport.ts",
+          "line": 1,
+          "column": 1,
+          "name": "BaseConnector",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884"
+        },
+        {
+          "id": "ts:8b9a10117440354ebcebd4a7",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 2,
+          "column": 5,
+          "name": "BaseConnector.send",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [
+            "value: T"
+          ],
+          "type_parameters": [
+            "T"
+          ],
+          "definition": true
+        },
+        {
+          "id": "ts:1a35aed238332a7d1dae3636",
+          "kind": "type",
+          "path": "transport.ts",
+          "line": 4,
+          "column": 1,
+          "name": "ClientConnector",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884"
+        },
+        {
+          "id": "ts:b1f15f2a1942df7dba486ad6",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 5,
+          "column": 5,
+          "name": "ClientConnector.send",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [
+            "value: T"
+          ],
+          "type_parameters": [
+            "T"
+          ],
+          "definition": true
+        },
+        {
+          "id": "ts:53a8961332d463ca1f4556a6",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 6,
+          "column": 5,
+          "name": "ClientConnector.fetch",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [
+            "value: string"
+          ],
+          "type_parameters": [],
+          "definition": true
+        },
+        {
+          "id": "ts:5a5dd0c6945bb94c9d2e00fd",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 7,
+          "column": 26,
+          "name": "ClientConnector.fetch.callback",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [],
+          "type_parameters": [],
+          "definition": true
+        },
+        {
+          "id": "ts:75411fc0da25fc7045d7b615",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 11,
+          "column": 1,
+          "name": "createRequest",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [
+            "connector: ClientConnector"
+          ],
+          "type_parameters": [],
+          "definition": true
+        },
+        {
+          "id": "ts:1819299bc62bd34b9e5adf2d",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 12,
+          "column": 12,
+          "name": "createRequest.<lambda@12:12>",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [
+            "command: string"
+          ],
+          "type_parameters": [],
+          "definition": true
+        },
+        {
+          "id": "ts:792ec8e503c6de985cbe839f",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 14,
+          "column": 38,
+          "name": "<lambda@14:38>",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [
+            "command: string"
+          ],
+          "type_parameters": [],
+          "definition": false
+        },
+        {
+          "id": "ts:900b0055a21f573065f27845",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 17,
+          "column": 1,
+          "name": "entry",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [],
+          "type_parameters": [],
+          "definition": true
+        },
+        {
+          "id": "ts:3aeba715a50acc0223273b74",
+          "kind": "callable",
+          "path": "transport.ts",
+          "line": 18,
+          "column": 1,
+          "name": "map",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "parameters": [],
+          "type_parameters": [],
+          "definition": true
+        },
+        {
+          "id": "ts:6fb7f3d2ffc2bb687a0ad34f",
+          "kind": "binding",
+          "path": "transport.ts",
+          "line": 16,
+          "column": 1,
+          "name": "window.requestData",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "right": "createRequest(connector)",
+          "scope": "<analysis-root>",
+          "condition": "binding_is_active_at_call_in_same_runtime_scope"
+        },
+        {
+          "id": "ts:619e4c3372d156cf21c5c9b4",
+          "kind": "call_site",
+          "path": "transport.ts",
+          "line": 5,
+          "column": 35,
+          "name": "super.send",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "arguments": [
+            "value"
+          ],
+          "resolution": "static_declaration"
+        },
+        {
+          "id": "ts:4611855501e6e277a5d79105",
+          "kind": "call_site",
+          "path": "transport.ts",
+          "line": 7,
+          "column": 32,
+          "name": "this.send",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "arguments": [
+            "value"
+          ],
+          "resolution": "static_declaration"
+        },
+        {
+          "id": "ts:3c7921f10c2cfeedd666927c",
+          "kind": "call_site",
+          "path": "transport.ts",
+          "line": 8,
+          "column": 16,
+          "name": "callback",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "arguments": [],
+          "resolution": "static_declaration"
+        },
+        {
+          "id": "ts:a44c1e89620361d8e4fb6357",
+          "kind": "call_site",
+          "path": "transport.ts",
+          "line": 12,
+          "column": 33,
+          "name": "connector.fetch",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "arguments": [
+            "command"
+          ],
+          "resolution": "static_declaration"
+        },
+        {
+          "id": "ts:665ccef9caa479fabe3128d5",
+          "kind": "call_site",
+          "path": "transport.ts",
+          "line": 15,
+          "column": 19,
+          "name": "ClientConnector",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "arguments": [],
+          "resolution": "unresolved",
+          "reason": "no_input_callable_or_runtime_binding"
+        },
+        {
+          "id": "ts:7d876646e3b6dce40653bb0c",
+          "kind": "call_site",
+          "path": "transport.ts",
+          "line": 16,
+          "column": 22,
+          "name": "createRequest",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "arguments": [
+            "connector"
+          ],
+          "resolution": "static_declaration"
+        },
+        {
+          "id": "ts:24d8692a7c3dd9c4074026cf",
+          "kind": "call_site",
+          "path": "transport.ts",
+          "line": 17,
+          "column": 34,
+          "name": "window.requestData",
+          "evidence_kind": "typescript_compiler_ast",
+          "compiler_version": "5.9.3",
+          "source_sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884",
+          "arguments": [
+            "'fixture/query'"
+          ],
+          "resolution": "conditional_binding"
+        }
+      ],
+      "edges": [
+        {
+          "source": "ts:6fb7f3d2ffc2bb687a0ad34f",
+          "target": "ts:75411fc0da25fc7045d7b615",
+          "kind": "BINDS_RESULT_OF",
+          "status": "conditional",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 16,
+              "column": 1
+            },
+            {
+              "path": "transport.ts",
+              "line": 11,
+              "column": 1
+            }
+          ]
+        },
+        {
+          "source": "ts:6fb7f3d2ffc2bb687a0ad34f",
+          "target": "ts:1819299bc62bd34b9e5adf2d",
+          "kind": "BINDS_CALLABLE",
+          "status": "conditional",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 16,
+              "column": 1
+            },
+            {
+              "path": "transport.ts",
+              "line": 12,
+              "column": 12
+            }
+          ],
+          "condition": "assignment_executed_and_factory_returns_this_callable"
+        },
+        {
+          "source": "ts:b1f15f2a1942df7dba486ad6",
+          "target": "ts:619e4c3372d156cf21c5c9b4",
+          "kind": "OBSERVES_CALL",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 5,
+              "column": 35
+            }
+          ]
+        },
+        {
+          "source": "ts:619e4c3372d156cf21c5c9b4",
+          "target": "ts:8b9a10117440354ebcebd4a7",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 5,
+              "column": 35
+            },
+            {
+              "path": "transport.ts",
+              "line": 2,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        },
+        {
+          "source": "ts:5a5dd0c6945bb94c9d2e00fd",
+          "target": "ts:4611855501e6e277a5d79105",
+          "kind": "OBSERVES_CALL",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 7,
+              "column": 32
+            }
+          ]
+        },
+        {
+          "source": "ts:4611855501e6e277a5d79105",
+          "target": "ts:b1f15f2a1942df7dba486ad6",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 7,
+              "column": 32
+            },
+            {
+              "path": "transport.ts",
+              "line": 5,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        },
+        {
+          "source": "ts:53a8961332d463ca1f4556a6",
+          "target": "ts:3c7921f10c2cfeedd666927c",
+          "kind": "OBSERVES_CALL",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 8,
+              "column": 16
+            }
+          ]
+        },
+        {
+          "source": "ts:3c7921f10c2cfeedd666927c",
+          "target": "ts:5a5dd0c6945bb94c9d2e00fd",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 8,
+              "column": 16
+            },
+            {
+              "path": "transport.ts",
+              "line": 7,
+              "column": 26
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        },
+        {
+          "source": "ts:1819299bc62bd34b9e5adf2d",
+          "target": "ts:a44c1e89620361d8e4fb6357",
+          "kind": "OBSERVES_CALL",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 12,
+              "column": 33
+            }
+          ]
+        },
+        {
+          "source": "ts:a44c1e89620361d8e4fb6357",
+          "target": "ts:53a8961332d463ca1f4556a6",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 12,
+              "column": 33
+            },
+            {
+              "path": "transport.ts",
+              "line": 6,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        },
+        {
+          "source": "ts:7d876646e3b6dce40653bb0c",
+          "target": "ts:75411fc0da25fc7045d7b615",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 16,
+              "column": 22
+            },
+            {
+              "path": "transport.ts",
+              "line": 11,
+              "column": 1
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        },
+        {
+          "source": "ts:900b0055a21f573065f27845",
+          "target": "ts:24d8692a7c3dd9c4074026cf",
+          "kind": "OBSERVES_CALL",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 17,
+              "column": 34
+            }
+          ]
+        },
+        {
+          "source": "ts:24d8692a7c3dd9c4074026cf",
+          "target": "ts:6fb7f3d2ffc2bb687a0ad34f",
+          "kind": "USES_BINDING",
+          "status": "conditional",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 17,
+              "column": 34
+            },
+            {
+              "path": "transport.ts",
+              "line": 16,
+              "column": 1
+            }
+          ],
+          "condition": "binding_is_active_at_call_in_same_runtime_scope",
+          "scope": "<analysis-root>"
+        },
+        {
+          "source": "ts:24d8692a7c3dd9c4074026cf",
+          "target": "ts:1819299bc62bd34b9e5adf2d",
+          "kind": "BOUND_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "transport.ts",
+              "line": 17,
+              "column": 34
+            },
+            {
+              "path": "transport.ts",
+              "line": 16,
+              "column": 1
+            },
+            {
+              "path": "transport.ts",
+              "line": 12,
+              "column": 12
+            }
+          ]
+        }
+      ],
+      "diagnostics": [],
+      "limits": [
+        "input_closed_no_external_package_types",
+        "static_declaration_not_runtime_dispatch",
+        "global_binding_edges_require_recorded_execution_condition",
+        "factory_returns_limited_to_direct_function_literals"
+      ]
+    }
+  }
+}

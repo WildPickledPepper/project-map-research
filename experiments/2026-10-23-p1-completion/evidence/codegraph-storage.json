@@ -1,0 +1,441 @@
+{
+  "tool": "CodeGraph 1.39.0",
+  "tool_commit": "7bac941c1916d34fae0e93dd0ffeaef360d741fb",
+  "binary_sha256": "54156dd1f6481b4d7658f1435b97939a606ff7447caca196bb4b89499773df22",
+  "python": "3.11.9",
+  "sqlite": "3.45.1",
+  "unit_tests": "10 passed",
+  "evidence_type": "executed experiment",
+  "fact_inputs": [
+    "mechanically projected native automatic records",
+    "authored storage contract fixture, not semantic extraction"
+  ],
+  "isolation": "separate outputs/cache/db copies; shared filesystem is workflow isolation",
+  "results": [
+    {
+      "input": "fixtures",
+      "native_counts": {
+        "nodes": 19,
+        "edges": 21
+      },
+      "extension_projection_counts": {
+        "snapshot": "fixtures/native-v1",
+        "nodes": 19,
+        "edges": 21
+      },
+      "native_rows_round_trip": true,
+      "native_queries": [
+        {
+          "reverse": false,
+          "start": "fixtures.transport_ts",
+          "reachable_count": 10
+        },
+        {
+          "reverse": true,
+          "start": "fixtures.transport_ts.createrequest",
+          "reachable_count": 2
+        }
+      ],
+      "same_ids_snapshot_delete": {
+        "snapshot": "fixtures/native-v1-same-ids",
+        "snapshots": 1,
+        "nodes": 19,
+        "edges": 21
+      },
+      "rollback_and_injected_failure": "passed",
+      "foreign_key_check": [],
+      "source_files_count": 3,
+      "source_files_unchanged": true,
+      "input_db_bytes_unchanged": true,
+      "original_db_sha256": "138938ad2be79d9dc98ae07c9bf58e6209b3c0100eb2bf0005e6bce2400ade48",
+      "native_schema_and_rows_sha256_before": "fd3b5efbd65cc9b3cc4e3f9ae17f607fd0a938b378357fc7a3e11c9a38d096da",
+      "native_schema_and_rows_sha256_after": "fd3b5efbd65cc9b3cc4e3f9ae17f607fd0a938b378357fc7a3e11c9a38d096da",
+      "native_table_count": 25,
+      "cli_extension_queries": "passed",
+      "cli_write_rejected": true,
+      "cli_relocated_identity_rejected": true,
+      "native_trace_extension_symbols": "not found",
+      "native_snapshot_count_stdout": "snapshot | nodes | edges\ncontract/v1 | 3 | 3\nfixtures/native-v1 | 19 | 21"
+    },
+    {
+      "input": "source",
+      "native_counts": {
+        "nodes": 728,
+        "edges": 883
+      },
+      "extension_projection_counts": {
+        "snapshot": "source/native-v1",
+        "nodes": 728,
+        "edges": 883
+      },
+      "native_rows_round_trip": true,
+      "native_queries": [
+        {
+          "reverse": false,
+          "start": "source.modules.framework.src.centralserver.websocket.connection_ts",
+          "reachable_count": 16
+        },
+        {
+          "reverse": true,
+          "start": "source.modules.framework.src.centralserver.websocket.defs_ts.isresponse",
+          "reachable_count": 3
+        }
+      ],
+      "same_ids_snapshot_delete": {
+        "snapshot": "source/native-v1-same-ids",
+        "snapshots": 1,
+        "nodes": 728,
+        "edges": 883
+      },
+      "rollback_and_injected_failure": "passed",
+      "foreign_key_check": [],
+      "source_files_count": 65,
+      "source_files_unchanged": true,
+      "input_db_bytes_unchanged": true,
+      "original_db_sha256": "04e394814f5dd895c1a862d101a091d505a1b13fd2ee8e29ce784128042ceb58",
+      "native_schema_and_rows_sha256_before": "a20aef766faa1734ed905d5c891e4b02df02a8cb5f16654f4540dfe9622cbc83",
+      "native_schema_and_rows_sha256_after": "a20aef766faa1734ed905d5c891e4b02df02a8cb5f16654f4540dfe9622cbc83",
+      "native_table_count": 25,
+      "cli_extension_queries": "passed",
+      "cli_write_rejected": true,
+      "cli_relocated_identity_rejected": true,
+      "native_trace_extension_symbols": "not found",
+      "native_snapshot_count_stdout": "snapshot | nodes | edges\ncontract/v1 | 3 | 3\nsource/native-v1 | 728 | 883"
+    }
+  ],
+  "commands": [
+    {
+      "label": "version",
+      "argv": [
+        "<codegraph>",
+        "--version"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.02,
+      "stdout": "codegraph 1.39.0",
+      "stderr": ""
+    },
+    {
+      "label": "unittests",
+      "argv": [
+        "<python>",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_sqlite_fact_graph.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.1032,
+      "stdout": "",
+      "stderr": "test_active_transaction_without_foreign_keys_is_rejected (test_sqlite_fact_graph.SQLiteFactGraphTests.test_active_transaction_without_foreign_keys_is_rejected) ... ok\r\ntest_caller_rollback_includes_replace_delete_and_first_schema (test_sqlite_fact_graph.SQLiteFactGraphTests.test_caller_rollback_includes_replace_delete_and_first_schema) ... ok\r\ntest_cross_snapshot_endpoints_and_direct_sql_foreign_keys (test_sqlite_fact_graph.SQLiteFactGraphTests.test_cross_snapshot_endpoints_and_direct_sql_foreign_keys) ... ok\r\ntest_forward_reverse_recursive_queries_and_conditions (test_sqlite_fact_graph.SQLiteFactGraphTests.test_forward_reverse_recursive_queries_and_conditions) ... ok\r\ntest_full_payload_parallel_edges_and_metadata_round_trip (test_sqlite_fact_graph.SQLiteFactGraphTests.test_full_payload_parallel_edges_and_metadata_round_trip) ... ok\r\ntest_invalid_input_preserves_prior_snapshot (test_sqlite_fact_graph.SQLiteFactGraphTests.test_invalid_input_preserves_prior_snapshot) ... ok\r\ntest_mid_write_failure_rolls_back_replacement_not_caller_work (test_sqlite_fact_graph.SQLiteFactGraphTests.test_mid_write_failure_rolls_back_replacement_not_caller_work) ... ok\r\ntest_native_schema_rows_and_sqlite_sequence_unchanged (test_sqlite_fact_graph.SQLiteFactGraphTests.test_native_schema_rows_and_sqlite_sequence_unchanged) ... ok\r\ntest_other_reader_sees_only_committed_snapshot (test_sqlite_fact_graph.SQLiteFactGraphTests.test_other_reader_sees_only_committed_snapshot) ... ok\r\ntest_snapshot_ids_replacement_deletion_and_empty_graph (test_sqlite_fact_graph.SQLiteFactGraphTests.test_snapshot_ids_replacement_deletion_and_empty_graph) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 10 tests in 0.022s\r\n\r\nOK"
+    },
+    {
+      "label": "fixtures-snapshot-counts",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "SELECT s.snapshot,\n                (SELECT count(*) FROM pm_fact_nodes n WHERE n.snapshot=s.snapshot) AS nodes,\n                (SELECT count(*) FROM pm_fact_edges e WHERE e.snapshot=s.snapshot) AS edges\n                FROM pm_fact_snapshots s ORDER BY s.snapshot",
+        "--path",
+        "<native-input>\\fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.033,
+      "stdout": "snapshot | nodes | edges\ncontract/v1 | 3 | 3\nfixtures/native-v1 | 19 | 21",
+      "stderr": ""
+    },
+    {
+      "label": "fixtures-native-forward",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'fixtures.transport_ts' UNION SELECT e.target FROM pm_fact_edges e\n        JOIN reachable r ON e.source=r.id WHERE e.snapshot='fixtures/native-v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.021,
+      "stdout": "id\nfixtures.transport_ts\nfixtures.transport_ts.baseconnector\nfixtures.transport_ts.baseconnector.send\nfixtures.transport_ts.clientconnector\nfixtures.transport_ts.clientconnector.callback\nfixtures.transport_ts.clientconnector.fetch\nfixtures.transport_ts.clientconnector.send\nfixtures.transport_ts.createrequest\nfixtures.transport_ts.entry\nfixtures.transport_ts.map",
+      "stderr": ""
+    },
+    {
+      "label": "fixtures-native-reverse",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'fixtures.transport_ts.createrequest' UNION SELECT e.source FROM pm_fact_edges e\n        JOIN reachable r ON e.target=r.id WHERE e.snapshot='fixtures/native-v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0212,
+      "stdout": "id\nfixtures.transport_ts\nfixtures.transport_ts.createrequest",
+      "stderr": ""
+    },
+    {
+      "label": "fixtures-contract-forward",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'client' UNION SELECT e.target FROM pm_fact_edges e\n        JOIN reachable r ON e.source=r.id WHERE e.snapshot='contract/v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0202,
+      "stdout": "id\nclient\ndatabase\nhandler",
+      "stderr": ""
+    },
+    {
+      "label": "fixtures-contract-reverse",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'database' UNION SELECT e.source FROM pm_fact_edges e\n        JOIN reachable r ON e.target=r.id WHERE e.snapshot='contract/v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0202,
+      "stdout": "id\nclient\ndatabase\nhandler",
+      "stderr": ""
+    },
+    {
+      "label": "fixtures-conditions",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "SELECT kind,status,\n                json_extract(payload,'$.condition.backend') AS backend,\n                json_extract(payload,'$.evidence[0].path') AS evidence_path\n                FROM pm_fact_edges WHERE snapshot='contract/v1' AND source='handler'\n                ORDER BY ordinal",
+        "--path",
+        "<native-input>\\fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0212,
+      "stdout": "kind | status | backend | evidence_path\ncandidate-implementation | candidate | sqlite | fixture/server.cpp\ncandidate-implementation | candidate | text | fixture/server.cpp",
+      "stderr": ""
+    },
+    {
+      "label": "fixtures-readonly-rejects-delete",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "DELETE FROM pm_fact_snapshots",
+        "--path",
+        "<native-input>\\fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.0214,
+      "stdout": "",
+      "stderr": "Error: attempt to write a readonly database\n\nCaused by:\n    Error code 8: Attempt to write a readonly database"
+    },
+    {
+      "label": "fixtures-native-trace",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "trace",
+        "Storage Client",
+        "Storage Database",
+        "--path",
+        "<native-input>\\fixtures"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0207,
+      "stdout": "symbol not found",
+      "stderr": ""
+    },
+    {
+      "label": "fixtures-relocated-identity",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "SELECT count(*) FROM pm_fact_nodes",
+        "--path",
+        "<output>\\relocated-fixtures",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.0226,
+      "stdout": "",
+      "stderr": "Error: graph at <output>\\cache\\49867fd3ca19fbe9\\graph.db was built for <native-input>\\fixtures, not <output>\\relocated-fixtures — run `codegraph index <output>\\relocated-fixtures`"
+    },
+    {
+      "label": "source-snapshot-counts",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "SELECT s.snapshot,\n                (SELECT count(*) FROM pm_fact_nodes n WHERE n.snapshot=s.snapshot) AS nodes,\n                (SELECT count(*) FROM pm_fact_edges e WHERE e.snapshot=s.snapshot) AS edges\n                FROM pm_fact_snapshots s ORDER BY s.snapshot",
+        "--path",
+        "<native-input>\\source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0322,
+      "stdout": "snapshot | nodes | edges\ncontract/v1 | 3 | 3\nsource/native-v1 | 728 | 883",
+      "stderr": ""
+    },
+    {
+      "label": "source-native-forward",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'source.modules.framework.src.centralserver.websocket.connection_ts' UNION SELECT e.target FROM pm_fact_edges e\n        JOIN reachable r ON e.source=r.id WHERE e.snapshot='source/native-v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.022,
+      "stdout": "id\nsource.modules.framework.src.centralserver.websocket.connection_ts\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.connect\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.constructor\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.disconnect\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.fetch\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.findserverport\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.getcallback\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.initheartcheck\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.isconnected\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.request\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.reset\nsource.modules.framework.src.centralserver.websocket.connection_ts.connection.sendheartcheck\nsource.modules.framework.src.centralserver.websocket.connection_ts.createrequesthead\nsource.modules.framework.src.centralserver.websocket.connection_ts.errormsg\nsource.modules.framework.src.centralserver.websocket.defs_ts.isresponse",
+      "stderr": ""
+    },
+    {
+      "label": "source-native-reverse",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'source.modules.framework.src.centralserver.websocket.defs_ts.isresponse' UNION SELECT e.source FROM pm_fact_edges e\n        JOIN reachable r ON e.target=r.id WHERE e.snapshot='source/native-v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0221,
+      "stdout": "id\nsource.modules.framework.src.centralserver.websocket.connection_ts\nsource.modules.framework.src.centralserver.websocket.defs_ts\nsource.modules.framework.src.centralserver.websocket.defs_ts.isresponse",
+      "stderr": ""
+    },
+    {
+      "label": "source-contract-forward",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'client' UNION SELECT e.target FROM pm_fact_edges e\n        JOIN reachable r ON e.source=r.id WHERE e.snapshot='contract/v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0209,
+      "stdout": "id\nclient\ndatabase\nhandler",
+      "stderr": ""
+    },
+    {
+      "label": "source-contract-reverse",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "WITH RECURSIVE reachable(id) AS (\n        SELECT 'database' UNION SELECT e.source FROM pm_fact_edges e\n        JOIN reachable r ON e.target=r.id WHERE e.snapshot='contract/v1'\n    ) SELECT id FROM reachable ORDER BY id",
+        "--path",
+        "<native-input>\\source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0221,
+      "stdout": "id\nclient\ndatabase\nhandler",
+      "stderr": ""
+    },
+    {
+      "label": "source-conditions",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "SELECT kind,status,\n                json_extract(payload,'$.condition.backend') AS backend,\n                json_extract(payload,'$.evidence[0].path') AS evidence_path\n                FROM pm_fact_edges WHERE snapshot='contract/v1' AND source='handler'\n                ORDER BY ordinal",
+        "--path",
+        "<native-input>\\source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0204,
+      "stdout": "kind | status | backend | evidence_path\ncandidate-implementation | candidate | sqlite | fixture/server.cpp\ncandidate-implementation | candidate | text | fixture/server.cpp",
+      "stderr": ""
+    },
+    {
+      "label": "source-readonly-rejects-delete",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "DELETE FROM pm_fact_snapshots",
+        "--path",
+        "<native-input>\\source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.0218,
+      "stdout": "",
+      "stderr": "Error: attempt to write a readonly database\n\nCaused by:\n    Error code 8: Attempt to write a readonly database"
+    },
+    {
+      "label": "source-native-trace",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "trace",
+        "Storage Client",
+        "Storage Database",
+        "--path",
+        "<native-input>\\source"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.0234,
+      "stdout": "symbol not found",
+      "stderr": ""
+    },
+    {
+      "label": "source-relocated-identity",
+      "argv": [
+        "<codegraph>",
+        "--no-autoheal",
+        "query",
+        "SELECT count(*) FROM pm_fact_nodes",
+        "--path",
+        "<output>\\relocated-source",
+        "--limit",
+        "10000"
+      ],
+      "exit_code": 1,
+      "elapsed_seconds": 0.0239,
+      "stdout": "",
+      "stderr": "Error: graph at <output>\\cache\\7afbc18c45cc5754\\graph.db was built for <native-input>\\source, not <output>\\relocated-source — run `codegraph index <output>\\relocated-source`"
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "evidence_kind": "executed_local_tests",
+  "platform": "Windows x64",
+  "python": "3.11.9",
+  "node": "22.23.3",
+  "typescript": "5.9.3",
+  "tests": [
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "passed": 56,
+      "failed": 0
+    },
+    {
+      "command": "npm test",
+      "passed": 13,
+      "failed": 0
+    }
+  ],
+  "checks": [
+    {
+      "command": "python scripts/check_research.py",
+      "result": "pass"
+    },
+    {
+      "command": "python scripts/check_trial_evidence.py",
+      "result": "pass"
+    },
+    {
+      "command": "python scripts/check_p1_evidence.py",
+      "result": "pass"
+    },
+    {
+      "command": "python scripts/check_p1_completion.py",
+      "result": "pass"
+    }
+  ],
+  "file_hash_verification": "not_run_per_user_preference"
+}

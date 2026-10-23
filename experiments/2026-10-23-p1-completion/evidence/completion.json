@@ -1,0 +1,2284 @@
+{
+  "evidence_kind": "executed_source_extraction_and_two_native_store_copies",
+  "facts": {
+    "checks": {
+      "F01": "pass",
+      "F02": "pass",
+      "F03": "pass"
+    },
+    "paths": {
+      "frontend": {
+        "found": true,
+        "reverse": false,
+        "max_depth": 12,
+        "depth_limit_reached": false,
+        "nodes": [
+          {
+            "id": "ts:922f26ccc99ac699aa030c2c",
+            "kind": "callable",
+            "path": "modules/timeline/src/api/request.ts",
+            "line": 174,
+            "column": 1,
+            "name": "getUnitFlows",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35",
+            "parameters": [
+              "params: GetUnitFlowsParams"
+            ],
+            "type_parameters": [],
+            "definition": true
+          },
+          {
+            "id": "ts:6deded7fb6c3a8efab357462",
+            "kind": "call_site",
+            "path": "modules/timeline/src/api/request.ts",
+            "line": 175,
+            "column": 12,
+            "name": "window.requestData",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35",
+            "arguments": [
+              "'unit/flows'",
+              "params",
+              "'timeline'"
+            ],
+            "resolution": "conditional_binding"
+          },
+          {
+            "id": "ts:44adda732720b11ef2006124",
+            "kind": "binding",
+            "path": "modules/timeline/src/bootstrap.tsx",
+            "line": 89,
+            "column": 1,
+            "name": "window.requestData",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "3ba98c0d83468a9a2b6fe54faa6f81c0d4016730836175616d6c801c013c47a6",
+            "right": "createRequest(connector)",
+            "scope": "@insight/timeline",
+            "condition": "binding_is_active_at_call_in_same_runtime_scope"
+          },
+          {
+            "id": "ts:711eb7910ec9f632aa9e16d0",
+            "kind": "callable",
+            "path": "modules/lib/src/utils/Request.ts",
+            "line": 31,
+            "column": 12,
+            "name": "createRequest.<lambda@31:12>",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "5ca8dffdfd415d961f612fb26f5b16d56d2dccf7d684f5f8feffb20e652382d1",
+            "parameters": [
+              "command: string",
+              "params: any",
+              "module?: string",
+              "options?: RequestOptions"
+            ],
+            "type_parameters": [],
+            "definition": true
+          },
+          {
+            "id": "ts:1faf404650dd59b8fc1ca1a2",
+            "kind": "call_site",
+            "path": "modules/lib/src/utils/Request.ts",
+            "line": 38,
+            "column": 32,
+            "name": "connector.fetch",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "5ca8dffdfd415d961f612fb26f5b16d56d2dccf7d684f5f8feffb20e652382d1",
+            "arguments": [
+              "{\n                args: { command, params },\n                module: module !== undefined ? module : String(command).split('/')[0]?.toLowerCase(),\n            }"
+            ],
+            "resolution": "static_declaration"
+          },
+          {
+            "id": "ts:87827bc8521cbd2543249549",
+            "kind": "callable",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 183,
+            "column": 5,
+            "name": "ClientConnector.fetch",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "parameters": [
+              "params: FetchParams"
+            ],
+            "type_parameters": [],
+            "definition": true
+          },
+          {
+            "id": "ts:e6683faace1910b450215bb1",
+            "kind": "call_site",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 184,
+            "column": 16,
+            "name": "Promise",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "arguments": [
+              "(resolve, reject) => {\n            params.id = this._curFetchSequenceID;\n            (params as Record<string, unknown>).event = 'request';\n            const body = params as unknown as SendParams<string>;\n            this.send(body, reject);\n            this._msgSequence.set(this._curFetchSequenceID++, { resolve, reject });\n        }"
+            ],
+            "resolution": "unresolved",
+            "reason": "no_input_callable_or_runtime_binding"
+          },
+          {
+            "id": "ts:576bb9b266849e6fa7210ef2",
+            "kind": "callable",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 184,
+            "column": 28,
+            "name": "ClientConnector.fetch.<lambda@184:28>",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "parameters": [
+              "resolve",
+              "reject"
+            ],
+            "type_parameters": [],
+            "definition": true
+          },
+          {
+            "id": "ts:9d235dd3c9c3edd43e6988a4",
+            "kind": "call_site",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 188,
+            "column": 13,
+            "name": "this.send",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "arguments": [
+              "body",
+              "reject"
+            ],
+            "resolution": "static_declaration"
+          },
+          {
+            "id": "ts:03f504b0520ebac8d936eabb",
+            "kind": "callable",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 178,
+            "column": 5,
+            "name": "ClientConnector.send",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "parameters": [
+              "body: SendParams<T>",
+              "reject?: (err: Error) => void"
+            ],
+            "type_parameters": [
+              "T extends EventHanlder"
+            ],
+            "definition": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "ts:922f26ccc99ac699aa030c2c",
+            "target": "ts:6deded7fb6c3a8efab357462",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/timeline/src/api/request.ts",
+                "line": 175,
+                "column": 12
+              }
+            ]
+          },
+          {
+            "source": "ts:6deded7fb6c3a8efab357462",
+            "target": "ts:44adda732720b11ef2006124",
+            "kind": "USES_BINDING",
+            "status": "conditional",
+            "evidence": [
+              {
+                "path": "modules/timeline/src/api/request.ts",
+                "line": 175,
+                "column": 12
+              },
+              {
+                "path": "modules/timeline/src/bootstrap.tsx",
+                "line": 89,
+                "column": 1
+              }
+            ],
+            "condition": "binding_is_active_at_call_in_same_runtime_scope",
+            "scope": "@insight/timeline"
+          },
+          {
+            "source": "ts:44adda732720b11ef2006124",
+            "target": "ts:711eb7910ec9f632aa9e16d0",
+            "kind": "BINDS_CALLABLE",
+            "status": "conditional",
+            "evidence": [
+              {
+                "path": "modules/timeline/src/bootstrap.tsx",
+                "line": 89,
+                "column": 1
+              },
+              {
+                "path": "modules/lib/src/utils/Request.ts",
+                "line": 31,
+                "column": 12
+              }
+            ],
+            "condition": "assignment_executed_and_factory_returns_this_callable"
+          },
+          {
+            "source": "ts:711eb7910ec9f632aa9e16d0",
+            "target": "ts:1faf404650dd59b8fc1ca1a2",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/utils/Request.ts",
+                "line": 38,
+                "column": 32
+              }
+            ]
+          },
+          {
+            "source": "ts:1faf404650dd59b8fc1ca1a2",
+            "target": "ts:87827bc8521cbd2543249549",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/utils/Request.ts",
+                "line": 38,
+                "column": 32
+              },
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 183,
+                "column": 5
+              }
+            ],
+            "basis": "typescript_getResolvedSignature",
+            "runtime_dispatch": "not_observed"
+          },
+          {
+            "source": "ts:87827bc8521cbd2543249549",
+            "target": "ts:e6683faace1910b450215bb1",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 184,
+                "column": 16
+              }
+            ]
+          },
+          {
+            "source": "ts:e6683faace1910b450215bb1",
+            "target": "ts:576bb9b266849e6fa7210ef2",
+            "kind": "PASSES_CALLBACK",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 184,
+                "column": 16
+              },
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 184,
+                "column": 28
+              }
+            ],
+            "argument_index": 0,
+            "basis": "direct_function_literal_argument",
+            "execution": "depends_on_callee_invocation"
+          },
+          {
+            "source": "ts:576bb9b266849e6fa7210ef2",
+            "target": "ts:9d235dd3c9c3edd43e6988a4",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 188,
+                "column": 13
+              }
+            ]
+          },
+          {
+            "source": "ts:9d235dd3c9c3edd43e6988a4",
+            "target": "ts:03f504b0520ebac8d936eabb",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 188,
+                "column": 13
+              },
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 178,
+                "column": 5
+              }
+            ],
+            "basis": "typescript_getResolvedSignature",
+            "runtime_dispatch": "not_observed"
+          }
+        ],
+        "meaning": "structural_evidence_path_not_observed_execution"
+      },
+      "frontend_reverse": {
+        "found": true,
+        "reverse": true,
+        "max_depth": 12,
+        "depth_limit_reached": false,
+        "nodes": [
+          {
+            "id": "ts:03f504b0520ebac8d936eabb",
+            "kind": "callable",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 178,
+            "column": 5,
+            "name": "ClientConnector.send",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "parameters": [
+              "body: SendParams<T>",
+              "reject?: (err: Error) => void"
+            ],
+            "type_parameters": [
+              "T extends EventHanlder"
+            ],
+            "definition": true
+          },
+          {
+            "id": "ts:9d235dd3c9c3edd43e6988a4",
+            "kind": "call_site",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 188,
+            "column": 13,
+            "name": "this.send",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "arguments": [
+              "body",
+              "reject"
+            ],
+            "resolution": "static_declaration"
+          },
+          {
+            "id": "ts:576bb9b266849e6fa7210ef2",
+            "kind": "callable",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 184,
+            "column": 28,
+            "name": "ClientConnector.fetch.<lambda@184:28>",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "parameters": [
+              "resolve",
+              "reject"
+            ],
+            "type_parameters": [],
+            "definition": true
+          },
+          {
+            "id": "ts:e6683faace1910b450215bb1",
+            "kind": "call_site",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 184,
+            "column": 16,
+            "name": "Promise",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "arguments": [
+              "(resolve, reject) => {\n            params.id = this._curFetchSequenceID;\n            (params as Record<string, unknown>).event = 'request';\n            const body = params as unknown as SendParams<string>;\n            this.send(body, reject);\n            this._msgSequence.set(this._curFetchSequenceID++, { resolve, reject });\n        }"
+            ],
+            "resolution": "unresolved",
+            "reason": "no_input_callable_or_runtime_binding"
+          },
+          {
+            "id": "ts:87827bc8521cbd2543249549",
+            "kind": "callable",
+            "path": "modules/lib/src/connection/index.ts",
+            "line": 183,
+            "column": 5,
+            "name": "ClientConnector.fetch",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+            "parameters": [
+              "params: FetchParams"
+            ],
+            "type_parameters": [],
+            "definition": true
+          },
+          {
+            "id": "ts:1faf404650dd59b8fc1ca1a2",
+            "kind": "call_site",
+            "path": "modules/lib/src/utils/Request.ts",
+            "line": 38,
+            "column": 32,
+            "name": "connector.fetch",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "5ca8dffdfd415d961f612fb26f5b16d56d2dccf7d684f5f8feffb20e652382d1",
+            "arguments": [
+              "{\n                args: { command, params },\n                module: module !== undefined ? module : String(command).split('/')[0]?.toLowerCase(),\n            }"
+            ],
+            "resolution": "static_declaration"
+          },
+          {
+            "id": "ts:711eb7910ec9f632aa9e16d0",
+            "kind": "callable",
+            "path": "modules/lib/src/utils/Request.ts",
+            "line": 31,
+            "column": 12,
+            "name": "createRequest.<lambda@31:12>",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "5ca8dffdfd415d961f612fb26f5b16d56d2dccf7d684f5f8feffb20e652382d1",
+            "parameters": [
+              "command: string",
+              "params: any",
+              "module?: string",
+              "options?: RequestOptions"
+            ],
+            "type_parameters": [],
+            "definition": true
+          },
+          {
+            "id": "ts:44adda732720b11ef2006124",
+            "kind": "binding",
+            "path": "modules/timeline/src/bootstrap.tsx",
+            "line": 89,
+            "column": 1,
+            "name": "window.requestData",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "3ba98c0d83468a9a2b6fe54faa6f81c0d4016730836175616d6c801c013c47a6",
+            "right": "createRequest(connector)",
+            "scope": "@insight/timeline",
+            "condition": "binding_is_active_at_call_in_same_runtime_scope"
+          },
+          {
+            "id": "ts:6deded7fb6c3a8efab357462",
+            "kind": "call_site",
+            "path": "modules/timeline/src/api/request.ts",
+            "line": 175,
+            "column": 12,
+            "name": "window.requestData",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35",
+            "arguments": [
+              "'unit/flows'",
+              "params",
+              "'timeline'"
+            ],
+            "resolution": "conditional_binding"
+          },
+          {
+            "id": "ts:922f26ccc99ac699aa030c2c",
+            "kind": "callable",
+            "path": "modules/timeline/src/api/request.ts",
+            "line": 174,
+            "column": 1,
+            "name": "getUnitFlows",
+            "evidence_kind": "typescript_compiler_ast",
+            "compiler_version": "5.9.3",
+            "source_sha256": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35",
+            "parameters": [
+              "params: GetUnitFlowsParams"
+            ],
+            "type_parameters": [],
+            "definition": true
+          }
+        ],
+        "edges": [
+          {
+            "source": "ts:9d235dd3c9c3edd43e6988a4",
+            "target": "ts:03f504b0520ebac8d936eabb",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 188,
+                "column": 13
+              },
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 178,
+                "column": 5
+              }
+            ],
+            "basis": "typescript_getResolvedSignature",
+            "runtime_dispatch": "not_observed"
+          },
+          {
+            "source": "ts:576bb9b266849e6fa7210ef2",
+            "target": "ts:9d235dd3c9c3edd43e6988a4",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 188,
+                "column": 13
+              }
+            ]
+          },
+          {
+            "source": "ts:e6683faace1910b450215bb1",
+            "target": "ts:576bb9b266849e6fa7210ef2",
+            "kind": "PASSES_CALLBACK",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 184,
+                "column": 16
+              },
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 184,
+                "column": 28
+              }
+            ],
+            "argument_index": 0,
+            "basis": "direct_function_literal_argument",
+            "execution": "depends_on_callee_invocation"
+          },
+          {
+            "source": "ts:87827bc8521cbd2543249549",
+            "target": "ts:e6683faace1910b450215bb1",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 184,
+                "column": 16
+              }
+            ]
+          },
+          {
+            "source": "ts:1faf404650dd59b8fc1ca1a2",
+            "target": "ts:87827bc8521cbd2543249549",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/utils/Request.ts",
+                "line": 38,
+                "column": 32
+              },
+              {
+                "path": "modules/lib/src/connection/index.ts",
+                "line": 183,
+                "column": 5
+              }
+            ],
+            "basis": "typescript_getResolvedSignature",
+            "runtime_dispatch": "not_observed"
+          },
+          {
+            "source": "ts:711eb7910ec9f632aa9e16d0",
+            "target": "ts:1faf404650dd59b8fc1ca1a2",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/lib/src/utils/Request.ts",
+                "line": 38,
+                "column": 32
+              }
+            ]
+          },
+          {
+            "source": "ts:44adda732720b11ef2006124",
+            "target": "ts:711eb7910ec9f632aa9e16d0",
+            "kind": "BINDS_CALLABLE",
+            "status": "conditional",
+            "evidence": [
+              {
+                "path": "modules/timeline/src/bootstrap.tsx",
+                "line": 89,
+                "column": 1
+              },
+              {
+                "path": "modules/lib/src/utils/Request.ts",
+                "line": 31,
+                "column": 12
+              }
+            ],
+            "condition": "assignment_executed_and_factory_returns_this_callable"
+          },
+          {
+            "source": "ts:6deded7fb6c3a8efab357462",
+            "target": "ts:44adda732720b11ef2006124",
+            "kind": "USES_BINDING",
+            "status": "conditional",
+            "evidence": [
+              {
+                "path": "modules/timeline/src/api/request.ts",
+                "line": 175,
+                "column": 12
+              },
+              {
+                "path": "modules/timeline/src/bootstrap.tsx",
+                "line": 89,
+                "column": 1
+              }
+            ],
+            "condition": "binding_is_active_at_call_in_same_runtime_scope",
+            "scope": "@insight/timeline"
+          },
+          {
+            "source": "ts:922f26ccc99ac699aa030c2c",
+            "target": "ts:6deded7fb6c3a8efab357462",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "evidence": [
+              {
+                "path": "modules/timeline/src/api/request.ts",
+                "line": 175,
+                "column": 12
+              }
+            ]
+          }
+        ],
+        "meaning": "structural_evidence_path_not_observed_execution"
+      },
+      "db": {
+        "found": true,
+        "reverse": false,
+        "max_depth": 12,
+        "depth_limit_reached": false,
+        "nodes": [
+          {
+            "id": "cpp:d7a6f20ca5a84774ae8db47d",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 28,
+            "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+            "parameters": [
+              "std::unique_ptr<Protocol::Request>"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryFlowsBySliceInfoHandler::HandleRequest(std::unique_ptr<Protocol::Request> requestPtr)",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          },
+          {
+            "id": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "call_site",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 57,
+            "name": "database->QueryUnitFlows",
+            "arguments": [
+              "queryParams",
+              "response.body",
+              "minTimestamp",
+              "trackId"
+            ],
+            "resolution": "candidate",
+            "reason": "source_type_inference_without_compiler_context",
+            "evidence_kind": "source_syntax",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "id": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+            "line": 83,
+            "name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": true,
+            "virtual_spelling": true,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "virtual bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) = 0;",
+            "source_sha256": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_TRACE_DATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:7bbf830723089702d85099fa",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+            "line": 114,
+            "name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": true,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+            "source_sha256": "9b9aa26b47c3b5a661dc285c8b775a25f619f5efe9dd68dfb7583b012b8d4964",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_DBTRACEDATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+            "line": 337,
+            "name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool DbTraceDataBase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+            "source_sha256": "2cea03216c3ca5acaeba1e37173e7dcac9c2c4ecdd103c9fecdf08c4e7a39593",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          }
+        ],
+        "edges": [
+          {
+            "source": "cpp:d7a6f20ca5a84774ae8db47d",
+            "target": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 28,
+                "node": "cpp:d7a6f20ca5a84774ae8db47d"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              }
+            ]
+          },
+          {
+            "source": "cpp:a2e15a2a22054e9348abea55",
+            "target": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "MEMBER_TARGET_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 78,
+                "node": "cpp:666264f655aeabee6ec384b4"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 66,
+                "node": "cpp:08fc2cf4b3ffb769e2c922de"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 104,
+                "node": "cpp:02c51ef369aec9548b0b3f82"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 67,
+                "node": "cpp:8d6ca4ee335701ddccc4fc67"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "condition": "request.params.dbPath.empty()",
+                "basis": "both_conditional_branches"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "basis": "declared_or_initialized_variable"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              }
+            ],
+            "basis": "lexical_receiver_type_and_member_lookup",
+            "runtime_dispatch": "unknown",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "source": "cpp:e4d89fa97268dbc477d2f8be",
+            "target": "cpp:7bbf830723089702d85099fa",
+            "kind": "OVERRIDE_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+                "line": 114,
+                "node": "cpp:7bbf830723089702d85099fa"
+              }
+            ],
+            "basis": "inheritance_and_matching_parameter_spelling",
+            "runtime_selection": "unknown"
+          },
+          {
+            "source": "cpp:7bbf830723089702d85099fa",
+            "target": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "kind": "DECLARES_DEFINITION",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+                "line": 114,
+                "node": "cpp:7bbf830723089702d85099fa"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+                "line": 337,
+                "node": "cpp:d7ab5e9beb6d6ec70ca03837"
+              }
+            ],
+            "basis": "same_qualified_owner_parameter_spelling_and_cvref",
+            "types_checked": false
+          }
+        ],
+        "meaning": "structural_evidence_path_not_observed_execution"
+      },
+      "db_reverse": {
+        "found": true,
+        "reverse": true,
+        "max_depth": 12,
+        "depth_limit_reached": false,
+        "nodes": [
+          {
+            "id": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+            "line": 337,
+            "name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool DbTraceDataBase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+            "source_sha256": "2cea03216c3ca5acaeba1e37173e7dcac9c2c4ecdd103c9fecdf08c4e7a39593",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          },
+          {
+            "id": "cpp:7bbf830723089702d85099fa",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+            "line": 114,
+            "name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": true,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+            "source_sha256": "9b9aa26b47c3b5a661dc285c8b775a25f619f5efe9dd68dfb7583b012b8d4964",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_DBTRACEDATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+            "line": 83,
+            "name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": true,
+            "virtual_spelling": true,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "virtual bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) = 0;",
+            "source_sha256": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_TRACE_DATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "call_site",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 57,
+            "name": "database->QueryUnitFlows",
+            "arguments": [
+              "queryParams",
+              "response.body",
+              "minTimestamp",
+              "trackId"
+            ],
+            "resolution": "candidate",
+            "reason": "source_type_inference_without_compiler_context",
+            "evidence_kind": "source_syntax",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "id": "cpp:d7a6f20ca5a84774ae8db47d",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 28,
+            "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+            "parameters": [
+              "std::unique_ptr<Protocol::Request>"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryFlowsBySliceInfoHandler::HandleRequest(std::unique_ptr<Protocol::Request> requestPtr)",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          }
+        ],
+        "edges": [
+          {
+            "source": "cpp:7bbf830723089702d85099fa",
+            "target": "cpp:d7ab5e9beb6d6ec70ca03837",
+            "kind": "DECLARES_DEFINITION",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+                "line": 114,
+                "node": "cpp:7bbf830723089702d85099fa"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+                "line": 337,
+                "node": "cpp:d7ab5e9beb6d6ec70ca03837"
+              }
+            ],
+            "basis": "same_qualified_owner_parameter_spelling_and_cvref",
+            "types_checked": false
+          },
+          {
+            "source": "cpp:e4d89fa97268dbc477d2f8be",
+            "target": "cpp:7bbf830723089702d85099fa",
+            "kind": "OVERRIDE_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+                "line": 114,
+                "node": "cpp:7bbf830723089702d85099fa"
+              }
+            ],
+            "basis": "inheritance_and_matching_parameter_spelling",
+            "runtime_selection": "unknown"
+          },
+          {
+            "source": "cpp:a2e15a2a22054e9348abea55",
+            "target": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "MEMBER_TARGET_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 78,
+                "node": "cpp:666264f655aeabee6ec384b4"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 66,
+                "node": "cpp:08fc2cf4b3ffb769e2c922de"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 104,
+                "node": "cpp:02c51ef369aec9548b0b3f82"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 67,
+                "node": "cpp:8d6ca4ee335701ddccc4fc67"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "condition": "request.params.dbPath.empty()",
+                "basis": "both_conditional_branches"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "basis": "declared_or_initialized_variable"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              }
+            ],
+            "basis": "lexical_receiver_type_and_member_lookup",
+            "runtime_dispatch": "unknown",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "source": "cpp:d7a6f20ca5a84774ae8db47d",
+            "target": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 28,
+                "node": "cpp:d7a6f20ca5a84774ae8db47d"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              }
+            ]
+          }
+        ],
+        "meaning": "structural_evidence_path_not_observed_execution"
+      },
+      "text": {
+        "found": true,
+        "reverse": false,
+        "max_depth": 12,
+        "depth_limit_reached": false,
+        "nodes": [
+          {
+            "id": "cpp:d7a6f20ca5a84774ae8db47d",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 28,
+            "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+            "parameters": [
+              "std::unique_ptr<Protocol::Request>"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryFlowsBySliceInfoHandler::HandleRequest(std::unique_ptr<Protocol::Request> requestPtr)",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          },
+          {
+            "id": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "call_site",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 57,
+            "name": "database->QueryUnitFlows",
+            "arguments": [
+              "queryParams",
+              "response.body",
+              "minTimestamp",
+              "trackId"
+            ],
+            "resolution": "candidate",
+            "reason": "source_type_inference_without_compiler_context",
+            "evidence_kind": "source_syntax",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "id": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+            "line": 83,
+            "name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": true,
+            "virtual_spelling": true,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "virtual bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) = 0;",
+            "source_sha256": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_TRACE_DATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:75a9d93afd8c66fc195c58b5",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+            "line": 81,
+            "name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": true,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+            "source_sha256": "accb71081878de9042db53db3f82c2df3e9c35dbff3b5042f376feed986b836c",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_JSON_TRACE_DATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:7769ebee6acbd7410d9384eb",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+            "line": 636,
+            "name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool TextTraceDatabase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+            "source_sha256": "65c731fa0281e9b59253bad2ab7439194d50e15ae4891ee9d616f0f52259da54",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          }
+        ],
+        "edges": [
+          {
+            "source": "cpp:d7a6f20ca5a84774ae8db47d",
+            "target": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 28,
+                "node": "cpp:d7a6f20ca5a84774ae8db47d"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              }
+            ]
+          },
+          {
+            "source": "cpp:a2e15a2a22054e9348abea55",
+            "target": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "MEMBER_TARGET_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 78,
+                "node": "cpp:666264f655aeabee6ec384b4"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 66,
+                "node": "cpp:08fc2cf4b3ffb769e2c922de"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 104,
+                "node": "cpp:02c51ef369aec9548b0b3f82"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 67,
+                "node": "cpp:8d6ca4ee335701ddccc4fc67"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "condition": "request.params.dbPath.empty()",
+                "basis": "both_conditional_branches"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "basis": "declared_or_initialized_variable"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              }
+            ],
+            "basis": "lexical_receiver_type_and_member_lookup",
+            "runtime_dispatch": "unknown",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "source": "cpp:e4d89fa97268dbc477d2f8be",
+            "target": "cpp:75a9d93afd8c66fc195c58b5",
+            "kind": "OVERRIDE_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+                "line": 81,
+                "node": "cpp:75a9d93afd8c66fc195c58b5"
+              }
+            ],
+            "basis": "inheritance_and_matching_parameter_spelling",
+            "runtime_selection": "unknown"
+          },
+          {
+            "source": "cpp:75a9d93afd8c66fc195c58b5",
+            "target": "cpp:7769ebee6acbd7410d9384eb",
+            "kind": "DECLARES_DEFINITION",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+                "line": 81,
+                "node": "cpp:75a9d93afd8c66fc195c58b5"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+                "line": 636,
+                "node": "cpp:7769ebee6acbd7410d9384eb"
+              }
+            ],
+            "basis": "same_qualified_owner_parameter_spelling_and_cvref",
+            "types_checked": false
+          }
+        ],
+        "meaning": "structural_evidence_path_not_observed_execution"
+      },
+      "text_reverse": {
+        "found": true,
+        "reverse": true,
+        "max_depth": 12,
+        "depth_limit_reached": false,
+        "nodes": [
+          {
+            "id": "cpp:7769ebee6acbd7410d9384eb",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+            "line": 636,
+            "name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool TextTraceDatabase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+            "source_sha256": "65c731fa0281e9b59253bad2ab7439194d50e15ae4891ee9d616f0f52259da54",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          },
+          {
+            "id": "cpp:75a9d93afd8c66fc195c58b5",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+            "line": 81,
+            "name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": true,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+            "source_sha256": "accb71081878de9042db53db3f82c2df3e9c35dbff3b5042f376feed986b836c",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_JSON_TRACE_DATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+            "line": 83,
+            "name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+            "parameters": [
+              "constProtocol::UnitFlowsParams&",
+              "Protocol::UnitFlowsBody&",
+              "uint64_t",
+              "uint64_t"
+            ],
+            "definition": false,
+            "pure_virtual": true,
+            "virtual_spelling": true,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "virtual bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) = 0;",
+            "source_sha256": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5",
+            "evidence_kind": "source_syntax",
+            "conditions": [
+              "#ifndef PROFILER_SERVER_TRACE_DATABASE_H"
+            ]
+          },
+          {
+            "id": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "call_site",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 57,
+            "name": "database->QueryUnitFlows",
+            "arguments": [
+              "queryParams",
+              "response.body",
+              "minTimestamp",
+              "trackId"
+            ],
+            "resolution": "candidate",
+            "reason": "source_type_inference_without_compiler_context",
+            "evidence_kind": "source_syntax",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "id": "cpp:d7a6f20ca5a84774ae8db47d",
+            "kind": "callable",
+            "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+            "line": 28,
+            "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+            "parameters": [
+              "std::unique_ptr<Protocol::Request>"
+            ],
+            "definition": true,
+            "pure_virtual": false,
+            "virtual_spelling": false,
+            "override_spelling": false,
+            "return_type_spelling": "bool",
+            "signature_spelling": "bool QueryFlowsBySliceInfoHandler::HandleRequest(std::unique_ptr<Protocol::Request> requestPtr)",
+            "source_sha256": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+            "evidence_kind": "source_syntax",
+            "conditions": []
+          }
+        ],
+        "edges": [
+          {
+            "source": "cpp:75a9d93afd8c66fc195c58b5",
+            "target": "cpp:7769ebee6acbd7410d9384eb",
+            "kind": "DECLARES_DEFINITION",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+                "line": 81,
+                "node": "cpp:75a9d93afd8c66fc195c58b5"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+                "line": 636,
+                "node": "cpp:7769ebee6acbd7410d9384eb"
+              }
+            ],
+            "basis": "same_qualified_owner_parameter_spelling_and_cvref",
+            "types_checked": false
+          },
+          {
+            "source": "cpp:e4d89fa97268dbc477d2f8be",
+            "target": "cpp:75a9d93afd8c66fc195c58b5",
+            "kind": "OVERRIDE_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+                "line": 81,
+                "node": "cpp:75a9d93afd8c66fc195c58b5"
+              }
+            ],
+            "basis": "inheritance_and_matching_parameter_spelling",
+            "runtime_selection": "unknown"
+          },
+          {
+            "source": "cpp:a2e15a2a22054e9348abea55",
+            "target": "cpp:e4d89fa97268dbc477d2f8be",
+            "kind": "MEMBER_TARGET_CANDIDATE",
+            "status": "candidate",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 78,
+                "node": "cpp:666264f655aeabee6ec384b4"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 66,
+                "node": "cpp:08fc2cf4b3ffb769e2c922de"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+                "line": 104,
+                "node": "cpp:02c51ef369aec9548b0b3f82"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+                "line": 67,
+                "node": "cpp:8d6ca4ee335701ddccc4fc67"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "condition": "request.params.dbPath.empty()",
+                "basis": "both_conditional_branches"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 41,
+                "basis": "declared_or_initialized_variable"
+              },
+              {
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be"
+              }
+            ],
+            "basis": "lexical_receiver_type_and_member_lookup",
+            "runtime_dispatch": "unknown",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ]
+          },
+          {
+            "source": "cpp:d7a6f20ca5a84774ae8db47d",
+            "target": "cpp:a2e15a2a22054e9348abea55",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "evidence": [
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 28,
+                "node": "cpp:d7a6f20ca5a84774ae8db47d"
+              },
+              {
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55"
+              }
+            ]
+          }
+        ],
+        "meaning": "structural_evidence_path_not_observed_execution"
+      }
+    },
+    "counts": {
+      "nodes": 9031,
+      "edges": 8580,
+      "node_kinds": {
+        "type": 323,
+        "callable": 2093,
+        "call_site": 6413,
+        "binding": 202
+      },
+      "edge_kinds": {
+        "INHERITS": 6,
+        "DECLARES_MEMBER": 1030,
+        "DECLARES_DEFINITION": 416,
+        "OVERRIDE_CANDIDATE": 90,
+        "OBSERVES_CALL": 6277,
+        "MEMBER_TARGET_CANDIDATE": 14,
+        "BINDS_CALLABLE": 5,
+        "BINDS_RESULT_OF": 2,
+        "PASSES_CALLBACK": 287,
+        "STATIC_CALL_TARGET": 300,
+        "STATIC_DECLARATION_TARGET": 37,
+        "USES_BINDING": 94,
+        "BOUND_CALL_CANDIDATE": 22
+      },
+      "call_resolutions": {
+        "unresolved": 6040,
+        "candidate": 14,
+        "static_declaration": 337,
+        "conditional_binding": 16,
+        "ambiguous_binding": 6
+      },
+      "diagnostics": {
+        "callable_in_error_region": 1,
+        "syntax_error": 3,
+        "include_outside_input": 148,
+        "typescript_semantic": 549,
+        "module_outside_input": 153
+      }
+    },
+    "coverage": [
+      {
+        "path": "server/msinsight/include/base/BaseModule.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/ModuleManager.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/ModuleManager.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/defs/ProtocolDefs.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/TimelineModule.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/TimelineModule.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+        "status": "syntax_errors"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocol.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+        "status": "parsed"
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/defs.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/lib/src/utils/Console.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/lib/src/connection/index.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/lib/src/utils/Request.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/lib/src/utils/index.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/connection/defs.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/connection/interceptorHandler.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/connection/interceptor.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/lib/index.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/connection/sendNotification.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/connection/notificationHandler.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/connection/notification.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/src/connection/index.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/api/interface.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/connection/index.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/api/request.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/bootstrap.tsx",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/connection/baseline.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/connection/defs.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/connection/handler.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/connection/messageSender.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+        "status": "parsed"
+      },
+      {
+        "path": "modules/framework/package.json",
+        "status": "workspace_package_metadata"
+      },
+      {
+        "path": "modules/lib/package.json",
+        "status": "workspace_package_metadata"
+      },
+      {
+        "path": "modules/lib/tsconfig.json",
+        "status": "configuration_recorded_not_applied"
+      },
+      {
+        "path": "modules/package.json",
+        "status": "workspace_package_metadata"
+      },
+      {
+        "path": "modules/timeline/package.json",
+        "status": "workspace_package_metadata"
+      },
+      {
+        "path": "modules/timeline/tsconfig.json",
+        "status": "configuration_recorded_not_applied"
+      },
+      {
+        "path": "modules/tsconfig.json",
+        "status": "configuration_recorded_not_applied"
+      },
+      {
+        "path": "package.json",
+        "status": "workspace_package_metadata"
+      }
+    ],
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p1-facts-v1",
+    "extractors": {
+      "cpp": "cpp_facts/0.1.0",
+      "typescript": "typescript_facts/0.1.0",
+      "typescript_compiler": "5.9.3",
+      "tree_sitter": "0.25.2",
+      "tree_sitter_language_pack": "1.20.0"
+    },
+    "compiler_options": {
+      "target": 7,
+      "module": 99,
+      "moduleResolution": 100,
+      "jsx": 2,
+      "strict": true,
+      "skipLibCheck": true,
+      "noEmit": true,
+      "allowJs": false,
+      "experimentalDecorators": true
+    },
+    "compiler_options_origin": "fixed_analysis_preset_not_product_tsconfig",
+    "limits": [
+      "preprocessor_not_evaluated",
+      "no_compiler_type_check",
+      "receiver_targets_are_candidates",
+      "exact_parameter_spelling_links_do_not_expand_aliases",
+      "runtime_implementation_selection_unknown",
+      "input_closed_no_external_package_types",
+      "static_declaration_not_runtime_dispatch",
+      "global_binding_edges_require_recorded_execution_condition",
+      "factory_returns_limited_to_direct_function_literals"
+    ],
+    "unresolved_examples": [
+      {
+        "id": "cpp:22a1fb1b4bc6eefbf2f4e075",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 32,
+        "name": "requestHandlerMap.count",
+        "arguments": [
+          "command"
+        ],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      },
+      {
+        "id": "cpp:4c9cebc66b291bcb1fc25b11",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 33,
+        "name": "ServerLog::Error",
+        "arguments": [
+          "\"Failed to find request handler, command: \"",
+          "command"
+        ],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      },
+      {
+        "id": "cpp:f9b6bb41e3a36b79b1b98ee1",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 36,
+        "name": "requestHandlerMap.at",
+        "arguments": [
+          "command"
+        ],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      },
+      {
+        "id": "cpp:87fec0c40d1f2bbbba88e4c7",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 37,
+        "name": "RequestFilter::Instance().SetRequestId",
+        "arguments": [
+          "requestHandler->GetRequestKey(*request)",
+          "request->id"
+        ],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      },
+      {
+        "id": "cpp:4c371a1658ac550a8b415485",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 37,
+        "name": "RequestFilter::Instance",
+        "arguments": [],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      },
+      {
+        "id": "cpp:6940f4ee23637bff263ace34",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 37,
+        "name": "requestHandler->GetRequestKey",
+        "arguments": [
+          "*request"
+        ],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      },
+      {
+        "id": "cpp:51257cf385c261f63478ba4f",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 38,
+        "name": "requestHandler->IsAsync",
+        "arguments": [],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      },
+      {
+        "id": "cpp:73f025a7b49992306a7c3613",
+        "kind": "call_site",
+        "path": "server/msinsight/src/base/BaseModule.cpp",
+        "line": 39,
+        "name": "threadPool.AddTask",
+        "arguments": [
+          "[&requestHandler, requestPtr = request.release()]() {\n                requestHandler->HandleRequestEntrance(std::unique_ptr<Protocol::Request>(requestPtr));\n            }",
+          "\"\""
+        ],
+        "resolution": "unresolved",
+        "reason": "receiver_or_member_not_resolved",
+        "evidence_kind": "source_syntax",
+        "source_sha256": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+      }
+    ],
+    "binding_factory_edges": [
+      {
+        "source": "ts:44adda732720b11ef2006124",
+        "target": "ts:10b68f8ba54c549b1be70a7e",
+        "kind": "BINDS_RESULT_OF",
+        "status": "conditional",
+        "evidence": [
+          {
+            "path": "modules/timeline/src/bootstrap.tsx",
+            "line": 89,
+            "column": 1
+          },
+          {
+            "path": "modules/lib/src/utils/Request.ts",
+            "line": 30,
+            "column": 1
+          }
+        ]
+      },
+      {
+        "source": "ts:44adda732720b11ef2006124",
+        "target": "ts:711eb7910ec9f632aa9e16d0",
+        "kind": "BINDS_CALLABLE",
+        "status": "conditional",
+        "evidence": [
+          {
+            "path": "modules/timeline/src/bootstrap.tsx",
+            "line": 89,
+            "column": 1
+          },
+          {
+            "path": "modules/lib/src/utils/Request.ts",
+            "line": 31,
+            "column": 12
+          }
+        ],
+        "condition": "assignment_executed_and_factory_returns_this_callable"
+      }
+    ]
+  },
+  "lifecycle": {
+    "cgc": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p1-facts-v1",
+      "nodes": 9031,
+      "edges": 8580,
+      "payload_roundtrip": true,
+      "stored_graph_case_paths_pass": true,
+      "replacement_removes_old_edges": true,
+      "deletion_removes_snapshot": true,
+      "other_snapshot_preserved": true,
+      "restored": true,
+      "native_function_rows_unchanged": 790
+    },
+    "codegraph": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p1-facts-v1",
+      "nodes": 9031,
+      "edges": 8580,
+      "payload_roundtrip": true,
+      "stored_graph_case_paths_pass": true,
+      "replacement_removes_old_edges": true,
+      "deletion_removes_snapshot": true,
+      "other_snapshot_preserved": true,
+      "restored": true,
+      "native_nodes_edges_unchanged": {
+        "nodes": 728,
+        "edges": 883
+      }
+    }
+  },
+  "direct_database_queries": {
+    "forward": {
+      "cypher": "MATCH (a:PMGraphNode)-[e:PMGraphEdge]->(b:PMGraphNode) WHERE a.snapshot=$s AND a.name=$name AND e.kind=$kind RETURN a.id AS source,b.id AS target,e.payload AS payload ORDER BY e.ordinal",
+      "sql": "SELECT e.source,e.target,e.payload FROM pm_fact_edges e JOIN pm_fact_nodes a ON e.snapshot=a.snapshot AND e.source=a.id JOIN pm_fact_nodes b ON e.snapshot=b.snapshot AND e.target=b.id WHERE e.snapshot=? AND a.name=? AND e.kind=? ORDER BY e.ordinal",
+      "parameters": {
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p1-facts-v1",
+        "name": "database->QueryUnitFlows",
+        "kind": "MEMBER_TARGET_CANDIDATE"
+      },
+      "rows": [
+        {
+          "source": "cpp:a2e15a2a22054e9348abea55",
+          "target": "cpp:e4d89fa97268dbc477d2f8be",
+          "payload": {
+            "basis": "lexical_receiver_type_and_member_lookup",
+            "evidence": [
+              {
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55",
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+              },
+              {
+                "line": 78,
+                "node": "cpp:666264f655aeabee6ec384b4",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp"
+              },
+              {
+                "line": 66,
+                "node": "cpp:08fc2cf4b3ffb769e2c922de",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h"
+              },
+              {
+                "line": 104,
+                "node": "cpp:02c51ef369aec9548b0b3f82",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp"
+              },
+              {
+                "line": 67,
+                "node": "cpp:8d6ca4ee335701ddccc4fc67",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h"
+              },
+              {
+                "basis": "both_conditional_branches",
+                "condition": "request.params.dbPath.empty()",
+                "line": 41,
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+              },
+              {
+                "basis": "declared_or_initialized_variable",
+                "line": 41,
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+              },
+              {
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be",
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h"
+              }
+            ],
+            "kind": "MEMBER_TARGET_CANDIDATE",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ],
+            "runtime_dispatch": "unknown",
+            "source": "cpp:a2e15a2a22054e9348abea55",
+            "status": "candidate",
+            "target": "cpp:e4d89fa97268dbc477d2f8be"
+          }
+        }
+      ],
+      "same_results": true
+    },
+    "reverse": {
+      "cypher": "MATCH (a:PMGraphNode)-[e:PMGraphEdge]->(b:PMGraphNode) WHERE a.snapshot=$s AND b.name=$name AND e.kind=$kind RETURN a.id AS source,b.id AS target,e.payload AS payload ORDER BY e.ordinal",
+      "sql": "SELECT e.source,e.target,e.payload FROM pm_fact_edges e JOIN pm_fact_nodes a ON e.snapshot=a.snapshot AND e.source=a.id JOIN pm_fact_nodes b ON e.snapshot=b.snapshot AND e.target=b.id WHERE e.snapshot=? AND b.name=? AND e.kind=? ORDER BY e.ordinal",
+      "parameters": {
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p1-facts-v1",
+        "name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+        "kind": "MEMBER_TARGET_CANDIDATE"
+      },
+      "rows": [
+        {
+          "source": "cpp:a2e15a2a22054e9348abea55",
+          "target": "cpp:e4d89fa97268dbc477d2f8be",
+          "payload": {
+            "basis": "lexical_receiver_type_and_member_lookup",
+            "evidence": [
+              {
+                "line": 57,
+                "node": "cpp:a2e15a2a22054e9348abea55",
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+              },
+              {
+                "line": 78,
+                "node": "cpp:666264f655aeabee6ec384b4",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp"
+              },
+              {
+                "line": 66,
+                "node": "cpp:08fc2cf4b3ffb769e2c922de",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h"
+              },
+              {
+                "line": 104,
+                "node": "cpp:02c51ef369aec9548b0b3f82",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp"
+              },
+              {
+                "line": 67,
+                "node": "cpp:8d6ca4ee335701ddccc4fc67",
+                "path": "server/src/modules/timeline/core/database/DataBaseManager.h"
+              },
+              {
+                "basis": "both_conditional_branches",
+                "condition": "request.params.dbPath.empty()",
+                "line": 41,
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+              },
+              {
+                "basis": "declared_or_initialized_variable",
+                "line": 41,
+                "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+              },
+              {
+                "line": 83,
+                "node": "cpp:e4d89fa97268dbc477d2f8be",
+                "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h"
+              }
+            ],
+            "kind": "MEMBER_TARGET_CANDIDATE",
+            "receiver_types": [
+              "Dic::Module::Timeline::VirtualTraceDatabase"
+            ],
+            "runtime_dispatch": "unknown",
+            "source": "cpp:a2e15a2a22054e9348abea55",
+            "status": "candidate",
+            "target": "cpp:e4d89fa97268dbc477d2f8be"
+          }
+        }
+      ],
+      "same_results": true
+    }
+  },
+  "checks": {
+    "F01": "pass",
+    "F02": "pass",
+    "F03": "pass",
+    "F04": "pass",
+    "F05": "pass"
+  },
+  "reference_independence": {
+    "builder_inputs": [
+      "source checkout",
+      "65-file input manifest",
+      "pinned TS compiler",
+      "Tree-sitter grammar"
+    ],
+    "scorer_runs_after_extraction": true,
+    "manual_reference_read_by_builder": false,
+    "extraction_modules": [
+      "scripts/build_fact_graph.py",
+      "adapters/cpp_facts.py",
+      "adapters/syntax_supplement.py",
+      "adapters/typescript_facts.cjs"
+    ]
+  },
+  "file_hash_verification": "not_run_per_user_preference",
+  "untested": [
+    "C++ compiler/SCIP indexing",
+    "runtime dispatch",
+    "P2 protocol joins",
+    "P3 data flow",
+    "P4 auto refresh and native reindex preservation",
+    "whole repository scalability"
+  ]
+}

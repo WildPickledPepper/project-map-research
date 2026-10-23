@@ -1,5 +1,4 @@
 """Check published P1 evidence consistency; does not rerun third-party tools."""
-import hashlib
 import json
 from pathlib import Path
 import re
@@ -18,16 +17,17 @@ def read(name):
 def check():
     manifest = read('input-manifest')
     provenance = read('provenance')
-    actual = hashlib.sha256((BASE/'input-manifest.json').read_bytes()).hexdigest()
-    assert actual == provenance['identical_input_manifest_sha256']
-    for path, expected in provenance['implementation_sha256'].items():
-        assert hashlib.sha256((ROOT/path).read_bytes()).hexdigest() == expected, path
+    assert manifest['source_commit'] == provenance['source_commit']
+    # Historical hashes remain in the evidence. Per user preference, routine
+    # checks use versions, paths and behavior instead of re-hashing files.
+    for path in provenance['implementation_sha256']:
+        assert (ROOT/path).is_file(), path
     for row in manifest['fixtures']:
-        assert hashlib.sha256((BASE.parent/'fixtures'/row['path']).read_bytes()).hexdigest() == row['sha256']
+        assert (BASE.parent/'fixtures'/row['path']).is_file()
     paths = {row['path'] for row in manifest['files']}
     assert len(paths) == len(manifest['files']) == 65
     syntax = read('syntax')
-    assert syntax['manifest_sha256'] == actual
+    assert syntax['source_commit'] == manifest['source_commit']
     assert {r['path'] for r in syntax['coverage']} == paths
     for record in syntax['selected_facts']:
         assert all(c['resolution']=='unresolved' for c in record['calls'])
@@ -45,7 +45,7 @@ def check():
     cgc = read('cgc')
     assert cgc['extension_probe']['passed']
     cg = read('codegraph')
-    assert cg['manifest_sha256'] == actual
+    assert cg['source_commit'] == manifest['source_commit']
     native_q = cgc['scopes']['source']['queries']['symbols']['rows']
     assert sum(s['name']=='QueryUnitFlows' for s in native_q) == 2
     assert not any(s['name']=='QueryUnitFlows' for s in cg['scopes']['source']['queries']['symbols']['rows'])
@@ -57,7 +57,7 @@ def check():
     assert all(lifecycle['restored_same_counts'].values())
     assert integration['facts'] == sum(syntax['counts'][k] for k in ('symbols','calls','bindings'))
     assert len(integration['queries']['database_call_observation']['rows']) == 1
-    print('OK: P1 input identity, source evidence, untruncated queries, implementation hashes and storage lifecycle.')
+    print('OK: P1 versions, paths, source evidence, untruncated queries and storage lifecycle; no file hash verification.')
 
 
 if __name__ == '__main__':
