@@ -3,6 +3,7 @@ from adapters.callback_queries import explain_callbacks
 from adapters.correlation_queries import consistent, explain_correlation, request_key_bindings
 from adapters.frontend_graph import key
 from adapters.transmission_queries import explain_transmission
+from adapters.server_channel_queries import explain_server_channels
 
 
 def channel_identity(value):
@@ -71,6 +72,16 @@ def explain_socket_receivers(graph, *, provider=None, requester=None, max_links=
                                 'network_pairing': 'configured_service_candidate_server_channel_origin_pending'})
                 used.add(receiver['id'])
         receivers = [r for r in receivers if r['id'] in used]
+    server = explain_server_channels(graph, provider=provider, max_links=100000) if provider and 'server_channels' in graph else None
+    if server:
+        upstream_truncated = upstream_truncated or server['truncated']
+        for b in backend:
+            matching = [s for s in server['links'] if s['response_send_site']['call_site'] == b['key_correlation']['response_send_site']['call_site'] and
+                s['serializer'] == b['key_correlation']['serializer'] and s['response_object'] == b['key_correlation']['copy_effect']['root'] and
+                {t['transmission']['id'] for t in s['transmissions']} == {t['transmission']['id'] for t in b['cpp_transmissions']}]
+            b['server_channel_origins'] = sorted({s['origin_link'] for s in matching})
+            if matching: b['network_pairing'] = 'configured_service_candidate_with_source_server_channel_origin'
+    server_complete = bool(server and backend and all(b['server_channel_origins'] for b in backend))
     entries = {r['listener']['entry'] for r in receivers} | {r['socket_send']['entry'] for r in receivers}
     entries |= {c['entry'] for r in receivers for c in r['native_creations']}
     callback_entries = {d['lookup']['entry'] for r in receivers for d in r['deliveries']} | {r['request_key_binding']['entry'] for r in receivers}
@@ -82,6 +93,7 @@ def explain_socket_receivers(graph, *, provider=None, requester=None, max_links=
                          any(e['truncated'] for e in graph['socket_flow']['entries'] if e['source_symbol'] in entries) or
                          any(e['truncated'] for e in graph['response_callbacks']['entries'] if e['source_symbol'] in callback_entries),
             'gaps': [d for d in graph['socket_flow']['diagnostics'] if d['entry'] in entries],
-            'remaining': ['server_accept_session_channel_origin', 'runtime_host_port_proxy_and_connection_correspondence',
+            **({'server_channel_origins': server['origins']} if server else {}),
+            'remaining': ([] if server_complete else ['server_accept_session_channel_origin']) + ['runtime_host_port_proxy_and_connection_correspondence',
                           'iframe_reply_wrapping_and_final_API_return', 'unresolved_encoding_and_queue_branches'],
             'runtime_delivery': 'unknown', 'limits': graph['socket_flow']['limits']}

@@ -1,0 +1,469 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "selection": "P3 socket input plus source server registration, base fields, and visible variadic parameter declarations; application identifiers are extracted",
+  "file_hash_verification": "not_run_per_user_preference",
+  "files": [
+    {
+      "path": "modules/framework/package.json"
+    },
+    {
+      "path": "modules/framework/src/centralServer/server.ts"
+    },
+    {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts"
+    },
+    {
+      "path": "modules/framework/src/centralServer/websocket/defs.ts"
+    },
+    {
+      "path": "modules/framework/src/connection/defs.ts"
+    },
+    {
+      "path": "modules/framework/src/connection/index.ts"
+    },
+    {
+      "path": "modules/framework/src/connection/interceptor.ts"
+    },
+    {
+      "path": "modules/framework/src/connection/interceptorHandler.ts"
+    },
+    {
+      "path": "modules/framework/src/connection/notification.ts"
+    },
+    {
+      "path": "modules/framework/src/connection/notificationHandler.ts"
+    },
+    {
+      "path": "modules/framework/src/connection/sendNotification.ts"
+    },
+    {
+      "path": "modules/framework/tsconfig.json"
+    },
+    {
+      "path": "modules/lib/index.ts"
+    },
+    {
+      "path": "modules/lib/package.json"
+    },
+    {
+      "path": "modules/lib/src/connection/index.ts"
+    },
+    {
+      "path": "modules/lib/src/utils/Console.ts"
+    },
+    {
+      "path": "modules/lib/src/utils/Request.ts"
+    },
+    {
+      "path": "modules/lib/src/utils/index.ts"
+    },
+    {
+      "path": "modules/lib/tsconfig.json"
+    },
+    {
+      "path": "modules/package.json"
+    },
+    {
+      "path": "modules/timeline/package.json"
+    },
+    {
+      "path": "modules/timeline/src/api/interface.ts"
+    },
+    {
+      "path": "modules/timeline/src/api/request.ts"
+    },
+    {
+      "path": "modules/timeline/src/bootstrap.tsx"
+    },
+    {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx"
+    },
+    {
+      "path": "modules/timeline/src/connection/baseline.ts"
+    },
+    {
+      "path": "modules/timeline/src/connection/defs.ts"
+    },
+    {
+      "path": "modules/timeline/src/connection/handler.ts"
+    },
+    {
+      "path": "modules/timeline/src/connection/index.ts"
+    },
+    {
+      "path": "modules/timeline/src/connection/messageSender.ts"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx"
+    },
+    {
+      "path": "modules/timeline/tsconfig.json"
+    },
+    {
+      "path": "modules/tsconfig.json"
+    },
+    {
+      "path": "package.json"
+    },
+    {
+      "path": "server/msinsight/include/BasePlugin.h"
+    },
+    {
+      "path": "server/msinsight/include/WsSender.h"
+    },
+    {
+      "path": "server/msinsight/include/base/BaseModule.h"
+    },
+    {
+      "path": "server/msinsight/include/base/ModuleRequestHandler.h"
+    },
+    {
+      "path": "server/msinsight/include/base/ProtocolUtil.h"
+    },
+    {
+      "path": "server/msinsight/include/utils/ServerLog.h"
+    },
+    {
+      "path": "server/msinsight/src/PluginsManager.cpp"
+    },
+    {
+      "path": "server/msinsight/src/PluginsManager.h"
+    },
+    {
+      "path": "server/msinsight/src/WsSender.cpp"
+    },
+    {
+      "path": "server/msinsight/src/WsSession.h"
+    },
+    {
+      "path": "server/msinsight/src/WsSessionManager.cpp"
+    },
+    {
+      "path": "server/msinsight/src/WsSessionManager.h"
+    },
+    {
+      "path": "server/msinsight/src/base/BaseModule.cpp"
+    },
+    {
+      "path": "server/msinsight/src/base/ModuleRequestHandler.cpp"
+    },
+    {
+      "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+    },
+    {
+      "path": "server/msinsight/src/utils/JsonUtil.h"
+    },
+    {
+      "path": "server/msinsight/src/utils/ProtocolEnumUtil.h"
+    },
+    {
+      "path": "server/msinsight/src/utils/StringUtil.h"
+    },
+    {
+      "path": "server/msinsight/src/utils/pch.h"
+    },
+    {
+      "path": "server/src/modules/ModuleManager.cpp"
+    },
+    {
+      "path": "server/src/modules/ModuleManager.h"
+    },
+    {
+      "path": "server/src/modules/Plugins.cpp"
+    },
+    {
+      "path": "server/src/modules/ProtocolManager.cpp"
+    },
+    {
+      "path": "server/src/modules/ProtocolManager.h"
+    },
+    {
+      "path": "server/src/modules/ProtocolMessage.h"
+    },
+    {
+      "path": "server/src/modules/advisor/AdvisorPlugin.h"
+    },
+    {
+      "path": "server/src/modules/communication/CommunicationPlugin.h"
+    },
+    {
+      "path": "server/src/modules/defs/ProtocolDefs.h"
+    },
+    {
+      "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp"
+    },
+    {
+      "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.h"
+    },
+    {
+      "path": "server/src/modules/full_db/ProjectParse/ProjectParserJson.cpp"
+    },
+    {
+      "path": "server/src/modules/full_db/ProjectParse/ProjectParserJson.h"
+    },
+    {
+      "path": "server/src/modules/global/GlobalPlugin.h"
+    },
+    {
+      "path": "server/src/modules/memory/MemoryPlugin.h"
+    },
+    {
+      "path": "server/src/modules/memscope/MemScopePlugin.h"
+    },
+    {
+      "path": "server/src/modules/numa/NumaPlugin.h"
+    },
+    {
+      "path": "server/src/modules/operator/OperatorPlugin.h"
+    },
+    {
+      "path": "server/src/modules/rl/RLPlugin.h"
+    },
+    {
+      "path": "server/src/modules/servitization/IEPlugin.h"
+    },
+    {
+      "path": "server/src/modules/source/SourcePlugin.h"
+    },
+    {
+      "path": "server/src/modules/summary/SummaryPlugin.h"
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.h"
+    },
+    {
+      "path": "server/src/modules/timeline/TimelinePlugin.h"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DBConnectionPool.h"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.h"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/RankOverlapStore.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/RankOverlapStore.h"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabaseChart.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/CreateCurveHandler.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/CreateCurveHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/ImportActionHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/ParseCardsHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryCommunicationKernelHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryEventsViewHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryExpAnaAICoreFreqHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowCategoryEventsHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowCategoryListHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryKernelDetailHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryKernelE2ETimeHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryKernelMfuListHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryKernelOverallHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryMemcpyDetailHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryMemcpyOverallHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryOneKernelHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryOverallMoreDetailsHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QuerySystemViewFtraceStatHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QuerySystemViewHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QuerySystemViewOverallHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QuerySystemViewTraceHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryTableDataDetailHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryTableDataNameListHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryThreadDetailHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryThreadTracesHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryThreadTracesSummaryHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryThreadsHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryThreadsSameOperatorHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryUnitCounterHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/RankOffsetCalculator.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/RankOffsetHandler.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/RankOffsetHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/RemoteDeleteHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/ResetWindowHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/SearchAllSlicesHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/SearchCountHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/SearchSliceHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/SetCardAliasHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/SystemViewDatabaseResolver.h"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/TimelineRequestHandler.h"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.h"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h"
+    },
+    {
+      "path": "server/src/modules/triton/TritonPlugin.h"
+    },
+    {
+      "path": "server/src/protocol/ProtocolMessageBuffer.cpp"
+    },
+    {
+      "path": "server/src/server/BaseServer.h"
+    },
+    {
+      "path": "server/src/server/ServerDefs.h"
+    },
+    {
+      "path": "server/src/server/WsServer.cpp"
+    },
+    {
+      "path": "server/src/server/WsServer.h"
+    },
+    {
+      "path": "server/src/server/WsSessionImpl.cpp"
+    },
+    {
+      "path": "server/src/server/WsSessionImpl.h"
+    }
+  ]
+}
