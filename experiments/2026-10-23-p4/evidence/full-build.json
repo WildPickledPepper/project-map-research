@@ -1,0 +1,75 @@
+{
+  "evidence_kind": "executed_full_rebuild_and_existing_P3_case_assertions",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:fa839b7a03fe4caf9e8fc985530ef1ec",
+  "build_version": {
+    "rules_commit": "4a417d291e7aaec8226c50fd3f1342437cb68a32",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "counts": {
+    "files": 154,
+    "nodes": 25355,
+    "edges": 36605,
+    "chain_relations": 373,
+    "source_evidence": 589
+  },
+  "case_gates": {
+    "D01": "pass",
+    "D02": "pass",
+    "D03": "pass",
+    "D04": "pass",
+    "D05": "pass"
+  },
+  "build": {
+    "nodes": 25355,
+    "edges": 36605,
+    "files": 154,
+    "storage": "kuzu",
+    "coverage_records": 154,
+    "storage_roundtrip": true
+  },
+  "previous_staged_build": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v13",
+    "nodes": 24989,
+    "edges": 35445,
+    "added_node_kinds": {
+      "factory_allocation": 10,
+      "object_binding": 162,
+      "object_path": 151,
+      "field_write": 43
+    },
+    "added_node_paths": {
+      "server/msinsight/src/utils/StringUtil.h": 291,
+      "server/src/server/WsServer.cpp": 49,
+      "server/msinsight/include/utils/ServerLog.h": 24,
+      "server/src/server/BaseServer.h": 2
+    },
+    "removed_node_ids": 0,
+    "whole_graph_equivalence": "not_claimed; all phases now use the final input scope"
+  },
+  "scope": "same 154 selected paths as P3; committed source only",
+  "omitted": {
+    "outside_configured_scope": 4701
+  },
+  "tests": {
+    "python": 245,
+    "passed": true
+  },
+  "automatic_trigger_and_publish": "not_implemented_in_this_increment",
+  "P4_acceptance": {
+    "U01": "pending",
+    "U02": "pending",
+    "U03": "pending",
+    "U04": "pending",
+    "U06": "pending"
+  },
+  "incremental": "disabled; U05 not applicable",
+  "file_hash_verification": "not_run_per_user_preference"
+}

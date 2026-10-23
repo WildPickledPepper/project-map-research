@@ -8,9 +8,9 @@
 
 **P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过。** 主底座 CGC/Kuzu，复用 TypeScript 编译器与 C++ 语法/类型候选。首链的协议、数据库候选、返回字段、前端状态和反向影响已在 154 文件范围合并验收，237 项 Python、76 项 TypeScript 测试及存储读回通过。见 [P3 完成报告](experiments/2026-10-23-p3/completion.md)、[P2 完成报告](experiments/2026-10-23-p2/README.md)和 [P1 底座决策](experiments/2026-10-23-p1-completion/README.md)。接下来实施 P4 自动刷新，P5–P7 保持原计划，详见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
 
-## 我们要解决的问题
-
 P4 已开始：[版本化重建增量](experiments/2026-10-23-p4/README.md)将现有提取步骤合成一个构建入口，固定 Git 提交输入并记录配置和工具版本；自动触发、发布与恢复随后接入。
+
+## 我们要解决的问题
 
 研究重点是恢复协议、路由注册、虚函数实现、共享数据和异步状态之间的连接，并用源码依据和场景断言检验这些关系。
 
