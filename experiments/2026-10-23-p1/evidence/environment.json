@@ -1,0 +1,20 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "cgc_commit": "93c9685bff9151f50a3121e9913e5ba2d27c1191",
+  "cbm_sha256": "39f6a789cd858d7428561ac5afaefb9a47b018dcba0ad6fa41ae71a45e0ed656",
+  "python": "3.11.9",
+  "packages": {
+    "codegraphcontext": "0.6.13",
+    "tree-sitter": "0.25.2",
+    "tree-sitter-language-pack": "1.20.0",
+    "kuzu": "0.11.3"
+  },
+  "files": 65,
+  "input_count_by_suffix": {
+    ".json": 8,
+    ".ts": 22,
+    ".tsx": 5,
+    ".h": 17,
+    ".cpp": 13
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "executed_tools_and_source_syntax_supplement",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "identical_input_manifest_sha256": "fe45f3514f427b57d57616df36d01fddbac8d0ffa19c8bf00731e08415e5f210",
+  "implementation_sha256": {
+    "adapters/syntax_supplement.py": "697959929f41c1df2527556dad804a7fc8769ec5c1ed27c005654c564432e740",
+    "adapters/kuzu_fact_store.py": "a88699c62f8eb1f5af0093dedf752dcea6c83d889fdd4ba285db7f6e53939495",
+    "scripts/extract_syntax_facts.py": "5edbc1e6a56635b41060bc1aa63432ed6ee588b21d146ed8fbc29eae7e92116c",
+    "scripts/integrate_syntax_facts.py": "00a4d424e6e8315725940bdbdba0e930a88d64a42e869947562bbb001566755b",
+    "requirements-facts.txt": "d5783829826c27111ef079b3c5e7451727f7618fb59442f808192a8581f5138f",
+    "requirements-store.txt": "02d721e60a942f4c248158b09cd55c1df6665065da59467c0086c84feddc2d5f",
+    "experiments/2026-10-23-p1/collect_evidence.py": "cb7d8f7d97fe971296ac5074f044258175a5685c9999e40a7ac9500418dc59c7",
+    "experiments/2026-10-23-p1/run_codegraph.py": "b6a1746176fba2f83d75e83a07502582045fd1f838c0a82604620dab0cd42ab9",
+    "experiments/2026-10-23-p1/run_native.py": "8a3add9c65f0cab59c360762a55343bebdb9d83c3f3179fa646d5c05324de739",
+    "experiments/2026-10-23-p1/fixtures/contracts.cpp": "a2da11a69de554b84a4fc3bc4e208141a84e0a6d525ffe2dff784b078976945e",
+    "experiments/2026-10-23-p1/fixtures/contracts.h": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed",
+    "experiments/2026-10-23-p1/fixtures/transport.ts": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884"
+  },
+  "parser_cache_files": [
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_cpp.dll",
+      "sha256": "c902170728d0bf3962e48a845b7c3f38468f5251e143df972d9a18811b161888"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_css.dll",
+      "sha256": "946edceee6317ae5d1a5d26b4996a39949c0eb64e4e007b47919f3f51b16cc61"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_html.dll",
+      "sha256": "b74b1a44cecfceb79dd387df10861209a62b511473fe80f6b8276e57ee967a97"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_javascript.dll",
+      "sha256": "e88a3c7d83251e0af659c44fae4b21563460f7779d035d752dc66130792074fc"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_python.dll",
+      "sha256": "cb130db3384c6b3a90b6227788599b585ecd32e76dfbe3e537aac8e904c47d30"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_rust.dll",
+      "sha256": "780e1dd72400ba0bc865448433d636b771736b1b70d647a7d825b0525f6de106"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_tsx.dll",
+      "sha256": "340b8db5911378f72b2b96fff0b003079110a6479d5d93c5a2b9c2cd24f9ece7"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/libs/tree_sitter_typescript.dll",
+      "sha256": "ddd3c7619ce7f643e54a5d337be57ec250b334841550841b862a1b17b7ac2c51"
+    },
+    {
+      "path": "tree-sitter-language-pack/v1.20.0/manifest.json",
+      "sha256": "bad1eec2b1406c9d1359d53991249e99940dbfc5f36fd1bc7070874ca5d86a0f"
+    }
+  ],
+  "raw_artifacts": "external: original logs, native databases, full syntax facts and source copies"
+}

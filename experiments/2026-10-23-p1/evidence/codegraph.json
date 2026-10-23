@@ -1,0 +1,2030 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "tool_commit": "7bac941c1916d34fae0e93dd0ffeaef360d741fb",
+  "binary_sha256": "54156dd1f6481b4d7658f1435b97939a606ff7447caca196bb4b89499773df22",
+  "mode": "original release; automatic SCIP disabled; isolated cache",
+  "manifest_sha256": "fe45f3514f427b57d57616df36d01fddbac8d0ffa19c8bf00731e08415e5f210",
+  "scopes": {
+    "source": {
+      "index_seconds": 0.485,
+      "queries": {
+        "counts": {
+          "query": "SELECT json_object('label',label,'count',count(*)) AS row FROM nodes GROUP BY label",
+          "rows": [
+            {
+              "label": "Class",
+              "count": 204
+            },
+            {
+              "label": "Enum",
+              "count": 4
+            },
+            {
+              "label": "File",
+              "count": 57
+            },
+            {
+              "label": "Function",
+              "count": 280
+            },
+            {
+              "label": "Interface",
+              "count": 101
+            },
+            {
+              "label": "Method",
+              "count": 35
+            },
+            {
+              "label": "Module",
+              "count": 24
+            },
+            {
+              "label": "Type",
+              "count": 23
+            }
+          ]
+        },
+        "files": {
+          "query": "SELECT json_object('path',file_path) AS row FROM nodes WHERE label='File' ORDER BY file_path",
+          "rows": [
+            {
+              "path": "modules/framework/src/centralServer/websocket/connection.ts"
+            },
+            {
+              "path": "modules/framework/src/centralServer/websocket/defs.ts"
+            },
+            {
+              "path": "modules/framework/src/connection/defs.ts"
+            },
+            {
+              "path": "modules/framework/src/connection/index.ts"
+            },
+            {
+              "path": "modules/framework/src/connection/interceptor.ts"
+            },
+            {
+              "path": "modules/framework/src/connection/interceptorHandler.ts"
+            },
+            {
+              "path": "modules/framework/src/connection/notification.ts"
+            },
+            {
+              "path": "modules/framework/src/connection/notificationHandler.ts"
+            },
+            {
+              "path": "modules/framework/src/connection/sendNotification.ts"
+            },
+            {
+              "path": "modules/lib/index.ts"
+            },
+            {
+              "path": "modules/lib/src/connection/index.ts"
+            },
+            {
+              "path": "modules/lib/src/utils/Console.ts"
+            },
+            {
+              "path": "modules/lib/src/utils/Request.ts"
+            },
+            {
+              "path": "modules/lib/src/utils/index.ts"
+            },
+            {
+              "path": "modules/timeline/src/api/interface.ts"
+            },
+            {
+              "path": "modules/timeline/src/api/request.ts"
+            },
+            {
+              "path": "modules/timeline/src/bootstrap.tsx"
+            },
+            {
+              "path": "modules/timeline/src/components/FilterLinkLine.tsx"
+            },
+            {
+              "path": "modules/timeline/src/connection/baseline.ts"
+            },
+            {
+              "path": "modules/timeline/src/connection/defs.ts"
+            },
+            {
+              "path": "modules/timeline/src/connection/handler.ts"
+            },
+            {
+              "path": "modules/timeline/src/connection/index.ts"
+            },
+            {
+              "path": "modules/timeline/src/connection/messageSender.ts"
+            },
+            {
+              "path": "modules/timeline/src/insight/units/AscendUnit.tsx"
+            },
+            {
+              "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts"
+            },
+            {
+              "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx"
+            },
+            {
+              "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx"
+            },
+            {
+              "path": "server/msinsight/include/base/BaseModule.h"
+            },
+            {
+              "path": "server/msinsight/include/base/ModuleRequestHandler.h"
+            },
+            {
+              "path": "server/msinsight/src/base/BaseModule.cpp"
+            },
+            {
+              "path": "server/msinsight/src/base/ModuleRequestHandler.cpp"
+            },
+            {
+              "path": "server/src/modules/ModuleManager.cpp"
+            },
+            {
+              "path": "server/src/modules/ModuleManager.h"
+            },
+            {
+              "path": "server/src/modules/defs/ProtocolDefs.h"
+            },
+            {
+              "path": "server/src/modules/timeline/TimelineModule.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/TimelineModule.h"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/DataBaseManager.h"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h"
+            },
+            {
+              "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.h"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp"
+            },
+            {
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h"
+            }
+          ]
+        },
+        "symbols": {
+          "query": "SELECT json_object('name',name,'label',label,'language',language,'path',file_path,'line',line_start,'data',json(data)) AS row FROM nodes WHERE name IN ('getUnitFlows','HandleRequest','QueryUnitFlows','VirtualTraceDatabase','DbTraceDataBase','TextTraceDatabase','send','fetch','createRequest') ORDER BY file_path,line_start,id",
+          "rows": [
+            {
+              "name": "fetch",
+              "label": "Method",
+              "language": "typescript",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 172,
+              "data": {
+                "id": "source.modules.framework.src.centralserver.websocket.connection_ts.connection.fetch",
+                "label": "Method",
+                "name": "fetch",
+                "file_path": "modules/framework/src/centralServer/websocket/connection.ts",
+                "line_start": 172,
+                "line_end": 202,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 6,
+                  "fan_in": 0,
+                  "fan_out": 3
+                },
+                "community": 2,
+                "pagerank": 0.00123788481067443,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "send",
+              "label": "Method",
+              "language": "typescript",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 78,
+              "data": {
+                "id": "source.modules.lib.src.connection.index_ts.baseconnector.send",
+                "label": "Method",
+                "name": "send",
+                "file_path": "modules/lib/src/connection/index.ts",
+                "line_start": 78,
+                "line_end": 96,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 6,
+                  "fan_in": 0,
+                  "fan_out": 3
+                },
+                "community": 24,
+                "pagerank": 0.00120078731634823,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "send",
+              "label": "Method",
+              "language": "typescript",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 178,
+              "data": {
+                "id": "source.modules.lib.src.connection.index_ts.clientconnector.send",
+                "label": "Method",
+                "name": "send",
+                "file_path": "modules/lib/src/connection/index.ts",
+                "line_start": 178,
+                "line_end": 181,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 1,
+                  "fan_out": 0
+                },
+                "community": 25,
+                "pagerank": 0.00388923418798213,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "fetch",
+              "label": "Method",
+              "language": "typescript",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 183,
+              "data": {
+                "id": "source.modules.lib.src.connection.index_ts.clientconnector.fetch",
+                "label": "Method",
+                "name": "fetch",
+                "file_path": "modules/lib/src/connection/index.ts",
+                "line_start": 183,
+                "line_end": 191,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 1,
+                  "fan_out": 1
+                },
+                "community": 25,
+                "pagerank": 0.00316287867251048,
+                "betweenness": 4.0
+              }
+            },
+            {
+              "name": "send",
+              "label": "Method",
+              "language": "typescript",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 236,
+              "data": {
+                "id": "source.modules.lib.src.connection.index_ts.serverconnector.send",
+                "label": "Method",
+                "name": "send",
+                "file_path": "modules/lib/src/connection/index.ts",
+                "line_start": 236,
+                "line_end": 242,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 2,
+                  "fan_in": 1,
+                  "fan_out": 0
+                },
+                "community": 27,
+                "pagerank": 0.00171112192579622,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "createRequest",
+              "label": "Function",
+              "language": "typescript",
+              "path": "modules/lib/src/utils/Request.ts",
+              "line": 30,
+              "data": {
+                "id": "source.modules.lib.src.utils.request_ts.createrequest",
+                "label": "Function",
+                "name": "createRequest",
+                "file_path": "modules/lib/src/utils/Request.ts",
+                "line_start": 30,
+                "line_end": 53,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 6,
+                  "fan_in": 2,
+                  "fan_out": 1
+                },
+                "community": 30,
+                "pagerank": 0.00230834277195559,
+                "betweenness": 6.0
+              }
+            },
+            {
+              "name": "getUnitFlows",
+              "label": "Function",
+              "language": "typescript",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 174,
+              "data": {
+                "id": "source.modules.timeline.src.api.request_ts.getunitflows",
+                "label": "Function",
+                "name": "getUnitFlows",
+                "file_path": "modules/timeline/src/api/request.ts",
+                "line_start": 174,
+                "line_end": 176,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 2,
+                  "fan_out": 0
+                },
+                "community": 35,
+                "pagerank": 0.00176247328844028,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "VirtualTraceDatabase",
+              "label": "Function",
+              "language": "c",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+              "line": 91,
+              "data": {
+                "id": "source.server.src.modules.timeline.core.database.dbtracedatabase_h.virtualtracedatabase",
+                "label": "Function",
+                "name": "VirtualTraceDatabase",
+                "file_path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+                "line_start": 91,
+                "line_end": 438,
+                "language": "c",
+                "metadata": {
+                  "complexity": 4,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 71,
+                "pagerank": 0.00125448105813615,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "VirtualTraceDatabase",
+              "label": "Function",
+              "language": "c",
+              "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+              "line": 36,
+              "data": {
+                "id": "source.server.src.modules.timeline.core.database.texttracedatabase_h.virtualtracedatabase",
+                "label": "Function",
+                "name": "VirtualTraceDatabase",
+                "file_path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+                "line_start": 36,
+                "line_end": 298,
+                "language": "c",
+                "metadata": {
+                  "complexity": 3,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 73,
+                "pagerank": 0.00166938724467924,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "VirtualTraceDatabase",
+              "label": "Function",
+              "language": "c",
+              "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+              "line": 64,
+              "data": {
+                "id": "source.server.src.modules.timeline.core.database.virtualtracedatabase_h.virtualtracedatabase",
+                "label": "Function",
+                "name": "VirtualTraceDatabase",
+                "file_path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+                "line_start": 64,
+                "line_end": 313,
+                "language": "c",
+                "metadata": {
+                  "complexity": 22,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 75,
+                "pagerank": 0.00131375337049945,
+                "betweenness": 0.0
+              }
+            }
+          ]
+        },
+        "calls": {
+          "query": "SELECT json_object('caller',a.name,'caller_path',a.file_path,'caller_line',a.line_start,'callee',b.name,'callee_path',b.file_path,'callee_line',b.line_start,'relation',e.relation,'data',json(e.data)) AS row FROM edges e JOIN nodes a ON a.id=e.src JOIN nodes b ON b.id=e.dst WHERE e.relation='Calls' AND a.name IN ('getUnitFlows','HandleRequest','send','fetch') ORDER BY e.src,e.dst,e.relation",
+          "rows": [
+            {
+              "caller": "fetch",
+              "caller_path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "caller_line": 172,
+              "callee": "getCallback",
+              "callee_path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "callee_line": 204,
+              "relation": "Calls",
+              "data": {
+                "src": "source.modules.framework.src.centralserver.websocket.connection_ts.connection.fetch",
+                "dst": "source.modules.framework.src.centralserver.websocket.connection_ts.connection.getcallback",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "modules/framework/src/centralServer/websocket/connection.ts",
+                "src_line": 193,
+                "metadata": {
+                  "justification": "SelfThisMember"
+                }
+              }
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "caller_line": 172,
+              "callee": "request",
+              "callee_path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "callee_line": 279,
+              "relation": "Calls",
+              "data": {
+                "src": "source.modules.framework.src.centralserver.websocket.connection_ts.connection.fetch",
+                "dst": "source.modules.framework.src.centralserver.websocket.connection_ts.connection.request",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "modules/framework/src/centralServer/websocket/connection.ts",
+                "src_line": 192,
+                "metadata": {
+                  "justification": "SelfThisMember"
+                }
+              }
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "caller_line": 172,
+              "callee": "createRequestHead",
+              "callee_path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "callee_line": 31,
+              "relation": "Calls",
+              "data": {
+                "src": "source.modules.framework.src.centralserver.websocket.connection_ts.connection.fetch",
+                "dst": "source.modules.framework.src.centralserver.websocket.connection_ts.createrequesthead",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "modules/framework/src/centralServer/websocket/connection.ts",
+                "src_line": 186,
+                "metadata": {
+                  "justification": "SameFileUnique"
+                }
+              }
+            },
+            {
+              "caller": "send",
+              "caller_path": "modules/lib/src/connection/index.ts",
+              "caller_line": 78,
+              "callee": "getClientWindows",
+              "callee_path": "modules/lib/src/connection/index.ts",
+              "callee_line": 131,
+              "relation": "Calls",
+              "data": {
+                "src": "source.modules.lib.src.connection.index_ts.baseconnector.send",
+                "dst": "source.modules.lib.src.connection.index_ts.baseconnector.getclientwindows",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "modules/lib/src/connection/index.ts",
+                "src_line": 83,
+                "metadata": {
+                  "justification": "SelfThisMember"
+                }
+              }
+            },
+            {
+              "caller": "send",
+              "caller_path": "modules/lib/src/connection/index.ts",
+              "caller_line": 78,
+              "callee": "getTargetOrigin",
+              "callee_path": "modules/lib/src/connection/index.ts",
+              "callee_line": 123,
+              "relation": "Calls",
+              "data": {
+                "src": "source.modules.lib.src.connection.index_ts.baseconnector.send",
+                "dst": "source.modules.lib.src.connection.index_ts.baseconnector.gettargetorigin",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "modules/lib/src/connection/index.ts",
+                "src_line": 94,
+                "metadata": {
+                  "justification": "SelfThisMember"
+                }
+              }
+            },
+            {
+              "caller": "send",
+              "caller_path": "modules/lib/src/connection/index.ts",
+              "caller_line": 78,
+              "callee": "printErrMsg",
+              "callee_path": "modules/lib/src/connection/index.ts",
+              "callee_line": 127,
+              "relation": "Calls",
+              "data": {
+                "src": "source.modules.lib.src.connection.index_ts.baseconnector.send",
+                "dst": "source.modules.lib.src.connection.index_ts.baseconnector.printerrmsg",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "modules/lib/src/connection/index.ts",
+                "src_line": 87,
+                "metadata": {
+                  "justification": "SelfThisMember"
+                }
+              }
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "modules/lib/src/connection/index.ts",
+              "caller_line": 183,
+              "callee": "send",
+              "callee_path": "modules/lib/src/connection/index.ts",
+              "callee_line": 178,
+              "relation": "Calls",
+              "data": {
+                "src": "source.modules.lib.src.connection.index_ts.clientconnector.fetch",
+                "dst": "source.modules.lib.src.connection.index_ts.clientconnector.send",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "modules/lib/src/connection/index.ts",
+                "src_line": 188,
+                "metadata": {
+                  "justification": "SelfThisMember"
+                }
+              }
+            }
+          ]
+        },
+        "raw_calls": {
+          "query": "SELECT json_object('caller',n.name,'caller_label',n.label,'callee',c.callee_name,'path',c.file_path,'line',c.line,'receiver',c.receiver) AS row FROM calls c LEFT JOIN nodes n ON n.id=c.caller_id WHERE c.callee_name IN ('QueryUnitFlows','requestData','send','get') ORDER BY c.file_path,c.line",
+          "rows": [
+            {
+              "caller": "connection.ts",
+              "caller_label": "File",
+              "callee": "send",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 242,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "connection.ts",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 248,
+              "receiver": "{\"Field\":\"_responseHandlers\"}"
+            },
+            {
+              "caller": "connection.ts",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 250,
+              "receiver": "{\"Field\":\"_requestMsg\"}"
+            },
+            {
+              "caller": "request",
+              "caller_label": "Method",
+              "callee": "send",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 284,
+              "receiver": "{\"Field\":\"_ws\"}"
+            },
+            {
+              "caller": "getParamMap",
+              "caller_label": "Function",
+              "callee": "get",
+              "path": "modules/framework/src/centralServer/websocket/defs.ts",
+              "line": 33,
+              "receiver": "{\"Named\":\"paramMap\"}"
+            },
+            {
+              "caller": "defs.ts",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "modules/framework/src/centralServer/websocket/defs.ts",
+              "line": 39,
+              "receiver": "{\"Named\":\"PARAM_MAP\"}"
+            },
+            {
+              "caller": "defs.ts",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "modules/framework/src/centralServer/websocket/defs.ts",
+              "line": 40,
+              "receiver": "{\"Named\":\"PARAM_MAP\"}"
+            },
+            {
+              "caller": "updateSessionHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/notificationHandler.ts",
+              "line": 46,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "updateSessionHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/notificationHandler.ts",
+              "line": 63,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "getParseStatusHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/notificationHandler.ts",
+              "line": 119,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "deleteCardHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/notificationHandler.ts",
+              "line": 143,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "switchModuleHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/notificationHandler.ts",
+              "line": 168,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "clusterCompletedHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/notificationHandler.ts",
+              "line": 192,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "clusterDurationCompletedHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/notificationHandler.ts",
+              "line": 207,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendTheme",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 26,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendModuleReset",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 34,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendStatus",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 43,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendLanguage",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 60,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendWakeupPlugin",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 69,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendUpdateProjectName",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 77,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendReset",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 84,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendClusterBaselineStatus",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 88,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendShortcutKeys",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 95,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendDirectory",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 123,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendSessionKey",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/framework/src/connection/sendNotification.ts",
+              "line": 148,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "constructor",
+              "caller_label": "Method",
+              "callee": "get",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 56,
+              "receiver": "{\"Field\":\"_listeners\"}"
+            },
+            {
+              "caller": "addListener",
+              "caller_label": "Method",
+              "callee": "get",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 103,
+              "receiver": "{\"Field\":\"_listeners\"}"
+            },
+            {
+              "caller": "addListener",
+              "caller_label": "Method",
+              "callee": "get",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 107,
+              "receiver": "{\"Field\":\"_listeners\"}"
+            },
+            {
+              "caller": "removeListener",
+              "caller_label": "Method",
+              "callee": "get",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 114,
+              "receiver": "{\"Field\":\"_listeners\"}"
+            },
+            {
+              "caller": "send",
+              "caller_label": "Method",
+              "callee": "send",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 180,
+              "receiver": "\"Super\""
+            },
+            {
+              "caller": "fetch",
+              "caller_label": "Method",
+              "callee": "send",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 188,
+              "receiver": "\"SelfThis\""
+            },
+            {
+              "caller": "awaitFetch",
+              "caller_label": "Method",
+              "callee": "get",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 194,
+              "receiver": "{\"Field\":\"_msgSequence\"}"
+            },
+            {
+              "caller": "send",
+              "caller_label": "Method",
+              "callee": "send",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 241,
+              "receiver": "\"Super\""
+            },
+            {
+              "caller": "awaitFetch",
+              "caller_label": "Method",
+              "callee": "send",
+              "path": "modules/lib/src/connection/index.ts",
+              "line": 256,
+              "receiver": "\"SelfThis\""
+            },
+            {
+              "caller": "queryFtraceStat",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/interface.ts",
+              "line": 233,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "parseCards",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 49,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "getOverallMetrics",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 57,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "getOverallMetrics",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 96,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "getOverallMetricsMoreList",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 113,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "getMemcpyOverallMetrics",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 118,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "getMemcpyOverallMetricsMoreList",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 144,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "setCardAliasReq",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 149,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "queryExpertAnalysis",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 154,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "queryOperatorDispatch",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 159,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "queryAllSameOperatorsDuration",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 163,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "queryCommunicationKernelDetail",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 167,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "createCurve",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 171,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "getUnitFlows",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 175,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "queryTimelineOffset",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 179,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "queryKernelMfuList",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 183,
+              "receiver": "{\"Named\":\"window\"}"
+            },
+            {
+              "caller": "updateSessionLineData",
+              "caller_label": "Function",
+              "callee": "get",
+              "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+              "line": 393,
+              "receiver": "{\"Named\":\"fetchLinkLinesMap\"}"
+            },
+            {
+              "caller": "updateSessionLineData",
+              "caller_label": "Function",
+              "callee": "get",
+              "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+              "line": 402,
+              "receiver": "{\"Named\":\"fetchLinkLinesMap\"}"
+            },
+            {
+              "caller": "parseSuccessHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 149,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "parseSuccessHandler",
+              "caller_label": "Function",
+              "callee": "get",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 204,
+              "receiver": "{\"Named\":\"session.remoteAttrs\"}"
+            },
+            {
+              "caller": "parseSuccessHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 236,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "handler.ts",
+              "caller_label": "File",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 450,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "handler.ts",
+              "caller_label": "File",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 459,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "handler.ts",
+              "caller_label": "File",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 466,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "handler.ts",
+              "caller_label": "File",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 473,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "handler.ts",
+              "caller_label": "File",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 482,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "importRemoteHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 510,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "sendSessionUpdate",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 546,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "clearIpynbInfo",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 571,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "removeSingleRemoteHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 863,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "removeSingleRemoteHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 869,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "clusterCompletedHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 930,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "clusterDurationCompletedHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 952,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "allSuccessHandler",
+              "caller_label": "Function",
+              "callee": "get",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 1092,
+              "receiver": "{\"Named\":\"offsetMap\"}"
+            },
+            {
+              "caller": "getTimelineRangeFlagListHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 1130,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "getTimelineCardOffsetHandler",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "modules/timeline/src/connection/handler.ts",
+              "line": 1155,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "setLinkLinesMap",
+              "caller_label": "Function",
+              "callee": "get",
+              "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+              "line": 422,
+              "receiver": "{\"Named\":\"session.mapOfLinkLines\"}"
+            },
+            {
+              "caller": "DataBaseManager.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+              "line": 315,
+              "receiver": "{\"Named\":\"traceDatabase.second\"}"
+            },
+            {
+              "caller": "DataBaseManager.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+              "line": 325,
+              "receiver": "{\"Named\":\"databaseMap.second\"}"
+            },
+            {
+              "caller": "DataBaseManager.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+              "line": 335,
+              "receiver": "{\"Named\":\"databaseMap.second\"}"
+            },
+            {
+              "caller": "DataBaseManager.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+              "line": 391,
+              "receiver": "{\"Named\":\"databaseMap.second\"}"
+            },
+            {
+              "caller": "DataBaseManager.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+              "line": 800,
+              "receiver": "{\"Named\":\"database.second\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 320,
+              "receiver": "{\"Named\":\"thread\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 2209,
+              "receiver": "{\"Named\":\"unit\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 2213,
+              "receiver": "{\"Named\":\"metrics\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 2383,
+              "receiver": "{\"Named\":\"thread\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 2396,
+              "receiver": "{\"Named\":\"unit\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 2403,
+              "receiver": "{\"Named\":\"process\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 2412,
+              "receiver": "{\"Named\":\"thread\"}"
+            },
+            {
+              "caller": "DbTraceDataBase.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "line": 3062,
+              "receiver": "{\"Named\":\"result\"}"
+            },
+            {
+              "caller": "QueryFlowsBySliceInfoHandler.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "line": 29,
+              "receiver": "{\"Named\":\"requestPtr\"}"
+            },
+            {
+              "caller": "QueryFlowsBySliceInfoHandler.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "line": 31,
+              "receiver": "{\"Named\":\"responsePtr\"}"
+            },
+            {
+              "caller": "QueryFlowsBySliceInfoHandler.cpp",
+              "caller_label": "File",
+              "callee": "QueryUnitFlows",
+              "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "line": 57,
+              "receiver": "\"Bare\""
+            },
+            {
+              "caller": "TimelineProtocolUtil.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+              "line": 571,
+              "receiver": "{\"Named\":\"item\"}"
+            },
+            {
+              "caller": "TimelineProtocolUtil.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+              "line": 572,
+              "receiver": "{\"Named\":\"item\"}"
+            },
+            {
+              "caller": "TimelineProtocolUtil.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+              "line": 575,
+              "receiver": "{\"Named\":\"item\"}"
+            },
+            {
+              "caller": "TimelineProtocolUtil.cpp",
+              "caller_label": "File",
+              "callee": "get",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+              "line": 576,
+              "receiver": "{\"Named\":\"item\"}"
+            }
+          ]
+        }
+      }
+    },
+    "fixtures": {
+      "index_seconds": 0.141,
+      "queries": {
+        "counts": {
+          "query": "SELECT json_object('label',label,'count',count(*)) AS row FROM nodes GROUP BY label",
+          "rows": [
+            {
+              "label": "Class",
+              "count": 2
+            },
+            {
+              "label": "File",
+              "count": 3
+            },
+            {
+              "label": "Function",
+              "count": 10
+            },
+            {
+              "label": "Method",
+              "count": 3
+            },
+            {
+              "label": "Module",
+              "count": 1
+            }
+          ]
+        },
+        "files": {
+          "query": "SELECT json_object('path',file_path) AS row FROM nodes WHERE label='File' ORDER BY file_path",
+          "rows": [
+            {
+              "path": "contracts.cpp"
+            },
+            {
+              "path": "contracts.h"
+            },
+            {
+              "path": "transport.ts"
+            }
+          ]
+        },
+        "symbols": {
+          "query": "SELECT json_object('name',name,'label',label,'language',language,'path',file_path,'line',line_start,'data',json(data)) AS row FROM nodes ORDER BY file_path,line_start,id",
+          "rows": [
+            {
+              "name": "contracts.cpp",
+              "label": "File",
+              "language": "cpp",
+              "path": "contracts.cpp",
+              "line": 1,
+              "data": {
+                "id": "fixtures.contracts_cpp",
+                "label": "File",
+                "name": "contracts.cpp",
+                "file_path": "contracts.cpp",
+                "line_start": 1,
+                "line_end": 5,
+                "language": "cpp",
+                "metadata": {
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 0,
+                "pagerank": 0.036154579083645,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "alpha",
+              "label": "Module",
+              "language": "cpp",
+              "path": "contracts.cpp",
+              "line": 2,
+              "data": {
+                "id": "fixtures.contracts_cpp.alpha",
+                "label": "Module",
+                "name": "alpha",
+                "file_path": "contracts.cpp",
+                "line_start": 2,
+                "line_end": 5,
+                "language": "cpp",
+                "metadata": {
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 0,
+                "pagerank": 0.0668859713047433,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "contracts.h",
+              "label": "File",
+              "language": "c",
+              "path": "contracts.h",
+              "line": 1,
+              "data": {
+                "id": "fixtures.contracts_h",
+                "label": "File",
+                "name": "contracts.h",
+                "file_path": "contracts.h",
+                "line_start": 1,
+                "line_end": 22,
+                "language": "c",
+                "metadata": {
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 1,
+                "pagerank": 0.036154579083645,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "alpha",
+              "label": "Function",
+              "language": "c",
+              "path": "contracts.h",
+              "line": 4,
+              "data": {
+                "id": "fixtures.contracts_h.alpha",
+                "label": "Function",
+                "name": "alpha",
+                "file_path": "contracts.h",
+                "line_start": 4,
+                "line_end": 18,
+                "language": "c",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 1,
+                "pagerank": 0.0412764777871614,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "CacheGuard",
+              "label": "Function",
+              "language": "c",
+              "path": "contracts.h",
+              "line": 15,
+              "data": {
+                "id": "fixtures.contracts_h.cacheguard",
+                "label": "Function",
+                "name": "CacheGuard",
+                "file_path": "contracts.h",
+                "line_start": 15,
+                "line_end": 15,
+                "language": "c",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 1,
+                "pagerank": 0.0412764777871614,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "consumeOwned",
+              "label": "Function",
+              "language": "c",
+              "path": "contracts.h",
+              "line": 17,
+              "data": {
+                "id": "fixtures.contracts_h.consumeowned",
+                "label": "Function",
+                "name": "consumeOwned",
+                "file_path": "contracts.h",
+                "line_start": 17,
+                "line_end": 17,
+                "language": "c",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 1,
+                "pagerank": 0.0412764777871614,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "beta",
+              "label": "Function",
+              "language": "c",
+              "path": "contracts.h",
+              "line": 19,
+              "data": {
+                "id": "fixtures.contracts_h.beta",
+                "label": "Function",
+                "name": "beta",
+                "file_path": "contracts.h",
+                "line_start": 19,
+                "line_end": 22,
+                "language": "c",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 1,
+                "pagerank": 0.0412764777871614,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "Store",
+              "label": "Function",
+              "language": "c",
+              "path": "contracts.h",
+              "line": 20,
+              "data": {
+                "id": "fixtures.contracts_h.store",
+                "label": "Function",
+                "name": "Store",
+                "file_path": "contracts.h",
+                "line_start": 20,
+                "line_end": 20,
+                "language": "c",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 1,
+                "pagerank": 0.0412764777871614,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "consume",
+              "label": "Function",
+              "language": "c",
+              "path": "contracts.h",
+              "line": 21,
+              "data": {
+                "id": "fixtures.contracts_h.consume",
+                "label": "Function",
+                "name": "consume",
+                "file_path": "contracts.h",
+                "line_start": 21,
+                "line_end": 21,
+                "language": "c",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 1,
+                "pagerank": 0.0412764777871614,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "transport.ts",
+              "label": "File",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 1,
+              "data": {
+                "id": "fixtures.transport_ts",
+                "label": "File",
+                "name": "transport.ts",
+                "file_path": "transport.ts",
+                "line_start": 1,
+                "line_end": 18,
+                "language": "typescript",
+                "metadata": {
+                  "fan_in": 0,
+                  "fan_out": 1
+                },
+                "community": 2,
+                "pagerank": 0.036154579083645,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "BaseConnector",
+              "label": "Class",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 1,
+              "data": {
+                "id": "fixtures.transport_ts.baseconnector",
+                "label": "Class",
+                "name": "BaseConnector",
+                "file_path": "transport.ts",
+                "line_start": 1,
+                "line_end": 3,
+                "language": "typescript",
+                "metadata": {
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 3,
+                "pagerank": 0.0725712788656465,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "send",
+              "label": "Method",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 2,
+              "data": {
+                "id": "fixtures.transport_ts.baseconnector.send",
+                "label": "Method",
+                "name": "send",
+                "file_path": "transport.ts",
+                "line_start": 2,
+                "line_end": 2,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 2,
+                "pagerank": 0.0392277183057548,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "ClientConnector",
+              "label": "Class",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 4,
+              "data": {
+                "id": "fixtures.transport_ts.clientconnector",
+                "label": "Class",
+                "name": "ClientConnector",
+                "file_path": "transport.ts",
+                "line_start": 4,
+                "line_end": 10,
+                "language": "typescript",
+                "metadata": {
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 3,
+                "pagerank": 0.0392277183057548,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "send",
+              "label": "Method",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 5,
+              "data": {
+                "id": "fixtures.transport_ts.clientconnector.send",
+                "label": "Method",
+                "name": "send",
+                "file_path": "transport.ts",
+                "line_start": 5,
+                "line_end": 5,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 1,
+                  "fan_out": 0
+                },
+                "community": 4,
+                "pagerank": 0.126891319470854,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "fetch",
+              "label": "Method",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 6,
+              "data": {
+                "id": "fixtures.transport_ts.clientconnector.fetch",
+                "label": "Method",
+                "name": "fetch",
+                "file_path": "transport.ts",
+                "line_start": 6,
+                "line_end": 9,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 1,
+                  "fan_out": 1
+                },
+                "community": 2,
+                "pagerank": 0.0751834472044398,
+                "betweenness": 2.0
+              }
+            },
+            {
+              "name": "callback",
+              "label": "Function",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 7,
+              "data": {
+                "id": "fixtures.transport_ts.clientconnector.callback",
+                "label": "Function",
+                "name": "callback",
+                "file_path": "transport.ts",
+                "line_start": 7,
+                "line_end": 7,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 1,
+                  "fan_out": 1
+                },
+                "community": 4,
+                "pagerank": 0.103133648429529,
+                "betweenness": 2.0
+              }
+            },
+            {
+              "name": "createRequest",
+              "label": "Function",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 11,
+              "data": {
+                "id": "fixtures.transport_ts.createrequest",
+                "label": "Function",
+                "name": "createRequest",
+                "file_path": "transport.ts",
+                "line_start": 11,
+                "line_end": 13,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 1,
+                  "fan_out": 1
+                },
+                "community": 2,
+                "pagerank": 0.0423008575278647,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "entry",
+              "label": "Function",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 17,
+              "data": {
+                "id": "fixtures.transport_ts.entry",
+                "label": "Function",
+                "name": "entry",
+                "file_path": "transport.ts",
+                "line_start": 17,
+                "line_end": 17,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 2,
+                "pagerank": 0.0392277183057548,
+                "betweenness": 0.0
+              }
+            },
+            {
+              "name": "map",
+              "label": "Function",
+              "language": "typescript",
+              "path": "transport.ts",
+              "line": 18,
+              "data": {
+                "id": "fixtures.transport_ts.map",
+                "label": "Function",
+                "name": "map",
+                "file_path": "transport.ts",
+                "line_start": 18,
+                "line_end": 18,
+                "language": "typescript",
+                "metadata": {
+                  "complexity": 1,
+                  "fan_in": 0,
+                  "fan_out": 0
+                },
+                "community": 2,
+                "pagerank": 0.0392277183057548,
+                "betweenness": 0.0
+              }
+            }
+          ]
+        },
+        "calls": {
+          "query": "SELECT json_object('caller',a.name,'caller_path',a.file_path,'caller_line',a.line_start,'callee',b.name,'callee_path',b.file_path,'callee_line',b.line_start,'relation',e.relation,'data',json(e.data)) AS row FROM edges e JOIN nodes a ON a.id=e.src JOIN nodes b ON b.id=e.dst WHERE e.relation='Calls' ORDER BY e.src,e.dst,e.relation",
+          "rows": [
+            {
+              "caller": "transport.ts",
+              "caller_path": "transport.ts",
+              "caller_line": 1,
+              "callee": "createRequest",
+              "callee_path": "transport.ts",
+              "callee_line": 11,
+              "relation": "Calls",
+              "data": {
+                "src": "fixtures.transport_ts",
+                "dst": "fixtures.transport_ts.createrequest",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "transport.ts",
+                "src_line": 16,
+                "metadata": {
+                  "justification": "SameFileUnique"
+                }
+              }
+            },
+            {
+              "caller": "callback",
+              "caller_path": "transport.ts",
+              "caller_line": 7,
+              "callee": "send",
+              "callee_path": "transport.ts",
+              "callee_line": 5,
+              "relation": "Calls",
+              "data": {
+                "src": "fixtures.transport_ts.clientconnector.callback",
+                "dst": "fixtures.transport_ts.clientconnector.send",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "transport.ts",
+                "src_line": 7,
+                "metadata": {
+                  "justification": "SelfThisMember"
+                }
+              }
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "transport.ts",
+              "caller_line": 6,
+              "callee": "callback",
+              "callee_path": "transport.ts",
+              "callee_line": 7,
+              "relation": "Calls",
+              "data": {
+                "src": "fixtures.transport_ts.clientconnector.fetch",
+                "dst": "fixtures.transport_ts.clientconnector.callback",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "transport.ts",
+                "src_line": 8,
+                "metadata": {
+                  "justification": "SameFileUnique"
+                }
+              }
+            },
+            {
+              "caller": "createRequest",
+              "caller_path": "transport.ts",
+              "caller_line": 11,
+              "callee": "fetch",
+              "callee_path": "transport.ts",
+              "callee_line": 6,
+              "relation": "Calls",
+              "data": {
+                "src": "fixtures.transport_ts.createrequest",
+                "dst": "fixtures.transport_ts.clientconnector.fetch",
+                "relation": "Calls",
+                "tier": "TreeSitter",
+                "confidence": "Inferred",
+                "src_file": "transport.ts",
+                "src_line": 12,
+                "metadata": {
+                  "justification": "LocalVarType"
+                }
+              }
+            }
+          ]
+        },
+        "raw_calls": {
+          "query": "SELECT json_object('caller',n.name,'caller_label',n.label,'callee',c.callee_name,'path',c.file_path,'line',c.line,'receiver',c.receiver) AS row FROM calls c LEFT JOIN nodes n ON n.id=c.caller_id ORDER BY c.file_path,c.line",
+          "rows": [
+            {
+              "caller": "consume",
+              "caller_label": "Function",
+              "callee": "query",
+              "path": "contracts.h",
+              "line": 16,
+              "receiver": "{\"Named\":\"db\"}"
+            },
+            {
+              "caller": "consumeOwned",
+              "caller_label": "Function",
+              "callee": "query",
+              "path": "contracts.h",
+              "line": 17,
+              "receiver": "{\"Named\":\"db\"}"
+            },
+            {
+              "caller": "consumeOwned",
+              "caller_label": "Function",
+              "callee": "get",
+              "path": "contracts.h",
+              "line": 17,
+              "receiver": "{\"Named\":\"db\"}"
+            },
+            {
+              "caller": "consume",
+              "caller_label": "Function",
+              "callee": "query",
+              "path": "contracts.h",
+              "line": 21,
+              "receiver": "{\"Named\":\"db\"}"
+            },
+            {
+              "caller": "send",
+              "caller_label": "Method",
+              "callee": "send",
+              "path": "transport.ts",
+              "line": 5,
+              "receiver": "\"Super\""
+            },
+            {
+              "caller": "callback",
+              "caller_label": "Function",
+              "callee": "send",
+              "path": "transport.ts",
+              "line": 7,
+              "receiver": "\"SelfThis\""
+            },
+            {
+              "caller": "fetch",
+              "caller_label": "Method",
+              "callee": "callback",
+              "path": "transport.ts",
+              "line": 8,
+              "receiver": "\"Bare\""
+            },
+            {
+              "caller": "createRequest",
+              "caller_label": "Function",
+              "callee": "fetch",
+              "path": "transport.ts",
+              "line": 12,
+              "receiver": "{\"Named\":\"connector\"}"
+            },
+            {
+              "caller": "transport.ts",
+              "caller_label": "File",
+              "callee": "createRequest",
+              "path": "transport.ts",
+              "line": 16,
+              "receiver": "\"Bare\""
+            },
+            {
+              "caller": "entry",
+              "caller_label": "Function",
+              "callee": "requestData",
+              "path": "transport.ts",
+              "line": 17,
+              "receiver": "{\"Named\":\"window\"}"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

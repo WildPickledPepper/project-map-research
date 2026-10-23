@@ -30,6 +30,8 @@ CodeGraph 和 code-map 已追加原版实际执行：[unit/flows 结果与复现
 
 CodeGraph 指上述特定仓库，不是 CodeGraphContext。两者不能混用名称和结果。
 
+P1 已追加 [CBM/CGC/CodeGraph 统一输入对照](../experiments/2026-10-23-p1/README.md)：65 个真实文件与 3 个相同 fixture。CGC 的关键 C++ 定义提取和 CodeGraph 的 TS 类归属各有优势；CGC 已验证补充事实的存储集成，CodeGraph 保留底座候选资格。最终选择等待类型/调用门槛与接入成本比较。
+
 code-map 的实际 `src/core/endpoints.mjs` 对路径有 `/api` 前缀约束，匹配边标为 medium；因此不把它表述为无框架限制、编译器级或任意项目可直接使用。
 
 ## 动态能力

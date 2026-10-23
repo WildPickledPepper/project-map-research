@@ -1,0 +1,346 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "files": [
+    {
+      "path": "modules/framework/package.json",
+      "bytes": 1128,
+      "sha256_lf_utf8": "ba5568dd5b780512ded367bd3934a5402d6b60b247d714c9d1c765ee015d7a1c"
+    },
+    {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "bytes": 11620,
+      "sha256_lf_utf8": "996469dcc801c305415b54c8401d3da65f8dcf549e9bb01ddca32d4f68557f90"
+    },
+    {
+      "path": "modules/framework/src/centralServer/websocket/defs.ts",
+      "bytes": 4626,
+      "sha256_lf_utf8": "78f4772151e08a82e27c25cffacdc79b2b08eda5afa3e5122d61a2ee70b8e676"
+    },
+    {
+      "path": "modules/framework/src/connection/defs.ts",
+      "bytes": 918,
+      "sha256_lf_utf8": "33097abc1e3cf1489e5ece8f99b15490b14ee1ad0ac7e2ed319b330f813a5d23"
+    },
+    {
+      "path": "modules/framework/src/connection/index.ts",
+      "bytes": 2805,
+      "sha256_lf_utf8": "5eb347c385bdfd69adf17c35b6372e071762da05026dbe27518badc674347dbf"
+    },
+    {
+      "path": "modules/framework/src/connection/interceptor.ts",
+      "bytes": 2415,
+      "sha256_lf_utf8": "7b56ac4e9e0c59f3f388ee6d5e461a343a7b2a7d4b193c58045f232c4a36d23e"
+    },
+    {
+      "path": "modules/framework/src/connection/interceptorHandler.ts",
+      "bytes": 9250,
+      "sha256_lf_utf8": "608147883976309cd4a5d9ef2064872b0b5e3772a3b2261a81c6a20718f1a70d"
+    },
+    {
+      "path": "modules/framework/src/connection/notification.ts",
+      "bytes": 2199,
+      "sha256_lf_utf8": "0e679beb97e3d6445727b0d61562c24dd456faa2decb8a09ef3db8a162b3eb70"
+    },
+    {
+      "path": "modules/framework/src/connection/notificationHandler.ts",
+      "bytes": 8296,
+      "sha256_lf_utf8": "7ad04c10bacd99d10a476de8d6c0db5fac588e6941336ab820b69ae1f938e696"
+    },
+    {
+      "path": "modules/framework/src/connection/sendNotification.ts",
+      "bytes": 6708,
+      "sha256_lf_utf8": "52726cbca17cea8e7290d98bbaa232a72e6c5d34c012f9677cf4ac89f9bd6b7a"
+    },
+    {
+      "path": "modules/lib/index.ts",
+      "bytes": 1193,
+      "sha256_lf_utf8": "573abd5c443d8c5b83799377943d32ff26de3a89fccc20257b5a668f07696365"
+    },
+    {
+      "path": "modules/lib/package.json",
+      "bytes": 1009,
+      "sha256_lf_utf8": "122be05a950bb0db3bf135270d8ac433468bc7ed74e556d2c6cad7f98d3ee1fe"
+    },
+    {
+      "path": "modules/lib/src/connection/index.ts",
+      "bytes": 10289,
+      "sha256_lf_utf8": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2"
+    },
+    {
+      "path": "modules/lib/src/utils/Console.ts",
+      "bytes": 1368,
+      "sha256_lf_utf8": "4c6f9601cf09336ebecd1676016d4a52decb8dc8b1c4cd51bee6c3a9cab4be46"
+    },
+    {
+      "path": "modules/lib/src/utils/Request.ts",
+      "bytes": 2873,
+      "sha256_lf_utf8": "5ca8dffdfd415d961f612fb26f5b16d56d2dccf7d684f5f8feffb20e652382d1"
+    },
+    {
+      "path": "modules/lib/src/utils/index.ts",
+      "bytes": 1066,
+      "sha256_lf_utf8": "d4ce87bdfaac086e5d292237233fb51b3e501fffecb778627cecda34a1daf945"
+    },
+    {
+      "path": "modules/lib/tsconfig.json",
+      "bytes": 803,
+      "sha256_lf_utf8": "ce6e52bbd63683277d8aa8f7a741ec3d91986147ecbe8dac27157e8dda109847"
+    },
+    {
+      "path": "modules/package.json",
+      "bytes": 2948,
+      "sha256_lf_utf8": "2470a06f25a24b2a30301c547a1b4901283b10a00fea9b432b39ea8ef65037e6"
+    },
+    {
+      "path": "modules/timeline/package.json",
+      "bytes": 1178,
+      "sha256_lf_utf8": "259c57974167f3348b71ea62da904f0ed7d64553dbd3ac26065085d828a4286d"
+    },
+    {
+      "path": "modules/timeline/src/api/interface.ts",
+      "bytes": 9760,
+      "sha256_lf_utf8": "993673ebc567fe4ffddc0639ec801b394b5c10cbef6e49678ce251b1fe2fb4d4"
+    },
+    {
+      "path": "modules/timeline/src/api/request.ts",
+      "bytes": 7214,
+      "sha256_lf_utf8": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35"
+    },
+    {
+      "path": "modules/timeline/src/bootstrap.tsx",
+      "bytes": 3502,
+      "sha256_lf_utf8": "3ba98c0d83468a9a2b6fe54faa6f81c0d4016730836175616d6c801c013c47a6"
+    },
+    {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "bytes": 22613,
+      "sha256_lf_utf8": "da083517d44697538a93181be54fa63e6cfc481ff727545f89eebb00023d7a14"
+    },
+    {
+      "path": "modules/timeline/src/connection/baseline.ts",
+      "bytes": 1526,
+      "sha256_lf_utf8": "a15d636b03651049f3d47e70b5437af4b7de34b7bb3b4f77401bf4ebb2f716fc"
+    },
+    {
+      "path": "modules/timeline/src/connection/defs.ts",
+      "bytes": 1823,
+      "sha256_lf_utf8": "1808f34859a6c7162524a2511cbcb23c1d8e9e0e49a39d68eeaf1ccfe1d6a079"
+    },
+    {
+      "path": "modules/timeline/src/connection/handler.ts",
+      "bytes": 48236,
+      "sha256_lf_utf8": "9770a5eba5f697c04f9ffdd34d2b60475448108c649027638562ffb10667c38a"
+    },
+    {
+      "path": "modules/timeline/src/connection/index.ts",
+      "bytes": 927,
+      "sha256_lf_utf8": "34f3bd07578035f083f5b592c86dbe463ad71a71402acdc9d0f0cb530d8c3287"
+    },
+    {
+      "path": "modules/timeline/src/connection/messageSender.ts",
+      "bytes": 1492,
+      "sha256_lf_utf8": "28b9ad2bec988927261750a9b92408c743d1a2584fb1e551b9b1353267256b73"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "bytes": 57574,
+      "sha256_lf_utf8": "267bdcf284861db08afb46325e09b0404cf0bb0f8a77a6d938370610b6e6bbce"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+      "bytes": 33397,
+      "sha256_lf_utf8": "abbc0219fd67267ffbb2bd6c68b14e3b78add6f5ead9bfc381f89d87b261c2d4"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+      "bytes": 7688,
+      "sha256_lf_utf8": "351b2589ca97806ba35e8be0db4ef61268fc59aa71d1dc440f48c3d1f811c820"
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+      "bytes": 9831,
+      "sha256_lf_utf8": "6bce2e6bb46f0c7580df787ccc0fb57c6e11be644223c5b543f4a1218d781f69"
+    },
+    {
+      "path": "modules/timeline/tsconfig.json",
+      "bytes": 858,
+      "sha256_lf_utf8": "3a302d38c33461bc798e5a4ae366d23cbd3c3c3f2d82ad0be0c991b42fdfadef"
+    },
+    {
+      "path": "modules/tsconfig.json",
+      "bytes": 803,
+      "sha256_lf_utf8": "ce6e52bbd63683277d8aa8f7a741ec3d91986147ecbe8dac27157e8dda109847"
+    },
+    {
+      "path": "package.json",
+      "bytes": 2064,
+      "sha256_lf_utf8": "2eefe9746b95c5f70ef17b2c67073f60558018012956efffdf6c490a024f139d"
+    },
+    {
+      "path": "server/msinsight/include/base/BaseModule.h",
+      "bytes": 1322,
+      "sha256_lf_utf8": "4806150697442497b605307b6d715328548896a3336fdf4ec2afa0613705dd6d"
+    },
+    {
+      "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+      "bytes": 1922,
+      "sha256_lf_utf8": "a55661836f94df4417b0c90e106227ea5385ec87df444164e9e2b31b4d831250"
+    },
+    {
+      "path": "server/msinsight/src/base/BaseModule.cpp",
+      "bytes": 1944,
+      "sha256_lf_utf8": "f9435eddd6d537b58287e4e337d4ece383cd49c95862278a0ed313acd6021174"
+    },
+    {
+      "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+      "bytes": 4119,
+      "sha256_lf_utf8": "ca1fdd8bfe5cfee788dc0f0206bfa34a749429be6e7934330dbc6bc72eb65f45"
+    },
+    {
+      "path": "server/src/modules/ModuleManager.cpp",
+      "bytes": 2171,
+      "sha256_lf_utf8": "3658df6098d0db49cbcc9e25e3bab2f9e9edf3aaa873cf672b1782a272290204"
+    },
+    {
+      "path": "server/src/modules/ModuleManager.h",
+      "bytes": 1394,
+      "sha256_lf_utf8": "1b7583ff6b74ac2dabec5fcea02d745b40048a0b5136e1bdd237b1a299ec55ff"
+    },
+    {
+      "path": "server/src/modules/defs/ProtocolDefs.h",
+      "bytes": 13756,
+      "sha256_lf_utf8": "b5371dfbdbcd6a0f2d9b9e0adcb6cddeee4802b59ff9544cf16efbdafba7a340"
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.cpp",
+      "bytes": 7230,
+      "sha256_lf_utf8": "611b46ae85486111105982ae0701b74756a7190521993bc3046a1c8d50cc9a23"
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.h",
+      "bytes": 1225,
+      "sha256_lf_utf8": "a722cac41d710ac49640d149a68fe4706ce136b755435761a2d6efb5619f6f68"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+      "bytes": 35497,
+      "sha256_lf_utf8": "56b5372f1209929ffe673dd26358163a62d928ac191c07e7b5b5b5eb58788447"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+      "bytes": 9919,
+      "sha256_lf_utf8": "e1324415c21860bc795fb7451bf82d4b5889b83150e068ae67a4950f48f60faf"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+      "bytes": 143356,
+      "sha256_lf_utf8": "d4eae48d0a15ffe34df0ae314a2aa8bce13d13711001f062a02a95360a9519ee"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+      "bytes": 24755,
+      "sha256_lf_utf8": "9b9aa26b47c3b5a661dc285c8b775a25f619f5efe9dd68dfb7583b012b8d4964"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+      "bytes": 31823,
+      "sha256_lf_utf8": "2cea03216c3ca5acaeba1e37173e7dcac9c2c4ecdd103c9fecdf08c4e7a39593"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+      "bytes": 116236,
+      "sha256_lf_utf8": "65c731fa0281e9b59253bad2ab7439194d50e15ae4891ee9d616f0f52259da54"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+      "bytes": 18040,
+      "sha256_lf_utf8": "accb71081878de9042db53db3f82c2df3e9c35dbff3b5042f376feed986b836c"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp",
+      "bytes": 13664,
+      "sha256_lf_utf8": "df79037d674e02b00ada7eba2b9fb4258c17312c5d037d6ea0e2c32d62444db5"
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+      "bytes": 17018,
+      "sha256_lf_utf8": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "bytes": 3091,
+      "sha256_lf_utf8": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63"
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+      "bytes": 1397,
+      "sha256_lf_utf8": "8ea8fa1410efa366d11008daf93b49f6e553070110e80f77cc5c11c87cdc40d1"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h",
+      "bytes": 3394,
+      "sha256_lf_utf8": "634750d914d7c2551cb59152b450f228820d0b7fab3f65a2f21582dc135ecbad"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+      "bytes": 3373,
+      "sha256_lf_utf8": "28690d2c2b8e6f98328a626e12b13fe2b01762e874b9358c9e6995d3fc3babff"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+      "bytes": 62980,
+      "sha256_lf_utf8": "c5972829efc24eadfd11b0f52788304880612249607197d40b7d3d27d0290b17"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.h",
+      "bytes": 9050,
+      "sha256_lf_utf8": "38168a37531c7ba73f6b78fa2d7086f974756b348b513022b43842128e8e972e"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h",
+      "bytes": 6005,
+      "sha256_lf_utf8": "89f1a54ce81d4d77d94b418db51fd38d6cd3778630d8b1fff4703d90c4e62772"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp",
+      "bytes": 12285,
+      "sha256_lf_utf8": "6b4811a7a53d6f07e3545a3805b51f44cabea1882566c20c65e2c8df930e70bc"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+      "bytes": 21994,
+      "sha256_lf_utf8": "6bf320fa4f1220f9ea0d46cba0ff868627b6e6d309ce593d651a3e0b43d86297"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+      "bytes": 19461,
+      "sha256_lf_utf8": "dd07ab68ad726973ac0457ebcf7b49852712e1b5a6d59950943e8420c7407a3f"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+      "bytes": 67544,
+      "sha256_lf_utf8": "77e03a3da8dad5ff7d53ad023cd3cd93dd4d61487212f59700258e5f1108184a"
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h",
+      "bytes": 6168,
+      "sha256_lf_utf8": "14b859ee51f2f4eb11a265f2d53be2aa22aa7c1afd7131ff4cb62560fb105bdd"
+    }
+  ],
+  "fixture_origin": "self_authored_synthetic",
+  "fixtures": [
+    {
+      "path": "contracts.cpp",
+      "sha256": "a2da11a69de554b84a4fc3bc4e208141a84e0a6d525ffe2dff784b078976945e"
+    },
+    {
+      "path": "contracts.h",
+      "sha256": "6742420dccc86fe142aa31958946aaaa9c14ee7682ccb81ec416c6bb2b9ecbed"
+    },
+    {
+      "path": "transport.ts",
+      "sha256": "afd78db9715ad71e86a88caba81704d9f14f8c9b8f7228b58e987906b0cd0884"
+    }
+  ],
+  "scope": "union of prior real-file slices; not a compilation closure"
+}

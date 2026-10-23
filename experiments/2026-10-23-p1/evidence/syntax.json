@@ -1,0 +1,1304 @@
+{
+  "schema_version": 1,
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "extractor_version": "0.1.0",
+  "packages": {
+    "tree-sitter": "0.25.2",
+    "tree-sitter-language-pack": "1.20.0"
+  },
+  "manifest_sha256": "fe45f3514f427b57d57616df36d01fddbac8d0ffa19c8bf00731e08415e5f210",
+  "coverage": [
+    {
+      "path": "modules/framework/package.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/centralServer/websocket/defs.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/connection/defs.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/connection/index.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/connection/interceptor.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/connection/interceptorHandler.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/connection/notification.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/connection/notificationHandler.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/framework/src/connection/sendNotification.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/lib/index.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/lib/package.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "modules/lib/src/connection/index.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/lib/src/utils/Console.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/lib/src/utils/Request.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/lib/src/utils/index.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/lib/tsconfig.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "modules/package.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "modules/timeline/package.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "modules/timeline/src/api/interface.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/api/request.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/bootstrap.tsx",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/connection/baseline.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/connection/defs.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/connection/handler.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/connection/index.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/connection/messageSender.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "modules/timeline/tsconfig.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "modules/tsconfig.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "package.json",
+      "status": "outside_supported_languages"
+    },
+    {
+      "path": "server/msinsight/include/base/BaseModule.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/msinsight/src/base/BaseModule.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/ModuleManager.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/ModuleManager.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/defs/ProtocolDefs.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/TimelineModule.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+      "status": "syntax_errors",
+      "diagnostics": [
+        {
+          "kind": "callable_in_error_region",
+          "line": 2116,
+          "column": 1,
+          "end_line": 2167,
+          "end_column": 2,
+          "start_byte": 97132,
+          "end_byte": 99729
+        },
+        {
+          "kind": "syntax_error",
+          "line": 2126,
+          "column": 25,
+          "end_line": 2126,
+          "end_column": 33,
+          "start_byte": 97644,
+          "end_byte": 97652
+        },
+        {
+          "kind": "syntax_error",
+          "line": 2160,
+          "column": 21,
+          "end_line": 2160,
+          "end_column": 29,
+          "start_byte": 99534,
+          "end_byte": 99542
+        },
+        {
+          "kind": "syntax_error",
+          "line": 2164,
+          "column": 17,
+          "end_line": 2164,
+          "end_column": 25,
+          "start_byte": 99652,
+          "end_byte": 99660
+        }
+      ]
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocol.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+      "status": "parsed",
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h",
+      "status": "parsed",
+      "diagnostics": []
+    }
+  ],
+  "counts": {
+    "files": 65,
+    "parsed_records": 57,
+    "symbols": 2041,
+    "calls": 6418,
+    "bindings": 260,
+    "coverage_statuses": {
+      "outside_supported_languages": 8,
+      "parsed": 56,
+      "syntax_errors": 1
+    }
+  },
+  "selected_facts": [
+    {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "language": "typescript",
+      "sha256_lf_utf8": "996469dcc801c305415b54c8401d3da65f8dcf549e9bb01ddca32d4f68557f90",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "fetch",
+          "qualified_name": "Connection.fetch",
+          "scope": [
+            "Connection"
+          ],
+          "definition": true,
+          "parameters": "(module: ModuleName, dataRequest: DataRequest)",
+          "type_parameters": "<T>",
+          "return_type_spelling": ": Promise<T | ErrorMsg>",
+          "id": "d727d7a6e3298b3e4ce3779c",
+          "kind": "callable",
+          "line": 172,
+          "column": 11,
+          "end_line": 172,
+          "end_column": 16,
+          "start_byte": 6859,
+          "end_byte": 6864,
+          "container_span": {
+            "line": 172,
+            "column": 5,
+            "end_line": 202,
+            "end_column": 6,
+            "start_byte": 6853,
+            "end_byte": 8184
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "modules/lib/src/connection/index.ts",
+      "language": "typescript",
+      "sha256_lf_utf8": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "send",
+          "qualified_name": "BaseConnector.send",
+          "scope": [
+            "BaseConnector"
+          ],
+          "definition": true,
+          "parameters": "(body: SendParams<T>, reject?: (err: Error) => void)",
+          "type_parameters": "<T extends EventHanlder>",
+          "return_type_spelling": ": void",
+          "id": "59239b45b4707826eee8a00c",
+          "kind": "callable",
+          "line": 78,
+          "column": 5,
+          "end_line": 78,
+          "end_column": 9,
+          "start_byte": 3246,
+          "end_byte": 3250,
+          "container_span": {
+            "line": 78,
+            "column": 5,
+            "end_line": 96,
+            "end_column": 6,
+            "start_byte": 3246,
+            "end_byte": 4148
+          },
+          "resolution": "syntax_only"
+        },
+        {
+          "name": "send",
+          "qualified_name": "ClientConnector.send",
+          "scope": [
+            "ClientConnector"
+          ],
+          "definition": true,
+          "parameters": "(body: SendParams<T>, reject?: (err: Error) => void)",
+          "type_parameters": "<T extends EventHanlder>",
+          "return_type_spelling": ": void",
+          "id": "d92125ef0eee8190a4bf28e9",
+          "kind": "callable",
+          "line": 178,
+          "column": 5,
+          "end_line": 178,
+          "end_column": 9,
+          "start_byte": 6701,
+          "end_byte": 6705,
+          "container_span": {
+            "line": 178,
+            "column": 5,
+            "end_line": 181,
+            "end_column": 6,
+            "start_byte": 6701,
+            "end_byte": 6880
+          },
+          "resolution": "syntax_only"
+        },
+        {
+          "name": "fetch",
+          "qualified_name": "ClientConnector.fetch",
+          "scope": [
+            "ClientConnector"
+          ],
+          "definition": true,
+          "parameters": "(params: FetchParams)",
+          "type_parameters": "",
+          "return_type_spelling": ": Promise<unknown>",
+          "id": "2413b4202456c4bf1535577f",
+          "kind": "callable",
+          "line": 183,
+          "column": 11,
+          "end_line": 183,
+          "end_column": 16,
+          "start_byte": 6892,
+          "end_byte": 6897,
+          "container_span": {
+            "line": 183,
+            "column": 5,
+            "end_line": 191,
+            "end_column": 6,
+            "start_byte": 6886,
+            "end_byte": 7310
+          },
+          "resolution": "syntax_only"
+        },
+        {
+          "name": "send",
+          "qualified_name": "ServerConnector.send",
+          "scope": [
+            "ServerConnector"
+          ],
+          "definition": true,
+          "parameters": "(body: SendParams<T>, reject?: (err: Error) => void)",
+          "type_parameters": "<T extends EventHanlder>",
+          "return_type_spelling": ": void",
+          "id": "a37c39b5d5abcdff61b66a30",
+          "kind": "callable",
+          "line": 236,
+          "column": 5,
+          "end_line": 236,
+          "end_column": 9,
+          "start_byte": 8974,
+          "end_byte": 8978,
+          "container_span": {
+            "line": 236,
+            "column": 5,
+            "end_line": 242,
+            "end_column": 6,
+            "start_byte": 8974,
+            "end_byte": 9228
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "modules/lib/src/utils/Request.ts",
+      "language": "typescript",
+      "sha256_lf_utf8": "5ca8dffdfd415d961f612fb26f5b16d56d2dccf7d684f5f8feffb20e652382d1",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "createRequest",
+          "qualified_name": "createRequest",
+          "scope": [],
+          "definition": true,
+          "parameters": "(connector: ClientConnector)",
+          "type_parameters": "",
+          "return_type_spelling": "",
+          "id": "8517b3f53645f6c0152298e6",
+          "kind": "callable",
+          "line": 30,
+          "column": 17,
+          "end_line": 30,
+          "end_column": 30,
+          "start_byte": 1118,
+          "end_byte": 1131,
+          "container_span": {
+            "line": 30,
+            "column": 8,
+            "end_line": 53,
+            "end_column": 2,
+            "start_byte": 1109,
+            "end_byte": 1842
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "modules/timeline/src/api/interface.ts",
+      "language": "typescript",
+      "sha256_lf_utf8": "993673ebc567fe4ffddc0639ec801b394b5c10cbef6e49678ce251b1fe2fb4d4",
+      "evidence_kind": "source_syntax",
+      "symbols": [],
+      "calls": [
+        {
+          "id": "ba58df2b449f6efed8e12faf",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'systemView/systemViewFtraceStat'",
+            "param",
+            "'timeline'"
+          ],
+          "owner_id": "16201b065c6c4b1b0a25fd9c",
+          "owner_name": "queryFtraceStat",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 233,
+          "column": 12,
+          "end_line": 233,
+          "end_column": 84,
+          "start_byte": 5810,
+          "end_byte": 5882
+        }
+      ],
+      "bindings": []
+    },
+    {
+      "path": "modules/timeline/src/api/request.ts",
+      "language": "typescript",
+      "sha256_lf_utf8": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "getUnitFlows",
+          "qualified_name": "getUnitFlows",
+          "scope": [],
+          "definition": true,
+          "parameters": "(params: GetUnitFlowsParams)",
+          "type_parameters": "",
+          "return_type_spelling": ": Promise<GetUnitFlowsResult>",
+          "id": "94b93c65dcabbff2d238c138",
+          "kind": "callable",
+          "line": 174,
+          "column": 23,
+          "end_line": 174,
+          "end_column": 35,
+          "start_byte": 6696,
+          "end_byte": 6708,
+          "container_span": {
+            "line": 174,
+            "column": 8,
+            "end_line": 176,
+            "end_column": 2,
+            "start_byte": 6681,
+            "end_byte": 6834
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [
+        {
+          "id": "a1be02cc299c1d5a38070598",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'parse/cards'",
+            "param",
+            "'timeline'"
+          ],
+          "owner_id": "e8755927cddfb99bd845f089",
+          "owner_name": "parseCards",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 49,
+          "column": 12,
+          "end_line": 49,
+          "end_column": 64,
+          "start_byte": 1774,
+          "end_byte": 1826
+        },
+        {
+          "id": "e113125751fa792811668155",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'systemView/overall'",
+            "params",
+            "'timeline'",
+            "{ silent: true }"
+          ],
+          "owner_id": "b05ff59bc6c610eff56718fa",
+          "owner_name": "getOverallMetrics",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 57,
+          "column": 23,
+          "end_line": 57,
+          "end_column": 101,
+          "start_byte": 2038,
+          "end_byte": 2116
+        },
+        {
+          "id": "9761413862e9c283964105c0",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'systemView/overall'",
+            "params",
+            "'timeline'",
+            "{ silent: true }"
+          ],
+          "owner_id": "a4de71be00e69ce3002fb067",
+          "owner_name": "getOverallMetrics.<lambda@77:24>.<lambda@90:60>",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 96,
+          "column": 38,
+          "end_line": 96,
+          "end_column": 116,
+          "start_byte": 3458,
+          "end_byte": 3536
+        },
+        {
+          "id": "8ede82c38800317a9ee7f330",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'systemView/overall/more/details'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "dd5145195328a8bb24dce902",
+          "owner_name": "getOverallMetricsMoreList",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 113,
+          "column": 12,
+          "end_line": 113,
+          "end_column": 85,
+          "start_byte": 4076,
+          "end_byte": 4149
+        },
+        {
+          "id": "5c83e374e633329ee8db59ff",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'memcpy/total/list'",
+            "params",
+            "'timeline'",
+            "{ silent: true }"
+          ],
+          "owner_id": "67c556fae67de1f0a6356af9",
+          "owner_name": "getMemcpyOverallMetrics",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 118,
+          "column": 23,
+          "end_line": 118,
+          "end_column": 100,
+          "start_byte": 4345,
+          "end_byte": 4422
+        },
+        {
+          "id": "c7e09f6bafe932603ea588d8",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'memcpy/detail/list'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "a08fc69ce2c9bbba4641b2d6",
+          "owner_name": "getMemcpyOverallMetricsMoreList",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 144,
+          "column": 12,
+          "end_line": 144,
+          "end_column": 72,
+          "start_byte": 5325,
+          "end_byte": 5385
+        },
+        {
+          "id": "bf0f6bf82b03d6a4a9a20495",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'unit/setCardAlias'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "0bb19ac116301fe7e3cf4cbc",
+          "owner_name": "setCardAliasReq",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 149,
+          "column": 12,
+          "end_line": 149,
+          "end_column": 71,
+          "start_byte": 5512,
+          "end_byte": 5571
+        },
+        {
+          "id": "6bf492f55ea8c558c7f97608",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'expertAnalysis/AICoreFreq'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "a5cdfb110ce01ca27097b922",
+          "owner_name": "queryExpertAnalysis",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 154,
+          "column": 12,
+          "end_line": 154,
+          "end_column": 79,
+          "start_byte": 5740,
+          "end_byte": 5807
+        },
+        {
+          "id": "062e7151f77d3ad98c3daade",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'advisor/operatorDispatch'",
+            "params",
+            "'advisor'"
+          ],
+          "owner_id": "e727c7e6906fc9df963f3dbe",
+          "owner_name": "queryOperatorDispatch",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 159,
+          "column": 12,
+          "end_line": 159,
+          "end_column": 77,
+          "start_byte": 5983,
+          "end_byte": 6048
+        },
+        {
+          "id": "b66b769845b4e7d1d30b8d1d",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'query/all/same/operators/duration'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "b6756774be2cbd2d5063525f",
+          "owner_name": "queryAllSameOperatorsDuration",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 163,
+          "column": 12,
+          "end_line": 163,
+          "end_column": 87,
+          "start_byte": 6210,
+          "end_byte": 6285
+        },
+        {
+          "id": "ecfae47cf2e93f028623f637",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'unit/kernelDetail'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "7d3ab148a06ca98661879dda",
+          "owner_name": "queryCommunicationKernelDetail",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 167,
+          "column": 12,
+          "end_line": 167,
+          "end_column": 71,
+          "start_byte": 6449,
+          "end_byte": 6508
+        },
+        {
+          "id": "779fb151271644b184639685",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'create/curve'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "b98ed5608b325797c6997436",
+          "owner_name": "createCurve",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 171,
+          "column": 12,
+          "end_line": 171,
+          "end_column": 66,
+          "start_byte": 6615,
+          "end_byte": 6669
+        },
+        {
+          "id": "e335c8342fbf0d7eebe45301",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'unit/flows'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "94b93c65dcabbff2d238c138",
+          "owner_name": "getUnitFlows",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 175,
+          "column": 12,
+          "end_line": 175,
+          "end_column": 64,
+          "start_byte": 6779,
+          "end_byte": 6831
+        },
+        {
+          "id": "2e2d0c141933c2d1b41872f7",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'timeline/rankOffset'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "27c756acbcd5ce539cff1a0c",
+          "owner_name": "queryTimelineOffset",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 179,
+          "column": 12,
+          "end_line": 179,
+          "end_column": 73,
+          "start_byte": 6962,
+          "end_byte": 7023
+        },
+        {
+          "id": "99418a4b4a388e8800bdb95d",
+          "callee_spelling": "window.requestData",
+          "argument_spellings": [
+            "'systemView/kernelMfu/list'",
+            "params",
+            "'timeline'"
+          ],
+          "owner_id": "94372eacf56ae828348b39b7",
+          "owner_name": "queryKernelMfuList",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 183,
+          "column": 12,
+          "end_line": 183,
+          "end_column": 79,
+          "start_byte": 7143,
+          "end_byte": 7210
+        }
+      ],
+      "bindings": []
+    },
+    {
+      "path": "modules/timeline/src/bootstrap.tsx",
+      "language": "tsx",
+      "sha256_lf_utf8": "3ba98c0d83468a9a2b6fe54faa6f81c0d4016730836175616d6c801c013c47a6",
+      "evidence_kind": "source_syntax",
+      "symbols": [],
+      "calls": [],
+      "bindings": [
+        {
+          "id": "7db3816acf64a04907eaff6b",
+          "left_spelling": "window.requestData",
+          "right_spelling": "createRequest(connector)",
+          "resolution": "syntax_only",
+          "execution_condition": "not_evaluated",
+          "line": 89,
+          "column": 1,
+          "end_line": 89,
+          "end_column": 46,
+          "start_byte": 3210,
+          "end_byte": 3255
+        }
+      ]
+    },
+    {
+      "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+      "language": "cpp",
+      "sha256_lf_utf8": "a55661836f94df4417b0c90e106227ea5385ec87df444164e9e2b31b4d831250",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "HandleRequest",
+          "qualified_name": "Dic::Module::ModuleRequestHandler::HandleRequest",
+          "scope": [
+            "Dic::Module",
+            "ModuleRequestHandler"
+          ],
+          "definition": false,
+          "parameters": "(std::unique_ptr<Request> requestPtr)",
+          "signature_spelling": "virtual bool HandleRequest(std::unique_ptr<Request> requestPtr) = 0;",
+          "return_type_spelling": "bool",
+          "virtual": true,
+          "pure_virtual": true,
+          "id": "7d4d2ee5f1892c0247bdfbbf",
+          "kind": "callable",
+          "line": 30,
+          "column": 18,
+          "end_line": 30,
+          "end_column": 31,
+          "start_byte": 1178,
+          "end_byte": 1191,
+          "container_span": {
+            "line": 30,
+            "column": 5,
+            "end_line": 30,
+            "end_column": 73,
+            "start_byte": 1165,
+            "end_byte": 1233
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+      "language": "cpp",
+      "sha256_lf_utf8": "9b9aa26b47c3b5a661dc285c8b775a25f619f5efe9dd68dfb7583b012b8d4964",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "QueryUnitFlows",
+          "qualified_name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+          "scope": [
+            "Dic::Module::FullDb",
+            "DbTraceDataBase"
+          ],
+          "definition": false,
+          "parameters": "(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId)",
+          "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+          "return_type_spelling": "bool",
+          "virtual": false,
+          "pure_virtual": false,
+          "id": "7bbf830723089702d85099fa",
+          "kind": "callable",
+          "line": 114,
+          "column": 10,
+          "end_line": 114,
+          "end_column": 24,
+          "start_byte": 3797,
+          "end_byte": 3811,
+          "container_span": {
+            "line": 114,
+            "column": 5,
+            "end_line": 115,
+            "end_column": 59,
+            "start_byte": 3792,
+            "end_byte": 3957
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+      "language": "cpp",
+      "sha256_lf_utf8": "2cea03216c3ca5acaeba1e37173e7dcac9c2c4ecdd103c9fecdf08c4e7a39593",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "QueryUnitFlows",
+          "qualified_name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+          "scope": [
+            "Dic::Module::FullDb"
+          ],
+          "definition": true,
+          "parameters": "(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+          "signature_spelling": "bool DbTraceDataBase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+          "return_type_spelling": "bool",
+          "virtual": false,
+          "pure_virtual": false,
+          "id": "d7ab5e9beb6d6ec70ca03837",
+          "kind": "callable",
+          "line": 337,
+          "column": 6,
+          "end_line": 337,
+          "end_column": 37,
+          "start_byte": 16394,
+          "end_byte": 16425,
+          "container_span": {
+            "line": 337,
+            "column": 1,
+            "end_line": 378,
+            "end_column": 2,
+            "start_byte": 16389,
+            "end_byte": 19080
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+      "language": "cpp",
+      "sha256_lf_utf8": "65c731fa0281e9b59253bad2ab7439194d50e15ae4891ee9d616f0f52259da54",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "QueryUnitFlows",
+          "qualified_name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+          "scope": [
+            "Dic::Module::Timeline"
+          ],
+          "definition": true,
+          "parameters": "(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+          "signature_spelling": "bool TextTraceDatabase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+          "return_type_spelling": "bool",
+          "virtual": false,
+          "pure_virtual": false,
+          "id": "7769ebee6acbd7410d9384eb",
+          "kind": "callable",
+          "line": 636,
+          "column": 6,
+          "end_line": 636,
+          "end_column": 39,
+          "start_byte": 25978,
+          "end_byte": 26011,
+          "container_span": {
+            "line": 636,
+            "column": 1,
+            "end_line": 718,
+            "end_column": 2,
+            "start_byte": 25973,
+            "end_byte": 30702
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+      "language": "cpp",
+      "sha256_lf_utf8": "accb71081878de9042db53db3f82c2df3e9c35dbff3b5042f376feed986b836c",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "QueryUnitFlows",
+          "qualified_name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+          "scope": [
+            "Dic::Module::Timeline",
+            "TextTraceDatabase"
+          ],
+          "definition": false,
+          "parameters": "(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId)",
+          "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+          "return_type_spelling": "bool",
+          "virtual": false,
+          "pure_virtual": false,
+          "id": "75a9d93afd8c66fc195c58b5",
+          "kind": "callable",
+          "line": 81,
+          "column": 10,
+          "end_line": 81,
+          "end_column": 24,
+          "start_byte": 3519,
+          "end_byte": 3533,
+          "container_span": {
+            "line": 81,
+            "column": 5,
+            "end_line": 82,
+            "end_column": 59,
+            "start_byte": 3514,
+            "end_byte": 3679
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+      "language": "cpp",
+      "sha256_lf_utf8": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "QueryUnitFlows",
+          "qualified_name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+          "scope": [
+            "Dic::Module::Timeline",
+            "VirtualTraceDatabase"
+          ],
+          "definition": false,
+          "parameters": "(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId)",
+          "signature_spelling": "virtual bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) = 0;",
+          "return_type_spelling": "bool",
+          "virtual": true,
+          "pure_virtual": true,
+          "id": "e4d89fa97268dbc477d2f8be",
+          "kind": "callable",
+          "line": 83,
+          "column": 18,
+          "end_line": 83,
+          "end_column": 32,
+          "start_byte": 3064,
+          "end_byte": 3078,
+          "container_span": {
+            "line": 83,
+            "column": 5,
+            "end_line": 84,
+            "end_column": 54,
+            "start_byte": 3051,
+            "end_byte": 3219
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "language": "cpp",
+      "sha256_lf_utf8": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "HandleRequest",
+          "qualified_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+          "scope": [
+            "Dic",
+            "Module",
+            "Timeline"
+          ],
+          "definition": true,
+          "parameters": "(std::unique_ptr<Protocol::Request> requestPtr)",
+          "signature_spelling": "bool QueryFlowsBySliceInfoHandler::HandleRequest(std::unique_ptr<Protocol::Request> requestPtr)",
+          "return_type_spelling": "bool",
+          "virtual": false,
+          "pure_virtual": false,
+          "id": "d7a6f20ca5a84774ae8db47d",
+          "kind": "callable",
+          "line": 28,
+          "column": 6,
+          "end_line": 28,
+          "end_column": 49,
+          "start_byte": 1026,
+          "end_byte": 1069,
+          "container_span": {
+            "line": 28,
+            "column": 1,
+            "end_line": 67,
+            "end_column": 2,
+            "start_byte": 1021,
+            "end_byte": 3055
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [
+        {
+          "id": "a2e15a2a22054e9348abea55",
+          "callee_spelling": "database->QueryUnitFlows",
+          "argument_spellings": [
+            "queryParams",
+            "response.body",
+            "minTimestamp",
+            "trackId"
+          ],
+          "owner_id": "d7a6f20ca5a84774ae8db47d",
+          "owner_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+          "resolution": "unresolved",
+          "reason": "syntax_only_no_type_or_value_resolution",
+          "line": 57,
+          "column": 9,
+          "end_line": 57,
+          "end_column": 84,
+          "start_byte": 2680,
+          "end_byte": 2755
+        }
+      ],
+      "bindings": []
+    },
+    {
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+      "language": "cpp",
+      "sha256_lf_utf8": "8ea8fa1410efa366d11008daf93b49f6e553070110e80f77cc5c11c87cdc40d1",
+      "evidence_kind": "source_syntax",
+      "symbols": [
+        {
+          "name": "HandleRequest",
+          "qualified_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+          "scope": [
+            "Dic",
+            "Module",
+            "Timeline",
+            "QueryFlowsBySliceInfoHandler"
+          ],
+          "definition": false,
+          "parameters": "(std::unique_ptr<Protocol::Request> requestPtr)",
+          "signature_spelling": "bool HandleRequest(std::unique_ptr<Protocol::Request> requestPtr) override;",
+          "return_type_spelling": "bool",
+          "virtual": false,
+          "pure_virtual": false,
+          "id": "1753f0716547213ebd01840e",
+          "kind": "callable",
+          "line": 31,
+          "column": 10,
+          "end_line": 31,
+          "end_column": 23,
+          "start_byte": 1180,
+          "end_byte": 1193,
+          "container_span": {
+            "line": 31,
+            "column": 5,
+            "end_line": 31,
+            "end_column": 80,
+            "start_byte": 1175,
+            "end_byte": 1250
+          },
+          "resolution": "syntax_only"
+        }
+      ],
+      "calls": [],
+      "bindings": []
+    }
+  ],
+  "selection": "Named source observations for review; full facts remain in the external run directory"
+}

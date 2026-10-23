@@ -6,7 +6,7 @@
 
 **设计范围 v0.1**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 
-当前已完成工具试验、设计基线和实施计划。下一步从底座选型和 `unit/flows` 静态贯通开始，再接入运行追踪与历史资产。实施安排见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
+当前 P1 已完成三工具统一输入对照、语法事实补充和数据库扩展维护验证；调用目标与类型关联继续推进。结果与复现见 [P1 实测](experiments/2026-10-23-p1/README.md)。后续贯通 `unit/flows`，再接入运行追踪与历史资产。实施安排见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
 
 ## 我们要解决的问题
 
@@ -59,6 +59,7 @@ flowchart TD
 | [工具调查](research/tools.md) | 已实测工具、源码核对候选、许可证与限制 |
 | [已有实测记录](research/experiments/2026-10-23.md) | Windows 试验的版本、结果和证据边界 |
 | [CodeGraph / code-map 新实测](experiments/2026-10-23-unit-flows/README.md) | 原版能连接到哪里、HTTP 对照、更新差异、证据与复现脚本 |
+| [P1 统一对照与事实补充](experiments/2026-10-23-p1/README.md) | CBM/CGC/CodeGraph 相同输入、独立语法补充、存储维护及剩余门槛 |
 | [下一轮实验](experiments/README.md) | 如何公平比较，优先验证哪些问题 |
 | [讨论清单](docs/04-research-agenda.md) | 今天要逐项回答的问题与决策门槛 |
 | [资料来源](research/sources.md) | 论文、仓库、官方文档及固定版本 |
@@ -72,10 +73,11 @@ flowchart TD
 ```sh
 python scripts/check_research.py
 python scripts/check_trial_evidence.py
+python scripts/check_p1_evidence.py
 python scripts/verify_case_sources.py --repo /path/to/msinsight
 ```
 
-前两条检查文档、案例和新实测证据的一致性。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网，也不构建完整调用图。实际工具复现步骤见新实测文档。
+前三条检查文档、案例和实测证据的一致性。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网，也不构建完整调用图。适配器测试另需 `python -m pip install -r requirements-store.txt`，随后执行 `python -m unittest discover -s tests -v`。原生工具复现步骤见相应实测文档。
 
 ## 协作原则
 

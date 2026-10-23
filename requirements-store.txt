@@ -1,0 +1,2 @@
+-r requirements-facts.txt
+kuzu==0.11.3

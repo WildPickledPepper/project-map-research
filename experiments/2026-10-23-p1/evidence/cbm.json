@@ -1,0 +1,1662 @@
+{
+  "source_index": {
+    "tool": "index_repository",
+    "args": {
+      "repo_path": "<source>",
+      "name": "p1_source",
+      "mode": "moderate",
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 2.109,
+    "result": {
+      "project": "p1_source",
+      "excluded": {
+        "dirs": [
+          "modules/timeline/src/insight/units/__test__"
+        ],
+        "count": 1,
+        "truncated": false
+      },
+      "not_indexed_files_count": 2,
+      "not_indexed_files": {
+        "files": [
+          {
+            "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+            "reason": "fast-pattern"
+          },
+          {
+            "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+            "reason": "fast-pattern"
+          }
+        ],
+        "count": 2,
+        "truncated": false,
+        "note": "Excluded by design (gitignore/.cbmignore/skip-lists); examples only — full list in 'logfile'."
+      },
+      "skipped_count": 0,
+      "logfile": "<output>/c/logs/p1_source-1792742237.log",
+      "parse_partial_count": 1,
+      "parse_partial": {
+        "files": [
+          {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+            "error_ranges": "2126-2126,2160-2160,2164-2164"
+          }
+        ],
+        "count": 1,
+        "truncated": false,
+        "note": "Indexed, but constructs in these line ranges may be missing (best-effort signal); examples only — full list via index_status or 'logfile'."
+      },
+      "parse_unusable_count": 0,
+      "nodes": 2260,
+      "edges": 6600,
+      "expected_nodes": 2260,
+      "expected_edges": 6600,
+      "adr_present": false,
+      "adr_hint": "Project indexed. Consider creating an Architecture Decision Record: explore the codebase with get_architecture(aspects=['all']), then use manage_adr(mode='update') to persist architectural insights across sessions.",
+      "artifact_present": false,
+      "status": "indexed"
+    }
+  },
+  "source_coverage": {
+    "tool": "check_index_coverage",
+    "args": {
+      "project": "p1_source",
+      "diagnostics": "full",
+      "path_limit": 128,
+      "paths": [
+        "modules/framework/package.json",
+        "modules/framework/src/centralServer/websocket/connection.ts",
+        "modules/framework/src/centralServer/websocket/defs.ts",
+        "modules/framework/src/connection/defs.ts",
+        "modules/framework/src/connection/index.ts",
+        "modules/framework/src/connection/interceptor.ts",
+        "modules/framework/src/connection/interceptorHandler.ts",
+        "modules/framework/src/connection/notification.ts",
+        "modules/framework/src/connection/notificationHandler.ts",
+        "modules/framework/src/connection/sendNotification.ts",
+        "modules/lib/index.ts",
+        "modules/lib/package.json",
+        "modules/lib/src/connection/index.ts",
+        "modules/lib/src/utils/Console.ts",
+        "modules/lib/src/utils/index.ts",
+        "modules/lib/src/utils/Request.ts",
+        "modules/lib/tsconfig.json",
+        "modules/package.json",
+        "modules/timeline/package.json",
+        "modules/timeline/src/api/interface.ts",
+        "modules/timeline/src/api/request.ts",
+        "modules/timeline/src/bootstrap.tsx",
+        "modules/timeline/src/components/FilterLinkLine.tsx",
+        "modules/timeline/src/connection/baseline.ts",
+        "modules/timeline/src/connection/defs.ts",
+        "modules/timeline/src/connection/handler.ts",
+        "modules/timeline/src/connection/index.ts",
+        "modules/timeline/src/connection/messageSender.ts",
+        "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+        "modules/timeline/src/insight/units/AscendUnit.tsx",
+        "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+        "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+        "modules/timeline/tsconfig.json",
+        "modules/tsconfig.json",
+        "package.json",
+        "server/msinsight/include/base/BaseModule.h",
+        "server/msinsight/include/base/ModuleRequestHandler.h",
+        "server/msinsight/src/base/BaseModule.cpp",
+        "server/msinsight/src/base/ModuleRequestHandler.cpp",
+        "server/src/modules/defs/ProtocolDefs.h",
+        "server/src/modules/ModuleManager.cpp",
+        "server/src/modules/ModuleManager.h",
+        "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+        "server/src/modules/timeline/core/database/DataBaseManager.h",
+        "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+        "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+        "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+        "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp",
+        "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+        "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+        "server/src/modules/timeline/protocol/TimelineBodyStruct.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+        "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+        "server/src/modules/timeline/protocol/TimelineProtocol.h",
+        "server/src/modules/timeline/protocol/TimelineProtocolEvent.h",
+        "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp",
+        "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+        "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+        "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+        "server/src/modules/timeline/protocol/TimelineProtocolUtil.h",
+        "server/src/modules/timeline/TimelineModule.cpp",
+        "server/src/modules/timeline/TimelineModule.h"
+      ],
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.031,
+    "result": {
+      "project": "p1_source",
+      "signal": "best_effort",
+      "indexed_at": "2026-10-23T07:57:17Z",
+      "metadata": {
+        "generation": "2026-10-23T07:57:17Z",
+        "index_mode": "moderate",
+        "recorded_at": "2026-10-23T07:57:17Z",
+        "recording_status": "complete",
+        "ignored_files_stored": 2,
+        "ignored_files_total": 2,
+        "hash_records_complete": true,
+        "coverage_version": 9,
+        "generation_matches": true
+      },
+      "paths": [
+        {
+          "requested_path": "modules/framework/package.json",
+          "path": "modules/framework/package.json",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/centralServer/websocket/connection.ts",
+          "path": "modules/framework/src/centralServer/websocket/connection.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/centralServer/websocket/defs.ts",
+          "path": "modules/framework/src/centralServer/websocket/defs.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/connection/defs.ts",
+          "path": "modules/framework/src/connection/defs.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/connection/index.ts",
+          "path": "modules/framework/src/connection/index.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/connection/interceptor.ts",
+          "path": "modules/framework/src/connection/interceptor.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/connection/interceptorHandler.ts",
+          "path": "modules/framework/src/connection/interceptorHandler.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/connection/notification.ts",
+          "path": "modules/framework/src/connection/notification.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/connection/notificationHandler.ts",
+          "path": "modules/framework/src/connection/notificationHandler.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/framework/src/connection/sendNotification.ts",
+          "path": "modules/framework/src/connection/sendNotification.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/lib/index.ts",
+          "path": "modules/lib/index.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/lib/package.json",
+          "path": "modules/lib/package.json",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/lib/src/connection/index.ts",
+          "path": "modules/lib/src/connection/index.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/lib/src/utils/Console.ts",
+          "path": "modules/lib/src/utils/Console.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/lib/src/utils/index.ts",
+          "path": "modules/lib/src/utils/index.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/lib/src/utils/Request.ts",
+          "path": "modules/lib/src/utils/Request.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/lib/tsconfig.json",
+          "path": "modules/lib/tsconfig.json",
+          "status": "no_recorded_issue",
+          "freshness": "not_tracked",
+          "recommended_action": "read_source_and_reindex",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/package.json",
+          "path": "modules/package.json",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/package.json",
+          "path": "modules/timeline/package.json",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/api/interface.ts",
+          "path": "modules/timeline/src/api/interface.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/api/request.ts",
+          "path": "modules/timeline/src/api/request.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/bootstrap.tsx",
+          "path": "modules/timeline/src/bootstrap.tsx",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/components/FilterLinkLine.tsx",
+          "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/connection/baseline.ts",
+          "path": "modules/timeline/src/connection/baseline.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/connection/defs.ts",
+          "path": "modules/timeline/src/connection/defs.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/connection/handler.ts",
+          "path": "modules/timeline/src/connection/handler.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/connection/index.ts",
+          "path": "modules/timeline/src/connection/index.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/connection/messageSender.ts",
+          "path": "modules/timeline/src/connection/messageSender.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+          "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+          "status": "excluded",
+          "freshness": "not_tracked",
+          "recommended_action": "read_source_and_reindex",
+          "coverage": [
+            {
+              "path": "modules/timeline/src/insight/units/__test__",
+              "kind": "not_indexed_dir",
+              "match": "ancestor",
+              "detail": "excluded subtree"
+            }
+          ]
+        },
+        {
+          "requested_path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+          "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+          "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+          "status": "excluded",
+          "freshness": "not_tracked",
+          "recommended_action": "read_source_and_reindex",
+          "coverage": [
+            {
+              "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+              "kind": "not_indexed_file",
+              "match": "exact",
+              "detail": "fast-pattern"
+            }
+          ]
+        },
+        {
+          "requested_path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+          "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+          "status": "excluded",
+          "freshness": "not_tracked",
+          "recommended_action": "read_source_and_reindex",
+          "coverage": [
+            {
+              "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+              "kind": "not_indexed_file",
+              "match": "exact",
+              "detail": "fast-pattern"
+            }
+          ]
+        },
+        {
+          "requested_path": "modules/timeline/tsconfig.json",
+          "path": "modules/timeline/tsconfig.json",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "modules/tsconfig.json",
+          "path": "modules/tsconfig.json",
+          "status": "no_recorded_issue",
+          "freshness": "not_tracked",
+          "recommended_action": "read_source_and_reindex",
+          "coverage": []
+        },
+        {
+          "requested_path": "package.json",
+          "path": "package.json",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/msinsight/include/base/BaseModule.h",
+          "path": "server/msinsight/include/base/BaseModule.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/msinsight/include/base/ModuleRequestHandler.h",
+          "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/msinsight/src/base/BaseModule.cpp",
+          "path": "server/msinsight/src/base/BaseModule.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+          "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/defs/ProtocolDefs.h",
+          "path": "server/src/modules/defs/ProtocolDefs.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/ModuleManager.cpp",
+          "path": "server/src/modules/ModuleManager.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/ModuleManager.h",
+          "path": "server/src/modules/ModuleManager.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+          "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+          "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "partial",
+          "freshness": "metadata_match",
+          "recommended_action": "read_ranges_and_verify_scope",
+          "coverage": [
+            {
+              "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+              "kind": "parse_partial",
+              "match": "exact",
+              "ranges": [
+                {
+                  "start": 2126,
+                  "end": 2126
+                },
+                {
+                  "start": 2160,
+                  "end": 2160
+                },
+                {
+                  "start": 2164,
+                  "end": 2164
+                }
+              ],
+              "detail": "2126-2126,2160-2160,2164-2164"
+            }
+          ]
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp",
+          "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+          "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h",
+          "path": "server/src/modules/timeline/protocol/TimelineBodyStruct.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+          "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocol.h",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocol.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocolEvent.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocolRequest.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h",
+          "path": "server/src/modules/timeline/protocol/TimelineProtocolUtil.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/TimelineModule.cpp",
+          "path": "server/src/modules/timeline/TimelineModule.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "server/src/modules/timeline/TimelineModule.h",
+          "path": "server/src/modules/timeline/TimelineModule.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        }
+      ],
+      "path_total": 65,
+      "path_returned": 65,
+      "path_has_more": false,
+      "scopes": [],
+      "scope_total": 0,
+      "scope_returned": 0,
+      "scope_truncated": false,
+      "has_more": false,
+      "caveat": "Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable."
+    }
+  },
+  "source_files": {
+    "tool": "query_graph",
+    "args": {
+      "project": "p1_source",
+      "query": "MATCH (n:File) RETURN n.file_path LIMIT 1000",
+      "max_output_tokens": 30000,
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.032,
+    "result": {
+      "columns": [
+        "n.file_path"
+      ],
+      "rows": [
+        [
+          "server/src/modules/ModuleManager.cpp"
+        ],
+        [
+          "server/src/modules/ModuleManager.h"
+        ],
+        [
+          "server/src/modules/timeline/TimelineModule.cpp"
+        ],
+        [
+          "server/src/modules/timeline/TimelineModule.h"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineBodyStruct.h"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocol.cpp"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocol.h"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocolEvent.h"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocolRequest.h"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocolResponse.h"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp"
+        ],
+        [
+          "server/src/modules/timeline/protocol/TimelineProtocolUtil.h"
+        ],
+        [
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+        ],
+        [
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h"
+        ],
+        [
+          "server/src/modules/timeline/core/database/DataBaseManager.cpp"
+        ],
+        [
+          "server/src/modules/timeline/core/database/DataBaseManager.h"
+        ],
+        [
+          "server/src/modules/timeline/core/database/DbTraceDataBase.cpp"
+        ],
+        [
+          "server/src/modules/timeline/core/database/DbTraceDataBase.h"
+        ],
+        [
+          "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp"
+        ],
+        [
+          "server/src/modules/timeline/core/database/TextTraceDatabase.cpp"
+        ],
+        [
+          "server/src/modules/timeline/core/database/TextTraceDatabase.h"
+        ],
+        [
+          "server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp"
+        ],
+        [
+          "server/src/modules/timeline/core/database/VirtualTraceDatabase.h"
+        ],
+        [
+          "server/src/modules/defs/ProtocolDefs.h"
+        ],
+        [
+          "server/msinsight/src/base/BaseModule.cpp"
+        ],
+        [
+          "server/msinsight/src/base/ModuleRequestHandler.cpp"
+        ],
+        [
+          "server/msinsight/include/base/BaseModule.h"
+        ],
+        [
+          "server/msinsight/include/base/ModuleRequestHandler.h"
+        ],
+        [
+          "modules/timeline/src/bootstrap.tsx"
+        ],
+        [
+          "modules/timeline/src/insight/units/AscendUnit.tsx"
+        ],
+        [
+          "modules/timeline/src/connection/baseline.ts"
+        ],
+        [
+          "modules/timeline/src/connection/defs.ts"
+        ],
+        [
+          "modules/timeline/src/connection/handler.ts"
+        ],
+        [
+          "modules/timeline/src/connection/index.ts"
+        ],
+        [
+          "modules/timeline/src/connection/messageSender.ts"
+        ],
+        [
+          "modules/timeline/src/components/FilterLinkLine.tsx"
+        ],
+        [
+          "modules/timeline/src/api/interface.ts"
+        ],
+        [
+          "modules/timeline/src/api/request.ts"
+        ],
+        [
+          "modules/lib/index.ts"
+        ],
+        [
+          "modules/lib/src/utils/Console.ts"
+        ],
+        [
+          "modules/lib/src/utils/index.ts"
+        ],
+        [
+          "modules/lib/src/utils/Request.ts"
+        ],
+        [
+          "modules/lib/src/connection/index.ts"
+        ],
+        [
+          "modules/framework/src/connection/defs.ts"
+        ],
+        [
+          "modules/framework/src/connection/index.ts"
+        ],
+        [
+          "modules/framework/src/connection/interceptor.ts"
+        ],
+        [
+          "modules/framework/src/connection/interceptorHandler.ts"
+        ],
+        [
+          "modules/framework/src/connection/notification.ts"
+        ],
+        [
+          "modules/framework/src/connection/notificationHandler.ts"
+        ],
+        [
+          "modules/framework/src/connection/sendNotification.ts"
+        ],
+        [
+          "modules/framework/src/centralServer/websocket/connection.ts"
+        ],
+        [
+          "modules/framework/src/centralServer/websocket/defs.ts"
+        ]
+      ],
+      "returned": 54,
+      "total": 54,
+      "total_relation": "eq",
+      "has_more": false,
+      "truncated": false
+    }
+  },
+  "source_symbols": {
+    "tool": "query_graph",
+    "args": {
+      "project": "p1_source",
+      "query": "MATCH (n) WHERE n.name IN ['QueryUnitFlows','HandleRequest','send','fetch','getUnitFlows','createRequest','BaseConnector','ClientConnector','VirtualTraceDatabase','DbTraceDataBase','TextTraceDatabase'] RETURN n.name,n.label,n.qualified_name,n.file_path,n.start_line,n.end_line LIMIT 500",
+      "max_output_tokens": 30000,
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.015,
+    "result": {
+      "columns": [
+        "n.name",
+        "n.label",
+        "n.qualified_name",
+        "n.file_path",
+        "n.start_line",
+        "n.end_line"
+      ],
+      "rows": [
+        [
+          "fetch",
+          "Method",
+          "p1_source.modules.framework.src.centralServer.websocket.connection.Connection.fetch",
+          "modules/framework/src/centralServer/websocket/connection.ts",
+          "172",
+          "202"
+        ],
+        [
+          "BaseConnector",
+          "Class",
+          "p1_source.modules.lib.src.connection.BaseConnector",
+          "modules/lib/src/connection/index.ts",
+          "33",
+          "147"
+        ],
+        [
+          "send",
+          "Method",
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "78",
+          "96"
+        ],
+        [
+          "ClientConnector",
+          "Class",
+          "p1_source.modules.lib.src.connection.ClientConnector",
+          "modules/lib/src/connection/index.ts",
+          "161",
+          "213"
+        ],
+        [
+          "send",
+          "Method",
+          "p1_source.modules.lib.src.connection.ClientConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "178",
+          "181"
+        ],
+        [
+          "fetch",
+          "Method",
+          "p1_source.modules.lib.src.connection.ClientConnector.fetch",
+          "modules/lib/src/connection/index.ts",
+          "183",
+          "191"
+        ],
+        [
+          "send",
+          "Method",
+          "p1_source.modules.lib.src.connection.ServerConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "236",
+          "242"
+        ],
+        [
+          "createRequest",
+          "Function",
+          "p1_source.modules.lib.src.utils.Request.createRequest",
+          "modules/lib/src/utils/Request.ts",
+          "30",
+          "53"
+        ],
+        [
+          "getUnitFlows",
+          "Function",
+          "p1_source.modules.timeline.src.api.request.getUnitFlows",
+          "modules/timeline/src/api/request.ts",
+          "174",
+          "176"
+        ],
+        [
+          "DbTraceDataBase",
+          "Method",
+          "p1_source.server.src.modules.timeline.core.database.DbTraceDataBase.DbTraceDataBase.DbTraceDataBase",
+          "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "38",
+          "45"
+        ],
+        [
+          "DbTraceDataBase",
+          "Class",
+          "p1_source.server.src.modules.timeline.core.database.DbTraceDataBase.Dic::Module::FullDb.DbTraceDataBase",
+          "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+          "91",
+          "437"
+        ],
+        [
+          "QueryUnitFlows",
+          "Method",
+          "p1_source.server.src.modules.timeline.core.database.DbTraceDataBase2.DbTraceDataBase.QueryUnitFlows",
+          "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "337",
+          "378"
+        ],
+        [
+          "TextTraceDatabase",
+          "Method",
+          "p1_source.server.src.modules.timeline.core.database.TextTraceDatabase.TextTraceDatabase.TextTraceDatabase",
+          "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "71",
+          "78"
+        ],
+        [
+          "QueryUnitFlows",
+          "Method",
+          "p1_source.server.src.modules.timeline.core.database.TextTraceDatabase.TextTraceDatabase.QueryUnitFlows",
+          "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "636",
+          "718"
+        ],
+        [
+          "TextTraceDatabase",
+          "Class",
+          "p1_source.server.src.modules.timeline.core.database.TextTraceDatabase.Dic::Module::Timeline.TextTraceDatabase",
+          "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+          "36",
+          "298"
+        ],
+        [
+          "VirtualTraceDatabase",
+          "Class",
+          "p1_source.server.src.modules.timeline.core.database.VirtualTraceDatabase.Dic::Module::Timeline.VirtualTraceDatabase",
+          "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+          "64",
+          "313"
+        ],
+        [
+          "VirtualTraceDatabase",
+          "Method",
+          "p1_source.server.src.modules.timeline.core.database.VirtualTraceDatabase.Dic::Module::Timeline.VirtualTraceDatabase.VirtualTraceDatabase",
+          "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+          "66",
+          "66"
+        ],
+        [
+          "HandleRequest",
+          "Method",
+          "p1_source.server.src.modules.timeline.handler.QueryFlowsBySliceInfoHandler.QueryFlowsBySliceInfoHandler.HandleRequest",
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "28",
+          "67"
+        ]
+      ],
+      "returned": 18,
+      "total": 18,
+      "total_relation": "eq",
+      "has_more": false,
+      "truncated": false
+    }
+  },
+  "source_calls": {
+    "tool": "query_graph",
+    "args": {
+      "project": "p1_source",
+      "query": "MATCH (a)-[r:CALLS]->(b) WHERE a.name IN ['HandleRequest','getUnitFlows','fetch','send'] RETURN a.qualified_name,a.file_path,b.qualified_name,b.file_path,r.properties LIMIT 500",
+      "max_output_tokens": 30000,
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 2.063,
+    "result": {
+      "columns": [
+        "a.qualified_name",
+        "a.file_path",
+        "b.qualified_name",
+        "b.file_path",
+        "r.properties"
+      ],
+      "rows": [
+        [
+          "p1_source.modules.framework.src.centralServer.websocket.connection.Connection.fetch",
+          "modules/framework/src/centralServer/websocket/connection.ts",
+          "p1_source.modules.framework.src.centralServer.websocket.connection.Connection.request",
+          "modules/framework/src/centralServer/websocket/connection.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.framework.src.centralServer.websocket.connection.Connection.fetch",
+          "modules/framework/src/centralServer/websocket/connection.ts",
+          "p1_source.modules.framework.src.centralServer.websocket.connection.Connection.getCallback",
+          "modules/framework/src/centralServer/websocket/connection.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.connection.BaseConnector.getClientWindows",
+          "modules/lib/src/connection/index.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.connection.ClientConnector.getTargetWindows",
+          "modules/lib/src/connection/index.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.utils.Console.CustomConsole.warn",
+          "modules/lib/src/utils/Console.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.connection.BaseConnector.printErrMsg",
+          "modules/lib/src/connection/index.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.connection.BaseConnector.getTargetOrigin",
+          "modules/lib/src/connection/index.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.ClientConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.ClientConnector.fetch",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          ""
+        ],
+        [
+          "p1_source.modules.lib.src.connection.ServerConnector.send",
+          "modules/lib/src/connection/index.ts",
+          "p1_source.modules.lib.src.connection.BaseConnector.send",
+          "modules/lib/src/connection/index.ts",
+          ""
+        ],
+        [
+          "p1_source.server.src.modules.timeline.handler.QueryFlowsBySliceInfoHandler.QueryFlowsBySliceInfoHandler.HandleRequest",
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "p1_source.server.msinsight.src.base.ModuleRequestHandler.ModuleRequestHandler.SetBaseResponse",
+          "server/msinsight/src/base/ModuleRequestHandler.cpp",
+          ""
+        ],
+        [
+          "p1_source.server.src.modules.timeline.handler.QueryFlowsBySliceInfoHandler.QueryFlowsBySliceInfoHandler.HandleRequest",
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "p1_source.server.src.modules.timeline.core.database.DataBaseManager.DataBaseManager.Instance",
+          "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+          ""
+        ],
+        [
+          "p1_source.server.src.modules.timeline.handler.QueryFlowsBySliceInfoHandler.QueryFlowsBySliceInfoHandler.HandleRequest",
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "p1_source.server.src.modules.timeline.protocol.TimelineParamStrcut.Dic::Protocol.SearchAllSliceParams.CheckParams",
+          "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+          ""
+        ],
+        [
+          "p1_source.server.src.modules.timeline.handler.QueryFlowsBySliceInfoHandler.QueryFlowsBySliceInfoHandler.HandleRequest",
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "p1_source.server.src.modules.timeline.core.database.DataBaseManager.DataBaseManager.GetTraceDatabaseByRankId",
+          "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+          ""
+        ],
+        [
+          "p1_source.server.src.modules.timeline.handler.QueryFlowsBySliceInfoHandler.QueryFlowsBySliceInfoHandler.HandleRequest",
+          "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "p1_source.server.src.modules.timeline.core.database.DataBaseManager.DataBaseManager.GetTraceDatabaseByFileId",
+          "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+          ""
+        ]
+      ],
+      "returned": 15,
+      "total": 15,
+      "total_relation": "eq",
+      "has_more": false,
+      "truncated": false
+    }
+  },
+  "fixtures_index": {
+    "tool": "index_repository",
+    "args": {
+      "repo_path": "<fixtures>",
+      "name": "p1_fixtures",
+      "mode": "moderate",
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.265,
+    "result": {
+      "project": "p1_fixtures",
+      "not_indexed_files_count": 0,
+      "skipped_count": 0,
+      "parse_partial_count": 0,
+      "parse_unusable_count": 0,
+      "nodes": 26,
+      "edges": 45,
+      "expected_nodes": 26,
+      "expected_edges": 45,
+      "adr_present": false,
+      "adr_hint": "Project indexed. Consider creating an Architecture Decision Record: explore the codebase with get_architecture(aspects=['all']), then use manage_adr(mode='update') to persist architectural insights across sessions.",
+      "artifact_present": false,
+      "status": "indexed"
+    }
+  },
+  "fixtures_coverage": {
+    "tool": "check_index_coverage",
+    "args": {
+      "project": "p1_fixtures",
+      "diagnostics": "full",
+      "path_limit": 128,
+      "paths": [
+        "contracts.cpp",
+        "contracts.h",
+        "transport.ts"
+      ],
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.0,
+    "result": {
+      "project": "p1_fixtures",
+      "signal": "best_effort",
+      "indexed_at": "2026-10-23T07:57:25Z",
+      "metadata": {
+        "generation": "2026-10-23T07:57:25Z",
+        "index_mode": "moderate",
+        "recorded_at": "2026-10-23T07:57:25Z",
+        "recording_status": "complete",
+        "ignored_files_stored": 0,
+        "ignored_files_total": 0,
+        "hash_records_complete": true,
+        "coverage_version": 9,
+        "generation_matches": true
+      },
+      "paths": [
+        {
+          "requested_path": "contracts.cpp",
+          "path": "contracts.cpp",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "contracts.h",
+          "path": "contracts.h",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        },
+        {
+          "requested_path": "transport.ts",
+          "path": "transport.ts",
+          "status": "no_recorded_issue",
+          "freshness": "metadata_match",
+          "recommended_action": "use_graph_with_best_effort_caveat",
+          "coverage": []
+        }
+      ],
+      "path_total": 3,
+      "path_returned": 3,
+      "path_has_more": false,
+      "scopes": [],
+      "scope_total": 0,
+      "scope_returned": 0,
+      "scope_truncated": false,
+      "has_more": false,
+      "caveat": "Best-effort signal only. No recorded issue does not prove graph or source completeness; read flagged source and qualify claims when metadata is changed or unavailable."
+    }
+  },
+  "fixtures_files": {
+    "tool": "query_graph",
+    "args": {
+      "project": "p1_fixtures",
+      "query": "MATCH (n:File) RETURN n.file_path LIMIT 1000",
+      "max_output_tokens": 30000,
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.0,
+    "result": {
+      "columns": [
+        "n.file_path"
+      ],
+      "rows": [
+        [
+          "contracts.cpp"
+        ],
+        [
+          "contracts.h"
+        ],
+        [
+          "transport.ts"
+        ]
+      ],
+      "returned": 3,
+      "total": 3,
+      "total_relation": "eq",
+      "has_more": false,
+      "truncated": false
+    }
+  },
+  "fixtures_symbols": {
+    "tool": "query_graph",
+    "args": {
+      "project": "p1_fixtures",
+      "query": "MATCH (n) RETURN n.name,n.label,n.qualified_name,n.file_path,n.start_line,n.end_line LIMIT 500",
+      "max_output_tokens": 30000,
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.015,
+    "result": {
+      "columns": [
+        "n.name",
+        "n.label",
+        "n.qualified_name",
+        "n.file_path",
+        "n.start_line",
+        "n.end_line"
+      ],
+      "rows": [
+        [
+          "contracts.cpp",
+          "File",
+          "p1_fixtures.contracts.cpp.__file__",
+          "contracts.cpp",
+          "0",
+          "0"
+        ],
+        [
+          "contracts.cpp",
+          "Module",
+          "p1_fixtures.contracts",
+          "contracts.cpp",
+          "1",
+          "6"
+        ],
+        [
+          "query",
+          "Method",
+          "p1_fixtures.contracts.Live.query",
+          "contracts.cpp",
+          "4",
+          "4"
+        ],
+        [
+          "contracts.h",
+          "File",
+          "p1_fixtures.contracts.h.__file__",
+          "contracts.h",
+          "0",
+          "0"
+        ],
+        [
+          "Store",
+          "Class",
+          "p1_fixtures.contracts.alpha.Store",
+          "contracts.h",
+          "5",
+          "9"
+        ],
+        [
+          "Live",
+          "Class",
+          "p1_fixtures.contracts.alpha.Live",
+          "contracts.h",
+          "10",
+          "14"
+        ],
+        [
+          "CacheGuard",
+          "Class",
+          "p1_fixtures.contracts.alpha.CacheGuard",
+          "contracts.h",
+          "15",
+          "15"
+        ],
+        [
+          "get",
+          "Method",
+          "p1_fixtures.contracts.alpha.CacheGuard.get",
+          "contracts.h",
+          "15",
+          "15"
+        ],
+        [
+          "consume",
+          "Function",
+          "p1_fixtures.contracts.alpha.consume",
+          "contracts.h",
+          "16",
+          "16"
+        ],
+        [
+          "consumeOwned",
+          "Function",
+          "p1_fixtures.contracts.alpha.consumeOwned",
+          "contracts.h",
+          "17",
+          "17"
+        ],
+        [
+          "Store",
+          "Class",
+          "p1_fixtures.contracts.beta.Store",
+          "contracts.h",
+          "20",
+          "20"
+        ],
+        [
+          "query",
+          "Method",
+          "p1_fixtures.contracts.beta.Store.query",
+          "contracts.h",
+          "20",
+          "20"
+        ],
+        [
+          "consume",
+          "Function",
+          "p1_fixtures.contracts.beta.consume",
+          "contracts.h",
+          "21",
+          "21"
+        ],
+        [
+          "transport.ts",
+          "File",
+          "p1_fixtures.transport.ts.__file__",
+          "transport.ts",
+          "0",
+          "0"
+        ],
+        [
+          "transport.ts",
+          "Module",
+          "p1_fixtures.transport",
+          "transport.ts",
+          "1",
+          "19"
+        ],
+        [
+          "BaseConnector",
+          "Class",
+          "p1_fixtures.transport.BaseConnector",
+          "transport.ts",
+          "1",
+          "3"
+        ],
+        [
+          "send",
+          "Method",
+          "p1_fixtures.transport.BaseConnector.send",
+          "transport.ts",
+          "2",
+          "2"
+        ],
+        [
+          "ClientConnector",
+          "Class",
+          "p1_fixtures.transport.ClientConnector",
+          "transport.ts",
+          "4",
+          "10"
+        ],
+        [
+          "send",
+          "Method",
+          "p1_fixtures.transport.ClientConnector.send",
+          "transport.ts",
+          "5",
+          "5"
+        ],
+        [
+          "fetch",
+          "Method",
+          "p1_fixtures.transport.ClientConnector.fetch",
+          "transport.ts",
+          "6",
+          "9"
+        ],
+        [
+          "createRequest",
+          "Function",
+          "p1_fixtures.transport.createRequest",
+          "transport.ts",
+          "11",
+          "13"
+        ],
+        [
+          "entry",
+          "Function",
+          "p1_fixtures.transport.entry",
+          "transport.ts",
+          "17",
+          "17"
+        ],
+        [
+          "map",
+          "Function",
+          "p1_fixtures.transport.map",
+          "transport.ts",
+          "18",
+          "18"
+        ],
+        [
+          "connector",
+          "Variable",
+          "p1_fixtures.transport.connector",
+          "transport.ts",
+          "15",
+          "15"
+        ],
+        [
+          "p1_fixtures",
+          "Project",
+          "p1_fixtures",
+          "{}",
+          "0",
+          "0"
+        ],
+        [
+          "working-tree",
+          "Branch",
+          "p1_fixtures.__branch__.working-tree",
+          "{}",
+          "0",
+          "0"
+        ]
+      ],
+      "returned": 26,
+      "total": 26,
+      "total_relation": "eq",
+      "has_more": false,
+      "truncated": false
+    }
+  },
+  "fixtures_calls": {
+    "tool": "query_graph",
+    "args": {
+      "project": "p1_fixtures",
+      "query": "MATCH (a)-[r:CALLS]->(b) RETURN a.qualified_name,a.file_path,b.qualified_name,b.file_path,r.properties LIMIT 500",
+      "max_output_tokens": 30000,
+      "format": "json"
+    },
+    "exit_code": 0,
+    "seconds": 1.813,
+    "result": {
+      "columns": [
+        "a.qualified_name",
+        "a.file_path",
+        "b.qualified_name",
+        "b.file_path",
+        "r.properties"
+      ],
+      "rows": [
+        [
+          "p1_fixtures.contracts.alpha.consume",
+          "contracts.h",
+          "p1_fixtures.contracts.Live.query",
+          "contracts.cpp",
+          ""
+        ],
+        [
+          "p1_fixtures.contracts.alpha.consumeOwned",
+          "contracts.h",
+          "p1_fixtures.contracts.alpha.CacheGuard.get",
+          "contracts.h",
+          ""
+        ],
+        [
+          "p1_fixtures.contracts.beta.consume",
+          "contracts.h",
+          "p1_fixtures.contracts.beta.Store.query",
+          "contracts.h",
+          ""
+        ],
+        [
+          "p1_fixtures.transport.ts.__file__",
+          "transport.ts",
+          "p1_fixtures.transport.BaseConnector.send",
+          "transport.ts",
+          ""
+        ],
+        [
+          "p1_fixtures.transport",
+          "transport.ts",
+          "p1_fixtures.transport.ClientConnector",
+          "transport.ts",
+          ""
+        ],
+        [
+          "p1_fixtures.transport",
+          "transport.ts",
+          "p1_fixtures.transport.createRequest",
+          "transport.ts",
+          ""
+        ],
+        [
+          "p1_fixtures.transport.ClientConnector.send",
+          "transport.ts",
+          "p1_fixtures.transport.BaseConnector.send",
+          "transport.ts",
+          ""
+        ],
+        [
+          "p1_fixtures.transport.createRequest",
+          "transport.ts",
+          "p1_fixtures.transport.ClientConnector.fetch",
+          "transport.ts",
+          ""
+        ]
+      ],
+      "returned": 8,
+      "total": 8,
+      "total_relation": "eq",
+      "has_more": false,
+      "truncated": false
+    }
+  }
+}

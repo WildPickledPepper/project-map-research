@@ -1,0 +1,599 @@
+{
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:1a04572d3a123daa",
+  "facts": 8719,
+  "observed_call_relations": 6279,
+  "native_refinements": 762,
+  "ambiguous_native_refinements": [
+    {
+      "path": "modules/timeline/src/components/FilterLinkLine.tsx",
+      "line": 288,
+      "native_count": 1,
+      "supplement_count": 2
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx",
+      "line": 123,
+      "native_count": 1,
+      "supplement_count": 2
+    },
+    {
+      "path": "modules/timeline/src/insight/units/config/threadStateOffset.test.tsx",
+      "line": 123,
+      "native_count": 1,
+      "supplement_count": 2
+    }
+  ],
+  "native_versions": {
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "cgc_commit": "93c9685bff9151f50a3121e9913e5ba2d27c1191",
+    "cbm_sha256": "39f6a789cd858d7428561ac5afaefb9a47b018dcba0ad6fa41ae71a45e0ed656",
+    "python": "3.11.9",
+    "packages": {
+      "codegraphcontext": "0.6.13",
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    },
+    "files": 65,
+    "input_count_by_suffix": {
+      ".json": 8,
+      ".ts": 22,
+      ".tsx": 5,
+      ".h": 17,
+      ".cpp": 13
+    }
+  },
+  "queries": {
+    "key_symbols": {
+      "query": "MATCH (p:PMFact) WHERE p.snapshot=$snapshot AND p.kind='callable' AND (p.qualified_name ENDS WITH 'QueryUnitFlows' OR p.qualified_name ENDS WITH 'HandleRequest' OR p.qualified_name ENDS WITH '.send' OR p.qualified_name='getUnitFlows') RETURN p.path AS path,p.line AS line,p.qualified_name AS qualified_name,p.payload AS payload",
+      "rows": [
+        {
+          "path": "modules/lib/src/connection/index.ts",
+          "line": 78,
+          "qualified_name": "BaseConnector.send",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 5,
+              "container_span": {
+                "column": 5,
+                "end_byte": 4148,
+                "end_column": 6,
+                "end_line": 96,
+                "line": 78,
+                "start_byte": 3246
+              },
+              "definition": true,
+              "end_byte": 3250,
+              "end_column": 9,
+              "end_line": 78,
+              "id": "59239b45b4707826eee8a00c",
+              "kind": "callable",
+              "line": 78,
+              "name": "send",
+              "parameters": "(body: SendParams<T>, reject?: (err: Error) => void)",
+              "qualified_name": "BaseConnector.send",
+              "resolution": "syntax_only",
+              "return_type_spelling": ": void",
+              "scope": [
+                "BaseConnector"
+              ],
+              "start_byte": 3246,
+              "type_parameters": "<T extends EventHanlder>"
+            },
+            "source_sha256_lf_utf8": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2"
+          }
+        },
+        {
+          "path": "modules/lib/src/connection/index.ts",
+          "line": 178,
+          "qualified_name": "ClientConnector.send",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 5,
+              "container_span": {
+                "column": 5,
+                "end_byte": 6880,
+                "end_column": 6,
+                "end_line": 181,
+                "line": 178,
+                "start_byte": 6701
+              },
+              "definition": true,
+              "end_byte": 6705,
+              "end_column": 9,
+              "end_line": 178,
+              "id": "d92125ef0eee8190a4bf28e9",
+              "kind": "callable",
+              "line": 178,
+              "name": "send",
+              "parameters": "(body: SendParams<T>, reject?: (err: Error) => void)",
+              "qualified_name": "ClientConnector.send",
+              "resolution": "syntax_only",
+              "return_type_spelling": ": void",
+              "scope": [
+                "ClientConnector"
+              ],
+              "start_byte": 6701,
+              "type_parameters": "<T extends EventHanlder>"
+            },
+            "source_sha256_lf_utf8": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2"
+          }
+        },
+        {
+          "path": "modules/lib/src/connection/index.ts",
+          "line": 236,
+          "qualified_name": "ServerConnector.send",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 5,
+              "container_span": {
+                "column": 5,
+                "end_byte": 9228,
+                "end_column": 6,
+                "end_line": 242,
+                "line": 236,
+                "start_byte": 8974
+              },
+              "definition": true,
+              "end_byte": 8978,
+              "end_column": 9,
+              "end_line": 236,
+              "id": "a37c39b5d5abcdff61b66a30",
+              "kind": "callable",
+              "line": 236,
+              "name": "send",
+              "parameters": "(body: SendParams<T>, reject?: (err: Error) => void)",
+              "qualified_name": "ServerConnector.send",
+              "resolution": "syntax_only",
+              "return_type_spelling": ": void",
+              "scope": [
+                "ServerConnector"
+              ],
+              "start_byte": 8974,
+              "type_parameters": "<T extends EventHanlder>"
+            },
+            "source_sha256_lf_utf8": "cb5e9c2ac737db854ee267c3a9984bdd19cb51485b11092a04afb470b57da3e2"
+          }
+        },
+        {
+          "path": "modules/timeline/src/api/request.ts",
+          "line": 174,
+          "qualified_name": "getUnitFlows",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 23,
+              "container_span": {
+                "column": 8,
+                "end_byte": 6834,
+                "end_column": 2,
+                "end_line": 176,
+                "line": 174,
+                "start_byte": 6681
+              },
+              "definition": true,
+              "end_byte": 6708,
+              "end_column": 35,
+              "end_line": 174,
+              "id": "94b93c65dcabbff2d238c138",
+              "kind": "callable",
+              "line": 174,
+              "name": "getUnitFlows",
+              "parameters": "(params: GetUnitFlowsParams)",
+              "qualified_name": "getUnitFlows",
+              "resolution": "syntax_only",
+              "return_type_spelling": ": Promise<GetUnitFlowsResult>",
+              "scope": [],
+              "start_byte": 6696,
+              "type_parameters": ""
+            },
+            "source_sha256_lf_utf8": "8a333d049acccaf663c1a4f8a340b63f34963c6ede3b9f4744aa2764b9ac3b35"
+          }
+        },
+        {
+          "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+          "line": 30,
+          "qualified_name": "Dic::Module::ModuleRequestHandler::HandleRequest",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 18,
+              "container_span": {
+                "column": 5,
+                "end_byte": 1233,
+                "end_column": 73,
+                "end_line": 30,
+                "line": 30,
+                "start_byte": 1165
+              },
+              "definition": false,
+              "end_byte": 1191,
+              "end_column": 31,
+              "end_line": 30,
+              "id": "7d4d2ee5f1892c0247bdfbbf",
+              "kind": "callable",
+              "line": 30,
+              "name": "HandleRequest",
+              "parameters": "(std::unique_ptr<Request> requestPtr)",
+              "pure_virtual": true,
+              "qualified_name": "Dic::Module::ModuleRequestHandler::HandleRequest",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic::Module",
+                "ModuleRequestHandler"
+              ],
+              "signature_spelling": "virtual bool HandleRequest(std::unique_ptr<Request> requestPtr) = 0;",
+              "start_byte": 1178,
+              "virtual": true
+            },
+            "source_sha256_lf_utf8": "a55661836f94df4417b0c90e106227ea5385ec87df444164e9e2b31b4d831250"
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+          "line": 114,
+          "qualified_name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 10,
+              "container_span": {
+                "column": 5,
+                "end_byte": 3957,
+                "end_column": 59,
+                "end_line": 115,
+                "line": 114,
+                "start_byte": 3792
+              },
+              "definition": false,
+              "end_byte": 3811,
+              "end_column": 24,
+              "end_line": 114,
+              "id": "7bbf830723089702d85099fa",
+              "kind": "callable",
+              "line": 114,
+              "name": "QueryUnitFlows",
+              "parameters": "(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId)",
+              "pure_virtual": false,
+              "qualified_name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic::Module::FullDb",
+                "DbTraceDataBase"
+              ],
+              "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+              "start_byte": 3797,
+              "virtual": false
+            },
+            "source_sha256_lf_utf8": "9b9aa26b47c3b5a661dc285c8b775a25f619f5efe9dd68dfb7583b012b8d4964"
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+          "line": 337,
+          "qualified_name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 6,
+              "container_span": {
+                "column": 1,
+                "end_byte": 19080,
+                "end_column": 2,
+                "end_line": 378,
+                "line": 337,
+                "start_byte": 16389
+              },
+              "definition": true,
+              "end_byte": 16425,
+              "end_column": 37,
+              "end_line": 337,
+              "id": "d7ab5e9beb6d6ec70ca03837",
+              "kind": "callable",
+              "line": 337,
+              "name": "QueryUnitFlows",
+              "parameters": "(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+              "pure_virtual": false,
+              "qualified_name": "Dic::Module::FullDb::DbTraceDataBase::QueryUnitFlows",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic::Module::FullDb"
+              ],
+              "signature_spelling": "bool DbTraceDataBase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+              "start_byte": 16394,
+              "virtual": false
+            },
+            "source_sha256_lf_utf8": "2cea03216c3ca5acaeba1e37173e7dcac9c2c4ecdd103c9fecdf08c4e7a39593"
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "line": 636,
+          "qualified_name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 6,
+              "container_span": {
+                "column": 1,
+                "end_byte": 30702,
+                "end_column": 2,
+                "end_line": 718,
+                "line": 636,
+                "start_byte": 25973
+              },
+              "definition": true,
+              "end_byte": 26011,
+              "end_column": 39,
+              "end_line": 636,
+              "id": "7769ebee6acbd7410d9384eb",
+              "kind": "callable",
+              "line": 636,
+              "name": "QueryUnitFlows",
+              "parameters": "(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+              "pure_virtual": false,
+              "qualified_name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic::Module::Timeline"
+              ],
+              "signature_spelling": "bool TextTraceDatabase::QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams,\n    Protocol::UnitFlowsBody &responseBody, uint64_t minTimestamp, uint64_t trackId)",
+              "start_byte": 25978,
+              "virtual": false
+            },
+            "source_sha256_lf_utf8": "65c731fa0281e9b59253bad2ab7439194d50e15ae4891ee9d616f0f52259da54"
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.h",
+          "line": 81,
+          "qualified_name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 10,
+              "container_span": {
+                "column": 5,
+                "end_byte": 3679,
+                "end_column": 59,
+                "end_line": 82,
+                "line": 81,
+                "start_byte": 3514
+              },
+              "definition": false,
+              "end_byte": 3533,
+              "end_column": 24,
+              "end_line": 81,
+              "id": "75a9d93afd8c66fc195c58b5",
+              "kind": "callable",
+              "line": 81,
+              "name": "QueryUnitFlows",
+              "parameters": "(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId)",
+              "pure_virtual": false,
+              "qualified_name": "Dic::Module::Timeline::TextTraceDatabase::QueryUnitFlows",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic::Module::Timeline",
+                "TextTraceDatabase"
+              ],
+              "signature_spelling": "bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) override;",
+              "start_byte": 3519,
+              "virtual": false
+            },
+            "source_sha256_lf_utf8": "accb71081878de9042db53db3f82c2df3e9c35dbff3b5042f376feed986b836c"
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+          "line": 83,
+          "qualified_name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 18,
+              "container_span": {
+                "column": 5,
+                "end_byte": 3219,
+                "end_column": 54,
+                "end_line": 84,
+                "line": 83,
+                "start_byte": 3051
+              },
+              "definition": false,
+              "end_byte": 3078,
+              "end_column": 32,
+              "end_line": 83,
+              "id": "e4d89fa97268dbc477d2f8be",
+              "kind": "callable",
+              "line": 83,
+              "name": "QueryUnitFlows",
+              "parameters": "(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId)",
+              "pure_virtual": true,
+              "qualified_name": "Dic::Module::Timeline::VirtualTraceDatabase::QueryUnitFlows",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic::Module::Timeline",
+                "VirtualTraceDatabase"
+              ],
+              "signature_spelling": "virtual bool QueryUnitFlows(const Protocol::UnitFlowsParams &requestParams, Protocol::UnitFlowsBody &responseBody,\n        uint64_t minTimestamp, uint64_t trackId) = 0;",
+              "start_byte": 3064,
+              "virtual": true
+            },
+            "source_sha256_lf_utf8": "e5dd0099f306ae9d96de86362461375fe9ea02b09862cb964e128f504abd14b5"
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 28,
+          "qualified_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 6,
+              "container_span": {
+                "column": 1,
+                "end_byte": 3055,
+                "end_column": 2,
+                "end_line": 67,
+                "line": 28,
+                "start_byte": 1021
+              },
+              "definition": true,
+              "end_byte": 1069,
+              "end_column": 49,
+              "end_line": 28,
+              "id": "d7a6f20ca5a84774ae8db47d",
+              "kind": "callable",
+              "line": 28,
+              "name": "HandleRequest",
+              "parameters": "(std::unique_ptr<Protocol::Request> requestPtr)",
+              "pure_virtual": false,
+              "qualified_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic",
+                "Module",
+                "Timeline"
+              ],
+              "signature_spelling": "bool QueryFlowsBySliceInfoHandler::HandleRequest(std::unique_ptr<Protocol::Request> requestPtr)",
+              "start_byte": 1026,
+              "virtual": false
+            },
+            "source_sha256_lf_utf8": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63"
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+          "line": 31,
+          "qualified_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 10,
+              "container_span": {
+                "column": 5,
+                "end_byte": 1250,
+                "end_column": 80,
+                "end_line": 31,
+                "line": 31,
+                "start_byte": 1175
+              },
+              "definition": false,
+              "end_byte": 1193,
+              "end_column": 23,
+              "end_line": 31,
+              "id": "1753f0716547213ebd01840e",
+              "kind": "callable",
+              "line": 31,
+              "name": "HandleRequest",
+              "parameters": "(std::unique_ptr<Protocol::Request> requestPtr)",
+              "pure_virtual": false,
+              "qualified_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+              "resolution": "syntax_only",
+              "return_type_spelling": "bool",
+              "scope": [
+                "Dic",
+                "Module",
+                "Timeline",
+                "QueryFlowsBySliceInfoHandler"
+              ],
+              "signature_spelling": "bool HandleRequest(std::unique_ptr<Protocol::Request> requestPtr) override;",
+              "start_byte": 1180,
+              "virtual": false
+            },
+            "source_sha256_lf_utf8": "8ea8fa1410efa366d11008daf93b49f6e553070110e80f77cc5c11c87cdc40d1"
+          }
+        }
+      ]
+    },
+    "native_refined_send": {
+      "query": "MATCH (f:Function)-[:PMRefines]->(p:PMFact) WHERE p.snapshot=$snapshot AND p.qualified_name='BaseConnector.send' RETURN f.name AS native_name,f.class_context AS native_owner,p.qualified_name AS lexical_owner,p.path AS path,p.line AS line",
+      "rows": [
+        {
+          "native_name": "send",
+          "native_owner": null,
+          "lexical_owner": "BaseConnector.send",
+          "path": "modules/lib/src/connection/index.ts",
+          "line": 78
+        }
+      ]
+    },
+    "database_call_observation": {
+      "query": "MATCH (a:PMFact)-[r:PMSyntaxEdge]->(b:PMFact) WHERE a.snapshot=$snapshot AND a.qualified_name ENDS WITH 'QueryFlowsBySliceInfoHandler::HandleRequest' RETURN a.qualified_name AS owner,r.kind AS relationship,b.payload AS payload",
+      "rows": [
+        {
+          "owner": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+          "relationship": "OBSERVES_CALL",
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "argument_spellings": [
+                "queryParams",
+                "response.body",
+                "minTimestamp",
+                "trackId"
+              ],
+              "callee_spelling": "database->QueryUnitFlows",
+              "column": 9,
+              "end_byte": 2755,
+              "end_column": 84,
+              "end_line": 57,
+              "id": "a2e15a2a22054e9348abea55",
+              "line": 57,
+              "owner_id": "d7a6f20ca5a84774ae8db47d",
+              "owner_name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+              "reason": "syntax_only_no_type_or_value_resolution",
+              "resolution": "unresolved",
+              "start_byte": 2680
+            },
+            "source_sha256_lf_utf8": "dc10d41009a4bb5498d9f875afe01d2a1b45a9073cfa7776fd6630069eeddf63"
+          }
+        }
+      ]
+    },
+    "binding_observations": {
+      "query": "MATCH (p:PMFact) WHERE p.snapshot=$snapshot AND p.kind='binding' AND p.path='modules/timeline/src/bootstrap.tsx' RETURN p.payload AS payload",
+      "rows": [
+        {
+          "payload": {
+            "evidence_kind": "source_syntax",
+            "fact": {
+              "column": 1,
+              "end_byte": 3255,
+              "end_column": 46,
+              "end_line": 89,
+              "execution_condition": "not_evaluated",
+              "id": "7db3816acf64a04907eaff6b",
+              "left_spelling": "window.requestData",
+              "line": 89,
+              "resolution": "syntax_only",
+              "right_spelling": "createRequest(connector)",
+              "start_byte": 3210
+            },
+            "source_sha256_lf_utf8": "3ba98c0d83468a9a2b6fe54faa6f81c0d4016730836175616d6c801c013c47a6"
+          }
+        }
+      ]
+    }
+  },
+  "lifecycle": {
+    "remaining_after_delete": 0,
+    "native_before": 790,
+    "native_after": 790,
+    "restored_same_counts": {
+      "facts": true,
+      "observed_call_relations": true,
+      "native_refinements": true
+    }
+  }
+}

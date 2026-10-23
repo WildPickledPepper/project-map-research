@@ -1,0 +1,983 @@
+{
+  "version": "0.6.13",
+  "commit": "93c9685bff9151f50a3121e9913e5ba2d27c1191",
+  "mode": "unmodified Tree-sitter pipeline; no SCIP; no Query-cache shim",
+  "scopes": {
+    "source": {
+      "index_seconds": 20.187,
+      "queries": {
+        "database_counts_cumulative": {
+          "query": "MATCH (n) RETURN label(n) AS kind,count(*) AS count",
+          "rows": [
+            {
+              "kind": "ExternalClass",
+              "count": 3
+            },
+            {
+              "kind": "Repository",
+              "count": 1
+            },
+            {
+              "kind": "Module",
+              "count": 247
+            },
+            {
+              "kind": "Variable",
+              "count": 2903
+            },
+            {
+              "kind": "Macro",
+              "count": 17
+            },
+            {
+              "kind": "Parameter",
+              "count": 1046
+            },
+            {
+              "kind": "Function",
+              "count": 776
+            },
+            {
+              "kind": "Struct",
+              "count": 204
+            },
+            {
+              "kind": "Directory",
+              "count": 33
+            },
+            {
+              "kind": "Enum",
+              "count": 4
+            },
+            {
+              "kind": "Interface",
+              "count": 101
+            },
+            {
+              "kind": "Class",
+              "count": 18
+            },
+            {
+              "kind": "File",
+              "count": 65
+            }
+          ]
+        },
+        "files": {
+          "query": "MATCH (n:File) WHERE n.path STARTS WITH $root RETURN n.path AS path",
+          "rows": [
+            {
+              "path": "<source>/modules/framework/package.json"
+            },
+            {
+              "path": "<source>/modules/framework/src/centralServer/websocket/connection.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/centralServer/websocket/defs.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/connection/defs.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/connection/index.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/connection/interceptor.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/connection/interceptorHandler.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/connection/notification.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/connection/notificationHandler.ts"
+            },
+            {
+              "path": "<source>/modules/framework/src/connection/sendNotification.ts"
+            },
+            {
+              "path": "<source>/modules/lib/index.ts"
+            },
+            {
+              "path": "<source>/modules/lib/package.json"
+            },
+            {
+              "path": "<source>/modules/lib/src/connection/index.ts"
+            },
+            {
+              "path": "<source>/modules/lib/src/utils/Console.ts"
+            },
+            {
+              "path": "<source>/modules/lib/src/utils/Request.ts"
+            },
+            {
+              "path": "<source>/modules/lib/src/utils/index.ts"
+            },
+            {
+              "path": "<source>/modules/lib/tsconfig.json"
+            },
+            {
+              "path": "<source>/modules/package.json"
+            },
+            {
+              "path": "<source>/modules/timeline/package.json"
+            },
+            {
+              "path": "<source>/modules/timeline/src/api/interface.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/api/request.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/bootstrap.tsx"
+            },
+            {
+              "path": "<source>/modules/timeline/src/components/FilterLinkLine.tsx"
+            },
+            {
+              "path": "<source>/modules/timeline/src/connection/baseline.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/connection/defs.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/connection/handler.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/connection/index.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/connection/messageSender.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/insight/units/AscendUnit.tsx"
+            },
+            {
+              "path": "<source>/modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts"
+            },
+            {
+              "path": "<source>/modules/timeline/src/insight/units/config/llcCacheOffset.test.tsx"
+            },
+            {
+              "path": "<source>/modules/timeline/src/insight/units/config/threadStateOffset.test.tsx"
+            },
+            {
+              "path": "<source>/modules/timeline/tsconfig.json"
+            },
+            {
+              "path": "<source>/modules/tsconfig.json"
+            },
+            {
+              "path": "<source>/package.json"
+            },
+            {
+              "path": "<source>/server/msinsight/include/base/BaseModule.h"
+            },
+            {
+              "path": "<source>/server/msinsight/include/base/ModuleRequestHandler.h"
+            },
+            {
+              "path": "<source>/server/msinsight/src/base/BaseModule.cpp"
+            },
+            {
+              "path": "<source>/server/msinsight/src/base/ModuleRequestHandler.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/ModuleManager.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/ModuleManager.h"
+            },
+            {
+              "path": "<source>/server/src/modules/defs/ProtocolDefs.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/TimelineModule.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/TimelineModule.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/DataBaseManager.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/DataBaseManager.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/DbTraceDataBase.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/DbTraceDataBase.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/DbTraceDataBase2.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/TextTraceDatabase.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/TextTraceDatabase.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/VirtualTraceDatabase.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/core/database/VirtualTraceDatabase.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineBodyStruct.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocol.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocol.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolEvent.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolRequest.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolRequest.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolResponse.h"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolUtil.cpp"
+            },
+            {
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolUtil.h"
+            }
+          ]
+        },
+        "symbols": {
+          "query": "MATCH (n:Function) WHERE n.path STARTS WITH $root RETURN n.name AS name,n.path AS path,n.line_number AS line,n.class_context AS owner,n.args AS args,n.uid AS uid",
+          "rows": [
+            {
+              "name": "fetch",
+              "path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 172,
+              "owner": "Connection",
+              "args": [
+                "module",
+                "dataRequest"
+              ],
+              "uid": "fetch<source>/modules/framework/src/centralServer/websocket/connection.ts1720"
+            },
+            {
+              "name": "send",
+              "path": "<source>/modules/lib/src/connection/index.ts",
+              "line": 236,
+              "owner": "ServerConnector",
+              "args": [
+                "body",
+                "reject"
+              ],
+              "uid": "send<source>/modules/lib/src/connection/index.ts2360"
+            },
+            {
+              "name": "send",
+              "path": "<source>/modules/lib/src/connection/index.ts",
+              "line": 178,
+              "owner": "ClientConnector",
+              "args": [
+                "body",
+                "reject"
+              ],
+              "uid": "send<source>/modules/lib/src/connection/index.ts1780"
+            },
+            {
+              "name": "send",
+              "path": "<source>/modules/lib/src/connection/index.ts",
+              "line": 78,
+              "owner": null,
+              "args": [
+                "body",
+                "reject"
+              ],
+              "uid": "send<source>/modules/lib/src/connection/index.ts780"
+            },
+            {
+              "name": "fetch",
+              "path": "<source>/modules/lib/src/connection/index.ts",
+              "line": 183,
+              "owner": "ClientConnector",
+              "args": [
+                "params"
+              ],
+              "uid": "fetch<source>/modules/lib/src/connection/index.ts1830"
+            },
+            {
+              "name": "createRequest",
+              "path": "<source>/modules/lib/src/utils/Request.ts",
+              "line": 30,
+              "owner": null,
+              "args": [
+                "connector"
+              ],
+              "uid": "createRequest<source>/modules/lib/src/utils/Request.ts300"
+            },
+            {
+              "name": "getUnitFlows",
+              "path": "<source>/modules/timeline/src/api/request.ts",
+              "line": 174,
+              "owner": null,
+              "args": [
+                "params"
+              ],
+              "uid": "getUnitFlows<source>/modules/timeline/src/api/request.ts1740"
+            },
+            {
+              "name": "QueryUnitFlows",
+              "path": "<source>/server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+              "line": 337,
+              "owner": "DbTraceDataBase",
+              "args": [
+                "Protocol::UnitFlowsParams &requestParams",
+                "Protocol::UnitFlowsBody &responseBody",
+                "uint64_t minTimestamp",
+                "uint64_t trackId"
+              ],
+              "uid": "QueryUnitFlows<source>/server/src/modules/timeline/core/database/DbTraceDataBase2.cpp3370"
+            },
+            {
+              "name": "QueryUnitFlows",
+              "path": "<source>/server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+              "line": 636,
+              "owner": "TextTraceDatabase",
+              "args": [
+                "Protocol::UnitFlowsParams &requestParams",
+                "Protocol::UnitFlowsBody &responseBody",
+                "uint64_t minTimestamp",
+                "uint64_t trackId"
+              ],
+              "uid": "QueryUnitFlows<source>/server/src/modules/timeline/core/database/TextTraceDatabase.cpp6360"
+            },
+            {
+              "name": "HandleRequest",
+              "path": "<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "line": 28,
+              "owner": "QueryFlowsBySliceInfoHandler",
+              "args": [
+                "std::unique_ptr<Protocol::Request> requestPtr"
+              ],
+              "uid": "HandleRequest<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp280"
+            }
+          ]
+        },
+        "classes": {
+          "query": "MATCH (n:Class) WHERE n.path STARTS WITH $root RETURN n.name AS name,n.path AS path,n.line_number AS line,n.uid AS uid",
+          "rows": [
+            {
+              "name": "Connection",
+              "path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 63,
+              "uid": "Connection<source>/modules/framework/src/centralServer/websocket/connection.ts630"
+            },
+            {
+              "name": "BaseConnector",
+              "path": "<source>/modules/lib/src/connection/index.ts",
+              "line": 33,
+              "uid": "BaseConnector<source>/modules/lib/src/connection/index.ts330"
+            },
+            {
+              "name": "ClientConnector",
+              "path": "<source>/modules/lib/src/connection/index.ts",
+              "line": 161,
+              "uid": "ClientConnector<source>/modules/lib/src/connection/index.ts1610"
+            },
+            {
+              "name": "ServerConnector",
+              "path": "<source>/modules/lib/src/connection/index.ts",
+              "line": 216,
+              "uid": "ServerConnector<source>/modules/lib/src/connection/index.ts2160"
+            },
+            {
+              "name": "CustomConsole",
+              "path": "<source>/modules/lib/src/utils/Console.ts",
+              "line": 20,
+              "uid": "CustomConsole<source>/modules/lib/src/utils/Console.ts200"
+            },
+            {
+              "name": "BaseModule",
+              "path": "<source>/server/msinsight/include/base/BaseModule.h",
+              "line": 23,
+              "uid": "BaseModule<source>/server/msinsight/include/base/BaseModule.h230"
+            },
+            {
+              "name": "ModuleRequestHandler",
+              "path": "<source>/server/msinsight/include/base/ModuleRequestHandler.h",
+              "line": 24,
+              "uid": "ModuleRequestHandler<source>/server/msinsight/include/base/ModuleRequestHandler.h240"
+            },
+            {
+              "name": "ModuleManager",
+              "path": "<source>/server/src/modules/ModuleManager.h",
+              "line": 29,
+              "uid": "ModuleManager<source>/server/src/modules/ModuleManager.h290"
+            },
+            {
+              "name": "TimelineModule",
+              "path": "<source>/server/src/modules/timeline/TimelineModule.h",
+              "line": 26,
+              "uid": "TimelineModule<source>/server/src/modules/timeline/TimelineModule.h260"
+            },
+            {
+              "name": "DataBaseManager",
+              "path": "<source>/server/src/modules/timeline/core/database/DataBaseManager.h",
+              "line": 55,
+              "uid": "DataBaseManager<source>/server/src/modules/timeline/core/database/DataBaseManager.h550"
+            },
+            {
+              "name": "DbTraceDataBase",
+              "path": "<source>/server/src/modules/timeline/core/database/DbTraceDataBase.h",
+              "line": 91,
+              "uid": "DbTraceDataBase<source>/server/src/modules/timeline/core/database/DbTraceDataBase.h910"
+            },
+            {
+              "name": "TextTraceDatabase",
+              "path": "<source>/server/src/modules/timeline/core/database/TextTraceDatabase.h",
+              "line": 36,
+              "uid": "TextTraceDatabase<source>/server/src/modules/timeline/core/database/TextTraceDatabase.h360"
+            },
+            {
+              "name": "VirtualTraceDatabase",
+              "path": "<source>/server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+              "line": 64,
+              "uid": "VirtualTraceDatabase<source>/server/src/modules/timeline/core/database/VirtualTraceDatabase.h640"
+            },
+            {
+              "name": "QueryFlowsBySliceInfoHandler",
+              "path": "<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h",
+              "line": 25,
+              "uid": "QueryFlowsBySliceInfoHandler<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.h250"
+            },
+            {
+              "name": "TimelineProtocol",
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocol.h",
+              "line": 26,
+              "uid": "TimelineProtocol<source>/server/src/modules/timeline/protocol/TimelineProtocol.h260"
+            },
+            {
+              "name": "EventDetail",
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+              "line": 481,
+              "uid": "EventDetail<source>/server/src/modules/timeline/protocol/TimelineProtocolResponse.h4810"
+            },
+            {
+              "name": "HostEventDetail",
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+              "line": 494,
+              "uid": "HostEventDetail<source>/server/src/modules/timeline/protocol/TimelineProtocolResponse.h4940"
+            },
+            {
+              "name": "DeviceEventDetail",
+              "path": "<source>/server/src/modules/timeline/protocol/TimelineProtocolResponse.h",
+              "line": 500,
+              "uid": "DeviceEventDetail<source>/server/src/modules/timeline/protocol/TimelineProtocolResponse.h5000"
+            }
+          ]
+        },
+        "calls": {
+          "query": "MATCH (a:Function)-[r:CALLS|HEURISTIC_CALLS]->(b) WHERE a.path STARTS WITH $root RETURN a.name AS caller,a.path AS caller_path,a.line_number AS caller_line,b.name AS callee,b.path AS callee_path,b.line_number AS callee_line,label(r) AS kind,r.line_number AS call_line,r.resolution_tier AS tier,r.source AS source,r.resolution_method AS method",
+          "rows": [
+            {
+              "caller": "fetch",
+              "caller_path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "caller_line": 172,
+              "callee": "createRequestHead",
+              "callee_path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "callee_line": 31,
+              "kind": "CALLS",
+              "call_line": 186,
+              "tier": 2,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "caller_line": 172,
+              "callee": "getCallback",
+              "callee_path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "callee_line": 204,
+              "kind": "CALLS",
+              "call_line": 193,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "caller_line": 172,
+              "callee": "request",
+              "callee_path": "<source>/modules/framework/src/centralServer/websocket/connection.ts",
+              "callee_line": 279,
+              "kind": "CALLS",
+              "call_line": 192,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "send",
+              "caller_path": "<source>/modules/lib/src/connection/index.ts",
+              "caller_line": 78,
+              "callee": "getClientWindows",
+              "callee_path": "<source>/modules/lib/src/connection/index.ts",
+              "callee_line": 131,
+              "kind": "CALLS",
+              "call_line": 83,
+              "tier": 2,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "send",
+              "caller_path": "<source>/modules/lib/src/connection/index.ts",
+              "caller_line": 78,
+              "callee": "invalidFunc",
+              "callee_path": "<source>/modules/lib/src/connection/index.ts",
+              "callee_line": 42,
+              "kind": "CALLS",
+              "call_line": 80,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "<source>/modules/lib/src/connection/index.ts",
+              "caller_line": 183,
+              "callee": "send",
+              "callee_path": "<source>/modules/lib/src/connection/index.ts",
+              "callee_line": 178,
+              "kind": "CALLS",
+              "call_line": 188,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "send",
+              "caller_path": "<source>/modules/lib/src/connection/index.ts",
+              "caller_line": 178,
+              "callee": "send",
+              "callee_path": "<source>/modules/lib/src/connection/index.ts",
+              "callee_line": 78,
+              "kind": "CALLS",
+              "call_line": 180,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "send",
+              "caller_path": "<source>/modules/lib/src/connection/index.ts",
+              "caller_line": 236,
+              "callee": "send",
+              "callee_path": "<source>/modules/lib/src/connection/index.ts",
+              "callee_line": 78,
+              "kind": "CALLS",
+              "call_line": 241,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "send",
+              "caller_path": "<source>/modules/lib/src/connection/index.ts",
+              "caller_line": 78,
+              "callee": "warn",
+              "callee_path": "<source>/modules/lib/src/utils/Console.ts",
+              "callee_line": 35,
+              "kind": "HEURISTIC_CALLS",
+              "call_line": 87,
+              "tier": 8,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "HandleRequest",
+              "caller_path": "<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "caller_line": 28,
+              "callee": "SetBaseResponse",
+              "callee_path": "<source>/server/msinsight/src/base/ModuleRequestHandler.cpp",
+              "callee_line": 61,
+              "kind": "CALLS",
+              "call_line": 32,
+              "tier": 5,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "HandleRequest",
+              "caller_path": "<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "caller_line": 28,
+              "callee": "Instance",
+              "callee_path": "<source>/server/src/modules/timeline/core/database/DataBaseManager.cpp",
+              "callee_line": 40,
+              "kind": "CALLS",
+              "call_line": 43,
+              "tier": 4,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "HandleRequest",
+              "caller_path": "<source>/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "caller_line": 28,
+              "callee": "Instance",
+              "callee_path": "<source>/server/src/modules/timeline/core/database/DataBaseManager.cpp",
+              "callee_line": 40,
+              "kind": "CALLS",
+              "call_line": 42,
+              "tier": 4,
+              "source": null,
+              "method": null
+            }
+          ]
+        }
+      }
+    },
+    "fixtures": {
+      "index_seconds": 1.031,
+      "queries": {
+        "database_counts_cumulative": {
+          "query": "MATCH (n) RETURN label(n) AS kind,count(*) AS count",
+          "rows": [
+            {
+              "kind": "Directory",
+              "count": 33
+            },
+            {
+              "kind": "Repository",
+              "count": 2
+            },
+            {
+              "kind": "Module",
+              "count": 248
+            },
+            {
+              "kind": "Variable",
+              "count": 2905
+            },
+            {
+              "kind": "Macro",
+              "count": 17
+            },
+            {
+              "kind": "Parameter",
+              "count": 1056
+            },
+            {
+              "kind": "Interface",
+              "count": 101
+            },
+            {
+              "kind": "Enum",
+              "count": 4
+            },
+            {
+              "kind": "ExternalClass",
+              "count": 3
+            },
+            {
+              "kind": "Function",
+              "count": 790
+            },
+            {
+              "kind": "Struct",
+              "count": 204
+            },
+            {
+              "kind": "Class",
+              "count": 24
+            },
+            {
+              "kind": "File",
+              "count": 68
+            }
+          ]
+        },
+        "files": {
+          "query": "MATCH (n:File) WHERE n.path STARTS WITH $root RETURN n.path AS path",
+          "rows": [
+            {
+              "path": "<fixtures>/contracts.cpp"
+            },
+            {
+              "path": "<fixtures>/contracts.h"
+            },
+            {
+              "path": "<fixtures>/transport.ts"
+            }
+          ]
+        },
+        "symbols": {
+          "query": "MATCH (n:Function) WHERE n.path STARTS WITH $root RETURN n.name AS name,n.path AS path,n.line_number AS line,n.class_context AS owner,n.args AS args,n.uid AS uid",
+          "rows": [
+            {
+              "name": "query",
+              "path": "<fixtures>/contracts.cpp",
+              "line": 3,
+              "owner": "Live",
+              "args": [
+                "int key"
+              ],
+              "uid": "query<fixtures>/contracts.cpp30"
+            },
+            {
+              "name": "query",
+              "path": "<fixtures>/contracts.cpp",
+              "line": 4,
+              "owner": "Live",
+              "args": [
+                "char key"
+              ],
+              "uid": "query<fixtures>/contracts.cpp40"
+            },
+            {
+              "name": "get",
+              "path": "<fixtures>/contracts.h",
+              "line": 15,
+              "owner": "CacheGuard",
+              "args": [],
+              "uid": "get<fixtures>/contracts.h150"
+            },
+            {
+              "name": "consume",
+              "path": "<fixtures>/contracts.h",
+              "line": 16,
+              "owner": null,
+              "args": [
+                "Store & db"
+              ],
+              "uid": "consume<fixtures>/contracts.h160"
+            },
+            {
+              "name": "query",
+              "path": "<fixtures>/contracts.h",
+              "line": 20,
+              "owner": "Store",
+              "args": [
+                "int key"
+              ],
+              "uid": "query<fixtures>/contracts.h200"
+            },
+            {
+              "name": "consumeOwned",
+              "path": "<fixtures>/contracts.h",
+              "line": 17,
+              "owner": null,
+              "args": [
+                "std::unique_ptr<Store> db"
+              ],
+              "uid": "consumeOwned<fixtures>/contracts.h170"
+            },
+            {
+              "name": "consume",
+              "path": "<fixtures>/contracts.h",
+              "line": 21,
+              "owner": null,
+              "args": [
+                "Store & db"
+              ],
+              "uid": "consume<fixtures>/contracts.h210"
+            },
+            {
+              "name": "send",
+              "path": "<fixtures>/transport.ts",
+              "line": 2,
+              "owner": null,
+              "args": [
+                "value"
+              ],
+              "uid": "send<fixtures>/transport.ts20"
+            },
+            {
+              "name": "send",
+              "path": "<fixtures>/transport.ts",
+              "line": 5,
+              "owner": "ClientConnector",
+              "args": [
+                "value"
+              ],
+              "uid": "send<fixtures>/transport.ts50"
+            },
+            {
+              "name": "callback",
+              "path": "<fixtures>/transport.ts",
+              "line": 7,
+              "owner": null,
+              "args": [],
+              "uid": "callback<fixtures>/transport.ts70"
+            },
+            {
+              "name": "createRequest",
+              "path": "<fixtures>/transport.ts",
+              "line": 11,
+              "owner": null,
+              "args": [
+                "connector"
+              ],
+              "uid": "createRequest<fixtures>/transport.ts110"
+            },
+            {
+              "name": "fetch",
+              "path": "<fixtures>/transport.ts",
+              "line": 6,
+              "owner": "ClientConnector",
+              "args": [
+                "value"
+              ],
+              "uid": "fetch<fixtures>/transport.ts60"
+            },
+            {
+              "name": "entry",
+              "path": "<fixtures>/transport.ts",
+              "line": 17,
+              "owner": null,
+              "args": [],
+              "uid": "entry<fixtures>/transport.ts170"
+            },
+            {
+              "name": "map",
+              "path": "<fixtures>/transport.ts",
+              "line": 18,
+              "owner": null,
+              "args": [],
+              "uid": "map<fixtures>/transport.ts180"
+            }
+          ]
+        },
+        "classes": {
+          "query": "MATCH (n:Class) WHERE n.path STARTS WITH $root RETURN n.name AS name,n.path AS path,n.line_number AS line,n.uid AS uid",
+          "rows": [
+            {
+              "name": "Store",
+              "path": "<fixtures>/contracts.h",
+              "line": 5,
+              "uid": "Store<fixtures>/contracts.h50"
+            },
+            {
+              "name": "CacheGuard",
+              "path": "<fixtures>/contracts.h",
+              "line": 15,
+              "uid": "CacheGuard<fixtures>/contracts.h150"
+            },
+            {
+              "name": "Live",
+              "path": "<fixtures>/contracts.h",
+              "line": 10,
+              "uid": "Live<fixtures>/contracts.h100"
+            },
+            {
+              "name": "Store",
+              "path": "<fixtures>/contracts.h",
+              "line": 20,
+              "uid": "Store<fixtures>/contracts.h200"
+            },
+            {
+              "name": "BaseConnector",
+              "path": "<fixtures>/transport.ts",
+              "line": 1,
+              "uid": "BaseConnector<fixtures>/transport.ts10"
+            },
+            {
+              "name": "ClientConnector",
+              "path": "<fixtures>/transport.ts",
+              "line": 4,
+              "uid": "ClientConnector<fixtures>/transport.ts40"
+            }
+          ]
+        },
+        "calls": {
+          "query": "MATCH (a:Function)-[r:CALLS|HEURISTIC_CALLS]->(b) WHERE a.path STARTS WITH $root RETURN a.name AS caller,a.path AS caller_path,a.line_number AS caller_line,b.name AS callee,b.path AS callee_path,b.line_number AS callee_line,label(r) AS kind,r.line_number AS call_line,r.resolution_tier AS tier,r.source AS source,r.resolution_method AS method",
+          "rows": [
+            {
+              "caller": "send",
+              "caller_path": "<fixtures>/transport.ts",
+              "caller_line": 5,
+              "callee": "send",
+              "callee_path": "<fixtures>/transport.ts",
+              "callee_line": 2,
+              "kind": "CALLS",
+              "call_line": 5,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "callback",
+              "caller_path": "<fixtures>/transport.ts",
+              "caller_line": 7,
+              "callee": "send",
+              "callee_path": "<fixtures>/transport.ts",
+              "callee_line": 5,
+              "kind": "CALLS",
+              "call_line": 7,
+              "tier": 1,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "fetch",
+              "caller_path": "<fixtures>/transport.ts",
+              "caller_line": 6,
+              "callee": "callback",
+              "callee_path": "<fixtures>/transport.ts",
+              "callee_line": 7,
+              "kind": "CALLS",
+              "call_line": 8,
+              "tier": 2,
+              "source": null,
+              "method": null
+            },
+            {
+              "caller": "createRequest",
+              "caller_path": "<fixtures>/transport.ts",
+              "caller_line": 11,
+              "callee": "fetch",
+              "callee_path": "<fixtures>/transport.ts",
+              "callee_line": 6,
+              "kind": "CALLS",
+              "call_line": 12,
+              "tier": 2,
+              "source": null,
+              "method": null
+            }
+          ]
+        }
+      }
+    }
+  },
+  "extension_probe": {
+    "origin": "synthetic_storage_roundtrip_not_extracted_product_edges",
+    "before_delete": [
+      {
+        "caller": "entry",
+        "service": "service-a",
+        "command": "fixture/query",
+        "condition": "fixture=true",
+        "evidence": "synthetic round-trip fixture"
+      }
+    ],
+    "after_delete": [],
+    "passed": true
+  }
+}
