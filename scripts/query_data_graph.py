@@ -17,6 +17,7 @@ from adapters.correlation_queries import explain_correlation
 from adapters.transmission_queries import explain_transmission
 from adapters.socket_queries import explain_socket_receivers
 from adapters.server_channel_queries import explain_server_channels
+from adapters.return_bridge_queries import explain_return_bridge
 from adapters.fact_queries import find_path
 from scripts.query_protocol_graph import resolve
 
@@ -39,6 +40,7 @@ if __name__=='__main__':
     ap.add_argument('--socket-provider',help='P2 provider ID for request-channel / response-listener links')
     ap.add_argument('--socket-requester',help='Promise-producing callable ID or unique name for socket receiver bindings')
     ap.add_argument('--server-channel-provider',help='P2 provider ID for accepted socket / stored session / response send joins')
+    ap.add_argument('--return-provider',help='P2 provider ID for reply packaging / iframe / API / state links; accepts --field-path or --frontend-state')
     ap.add_argument('--instance-impact',action='store_true',help='use source receiver-instance contexts')
     ap.add_argument('--depth',type=int,default=16);a=ap.parse_args();graph=json.loads(a.graph.read_text(encoding='utf-8'))
     if a.receiver:result=explain_receiver(graph,a.receiver)
@@ -48,6 +50,8 @@ if __name__=='__main__':
     elif a.correlation_provider:result=explain_correlation(graph,a.correlation_provider)
     elif a.transmission_provider or a.transmission_entry:result=explain_transmission(graph,
         provider=a.transmission_provider,entry=resolve(graph,a.transmission_entry) if a.transmission_entry else None)
+    elif a.return_provider:result=explain_return_bridge(graph,a.return_provider,state=a.frontend_state,
+        field_path=json.loads(a.field_path) if a.field_path is not None else None)
     elif a.server_channel_provider:result=explain_server_channels(graph,provider=a.server_channel_provider)
     elif a.socket_provider or a.socket_requester:result=explain_socket_receivers(graph,
         provider=a.socket_provider,requester=resolve(graph,a.socket_requester) if a.socket_requester else None)

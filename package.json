@@ -2,6 +2,6 @@
   "name": "project-map-research",
   "private": true,
   "version": "0.1.0",
-  "scripts": { "test": "node --test tests/typescript_facts.test.cjs tests/typescript_protocol.test.cjs tests/typescript_data_flow.test.cjs tests/typescript_response_flow.test.cjs tests/typescript_socket_flow.test.cjs" },
+  "scripts": { "test": "node --test tests/typescript_facts.test.cjs tests/typescript_protocol.test.cjs tests/typescript_data_flow.test.cjs tests/typescript_response_flow.test.cjs tests/typescript_socket_flow.test.cjs tests/typescript_return_flow.test.cjs" },
   "devDependencies": { "typescript": "5.9.3" }
 }

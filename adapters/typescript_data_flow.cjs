@@ -5,7 +5,8 @@
 const fs=require('node:fs'),path=require('node:path');
 const {analyze}=require('./typescript_facts.cjs');
 
-function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistries=false,socketOnly=false}={}) {
+function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistries=false,socketOnly=false,
+    returnOnly=false,boundarySymbols=[],apiEntries=[],handoffSymbols=[]}={}) {
   const {ts,checker,loc,id,callableOwner,qualified}=ctx,apis=new Set(apiSymbols);
   const src=n=>({...loc(n),expression:n.getText().slice(0,500)});
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
@@ -13,6 +14,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   const promiseEntries=new Map(),lookupEntries=new Map(),registrations=[],lookups=[],settlements=[],promises=[],deletions=[],callbackBindings=[];
   const transmissions=[],counterUpdates=[];
   const socketEntries=new Map(),socketCreations=[],channelBindings=[],listenerBindings=[];
+  const boundarySet=new Set(boundarySymbols),returnBoundaries=[],returnValues=[],returnBindings=[],windowListeners=[],handoffs=[],guardTests=[];
+  const handoffSet=new Set(handoffSymbols),ast=new Map();
+  if(returnOnly)for(const sf of ctx.sfList)ctx.walk(sf,n=>{if(ts.isFunctionLike(n))ast.set(id(n,'callable'),n);if(ts.isBinaryExpression(n))ast.set(id(n,'binding'),n);});
   let socketEpoch=0;
   let phase='consumers';
   const unwrap=n=>{while(n&&(ts.isAsExpression(n)||ts.isParenthesizedExpression(n)||ts.isNonNullExpression(n)||ts.isTypeAssertionExpression(n)))n=n.expression;return n;};
@@ -89,6 +93,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(v.tag==='literal')return v.value===undefined?{kind:'undefined'}:{kind:'constant',value:v.value};
     if(v.tag==='input')return {kind:'input_path',root:v.root,path:v.path,transforms:v.transforms||[],evidence:v.evidence||[],conditions:v.conditions||[],gaps:v.gaps||[],
       ...(v.receiver_type?{receiver_type:v.receiver_type}:{}),
+      ...(returnOnly&&v.selections?{selections:v.selections}:{}),
       ...(v.assigned?.length?{overrides:Object.fromEntries(v.assigned.map(k=>[k,describe(v.props[k],depth+1,new Set(seen))]))}:{})};
     if(v.tag==='function')return {kind:'source_callback',source_symbol:id(v.node,'callable'),resolvers:resolverRefs(v)};
     if(v.tag==='resolver')return {kind:'promise_resolver',promise:v.promise,mode:v.mode};
@@ -96,7 +101,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(v.tag==='registry_lookup')return {kind:'registry_lookup',lookup:v.lookup,selectors:v.selectors};
     if(v.tag==='json')return {kind:'json_string',value:describe(v.value,depth+1,new Set(seen)),evidence:v.evidence};
     if(v.tag==='native_socket')return {kind:'native_socket',allocation:v.allocation,evidence:v.evidence};
-    if(socketOnly&&v.tag==='computed'&&v.inputs)return {kind:'source_expression',operation:v.operation,
+    if(returnOnly&&v.tag==='promise')return describe(v.value,depth+1,new Set(seen));
+    if(returnOnly&&v.tag==='instance')return {kind:'source_instance',receiver_type:id(v.classNode,'type'),allocation:v.allocation||null};
+    if((socketOnly||returnOnly)&&v.tag==='computed'&&v.inputs)return {kind:'source_expression',operation:v.operation,
       inputs:v.inputs.map(x=>describe(x,depth+1,new Set(seen))),evidence:v.evidence||[]};
     if(v.tag==='object')return {kind:'object',fields:Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,describe(x,depth+1,new Set(seen))]))};
     return {kind:'unknown',reason:v.reason||v.tag};
@@ -131,6 +138,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   function get(v,key,n,c) {
     if(v?.tag==='union')return v.values.map(x=>get(x,key,n,c)).reduce(merge);
     if(v?.props&&Object.hasOwn(v.props,key))return v.props[key];
+    if(returnOnly&&v?.tag==='super'){
+      const m=member(v.classNode,key);return m&&ts.isFunctionLike(m)?{...fn(m,c),receiver:v.receiver}:unknown('base_member_unresolved');
+    }
     if(responseRegistries&&v?.tag==='registry_lookup')return {...v,selectors:[...v.selectors,key]};
     if(responseRegistries&&v?.tag==='instance'){
       const m=member(v.classNode,key);if(!m)return unknown('instance_member_unresolved');
@@ -162,14 +172,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   }
   function bind(name,value,c) {
     if(ts.isIdentifier(name)){c.env.set(name.parent,value);return;}
-    if(ts.isObjectBindingPattern(name))for(const e of name.elements){const key=(e.propertyName||e.name).getText().replace(/^['"]|['"]$/g,'');bind(e.name,get(value,key,e,c),c);}
+    if(ts.isObjectBindingPattern(name))for(const e of name.elements){const key=(e.propertyName||e.name).getText().replace(/^['"]|['"]$/g,'');let v=get(value,key,e,c);
+      if(returnOnly&&v.tag==='literal'&&v.value===undefined&&e.initializer)v=ev(e.initializer,c);bind(e.name,v,c);}
     if(ts.isArrayBindingPattern(name))name.elements.forEach((e,i)=>{if(ts.isBindingElement(e))bind(e.name,get(value,String(i),e,c),c);});
   }
   function fn(n,c){return {tag:'function',node:n,env:c.env,receiver:c.receiver};}
   function symbol(n,c) {
     const d=decl(n);if(c.env.has(d))return c.env.get(d);
     if(!d)return unknown('symbol_unresolved');
-    if(socketOnly&&loc(d).path.startsWith('<typescript-lib>/')&&platform(n,'Window'))return {tag:'input',root:id(d,'platform_binding'),path:[],props:{},evidence:[src(n)]};
+    if((socketOnly||returnOnly)&&loc(d).path.startsWith('<typescript-lib>/')&&platform(n,'Window'))return {tag:'input',root:id(d,'platform_binding'),path:[],props:{},evidence:[src(n)]};
+    if(returnOnly&&ts.isExportAssignment(d))return ev(d.expression,c);
     if(ts.isFunctionLike(d))return fn(d,c);
     if(ts.isVariableDeclaration(d)&&d.initializer){if(c.resolving.has(d))return unknown('initializer_cycle');c.resolving.add(d);const v=ev(d.initializer,c);c.resolving.delete(d);c.env.set(d,v);return v;}
     return unknown('external_or_runtime_value');
@@ -180,6 +192,17 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(!ts.isPropertyAccessExpression(left)&&!ts.isElementAccessExpression(left))return;
     const receiver=ev(left.expression,c),key=ts.isPropertyAccessExpression(left)?literal(left.name.text):ev(left.argumentExpression,c);
     const prop=key.tag==='literal'?String(key.value):'*';
+    if(returnOnly&&prop==='onmessage'&&platform(left.expression,'Window')){
+      const callback=value.tag==='function'?value:null;
+      const record={id:contextualId(at,'window_listener',c)+':'+windowListeners.length,entry:currentEntry,
+        source_symbol:id(c.current,'callable'),receiver_type:c.receiver?.classNode?id(c.receiver.classNode,'type'):null,
+        channel:describe(receiver),callback:callback?id(callback.node,'callable'):null,
+        event_parameter:callback?.node.parameters[0]?id(callback.node.parameters[0],'input_binding'):null,
+        conditions:c.conditions,evidence:[src(at)],superseded_by:[]};
+      for(const old of windowListeners)if(old.record.entry===currentEntry&&old.record.receiver_type===record.receiver_type&&
+        channelIdentity(old.record.channel)===channelIdentity(record.channel)&&JSON.stringify(old.record.conditions)===JSON.stringify(record.conditions))old.record.superseded_by.push(record.id);
+      windowListeners.push({record,callback});
+    }
     if(socketOnly){
       if(receiver.tag==='instance'&&platform(left,'WebSocket')){
         const m=member(receiver.classNode,prop);
@@ -219,11 +242,27 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   function invoke(callable,args,c,at) {
     if(callable?.tag!=='function'||!callable.node.body)return unknown('callee_body_unresolved');
     const n=callable.node;if(c.depth>=maxDepth){note(at||n,'call_depth_limit',c);return unknown('call_depth_limit');}
+    if(returnOnly&&c.windowReplay&&handoffSet.has(id(n,'callable'))){
+      handoffs.push({id:contextualId(at||n,'window_handoff',c)+':'+handoffs.length,listener:c.windowReplay,target:id(n,'callable'),
+        target_parameters:n.parameters.map(p=>id(p,'input_binding')),
+        receiver_type:callable.receiver?.classNode?id(callable.receiver.classNode,'type'):null,
+        arguments:args.map(a=>describe(a)),conditions:c.conditions,evidence:[src(at||n)],call_chain:c.chain});
+      return literal(undefined);
+    }
+    if(returnOnly&&boundarySet.has(id(n,'callable'))){
+      const uid=contextualId(at||n,'return_boundary',c),record={id:uid,entry:currentEntry,target:id(n,'callable'),
+        call_site:at?id(at,'call_site'):null,receiver_type:ownerClass(n)?id(ownerClass(n),'type'):null,
+        arguments:args.map(a=>describe(a)),conditions:c.conditions,evidence:[src(at||n)],call_chain:c.chain};
+      returnBoundaries.push(record);
+      return {tag:'promise',value:{tag:'input',root:uid,path:[],props:{},evidence:record.evidence,conditions:c.conditions},awaited:[]};
+    }
     const isAsync=n.modifiers?.some(m=>m.kind===ts.SyntaxKind.AsyncKeyword);
     const sub={...c,env:new Map(callable.env),awaited:isAsync?new Set(c.awaited):c.awaited,receiver:callable.receiver||c.receiver,depth:c.depth+1,current:n,
       chain:at?[...c.chain,{call_site:id(at,'call_site'),target:id(n,'callable'),evidence:[src(at),src(n)]}]:c.chain};
     n.parameters.forEach((p,i)=>bind(p.name,args[i]??(p.initializer?ev(p.initializer,sub):literal(undefined)),sub));
     const value=ts.isBlock(n.body)?block(n.body.statements,sub)||literal(undefined):ev(n.body,sub);
+    if(returnOnly)returnValues.push({id:contextualId(at||n,'source_return',sub)+':'+returnValues.length,entry:currentEntry,
+      source_symbol:id(n,'callable'),value:describe(value),conditions:sub.conditions,evidence:[src(n)],call_chain:sub.chain});
     return isAsync?{tag:'promise',value,awaited:[...sub.awaited]}:value;
   }
   function block(statements,c) {
@@ -237,10 +276,11 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       else if(ts.isBlock(s)){const r=block(s.statements,c);if(r){returned.push(r);break;}}
       else if(ts.isIfStatement(s)){
         const condition=ev(s.expression,c),run=(branch,cc)=>branch?block(ts.isBlock(branch)?branch.statements:[branch],cc):null;
+        if(returnOnly)guardTests.push({source_symbol:id(c.current,'callable'),entry:currentEntry,...src(s.expression),test:describe(condition)});
         if(condition.tag==='literal'){const r=run(condition.value?s.thenStatement:s.elseStatement,c);if(r){returned.push(r);break;}}
         else {
           const branches=[s.thenStatement,s.elseStatement].map((branch,i)=>{const memo=new Map(),cc={...c,env:new Map([...c.env].map(([k,v])=>[k,clone(v,memo)])),receiver:clone(c.receiver,memo),awaited:new Set(c.awaited),
-            conditions:[...c.conditions,{...src(s.expression),when:i===0}]};return {ctx:cc,result:run(branch,cc)};});
+            conditions:[...c.conditions,{...src(s.expression),when:i===0,...(returnOnly?{test:describe(condition)}:{})}]};return {ctx:cc,result:run(branch,cc)};});
           returned.push(...branches.filter(b=>b.result).map(b=>guarded(b.result,b.ctx.conditions)));
           const live=branches.filter(b=>!b.result);if(!live.length)break;
           if(live.length===1){c.env=live[0].ctx.env;c.receiver=live[0].ctx.receiver;c.conditions=live[0].ctx.conditions;c.awaited=live[0].ctx.awaited;}
@@ -266,8 +306,13 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(n.kind===ts.SyntaxKind.TrueKeyword||n.kind===ts.SyntaxKind.FalseKeyword)return literal(n.kind===ts.SyntaxKind.TrueKeyword);
     if(n.kind===ts.SyntaxKind.NullKeyword)return literal(null);
     if(n.kind===ts.SyntaxKind.ThisKeyword)return c.receiver||unknown('this_unresolved');
+    if(returnOnly&&n.kind===ts.SyntaxKind.SuperKeyword)return {tag:'super',classNode:baseClass(ownerClass(c.current)),receiver:c.receiver};
     if(ts.isIdentifier(n))return n.text==='undefined'?literal(undefined):symbol(n,c);
     if(ts.isArrowFunction(n)||ts.isFunctionExpression(n))return fn(n,c);
+    if(returnOnly&&ts.isTypeOfExpression(n)){
+      const v=ev(n.expression,c);return v.tag==='literal'?literal(typeof v.value):v.tag==='function'?literal('function'):
+        v.tag==='json'?literal('string'):v.tag==='object'||v.tag==='instance'?literal('object'):unknown('runtime_typeof');
+    }
     if(ts.isAwaitExpression(n)){
       if(socketOnly)socketEpoch++;
       function fulfilled(value){
@@ -281,13 +326,22 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       inputs:[literal(n.head.text),...n.templateSpans.flatMap(s=>[ev(s.expression,c),literal(s.literal.text)])],evidence:[src(n)]};
     if(ts.isObjectLiteralExpression(n)){
       const value={tag:'object',props:{},dependencies:[]};
-      for(const p of n.properties){if(ts.isSpreadAssignment(p)){const v=ev(p.expression,c);Object.assign(value.props,v.props||{});value.dependencies.push(...dependencies(v));continue;}
+      for(const p of n.properties){if(ts.isSpreadAssignment(p)){const v=ev(p.expression,c);
+        if(returnOnly&&v.tag!=='object'){
+          for(const k of Object.keys(value.props))value.props[k]=unknown('unresolved_spread_may_overwrite_field');
+          note(p,'spread_source_not_expanded',c);
+        }else Object.assign(value.props,v.props||{});
+        value.dependencies.push(...dependencies(v));continue;}
         const key=p.name?.getText().replace(/^['"]|['"]$/g,'');if(ts.isPropertyAssignment(p))value.props[key]=ev(p.initializer,c);else if(ts.isShorthandPropertyAssignment(p))value.props[key]=symbol(p.name,c);}
       return value;
     }
     if(ts.isArrayLiteralExpression(n))return {tag:'object',array:true,props:Object.fromEntries(n.elements.map((v,i)=>[String(i),ev(v,c)])),dependencies:[]};
     if(ts.isPropertyAccessExpression(n)||ts.isElementAccessExpression(n)){
-      const key=ts.isPropertyAccessExpression(n)?literal(n.name.text):ev(n.argumentExpression,c);return get(ev(n.expression,c),key.tag==='literal'?String(key.value):'*',n,c);
+      const key=ts.isPropertyAccessExpression(n)?literal(n.name.text):ev(n.argumentExpression,c),receiver=ev(n.expression,c);
+      const result=get(receiver,key.tag==='literal'?String(key.value):'*',n,c);
+      if(returnOnly&&ts.isElementAccessExpression(n)&&key.tag!=='literal'&&result.tag==='input')
+        return {...result,selections:[...(result.selections||[]),{at_path:receiver.path||[],key:describe(key),evidence:[src(n)]}]};
+      return result;
     }
     if(ts.isPrefixUnaryExpression(n)){
       const value=ev(n.operand,c);if(n.operator===ts.SyntaxKind.ExclamationToken&&value.tag==='literal')return literal(!value.value);
@@ -319,12 +373,26 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         if(op===ts.SyntaxKind.ExclamationEqualsEqualsToken)return literal(a.value!==b.value);
       }
       return {tag:'computed',dependencies:uniq([...dependencies(a),...dependencies(b)]),
-        ...(socketOnly?{operation:ts.tokenToString(op),inputs:[a,b],evidence:[src(n)]}:{})};
+        ...((socketOnly||returnOnly)?{operation:ts.tokenToString(op),inputs:[a,b],evidence:[src(n)]}:{})};
     }
     if(ts.isConditionalExpression(n)){const v=ev(n.condition,c);if(v.tag==='literal')return ev(v.value?n.whenTrue:n.whenFalse,c);
       const branches=[n.whenTrue,n.whenFalse].map((b,i)=>{const conditions=[...c.conditions,{...src(n.condition),when:i===0}];return guarded(ev(b,{...c,conditions}),conditions);});return branches.reduce(merge);}
     if(ts.isCallExpression(n)) {
       const callee=target(n),args=n.arguments.map(a=>ev(a,c)),callId=id(n,'call_site');
+      if(returnOnly){
+        const bindings=ctx.facts.edges.filter(e=>e.source===callId&&e.kind==='USES_BINDING');
+        if(bindings.length){
+          if(bindings.length!==1){note(n,'ambiguous_global_binding',c);return unknown('ambiguous_global_binding');}
+          const assignment=ast.get(bindings[0].target),callable=assignment?ev(assignment.right,c):null;
+          if(callable?.tag==='function')return invoke(callable,args,{...c,conditions:[...c.conditions,{kind:'source_global_binding',
+            binding:bindings[0].target,evidence:[src(assignment)],condition:bindings[0].condition}]},n);
+          return unknown('global_binding_not_callable');
+        }
+        if(n.expression.kind===ts.SyntaxKind.SuperKeyword){
+          const cls=baseClass(ownerClass(c.current)),ctor=cls?.members.find(ts.isConstructorDeclaration);
+          return ctor?invoke({...fn(ctor,c),receiver:c.receiver},args,c,n):literal(undefined);
+        }
+      }
       if(callee&&apis.has(id(callee,'callable'))){
         const request_context=[currentEntry,...c.chain.map(s=>s.call_site),callId].join('/');
         const record={api:id(callee,'callable'),api_call:callId,request_context,entry:currentEntry,evidence:[src(n)]};calls.push(record);
@@ -341,8 +409,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
           return {...receiver,receiver:args[0],boundReceiver:true};
         if(responseRegistries&&standard(n.expression.expression,'JSON')&&name==='stringify')return {tag:'json',value:clone(args[0]),evidence:[src(n)]};
         if(responseRegistries&&((name==='send'&&platform(n.expression.expression,'WebSocket'))||(name==='postMessage'&&platform(n.expression.expression,'Window')))){
-          transmissions.push({id:contextualId(n,socketOnly?'socket_send':'transmission',c)+':'+transmissions.length,source_site:callId,entry:currentEntry,promise_context:c.promiseContext||null,
+          transmissions.push({id:contextualId(n,socketOnly?'socket_send':returnOnly?'return_transmission':'transmission',c)+':'+transmissions.length,source_site:callId,entry:currentEntry,promise_context:c.promiseContext||null,
             transport:name==='send'?'WebSocket.send':'window.postMessage',receiver:describe(receiver),payload:describe(clone(args[0])),
+            ...(returnOnly?{target_origin:describe(args[1])}:{}),
             conditions:c.conditions,evidence:[src(n)],call_chain:c.chain});return literal(undefined);
         }
         if(responseRegistries&&name==='forEach'&&platform(n.expression.expression,'Array')&&args[0]?.tag==='function'){
@@ -353,6 +422,8 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
           }
           iterate(receiver);return literal(undefined);
         }
+        if(returnOnly&&name==='includes'&&receiver.tag==='object'&&receiver.array&&args[0]?.tag==='literal'&&
+            Object.values(receiver.props).every(v=>v.tag==='literal'))return literal(Object.values(receiver.props).some(v=>v.value===args[0].value));
         if(responseRegistries&&standard(n.expression.expression,'JSON')&&name==='parse'){
           function decode(value){
             if(value?.tag==='union')return value.values.map(decode).reduce(merge);
@@ -375,6 +446,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         if(receiver.tag==='object'&&receiver.array&&name==='push'){
           receiver.props['*']=receiver.props['*']?merge(receiver.props['*'],args[0]):args[0];return literal(undefined);
         }
+        if(returnOnly){const dynamic=get(receiver,name,n,c);if(dynamic.tag==='function')return invoke(dynamic,args,c,n);}
         if(callee?.body)return invoke({...fn(callee,c),receiver},args,c,n);
       }
       const callable=ev(n.expression,c);
@@ -403,6 +475,18 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       return unknown('external_or_unresolved_call');
     }
     if(ts.isNewExpression(n)){
+      if(returnOnly){
+        const cls=decl(n.expression);
+        if(cls&&ts.isClassDeclaration(cls)){
+          const instance={tag:'instance',classNode:cls,props:{},allocation:contextualId(n,'source_instance',c)},line=[];
+          for(let q=cls;q;q=baseClass(q))line.unshift(q);
+          const cc={...c,receiver:instance};
+          for(const q of line)for(const m of q.members)if(ts.isPropertyDeclaration(m)&&m.initializer)instance.props[m.name.getText()]=ev(m.initializer,cc);
+          let ctor=null;for(let q=cls;q&&!ctor;q=baseClass(q))ctor=q.members.find(ts.isConstructorDeclaration);
+          if(ctor)invoke({...fn(ctor,cc),receiver:instance},(n.arguments||[]).map(a=>ev(a,c)),c,n);
+          return instance;
+        }
+      }
       if(socketOnly&&standard(n.expression,'WebSocket')){
         const allocation=contextualId(n,'socket_allocation',c),args=(n.arguments||[]).map(a=>ev(a,c));
         socketCreations.push({id:allocation,entry:currentEntry,source_symbol:id(c.current,'callable'),transport:'WebSocket',
@@ -429,6 +513,52 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     analyzed.push({source_symbol:uid,name:qualified(entry),...loc(entry),steps,truncated:steps>maxSteps,...(responseRegistries?{phase}:{})});
   }
   for(const [uid,entry] of entries)analyzeEntry(uid,entry);
+  if(returnOnly){
+    const setters=new Map(),registrations=[];
+    for(const n of ast.values())if(ts.isMethodDeclaration(n)&&n.body)ctx.walk(n.body,x=>{
+      if(ts.isBinaryExpression(x)&&x.operatorToken.kind===ts.SyntaxKind.EqualsToken&&ts.isPropertyAccessExpression(x.left)&&x.left.expression.kind===ts.SyntaxKind.ThisKeyword){
+        const index=n.parameters.indexOf(decl(x.right));if(index>=0)setters.set(n,{slot:x.left.name.text,index,assignment:x});
+      }
+    });
+    for(const call of ctx.calls){if(!ts.isCallExpression(call)||!ts.isPropertyAccessExpression(call.expression))continue;
+      const rule=setters.get(target(call)),arg=rule&&call.arguments[rule.index];
+      if(arg&&(ts.isArrowFunction(arg)||ts.isFunctionExpression(arg)))registrations.push({call,rule,arg,cls:ownerClass(target(call))});
+    }
+    function context(entry){currentEntry=id(entry,'callable');steps=0;return {env:new Map(),receiver:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0};}
+    function inputs(entry){return entry.parameters.map(p=>({tag:'input',root:id(p,'input_binding'),path:[],props:{},evidence:[src(p)]}));}
+    for(const registration of registrations){
+      const {call,rule,arg,cls}=registration;if(!cls)continue;
+      for(const entry of cls.members){if(!ts.isMethodDeclaration(entry)||!entry.body)continue;let invokesSlot=false;
+        ctx.walk(entry.body,n=>{if(ts.isCallExpression(n)&&ts.isPropertyAccessExpression(n.expression)&&n.expression.expression.kind===ts.SyntaxKind.ThisKeyword&&n.expression.name.text===rule.slot)invokesSlot=true;});
+        if(!invokesSlot)continue;handoffSet.add(id(entry,'callable'));
+        const c=context(entry),receiver=ev(call.expression.expression,c);
+        if(receiver.tag!=='instance'){note(call,'registered_receiver_unresolved',c);continue;}
+        invoke({...fn(target(call),c),receiver},call.arguments.map(a=>ev(a,c)),c,call);
+        returnBindings.push({id:id(call,'return_callback_binding'),entry:currentEntry,receiver_type:id(receiver.classNode,'type'),
+          entry_parameters:entry.parameters.map(p=>id(p,'input_binding')),
+          slot:rule.slot,callback:id(arg,'callable'),evidence:[src(call),src(rule.assignment)],conditions:c.conditions});
+        invoke({...fn(entry,c),receiver},inputs(entry),c,null);
+        analyzed.push({source_symbol:currentEntry,name:qualified(entry),...loc(entry),steps,truncated:steps>maxSteps,phase:'reply'});
+      }
+    }
+    for(const uid of apiEntries){const entry=ast.get(uid);if(!entry?.body)continue;const c=context(entry);
+      invoke(fn(entry,c),inputs(entry),c,null);analyzed.push({source_symbol:uid,name:qualified(entry),...loc(entry),steps,truncated:steps>maxSteps,phase:'api_return'});
+    }
+    phase='request_send';for(const uid of boundarySymbols){const entry=ast.get(uid);if(entry?.body)analyzeEntry(uid,entry);}
+    phase='delivery_guards';for(const uid of handoffSymbols){const entry=ast.get(uid);if(entry?.body)analyzeEntry(uid,entry);}
+    const listeners=[...windowListeners],seen=new Set();
+    for(const {record,callback} of listeners){if(!callback||record.superseded_by.length)continue;
+      const signature=JSON.stringify([record.entry,record.receiver_type,record.callback]);if(seen.has(signature))continue;seen.add(signature);
+      const c=context(callback.node);c.windowReplay=record.id;
+      invoke(callback,inputs(callback.node),c,null);
+      analyzed.push({source_symbol:currentEntry,name:qualified(callback.node),...loc(callback.node),steps,truncated:steps>maxSteps,phase:'window_receiver'});
+    }
+    return {version:'0.1.0',entries:analyzed,boundaries:uniq(returnBoundaries),returns:uniq(returnValues),callback_bindings:uniq(returnBindings),
+      transmissions:uniq(transmissions),window_listeners:windowListeners.map(r=>r.record),handoffs:uniq(handoffs),guard_tests:uniq(guardTests),diagnostics:uniq(diagnostics),
+      limits:['fulfilled_boundary_values_are_source_inputs','window_destination_and_origin_require_matching_deployment',
+        'registered_callback_requires_same_receiver_and_lifetime','exceptions_and_unresolved_mutations_keep_gaps','runtime_delivery_not_observed'],
+      budgets:{max_steps:maxSteps,max_depth:maxDepth}};
+  }
   if(socketOnly){phase='socket';for(const [uid,entry] of socketEntries)analyzeEntry(uid,entry);
     return {version:'0.1.0',entries:analyzed,creations:uniq(socketCreations),channel_bindings:uniq(channelBindings),listener_bindings:uniq(listenerBindings),
       transmissions:uniq(transmissions),diagnostics:uniq(diagnostics),budgets:{max_steps:maxSteps,max_depth:maxDepth},
