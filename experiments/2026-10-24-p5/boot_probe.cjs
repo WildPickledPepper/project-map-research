@@ -1,24 +1,29 @@
 // Exercise the real browser and server on a public, copied Insight trace sample.
 const fs = require('node:fs');
 const path = require('node:path');
-const [source, output, url, data] = process.argv.slice(2);
+const [source, output, url, data, scenario = 'boot'] = process.argv.slice(2);
 const { chromium, expect } = require(path.join(source, 'e2e/node_modules/@playwright/test'));
+const { installProbe, collectProbe } = require('./browser_probe.cjs');
 
 async function main() {
   const browser = await chromium.launch({headless: true});
   const context = await browser.newContext({viewport: {width: 1600, height: 1000}, locale: 'en-US'});
+  if (scenario !== 'boot') await installProbe(context, path.basename(output));
   await context.tracing.start({screenshots: true, snapshots: true, sources: true});
   const page = await context.newPage();
-  const events = [], errors = [], consoleMessages = [];
+  const events = [], errors = [], consoleMessages = [], connections = [];
   page.on('pageerror', error => errors.push(String(error)));
   page.on('console', message => consoleMessages.push({type: message.type(), text: message.text()}));
   page.on('websocket', ws => {
+    const connection = {id: `${path.basename(output)}:socket:${connections.length + 1}`, url: ws.url(), closed: false};
+    connections.push(connection);
+    ws.on('close', () => { connection.closed = true; });
     for (const direction of ['framesent', 'framereceived']) {
       ws.on(direction, frame => {
         const raw = typeof frame.payload === 'string' ? frame.payload : frame.payload.toString();
         let message;
         try { message = JSON.parse(raw); } catch { message = {unparsed: raw}; }
-        events.push({direction, socket: ws.url(), at: new Date().toISOString(), message});
+        events.push({direction, connection_id: connection.id, socket: ws.url(), at: new Date().toISOString(), message});
       });
     }
   });
@@ -40,19 +45,23 @@ async function main() {
     await timeline.locator('#main-container').waitFor({state: 'visible', timeout: 30000});
     await expect(timeline.locator('#unitWrapperScroller')).toContainText(/Ascend|Python|Process|Thread|CPU|NPU/i, {timeout: 30000});
     await page.screenshot({path: path.join(output, 'loaded.png'), fullPage: true});
+    if (scenario === 'normal') {
+      await require('./flow_scenario.cjs').runNormal({page, events, source, output, data});
+    }
   } catch (error) {
     failure = String(error.stack || error);
     await page.screenshot({path: path.join(output, 'failed.png'), fullPage: true}).catch(() => {});
   } finally {
-    fs.writeFileSync(path.join(output, 'browser-events.json'), JSON.stringify({events, errors}, null, 2));
+    fs.writeFileSync(path.join(output, 'browser-events.json'), JSON.stringify({events, errors, connections}, null, 2));
     fs.writeFileSync(path.join(output, 'browser-console.json'), JSON.stringify(consoleMessages, null, 2));
+    if (scenario !== 'boot') fs.writeFileSync(path.join(output, 'browser-probe.json'), JSON.stringify(await collectProbe(page), null, 2));
     fs.writeFileSync(path.join(output, 'page-text.txt'), await page.locator('body').innerText().catch(() => 'unavailable'));
     fs.writeFileSync(path.join(output, 'boot-result.json'), JSON.stringify({
-      evidence_kind: 'real_Insight_browser_import', passed: !failure, failure,
+      evidence_kind: scenario === 'boot' ? 'real_Insight_browser_import' : 'real_Insight_UI_scenario', scenario, passed: !failure, failure,
       browser: browser.version(), event_count: events.length, page_errors: errors,
       received_events: [...new Set(events.filter(e => e.direction === 'framereceived').map(e => e.message.event).filter(Boolean))],
       observed_commands: [...new Set(events.map(e => e.message.command).filter(Boolean))],
-      scope: 'R01 preparation: UI import and timeline availability; unit/flows state assertions remain separate'
+      scope: scenario === 'boot' ? 'UI import and timeline availability' : 'UI import and normal unit/flows result/state assertions; identity join runs separately'
     }, null, 2));
     try {
       await context.tracing.stop({path: path.join(output, 'playwright-trace.zip')});

@@ -31,7 +31,7 @@ def available_backend_port(source):
     raise RuntimeError('No available backend port in product range: ' + str(limits))
 
 
-def run(source, output):
+def run(source, output, scenario='boot'):
     source = Path(source).resolve(); output = Path(output).resolve()
     if output.is_relative_to(ROOT) or output.is_relative_to(source): raise ValueError('Keep probe outputs outside both repositories')
     executable = source/'server/output/win_mingw64/bin/profiler_server.exe'
@@ -53,9 +53,11 @@ def run(source, output):
     thread = threading.Thread(target=http.serve_forever, daemon=True); thread.start()
     command = [str(executable), '--logPath=' + str(logs), '--wsHost=127.0.0.1', '--wsPort=' + str(backend_port)]
     url = 'http://127.0.0.1:' + str(http.server_port) + '/?port=' + str(backend_port)
-    manifest = {'evidence_kind': 'executed_runtime_preparation', 'source_commit': revision,
+    source_changes = subprocess.check_output(['git', '-C', str(source), 'diff', '--name-only',
+        'd4e8d1cf9f90208bcbe5371c127088f6fd66c688', 'HEAD'], text=True).splitlines()
+    manifest = {'evidence_kind': 'executed_runtime_preparation', 'source_commit': revision, 'scenario': scenario,
                 'sample': SAMPLE, 'sample_bytes': data.stat().st_size,
-                'product_source_changes': [], 'listen_host': '127.0.0.1', 'frontend_port': http.server_port,
+                'product_source_changes': source_changes, 'listen_host': '127.0.0.1', 'frontend_port': http.server_port,
                 'backend_port': backend_port, 'backend_port_range': port_range, 'strict_mode': True, 'browser': 'headless',
                 'dataset_copy': 'data/project-A/trace_view.json', 'file_hash_verification': 'not_run_per_user_preference'}
     (output/'input.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
@@ -73,7 +75,7 @@ def run(source, output):
                     if time.monotonic() >= deadline: raise TimeoutError('Backend did not start')
                     time.sleep(0.1)
             with (output/'browser.log').open('w', encoding='utf-8') as browser_log:
-                browser = subprocess.Popen(['node', str(Path(__file__).with_name('boot_probe.cjs')), str(source), str(output), url, str(data)],
+                browser = subprocess.Popen(['node', str(Path(__file__).with_name('boot_probe.cjs')), str(source), str(output), url, str(data), scenario],
                                            stdout=browser_log, stderr=subprocess.STDOUT, creationflags=flags)
                 try: code = browser.wait(timeout=240)
                 except subprocess.TimeoutExpired:
@@ -86,10 +88,11 @@ def run(source, output):
             backend.terminate()
             try: backend.wait(timeout=10)
             except subprocess.TimeoutExpired: backend.kill(); backend.wait(timeout=10)
-    print(json.dumps({'passed': True, 'source_commit': revision, 'probe': 'real UI import'}))
+    print(json.dumps({'passed': True, 'source_commit': revision, 'scenario': scenario}))
 
 
 if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
     for name in ('source', 'output'): ap.add_argument('--' + name, type=Path, required=True)
-    a = ap.parse_args(); run(a.source, a.output)
+    ap.add_argument('--scenario', choices=('boot', 'normal'), default='boot')
+    a = ap.parse_args(); run(a.source, a.output, a.scenario)

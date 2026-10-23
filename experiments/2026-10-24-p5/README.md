@@ -1,6 +1,6 @@
 # P5 真实运行验证
 
-日期：2026-10-24。R01 已通过：独立实验 checkout 完成前后端构建，真实浏览器导入公开 Text trace，后端完成解析并显示 Timeline 泳道。R02–R06 待执行。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
+日期：2026-10-24。R01、R02 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R03–R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
 
 ## 输入与隔离
 
@@ -55,12 +55,34 @@ python experiments/2026-10-24-p5/run_boot_probe.py \
 
 ## 待完成的运行验收
 
-采集准备：[instrument_runtime.py](instrument_runtime.py)的 dry-run 已在独立副本核对全部十个文件的插入位置；[C++ 事件辅助代码](ProjectMapProbe.h)使用实际编译包含路径通过语法检查。它们将记录解码、实际 handler、数据库虚调用及线程身份；[浏览器采集](browser_probe.cjs)将记录 API、响应处置和真实状态赋值。无采集改动的启动检查已通过，下一步应用采集补丁并重建。
+采集实现：[instrument_runtime.py](instrument_runtime.py)已在独立副本应用十个文件的采集改动。[C++ 辅助代码](ProjectMapProbe.h)记录解码、实际 handler、数据库虚调用和系统线程身份；[浏览器采集](browser_probe.cjs)记录 UI 动作、API、响应处置和状态赋值。实验提交 `f76b3db12717c6e5ab33764a9f49d9ff8b89be7d` 完成前后端重建；后续 `ccd0d88080861b0c7185bcca70a85bd61f823168` 将 C++ 线程编号改为 `GetCurrentThreadId` 并重建后端，前端源码保持相同。最终三次运行使用后一个提交。上述提交仅存在于禁用 push 的本地产品副本。
 
-关联使用运行/连接范围内的请求编号，并为首链添加命名空间隔离的 `params.__projectMapTrace` 元数据，将 iframe API 调用与实际 WebSocket 请求绑定。已读取的 C++ 参数解码按已知字段取值；正式运行仍需验证该元数据不影响参数检查和结果。时钟只用于展示，不作为请求因果的唯一依据。源码钩子必须在禁用 push 的实验副本上应用，应用后提交本地源码并重建；运行证据使用该实验提交。
+关联使用运行/连接范围内的请求编号，并为首链添加命名空间隔离的 `params.__projectMapTrace` 元数据，将 iframe API 调用与实际 WebSocket 请求绑定。C++ 参数解码按已知字段取值；三次正常运行均接受追踪元数据，响应端点与独立输入预期一致。时钟只用于展示，不作为请求因果的唯一依据。源码钩子必须在禁用 push 的实验副本上应用，应用后提交本地源码并重建；运行证据使用该实验提交。
+
+### R02 正常场景结果
+
+[flow_scenario.cjs](flow_scenario.cjs)从公开 trace 独立读取第一个 `Enqueue` 及其 s/f flow 两端，通过真实搜索界面定位算子，再点击画布触发查询。输入 flow 为 `8234 / async_task_queue`，来源线程 `3016828`、目标线程 `3020403`。后端当前 Text 路径返回的 flow `id` 为空，因此断言按类别、两端进程/线程和绝对时间验证，保留原始输入 ID 作参考。
+
+三次最终运行 `p5-normal-final-01` 至 `03` 均通过：响应返回一条预期 flow，最终状态包含一条对应连线，选中算子和 rank 与请求相同。[关联检查器](verify_capture.py)连接 UI、API、WebSocket 请求、解码、handler、数据库调用/返回、WebSocket 响应、前端分类/采用、API 返回和状态赋值；检查 API 解包结果与线上响应 body 相同，实际数据库类型为 `TextTraceDatabase`。[紧凑证据](evidence/normal.json)保存每次结果、阶段、线程和全部试验目录。
+
+初版采集在 DLL 和 executable 中观察到不同的 `std::thread::id` 值。改用 Windows 系统线程 ID 后，同一次 handler 与数据库调用记录为相同线程，解码在另一线程；请求编号跨该边界保持一致。关联本身使用显式身份，不用线程编号或时间接近代替请求身份。
+
+[采集负例](check_capture_controls.py)从真实运行证据派生三个变体：删除数据库返回记录、替换解码追踪标识、重复请求编号。三者均被拒绝为完整链；缺失记录保留“由当前采集无法确定是否执行”。这些检查验证采集器与关联器，产品错误注入和并发运行分别在 R05、R04 验收。
+
+复现正常场景：
+
+```sh
+python experiments/2026-10-24-p5/instrument_runtime.py --source EXPERIMENTAL_CHECKOUT
+# 在实验副本提交脚本列出的文件，按上文固定时间与参数重新构建。
+python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOUT --output NEW_EXTERNAL_RUN --scenario normal
+python experiments/2026-10-24-p5/verify_capture.py --run NEW_EXTERNAL_RUN
+python experiments/2026-10-24-p5/check_capture_controls.py --run NEW_EXTERNAL_RUN --output NEW_EXTERNAL_CONTROLS
+```
+
+采集器对单次运行限定一条 WebSocket 连接；重连需要补充服务端连接代际标识后再扩大关联范围。原始页面、日志和截图含本机路径，均保存在仓库外。
 
 1. R01（通过）：真实构建、启动、导入和数据/配置清单。
-2. R02：通过 UI 触发 `unit/flows`，关联实际数据库实现、返回及最终状态；正常场景重复三次。
+2. R02（通过）：通过 UI 触发 `unit/flows`，关联实际数据库实现、返回及最终状态；正常场景重复三次。
 3. R03：控制 A 的响应晚于切换 B，验证 B 状态不受污染并找到丢弃/拒绝位置；重复三次。
 4. R04：并行请求和异步边界的身份不混合；人为缺少一个采集点时明确保留缺口。
 5. R05：独立副本注入迟到错误更新，确认状态断言会失败。

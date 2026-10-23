@@ -18,7 +18,7 @@ async function installProbe(context, runId) {
     };
     globalThis.__projectMapProbe = {
       events, diagnostics,
-      setAction(value) { action = value; },
+      setAction(value) { action = value; event('ui.action', {}); },
       event,
       begin(params) {
         const traceId = `${runId}:${frame()}:${action}:${sequence + 1}`;

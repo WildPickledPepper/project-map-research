@@ -1,0 +1,284 @@
+{
+  "evidence_kind": "executed_real_UI_scenarios",
+  "acceptance": "R02",
+  "status": "passed",
+  "runs": [
+    {
+      "run": "p5-normal-final-01",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "request_id": 36,
+      "trace_id": "p5-normal-final-01:Timeline:normal-click:2",
+      "native_implementation": "N3Dic6Module8Timeline17TextTraceDatabaseE",
+      "observed_stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.delivered",
+        "api.resolved",
+        "state.applied"
+      ],
+      "explicit_identity_links": 12,
+      "native_threads": {
+        "request.decoded": "6708",
+        "handler.invoke": "22984",
+        "database.call": "22984",
+        "database.return": "22984",
+        "handler.complete": "22984"
+      },
+      "returned_flow_count": 1,
+      "final_line_count": 1,
+      "independent_expected": {
+        "selection": {
+          "name": "Enqueue",
+          "pid": "3016828",
+          "tid": "3016828",
+          "start_ns": "1736405443871413640",
+          "duration_ns": "16790"
+        },
+        "flows": [
+          {
+            "id": "8234",
+            "category": "async_task_queue",
+            "from": {
+              "pid": "3016828",
+              "tid": "3016828",
+              "timestamp_ns": "1736405443871413640"
+            },
+            "to": {
+              "pid": "3016828",
+              "tid": "3020403",
+              "timestamp_ns": "1736405443871443860"
+            }
+          }
+        ]
+      },
+      "diagnostics": [],
+      "raw_evidence": [
+        "input.json",
+        "expected-flow.json",
+        "selected-geometry.json",
+        "browser-events.json",
+        "browser-probe.json",
+        "server-log/profiler_server_9000_1.log",
+        "scenario-result.json",
+        "correlation.json",
+        "playwright-trace.zip",
+        "flow.png"
+      ]
+    },
+    {
+      "run": "p5-normal-final-02",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "request_id": 36,
+      "trace_id": "p5-normal-final-02:Timeline:normal-click:2",
+      "native_implementation": "N3Dic6Module8Timeline17TextTraceDatabaseE",
+      "observed_stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.delivered",
+        "api.resolved",
+        "state.applied"
+      ],
+      "explicit_identity_links": 12,
+      "native_threads": {
+        "request.decoded": "34696",
+        "handler.invoke": "22128",
+        "database.call": "22128",
+        "database.return": "22128",
+        "handler.complete": "22128"
+      },
+      "returned_flow_count": 1,
+      "final_line_count": 1,
+      "independent_expected": {
+        "selection": {
+          "name": "Enqueue",
+          "pid": "3016828",
+          "tid": "3016828",
+          "start_ns": "1736405443871413640",
+          "duration_ns": "16790"
+        },
+        "flows": [
+          {
+            "id": "8234",
+            "category": "async_task_queue",
+            "from": {
+              "pid": "3016828",
+              "tid": "3016828",
+              "timestamp_ns": "1736405443871413640"
+            },
+            "to": {
+              "pid": "3016828",
+              "tid": "3020403",
+              "timestamp_ns": "1736405443871443860"
+            }
+          }
+        ]
+      },
+      "diagnostics": [],
+      "raw_evidence": [
+        "input.json",
+        "expected-flow.json",
+        "selected-geometry.json",
+        "browser-events.json",
+        "browser-probe.json",
+        "server-log/profiler_server_9000_1.log",
+        "scenario-result.json",
+        "correlation.json",
+        "playwright-trace.zip",
+        "flow.png"
+      ]
+    },
+    {
+      "run": "p5-normal-final-03",
+      "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "request_id": 36,
+      "trace_id": "p5-normal-final-03:Timeline:normal-click:2",
+      "native_implementation": "N3Dic6Module8Timeline17TextTraceDatabaseE",
+      "observed_stages": [
+        "api.begin",
+        "ui.action",
+        "request.decoded",
+        "handler.invoke",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "wire.response",
+        "response.classified",
+        "response.delivered",
+        "api.resolved",
+        "state.applied"
+      ],
+      "explicit_identity_links": 12,
+      "native_threads": {
+        "request.decoded": "20848",
+        "handler.invoke": "35576",
+        "database.call": "35576",
+        "database.return": "35576",
+        "handler.complete": "35576"
+      },
+      "returned_flow_count": 1,
+      "final_line_count": 1,
+      "independent_expected": {
+        "selection": {
+          "name": "Enqueue",
+          "pid": "3016828",
+          "tid": "3016828",
+          "start_ns": "1736405443871413640",
+          "duration_ns": "16790"
+        },
+        "flows": [
+          {
+            "id": "8234",
+            "category": "async_task_queue",
+            "from": {
+              "pid": "3016828",
+              "tid": "3016828",
+              "timestamp_ns": "1736405443871413640"
+            },
+            "to": {
+              "pid": "3016828",
+              "tid": "3020403",
+              "timestamp_ns": "1736405443871443860"
+            }
+          }
+        ]
+      },
+      "diagnostics": [],
+      "raw_evidence": [
+        "input.json",
+        "expected-flow.json",
+        "selected-geometry.json",
+        "browser-events.json",
+        "browser-probe.json",
+        "server-log/profiler_server_9000_1.log",
+        "scenario-result.json",
+        "correlation.json",
+        "playwright-trace.zip",
+        "flow.png"
+      ]
+    }
+  ],
+  "native_baseline": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "source_instrumentation": "instrument_runtime.py and ProjectMapProbe.h; local push-disabled checkout",
+  "frontend_build_commit": "f76b3db12717c6e5ab33764a9f49d9ff8b89be7d",
+  "frontend_relation_to_run_source": "The next local commit changes only the C++ probe header; frontend source is unchanged",
+  "setup_trials": [
+    {
+      "run": "p5-normal-dev-01",
+      "passed": false,
+      "reason": "Driver used startRecordTime (relative zero) instead of the absolute session.startTime"
+    },
+    {
+      "run": "p5-normal-dev-02",
+      "passed": false,
+      "reason": "Driver expected public flow ID in response; Text flow assembly leaves that field empty. Compare category and both endpoint pid/tid/timestamps instead"
+    },
+    {
+      "run": "p5-normal-dev-03",
+      "passed": true,
+      "role": "First successful state assertion; preceding final native-thread capture"
+    },
+    {
+      "runs": [
+        "p5-normal-01",
+        "p5-normal-02",
+        "p5-normal-03"
+      ],
+      "passed": true,
+      "role": "Initial repetition; final repetition adds selected-state identity and API/wire payload equality checks"
+    }
+  ],
+  "negative_controls": {
+    "evidence_kind": "derived_negative_controls_on_real_capture",
+    "baseline": "p5-normal-final-01",
+    "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+    "passed": true,
+    "controls": [
+      {
+        "control": "missing_database_return",
+        "expected_diagnostic": "missing_observation",
+        "passed": true,
+        "complete_chain_claim_rejected": true
+      },
+      {
+        "control": "wrong_decoded_trace",
+        "expected_diagnostic": "decoded_trace_mismatch",
+        "passed": true,
+        "complete_chain_claim_rejected": true
+      },
+      {
+        "control": "reused_request_id",
+        "expected_diagnostic": "duplicate_request_identity",
+        "passed": true,
+        "complete_chain_claim_rejected": true
+      }
+    ],
+    "scope": "Collector/identity checker controls; product behavior was not changed; R05 remains separate"
+  },
+  "remaining": [
+    "R03",
+    "R04 parallel requests",
+    "R05",
+    "R06"
+  ],
+  "file_hash_verification": "not_run_per_user_preference"
+}
