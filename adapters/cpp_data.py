@@ -66,6 +66,8 @@ class DataExtractor:
                 self.by_owner[canonical('::'.join(info['scope']))].append((uid,info))
                 self.functions[canonical(info['signature'][0])].append((uid,info))
         self.discover_fields()
+        from adapters.cpp_value_types import ValueTypes
+        self.types=ValueTypes(self)
 
     @staticmethod
     def evidence(path,node):return {'path':path,'line':node.start_point[0]+1,'expression':text(node)[:700]}
@@ -110,7 +112,7 @@ class DataExtractor:
             if len(found)==1:return found[0]
         return None
 
-    def targets(self,call,uid,info):
+    def base_targets(self,call,uid,info):
         function=call.child_by_field_name('function')
         if function is None:return []
         groups,_=self.x.targets(call,info['path'],info['scope'],uid)
@@ -128,6 +130,8 @@ class DataExtractor:
                     if len(f['parameter_nodes'])==len(arguments(call)):found.append(tid)
                 if found:result.extend(found);break
         return sorted(set(result))
+
+    def targets(self,call,uid,info):return self.types.call(call,uid,info)['targets']
 
     def expr(self,node,uid,info,depth=0,seen=None):
         """A bounded expression tree retaining aliases, calls and branch inputs."""
@@ -221,6 +225,7 @@ class DataExtractor:
                     targets=self.targets(node,uid,info)
                     function=node.child_by_field_name('function')
                     calls.append({'call_site':'cpp:'+identity(info['path'],'call_site',node),'targets':targets,
+                                  'resolution':self.types.call(node,uid,info),
                                   'expression':text(node),'path':info['path'],'line':node.start_point[0]+1,'conditions':predicates(node),
                                   'receiver':self.expr(function.child_by_field_name('argument'),uid,info) if function and function.type=='field_expression' else None})
                     if function and function.type=='identifier':
@@ -247,7 +252,7 @@ class DataExtractor:
             self.summaries.append({'source_symbol':uid,'name':self.x.nodes[uid]['name'],'path':info['path'],'line':self.x.nodes[uid]['line'],
                 'parameters':[{'name':text(declared_name(p)),'type':parameter_type(p)} for p in info['parameter_nodes']],
                 'return_type':info['return_type'],'returns':returns,'calls':calls,'controls':controls})
-        return {'facts':self.facts,'data':{'version':'0.3.0','storages':[f for f in self.fields.values() if f['container']],
+        return {'facts':self.facts,'data':{'version':'0.3.1','storages':[f for f in self.fields.values() if f['container']],
             'accesses':self.accesses,'allocations':self.allocations,'selections':self.selections,'summaries':self.summaries,
             'callbacks':self.callbacks,
             'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',
