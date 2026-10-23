@@ -8,6 +8,8 @@
 
 **设计范围 v0.1 已确定**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 
+实施安排已整理为 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。当前完成的是设计与计划，实施阶段的验收仍待执行。
+
 ## 我们要解决的问题
 
 通用符号索引能找到函数，却可能遗漏协议、路由注册、虚函数实现、共享数据和异步状态之间的连接。漂亮的图、较多的节点、一次成功执行，都不能证明关系完整或行为正确。
@@ -50,6 +52,9 @@ flowchart TD
 |---|---|
 | [研究目标与范围](docs/01-problem-and-scope.md) | 什么算成功，哪些内容由其他团队维护 |
 | [设计基线 v0.1](docs/05-design-baseline.md) | 三个视图、历史问题契约库协作、范围与成功条件 |
+| [研究计划](plans/README.md) | 阶段、里程碑、依赖、工作量假设和当前状态 |
+| [详细计划书](plans/implementation-plan.md) | 适配与选型、数据约定、更新、运行和历史资产接入 |
+| [验收矩阵](plans/acceptance-matrix.md) | 正反例、证据要求、必需与扩展范围 |
 | [统一关系与接口模型](docs/02-project-model.md) | 如何连接跨语言接口，如何保留条件和证据 |
 | [unit/flows 案例](cases/unit-flows/README.md) | 已核实源码、断点、待提取关系与静态验收题 |
 | [动态行为与审查](docs/03-runtime-and-review.md) | 状态、时序、追踪、场景和回归验证 |
