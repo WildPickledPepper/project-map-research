@@ -14,7 +14,9 @@ D02 的 [字段生产增量](../experiments/2026-10-23-p3/output-fields.md) 从�
 
 [响应对象与路由增量](../experiments/2026-10-23-p3/response-routing.md) 在 148 文件上补齐生产与序列化之间的对象传递和注册选择：四个发送位置各恢复六段路径，提前错误发送不关联后续数据库写入。当时 154 项 Python 测试与存储读回查询通过。
 
-最新 [前端消费与状态增量](../experiments/2026-10-23-p3/frontend-consumers.md) 在 API 返回值边界一侧恢复两处连线赋值和四处请求完成后更新，支持按字段和有作用域的状态查询。158 项 Python、36 项 TypeScript 测试和图存储读回通过。D02 仍待响应传输、回调匹配和解包连接；D03 的跨传输反查和 D05 整链说明继续实施。
+[前端消费与状态增量](../experiments/2026-10-23-p3/frontend-consumers.md) 在 API 返回值边界一侧恢复两处连线赋值和四处请求完成后更新，支持按字段和有作用域的状态查询。当时 158 项 Python、36 项 TypeScript 测试和图存储读回通过。
+
+最新 [响应回调与 Promise 增量](../experiments/2026-10-23-p3/response-callbacks.md) 恢复两张表、五条交付候选、JSON 解析与成功/失败字段。162 项 Python、48 项 TypeScript 测试和存储读回通过。D02 仍待编号传播、发送/接收与 Promise 到 API 返回转换；D03 跨传输反查和 D05 整链说明继续实施。
 
 ## 使用方式与证据要求
 

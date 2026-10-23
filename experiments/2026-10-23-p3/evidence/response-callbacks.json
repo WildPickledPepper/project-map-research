@@ -1,0 +1,3071 @@
+{
+  "evidence_kind": "executed_source_callback_extraction_query_and_storage",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v7",
+  "phase_status": "P3_in_progress",
+  "gate_under_test": "D02_incomplete",
+  "counts": {
+    "files": 148,
+    "nodes": 23789,
+    "edges": 34589,
+    "entries": 18,
+    "promises": 9,
+    "registrations": 2,
+    "lookups": 11,
+    "settlements": 26,
+    "registry_deliveries": 5
+  },
+  "queries": {
+    "Connection.fetch": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v7",
+      "status": "source_callback_candidates",
+      "requester": "ts:752c0d2ca0ab6e17b28dc5ba",
+      "receiver": null,
+      "deliveries": [
+        {
+          "registration": {
+            "id": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+            "source_site": "ts:9c758237d92bcdfc30acb888",
+            "registry": "ts:ebcfe60141dbb37737a7ce00",
+            "receiver_type": "ts:c8effcb6b9b15d57bc43291b",
+            "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+            "key": {
+              "kind": "alternatives",
+              "values": [
+                {
+                  "kind": "input_path",
+                  "root": "ts:cac86d7a2b0aeeeb755fb312",
+                  "path": [],
+                  "transforms": [],
+                  "evidence_refs": [
+                    "source:0"
+                  ],
+                  "conditions_ref": "conditions:0",
+                  "gaps": []
+                },
+                {
+                  "kind": "input_path",
+                  "root": "ts:cac86d7a2b0aeeeb755fb312",
+                  "path": [],
+                  "transforms": [],
+                  "evidence_refs": [
+                    "source:0"
+                  ],
+                  "conditions_ref": "conditions:1",
+                  "gaps": []
+                }
+              ]
+            },
+            "conditions_ref": "conditions:2",
+            "evidence_refs": [
+              "source:1",
+              "source:2"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:c02fbbcb981a0af3ed93d980",
+                "target": "ts:ea5d2cde3ebeb9b1a3b4849a",
+                "evidence_refs": [
+                  "source:3",
+                  "source:4"
+                ]
+              }
+            ],
+            "value": {
+              "kind": "source_callback",
+              "source_symbol": "ts:d92dd72575f5254ca020526d",
+              "resolvers": [
+                {
+                  "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                  "mode": "resolve"
+                },
+                {
+                  "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                  "mode": "reject"
+                }
+              ]
+            },
+            "promises": [
+              "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451"
+            ]
+          },
+          "lookup": {
+            "id": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+            "source_site": "ts:4d284353d8342b17a57a2285",
+            "registry": "ts:ebcfe60141dbb37737a7ce00",
+            "receiver_type": "ts:c8effcb6b9b15d57bc43291b",
+            "entry": "ts:266b56427f3eb457d2cca737",
+            "key": {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "requestId"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:8"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": []
+            },
+            "conditions_ref": "conditions:4",
+            "evidence_refs": [
+              "source:1",
+              "source:9"
+            ],
+            "call_chain": []
+          },
+          "settlement": {
+            "id": "promise-settlement:[\"ts:266b56427f3eb457d2cca737\",\"ts:4701c1fe4211036a56736b75\",\"ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451\",22]",
+            "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+            "mode": "resolve",
+            "entry": "ts:266b56427f3eb457d2cca737",
+            "source_symbol": "ts:d92dd72575f5254ca020526d",
+            "value": {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": []
+            },
+            "registry_context": {
+              "registration": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+              "lookup": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+              "selectors": []
+            },
+            "conditions_ref": "conditions:5",
+            "evidence_refs": [
+              "source:10"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:a7d26be545a04678b5342cbb",
+                "target": "ts:d92dd72575f5254ca020526d",
+                "evidence_refs": [
+                  "source:11",
+                  "source:12"
+                ]
+              }
+            ],
+            "source_site": "ts:4701c1fe4211036a56736b75"
+          },
+          "projections": [
+            {
+              "output_path": [],
+              "source": {
+                "kind": "input_path",
+                "root": "ts:5ade5590ddd7ea8c37ed851e",
+                "path": [
+                  "data"
+                ],
+                "transforms": [
+                  {
+                    "kind": "JSON.parse",
+                    "at_path": [
+                      "data"
+                    ],
+                    "evidence_refs": [
+                      "source:5"
+                    ]
+                  }
+                ],
+                "evidence_refs": [
+                  "source:6",
+                  "source:7"
+                ],
+                "conditions_ref": "conditions:3",
+                "gaps": []
+              },
+              "decoded_json_path": []
+            }
+          ]
+        },
+        {
+          "registration": {
+            "id": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+            "source_site": "ts:9c758237d92bcdfc30acb888",
+            "registry": "ts:ebcfe60141dbb37737a7ce00",
+            "receiver_type": "ts:c8effcb6b9b15d57bc43291b",
+            "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+            "key": {
+              "kind": "alternatives",
+              "values": [
+                {
+                  "kind": "input_path",
+                  "root": "ts:cac86d7a2b0aeeeb755fb312",
+                  "path": [],
+                  "transforms": [],
+                  "evidence_refs": [
+                    "source:0"
+                  ],
+                  "conditions_ref": "conditions:0",
+                  "gaps": []
+                },
+                {
+                  "kind": "input_path",
+                  "root": "ts:cac86d7a2b0aeeeb755fb312",
+                  "path": [],
+                  "transforms": [],
+                  "evidence_refs": [
+                    "source:0"
+                  ],
+                  "conditions_ref": "conditions:1",
+                  "gaps": []
+                }
+              ]
+            },
+            "conditions_ref": "conditions:2",
+            "evidence_refs": [
+              "source:1",
+              "source:2"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:c02fbbcb981a0af3ed93d980",
+                "target": "ts:ea5d2cde3ebeb9b1a3b4849a",
+                "evidence_refs": [
+                  "source:3",
+                  "source:4"
+                ]
+              }
+            ],
+            "value": {
+              "kind": "source_callback",
+              "source_symbol": "ts:d92dd72575f5254ca020526d",
+              "resolvers": [
+                {
+                  "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                  "mode": "resolve"
+                },
+                {
+                  "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                  "mode": "reject"
+                }
+              ]
+            },
+            "promises": [
+              "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451"
+            ]
+          },
+          "lookup": {
+            "id": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+            "source_site": "ts:4d284353d8342b17a57a2285",
+            "registry": "ts:ebcfe60141dbb37737a7ce00",
+            "receiver_type": "ts:c8effcb6b9b15d57bc43291b",
+            "entry": "ts:266b56427f3eb457d2cca737",
+            "key": {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "requestId"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:8"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": []
+            },
+            "conditions_ref": "conditions:4",
+            "evidence_refs": [
+              "source:1",
+              "source:9"
+            ],
+            "call_chain": []
+          },
+          "settlement": {
+            "id": "promise-settlement:[\"ts:266b56427f3eb457d2cca737\",\"ts:a5b11b326cebf1c4621a9ade\",\"ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451\",23]",
+            "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+            "mode": "resolve",
+            "entry": "ts:266b56427f3eb457d2cca737",
+            "source_symbol": "ts:d92dd72575f5254ca020526d",
+            "value": {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "body"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:13"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": []
+            },
+            "registry_context": {
+              "registration": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+              "lookup": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+              "selectors": []
+            },
+            "conditions_ref": "conditions:6",
+            "evidence_refs": [
+              "source:14"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:a7d26be545a04678b5342cbb",
+                "target": "ts:d92dd72575f5254ca020526d",
+                "evidence_refs": [
+                  "source:11",
+                  "source:12"
+                ]
+              }
+            ],
+            "source_site": "ts:a5b11b326cebf1c4621a9ade"
+          },
+          "projections": [
+            {
+              "output_path": [],
+              "source": {
+                "kind": "input_path",
+                "root": "ts:5ade5590ddd7ea8c37ed851e",
+                "path": [
+                  "data",
+                  "body"
+                ],
+                "transforms": [
+                  {
+                    "kind": "JSON.parse",
+                    "at_path": [
+                      "data"
+                    ],
+                    "evidence_refs": [
+                      "source:5"
+                    ]
+                  }
+                ],
+                "evidence_refs": [
+                  "source:6",
+                  "source:7",
+                  "source:13"
+                ],
+                "conditions_ref": "conditions:3",
+                "gaps": []
+              },
+              "decoded_json_path": [
+                "body"
+              ]
+            }
+          ]
+        },
+        {
+          "registration": {
+            "id": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+            "source_site": "ts:9c758237d92bcdfc30acb888",
+            "registry": "ts:ebcfe60141dbb37737a7ce00",
+            "receiver_type": "ts:c8effcb6b9b15d57bc43291b",
+            "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+            "key": {
+              "kind": "alternatives",
+              "values": [
+                {
+                  "kind": "input_path",
+                  "root": "ts:cac86d7a2b0aeeeb755fb312",
+                  "path": [],
+                  "transforms": [],
+                  "evidence_refs": [
+                    "source:0"
+                  ],
+                  "conditions_ref": "conditions:0",
+                  "gaps": []
+                },
+                {
+                  "kind": "input_path",
+                  "root": "ts:cac86d7a2b0aeeeb755fb312",
+                  "path": [],
+                  "transforms": [],
+                  "evidence_refs": [
+                    "source:0"
+                  ],
+                  "conditions_ref": "conditions:1",
+                  "gaps": []
+                }
+              ]
+            },
+            "conditions_ref": "conditions:2",
+            "evidence_refs": [
+              "source:1",
+              "source:2"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:c02fbbcb981a0af3ed93d980",
+                "target": "ts:ea5d2cde3ebeb9b1a3b4849a",
+                "evidence_refs": [
+                  "source:3",
+                  "source:4"
+                ]
+              }
+            ],
+            "value": {
+              "kind": "source_callback",
+              "source_symbol": "ts:d92dd72575f5254ca020526d",
+              "resolvers": [
+                {
+                  "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                  "mode": "resolve"
+                },
+                {
+                  "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                  "mode": "reject"
+                }
+              ]
+            },
+            "promises": [
+              "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451"
+            ]
+          },
+          "lookup": {
+            "id": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+            "source_site": "ts:4d284353d8342b17a57a2285",
+            "registry": "ts:ebcfe60141dbb37737a7ce00",
+            "receiver_type": "ts:c8effcb6b9b15d57bc43291b",
+            "entry": "ts:266b56427f3eb457d2cca737",
+            "key": {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "requestId"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:8"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": []
+            },
+            "conditions_ref": "conditions:4",
+            "evidence_refs": [
+              "source:1",
+              "source:9"
+            ],
+            "call_chain": []
+          },
+          "settlement": {
+            "id": "promise-settlement:[\"ts:266b56427f3eb457d2cca737\",\"ts:051b9c5790fb1bfa1878481f\",\"ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451\",24]",
+            "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+            "mode": "resolve",
+            "entry": "ts:266b56427f3eb457d2cca737",
+            "source_symbol": "ts:d92dd72575f5254ca020526d",
+            "value": {
+              "kind": "object",
+              "fields": {
+                "error": {
+                  "kind": "object",
+                  "fields": {
+                    "code": {
+                      "kind": "alternatives",
+                      "values": [
+                        {
+                          "kind": "input_path",
+                          "root": "ts:5ade5590ddd7ea8c37ed851e",
+                          "path": [
+                            "data",
+                            "error",
+                            "code"
+                          ],
+                          "transforms": [
+                            {
+                              "kind": "JSON.parse",
+                              "at_path": [
+                                "data"
+                              ],
+                              "evidence_refs": [
+                                "source:5"
+                              ]
+                            }
+                          ],
+                          "evidence_refs": [
+                            "source:6",
+                            "source:7",
+                            "source:15",
+                            "source:16"
+                          ],
+                          "conditions_ref": "conditions:3",
+                          "gaps": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": -1
+                        }
+                      ]
+                    },
+                    "message": {
+                      "kind": "alternatives",
+                      "values": [
+                        {
+                          "kind": "input_path",
+                          "root": "ts:5ade5590ddd7ea8c37ed851e",
+                          "path": [
+                            "data",
+                            "error",
+                            "message"
+                          ],
+                          "transforms": [
+                            {
+                              "kind": "JSON.parse",
+                              "at_path": [
+                                "data"
+                              ],
+                              "evidence_refs": [
+                                "source:5"
+                              ]
+                            }
+                          ],
+                          "evidence_refs": [
+                            "source:6",
+                            "source:7",
+                            "source:15",
+                            "source:17"
+                          ],
+                          "conditions_ref": "conditions:3",
+                          "gaps": []
+                        },
+                        {
+                          "kind": "constant",
+                          "value": "Unknown error"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "registry_context": {
+              "registration": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+              "lookup": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+              "selectors": []
+            },
+            "conditions_ref": "conditions:7",
+            "evidence_refs": [
+              "source:18"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:a7d26be545a04678b5342cbb",
+                "target": "ts:d92dd72575f5254ca020526d",
+                "evidence_refs": [
+                  "source:11",
+                  "source:12"
+                ]
+              }
+            ],
+            "source_site": "ts:051b9c5790fb1bfa1878481f"
+          },
+          "projections": [
+            {
+              "output_path": [
+                "error",
+                "code"
+              ],
+              "source": {
+                "kind": "input_path",
+                "root": "ts:5ade5590ddd7ea8c37ed851e",
+                "path": [
+                  "data",
+                  "error",
+                  "code"
+                ],
+                "transforms": [
+                  {
+                    "kind": "JSON.parse",
+                    "at_path": [
+                      "data"
+                    ],
+                    "evidence_refs": [
+                      "source:5"
+                    ]
+                  }
+                ],
+                "evidence_refs": [
+                  "source:6",
+                  "source:7",
+                  "source:15",
+                  "source:16"
+                ],
+                "conditions_ref": "conditions:3",
+                "gaps": []
+              },
+              "decoded_json_path": [
+                "error",
+                "code"
+              ]
+            },
+            {
+              "output_path": [
+                "error",
+                "message"
+              ],
+              "source": {
+                "kind": "input_path",
+                "root": "ts:5ade5590ddd7ea8c37ed851e",
+                "path": [
+                  "data",
+                  "error",
+                  "message"
+                ],
+                "transforms": [
+                  {
+                    "kind": "JSON.parse",
+                    "at_path": [
+                      "data"
+                    ],
+                    "evidence_refs": [
+                      "source:5"
+                    ]
+                  }
+                ],
+                "evidence_refs": [
+                  "source:6",
+                  "source:7",
+                  "source:15",
+                  "source:17"
+                ],
+                "conditions_ref": "conditions:3",
+                "gaps": []
+              },
+              "decoded_json_path": [
+                "error",
+                "message"
+              ]
+            }
+          ]
+        }
+      ],
+      "registrations": [
+        {
+          "id": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+          "source_site": "ts:9c758237d92bcdfc30acb888",
+          "registry": "ts:ebcfe60141dbb37737a7ce00",
+          "receiver_type": "ts:c8effcb6b9b15d57bc43291b",
+          "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+          "key": {
+            "kind": "alternatives",
+            "values": [
+              {
+                "kind": "input_path",
+                "root": "ts:cac86d7a2b0aeeeb755fb312",
+                "path": [],
+                "transforms": [],
+                "evidence_refs": [
+                  "source:0"
+                ],
+                "conditions_ref": "conditions:0",
+                "gaps": []
+              },
+              {
+                "kind": "input_path",
+                "root": "ts:cac86d7a2b0aeeeb755fb312",
+                "path": [],
+                "transforms": [],
+                "evidence_refs": [
+                  "source:0"
+                ],
+                "conditions_ref": "conditions:1",
+                "gaps": []
+              }
+            ]
+          },
+          "conditions_ref": "conditions:2",
+          "evidence_refs": [
+            "source:1",
+            "source:2"
+          ],
+          "call_chain": [
+            {
+              "call_site": "ts:c02fbbcb981a0af3ed93d980",
+              "target": "ts:ea5d2cde3ebeb9b1a3b4849a",
+              "evidence_refs": [
+                "source:3",
+                "source:4"
+              ]
+            }
+          ],
+          "value": {
+            "kind": "source_callback",
+            "source_symbol": "ts:d92dd72575f5254ca020526d",
+            "resolvers": [
+              {
+                "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                "mode": "resolve"
+              },
+              {
+                "promise": "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451",
+                "mode": "reject"
+              }
+            ]
+          },
+          "promises": [
+            "ts:752c0d2ca0ab6e17b28dc5ba/ts:a713427b8716e57992a92451"
+          ]
+        }
+      ],
+      "unmatched_lookups": [],
+      "total_deliveries": 3,
+      "max_deliveries": 100,
+      "truncated": false,
+      "extraction_truncated": false,
+      "gaps": [
+        {
+          "kind": "unresolved_call_with_input_argument",
+          "path": "modules/framework/src/centralServer/websocket/connection.ts",
+          "line": 38,
+          "column": 5,
+          "expression": "Object.assign(params, args)",
+          "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+          "call_chain": [
+            {
+              "call_site": "ts:c02fbbcb981a0af3ed93d980",
+              "target": "ts:ea5d2cde3ebeb9b1a3b4849a",
+              "evidence_refs": [
+                "source:3",
+                "source:4"
+              ]
+            },
+            {
+              "call_site": "ts:66f1d34e738eb3236094316b",
+              "target": "ts:3335356a442b54fed205be6a",
+              "evidence_refs": [
+                "source:19",
+                "source:20"
+              ]
+            }
+          ],
+          "inputs": [
+            {
+              "kind": "input_path",
+              "root": "ts:929538101299c6767fa016e8",
+              "path": [
+                "params"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:21",
+                "source:22"
+              ],
+              "conditions_ref": "conditions:8",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 38,
+                  "column": 5,
+                  "expression": "Object.assign(params, args)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:929538101299c6767fa016e8",
+              "path": [
+                "params"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:21",
+                "source:22"
+              ],
+              "conditions_ref": "conditions:9",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 38,
+                  "column": 5,
+                  "expression": "Object.assign(params, args)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "unresolved_call_with_input_argument",
+          "path": "modules/framework/src/centralServer/websocket/connection.ts",
+          "line": 280,
+          "column": 24,
+          "expression": "JSON.stringify(msg)",
+          "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+          "call_chain": [
+            {
+              "call_site": "ts:c02fbbcb981a0af3ed93d980",
+              "target": "ts:ea5d2cde3ebeb9b1a3b4849a",
+              "evidence_refs": [
+                "source:3",
+                "source:4"
+              ]
+            },
+            {
+              "call_site": "ts:9fb6fbcfda72e9c2f7ba6119",
+              "target": "ts:afbba9de0c975e4c6ac25a21",
+              "evidence_refs": [
+                "source:23",
+                "source:24"
+              ]
+            }
+          ],
+          "inputs": [
+            {
+              "kind": "input_path",
+              "root": "ts:cac86d7a2b0aeeeb755fb312",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:0"
+              ],
+              "conditions_ref": "conditions:10",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:cac86d7a2b0aeeeb755fb312",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:0"
+              ],
+              "conditions_ref": "conditions:11",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:10c41dc4d9501fb562de4a05",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:25"
+              ],
+              "conditions_ref": "conditions:12",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:10c41dc4d9501fb562de4a05",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:25"
+              ],
+              "conditions_ref": "conditions:13",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:10c41dc4d9501fb562de4a05",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:25"
+              ],
+              "conditions_ref": "conditions:14",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:10c41dc4d9501fb562de4a05",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:25"
+              ],
+              "conditions_ref": "conditions:15",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:929538101299c6767fa016e8",
+              "path": [
+                "command"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:21",
+                "source:26"
+              ],
+              "conditions_ref": "conditions:12",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:929538101299c6767fa016e8",
+              "path": [
+                "command"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:21",
+                "source:26"
+              ],
+              "conditions_ref": "conditions:13",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:929538101299c6767fa016e8",
+              "path": [
+                "command"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:21",
+                "source:26"
+              ],
+              "conditions_ref": "conditions:14",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:929538101299c6767fa016e8",
+              "path": [
+                "command"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:21",
+                "source:26"
+              ],
+              "conditions_ref": "conditions:15",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 280,
+                  "column": 24,
+                  "expression": "JSON.stringify(msg)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "throw_path",
+          "path": "modules/framework/src/centralServer/websocket/connection.ts",
+          "line": 282,
+          "column": 13,
+          "expression": "throw new Error('');",
+          "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+          "call_chain": [
+            {
+              "call_site": "ts:c02fbbcb981a0af3ed93d980",
+              "target": "ts:ea5d2cde3ebeb9b1a3b4849a",
+              "evidence_refs": [
+                "source:3",
+                "source:4"
+              ]
+            },
+            {
+              "call_site": "ts:9fb6fbcfda72e9c2f7ba6119",
+              "target": "ts:afbba9de0c975e4c6ac25a21",
+              "evidence_refs": [
+                "source:23",
+                "source:24"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "exception_paths_not_expanded",
+          "path": "modules/framework/src/centralServer/websocket/connection.ts",
+          "line": 225,
+          "column": 9,
+          "expression": "try {\n            msg = JSON.parse(ev.data);\n        } catch {\n            console.warn('cannot parse json data:', ev);\n            return;\n        }",
+          "entry": "ts:266b56427f3eb457d2cca737",
+          "call_chain": []
+        },
+        {
+          "kind": "unresolved_call_with_input_argument",
+          "path": "modules/framework/src/centralServer/websocket/connection.ts",
+          "line": 236,
+          "column": 22,
+          "expression": "shouldForwardPendingImportCompletion(toBeActivedProject, msg.body?.dbPath)",
+          "entry": "ts:266b56427f3eb457d2cca737",
+          "call_chain": [],
+          "inputs": [
+            {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "body",
+                "dbPath"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:27",
+                "source:28"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 236,
+                  "column": 22,
+                  "expression": "shouldForwardPendingImportCompletion(toBeActivedProject, msg.body?.dbPath)"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "assignment_receiver_unresolved",
+          "path": "modules/lib/src/utils/Console.ts",
+          "line": 24,
+          "column": 9,
+          "expression": "this.record[this.index++ % 1000] = msg",
+          "entry": "ts:266b56427f3eb457d2cca737",
+          "call_chain": [
+            {
+              "call_site": "ts:5ee7e45bcfb1e1d62c8eb3bf",
+              "target": "ts:52110dfd1407c21282456c9c",
+              "evidence_refs": [
+                "source:29",
+                "source:30"
+              ]
+            },
+            {
+              "call_site": "ts:f2ee88dd3c4b585568171a86",
+              "target": "ts:0334ceb0817adb685be989fc",
+              "evidence_refs": [
+                "source:31",
+                "source:32"
+              ]
+            },
+            {
+              "call_site": "ts:0ec34f7b542a199962ec3a88",
+              "target": "ts:cdf3602c42e44221bf352864",
+              "evidence_refs": [
+                "source:33",
+                "source:34"
+              ]
+            },
+            {
+              "call_site": "ts:fc6db89c1c706445127d0f1f",
+              "target": "ts:af5c798a480facba4e7dee75",
+              "evidence_refs": [
+                "source:35",
+                "source:36"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "unresolved_call_with_input_argument",
+          "path": "modules/lib/src/connection/index.ts",
+          "line": 92,
+          "column": 26,
+          "expression": "JSON.stringify(body)",
+          "entry": "ts:266b56427f3eb457d2cca737",
+          "call_chain": [
+            {
+              "call_site": "ts:5ee7e45bcfb1e1d62c8eb3bf",
+              "target": "ts:52110dfd1407c21282456c9c",
+              "evidence_refs": [
+                "source:29",
+                "source:30"
+              ]
+            },
+            {
+              "call_site": "ts:f2ee88dd3c4b585568171a86",
+              "target": "ts:0334ceb0817adb685be989fc",
+              "evidence_refs": [
+                "source:31",
+                "source:32"
+              ]
+            }
+          ],
+          "inputs": [
+            {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "requestId"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:8"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "event"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:37"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:5ade5590ddd7ea8c37ed851e",
+              "path": [
+                "data",
+                "body"
+              ],
+              "transforms": [
+                {
+                  "kind": "JSON.parse",
+                  "at_path": [
+                    "data"
+                  ],
+                  "evidence_refs": [
+                    "source:5"
+                  ]
+                }
+              ],
+              "evidence_refs": [
+                "source:6",
+                "source:7",
+                "source:38"
+              ],
+              "conditions_ref": "conditions:3",
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:265d0b573d28f8591e452812",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:39"
+              ],
+              "conditions": [],
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "limits": [
+        "registry_join_requires_same_runtime_instance_and_equal_key",
+        "registration_lifetime_requires_runtime_or_reaching_definition_validation",
+        "source_projection_not_observed_fulfillment",
+        "callback_and_promise_selection_is_contextual_candidate",
+        "network_transport_and_API_boundary_join_pending",
+        "unsupported_expressions_and_exception_paths_keep_unknown"
+      ],
+      "runtime_execution": "unknown",
+      "transport_status": "network_and_API_boundary_join_pending"
+    },
+    "ClientConnector.fetch": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v7",
+      "status": "source_callback_candidates",
+      "requester": "ts:87827bc8521cbd2543249549",
+      "receiver": null,
+      "deliveries": [
+        {
+          "registration": {
+            "id": "ts:87827bc8521cbd2543249549/ts:e6683faace1910b450215bb1/ts:2405d66a6ade94a05cb767cd",
+            "source_site": "ts:8c61e694a33640c6876e6808",
+            "registry": "ts:f89d1c428ff4187703422420",
+            "receiver_type": "ts:344864943b0af5ec9fc80da9",
+            "entry": "ts:87827bc8521cbd2543249549",
+            "key": {
+              "kind": "input_path",
+              "root": "ts:e8e2020439ce05d899395408",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:40"
+              ],
+              "conditions": [],
+              "gaps": []
+            },
+            "conditions": [],
+            "evidence_refs": [
+              "source:41",
+              "source:42"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:e6683faace1910b450215bb1",
+                "target": "ts:576bb9b266849e6fa7210ef2",
+                "evidence_refs": [
+                  "source:43",
+                  "source:44"
+                ]
+              }
+            ],
+            "value": {
+              "kind": "object",
+              "fields": {
+                "resolve": {
+                  "kind": "promise_resolver",
+                  "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+                  "mode": "resolve"
+                },
+                "reject": {
+                  "kind": "promise_resolver",
+                  "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+                  "mode": "reject"
+                }
+              }
+            },
+            "promises": [
+              "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35"
+            ]
+          },
+          "lookup": {
+            "id": "ts:780f8b8774f2e6beb2130dfc/ts:2317e38879b2ca7da4672a46",
+            "source_site": "ts:7a62cee15c5a9d75073250cb",
+            "registry": "ts:f89d1c428ff4187703422420",
+            "receiver_type": "ts:344864943b0af5ec9fc80da9",
+            "entry": "ts:780f8b8774f2e6beb2130dfc",
+            "key": {
+              "kind": "input_path",
+              "root": "ts:e2657111663b6c9a6e76ccc3",
+              "path": [
+                "data",
+                "id"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:45",
+                "source:46",
+                "source:47"
+              ],
+              "conditions": [],
+              "gaps": []
+            },
+            "conditions": [],
+            "evidence_refs": [
+              "source:41",
+              "source:48"
+            ],
+            "call_chain": []
+          },
+          "settlement": {
+            "id": "promise-settlement:[\"ts:780f8b8774f2e6beb2130dfc\",\"ts:c674d5869ce77d45c308a36c\",\"ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35\",20]",
+            "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+            "mode": "reject",
+            "entry": "ts:780f8b8774f2e6beb2130dfc",
+            "source_symbol": "ts:780f8b8774f2e6beb2130dfc",
+            "value": {
+              "kind": "input_path",
+              "root": "ts:e2657111663b6c9a6e76ccc3",
+              "path": [
+                "data",
+                "body",
+                "error"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:45",
+                "source:46",
+                "source:49",
+                "source:50"
+              ],
+              "conditions": [],
+              "gaps": []
+            },
+            "registry_context": {
+              "registration": "ts:87827bc8521cbd2543249549/ts:e6683faace1910b450215bb1/ts:2405d66a6ade94a05cb767cd",
+              "lookup": "ts:780f8b8774f2e6beb2130dfc/ts:2317e38879b2ca7da4672a46",
+              "selectors": [
+                "reject"
+              ]
+            },
+            "conditions_ref": "conditions:16",
+            "evidence_refs": [
+              "source:51"
+            ],
+            "call_chain": [],
+            "source_site": "ts:c674d5869ce77d45c308a36c"
+          },
+          "projections": [
+            {
+              "output_path": [],
+              "source": {
+                "kind": "input_path",
+                "root": "ts:e2657111663b6c9a6e76ccc3",
+                "path": [
+                  "data",
+                  "body",
+                  "error"
+                ],
+                "transforms": [],
+                "evidence_refs": [
+                  "source:45",
+                  "source:46",
+                  "source:49",
+                  "source:50"
+                ],
+                "conditions": [],
+                "gaps": []
+              },
+              "decoded_json_path": null
+            }
+          ]
+        },
+        {
+          "registration": {
+            "id": "ts:87827bc8521cbd2543249549/ts:e6683faace1910b450215bb1/ts:2405d66a6ade94a05cb767cd",
+            "source_site": "ts:8c61e694a33640c6876e6808",
+            "registry": "ts:f89d1c428ff4187703422420",
+            "receiver_type": "ts:344864943b0af5ec9fc80da9",
+            "entry": "ts:87827bc8521cbd2543249549",
+            "key": {
+              "kind": "input_path",
+              "root": "ts:e8e2020439ce05d899395408",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:40"
+              ],
+              "conditions": [],
+              "gaps": []
+            },
+            "conditions": [],
+            "evidence_refs": [
+              "source:41",
+              "source:42"
+            ],
+            "call_chain": [
+              {
+                "call_site": "ts:e6683faace1910b450215bb1",
+                "target": "ts:576bb9b266849e6fa7210ef2",
+                "evidence_refs": [
+                  "source:43",
+                  "source:44"
+                ]
+              }
+            ],
+            "value": {
+              "kind": "object",
+              "fields": {
+                "resolve": {
+                  "kind": "promise_resolver",
+                  "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+                  "mode": "resolve"
+                },
+                "reject": {
+                  "kind": "promise_resolver",
+                  "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+                  "mode": "reject"
+                }
+              }
+            },
+            "promises": [
+              "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35"
+            ]
+          },
+          "lookup": {
+            "id": "ts:780f8b8774f2e6beb2130dfc/ts:2317e38879b2ca7da4672a46",
+            "source_site": "ts:7a62cee15c5a9d75073250cb",
+            "registry": "ts:f89d1c428ff4187703422420",
+            "receiver_type": "ts:344864943b0af5ec9fc80da9",
+            "entry": "ts:780f8b8774f2e6beb2130dfc",
+            "key": {
+              "kind": "input_path",
+              "root": "ts:e2657111663b6c9a6e76ccc3",
+              "path": [
+                "data",
+                "id"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:45",
+                "source:46",
+                "source:47"
+              ],
+              "conditions": [],
+              "gaps": []
+            },
+            "conditions": [],
+            "evidence_refs": [
+              "source:41",
+              "source:48"
+            ],
+            "call_chain": []
+          },
+          "settlement": {
+            "id": "promise-settlement:[\"ts:780f8b8774f2e6beb2130dfc\",\"ts:7a5c3b86b0d12e4d74b2af5d\",\"ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35\",21]",
+            "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+            "mode": "resolve",
+            "entry": "ts:780f8b8774f2e6beb2130dfc",
+            "source_symbol": "ts:780f8b8774f2e6beb2130dfc",
+            "value": {
+              "kind": "input_path",
+              "root": "ts:e2657111663b6c9a6e76ccc3",
+              "path": [
+                "data"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:45",
+                "source:46"
+              ],
+              "conditions": [],
+              "gaps": []
+            },
+            "registry_context": {
+              "registration": "ts:87827bc8521cbd2543249549/ts:e6683faace1910b450215bb1/ts:2405d66a6ade94a05cb767cd",
+              "lookup": "ts:780f8b8774f2e6beb2130dfc/ts:2317e38879b2ca7da4672a46",
+              "selectors": [
+                "resolve"
+              ]
+            },
+            "conditions_ref": "conditions:17",
+            "evidence_refs": [
+              "source:52"
+            ],
+            "call_chain": [],
+            "source_site": "ts:7a5c3b86b0d12e4d74b2af5d"
+          },
+          "projections": [
+            {
+              "output_path": [],
+              "source": {
+                "kind": "input_path",
+                "root": "ts:e2657111663b6c9a6e76ccc3",
+                "path": [
+                  "data"
+                ],
+                "transforms": [],
+                "evidence_refs": [
+                  "source:45",
+                  "source:46"
+                ],
+                "conditions": [],
+                "gaps": []
+              },
+              "decoded_json_path": null
+            }
+          ]
+        }
+      ],
+      "registrations": [
+        {
+          "id": "ts:87827bc8521cbd2543249549/ts:e6683faace1910b450215bb1/ts:2405d66a6ade94a05cb767cd",
+          "source_site": "ts:8c61e694a33640c6876e6808",
+          "registry": "ts:f89d1c428ff4187703422420",
+          "receiver_type": "ts:344864943b0af5ec9fc80da9",
+          "entry": "ts:87827bc8521cbd2543249549",
+          "key": {
+            "kind": "input_path",
+            "root": "ts:e8e2020439ce05d899395408",
+            "path": [],
+            "transforms": [],
+            "evidence_refs": [
+              "source:40"
+            ],
+            "conditions": [],
+            "gaps": []
+          },
+          "conditions": [],
+          "evidence_refs": [
+            "source:41",
+            "source:42"
+          ],
+          "call_chain": [
+            {
+              "call_site": "ts:e6683faace1910b450215bb1",
+              "target": "ts:576bb9b266849e6fa7210ef2",
+              "evidence_refs": [
+                "source:43",
+                "source:44"
+              ]
+            }
+          ],
+          "value": {
+            "kind": "object",
+            "fields": {
+              "resolve": {
+                "kind": "promise_resolver",
+                "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+                "mode": "resolve"
+              },
+              "reject": {
+                "kind": "promise_resolver",
+                "promise": "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35",
+                "mode": "reject"
+              }
+            }
+          },
+          "promises": [
+            "ts:87827bc8521cbd2543249549/ts:379c0ce6602d115da85b2e35"
+          ]
+        }
+      ],
+      "unmatched_lookups": [],
+      "total_deliveries": 2,
+      "max_deliveries": 100,
+      "truncated": false,
+      "extraction_truncated": false,
+      "gaps": [
+        {
+          "kind": "control_flow_not_expanded",
+          "path": "modules/lib/src/connection/index.ts",
+          "line": 137,
+          "column": 13,
+          "expression": "for (let i = 0; i < frames.length; i++) {\n                res.push(frames[i]);\n            }",
+          "entry": "ts:87827bc8521cbd2543249549",
+          "call_chain": [
+            {
+              "call_site": "ts:e6683faace1910b450215bb1",
+              "target": "ts:576bb9b266849e6fa7210ef2",
+              "evidence_refs": [
+                "source:43",
+                "source:44"
+              ]
+            },
+            {
+              "call_site": "ts:9d235dd3c9c3edd43e6988a4",
+              "target": "ts:03f504b0520ebac8d936eabb",
+              "evidence_refs": [
+                "source:53",
+                "source:54"
+              ]
+            },
+            {
+              "call_site": "ts:e952436e70daf742927c130c",
+              "target": "ts:0334ceb0817adb685be989fc",
+              "evidence_refs": [
+                "source:55",
+                "source:32"
+              ]
+            },
+            {
+              "call_site": "ts:ac11fbc605fa411c4525d2e0",
+              "target": "ts:1959439d98065c435960ac35",
+              "evidence_refs": [
+                "source:56",
+                "source:57"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "assignment_receiver_unresolved",
+          "path": "modules/lib/src/utils/Console.ts",
+          "line": 24,
+          "column": 9,
+          "expression": "this.record[this.index++ % 1000] = msg",
+          "entry": "ts:87827bc8521cbd2543249549",
+          "call_chain": [
+            {
+              "call_site": "ts:e6683faace1910b450215bb1",
+              "target": "ts:576bb9b266849e6fa7210ef2",
+              "evidence_refs": [
+                "source:43",
+                "source:44"
+              ]
+            },
+            {
+              "call_site": "ts:9d235dd3c9c3edd43e6988a4",
+              "target": "ts:03f504b0520ebac8d936eabb",
+              "evidence_refs": [
+                "source:53",
+                "source:54"
+              ]
+            },
+            {
+              "call_site": "ts:e952436e70daf742927c130c",
+              "target": "ts:0334ceb0817adb685be989fc",
+              "evidence_refs": [
+                "source:55",
+                "source:32"
+              ]
+            },
+            {
+              "call_site": "ts:0ec34f7b542a199962ec3a88",
+              "target": "ts:cdf3602c42e44221bf352864",
+              "evidence_refs": [
+                "source:33",
+                "source:34"
+              ]
+            },
+            {
+              "call_site": "ts:fc6db89c1c706445127d0f1f",
+              "target": "ts:af5c798a480facba4e7dee75",
+              "evidence_refs": [
+                "source:35",
+                "source:36"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "unresolved_call_with_input_argument",
+          "path": "modules/lib/src/connection/index.ts",
+          "line": 92,
+          "column": 26,
+          "expression": "JSON.stringify(body)",
+          "entry": "ts:87827bc8521cbd2543249549",
+          "call_chain": [
+            {
+              "call_site": "ts:e6683faace1910b450215bb1",
+              "target": "ts:576bb9b266849e6fa7210ef2",
+              "evidence_refs": [
+                "source:43",
+                "source:44"
+              ]
+            },
+            {
+              "call_site": "ts:9d235dd3c9c3edd43e6988a4",
+              "target": "ts:03f504b0520ebac8d936eabb",
+              "evidence_refs": [
+                "source:53",
+                "source:54"
+              ]
+            },
+            {
+              "call_site": "ts:e952436e70daf742927c130c",
+              "target": "ts:0334ceb0817adb685be989fc",
+              "evidence_refs": [
+                "source:55",
+                "source:32"
+              ]
+            }
+          ],
+          "inputs": [
+            {
+              "kind": "input_path",
+              "root": "ts:a046d6518636ec3920fbed4a",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:58"
+              ],
+              "conditions": [],
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:e5d4da453e0061271d61ac90",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:59"
+              ],
+              "conditions": [],
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:a046d6518636ec3920fbed4a",
+              "path": [
+                "module"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:58",
+                "source:60"
+              ],
+              "conditions": [],
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:8262b04d18be54f9db57c89c",
+              "path": [],
+              "transforms": [],
+              "evidence_refs": [
+                "source:61"
+              ],
+              "conditions": [],
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            },
+            {
+              "kind": "input_path",
+              "root": "ts:a046d6518636ec3920fbed4a",
+              "path": [
+                "to"
+              ],
+              "transforms": [],
+              "evidence_refs": [
+                "source:58",
+                "source:62"
+              ],
+              "conditions": [],
+              "gaps": [
+                {
+                  "kind": "possible_mutation_by_unresolved_call",
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 92,
+                  "column": 26,
+                  "expression": "JSON.stringify(body)"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "limits": [
+        "registry_join_requires_same_runtime_instance_and_equal_key",
+        "registration_lifetime_requires_runtime_or_reaching_definition_validation",
+        "source_projection_not_observed_fulfillment",
+        "callback_and_promise_selection_is_contextual_candidate",
+        "network_transport_and_API_boundary_join_pending",
+        "unsupported_expressions_and_exception_paths_keep_unknown"
+      ],
+      "runtime_execution": "unknown",
+      "transport_status": "network_and_API_boundary_join_pending"
+    }
+  },
+  "symbols": {
+    "ts:752c0d2ca0ab6e17b28dc5ba": "Connection.fetch",
+    "ts:87827bc8521cbd2543249549": "ClientConnector.fetch"
+  },
+  "callback_bindings": [
+    {
+      "id": "ts:5e7d17a66f17c9ab8aaa7ebf",
+      "entry": "ts:7b2764f11164e00bb2e68f72",
+      "receiver": {
+        "kind": "input_path",
+        "root": "ts:f020bd331f24e397f21ba692",
+        "path": [],
+        "transforms": [],
+        "evidence_refs": [
+          "source:63"
+        ],
+        "conditions": [],
+        "gaps": []
+      },
+      "property": "onopen",
+      "callback": "ts:3d69194a6c43e4cf4624861d",
+      "conditions_ref": "conditions:18",
+      "evidence_refs": [
+        "source:64"
+      ]
+    },
+    {
+      "id": "ts:e2419e1d95cfc5cc4e177696",
+      "entry": "ts:7b2764f11164e00bb2e68f72",
+      "receiver": {
+        "kind": "input_path",
+        "root": "ts:f020bd331f24e397f21ba692",
+        "path": [],
+        "transforms": [],
+        "evidence_refs": [
+          "source:63"
+        ],
+        "conditions": [],
+        "gaps": []
+      },
+      "property": "onmessage",
+      "callback": "ts:fa313a14f35e80164f735e91",
+      "conditions_ref": "conditions:18",
+      "evidence_refs": [
+        "source:65"
+      ]
+    },
+    {
+      "id": "ts:375147292da70100c6c3d072",
+      "entry": "ts:7b2764f11164e00bb2e68f72",
+      "receiver": {
+        "kind": "input_path",
+        "root": "ts:f020bd331f24e397f21ba692",
+        "path": [],
+        "transforms": [],
+        "evidence_refs": [
+          "source:63"
+        ],
+        "conditions": [],
+        "gaps": []
+      },
+      "property": "onerror",
+      "callback": "ts:266b8b0050b1ff96a7f881c7",
+      "conditions_ref": "conditions:18",
+      "evidence_refs": [
+        "source:66"
+      ]
+    },
+    {
+      "id": "ts:5bb22e0f5e037651a9886fc1",
+      "entry": "ts:7b2764f11164e00bb2e68f72",
+      "receiver": {
+        "kind": "input_path",
+        "root": "ts:f020bd331f24e397f21ba692",
+        "path": [],
+        "transforms": [],
+        "evidence_refs": [
+          "source:63"
+        ],
+        "conditions": [],
+        "gaps": []
+      },
+      "property": "onclose",
+      "callback": "ts:818abb0f65f977611868dda2",
+      "conditions_ref": "conditions:18",
+      "evidence_refs": [
+        "source:67"
+      ]
+    },
+    {
+      "id": "ts:9c38b79c9cbfc2734958564e",
+      "entry": "ts:752c0d2ca0ab6e17b28dc5ba",
+      "receiver": {
+        "kind": "input_path",
+        "root": "ts:f020bd331f24e397f21ba692",
+        "path": [],
+        "transforms": [],
+        "evidence_refs": [
+          "source:63"
+        ],
+        "conditions": [],
+        "gaps": []
+      },
+      "property": "onmessage",
+      "callback": "ts:266b56427f3eb457d2cca737",
+      "conditions_ref": "conditions:8",
+      "evidence_refs": [
+        "source:68"
+      ]
+    }
+  ],
+  "negative_checks": {
+    "cross_registry_receiver": true,
+    "key_and_instance_conditions_retained": true
+  },
+  "remaining": [
+    "C++ serialized response to socket send",
+    "request counter to wire key and response key equality",
+    "postMessage receiver/response wrapping and Promise-to-API return join",
+    "D03 cross-transport reverse impact",
+    "D05 whole-chain explanation"
+  ],
+  "file_hash_verification": "not_run_per_user_preference",
+  "rules_revision": "7253fdba92e9c41029ea2f841ab8fa9267a5bb90",
+  "compiler_version": "5.9.3",
+  "tests": {
+    "passed": true,
+    "python": 162,
+    "typescript": 48
+  },
+  "storage": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p3-data-v7",
+    "nodes": 23789,
+    "edges": 34589,
+    "payload_roundtrip": true,
+    "callback_queries_pass": true,
+    "frontend_queries_pass": true,
+    "backend_response_queries_pass": true,
+    "native_rows_unchanged": 790,
+    "buffer_pool_mb": 1024
+  },
+  "source_evidence": {
+    "source:0": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 185,
+      "column": 24,
+      "expression": "this._msgId++"
+    },
+    "source:1": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 67,
+      "column": 5,
+      "expression": "private readonly _responseHandlers: Map<number, ResponseHandler> = new Map();"
+    },
+    "source:2": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 199,
+      "column": 13,
+      "expression": "this._responseHandlers.set(id, reqCallback)"
+    },
+    "source:3": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 184,
+      "column": 16,
+      "expression": "new Promise((resolve: (v: T | ErrorMsg) => void, reject) => {\n            const id = this._msgId++;\n            const msg: Request = createRequestHead(\n                id,\n                module,\n                dataRequest.command,\n                dataRequest.params,\n            );\n            this.request(msg);\n            const reqCallback = this.getCallback(resolve);\n            if (this._responseHandlers.size > MAX_RESPONSE_HANDLERS) {\n                const firstKey = this._responseHandlers"
+    },
+    "source:4": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 184,
+      "column": 28,
+      "expression": "(resolve: (v: T | ErrorMsg) => void, reject) => {\n            const id = this._msgId++;\n            const msg: Request = createRequestHead(\n                id,\n                module,\n                dataRequest.command,\n                dataRequest.params,\n            );\n            this.request(msg);\n            const reqCallback = this.getCallback(resolve);\n            if (this._responseHandlers.size > MAX_RESPONSE_HANDLERS) {\n                const firstKey = this._responseHandlers.keys().next"
+    },
+    "source:5": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 226,
+      "column": 19,
+      "expression": "JSON.parse(ev.data)"
+    },
+    "source:6": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 219,
+      "column": 27,
+      "expression": "ev: MessageEvent<string>"
+    },
+    "source:7": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 220,
+      "column": 13,
+      "expression": "ev.data"
+    },
+    "source:8": {
+      "path": "modules/framework/src/centralServer/websocket/defs.ts",
+      "line": 163,
+      "column": 12,
+      "expression": "(msg as Response).requestId"
+    },
+    "source:9": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 248,
+      "column": 26,
+      "expression": "this._responseHandlers.get(reqId)"
+    },
+    "source:10": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 208,
+      "column": 17,
+      "expression": "resolve(res as any)"
+    },
+    "source:11": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 271,
+      "column": 9,
+      "expression": "callback(msg)"
+    },
+    "source:12": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 205,
+      "column": 16,
+      "expression": "(res: Response): void => {\n            if (res.command === 'import/action') {\n                // 兼容 import/action\n                resolve(res as any);\n            } else if (res.result && res.body !== undefined) {\n                // wedge: return cache resolve\n                resolve(res.body as T);\n            } else {\n                const { code, message } = res.error ?? { code: -1, message: 'Unknown error' };\n                resolve({ error: { code, message } } as ErrorMsg);\n            }\n  "
+    },
+    "source:13": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 209,
+      "column": 38,
+      "expression": "res.body"
+    },
+    "source:14": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 211,
+      "column": 17,
+      "expression": "resolve(res.body as T)"
+    },
+    "source:15": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 213,
+      "column": 43,
+      "expression": "res.error"
+    },
+    "source:16": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 213,
+      "column": 25,
+      "expression": "code"
+    },
+    "source:17": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 213,
+      "column": 31,
+      "expression": "message"
+    },
+    "source:18": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 214,
+      "column": 17,
+      "expression": "resolve({ error: { code, message } } as ErrorMsg)"
+    },
+    "source:19": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 186,
+      "column": 34,
+      "expression": "createRequestHead(\n                id,\n                module,\n                dataRequest.command,\n                dataRequest.params,\n            )"
+    },
+    "source:20": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 31,
+      "column": 27,
+      "expression": "function (\n    id: number,\n    module: string,\n    command: string,\n    args: Request['params'],\n): Request {\n    const params = {};\n    Object.assign(params, args);\n    let fileId = (params as any).dbPath ?? '';\n    if (module === 'leaks') {\n        fileId = store.sessionStore.activeSession?.activeDataSource?.selectedFilePath ?? '';\n    }\n    return {\n        id,\n        moduleName: module,\n        type: 'request',\n        command,\n        fileId,\n        projectName: store.sessionStore.activeS"
+    },
+    "source:21": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 172,
+      "column": 40,
+      "expression": "dataRequest: DataRequest"
+    },
+    "source:22": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 190,
+      "column": 17,
+      "expression": "dataRequest.params"
+    },
+    "source:23": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 192,
+      "column": 13,
+      "expression": "this.request(msg)"
+    },
+    "source:24": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 279,
+      "column": 5,
+      "expression": "private async request(msg: Request): Promise<void> {\n        const msgStr = JSON.stringify(msg);\n        if (this._ws === undefined) {\n            throw new Error('');\n        }\n        this._ws.send(msgStr);\n    }"
+    },
+    "source:25": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 172,
+      "column": 20,
+      "expression": "module: ModuleName"
+    },
+    "source:26": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 189,
+      "column": 17,
+      "expression": "dataRequest.command"
+    },
+    "source:27": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 236,
+      "column": 79,
+      "expression": "msg.body"
+    },
+    "source:28": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 236,
+      "column": 79,
+      "expression": "msg.body?.dbPath"
+    },
+    "source:29": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 242,
+      "column": 13,
+      "expression": "connector.send({ ...msg })"
+    },
+    "source:30": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 236,
+      "column": 5,
+      "expression": "send<T extends EventHanlder>(body: SendParams<T>, reject?: (err: Error) => void): void {\n        let sendbody = body;\n        if (this._sendBefore) {\n            sendbody = this._sendBefore(sendbody);\n        }\n        super.send(sendbody, reject);\n    }"
+    },
+    "source:31": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 241,
+      "column": 9,
+      "expression": "super.send(sendbody, reject)"
+    },
+    "source:32": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 78,
+      "column": 5,
+      "expression": "send<T extends EventHanlder>(body: SendParams<T>, reject?: (err: Error) => void): void {\n        if (this.invalidFunc) {\n            this.invalidFunc();\n            return;\n        }\n        const targetWindows = body.to !== undefined ? this.getClientWindows(body.to) : this.getTargetWindows();\n        const isPostMessageInvalid = targetWindows.length === 0 || (body.to !== undefined && targetWindows[0]?.postMessage === undefined);\n        if (isPostMessageInvalid) {\n            const errMsg = 'mi"
+    },
+    "source:33": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 87,
+      "column": 13,
+      "expression": "console.warn(this.printErrMsg(errMsg))"
+    },
+    "source:34": {
+      "path": "modules/lib/src/utils/Console.ts",
+      "line": 35,
+      "column": 5,
+      "expression": "warn(...message: any[]): void {\n        this.print('warn', message);\n    }"
+    },
+    "source:35": {
+      "path": "modules/lib/src/utils/Console.ts",
+      "line": 36,
+      "column": 9,
+      "expression": "this.print('warn', message)"
+    },
+    "source:36": {
+      "path": "modules/lib/src/utils/Console.ts",
+      "line": 23,
+      "column": 5,
+      "expression": "print(_: ConsoleType, msg: unknown): void {\n        this.record[this.index++ % 1000] = msg;\n    }"
+    },
+    "source:37": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 234,
+      "column": 17,
+      "expression": "msg.event"
+    },
+    "source:38": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 241,
+      "column": 13,
+      "expression": "msg.body"
+    },
+    "source:39": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 65,
+      "column": 5,
+      "expression": "private readonly _host: ConnectHost;"
+    },
+    "source:40": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 189,
+      "column": 35,
+      "expression": "this._curFetchSequenceID++"
+    },
+    "source:41": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 163,
+      "column": 5,
+      "expression": "private readonly _msgSequence: Map<FetchSequenceID, { resolve: (value: unknown) => void; reject: (value: unknown) => void }> = new Map();"
+    },
+    "source:42": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 189,
+      "column": 13,
+      "expression": "this._msgSequence.set(this._curFetchSequenceID++, { resolve, reject })"
+    },
+    "source:43": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 184,
+      "column": 16,
+      "expression": "new Promise((resolve, reject) => {\n            params.id = this._curFetchSequenceID;\n            (params as Record<string, unknown>).event = 'request';\n            const body = params as unknown as SendParams<string>;\n            this.send(body, reject);\n            this._msgSequence.set(this._curFetchSequenceID++, { resolve, reject });\n        })"
+    },
+    "source:44": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 184,
+      "column": 28,
+      "expression": "(resolve, reject) => {\n            params.id = this._curFetchSequenceID;\n            (params as Record<string, unknown>).event = 'request';\n            const body = params as unknown as SendParams<string>;\n            this.send(body, reject);\n            this._msgSequence.set(this._curFetchSequenceID++, { resolve, reject });\n        }"
+    },
+    "source:45": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 193,
+      "column": 26,
+      "expression": "res: MessageEvent<FetchRequest>"
+    },
+    "source:46": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 194,
+      "column": 46,
+      "expression": "res.data"
+    },
+    "source:47": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 194,
+      "column": 46,
+      "expression": "res.data.id"
+    },
+    "source:48": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 194,
+      "column": 24,
+      "expression": "this._msgSequence.get(res.data.id)"
+    },
+    "source:49": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 197,
+      "column": 17,
+      "expression": "res.data.body"
+    },
+    "source:50": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 197,
+      "column": 17,
+      "expression": "res.data.body?.error"
+    },
+    "source:51": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 198,
+      "column": 17,
+      "expression": "reject(res.data.body.error)"
+    },
+    "source:52": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 200,
+      "column": 17,
+      "expression": "resolve(res.data)"
+    },
+    "source:53": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 188,
+      "column": 13,
+      "expression": "this.send(body, reject)"
+    },
+    "source:54": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 178,
+      "column": 5,
+      "expression": "send<T extends EventHanlder>(body: SendParams<T>, reject?: (err: Error) => void): void {\n        body.module = body.module ?? this._module;\n        super.send(body, reject);\n    }"
+    },
+    "source:55": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 180,
+      "column": 9,
+      "expression": "super.send(body, reject)"
+    },
+    "source:56": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 83,
+      "column": 55,
+      "expression": "this.getClientWindows(body.to)"
+    },
+    "source:57": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 131,
+      "column": 5,
+      "expression": "protected getClientWindows(windowName?: string): TargetWindow[] {\n        const frames = this.getFrameWindow().frames;\n        if (windowName) {\n            return [(frames as any)[windowName]];\n        } else {\n            const res: TargetWindow[] = [];\n            for (let i = 0; i < frames.length; i++) {\n                res.push(frames[i]);\n            }\n            return res;\n        }\n    }"
+    },
+    "source:58": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 183,
+      "column": 17,
+      "expression": "params: FetchParams"
+    },
+    "source:59": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 164,
+      "column": 5,
+      "expression": "private _curFetchSequenceID: FetchSequenceID = 0;"
+    },
+    "source:60": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 179,
+      "column": 23,
+      "expression": "body.module"
+    },
+    "source:61": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 165,
+      "column": 5,
+      "expression": "private readonly _module: string;"
+    },
+    "source:62": {
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 83,
+      "column": 31,
+      "expression": "body.to"
+    },
+    "source:63": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 64,
+      "column": 5,
+      "expression": "private readonly _ws: WebSocket | WebviewSocket | undefined;"
+    },
+    "source:64": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 145,
+      "column": 13,
+      "expression": "this._ws.onopen = (ev: Event): void => {\n                console.info('[connector]', 'onopen');\n                // 开始心跳检查\n                this.initHeartCheck();\n            }"
+    },
+    "source:65": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 151,
+      "column": 13,
+      "expression": "this._ws.onmessage = (ev: MessageEvent<string>): void => {\n                resolve();\n            }"
+    },
+    "source:66": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 155,
+      "column": 13,
+      "expression": "this._ws.onerror = (ev: Event): void => {\n                errorCenter.handleError(new WsError(ErrorCode.WS_ERROR, i18n.t('framework:error.ConnectionErrorMessage')));\n                console.error('[connector]', ev);\n                reject(new Error('connect failed.'));\n            }"
+    },
+    "source:67": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 160,
+      "column": 13,
+      "expression": "this._ws.onclose = (ev: Event): void => {\n                Modal.error({\n                    title: i18n.t('framework:error.ConnectionClosed'),\n                    content: i18n.t('framework:error.ConnectionClosedMessage'),\n                    okText: i18n.t('framework:error.Reconnect'),\n                    onOk: () => connectRemote(this._host),\n                    closable: true,\n                });\n            }"
+    },
+    "source:68": {
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 182,
+      "column": 13,
+      "expression": "this._ws.onmessage = this.fetchDataOnMessage"
+    }
+  },
+  "shared_records": {
+    "conditions:0": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 194,
+        "column": 17,
+        "expression": "this._responseHandlers.size > MAX_RESPONSE_HANDLERS",
+        "when": true
+      }
+    ],
+    "conditions:1": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 194,
+        "column": 17,
+        "expression": "this._responseHandlers.size > MAX_RESPONSE_HANDLERS",
+        "when": false
+      }
+    ],
+    "conditions:2": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      }
+    ],
+    "conditions:3": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 220,
+        "column": 13,
+        "expression": "ev.data.startsWith(CONTENT_LENGTH_PREFIX)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 225,
+        "column": 9,
+        "expression": "try {\n            msg = JSON.parse(ev.data);\n        } catch {\n            console.warn('cannot parse json data:', ev);\n            return;\n        }",
+        "kind": "try_completes_without_exception"
+      }
+    ],
+    "conditions:4": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 220,
+        "column": 13,
+        "expression": "ev.data.startsWith(CONTENT_LENGTH_PREFIX)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 233,
+        "column": 13,
+        "expression": "!isResponse(msg)",
+        "when": false
+      }
+    ],
+    "conditions:5": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 220,
+        "column": 13,
+        "expression": "ev.data.startsWith(CONTENT_LENGTH_PREFIX)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 233,
+        "column": 13,
+        "expression": "!isResponse(msg)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 254,
+        "column": 13,
+        "expression": "!isImport && isOldRequest",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 261,
+        "column": 13,
+        "expression": "callback === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "kind": "registered_value_selected",
+        "registration": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+        "lookup": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+        "receiver": "same_runtime_instance",
+        "key": "registration_key_equals_lookup_key",
+        "lifetime": "registration_reaches_lookup_without_replacement_or_deletion",
+        "callback_value": "captured_callback_fields_not_modified_before_invocation"
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 206,
+        "column": 17,
+        "expression": "res.command === 'import/action'",
+        "when": true
+      }
+    ],
+    "conditions:6": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 220,
+        "column": 13,
+        "expression": "ev.data.startsWith(CONTENT_LENGTH_PREFIX)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 233,
+        "column": 13,
+        "expression": "!isResponse(msg)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 254,
+        "column": 13,
+        "expression": "!isImport && isOldRequest",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 261,
+        "column": 13,
+        "expression": "callback === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "kind": "registered_value_selected",
+        "registration": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+        "lookup": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+        "receiver": "same_runtime_instance",
+        "key": "registration_key_equals_lookup_key",
+        "lifetime": "registration_reaches_lookup_without_replacement_or_deletion",
+        "callback_value": "captured_callback_fields_not_modified_before_invocation"
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 206,
+        "column": 17,
+        "expression": "res.command === 'import/action'",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 209,
+        "column": 24,
+        "expression": "res.result && res.body !== undefined",
+        "when": true
+      }
+    ],
+    "conditions:7": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 220,
+        "column": 13,
+        "expression": "ev.data.startsWith(CONTENT_LENGTH_PREFIX)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 233,
+        "column": 13,
+        "expression": "!isResponse(msg)",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 254,
+        "column": 13,
+        "expression": "!isImport && isOldRequest",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 261,
+        "column": 13,
+        "expression": "callback === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "kind": "registered_value_selected",
+        "registration": "ts:752c0d2ca0ab6e17b28dc5ba/ts:c02fbbcb981a0af3ed93d980/ts:cff20e0c9a1cdfa1b34a7dba",
+        "lookup": "ts:266b56427f3eb457d2cca737/ts:9a008235a695f7ee5312c888",
+        "receiver": "same_runtime_instance",
+        "key": "registration_key_equals_lookup_key",
+        "lifetime": "registration_reaches_lookup_without_replacement_or_deletion",
+        "callback_value": "captured_callback_fields_not_modified_before_invocation"
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 206,
+        "column": 17,
+        "expression": "res.command === 'import/action'",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 209,
+        "column": 24,
+        "expression": "res.result && res.body !== undefined",
+        "when": false
+      }
+    ],
+    "conditions:8": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 179,
+        "column": 13,
+        "expression": "this._ws.onmessage !== null && this._fetchFlag",
+        "when": true
+      }
+    ],
+    "conditions:9": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 179,
+        "column": 13,
+        "expression": "this._ws.onmessage !== null && this._fetchFlag",
+        "when": false
+      }
+    ],
+    "conditions:10": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 40,
+        "column": 9,
+        "expression": "module === 'leaks'",
+        "when": true
+      }
+    ],
+    "conditions:11": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 40,
+        "column": 9,
+        "expression": "module === 'leaks'",
+        "when": false
+      }
+    ],
+    "conditions:12": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 179,
+        "column": 13,
+        "expression": "this._ws.onmessage !== null && this._fetchFlag",
+        "when": true
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 40,
+        "column": 9,
+        "expression": "module === 'leaks'",
+        "when": true
+      }
+    ],
+    "conditions:13": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 179,
+        "column": 13,
+        "expression": "this._ws.onmessage !== null && this._fetchFlag",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 40,
+        "column": 9,
+        "expression": "module === 'leaks'",
+        "when": true
+      }
+    ],
+    "conditions:14": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 179,
+        "column": 13,
+        "expression": "this._ws.onmessage !== null && this._fetchFlag",
+        "when": true
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 40,
+        "column": 9,
+        "expression": "module === 'leaks'",
+        "when": false
+      }
+    ],
+    "conditions:15": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 173,
+        "column": 13,
+        "expression": "!this.isConnected",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 176,
+        "column": 13,
+        "expression": "this._ws === undefined",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 179,
+        "column": 13,
+        "expression": "this._ws.onmessage !== null && this._fetchFlag",
+        "when": false
+      },
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 40,
+        "column": 9,
+        "expression": "module === 'leaks'",
+        "when": false
+      }
+    ],
+    "conditions:16": [
+      {
+        "path": "modules/lib/src/connection/index.ts",
+        "line": 195,
+        "column": 13,
+        "expression": "result !== undefined",
+        "when": true
+      },
+      {
+        "path": "modules/lib/src/connection/index.ts",
+        "line": 197,
+        "column": 17,
+        "expression": "res.data.body?.error !== null && res.data.body?.error !== undefined",
+        "when": true
+      },
+      {
+        "kind": "registered_value_selected",
+        "registration": "ts:87827bc8521cbd2543249549/ts:e6683faace1910b450215bb1/ts:2405d66a6ade94a05cb767cd",
+        "lookup": "ts:780f8b8774f2e6beb2130dfc/ts:2317e38879b2ca7da4672a46",
+        "receiver": "same_runtime_instance",
+        "key": "registration_key_equals_lookup_key",
+        "lifetime": "registration_reaches_lookup_without_replacement_or_deletion",
+        "callback_value": "captured_callback_fields_not_modified_before_invocation"
+      }
+    ],
+    "conditions:17": [
+      {
+        "path": "modules/lib/src/connection/index.ts",
+        "line": 195,
+        "column": 13,
+        "expression": "result !== undefined",
+        "when": true
+      },
+      {
+        "path": "modules/lib/src/connection/index.ts",
+        "line": 197,
+        "column": 17,
+        "expression": "res.data.body?.error !== null && res.data.body?.error !== undefined",
+        "when": false
+      },
+      {
+        "kind": "registered_value_selected",
+        "registration": "ts:87827bc8521cbd2543249549/ts:e6683faace1910b450215bb1/ts:2405d66a6ade94a05cb767cd",
+        "lookup": "ts:780f8b8774f2e6beb2130dfc/ts:2317e38879b2ca7da4672a46",
+        "receiver": "same_runtime_instance",
+        "key": "registration_key_equals_lookup_key",
+        "lifetime": "registration_reaches_lookup_without_replacement_or_deletion",
+        "callback_value": "captured_callback_fields_not_modified_before_invocation"
+      }
+    ],
+    "conditions:18": [
+      {
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 141,
+        "column": 17,
+        "expression": "!this._ws",
+        "when": false
+      }
+    ]
+  }
+}

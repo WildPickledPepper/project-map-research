@@ -43,7 +43,9 @@ P3 已通过所选 140 文件上的 D01 数据库候选与 D04 共享实例检�
 
 [响应对象与路由增量](../experiments/2026-10-23-p3/response-routing.md) 将输入扩展到 148 文件，按参数、模块表和回调注册连接四个发送位置到序列化，并区分生产前后的发送。当时 154 项 Python 测试与存储读回查询通过。
 
-最新 [前端消费与状态增量](../experiments/2026-10-23-p3/frontend-consumers.md) 提取两个入口的 API 返回字段消费、两处连线赋值及四处请求完成后更新。158 项 Python、36 项 TypeScript 测试及完整图存储读回通过。D02 继续连接 JSON 传输、回调匹配与前端解包；D03、D05 随整链验收。
+[前端消费与状态增量](../experiments/2026-10-23-p3/frontend-consumers.md) 提取两个入口的 API 返回字段消费、两处连线赋值及四处请求完成后更新。当时 158 项 Python、36 项 TypeScript 测试及完整图存储读回通过。
+
+最新 [响应回调与 Promise 增量](../experiments/2026-10-23-p3/response-callbacks.md) 自动恢复两张回调表、五条交付候选及项目切换筛选条件。162 项 Python、48 项 TypeScript 测试和图存储读回通过。D02 继续连接编号传播、实际传输及 Promise 到业务 API 的返回转换；D03、D05 随整链验收。
 
 ## 当前选型方向
 

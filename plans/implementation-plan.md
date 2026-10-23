@@ -138,7 +138,7 @@ P1 原版对照包含 CBM、CGC、CodeGraph 三者；独立补充事实在 CGC �
 
 当前：**实施中，D01、D04 在所选源码范围通过**。容器迭代器、模板参数、提前退出与 switch 入口已补入数据库候选说明；共享状态可按源对象双向查询，完整图存储生命周期通过。继续完成 D02 响应字段生产/消费、D03 返回字段反查、D05 统一路径说明。证据和复现见 [P3 实施记录](../experiments/2026-10-23-p3/README.md)。
 
-D02 已连接七处字段写入、响应对象和序列化，并在 API 返回值一侧提取两个入口的字段消费、两处连线状态赋值和四处请求完成后更新。158 项 Python、36 项 TypeScript 测试及图存储读回通过。下一步通过 JSON 传输、回调匹配和前端解包连接两侧，见 [前端消费证据](../experiments/2026-10-23-p3/frontend-consumers.md)及 [响应对象与路由](../experiments/2026-10-23-p3/response-routing.md)。
+D02 已连接七处字段写入、响应对象和序列化，并在 API 返回值一侧提取两个入口的字段消费、两处连线状态赋值和四处请求完成后更新。最新补齐两张响应回调表和五条 Promise 交付候选；162 项 Python、48 项 TypeScript 测试及图存储读回通过。下一步连接编号传播、实际传输与 Promise 到业务 API 的返回转换，见 [回调与交付证据](../experiments/2026-10-23-p3/response-callbacks.md)、[前端消费证据](../experiments/2026-10-23-p3/frontend-consumers.md)及 [响应对象与路由](../experiments/2026-10-23-p3/response-routing.md)。
 
 输入：P2 关系。产物：首链完整静态查询、字段/状态传播记录、间接耦合样例、反向查询和条件清单。
 
