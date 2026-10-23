@@ -31,8 +31,12 @@ def available_backend_port(source):
     raise RuntimeError('No available backend port in product range: ' + str(limits))
 
 
-def run(source, output, scenario='boot'):
+def run(source, output, scenario='boot', allow_stale_response=False):
     source = Path(source).resolve(); output = Path(output).resolve()
+    if allow_stale_response:
+        if scenario != 'late': raise ValueError('The controlled stale-response fault requires the late scenario')
+        guard = (source/'modules/framework/src/centralServer/websocket/connection.ts').read_text(encoding='utf-8')
+        if '__projectMapAllowStaleResponse' not in guard: raise ValueError('Prepare and rebuild the controlled fault source first')
     if output.is_relative_to(ROOT) or output.is_relative_to(source): raise ValueError('Keep probe outputs outside both repositories')
     executable = source/'server/output/win_mingw64/bin/profiler_server.exe'
     if not executable.is_file(): raise ValueError('Compile the Windows backend before the probe')
@@ -58,6 +62,7 @@ def run(source, output, scenario='boot'):
     source_changes = subprocess.check_output(['git', '-C', str(source), 'diff', '--name-only',
         'd4e8d1cf9f90208bcbe5371c127088f6fd66c688', 'HEAD'], text=True).splitlines()
     manifest = {'evidence_kind': 'executed_runtime_preparation', 'source_commit': revision, 'scenario': scenario,
+                'fault_injection': {'allow_stale_response': allow_stale_response},
                 'sample': SAMPLE, 'sample_bytes': data.stat().st_size,
                 'product_source_changes': source_changes, 'listen_host': '127.0.0.1', 'frontend_port': http.server_port,
                 'backend_port': backend_port, 'backend_port_range': port_range, 'strict_mode': True, 'browser': 'headless',
@@ -79,7 +84,8 @@ def run(source, output, scenario='boot'):
                     if time.monotonic() >= deadline: raise TimeoutError('Backend did not start')
                     time.sleep(0.1)
             with (output/'browser.log').open('w', encoding='utf-8') as browser_log:
-                browser = subprocess.Popen(['node', str(Path(__file__).with_name('boot_probe.cjs')), str(source), str(output), url, str(data), scenario],
+                browser = subprocess.Popen(['node', str(Path(__file__).with_name('boot_probe.cjs')), str(source), str(output), url, str(data), scenario,
+                                            'allow-stale' if allow_stale_response else 'guard-active'],
                                            stdout=browser_log, stderr=subprocess.STDOUT, creationflags=flags)
                 try: code = browser.wait(timeout=240)
                 except subprocess.TimeoutExpired:
@@ -99,4 +105,5 @@ if __name__ == '__main__':
     ap = argparse.ArgumentParser(description=__doc__)
     for name in ('source', 'output'): ap.add_argument('--' + name, type=Path, required=True)
     ap.add_argument('--scenario', choices=('boot', 'normal', 'late'), default='boot')
-    a = ap.parse_args(); run(a.source, a.output, a.scenario)
+    ap.add_argument('--allow-stale-response', action='store_true', help='Enable the controlled guard fault in a rebuilt experimental source')
+    a = ap.parse_args(); run(a.source, a.output, a.scenario, a.allow_stale_response)

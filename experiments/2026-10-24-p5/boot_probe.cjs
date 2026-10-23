@@ -1,14 +1,14 @@
 // Exercise the real browser and server on a public, copied Insight trace sample.
 const fs = require('node:fs');
 const path = require('node:path');
-const [source, output, url, data, scenario = 'boot'] = process.argv.slice(2);
+const [source, output, url, data, scenario = 'boot', fault = 'guard-active'] = process.argv.slice(2);
 const { chromium, expect } = require(path.join(source, 'e2e/node_modules/@playwright/test'));
 const { installProbe, collectProbe } = require('./browser_probe.cjs');
 
 async function main() {
   const browser = await chromium.launch({headless: true});
   const context = await browser.newContext({viewport: {width: 1600, height: 1000}, locale: 'en-US'});
-  if (scenario !== 'boot') await installProbe(context, path.basename(output));
+  if (scenario !== 'boot') await installProbe(context, path.basename(output), fault === 'allow-stale');
   await context.tracing.start({screenshots: true, snapshots: true, sources: true});
   const page = await context.newPage();
   const events = [], errors = [], consoleMessages = [], connections = [];

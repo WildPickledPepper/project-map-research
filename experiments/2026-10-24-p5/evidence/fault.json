@@ -1,0 +1,53 @@
+{
+  "evidence_kind": "executed_product_fault_with_real_UI_state_failure",
+  "acceptance": "R05",
+  "passed": true,
+  "source_commit": "7f851c66b12a833ebeb2e3b12bf527a1cf0aea7a",
+  "control_run": "p5-fault-control-01",
+  "fault_run": "p5-fault-01",
+  "control_scenario_passed": true,
+  "fault_scenario_passed": false,
+  "expected_failure": "Late A response must not change B flow lines",
+  "observed_violation": "Project B remains active but its flow state contains A rank data",
+  "faulty_final_flow_count": 1,
+  "request_id": 73,
+  "trace_id": "p5-fault-01:Timeline:late-A-click:2",
+  "diagnostics": [
+    {
+      "code": "late_response_changed_B_state",
+      "field": "singleLinkLine"
+    },
+    {
+      "code": "late_response_changed_B_state",
+      "field": "drawLineMode"
+    },
+    {
+      "code": "scenario_assertions_failed"
+    },
+    {
+      "code": "missing_observation",
+      "stage": "response.discarded",
+      "count": 0,
+      "execution_status": "unknown_from_this_capture"
+    },
+    {
+      "code": "unexpected_adoption_of_late_response",
+      "stage": "response.delivered"
+    },
+    {
+      "code": "unexpected_adoption_of_late_response",
+      "stage": "api.resolved"
+    },
+    {
+      "code": "unexpected_adoption_of_late_response",
+      "stage": "state.applied"
+    }
+  ],
+  "file_hash_verification": "not_run_per_user_preference",
+  "restoration": {
+    "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+    "run": "p5-fault-restored-01",
+    "framework_rebuilt": true,
+    "late_scenario_and_correlation_passed": true
+  }
+}

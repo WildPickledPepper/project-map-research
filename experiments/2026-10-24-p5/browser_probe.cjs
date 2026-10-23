@@ -1,6 +1,6 @@
 // Installed before application scripts in the isolated experiment browser.
-async function installProbe(context, runId) {
-  await context.addInitScript(({runId}) => {
+async function installProbe(context, runId, allowStaleResponse = false) {
+  await context.addInitScript(({runId, allowStaleResponse}) => {
     const events = [], diagnostics = [], traces = new WeakMap();
     let sequence = 0, action = 'unspecified';
     const frame = () => window === window.top ? 'framework' : window.name || 'unnamed-frame';
@@ -35,7 +35,11 @@ async function installProbe(context, runId) {
       },
       readState() { return state(globalThis.__projectMapReadSession?.()); }
     };
-  }, {runId});
+    if (allowStaleResponse && window === window.top) {
+      globalThis.__projectMapAllowStaleResponse = true;
+      event('fault.activated', {fault: 'bypass old-project response guard'});
+    }
+  }, {runId, allowStaleResponse});
 }
 
 async function collectProbe(page) {

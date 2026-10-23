@@ -1,6 +1,6 @@
 # P5 真实运行验证
 
-日期：2026-10-24。R01–R03 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R04–R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
+日期：2026-10-24。R01–R03、R05 已通过：独立实验 checkout 完成前后端构建和公开数据导入，正常 `unit/flows` 场景重复三次，跨层采集及最终状态断言通过。R04、R06 继续实施。按当前工作目标，P5 完成后暂停，P6–P7 暂不展开。
 
 ## 输入与隔离
 
@@ -96,7 +96,26 @@ python experiments/2026-10-24-p5/verify_capture.py --run NEW_EXTERNAL_RUN
 2. R02（通过）：通过 UI 触发 `unit/flows`，关联实际数据库实现、返回及最终状态；正常场景重复三次。
 3. R03（通过）：控制 A 的响应晚于切换 B，验证 B 状态不受污染并找到丢弃/拒绝位置；重复三次。
 4. R04：并行请求和异步边界的身份不混合；人为缺少一个采集点时明确保留缺口。
-5. R05：独立副本注入迟到错误更新，确认状态断言会失败。
+5. R05（通过）：独立副本注入迟到错误更新，确认状态断言会失败。
 6. R06：运行记录绑定实际源码/构建/配置，映射同版本静态图，跨版本及未映射事件有明确状态。
 
 独立预期以请求所属项目、选定公开数据中的 flow 和最终前端状态为准；采集轨迹用于解释过程。真实场景和故障自检结果全部保留，不能以启动成功替代运行验收。
+
+### R05 状态断言自检
+
+[inject_late_fault.py](inject_late_fault.py)在禁用推送的本地副本中给旧响应守卫增加显式测试开关，实验提交为 `7f851c66b12a833ebeb2e3b12bf527a1cf0aea7a`。重新构建 Framework 后，用同一构建、同一公开样例和同一项目切换脚本运行对照：
+
+- `p5-fault-control-01`：测试开关关闭，旧响应丢弃，B 状态断言通过。
+- `p5-fault-01`：测试开关开启，旧响应进入真实回调、API 和状态赋值；B 仍是当前项目，其连线出现 A 的 rank 数据。`Late A response must not change B flow lines` 断言失败，场景退出 1。
+- `p5-fault-restored-01`：恢复正常采集提交 `ccd0d88080861b0c7185bcca70a85bd61f823168` 并重建 Framework，迟到场景及关联检查再次通过。
+
+[check_fault_result.py](check_fault_result.py)确认失败发生在目标状态断言，核对真实采用记录、B 中的 A 数据和同版本正常对照。[紧凑证据](evidence/fault.json)将“故障场景失败”与“断言自检通过”分别保存。
+
+```sh
+python experiments/2026-10-24-p5/inject_late_fault.py --source EXPERIMENTAL_CHECKOUT
+# 本地提交该脚本报告的文件并重建 Framework。
+python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOUT --output NEW_CONTROL_RUN --scenario late
+python experiments/2026-10-24-p5/run_boot_probe.py --source EXPERIMENTAL_CHECKOUT --output NEW_FAULT_RUN --scenario late --allow-stale-response
+# 上一条命令预期退出 1；下一条验证是否命中了预定的状态违例。
+python experiments/2026-10-24-p5/check_fault_result.py --control NEW_CONTROL_RUN --fault NEW_FAULT_RUN
+```
