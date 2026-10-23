@@ -5,6 +5,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import socket
 import subprocess
@@ -14,6 +15,20 @@ import time
 
 ROOT = Path(__file__).resolve().parents[2]
 SAMPLE = 'test/data/pytorch/text/level0/rank0_ascend_pt/ASCEND_PROFILER_OUTPUT/trace_view.json'
+
+
+def available_backend_port(source):
+    # The native argument parser restricts the server to its declared port range.
+    parser = (source/'server/msinsight/src/base/ParamsParser.h').read_text(encoding='utf-8')
+    limits = [int(re.search(r'\b' + name + r'\s*=\s*(\d+)\s*;', parser).group(1))
+              for name in ('minPortNum', 'maxPortNum')]
+    for port in range(limits[0], limits[1] + 1):
+        with socket.socket() as sock:
+            if os.name == 'nt': sock.setsockopt(socket.SOL_SOCKET, socket.SO_EXCLUSIVEADDRUSE, 1)
+            try: sock.bind(('127.0.0.1', port))
+            except OSError: continue
+            return port, limits
+    raise RuntimeError('No available backend port in product range: ' + str(limits))
 
 
 def run(source, output):
@@ -31,18 +46,17 @@ def run(source, output):
     shutil.copytree(source/'modules/timeline/build', site/'plugins/Timeline')
     data = output/'data/project-A/trace_view.json'; data.parent.mkdir(parents=True); shutil.copyfile(source/SAMPLE, data)
     logs = output/'server-log'; logs.mkdir()
-    with socket.socket() as sock:
-        sock.bind(('127.0.0.1', 0)); backend_port = sock.getsockname()[1]
+    backend_port, port_range = available_backend_port(source)
     flags = subprocess.CREATE_NO_WINDOW if os.name == 'nt' else 0
     handler = partial(SimpleHTTPRequestHandler, directory=str(site))
     http = ThreadingHTTPServer(('127.0.0.1', 0), handler)
     thread = threading.Thread(target=http.serve_forever, daemon=True); thread.start()
-    command = [str(executable), '--wsHost=127.0.0.1', '--wsPort=' + str(backend_port), '--logPath=' + str(logs)]
+    command = [str(executable), '--logPath=' + str(logs), '--wsHost=127.0.0.1', '--wsPort=' + str(backend_port)]
     url = 'http://127.0.0.1:' + str(http.server_port) + '/?port=' + str(backend_port)
     manifest = {'evidence_kind': 'executed_runtime_preparation', 'source_commit': revision,
                 'sample': SAMPLE, 'sample_bytes': data.stat().st_size,
                 'product_source_changes': [], 'listen_host': '127.0.0.1', 'frontend_port': http.server_port,
-                'backend_port': backend_port, 'strict_mode': True, 'browser': 'headless',
+                'backend_port': backend_port, 'backend_port_range': port_range, 'strict_mode': True, 'browser': 'headless',
                 'dataset_copy': 'data/project-A/trace_view.json', 'file_hash_verification': 'not_run_per_user_preference'}
     (output/'input.json').write_text(json.dumps(manifest, indent=2) + '\n', encoding='utf-8')
     backend = None
@@ -51,7 +65,8 @@ def run(source, output):
             backend = subprocess.Popen(command, cwd=executable.parent, stdout=server_log, stderr=subprocess.STDOUT, creationflags=flags)
             deadline = time.monotonic() + 30
             while True:
-                if backend.poll() is not None: raise RuntimeError('Backend stopped; inspect server-stdout.log')
+                if backend.poll() is not None:
+                    raise RuntimeError(f'Backend stopped with exit code {backend.returncode}; inspect server-stdout.log')
                 try:
                     with socket.create_connection(('127.0.0.1', backend_port), timeout=0.2): break
                 except OSError:

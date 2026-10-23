@@ -9,8 +9,9 @@ async function main() {
   const context = await browser.newContext({viewport: {width: 1600, height: 1000}, locale: 'en-US'});
   await context.tracing.start({screenshots: true, snapshots: true, sources: true});
   const page = await context.newPage();
-  const events = [], errors = [];
+  const events = [], errors = [], consoleMessages = [];
   page.on('pageerror', error => errors.push(String(error)));
+  page.on('console', message => consoleMessages.push({type: message.type(), text: message.text()}));
   page.on('websocket', ws => {
     for (const direction of ['framesent', 'framereceived']) {
       ws.on(direction, frame => {
@@ -24,6 +25,8 @@ async function main() {
   let failure = null;
   try {
     await page.goto(url);
+    const timeline = page.frameLocator('#Timeline');
+    await timeline.locator('#main-container').waitFor({state: 'visible', timeout: 30000});
     await page.locator('.btn-import').waitFor({state: 'visible', timeout: 30000});
     await page.locator('.btn-import').click();
     const input = page.getByTestId('filePathInput');
@@ -34,7 +37,6 @@ async function main() {
     await confirm.click();
     await expect.poll(() => events.some(e => e.direction === 'framereceived' && e.message.event === 'allPagesSuccess'),
       {timeout: 90000, message: 'Real server must complete imported trace parsing'}).toBeTruthy();
-    const timeline = page.frameLocator('#Timeline');
     await timeline.locator('#main-container').waitFor({state: 'visible', timeout: 30000});
     await expect(timeline.locator('#unitWrapperScroller')).toContainText(/Ascend|Python|Process|Thread|CPU|NPU/i, {timeout: 30000});
     await page.screenshot({path: path.join(output, 'loaded.png'), fullPage: true});
@@ -43,6 +45,7 @@ async function main() {
     await page.screenshot({path: path.join(output, 'failed.png'), fullPage: true}).catch(() => {});
   } finally {
     fs.writeFileSync(path.join(output, 'browser-events.json'), JSON.stringify({events, errors}, null, 2));
+    fs.writeFileSync(path.join(output, 'browser-console.json'), JSON.stringify(consoleMessages, null, 2));
     fs.writeFileSync(path.join(output, 'page-text.txt'), await page.locator('body').innerText().catch(() => 'unavailable'));
     fs.writeFileSync(path.join(output, 'boot-result.json'), JSON.stringify({
       evidence_kind: 'real_Insight_browser_import', passed: !failure, failure,

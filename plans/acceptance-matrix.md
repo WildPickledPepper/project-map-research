@@ -4,7 +4,7 @@
 
 ## 当前执行记录
 
-P4 已完成：U01、U02、U03、U04、U06 通过，完整 Python 套件 274 项通过。记录保存与改名失效验证补齐 U03、U06；真实 Insight 图上的四类 synthetic 记录保留原版本，新图不会继承旧验证。增量关闭，U05 不适用。见 [P4 完成报告](../experiments/2026-10-23-p4/completion.md)。P5 的 R01–R06 尚未通过；本轮完成 P5 后暂停，H/Q 门槛保留但暂不实施。
+P4 已完成：U01、U02、U03、U04、U06 通过，完整 Python 套件 274 项通过。记录保存与改名失效验证补齐 U03、U06；真实 Insight 图上的四类 synthetic 记录保留原版本，新图不会继承旧验证。增量关闭，U05 不适用。见 [P4 完成报告](../experiments/2026-10-23-p4/completion.md)。P5 的 [R01 已通过](../experiments/2026-10-24-p5/README.md)，R02–R06 待执行；本轮完成 P5 后暂停，H/Q 门槛保留但暂不实施。
 
 P3 最新验收：**D01–D05 在 154 文件的同一快照通过**，237 项 Python、76 项 TypeScript 测试及存储读回通过。统一查询与源码条件见 [完成报告](../experiments/2026-10-23-p3/completion.md)，第三条跨模块链见 [登记](../cases/memory-usage/README.md)。后续推进 P4 自动刷新，P5–P7 的运行、历史资产与综合验收保持原范围。
 

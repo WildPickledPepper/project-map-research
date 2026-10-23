@@ -1,0 +1,116 @@
+{
+  "evidence_kind": "executed_real_build_and_UI_import",
+  "acceptance": "R01",
+  "status": "passed",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "tracked_source_changes": [],
+  "runner": "experiments/2026-10-24-p5/run_boot_probe.py",
+  "fixture": {
+    "path": "test/data/pytorch/text/level0/rank0_ascend_pt/ASCEND_PROFILER_OUTPUT/trace_view.json",
+    "bytes": 1805798
+  },
+  "build": {
+    "type": "Release",
+    "target": "profiler_server",
+    "generator": "Ninja",
+    "compiler": "MinGW GCC 11.5.0 x86_64-msvcrt-posix-seh",
+    "cmake": "3.30.1",
+    "node": "22.23.3",
+    "pnpm": "9.15.9",
+    "playwright": "1.57.0",
+    "source_date_epoch": "1792773720",
+    "timezone": "Asia/Shanghai +08:00",
+    "database_version": "2026102400",
+    "shared_linker_flags": "-Wl,--exclude-libs,libssp.a",
+    "stack_protector": "original all/strong flags preserved",
+    "frontend_modules": [
+      "framework",
+      "timeline"
+    ],
+    "frontend_env": {
+      "NODE_OPTIONS": "--max-old-space-size=4096 --openssl-legacy-provider",
+      "GENERATE_SOURCEMAP": "false",
+      "DISABLE_ESLINT_PLUGIN": "true",
+      "CI": "false"
+    }
+  },
+  "launch": {
+    "host": "127.0.0.1",
+    "backend_port": 9000,
+    "backend_allowed_range": [
+      9000,
+      9100
+    ],
+    "frontend_port": 57099,
+    "strict_mode": true,
+    "browser": "headless Chromium",
+    "sample_isolated_copy": true,
+    "log_and_project_database_isolated": true,
+    "owned_processes_stopped": true
+  },
+  "attempts": [
+    {
+      "id": "p5-boot-01",
+      "passed": false,
+      "reason": "Runner chose an ephemeral port outside native 9000-9100 range; server exited before browser launch"
+    },
+    {
+      "id": "p5-boot-02",
+      "passed": false,
+      "reason": "Server parsed input; Timeline lane assertion failed after importing before Timeline readiness"
+    },
+    {
+      "id": "p5-boot-03",
+      "passed": true,
+      "change": "Wait for Timeline main-container before importing; use a free port in native range"
+    }
+  ],
+  "result": {
+    "evidence_kind": "real_Insight_browser_import",
+    "passed": true,
+    "failure": null,
+    "browser": "143.0.7499.4",
+    "event_count": 70,
+    "page_errors": [],
+    "received_events": [
+      "parse/clusterCompleted",
+      "parse/progress",
+      "parse/unitCompleted",
+      "parse/success",
+      "allPagesSuccess",
+      "parse/heatmapCompleted"
+    ],
+    "observed_commands": [
+      "heartCheck",
+      "moduleConfig/get",
+      "files/getProjectExplorer",
+      "files/get",
+      "files/checkProjectValid",
+      "import/action",
+      "global/cancelBaseline",
+      "tableData/nameList",
+      "systemView/overall",
+      "unit/threadTracesSummary"
+    ],
+    "scope": "R01 preparation: UI import and timeline availability; unit/flows state assertions remain separate"
+  },
+  "known_scope_diagnostics": [
+    "Memory and Operator frontends omitted; two initial HTTP 404s",
+    "Optional RL config absent; fixture is not an RL workload"
+  ],
+  "raw_evidence": [
+    "results/p5-runtime-01/backend-build.log",
+    "results/p5-runtime-01/backend-fixed-epoch.log",
+    "results/p5-boot-01",
+    "results/p5-boot-02",
+    "results/p5-boot-03"
+  ],
+  "remaining": [
+    "R02",
+    "R03",
+    "R04",
+    "R05",
+    "R06"
+  ],
+  "file_hash_verification": "not_run_per_user_preference"
+}
