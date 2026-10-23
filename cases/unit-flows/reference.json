@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "case_id": "insight.timeline.unit-flows",
+  "origin": "manual_source_audit_reference",
+  "description": "Human-selected source-audited reference anchors and relations, not a tool-extracted complete graph.",
+  "repository": {
+    "url": "https://gitcode.com/Ascend/msinsight",
+    "commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688"
+  },
+  "anchors": [
+    {
+      "id": "frontend-request",
+      "path": "modules/timeline/src/api/request.ts",
+      "line": 175,
+      "marker": "return window.requestData('unit/flows', params, 'timeline');"
+    },
+    {
+      "id": "request-binding",
+      "path": "modules/timeline/src/bootstrap.tsx",
+      "line": 89,
+      "marker": "window.requestData = createRequest(connector);"
+    },
+    {
+      "id": "request-wrapper",
+      "path": "modules/lib/src/utils/Request.ts",
+      "line": 38,
+      "marker": "const data = await connector.fetch({"
+    },
+    {
+      "id": "client-send",
+      "path": "modules/lib/src/connection/index.ts",
+      "line": 188,
+      "marker": "this.send(body, reject);"
+    },
+    {
+      "id": "protocol-value",
+      "path": "server/src/modules/defs/ProtocolDefs.h",
+      "line": 88,
+      "marker": "const std::string REQ_RES_UNIT_FLOWS = \"unit/flows\";"
+    },
+    {
+      "id": "handler-registration",
+      "path": "server/src/modules/timeline/TimelineModule.cpp",
+      "line": 87,
+      "marker": "requestHandlerMap.emplace(REQ_RES_UNIT_FLOWS, std::make_unique<QueryFlowsBySliceInfoHandler>());"
+    },
+    {
+      "id": "module-dispatch",
+      "path": "server/src/modules/ModuleManager.cpp",
+      "line": 63,
+      "marker": "moduleMap.at(moduleName)->OnRequest(std::move(request));"
+    },
+    {
+      "id": "command-lookup",
+      "path": "server/msinsight/src/base/BaseModule.cpp",
+      "line": 36,
+      "marker": "auto &requestHandler = requestHandlerMap.at(command);"
+    },
+    {
+      "id": "database-call",
+      "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+      "line": 57,
+      "marker": "database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId);"
+    },
+    {
+      "id": "database-type",
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+      "line": 66,
+      "marker": "std::shared_ptr<VirtualTraceDatabase> GetTraceDatabaseByRankId"
+    },
+    {
+      "id": "database-interface",
+      "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+      "line": 83,
+      "marker": "virtual bool QueryUnitFlows("
+    },
+    {
+      "id": "db-implementation",
+      "path": "server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+      "line": 337,
+      "marker": "bool DbTraceDataBase::QueryUnitFlows("
+    },
+    {
+      "id": "text-implementation",
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+      "line": 636,
+      "marker": "bool TextTraceDatabase::QueryUnitFlows("
+    },
+    {
+      "id": "old-response-condition",
+      "path": "modules/framework/src/centralServer/websocket/connection.ts",
+      "line": 254,
+      "marker": "if (!isImport && isOldRequest)"
+    },
+    {
+      "id": "outdated-request",
+      "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+      "line": 36,
+      "marker": "if (requestFilter.IsNeedFilter(GetRequestKey(*requestPtr), id))"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "frontend",
+      "kind": "symbol",
+      "name": "getUnitFlows"
+    },
+    {
+      "id": "interface",
+      "kind": "business_interface",
+      "protocol": "custom-message",
+      "module": "timeline",
+      "command": "unit/flows"
+    },
+    {
+      "id": "registration",
+      "kind": "registration",
+      "name": "TimelineModule.RegisterRequestHandlers"
+    },
+    {
+      "id": "handler",
+      "kind": "symbol",
+      "name": "QueryFlowsBySliceInfoHandler.HandleRequest"
+    },
+    {
+      "id": "database-interface",
+      "kind": "symbol",
+      "name": "VirtualTraceDatabase.QueryUnitFlows"
+    },
+    {
+      "id": "database-db",
+      "kind": "symbol",
+      "name": "DbTraceDataBase.QueryUnitFlows"
+    },
+    {
+      "id": "database-text",
+      "kind": "symbol",
+      "name": "TextTraceDatabase.QueryUnitFlows"
+    }
+  ],
+  "reference_relations": [
+    {
+      "id": "r1",
+      "source": "frontend",
+      "target": "interface",
+      "type": "consumes_interface",
+      "evidence": [
+        "frontend-request"
+      ],
+      "status": "source_audited_reference",
+      "runtime_validated": false
+    },
+    {
+      "id": "r2",
+      "source": "registration",
+      "target": "interface",
+      "type": "registers_interface",
+      "evidence": [
+        "protocol-value",
+        "handler-registration"
+      ],
+      "status": "source_audited_reference",
+      "runtime_validated": false
+    },
+    {
+      "id": "r3",
+      "source": "registration",
+      "target": "handler",
+      "type": "registers_handler",
+      "evidence": [
+        "handler-registration"
+      ],
+      "status": "source_audited_reference",
+      "runtime_validated": false
+    },
+    {
+      "id": "r4",
+      "source": "handler",
+      "target": "database-interface",
+      "type": "calls_interface",
+      "evidence": [
+        "database-call",
+        "database-type",
+        "database-interface"
+      ],
+      "status": "source_audited_reference",
+      "runtime_validated": false
+    },
+    {
+      "id": "r5",
+      "source": "database-db",
+      "target": "database-interface",
+      "type": "candidate_implementation",
+      "evidence": [
+        "db-implementation",
+        "database-interface"
+      ],
+      "status": "source_audited_reference",
+      "runtime_validated": false
+    },
+    {
+      "id": "r6",
+      "source": "database-text",
+      "target": "database-interface",
+      "type": "candidate_implementation",
+      "evidence": [
+        "text-implementation",
+        "database-interface"
+      ],
+      "status": "source_audited_reference",
+      "runtime_validated": false
+    }
+  ],
+  "unverified": [
+    "Complete request and response transport path with all forwarding nodes",
+    "Concrete database implementation selection conditions",
+    "Complete database query, table and shared-data dependencies",
+    "All result consumers and UI state mutations",
+    "Automatic extraction of the complete end-to-end graph",
+    "Runtime trace collection, scenario coverage and behavior assertions"
+  ]
+}
