@@ -105,11 +105,22 @@ class DataExtractor:
                 for did,d in self.functions.get(canonical(target['signature'][0]),[]):
                     if d['signature'][1:]==target['signature'][1:]:result.append(did)
         if function.type=='identifier':
-            name=text(function)
+            name=text(function);argc=len(arguments(call));visible=self.x.visibility.get(info['path'],{info['path']})
+            def accepts(f):
+                declarations=[self.x.functions_by_id[t] for t in self.x.functions[f['signature']]
+                              if self.x.functions_by_id[t]['path'] in visible]
+                return any(sum(p.child_by_field_name('default_value') is None for p in d['parameter_nodes'])<=argc<=len(d['parameter_nodes']) for d in declarations)
+            owner='::'.join(info['scope'])
+            if owner in self.x.classes:
+                for group in self.x.members(owner,name):
+                    for tid in group:
+                        f=self.x.functions_by_id[tid]
+                        if self.x.nodes[tid]['definition'] and accepts(f):result.append(tid)
+                if result:return sorted(set(result))
             for length in range(len(info['scope']),-1,-1):
                 q=canonical('::'.join(info['scope'][:length]+[name]));found=[]
                 for tid,f in self.functions.get(q,[]):
-                    if len(f['parameter_nodes'])==len(arguments(call)):found.append(tid)
+                    if accepts(f):found.append(tid)
                 if found:result.extend(found);break
         return sorted(set(result))
 
@@ -237,15 +248,19 @@ class DataExtractor:
         from adapters.cpp_instances import extract_instances
         instances=extract_instances(self)
         from adapters.cpp_field_flow import FieldFlow
-        field_flow=FieldFlow(self).build()
+        field_engine=FieldFlow(self);field_flow=field_engine.build()
         from adapters.cpp_serialization import Serialization
-        serialization=Serialization(self).build()
-        return {'facts':self.facts,'data':{'version':'0.5.0','storages':[f for f in self.fields.values() if f['container']],
+        serializer=Serialization(self);serialization=serializer.build()
+        from adapters.cpp_response_routing import ResponseRouting
+        routing=ResponseRouting(self,field_engine,serializer.protocol).build()
+        field_flow['roots']=list(field_engine.roots.values());field_flow['locations']=list(field_engine.locations.values())
+        return {'facts':self.facts,'data':{'version':'0.6.0','storages':[f for f in self.fields.values() if f['container']],
             'accesses':self.accesses,'allocations':self.allocations,'selections':self.selections,'summaries':self.summaries,
             'callbacks':self.callbacks,
             'instances':instances,
             'field_flow':field_flow,
             'serialization':serialization,
+            'response_routing':routing,
             'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',
                 'bounded_expression_dependencies','switch_entries_are_source_candidates','exceptions_goto_and_path_feasibility_not_solved']}}
 

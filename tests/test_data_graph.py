@@ -27,7 +27,7 @@ class DataGraphTests(unittest.TestCase):
         relation,=[e for e in g['edges'] if e['source']==write['id'] and e['kind']=='WRITES_OBJECT_PATH']
         location=next(n for n in g['nodes'] if n['id']==relation['target'])
         self.assertEqual(location['selectors'],['member:value'])
-        self.assertTrue(relation['evidence']);self.assertEqual(g['snapshot'],'source:p3-data-v4')
+        self.assertTrue(relation['evidence']);self.assertEqual(g['snapshot'],'source:p3-data-v5')
 
     def test_serializer_fields_are_scoped_by_callback_and_query_is_bounded(self):
         from adapters.serialization_queries import explain_serialization

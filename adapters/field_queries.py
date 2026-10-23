@@ -20,6 +20,9 @@ def explain_writes(graph,source_symbol,max_depth=8,max_effects=2000):
             if count>=max_effects:truncated=True;break
             count+=1;loc=locations[w['location']]
             result.append({'write':w['id'],'writer':uid,'root':loc['root'],'selectors':loc['selectors'],
+                'value_origins':[{'root':locations[lid]['root'],'selectors':locations[lid]['selectors']} if lid else None for lid in w.get('value_locations',[])],
+                'values':w.get('values',[]),
+                'offset':w.get('offset'),
                 'operation':w['operation'],'evidence':w['evidence'],'call_chain':[],
                 'condition_scopes':[{'source_symbol':uid,'conditions':w['conditions']}],
                 'status':'source_effect_candidate','runtime_execution':'unknown'})
@@ -38,8 +41,20 @@ def explain_writes(graph,source_symbol,max_depth=8,max_effects=2000):
                             gaps.append({'kind':'argument_location_unresolved','call_site':call['id'],'parameter':child['root']});continue
                         actual=locations[binding['actual']];selectors=child['selectors']
                         if binding['address_of'] and formal['mode']=='pointer':selectors=selectors[1:]
+                        value_origins=[]
+                        for origin in child.get('value_origins',[]):
+                            if not origin:value_origins.append(None);continue
+                            candidate=[b for b in call.get('value_bindings',call['bindings']) if b['target']==target and b['parameter']==origin['root']]
+                            if not candidate:value_origins.append(origin);continue
+                            source_binding=candidate[0];source=locations.get(source_binding['actual'])
+                            if not source:value_origins.append(None);continue
+                            suffix=origin['selectors']
+                            if source_binding['address_of'] and suffix and suffix[0]=='pointee':suffix=suffix[1:]
+                            value_origins.append({'root':source['root'],'selectors':source['selectors']+suffix})
                         result.append({**child,'root':actual['root'],'selectors':actual['selectors']+selectors,
+                            'value_origins':value_origins,
                             'call_chain':[{'call_site':call['id'],'caller':uid,'callee':target,'parameter_index':binding['index'],
+                                'offset':call.get('offset'),
                                 'actual':binding['actual'],'evidence':call['evidence'],'runtime_target':'unknown'},*child['call_chain']],
                             'condition_scopes':[{'source_symbol':uid,'call_site':call['id'],'conditions':call['conditions']},*child['condition_scopes']]})
         return result

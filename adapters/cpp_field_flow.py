@@ -21,7 +21,7 @@ def declaration_mode(node):
 
 class FieldFlow:
     def __init__(self,data):
-        self.d=data;self.x=data.x;self.roots={};self.locations={};self.writes=[];self.calls=[];self.diagnostics=[]
+        self.d=data;self.x=data.x;self.roots={};self.locations={};self.writes=[];self.calls=[];self.transfers=[];self.diagnostics=[]
         self.adjacency=defaultdict(list);self.parameters={};self.cache={}
         for e in data.facts['edges']:
             if e['kind'] in {'MEMBER_TARGET_CANDIDATE','DECLARES_DEFINITION','OVERRIDE_CANDIDATE'}:self.adjacency[e['source']].append(e)
@@ -95,6 +95,8 @@ class FieldFlow:
         if kind=='call_expression':
             fn=node.child_by_field_name('function')
             if text(fn)=='std::move' and len(arguments(node))==1:return self.location(arguments(node)[0],uid,info,seen)
+            if text(fn).startswith(('dynamic_cast<','static_cast<','const_cast<')) and len(arguments(node))==1:
+                return self.location(arguments(node)[0],uid,info,seen)
             if fn and fn.type=='field_expression' and text(fn.child_by_field_name('field'))=='get' and not arguments(node):
                 lid=self.location(fn.child_by_field_name('argument'),uid,info,seen)
                 if lid and self.locations[lid]['type'].get('name') in self.d.types.POINTERS:return lid
@@ -120,6 +122,11 @@ class FieldFlow:
                 if node.type=='assignment_expression':
                     location=self.location(node.child_by_field_name('left'),uid,info)
                     operation=text(node.child_by_field_name('operator'));values=[node.child_by_field_name('right')]
+                if node.type=='binary_expression' and text(node.child_by_field_name('operator'))=='<<':
+                    actual=self.location(node.child_by_field_name('right'),uid,info)
+                    if actual:self.diagnostics.append({'kind':'operator_transfer_not_expanded','source_symbol':uid,
+                        'call_site':'cpp:'+identity(info['path'],'object_transfer',node),'arguments':[actual],
+                        'offset':node.start_byte,'conditions':predicates(node),'evidence':[self.d.evidence(info['path'],node)]})
                 if node.type=='call_expression':
                     fn=node.child_by_field_name('function');args=arguments(node)
                     if fn and fn.type=='field_expression':
@@ -128,28 +135,39 @@ class FieldFlow:
                         if typ.get('kind')=='standard' and typ.get('name') in self.d.types.MAPS|self.d.types.SEQUENCES and method in self.d.WRITES:
                             location=receiver;operation='std::'+method;values=args
                     targets,resolution=self.targets(node,uid,info)
-                    bindings=[]
+                    bindings=[];value_bindings=[]
                     for target in targets:
                         for i,rid in enumerate(self.parameters.get(target,[])):
                             formal=self.roots[rid]
-                            if i>=len(args) or formal['mode']=='value' or formal['const']:continue
+                            if i>=len(args):continue
                             actual=self.location(args[i],uid,info)
-                            bindings.append({'target':target,'parameter':rid,'index':i,'actual':actual,
+                            binding={'target':target,'parameter':rid,'index':i,'actual':actual,
                                 'address_of':args[i].type=='pointer_expression' and text(args[i]).lstrip().startswith('&'),
-                                'argument_evidence':self.d.evidence(info['path'],args[i])})
+                                'argument_evidence':self.d.evidence(info['path'],args[i])}
+                            value_bindings.append(binding)
+                            if formal['mode']!='value' and not formal['const']:bindings.append(binding)
+                    if value_bindings:
+                        self.transfers.append({'id':'cpp:'+identity(info['path'],'call_site',node),'source_symbol':uid,'targets':targets,
+                            'bindings':value_bindings,'offset':node.start_byte,'conditions':predicates(node),'evidence':[self.d.evidence(info['path'],node)]})
                     if bindings:
                         self.calls.append({'id':'cpp:'+identity(info['path'],'call_site',node),'source_symbol':uid,'targets':targets,
-                            'bindings':bindings,'conditions':predicates(node),'resolution_evidence':resolution,
+                            'bindings':bindings,'value_bindings':value_bindings,'conditions':predicates(node),'resolution_evidence':resolution,
+                            'offset':node.start_byte,
                             'evidence':[self.d.evidence(info['path'],node)],'runtime_target':'unknown'})
                     elif not targets and any(self.location(a,uid,info) for a in args):
-                        self.diagnostics.append({'kind':'call_effects_unresolved','source_symbol':uid,'evidence':[self.d.evidence(info['path'],node)]})
+                        transparent=text(fn)=='std::move' or text(fn).startswith(('dynamic_cast<','static_cast<','const_cast<'))
+                        if not transparent:self.diagnostics.append({'kind':'call_effects_unresolved','source_symbol':uid,
+                            'call_site':'cpp:'+identity(info['path'],'call_site',node),'arguments':[self.location(a,uid,info) for a in args],
+                            'offset':node.start_byte,'conditions':predicates(node),'evidence':[self.d.evidence(info['path'],node)]})
                 if location and operation:
                     self.writes.append({'id':'field-write:'+identity(info['path'],'field_write',node),'source_symbol':uid,
                         'location':location,'operation':operation,'conditions':predicates(node),
+                        'offset':node.start_byte,
                         'values':[self.d.expr(v,uid,info) for v in values if v is not None],
+                        'value_locations':[self.location(v,uid,info) for v in values if v is not None],
                         'evidence':[self.d.evidence(info['path'],node)],'status':'source_effect_candidate'})
-        return {'version':'0.1.0','roots':list(self.roots.values()),'locations':list(self.locations.values()),
-            'writes':self.writes,'calls':self.calls,'diagnostics':self.diagnostics,
+        return {'version':'0.2.0','roots':list(self.roots.values()),'locations':list(self.locations.values()),
+            'writes':self.writes,'calls':self.calls,'transfers':self.transfers,'diagnostics':self.diagnostics,
             'limits':['source_candidates_without_compiler_overload_resolution','unknown_calls_may_write_through_aliases',
                 'pointer_rebinding_not_resolved','copy_writes_do_not_escape_to_original','loop_indices_may_be_unknown',
                 'lambda_execution_not_expanded','implicit_this_member_effects_not_expanded']}

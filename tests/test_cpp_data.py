@@ -8,6 +8,14 @@ if os.environ.get('PROJECT_MAP_PARSER_CACHE'):
 
 
 class CppDataTests(unittest.TestCase):
+    def test_inherited_unqualified_call_and_visible_default_argument_declaration(self):
+        g=self.data(files={'ops.h':'namespace N{void post(int& x,bool ok=true);struct Base{static void init(int& x);};}',
+            'ops.cpp':'#include "ops.h"\nnamespace N{void post(int& x,bool ok){x=2;}void Base::init(int& x){x=1;}}',
+            'main.cpp':'#include "ops.h"\nnamespace N{struct Child:Base{void run(int& x){init(x);post(x);}};}'})
+        names={n['id']:n['name'] for n in g['facts']['nodes']}
+        s=next(s for s in g['data']['summaries'] if s['name']=='N::Child::run')
+        self.assertEqual({names[t] for c in s['calls'] for t in c['targets']},{'N::Base::init','N::post'})
+
     @classmethod
     def setUpClass(cls):cls.parser=pack.get_parser('cpp')
 
