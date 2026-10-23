@@ -4,7 +4,7 @@
 
 新增完成：[CodeGraph 与 code-map 的 unit/flows 原版试验](2026-10-23-unit-flows/README.md)。包含独立切片、HTTP 正反例、边方向、服务歧义、更新差异和参数化 runner；后续清单中更大的更新矩阵仍未完成。
 
-最新：[P1 已完成](2026-10-23-p1-completion/README.md)，F01–F05 通过，主底座选定 CGC/Kuzu；CodeGraph 的扩展存储也通过同图验证。下一阶段是 P2 自定义协议。
+最新：[P2 已完成](2026-10-23-p2/README.md)，L01–L06 通过；三条真实协议链、改名与隔离反例可复现。[P1](2026-10-23-p1-completion/README.md)选定 CGC/Kuzu，CodeGraph 扩展存储保留替换资格。下一阶段是 P3 数据与返回传播。
 
 ## 每项实验固定记录
 

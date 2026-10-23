@@ -14,6 +14,7 @@ jobs:
       - run: python scripts/check_trial_evidence.py
       - run: python scripts/check_p1_evidence.py
       - run: python scripts/check_p1_completion.py
+      - run: python scripts/check_p2_completion.py
   facts:
     runs-on: ubuntu-latest
     steps:

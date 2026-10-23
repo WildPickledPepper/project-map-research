@@ -1,0 +1,3185 @@
+{
+  "evidence_kind": "executed_source_extraction_fixtures_and_native_store_copy",
+  "rules_revision": "5317eb2f3dc1c893598a83e5dbdf118079856a03",
+  "facts": {
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p2-protocol-v1",
+    "cases": {
+      "getUnitFlows": {
+        "command": "unit/flows",
+        "provider": "provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d",
+        "status": "matched_conditional",
+        "payload": {
+          "state": "object",
+          "fields": {
+            "id": {
+              "state": "unknown",
+              "reason": "runtime_counter"
+            },
+            "moduleName": {
+              "state": "constant",
+              "value": "timeline"
+            },
+            "type": {
+              "state": "constant",
+              "value": "request"
+            },
+            "command": {
+              "state": "constant",
+              "value": "unit/flows"
+            },
+            "fileId": {
+              "state": "constant",
+              "value": ""
+            },
+            "projectName": {
+              "state": "unknown",
+              "reason": "binary_runtime"
+            },
+            "params": {
+              "state": "object",
+              "fields": {
+                "<unknown_fields>": {
+                  "state": "unknown",
+                  "reason": "unknown_assign_source"
+                }
+              }
+            }
+          }
+        },
+        "scope_fields": [
+          "moduleName"
+        ],
+        "command_fields": [
+          "command"
+        ],
+        "forward": {
+          "found": true,
+          "reverse": false,
+          "nodes": [
+            {
+              "id": "ts:922f26ccc99ac699aa030c2c",
+              "kind": "callable",
+              "name": "getUnitFlows",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 174
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+              "kind": "protocol_message",
+              "name": "getUnitFlows message",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 284
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+              "kind": "protocol_registration",
+              "name": "unit/flows",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 87
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+              "kind": "protocol_decoder",
+              "name": "ToUnitFlowsRequest",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+              "line": 74
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+              "kind": "protocol_dispatch",
+              "name": "std::make_unique<QueryFlowsBySliceInfoHandler>()",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 87
+            },
+            {
+              "id": "cpp:d7a6f20ca5a84774ae8db47d",
+              "kind": "callable",
+              "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+              "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "line": 28
+            }
+          ],
+          "edges": [
+            {
+              "source": "ts:922f26ccc99ac699aa030c2c",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+              "kind": "EMITS_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "modules/timeline/src/connection/index.ts",
+                  "line": 20
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 174
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/api/request.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 185
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 188
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 83
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 211
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 91
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 93
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 60
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 46
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 49
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 58
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 22
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 32
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 250
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 25
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 33
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 63
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 236
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 37
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 43
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 192
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 284
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+              "kind": "MATCHES_REGISTERED_PROTOCOL",
+              "status": "conditional",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                },
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 74
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+              "kind": "DECODES_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "registered_decoder_selected",
+                "decoded_key_mapping_is_source_candidate"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 74
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+              "kind": "DISPATCHES_REGISTERED_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "decoded_request_preserves_registry_key"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+              "target": "cpp:d7a6f20ca5a84774ae8db47d",
+              "kind": "RESOLVES_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "runtime_handler_instance_matches_registered_type"
+              ],
+              "evidence": [
+                {
+                  "path": "server/msinsight/src/base/BaseModule.cpp",
+                  "line": 46
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 31
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 53
+                },
+                {
+                  "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                  "line": 28
+                }
+              ]
+            }
+          ]
+        },
+        "reverse": {
+          "found": true,
+          "reverse": true,
+          "nodes": [
+            {
+              "id": "cpp:d7a6f20ca5a84774ae8db47d",
+              "kind": "callable",
+              "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+              "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+              "line": 28
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+              "kind": "protocol_dispatch",
+              "name": "std::make_unique<QueryFlowsBySliceInfoHandler>()",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 87
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+              "kind": "protocol_decoder",
+              "name": "ToUnitFlowsRequest",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+              "line": 74
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+              "kind": "protocol_registration",
+              "name": "unit/flows",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 87
+            },
+            {
+              "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+              "kind": "protocol_message",
+              "name": "getUnitFlows message",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 284
+            },
+            {
+              "id": "ts:922f26ccc99ac699aa030c2c",
+              "kind": "callable",
+              "name": "getUnitFlows",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 174
+            }
+          ],
+          "edges": [
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+              "target": "cpp:d7a6f20ca5a84774ae8db47d",
+              "kind": "RESOLVES_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "runtime_handler_instance_matches_registered_type"
+              ],
+              "evidence": [
+                {
+                  "path": "server/msinsight/src/base/BaseModule.cpp",
+                  "line": 46
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 31
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 53
+                },
+                {
+                  "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+                  "line": 28
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+              "kind": "DISPATCHES_REGISTERED_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "decoded_request_preserves_registry_key"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+              "kind": "DECODES_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "registered_decoder_selected",
+                "decoded_key_mapping_is_source_candidate"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 74
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+              "kind": "MATCHES_REGISTERED_PROTOCOL",
+              "status": "conditional",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 87
+                },
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 74
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 88
+                }
+              ]
+            },
+            {
+              "source": "ts:922f26ccc99ac699aa030c2c",
+              "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+              "kind": "EMITS_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "modules/timeline/src/connection/index.ts",
+                  "line": 20
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 174
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/api/request.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 185
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 188
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 83
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 211
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 91
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 93
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 60
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 46
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 49
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 58
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 22
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 32
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 250
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 25
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 33
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 63
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 236
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 37
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 43
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 192
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 284
+                }
+              ]
+            }
+          ]
+        },
+        "flow_event_kinds": {
+          "object_construction": 8,
+          "field_assignment": 8,
+          "argument_transfer": 24,
+          "property_binding": 1,
+          "platform_send": 2,
+          "callback_registration": 1,
+          "message_receiver": 1,
+          "runtime_map_selection": 3,
+          "typed_receiver_candidate": 1
+        }
+      },
+      "queryTimelineOffset": {
+        "command": "timeline/rankOffset",
+        "provider": "provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4",
+        "status": "matched_conditional",
+        "payload": {
+          "state": "object",
+          "fields": {
+            "id": {
+              "state": "unknown",
+              "reason": "runtime_counter"
+            },
+            "moduleName": {
+              "state": "constant",
+              "value": "timeline"
+            },
+            "type": {
+              "state": "constant",
+              "value": "request"
+            },
+            "command": {
+              "state": "constant",
+              "value": "timeline/rankOffset"
+            },
+            "fileId": {
+              "state": "constant",
+              "value": ""
+            },
+            "projectName": {
+              "state": "unknown",
+              "reason": "binary_runtime"
+            },
+            "params": {
+              "state": "object",
+              "fields": {
+                "<unknown_fields>": {
+                  "state": "unknown",
+                  "reason": "unknown_assign_source"
+                }
+              }
+            }
+          }
+        },
+        "scope_fields": [
+          "moduleName"
+        ],
+        "command_fields": [
+          "command"
+        ],
+        "forward": {
+          "found": true,
+          "reverse": false,
+          "nodes": [
+            {
+              "id": "ts:fcf1129f0a28b4c40434c11e",
+              "kind": "callable",
+              "name": "queryTimelineOffset",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 178
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+              "kind": "protocol_message",
+              "name": "queryTimelineOffset message",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 284
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+              "kind": "protocol_registration",
+              "name": "timeline/rankOffset",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 123
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+              "kind": "protocol_decoder",
+              "name": "ToRankOffsetRequest",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+              "line": 103
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+              "kind": "protocol_dispatch",
+              "name": "std::make_unique<RankOffsetHandler>()",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 123
+            },
+            {
+              "id": "cpp:3538bff650c3fa93a15d99aa",
+              "kind": "callable",
+              "name": "Dic::Module::Timeline::RankOffsetHandler::HandleRequest",
+              "path": "server/src/modules/timeline/handler/RankOffsetHandler.cpp",
+              "line": 119
+            }
+          ],
+          "edges": [
+            {
+              "source": "ts:fcf1129f0a28b4c40434c11e",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+              "kind": "EMITS_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "modules/timeline/src/connection/index.ts",
+                  "line": 20
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 174
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/api/request.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 185
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 188
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 83
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 211
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 91
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 93
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 60
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 46
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 49
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 58
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 22
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 32
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 250
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 25
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 33
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 63
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 236
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 37
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 43
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 192
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 284
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+              "kind": "MATCHES_REGISTERED_PROTOCOL",
+              "status": "conditional",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                },
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 103
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+              "kind": "DECODES_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "registered_decoder_selected",
+                "decoded_key_mapping_is_source_candidate"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 103
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+              "kind": "DISPATCHES_REGISTERED_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "decoded_request_preserves_registry_key"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+              "target": "cpp:3538bff650c3fa93a15d99aa",
+              "kind": "RESOLVES_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "runtime_handler_instance_matches_registered_type"
+              ],
+              "evidence": [
+                {
+                  "path": "server/msinsight/src/base/BaseModule.cpp",
+                  "line": 46
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 31
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 53
+                },
+                {
+                  "path": "server/src/modules/timeline/handler/RankOffsetHandler.cpp",
+                  "line": 119
+                }
+              ]
+            }
+          ]
+        },
+        "reverse": {
+          "found": true,
+          "reverse": true,
+          "nodes": [
+            {
+              "id": "cpp:3538bff650c3fa93a15d99aa",
+              "kind": "callable",
+              "name": "Dic::Module::Timeline::RankOffsetHandler::HandleRequest",
+              "path": "server/src/modules/timeline/handler/RankOffsetHandler.cpp",
+              "line": 119
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+              "kind": "protocol_dispatch",
+              "name": "std::make_unique<RankOffsetHandler>()",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 123
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+              "kind": "protocol_decoder",
+              "name": "ToRankOffsetRequest",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+              "line": 103
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+              "kind": "protocol_registration",
+              "name": "timeline/rankOffset",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 123
+            },
+            {
+              "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+              "kind": "protocol_message",
+              "name": "queryTimelineOffset message",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 284
+            },
+            {
+              "id": "ts:fcf1129f0a28b4c40434c11e",
+              "kind": "callable",
+              "name": "queryTimelineOffset",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 178
+            }
+          ],
+          "edges": [
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+              "target": "cpp:3538bff650c3fa93a15d99aa",
+              "kind": "RESOLVES_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "runtime_handler_instance_matches_registered_type"
+              ],
+              "evidence": [
+                {
+                  "path": "server/msinsight/src/base/BaseModule.cpp",
+                  "line": 46
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 31
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 53
+                },
+                {
+                  "path": "server/src/modules/timeline/handler/RankOffsetHandler.cpp",
+                  "line": 119
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+              "kind": "DISPATCHES_REGISTERED_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "decoded_request_preserves_registry_key"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+              "kind": "DECODES_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "registered_decoder_selected",
+                "decoded_key_mapping_is_source_candidate"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 103
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+              "kind": "MATCHES_REGISTERED_PROTOCOL",
+              "status": "conditional",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 123
+                },
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 103
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 117
+                }
+              ]
+            },
+            {
+              "source": "ts:fcf1129f0a28b4c40434c11e",
+              "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+              "kind": "EMITS_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "modules/timeline/src/connection/index.ts",
+                  "line": 20
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 174
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/api/request.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 185
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 188
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 83
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 211
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 91
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 93
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 60
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 46
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 49
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 58
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 22
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 32
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 250
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 25
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 33
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 63
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 236
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 37
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 43
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 192
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 284
+                }
+              ]
+            }
+          ]
+        },
+        "flow_event_kinds": {
+          "object_construction": 8,
+          "field_assignment": 8,
+          "argument_transfer": 24,
+          "property_binding": 1,
+          "platform_send": 2,
+          "callback_registration": 1,
+          "message_receiver": 1,
+          "runtime_map_selection": 3,
+          "typed_receiver_candidate": 1
+        }
+      },
+      "createCurve": {
+        "command": "create/curve",
+        "provider": "provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f",
+        "status": "matched_conditional",
+        "payload": {
+          "state": "object",
+          "fields": {
+            "id": {
+              "state": "unknown",
+              "reason": "runtime_counter"
+            },
+            "moduleName": {
+              "state": "constant",
+              "value": "timeline"
+            },
+            "type": {
+              "state": "constant",
+              "value": "request"
+            },
+            "command": {
+              "state": "constant",
+              "value": "create/curve"
+            },
+            "fileId": {
+              "state": "constant",
+              "value": ""
+            },
+            "projectName": {
+              "state": "unknown",
+              "reason": "binary_runtime"
+            },
+            "params": {
+              "state": "object",
+              "fields": {
+                "<unknown_fields>": {
+                  "state": "unknown",
+                  "reason": "unknown_assign_source"
+                }
+              }
+            }
+          }
+        },
+        "scope_fields": [
+          "moduleName"
+        ],
+        "command_fields": [
+          "command"
+        ],
+        "forward": {
+          "found": true,
+          "reverse": false,
+          "nodes": [
+            {
+              "id": "ts:df1029a38c87679c4034ea55",
+              "kind": "callable",
+              "name": "createCurve",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 170
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0",
+              "kind": "protocol_message",
+              "name": "createCurve message",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 284
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:registration",
+              "kind": "protocol_registration",
+              "name": "create/curve",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 117
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:decode",
+              "kind": "protocol_decoder",
+              "name": "ToCreateCurveRequest",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+              "line": 70
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:dispatch",
+              "kind": "protocol_dispatch",
+              "name": "std::make_unique<CreateCurveHandler>()",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 117
+            },
+            {
+              "id": "cpp:88d9e0a25e94af665a235720",
+              "kind": "callable",
+              "name": "Dic::Module::Timeline::CreateCurveHandler::HandleRequest",
+              "path": "server/src/modules/timeline/handler/CreateCurveHandler.cpp",
+              "line": 26
+            }
+          ],
+          "edges": [
+            {
+              "source": "ts:df1029a38c87679c4034ea55",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0",
+              "kind": "EMITS_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "modules/timeline/src/connection/index.ts",
+                  "line": 20
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 174
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/api/request.ts",
+                  "line": 171
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 185
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 188
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 83
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 211
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 91
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 93
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 60
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 46
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 49
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 58
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 22
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 32
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 250
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 25
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 33
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 63
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 236
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 37
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 43
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 192
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 284
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:registration",
+              "kind": "MATCHES_REGISTERED_PROTOCOL",
+              "status": "conditional",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 70
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:registration",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:decode",
+              "kind": "DECODES_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "registered_decoder_selected",
+                "decoded_key_mapping_is_source_candidate"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 70
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:decode",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:dispatch",
+              "kind": "DISPATCHES_REGISTERED_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "decoded_request_preserves_registry_key"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:dispatch",
+              "target": "cpp:88d9e0a25e94af665a235720",
+              "kind": "RESOLVES_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "runtime_handler_instance_matches_registered_type"
+              ],
+              "evidence": [
+                {
+                  "path": "server/msinsight/src/base/BaseModule.cpp",
+                  "line": 46
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 31
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 53
+                },
+                {
+                  "path": "server/src/modules/timeline/handler/CreateCurveHandler.cpp",
+                  "line": 26
+                }
+              ]
+            }
+          ]
+        },
+        "reverse": {
+          "found": true,
+          "reverse": true,
+          "nodes": [
+            {
+              "id": "cpp:88d9e0a25e94af665a235720",
+              "kind": "callable",
+              "name": "Dic::Module::Timeline::CreateCurveHandler::HandleRequest",
+              "path": "server/src/modules/timeline/handler/CreateCurveHandler.cpp",
+              "line": 26
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:dispatch",
+              "kind": "protocol_dispatch",
+              "name": "std::make_unique<CreateCurveHandler>()",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 117
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:decode",
+              "kind": "protocol_decoder",
+              "name": "ToCreateCurveRequest",
+              "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+              "line": 70
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:registration",
+              "kind": "protocol_registration",
+              "name": "create/curve",
+              "path": "server/src/modules/timeline/TimelineModule.cpp",
+              "line": 117
+            },
+            {
+              "id": "protocol:ts:2d053c19021699a5277add5d:message:0",
+              "kind": "protocol_message",
+              "name": "createCurve message",
+              "path": "modules/framework/src/centralServer/websocket/connection.ts",
+              "line": 284
+            },
+            {
+              "id": "ts:df1029a38c87679c4034ea55",
+              "kind": "callable",
+              "name": "createCurve",
+              "path": "modules/timeline/src/api/request.ts",
+              "line": 170
+            }
+          ],
+          "edges": [
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:dispatch",
+              "target": "cpp:88d9e0a25e94af665a235720",
+              "kind": "RESOLVES_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "runtime_handler_instance_matches_registered_type"
+              ],
+              "evidence": [
+                {
+                  "path": "server/msinsight/src/base/BaseModule.cpp",
+                  "line": 46
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 31
+                },
+                {
+                  "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+                  "line": 53
+                },
+                {
+                  "path": "server/src/modules/timeline/handler/CreateCurveHandler.cpp",
+                  "line": 26
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:decode",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:dispatch",
+              "kind": "DISPATCHES_REGISTERED_HANDLER",
+              "status": "conditional",
+              "conditions": [
+                "decoded_request_preserves_registry_key"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:registration",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:decode",
+              "kind": "DECODES_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "registered_decoder_selected",
+                "decoded_key_mapping_is_source_candidate"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 70
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                }
+              ]
+            },
+            {
+              "source": "protocol:ts:2d053c19021699a5277add5d:message:0",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0:provider:registry:da20d800777b76aec39a1bc3:registry:8492227cd99a83a7942a120f:registration",
+              "kind": "MATCHES_REGISTERED_PROTOCOL",
+              "status": "conditional",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/timeline/TimelineModule.cpp",
+                  "line": 117
+                },
+                {
+                  "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+                  "line": 70
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                },
+                {
+                  "path": "server/src/modules/defs/ProtocolDefs.h",
+                  "line": 105
+                }
+              ]
+            },
+            {
+              "source": "ts:df1029a38c87679c4034ea55",
+              "target": "protocol:ts:2d053c19021699a5277add5d:message:0",
+              "kind": "EMITS_MESSAGE",
+              "status": "conditional",
+              "conditions": [
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "evidence": [
+                {
+                  "path": "modules/timeline/src/connection/index.ts",
+                  "line": 20
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 174
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 175
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/bootstrap.tsx",
+                  "line": 89
+                },
+                {
+                  "path": "modules/timeline/src/api/request.ts",
+                  "line": 171
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/utils/Request.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 185
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 188
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 179
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 83
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 211
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 91
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 93
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 94
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 60
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 46
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 49
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 58
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 22
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 247
+                },
+                {
+                  "path": "modules/lib/src/utils/Console.ts",
+                  "line": 32
+                },
+                {
+                  "path": "modules/lib/src/connection/index.ts",
+                  "line": 250
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 38
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 25
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 33
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 39
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/defs.ts",
+                  "line": 45
+                },
+                {
+                  "path": "modules/framework/src/connection/index.ts",
+                  "line": 63
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 236
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 237
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/server.ts",
+                  "line": 243
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 180
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 184
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 186
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 37
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 43
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 192
+                },
+                {
+                  "path": "modules/framework/src/centralServer/websocket/connection.ts",
+                  "line": 284
+                }
+              ]
+            }
+          ]
+        },
+        "flow_event_kinds": {
+          "object_construction": 8,
+          "field_assignment": 8,
+          "argument_transfer": 24,
+          "property_binding": 1,
+          "platform_send": 2,
+          "callback_registration": 1,
+          "message_receiver": 1,
+          "runtime_map_selection": 3,
+          "typed_receiver_candidate": 1
+        }
+      }
+    },
+    "cross_request_checks": [
+      {
+        "consumer": "getUnitFlows",
+        "other_handler": "queryTimelineOffset",
+        "forward_found": false,
+        "reverse_found": false
+      },
+      {
+        "consumer": "getUnitFlows",
+        "other_handler": "createCurve",
+        "forward_found": false,
+        "reverse_found": false
+      },
+      {
+        "consumer": "queryTimelineOffset",
+        "other_handler": "getUnitFlows",
+        "forward_found": false,
+        "reverse_found": false
+      },
+      {
+        "consumer": "queryTimelineOffset",
+        "other_handler": "createCurve",
+        "forward_found": false,
+        "reverse_found": false
+      },
+      {
+        "consumer": "createCurve",
+        "other_handler": "getUnitFlows",
+        "forward_found": false,
+        "reverse_found": false
+      },
+      {
+        "consumer": "createCurve",
+        "other_handler": "queryTimelineOffset",
+        "forward_found": false,
+        "reverse_found": false
+      }
+    ],
+    "counts": {
+      "files": 133,
+      "nodes": 10367,
+      "edges": 12443,
+      "providers": 37,
+      "results": 22,
+      "statuses": {
+        "candidate": 12,
+        "unmatched": 1,
+        "matched_conditional": 3,
+        "ambiguous_binding": 6
+      },
+      "protocol_edge_kinds": {
+        "EMITS_MESSAGE": 16,
+        "MATCHES_REGISTERED_PROTOCOL": 15,
+        "DECODES_MESSAGE": 15,
+        "DISPATCHES_REGISTERED_HANDLER": 15,
+        "RESOLVES_HANDLER": 3
+      }
+    },
+    "remaining_results": [
+      {
+        "consumer": "protocol:ts:2899828e598654e88545e56d",
+        "name": "queryFtraceStat",
+        "message": "protocol:ts:2899828e598654e88545e56d:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:287270793d3fc7990d5101b9:registry:a9768d72aac446d10d0e88f5",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:db60ac7f2b976f3b3e2656db",
+        "name": "parseCards",
+        "message": "protocol:ts:db60ac7f2b976f3b3e2656db:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:62e99b4be64c252521a778c8:registry:2fc67410f56be81e5ba70bec",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:efd94b49cd7c56d892d4b997",
+        "name": "getOverallMetrics",
+        "message": "protocol:ts:efd94b49cd7c56d892d4b997:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:705f3464df578b251a0a44d1:registry:c642c9ef35c02c6b5a28d874",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:fb9e96dd00d3e2d5f58e8d16",
+        "name": "getOverallMetrics.<lambda@77:24>.<lambda@90:60>",
+        "message": "protocol:ts:fb9e96dd00d3e2d5f58e8d16:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:705f3464df578b251a0a44d1:registry:c642c9ef35c02c6b5a28d874",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:a447062274a88b50ae5e0532",
+        "name": "getOverallMetricsMoreList",
+        "message": "protocol:ts:a447062274a88b50ae5e0532:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:19b8451f3c95ee9e271fbe4e:registry:400b1145acfcf21f928e80a5",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:5a6627d2511de934d6601680",
+        "name": "getMemcpyOverallMetrics",
+        "message": "protocol:ts:5a6627d2511de934d6601680:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:92f75f432c9dc17bd2b4dd14:registry:0ca75a2e5394c24fb0c5f6b0",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:8489f8dc513898b57212a182",
+        "name": "getMemcpyOverallMetricsMoreList",
+        "message": "protocol:ts:8489f8dc513898b57212a182:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:f40a8df52411868d831285d0:registry:2709be8162bd28d5d4a3516d",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:2f4958eae0a54c2689c11e23",
+        "name": "setCardAliasReq",
+        "message": "protocol:ts:2f4958eae0a54c2689c11e23:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:2b9402b422f6bd7a2cc52963:registry:e8e8d3d16f3ef2ff21f86431",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:70d16b9c0609f54a87ec22e9",
+        "name": "queryExpertAnalysis",
+        "message": "protocol:ts:70d16b9c0609f54a87ec22e9:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:7eac54028f347e2548d289c4:registry:bdb23627452271f26b06b8da",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:f93d31bc3c0bf7b97f9ae6d5",
+        "name": "queryOperatorDispatch",
+        "message": "protocol:ts:f93d31bc3c0bf7b97f9ae6d5:message:0",
+        "status": "unmatched",
+        "matches": [],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:be2763a75ee10ea79d034ec2",
+        "name": "queryAllSameOperatorsDuration",
+        "message": "protocol:ts:be2763a75ee10ea79d034ec2:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:0efe6a61d29d1076e82a7b8d:registry:b10e1b8a85ca1fca05eba0b3",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:422d6aaa28e1fe5052a9ffe4",
+        "name": "queryCommunicationKernelDetail",
+        "message": "protocol:ts:422d6aaa28e1fe5052a9ffe4:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:0057ace38de8bbb302c7d5e5:registry:a6e8a1ce612c9c4cdbeefd69",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:5d655eb26f901680c754387a",
+        "name": "queryKernelMfuList",
+        "message": "protocol:ts:5d655eb26f901680c754387a:message:0",
+        "status": "candidate",
+        "matches": [
+          {
+            "provider": "provider:registry:f7f7b4fb99448976f306382b:registry:e8a8af5affe768d939a8a575",
+            "conditions": [
+              "configured_service_binding",
+              "source_registration_active",
+              "runtime_transport_reaches_configured_service",
+              "source_type_and_factory_candidates",
+              "request_passes_validation_and_filters",
+              "binding_is_active_at_call_in_same_runtime_scope",
+              "registered_receiver_is_message_destination",
+              "try_completes_without_exception",
+              "!typeof event.data.id !== 'number' || !this._responseForFetch",
+              "!connection === undefined",
+              "!!this.isConnected",
+              "!this._ws === undefined",
+              "!this._ws === undefined"
+            ],
+            "gaps": [
+              "handler_body_outside_input_or_unresolved"
+            ],
+            "consumer_services": [
+              "insight-backend"
+            ],
+            "provider_services": [
+              "insight-backend"
+            ]
+          }
+        ],
+        "unknown_identities": [],
+        "service_binding_origin": "supplied_deployment_config",
+        "runtime_connection": "not_observed"
+      },
+      {
+        "consumer": "protocol:ts:c841b8a80ccd7e577633f83a",
+        "name": "fetchData",
+        "status": "ambiguous_binding",
+        "matches": []
+      },
+      {
+        "consumer": "protocol:ts:bcf2fef60bff7c7ff00bb988",
+        "name": "mapFunc.<lambda@627:71>",
+        "status": "ambiguous_binding",
+        "matches": []
+      },
+      {
+        "consumer": "protocol:ts:d23d11b4041b9c0595bebdda",
+        "name": "mapFunc.<lambda@627:71>",
+        "status": "ambiguous_binding",
+        "matches": []
+      },
+      {
+        "consumer": "protocol:ts:9f60f2fc5504f11f2f21dd47",
+        "name": "fetchLinkLineForCard",
+        "status": "ambiguous_binding",
+        "matches": []
+      },
+      {
+        "consumer": "protocol:ts:6814371df1dbd4c3b1e97f83",
+        "name": "useGetCategories.<lambda@342:21>.<lambda@357:34>",
+        "status": "ambiguous_binding",
+        "matches": []
+      },
+      {
+        "consumer": "protocol:ts:e2547129894bc4ad4de69a71",
+        "name": "remoteDeleteRequest",
+        "status": "ambiguous_binding",
+        "matches": []
+      }
+    ]
+  },
+  "tests": {
+    "python": {
+      "command": [
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-v"
+      ],
+      "count": 73,
+      "passed": true
+    },
+    "typescript": {
+      "command": [
+        "--test",
+        "tests/typescript_facts.test.cjs",
+        "tests/typescript_protocol.test.cjs"
+      ],
+      "count": 22,
+      "passed": true
+    }
+  },
+  "checks": {
+    "L01": "pass",
+    "L02": "pass",
+    "L03": "pass",
+    "L04": "pass",
+    "L05": "pass",
+    "L06": "pass"
+  },
+  "lifecycle": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:p2-protocol-v1",
+    "nodes": 10367,
+    "edges": 12443,
+    "payload_roundtrip": true,
+    "stored_forward_reverse_paths": true,
+    "replacement_removes_protocol_edges": true,
+    "deletion_removes_snapshot": true,
+    "restored": true,
+    "native_function_rows_unchanged": 790
+  },
+  "reuse": {
+    "rules_frozen_before_final_run": true,
+    "assessment_after_extraction": true,
+    "second_endpoint": "queryTimelineOffset",
+    "additional_endpoint": "createCurve"
+  },
+  "reference_independence": {
+    "builder_reads_reference": false,
+    "deployment_contains_endpoint_pairs": false,
+    "extraction_modules": [
+      "adapters/cpp_protocol.py",
+      "adapters/typescript_protocol_flow.cjs",
+      "adapters/protocol_graph.py",
+      "scripts/build_protocol_graph.py"
+    ]
+  },
+  "file_hash_verification": "not_run_per_user_preference",
+  "scope": [
+    "133 selected source/configuration files",
+    "TS binding/closure/message propagation",
+    "C++ constant registries/factory groups and RapidJSON string accessors",
+    "configured logical service; runtime host not observed"
+  ],
+  "remaining": [
+    "whole-repository input discovery",
+    "compiler-verified C++ types and plugin lifecycle",
+    "complete exceptions/loops/reflection and arbitrary transports",
+    "P3 data and response propagation",
+    "P4 automatic refresh",
+    "P5 observed runtime",
+    "P6 historical assets",
+    "P7 AI query interface"
+  ]
+}
