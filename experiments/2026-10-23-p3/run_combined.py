@@ -96,5 +96,6 @@ if __name__ == '__main__':
         conn.close(); db.close()
         if handle: handle.close()
     packed = compact(report); assert compact(expand(packed)) == packed
+    assert expand(packed)['chain'] == report['chain']
     (a.output/'combined.json').write_text(json.dumps(packed, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
     print(json.dumps({k: report[k] for k in ['gates', 'counts', 'tests', 'storage']}))

@@ -61,7 +61,7 @@ def compact(report):
         if not isinstance(value,dict):return value
         result={}
         for key,item in value.items():
-            if key=='evidence':
+            if key=='evidence' and isinstance(item,list) and all(isinstance(e,dict) for e in item):
                 refs=[]
                 for evidence in item:
                     encoded=json.dumps(evidence,sort_keys=True)
