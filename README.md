@@ -6,7 +6,7 @@
 
 **设计范围 v0.1**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 
-**P1、P2 已完成，F01–F05、L01–L06 通过。** 主底座 CGC/Kuzu，复用 TypeScript 编译器与 C++ 语法/类型候选。P2 从源码提取字段转换、协议身份和注册，三条前端请求可正反向查到各自后端处理函数，改名与隔离负例通过。见 [P2 报告与复现](experiments/2026-10-23-p2/README.md)、[P1 底座决策](experiments/2026-10-23-p1-completion/README.md)。P3 的数据库候选与共享实例检查 D01、D04 已在所选源码范围通过，响应数据流继续实施，见 [数据库选择与实例报告](experiments/2026-10-23-p3/selection.md)；实施安排见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
+**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过。** 主底座 CGC/Kuzu，复用 TypeScript 编译器与 C++ 语法/类型候选。首链的协议、数据库候选、返回字段、前端状态和反向影响已在 154 文件范围合并验收，237 项 Python、76 项 TypeScript 测试及存储读回通过。见 [P3 完成报告](experiments/2026-10-23-p3/completion.md)、[P2 完成报告](experiments/2026-10-23-p2/README.md)和 [P1 底座决策](experiments/2026-10-23-p1-completion/README.md)。接下来实施 P4 自动刷新，P5–P7 保持原计划，详见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
 
 ## 我们要解决的问题
 
@@ -62,7 +62,9 @@ flowchart TD
 | [P1 统一对照与事实补充](experiments/2026-10-23-p1/README.md) | CBM/CGC/CodeGraph 相同输入、独立语法补充、存储维护及剩余门槛 |
 | [P1 完成报告](experiments/2026-10-23-p1-completion/README.md) | F01–F05、最终选型、类型/绑定/回调、两种数据库维护和复现 |
 | [P2 完成报告](experiments/2026-10-23-p2/README.md) | L01–L06、名称与字段传播、作用域、三条双向路径与反例 |
-| [P3 实施记录](experiments/2026-10-23-p3/README.md) | 数据库候选路径、工厂与状态来源、间接影响和剩余门槛 |
+| [P3 历史实施记录](experiments/2026-10-23-p3/README.md) | 数据库候选路径、工厂与状态来源、间接影响和剩余门槛 |
+| [P3 完成报告](experiments/2026-10-23-p3/completion.md) | D01–D05 合并验收、统一整链查询、编码/队列处置及剩余运行条件 |
+| [第三条真实链登记](cases/memory-usage/README.md) | Memory/view/memoryUsage 跨模块参考与 P7 冻结规则验收约定 |
 | [P3 响应字段生产](experiments/2026-10-23-p3/output-fields.md) | 按调用位置展开引用参数，自动找到响应字段的七处写入 |
 | [P3 响应序列化](experiments/2026-10-23-p3/serialization.md) | 从源码恢复注册回调及 34 个 JSON 字段/集合路径，保留条件和缺口 |
 | [P3 响应对象与路由](experiments/2026-10-23-p3/response-routing.md) | 按对象、模块与命令连接四个发送位置到序列化回调，区分发送前后的写入 |
@@ -101,6 +103,7 @@ python scripts/check_p3_transmission.py
 python scripts/check_p3_socket_receivers.py
 python scripts/check_p3_server_channels.py
 python scripts/check_p3_return_bridge.py
+python scripts/check_p3_completion.py
 python scripts/verify_case_sources.py --repo /path/to/msinsight
 ```
 

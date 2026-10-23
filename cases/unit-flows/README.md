@@ -2,7 +2,7 @@
 
 研究对象：[MindStudio Insight](https://gitcode.com/Ascend/msinsight)，固定提交 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。
 
-状态：本文保留人工源码核对的参考链路。自动结果见 [P2 协议连接](../../experiments/2026-10-23-p2/README.md)和 [P3 数据增量](../../experiments/2026-10-23-p3/README.md)：前端到数据库候选可双向查询，完整选择与返回传播继续验收。动态场景尚未执行。
+状态：本文保留人工源码核对的参考链路。自动结果见 [P2 协议连接](../../experiments/2026-10-23-p2/README.md)和 [P3 完成报告](../../experiments/2026-10-23-p3/completion.md)：首链在 154 文件范围完成 D01–D05，字段生产、返回与两处状态赋值可关联查询。动态场景由 P5 执行。
 
 新增：[CodeGraph / code-map 原版实测](../../experiments/2026-10-23-unit-flows/README.md)，附自动输出、断点和复现脚本；[适配边界](adaptation-boundaries.md) 是人工源码补充审计，不能当作工具自动生成结果。
 
@@ -18,10 +18,10 @@ getUnitFlows
   → VirtualTraceDatabase.QueryUnitFlows
       → DbTraceDataBase.QueryUnitFlows（候选实现）
       → TextTraceDatabase.QueryUnitFlows（候选实现）
-  → 响应传输、前端消费者与状态更新（待完整提取）
+  → 响应传输、iframe / API 解包 → 两处字段状态赋值
 ```
 
-这是按业务关系压缩的参考路径。传输链所有中间步骤、具体实现选择条件、SQL/数据依赖和全部结果消费者尚未验收；箭头含请求、分发、注册、调用和候选实现等不同语义。
+这是按业务关系压缩的参考路径。箭头含请求、分发、注册、调用、字段和候选实现等不同语义；实现选择与未展开的拆帧/调度、范围外消费者等条件详见 P3 完成报告。
 
 ## 源码锚点
 

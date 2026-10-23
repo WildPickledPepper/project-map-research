@@ -27,6 +27,7 @@ jobs:
       - run: python scripts/check_p3_socket_receivers.py
       - run: python scripts/check_p3_server_channels.py
       - run: python scripts/check_p3_return_bridge.py
+      - run: python scripts/check_p3_completion.py
   facts:
     runs-on: ubuntu-latest
     steps:
