@@ -94,3 +94,38 @@ test('all incompatible literal key alternatives remain unmatched',()=>{
   receive(x:any,flag:boolean){let k;if(flag)k=2;else k=3;this.q.get(k)(x);}}`);
   assert.equal(g.settlements.length,0);
 });
+
+test('a numeric postfix result and the wire key share the value before increment',()=>{
+  const g=graph(`class C {q=new Map<number,any>();seq=0;ws!:WebSocket;
+  send(){return new Promise(r=>{const id=this.seq++;this.ws.send(JSON.stringify({ticket:id}));this.q.set(id,r);});}
+  receive(x:any){this.q.get(x.ticket)(x);}}`);
+  const send=g.transmissions[0],key=g.registrations[0].key;
+  assert.equal(send.payload.value.fields.ticket.root,key.root);
+  assert.equal(send.promise_context,g.registrations[0].promise_context);
+  assert.notEqual(g.counter_updates[0].before.root,g.counter_updates[0].after.root);
+});
+
+test('an input object field set before postfix registration preserves its origin',()=>{
+  const g=graph(`class C {q=new Map<number,any>();seq=0;send(packet:any){return new Promise(r=>{
+  packet.ticket=this.seq;window.parent.postMessage(JSON.stringify(packet),'*');this.q.set(this.seq++,r);});}}`);
+  assert.equal(g.transmissions[0].payload.value.overrides.ticket.root,g.registrations[0].key.root);
+});
+
+test('JSON send snapshots survive later writes and counter increments',()=>{
+  const g=graph(`class C {q=new Map<number,any>();seq=0;ws!:WebSocket;send(){return new Promise(r=>{
+  const id=this.seq++;const msg={ticket:id};const text=JSON.stringify(msg);msg.ticket=this.seq++;this.ws.send(text);this.q.set(id,r);});}}`);
+  assert.equal(g.transmissions[0].payload.value.fields.ticket.root,g.registrations[0].key.root);
+  assert.notEqual(g.counter_updates[0].before.root,g.counter_updates[1].before.root);
+});
+
+test('a project socket class does not become a platform transport',()=>{
+  const g=graph(`export {};class WebSocket {send(x:string){}}class C {q=new Map<number,any>();ws=new WebSocket();
+  send(){return new Promise(r=>{this.ws.send(JSON.stringify({ticket:1}));this.q.set(1,r);});}}`);
+  assert.equal(g.transmissions.length,0);
+});
+
+test('unknown numeric coercion cannot prove a shared counter value',()=>{
+  const g=graph(`class C {q=new Map<number,any>();seq:any='1';ws!:WebSocket;send(){return new Promise(r=>{
+  const before=this.seq;this.ws.send(JSON.stringify({ticket:before}));this.q.set(this.seq++,r);});}}`);
+  assert.equal(g.registrations[0].key.kind,'unknown');
+});

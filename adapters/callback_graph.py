@@ -1,6 +1,7 @@
 """Persist deferred callback selections without collapsing request contexts."""
 from copy import deepcopy
 from adapters.frontend_graph import key
+from adapters.correlation_queries import request_key_bindings
 
 
 def augment_callbacks(base, facts):
@@ -47,8 +48,20 @@ def augment_callbacks(base, facts):
             if s['promise'] not in r['promises']: raise ValueError('Resolver belongs to another registration')
             edge(r['id'], lookup['id'], 'CANDIDATE_REGISTRY_VALUE', s)
             edge(lookup['id'], s['id'], 'SELECTED_CALLBACK_SETTLES', s)
+    for t in flow.get('transmissions', []):
+        node(t['id'], 'source_transmission', t, t['transport'])
+        edge(t['entry'], t['id'], 'OBSERVES_TRANSMISSION', t)
+    for update in flow.get('counter_updates', []):
+        node(update['id'], 'source_counter_update', update, update['operation'])
+        edge(update['entry'], update['id'], 'OBSERVES_COUNTER_UPDATE', update)
+    flow['request_key_bindings'] = request_key_bindings(flow)
+    for binding in flow['request_key_bindings']:
+        uid = key('request-key-binding', binding['registration'], binding['transmission'], binding['wire_path'])
+        node(uid, 'request_key_binding', binding, '/'.join(binding['wire_path']))
+        edge(binding['registration'], uid, 'USES_SENT_KEY_SOURCE', binding)
+        edge(uid, binding['transmission'], 'KEY_FIELD_IN_TRANSMISSION', binding)
     graph['nodes'] = list(nodes.values()); graph['response_callbacks'] = flow
-    graph['snapshot'] = graph['source_commit'] + ':p3-data-v7'
+    graph['snapshot'] = graph['source_commit'] + (':p3-data-v8' if flow['version'] != '0.1.0' else ':p3-data-v7')
     graph['provenance']['callback_base_snapshot'] = base['snapshot']
     graph['extractors']['typescript_response_flow'] = 'typescript_response_flow/' + flow['version']
     graph['diagnostics'] += flow['diagnostics']

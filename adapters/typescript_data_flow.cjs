@@ -11,6 +11,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
   const entries=new Map(),writes=[],reads=[],calls=[],diagnostics=[];let steps=0,currentEntry=null;
   const promiseEntries=new Map(),lookupEntries=new Map(),registrations=[],lookups=[],settlements=[],promises=[],deletions=[],callbackBindings=[];
+  const transmissions=[],counterUpdates=[];
   let phase='consumers';
   const unwrap=n=>{while(n&&(ts.isAsExpression(n)||ts.isParenthesizedExpression(n)||ts.isNonNullExpression(n)||ts.isTypeAssertionExpression(n)))n=n.expression;return n;};
   function decl(n){let s=ts.isIdentifier(n)&&ts.isShorthandPropertyAssignment(n.parent)?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration||s?.declarations?.[0];}
@@ -19,7 +20,12 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   const standard=(n,name)=>{const d=decl(n);return n.getText()===name&&d&&loc(d).path.startsWith('<typescript-lib>/');};
   function platform(n,name){
     const check=t=>t?.isUnion?.()?t.types.some(check):t?.symbol?.getName()===name&&t.symbol.declarations?.some(d=>loc(d).path.startsWith('<typescript-lib>/'));
-    return check(checker.getTypeAtLocation(n));
+    if(check(checker.getTypeAtLocation(n)))return true;
+    // An unresolved alternative can erase a union's checker type. Retain the
+    // explicit standard-library alternative as a transport candidate.
+    const d=decl(n);let found=false;
+    if(d?.type)ctx.walk(d.type,t=>{if(ts.isTypeReferenceNode(t)&&standard(t.typeName,name))found=true;});
+    return found;
   }
   for(const call of ctx.calls){const t=target(call);if(t&&apis.has(id(t,'callable'))){const owner=callableOwner(call);if(owner?.body)entries.set(id(owner,'callable'),owner);}}
   if(responseRegistries)for(const call of ctx.calls){
@@ -41,6 +47,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(!v||typeof v!=='object'||v.tag==='function')return v;
     if(memo.has(v))return memo.get(v);const out={...v};memo.set(v,out);
     if(v.props)out.props=Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,clone(x,memo)]));
+    if(v.tag==='json')out.value=clone(v.value,memo);
     if(v.values)out.values=v.values.map(x=>clone(x,memo));return out;
   }
   function merge(a,b){if(a===b)return a;return {tag:'union',values:[...(a?.tag==='union'?a.values:[a||unknown('missing_branch')]),...(b?.tag==='union'?b.values:[b||unknown('missing_branch')])]};}
@@ -63,11 +70,13 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   function describe(v,depth=0,seen=new Set()){
     if(!v)return {kind:'undefined'};if(depth>8||seen.has(v))return {kind:'unknown',reason:'value_description_limit'};seen.add(v);
     if(v.tag==='literal')return v.value===undefined?{kind:'undefined'}:{kind:'constant',value:v.value};
-    if(v.tag==='input')return {kind:'input_path',root:v.root,path:v.path,transforms:v.transforms||[],evidence:v.evidence||[],conditions:v.conditions||[],gaps:v.gaps||[]};
+    if(v.tag==='input')return {kind:'input_path',root:v.root,path:v.path,transforms:v.transforms||[],evidence:v.evidence||[],conditions:v.conditions||[],gaps:v.gaps||[],
+      ...(v.assigned?.length?{overrides:Object.fromEntries(v.assigned.map(k=>[k,describe(v.props[k],depth+1,new Set(seen))]))}:{})};
     if(v.tag==='function')return {kind:'source_callback',source_symbol:id(v.node,'callable'),resolvers:resolverRefs(v)};
     if(v.tag==='resolver')return {kind:'promise_resolver',promise:v.promise,mode:v.mode};
     if(v.tag==='union')return {kind:'alternatives',values:v.values.map(x=>describe(x,depth+1,new Set(seen)))};
     if(v.tag==='registry_lookup')return {kind:'registry_lookup',lookup:v.lookup,selectors:v.selectors};
+    if(v.tag==='json')return {kind:'json_string',value:describe(v.value,depth+1,new Set(seen)),evidence:v.evidence};
     if(v.tag==='object')return {kind:'object',fields:Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,describe(x,depth+1,new Set(seen))]))};
     return {kind:'unknown',reason:v.reason||v.tag};
   }
@@ -118,7 +127,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         response:dependencies(out)[0],conditions:uniq([...c.conditions,...(v.conditions||[])]),evidence:[src(n)],call_chain:c.chain});
       v.props[key]=out;return out;
     }
-    if(v?.tag==='input'){const out={...v,path:[...v.path,key],props:{},...(responseRegistries?{evidence:[...(v.evidence||[]),src(n)]}:{})};v.props[key]=out;return out;}
+    if(v?.tag==='input'){const out={...v,path:[...v.path,key],props:{},...(responseRegistries?{assigned:[],evidence:[...(v.evidence||[]),src(n)]}:{})};v.props[key]=out;return out;}
     if(v?.tag==='object')return key==='*'&&v.array?Object.values(v.props).reduce(merge,literal(undefined)):v.props['*']||literal(undefined);
     return unknown('property_source_unresolved');
   }
@@ -149,6 +158,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         target:{root:r.root,path:[...r.path,prop]},operation,value_dependencies:dependencies(value),
         continuation_apis:[...c.awaited],conditions:uniq([...c.conditions,...(r.conditions||[])]),evidence:[src(at)],call_chain:c.chain});
       if(r.props){r.props[prop]=value;
+        if(responseRegistries)r.assigned=uniq([...(r.assigned||[]),prop]);
         if(prop==='*')r.dependencies=uniq([...(r.dependencies||[]),...dependencies(key)]);
       } else note(at,'assignment_receiver_unresolved',c);
     }
@@ -229,7 +239,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       if(responseRegistries&&n.operator===ts.SyntaxKind.MinusToken&&value.tag==='literal')return literal(-value.value);
       return {tag:'computed',dependencies:dependencies(value)};
     }
-    if(responseRegistries&&ts.isPostfixUnaryExpression(n))return {tag:'input',root:id(n,'runtime_counter_read'),path:[],props:{},evidence:[src(n)]};
+    if(responseRegistries&&ts.isPostfixUnaryExpression(n)){
+      const before=ev(n.operand,c),type=checker.getTypeAtLocation(n.operand);
+      const numeric=t=>t.isUnion?.()?t.types.every(numeric):!!(t.flags&(ts.TypeFlags.NumberLike|ts.TypeFlags.BigIntLike));
+      const after={tag:'input',root:contextualId(n,'counter_after',c),path:[],props:{},evidence:[src(n)]};
+      assign(n.operand,after,c,n,n.operator===ts.SyntaxKind.PlusPlusToken?'++':'--');
+      const value=before.tag==='literal'&&typeof before.value==='number'?before:numeric(type)?before:unknown('counter_numeric_coercion_unresolved');
+      counterUpdates.push({id:contextualId(n,'counter_update',c),entry:currentEntry,operation:n.operator===ts.SyntaxKind.PlusPlusToken?'++':'--',
+        before:describe(value),after:describe(after),conditions:c.conditions,evidence:[src(n)],call_chain:c.chain});
+      return value;
+    }
     if(ts.isBinaryExpression(n)){
       const op=n.operatorToken.kind;if(op===ts.SyntaxKind.EqualsToken){const value=ev(n.right,c);assign(n.left,value,c,n);return value;}
       if(op>=ts.SyntaxKind.FirstCompoundAssignment&&op<=ts.SyntaxKind.LastCompoundAssignment){const value={tag:'computed',dependencies:uniq([...dependencies(ev(n.left,c)),...dependencies(ev(n.right,c))])};assign(n.left,value,c,n,n.operatorToken.getText());return value;}
@@ -257,9 +276,24 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       }
       if(ts.isPropertyAccessExpression(n.expression)) {
         const receiver=ev(n.expression.expression,c),name=n.expression.name.text;
+        if(responseRegistries&&standard(n.expression.expression,'JSON')&&name==='stringify')return {tag:'json',value:clone(args[0]),evidence:[src(n)]};
+        if(responseRegistries&&((name==='send'&&platform(n.expression.expression,'WebSocket'))||(name==='postMessage'&&platform(n.expression.expression,'Window')))){
+          transmissions.push({id:contextualId(n,'transmission',c)+':'+transmissions.length,source_site:callId,entry:currentEntry,promise_context:c.promiseContext||null,
+            transport:name==='send'?'WebSocket.send':'window.postMessage',receiver:describe(receiver),payload:describe(clone(args[0])),
+            conditions:c.conditions,evidence:[src(n)],call_chain:c.chain});return literal(undefined);
+        }
+        if(responseRegistries&&name==='forEach'&&platform(n.expression.expression,'Array')&&args[0]?.tag==='function'){
+          function iterate(collection){
+            if(collection.tag==='union'){collection.values.forEach(iterate);return;}
+            if(collection.tag==='object'&&collection.array){for(const item of Object.values(collection.props))invoke(args[0],[item],{...c,conditions:[...c.conditions,{kind:'array_iteration',...src(n)}]},n);}
+            else {note(n,'array_elements_unresolved',c);invoke(args[0],[unknown('runtime_array_element')],{...c,conditions:[...c.conditions,{kind:'array_nonempty_and_callback_invoked',...src(n)}]},n);}
+          }
+          iterate(receiver);return literal(undefined);
+        }
         if(responseRegistries&&standard(n.expression.expression,'JSON')&&name==='parse'){
           function decode(value){
             if(value?.tag==='union')return value.values.map(decode).reduce(merge);
+            if(value?.tag==='json')return clone(value.value);
             if(value?.tag==='input')return {...value,props:{},transforms:[...(value.transforms||[]),{kind:'JSON.parse',at_path:value.path,evidence:[src(n)]}],conditions:c.conditions};
             return unknown('json_input_unresolved');
           }
@@ -267,7 +301,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         }
         if(responseRegistries&&receiver.tag==='registry'){
           const record={id:contextualId(n,'registry_'+name,c),source_site:id(n,'call_site'),registry:receiver.registry,receiver_type:receiver.receiver_type,
-            entry:currentEntry,key:describe(args[0]),conditions:c.conditions,evidence:[...receiver.evidence,src(n)],call_chain:c.chain};
+            entry:currentEntry,promise_context:c.promiseContext||null,key:describe(args[0]),conditions:c.conditions,evidence:[...receiver.evidence,src(n)],call_chain:c.chain};
           if(name==='set'&&phase==='register'&&resolverRefs(args[1]).length){
             const captured=resolverRefs(args[1]);registrations.push({record:{...record,value:describe(args[1]),promises:uniq(captured.map(r=>r.promise))},value:args[1]});
           }
@@ -309,7 +343,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       if(responseRegistries&&standard(n.expression,'Promise')){
         const uid=contextualId(n,'promise',c),args=(n.arguments||[]).map(a=>ev(a,c));
         promises.push({id:uid,entry:currentEntry,source_symbol:id(c.current,'callable'),conditions:c.conditions,evidence:[src(n)]});
-        if(args[0]?.tag==='function')invoke(args[0],[{tag:'resolver',promise:uid,mode:'resolve'},{tag:'resolver',promise:uid,mode:'reject'}],c,n);
+        if(args[0]?.tag==='function')invoke(args[0],[{tag:'resolver',promise:uid,mode:'resolve'},{tag:'resolver',promise:uid,mode:'reject'}],{...c,promiseContext:uid},n);
         return {tag:'promise',value:unknown('settlement_deferred'),awaited:[]};
       }
       if(responseRegistries&&standard(n.expression,'Map'))return {tag:'registry',registry:id(n,'map_binding'),receiver_type:'local:'+currentEntry,evidence:[src(n)]};
@@ -328,7 +362,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   for(const [uid,entry] of entries)analyzeEntry(uid,entry);
   if(responseRegistries){phase='register';for(const [uid,entry] of promiseEntries)analyzeEntry(uid,entry);
     phase='lookup';for(const [uid,entry] of lookupEntries)analyzeEntry(uid,entry);
-    return {version:'0.1.0',entries:analyzed,promises:uniq(promises),registrations:uniq(registrations.map(r=>r.record)),
+    return {version:'0.2.0',entries:analyzed,promises:uniq(promises),registrations:uniq(registrations.map(r=>r.record)),transmissions:uniq(transmissions),counter_updates:uniq(counterUpdates),
       lookups:uniq(lookups),settlements:uniq(settlements),deletions:uniq(deletions),callback_bindings:uniq(callbackBindings),diagnostics:uniq(diagnostics),
       limits:['registry_join_requires_same_runtime_instance_and_equal_key','registration_lifetime_requires_runtime_or_reaching_definition_validation',
         'source_projection_not_observed_fulfillment','callback_and_promise_selection_is_contextual_candidate','network_transport_and_API_boundary_join_pending',
