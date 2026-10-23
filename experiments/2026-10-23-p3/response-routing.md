@@ -4,7 +4,7 @@
 
 这轮补上了 [字段生产](output-fields.md) 与 [序列化映射](serialization.md) 之间的对象关系。**P3、D02 继续实施：下一步连接 JSON 字符串传输、前端解包、字段消费及状态更新。**
 
-证据类型：实际执行源码提取、上下文查询、自动测试与 Kuzu 读回。Insight 提交为 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`；规则冻结于 `49725f5`。输入从 141 文件扩展到 [148 文件](response-manifest.json)，加入发送封装、会话类型和协议常量定义。结果见 [response-routing.json](evidence/response-routing.json)，验收脚本见 [run_response_routing.py](run_response_routing.py)。
+证据类型：实际执行源码提取、上下文查询、自动测试与 Kuzu 读回。Insight 提交为 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`；提取规则为 `49725f5`，查询规则为 `cd71800`。输入从 141 文件扩展到 [148 文件](response-manifest.json)，加入发送封装、会话类型和协议常量定义。结果见 [response-routing.json](evidence/response-routing.json)，验收脚本见 [run_response_routing.py](run_response_routing.py)。
 
 ## 自动恢复的路径
 
@@ -22,7 +22,7 @@ QueryFlowsBySliceInfoHandler::HandleRequest 中的 responsePtr
 
 模块和命令值从字段复制恢复：解码函数将传输字段写入请求对象，基类辅助函数把请求字段复制到响应对象。模块表查找携带响应字段来源，并与 P2 的插件工厂作用域对应；最终回调按注册容器、所选协议类和命令值共同匹配。项目中的字段、类、方法和注册名均来自源码。
 
-查询逐个调用位置传递对象及字段值。源代码中后续的键改写会改变选择；未知值和条件改写保留未知。序列化回调内的参数路径投影回原响应对象后，再与该对象的生产位置连接。当前按源码位置排除发送之后的写入，结果仍保留控制流与别名条件。
+查询逐个调用位置传递对象及字段值。源代码中后续的键改写会改变选择；未知值、条件改写及未建模的复合运算保留未知。序列化回调内的参数路径投影回原响应对象后，再与该对象的生产位置连接。当前按源码位置排除发送之后的写入，结果仍保留控制流与别名条件。
 
 ## 实测结果
 

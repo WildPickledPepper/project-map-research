@@ -555,7 +555,7 @@
     "conditional queue transfer model"
   ],
   "file_hash_verification": "not_run_per_user_preference",
-  "rules_revision": "49725f5ee65e883bb11e3338539ac790dfc173c6",
+  "rules_revision": "cd71800e102a7c4697d39bdf35fa7d2e0638e513",
   "python_tests": {
     "passed": true,
     "count": 154
@@ -568,6 +568,13 @@
     "stored_response_query_pass": true,
     "native_rows_unchanged": 790,
     "buffer_pool_mb": 1024
+  },
+  "extraction_rules_revision": "49725f5ee65e883bb11e3338539ac790dfc173c6",
+  "followup_validation": {
+    "stored_query_unchanged": true,
+    "read_only_database": true,
+    "python_tests": 154,
+    "reason": "compound routing-key updates remain unknown"
   },
   "source_evidence": {
     "source:0": {

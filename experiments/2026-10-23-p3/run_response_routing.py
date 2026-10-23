@@ -101,6 +101,7 @@ if __name__=='__main__':
     a.output.mkdir(parents=True,exist_ok=False)
     graph=json.loads(a.graph.read_text(encoding='utf-8'));report=assess(graph)
     report['rules_revision']=subprocess.check_output(['git','log','-1','--format=%H','--','adapters/cpp_response_routing.py','adapters/response_queries.py','adapters/field_queries.py'],cwd=ROOT,text=True).strip()
+    report['extraction_rules_revision']=subprocess.check_output(['git','log','-1','--format=%H','--','adapters/cpp_data.py','adapters/cpp_response_routing.py','adapters/cpp_field_flow.py','adapters/data_graph.py'],cwd=ROOT,text=True).strip()
     test=subprocess.run([sys.executable,'-m','unittest','discover','-s','tests','-v'],cwd=ROOT,capture_output=True,text=True,encoding='utf-8')
     (a.output/'python-tests.txt').write_text(test.stdout+test.stderr,encoding='utf-8');assert test.returncode==0,test.stderr
     report['python_tests']={'passed':True,'count':int(re.search(r'Ran (\d+) tests',test.stderr)[1])}
@@ -114,7 +115,7 @@ if __name__=='__main__':
         native=store.rows(conn.execute('MATCH (n:Function) RETURN n ORDER BY n.uid'))
         print('Persist response-object routes and rerun scoped query',flush=True)
         inserted=store.replace_snapshot(conn,graph);saved=store.read_snapshot(conn,graph['snapshot']);assert saved==graph
-        assert assess(saved)=={k:v for k,v in report.items() if k not in {'rules_revision','python_tests'}}
+        assert assess(saved)=={k:v for k,v in report.items() if k not in {'rules_revision','extraction_rules_revision','python_tests'}}
         assert native==store.rows(conn.execute('MATCH (n:Function) RETURN n ORDER BY n.uid'))
         report['storage']={**inserted,'payload_roundtrip':True,'stored_response_query_pass':True,
             'native_rows_unchanged':len(native),'buffer_pool_mb':1024}

@@ -14,6 +14,10 @@ def check():
     assert r['counts']['files']==len(manifest['files'])==148
     assert r['phase_status']=='P3_in_progress' and r['gate_under_test']=='D02_incomplete'
     assert re.fullmatch('[0-9a-f]{40}',r['rules_revision'])
+    assert re.fullmatch('[0-9a-f]{40}',r['extraction_rules_revision'])
+    if 'followup_validation' in r:
+        assert r['followup_validation']['stored_query_unchanged'] and r['followup_validation']['read_only_database']
+        assert r['followup_validation']['python_tests']>=154
     assert len(r['routes'])==r['counts']['routes']==4 and not r['query']['truncated']
     assert len({route['object_root'] for route in r['routes']})==1
     def value(record,key):return record[key] if key in record else r['shared_records'][record[key+'_ref']]
