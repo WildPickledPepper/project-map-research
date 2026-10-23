@@ -4,15 +4,13 @@
 
 目标：让 AI 能从业务入口查到跨模块、跨语言、直到数据库及返回消费者的关系，并结合运行证据判断修改影响。首个研究对象是 [MindStudio Insight](https://gitcode.com/Ascend/msinsight)。
 
-**当前阶段：研究与选型。尚未实现自动贯通 Insight 的产品，没有完成动态追踪接入，也没有确定最终底座。**
+**设计范围 v0.1**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 
-**设计范围 v0.1 已确定**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
-
-实施安排已整理为 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。当前完成的是设计与计划，实施阶段的验收仍待执行。
+当前已完成工具试验、设计基线和实施计划。下一步从底座选型和 `unit/flows` 静态贯通开始，再接入运行追踪与历史资产。实施安排见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
 
 ## 我们要解决的问题
 
-通用符号索引能找到函数，却可能遗漏协议、路由注册、虚函数实现、共享数据和异步状态之间的连接。漂亮的图、较多的节点、一次成功执行，都不能证明关系完整或行为正确。
+研究重点是恢复协议、路由注册、虚函数实现、共享数据和异步状态之间的连接，并用源码依据和场景断言检验这些关系。
 
 希望 AI 可以查询：
 
@@ -65,7 +63,7 @@ flowchart TD
 | [讨论清单](docs/04-research-agenda.md) | 今天要逐项回答的问题与决策门槛 |
 | [资料来源](research/sources.md) | 论文、仓库、官方文档及固定版本 |
 
-案例的机器可读研究基准在 [reference.json](cases/unit-flows/reference.json)。它是人工对照源码形成的参考事实与待验证项，**不是自动工具生成的完整图**。
+案例的机器可读研究基准在 [reference.json](cases/unit-flows/reference.json)，由人工对照源码形成，保存参考事实与待验证项，用于评价自动提取结果。
 
 ## 本地检查
 
