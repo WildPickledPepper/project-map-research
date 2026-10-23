@@ -1,6 +1,6 @@
 # P4 自动刷新、发布与恢复
 
-日期：2026-10-24。状态：刷新控制器和正式 CLI 已实现；15 项新增测试、完整 Python 套件 260 项通过。真实 Insight 的监听追赶试验在本批规则提交后执行。P4 的旧运行证据、摘要和资产锚点跨版本处理仍待完成。
+日期：2026-10-24。状态：刷新控制器和正式 CLI 已实现；15 项新增测试、完整 Python 套件 260 项通过。真实 Insight 的两次连续提交、自动追赶和配置失败恢复已执行通过，见 [公开证据](evidence/watch-trial.json)。P4 的旧运行证据、摘要和资产锚点跨版本处理仍待完成。
 
 ## 工作方式
 
@@ -57,10 +57,23 @@ python scripts/refresh_project_map.py \
 
 ## Insight 监听试验
 
-[run_watch_trial.py](run_watch_trial.py)创建独立 Insight checkout，启动正式 CLI，在第一次构建期间连续提交两次：先添加范围外的实验说明，再修改后端 `unit/flows` 常量；前端保持不变。预期先发布原快照，再自动追到最后提交，并显示原消费者与新提供方失配。随后注入无效配置，检查旧入口保留与恢复。
+[run_watch_trial.py](run_watch_trial.py)创建独立 Insight checkout，启动正式 CLI，在第一次构建期间连续提交两次：先添加范围外的实验说明，再修改后端 `unit/flows` 常量为 `unit/flows/p4-probe`；前端保持不变。监听器先发布原快照，再自动追到最后提交，原消费者与新提供方失配。随后注入无效配置，旧入口保留；修复配置后恢复到最新成功状态，没有生成重复快照。
 
-原始 checkout、图、数据库、日志、状态和改动补丁保存在实验输出目录。提交后的执行结果再加入公开证据。
+原始 154 文件图为 25,355 节点、36,605 关系，P3 的 D01–D05 原断言全部通过；变更后为 25,281 节点、36,482 关系。两份 Kuzu 数据库均完成完整内容读回验证。原图继续绑定原提交并可查询，中间提交合并到最后目标。变更是实验主动注入的协议失配，用于验证刷新，不作为 Insight 已有缺陷。
+
+规则提交 `b19fa52b8e7bd6d4063cf7c63c8dc8840c1074c2`，完整运行版本以 [watch-trial.json](evidence/watch-trial.json)为准。原始 checkout、图、数据库、日志、状态和改动补丁保存在仓库外 `results/p4-watch-trial-01/`。
+
+复现：
+
+```sh
+python experiments/2026-10-23-p4/run_watch_trial.py \
+  --source ../work/repo-map-research/msinsight-full \
+  --output ../work/repo-map-research/results/p4-watch-trial \
+  --config experiments/2026-10-23-p4/selected-scope.json \
+  --typescript ../work/repo-map-research/code-map-new/node_modules/typescript/lib/typescript.js \
+  --python-log ../work/repo-map-research/results/p4-controller-tests-01/python-tests.txt
+```
 
 ## 后续门槛
 
-本批覆盖 U01–U04 的自动重建、身份与故障机制。旧图版本已可查询；U06 还需把非图的运行证据和摘要绑定到明确版本，U03 还需检查历史资产锚点失效时的处理。增量关闭，U05 不适用。真实运行行为保持 P5 的验收范围。
+U01、U02、U04 已通过本批机制测试与所选 Insight 源码试验。U03 的代码改名、同名隔离已验证，历史资产锚点失效处理待完成；U06 的旧图版本已可查询，非图运行证据和摘要的版本绑定待完成。增量关闭，U05 不适用。真实运行行为保持 P5 的验收范围。

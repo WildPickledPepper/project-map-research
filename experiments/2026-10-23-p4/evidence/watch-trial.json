@@ -1,0 +1,83 @@
+{
+  "evidence_kind": "executed_production_watch_cli_on_private_Insight_checkout",
+  "source_base": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "source_intermediate": "61409b415ea6ab9c2fa28feb2833629c93c83e21",
+  "source_target": "6e1fb17b884ed27d1deaa05fa5eb71f80e9d1298",
+  "rules_version": {
+    "rules_commit": "b19fa52b8e7bd6d4063cf7c63c8dc8840c1074c2",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "published": [
+    {
+      "id": "c655ac04f09748e29a82bf28a1476e5e",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:c655ac04f09748e29a82bf28a1476e5e",
+      "result": {
+        "nodes": 25355,
+        "edges": 36605,
+        "files": 154,
+        "storage": "kuzu",
+        "coverage_records": 154,
+        "storage_roundtrip": true
+      }
+    },
+    {
+      "id": "12d860beb00541d3bb8fd2662bd689e5",
+      "source_commit": "6e1fb17b884ed27d1deaa05fa5eb71f80e9d1298",
+      "snapshot": "6e1fb17b884ed27d1deaa05fa5eb71f80e9d1298:full:12d860beb00541d3bb8fd2662bd689e5",
+      "result": {
+        "nodes": 25281,
+        "edges": 36482,
+        "files": 154,
+        "storage": "kuzu",
+        "coverage_records": 154,
+        "storage_roundtrip": true
+      }
+    }
+  ],
+  "checks": {
+    "two_commits_during_initial_build": true,
+    "intermediate_coalesced_to_latest": true,
+    "baseline_D01_D05": {
+      "D01": "pass",
+      "D02": "pass",
+      "D03": "pass",
+      "D04": "pass",
+      "D05": "pass"
+    },
+    "provider_constant_change_recomputed_unchanged_client": true,
+    "old_snapshot_retains_original_version": true,
+    "malformed_config_preserves_last_success": true,
+    "config_recovery_without_duplicate_snapshot": true,
+    "both_kuzu_roundtrips": true
+  },
+  "changed_identity": {
+    "before": "unit/flows",
+    "after": "unit/flows/p4-probe",
+    "path": "server/src/modules/defs/ProtocolDefs.h"
+  },
+  "final_client_result": [
+    {
+      "name": "getUnitFlows",
+      "status": "unmatched",
+      "matches": 0
+    }
+  ],
+  "tests": {
+    "python": 260,
+    "passed": true
+  },
+  "scope": "154 configured source paths; private source mutation; static graph, not product execution",
+  "P4_remaining": [
+    "versioned non-graph evidence and summary access; historical asset selector migration checks"
+  ],
+  "incremental": "disabled",
+  "file_hash_verification": "not_run_per_user_preference"
+}
