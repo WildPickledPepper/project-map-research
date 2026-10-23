@@ -51,7 +51,9 @@ P3 已通过所选 140 文件上的 D01 数据库候选与 D04 共享实例检�
 
 [C++ 响应发送增量](../experiments/2026-10-23-p3/transmission.md)已将四个响应出口经 JSON 字符串、显式捕获和延迟回调接到 socket 发送参数，得到 12 条带编码分支条件的来源路径。当时 150 文件输入，190 项 Python、53 项 TypeScript 测试及存储读回通过；Windows GBK 转换保留来源缺口。
 
-最新 [socket 接收绑定增量](../experiments/2026-10-23-p3/socket-receivers.md)将原生 socket 创建、发送字段、业务 onmessage 绑定和事件参数连接到响应回调表，组合首链四个后端响应出口及三种 Promise 交付候选。195 项 Python、67 项 TypeScript 测试和存储读回通过。跨网络组合沿用逻辑服务配置；服务端接受连接到会话 channel 的来源、iframe 返回包装和 API 解包继续实施，D03、D05 随整链验收。
+此前 [socket 接收绑定增量](../experiments/2026-10-23-p3/socket-receivers.md)将原生 socket 创建、发送字段、业务 onmessage 绑定和事件参数连接到响应回调表，组合首链四个后端响应出口及三种 Promise 交付候选。195 项 Python、67 项 TypeScript 测试和存储读回通过。该批保留服务端连接来源与 API 返回关联缺口。
+
+最新 [服务端通道来源增量](../experiments/2026-10-23-p3/server-channels.md)已连接接受连接、会话 channel 初始化、同一管理器实例的保存/读取和四个响应出口，并接入前后端组合查询。154 文件输入，217 项 Python、67 项 TypeScript 测试及存储读回通过。继续补 iframe 返回包装和 API 解包、必要编码/队列来源缺口，随后验收 D02、D03、D05。
 
 ## 当前选型方向
 

@@ -25,6 +25,7 @@ jobs:
       - run: python scripts/check_p3_request_correlation.py
       - run: python scripts/check_p3_transmission.py
       - run: python scripts/check_p3_socket_receivers.py
+      - run: python scripts/check_p3_server_channels.py
   facts:
     runs-on: ubuntu-latest
     steps:
