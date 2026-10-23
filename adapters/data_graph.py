@@ -99,13 +99,30 @@ def augment(base,cpp,paths):
                 edges[-1]['type_evidence']={'receiver_types':resolution.get('receiver_types',[]),
                     'candidates':[c for c in resolution.get('candidates',[]) if c['target']==target],
                     'gaps':resolution.get('gaps',[])}
+    flow=data.get('field_flow',{});roots={r['id']:r for r in flow.get('roots',[])}
+    for root in roots.values():
+        evidence=root['evidence'][0]
+        node({**root,'path':evidence['path'],'line':evidence['line']},'object_binding',root['name'])
+        edge(root['source_symbol'],root['id'],'DECLARES_OBJECT_BINDING',root['evidence'])
+    for location in flow.get('locations',[]):
+        root=roots[location['root']];evidence=root['evidence'][0]
+        node({**location,'path':evidence['path'],'line':evidence['line']},'object_path',root['name']+'/'+('/'.join(location['selectors'])))
+        edge(root['id'],location['id'],'HAS_OBJECT_PATH',root['evidence'],['source_binding_scope'])
+    for write in flow.get('writes',[]):
+        evidence=write['evidence'][0]
+        node({**write,'path':evidence['path'],'line':evidence['line']},'field_write',write['operation'])
+        edge(write['source_symbol'],write['id'],'OBSERVES_FIELD_WRITE',write['evidence'],write['conditions'])
+        edge(write['id'],write['location'],'WRITES_OBJECT_PATH',write['evidence'],write['conditions'])
+    # Cross-call effects are composed by field_queries using each invocation's
+    # argument bindings; a global formal-parameter join would mix callers.
     # Parallel evidence edges remain distinct; exact duplicates are redundant.
     unique={json.dumps(e,sort_keys=True):e for e in edges}
     graph['nodes']=list(by_id.values());graph['edges']=list(unique.values())
-    graph['snapshot']=graph['source_commit']+':p3-data-v2';graph['input_paths']=sorted(paths)
+    graph['snapshot']=graph['source_commit']+':p3-data-v3';graph['input_paths']=sorted(paths)
     coverage={c['path']:c for c in base['coverage']};coverage.update({c['path']:c for c in facts['coverage']})
     graph['coverage']=[coverage[p] for p in paths]
-    graph['data']=data;graph['extractors']['cpp_data']='cpp_data/0.3.1';graph['extractors']['cpp_value_types']='cpp_value_types/0.1.0'
+    graph['data']=data;graph['extractors']['cpp_data']='cpp_data/0.4.0';graph['extractors']['cpp_value_types']='cpp_value_types/0.1.0'
+    graph['extractors']['cpp_field_flow']='cpp_field_flow/0.1.0'
     graph['provenance']['data_base_snapshot']=base['snapshot']
     graph['diagnostics']+=data['diagnostics']
     return graph

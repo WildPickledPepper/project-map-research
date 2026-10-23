@@ -21,6 +21,14 @@ class DataGraphTests(unittest.TestCase):
     @staticmethod
     def symbol(graph,name):return next(n['id'] for n in graph['nodes'] if n['kind']=='callable' and n['name']==name and n['definition'])
 
+    def test_field_effect_nodes_have_scoped_location_and_source_evidence(self):
+        g=self.graph('struct R{int value;};void fill(R& out){out.value=1;}')
+        write,=[n for n in g['nodes'] if n['kind']=='field_write']
+        relation,=[e for e in g['edges'] if e['source']==write['id'] and e['kind']=='WRITES_OBJECT_PATH']
+        location=next(n for n in g['nodes'] if n['id']==relation['target'])
+        self.assertEqual(location['selectors'],['member:value'])
+        self.assertTrue(relation['evidence']);self.assertEqual(g['snapshot'],'source:p3-data-v3')
+
     def test_shared_state_forward_reverse_and_unrelated_member_isolation(self):
         g=self.graph('struct A{std::map<int,int> state;void write(int key){state[key]=7;}int read(int key){return state.at(key);}};struct B{std::map<int,int> state;int read(int key){return state.at(key);}};')
         a,b,c=[self.symbol(g,n) for n in ['A::write','A::read','B::read']]
