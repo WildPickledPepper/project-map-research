@@ -1,0 +1,2181 @@
+{
+  "evidence_kind": "executed_post_repair_development_regression",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "snapshot": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:0407ff11f543412e9af897d9068b32ae",
+  "build_version": {
+    "rules_commit": "b65e0dbf47c3ef24441b05234e33ffee48fb0efc",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "reference_source": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "reference_used_for_extraction": false,
+  "protocol_commit": "379da8d",
+  "cases": [
+    {
+      "id": "cluster-iterations",
+      "api": "queryIterations",
+      "module": "cluster",
+      "expected_command": "communication/duration/iterations",
+      "expected_handler": "IterationsHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:ba57101966ee75154906df3a",
+          "name": "queryIterations",
+          "message": "protocol:ts:ba57101966ee75154906df3a:message:0",
+          "status": "matched_conditional"
+        },
+        {
+          "consumer": "protocol:ts:ba57101966ee75154906df3a",
+          "name": "queryIterations",
+          "message": "protocol:ts:ba57101966ee75154906df3a:message:1",
+          "status": "unknown"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:dbbf5ba8f7bde92a5c3465f6:registry:8a5cfb34e05e2f86ab61c28d",
+          "command": "communication/duration/iterations",
+          "scope": [
+            "communication"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:fa375f8db135e5e1a04f5393",
+              "name": "Dic::Module::Communication::IterationsHandler::HandleRequest",
+              "path": "server/src/modules/communication/handler/IterationsHandler.cpp",
+              "line": 31
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "leading",
+            "try_completes_without_exception",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [
+        "expected_serialized_field_relation_missing",
+        "expected_frontend_consumer_not_fully_connected"
+      ],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:883761b0041a2fef004ed832",
+            "name": "Dic::Module::Communication::ClusterService::QueryIterations",
+            "path": "server/src/modules/communication/core/ClusterService.cpp",
+            "line": 199
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": false,
+      "return_links": 0,
+      "states": [],
+      "expected_state_connected": false,
+      "consumer_contract": {
+        "path": "modules/cluster/src/components/communication/Filter.tsx",
+        "symbol_or_handoff": "getiterationOptions",
+        "expected_state": null,
+        "status": "helper_return_or_worker_handoff_not_scored_as_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {}
+    },
+    {
+      "id": "cluster-stages",
+      "api": "queryStages",
+      "module": "cluster",
+      "expected_command": "communication/matrix/group",
+      "expected_handler": "GroupHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:369eb7f6e9d0856e2733c575",
+          "name": "queryStages",
+          "message": "protocol:ts:369eb7f6e9d0856e2733c575:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:5996d3f3a2b3203be1cfcdd4:registry:d413345942e26e0c4bdcccbd",
+          "command": "communication/matrix/group",
+          "scope": [
+            "communication"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:fbf85a87e25e7e5f5460580f",
+              "name": "Dic::Module::Communication::GroupHandler::HandleRequest",
+              "path": "server/src/modules/communication/handler/GroupHandler.cpp",
+              "line": 30
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [
+        "expected_frontend_consumer_not_fully_connected"
+      ],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:70871008d19ea1bab3aae6c7",
+            "name": "Dic::Module::Communication::ClusterService::QueryGroupInfo",
+            "path": "server/src/modules/communication/core/ClusterService.cpp",
+            "line": 217
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "return_links": 2,
+      "states": [],
+      "expected_state_connected": false,
+      "consumer_contract": {
+        "path": "modules/cluster/src/components/communication/Filter.tsx",
+        "symbol_or_handoff": "getStageOptions",
+        "expected_state": null,
+        "status": "helper_return_or_worker_handoff_not_scored_as_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "spread_source_not_expanded": 1,
+        "unresolved_call_with_input_argument": 4,
+        "exception_paths_not_expanded": 1,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2
+      }
+    },
+    {
+      "id": "operator-category",
+      "api": "queryOperatorCategory",
+      "module": "operator",
+      "expected_command": "operator/category",
+      "expected_handler": "QueryOpCategoryInfoHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:edf0710c78ee691632db65b3",
+          "name": "queryOperatorCategory",
+          "message": "protocol:ts:edf0710c78ee691632db65b3:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:cf0f01c108db1321b2fcc6c0:registry:09a8db0b3f5412ba374ff5af",
+          "command": "operator/category",
+          "scope": [
+            "operator"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:6017b75e376a4218ea4c8a7b",
+              "name": "Dic::Module::Operator::QueryOpCategoryInfoHandler::HandleRequest",
+              "path": "server/src/modules/operator/handler/QueryOpCategoryInfoHandler.cpp",
+              "line": 28
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:dc65477a2fe932540a8e235d",
+            "name": "Dic::Module::FullDb::DbSummaryDataBase::QueryOperatorDurationInfo",
+            "path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+            "line": 189
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "return_links": 4,
+      "states": [
+        {
+          "id": "frontend-state:[\"ts:da338eddbabeb018640e33dd\",\"ts:627ad3cac1d789279defac62\",[\"opTypeData\"]]",
+          "name": "opTypeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 137
+        },
+        {
+          "id": "frontend-state:[\"ts:da338eddbabeb018640e33dd\",\"ts:627ad3cac1d789279defac62\",[\"opTypeData\"]]",
+          "name": "opTypeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 137
+        },
+        {
+          "id": "frontend-state:[\"ts:da338eddbabeb018640e33dd\",\"ts:627ad3cac1d789279defac62\",[\"opTypeData\"]]",
+          "name": "opTypeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 137
+        },
+        {
+          "id": "frontend-state:[\"ts:da338eddbabeb018640e33dd\",\"ts:627ad3cac1d789279defac62\",[\"opTypeData\"]]",
+          "name": "opTypeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 137
+        }
+      ],
+      "expected_state_connected": true,
+      "consumer_contract": {
+        "path": "modules/operator/src/components/operator/DetailChart.tsx",
+        "symbol_or_handoff": "updateOpTypeData",
+        "expected_state": "opTypeData",
+        "status": "connected_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "unresolved_call_with_input_argument": 4,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "exception_paths_not_expanded": 1
+      }
+    },
+    {
+      "id": "operator-compute",
+      "api": "queryOperatorComputeUnit",
+      "module": "operator",
+      "expected_command": "operator/compute_unit",
+      "expected_handler": "QueryOpComputeUnitHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:0a205e9dadfcb2362b431d89",
+          "name": "queryOperatorComputeUnit",
+          "message": "protocol:ts:0a205e9dadfcb2362b431d89:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:d5f10336f6f54a3fa209a7b2:registry:3a17898d95a06ac8acdc2ec9",
+          "command": "operator/compute_unit",
+          "scope": [
+            "operator"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:0532c74b7e9545c8faf450fb",
+              "name": "Dic::Module::Operator::QueryOpComputeUnitHandler::HandleRequest",
+              "path": "server/src/modules/operator/handler/QueryOpComputeUnitHandler.cpp",
+              "line": 28
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:dc65477a2fe932540a8e235d",
+            "name": "Dic::Module::FullDb::DbSummaryDataBase::QueryOperatorDurationInfo",
+            "path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+            "line": 189
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "return_links": 4,
+      "states": [
+        {
+          "id": "frontend-state:[\"ts:b215a71844de5f7b7cb7422e\",\"ts:57e3ecce5ab106345a90b651\",[\"computeData\"]]",
+          "name": "computeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 138
+        },
+        {
+          "id": "frontend-state:[\"ts:b215a71844de5f7b7cb7422e\",\"ts:57e3ecce5ab106345a90b651\",[\"computeData\"]]",
+          "name": "computeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 138
+        },
+        {
+          "id": "frontend-state:[\"ts:b215a71844de5f7b7cb7422e\",\"ts:57e3ecce5ab106345a90b651\",[\"computeData\"]]",
+          "name": "computeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 138
+        },
+        {
+          "id": "frontend-state:[\"ts:b215a71844de5f7b7cb7422e\",\"ts:57e3ecce5ab106345a90b651\",[\"computeData\"]]",
+          "name": "computeData",
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 138
+        }
+      ],
+      "expected_state_connected": true,
+      "consumer_contract": {
+        "path": "modules/operator/src/components/operator/DetailChart.tsx",
+        "symbol_or_handoff": "updateComputeData",
+        "expected_state": "computeData",
+        "status": "connected_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "unresolved_call_with_input_argument": 4,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "exception_paths_not_expanded": 1
+      }
+    },
+    {
+      "id": "leaks-blocks",
+      "api": "getBlocksGraphData",
+      "module": "leaks",
+      "expected_command": "Memory/leaks/blocks",
+      "expected_handler": "QueryMemScopeBlockHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:86d528c3b6beb5eb52540403",
+          "name": "getBlocksGraphData",
+          "message": "protocol:ts:86d528c3b6beb5eb52540403:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:5ffdf5c7816a83dc56723724:registry:2ac0d444c16d6247740e240a",
+          "command": "Memory/leaks/blocks",
+          "scope": [
+            "leaks"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:57799ed84ac2522fae65be4e",
+              "name": "Dic::Module::MemScope::QueryMemScopeBlockHandler::HandleRequest",
+              "path": "server/src/modules/memscope/handler/QueryMemScopeBlockHandler.cpp",
+              "line": 23
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "!lastRequestTime !== null && lastRequestTime !== undefined && (now - lastRequestTime) < 1",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [
+        "expected_frontend_consumer_not_fully_connected"
+      ],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:a7cf19bb0c16d471b43d81d5",
+            "name": "Dic::Module::FullDb::MemScopeDatabase::QueryMemoryBlocks",
+            "path": "server/src/modules/memscope/database/MemScopeDatabase.cpp",
+            "line": 594
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "return_links": 8,
+      "states": [
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        },
+        {
+          "id": "frontend-state:[\"ts:1630fcb2d792988abcea5a44\",\"ts:4a1c3c6726f100e7f7e319c2\",[\"blocksTableData\"]]",
+          "name": "blocksTableData",
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 725
+        }
+      ],
+      "expected_state_connected": false,
+      "consumer_contract": {
+        "path": "modules/leaks/src/components/dataHandler.ts",
+        "symbol_or_handoff": "workerSetMemoryBlockData",
+        "expected_state": null,
+        "status": "helper_return_or_worker_handoff_not_scored_as_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "unresolved_call_with_input_argument": 5,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "spread_source_not_expanded": 2
+      }
+    },
+    {
+      "id": "leaks-allocations",
+      "api": "getLeaksAllocationsData",
+      "module": "leaks",
+      "expected_command": "Memory/leaks/allocations",
+      "expected_handler": "QueryMemScopeAllocationHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:030ae5d6790506cb3e34dc23",
+          "name": "getLeaksAllocationsData",
+          "message": "protocol:ts:030ae5d6790506cb3e34dc23:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:9b8af65862ff30134f563e11:registry:329de390dfaff186713fcf9a",
+          "command": "Memory/leaks/allocations",
+          "scope": [
+            "leaks"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:9928f2bc562edeccb51bd6f7",
+              "name": "Dic::Module::MemScope::QueryMemScopeAllocationHandler::HandleRequest",
+              "path": "server/src/modules/memscope/handler/QueryMemScopeAllocationHandler.cpp",
+              "line": 26
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "!lastRequestTime !== null && lastRequestTime !== undefined && (now - lastRequestTime) < 1",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [
+        "expected_frontend_consumer_not_fully_connected"
+      ],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:f209711e2d9111820e847842",
+            "name": "Dic::Module::FullDb::MemScopeDatabase::QueryMemoryAllocations",
+            "path": "server/src/modules/memscope/database/MemScopeDatabase.cpp",
+            "line": 629
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "return_links": 4,
+      "states": [],
+      "expected_state_connected": false,
+      "consumer_contract": {
+        "path": "modules/leaks/src/components/dataHandler.ts",
+        "symbol_or_handoff": "loadAllocation",
+        "expected_state": null,
+        "status": "helper_return_or_worker_handoff_not_scored_as_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "unresolved_call_with_input_argument": 4,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "spread_source_not_expanded": 1
+      }
+    }
+  ],
+  "protocol_outcomes": {
+    "correct_unique_conditional": 6
+  },
+  "counts": {
+    "references": 6,
+    "scored": 6,
+    "wrong_protocol_pairs": 0,
+    "correct_protocol_pairs": 6,
+    "missing_expected_protocol_pairs": 0,
+    "producer_forward_paths": 6,
+    "producer_reverse_paths": 6,
+    "serialized_field_relations": 5,
+    "return_state_relations": 2,
+    "state_reference_denominator": 2
+  },
+  "elapsed_seconds": 29.2243,
+  "scope": "post-repair development replay; six cases used to locate mechanism gaps; not an independent holdout",
+  "file_hash_verification": "not_run_per_user_preference",
+  "extraction_rules_adapted_to_six_cases": true,
+  "independent_holdout": false
+}

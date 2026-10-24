@@ -154,17 +154,24 @@ class Serialization:
                 if base['kind']!='source':return self.unknown('member_base_unresolved')
                 typ=base.get('value_type','');head,args=split_template(typ)
                 if text(node.child_by_field_name('operator'))=='->' and head in {'std::optional','std::unique_ptr','std::shared_ptr'} and len(args)==1:typ=args[0]
-                owners=self.d.types.type(typ,base.get('type_path',path),base.get('type_scope',info['scope'])).get('names',[])
+                receiver_type=self.d.types.type(typ,base.get('type_path',path),base.get('type_scope',info['scope']))
+                owners=receiver_type.get('names',[])
                 fields=[self.d.field(member,owner) for owner in owners];fields=[f for f in fields if f]
                 typ=fields[0]['type'] if len(fields)==1 else ''
+                bound=receiver_type.get('template_bindings',{}).get(fields[0]['owner'],{}).get(typ) if len(fields)==1 else None
+                if bound:typ=bound.get('spelling',typ)
                 return {**base,'selectors':base['selectors']+['member:'+member],'value_type':typ,
-                    'type_path':fields[0]['path'] if len(fields)==1 else path,'type_scope':fields[0]['owner'].split('::') if len(fields)==1 else info['scope'],
+                    'type_path':bound.get('path',path) if bound else fields[0]['path'] if len(fields)==1 else path,
+                    'type_scope':base.get('type_scope',info['scope']) if bound else fields[0]['owner'].split('::') if len(fields)==1 else info['scope'],
                     'json_type':self.types.is_json(typ,path,info['scope']),'evidence':base.get('evidence',[])+[ev(node)]}
             if kind=='compound_literal_expression':
                 typ=text(node.child_by_field_name('type'));value=node.child_by_field_name('value')
                 if typ.startswith('std::optional<') and value and len(value.named_children)==1:return evaluate(value.named_children[0],scope,loops)
             if kind=='call_expression':
                 fn=node.child_by_field_name('function');spelling=text(fn);args=arguments(node)
+                head,type_args=split_template(spelling)
+                if head=='std::optional' and len(type_args)==1 and len(args)==1:
+                    return evaluate(args[0],scope,loops)
                 if spelling in {'std::move','std::forward'} or spelling.startswith('std::forward<'):
                     return evaluate(args[0],scope,loops) if args else self.unknown('empty_forward')
                 if spelling.startswith(('dynamic_cast<','static_cast<','const_cast<')) and len(args)==1:

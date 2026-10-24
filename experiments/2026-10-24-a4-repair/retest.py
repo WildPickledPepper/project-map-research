@@ -16,7 +16,8 @@ def run(graph_path, output):
     old_ref = ROOT/'experiments/2026-10-24-a4/reference-reviewed.json'
     score = scoring.run(graph_path, old_ref, output/'development-replay')
     score.update(evidence_kind='executed_post_repair_development_regression',
-                 extraction_rules_adapted_to_six_cases=True, independent_holdout=False)
+                 extraction_rules_adapted_to_six_cases=True, independent_holdout=False,
+                 scope='post-repair development replay; six cases used to locate mechanism gaps; not an independent holdout')
     (output/'development-replay/first-results.json').write_text(json.dumps(score, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     graph = json.loads(graph_path.read_text(encoding='utf-8'))
     nodes = {n['id']: n for n in graph['nodes']}

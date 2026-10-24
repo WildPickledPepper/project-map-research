@@ -3,6 +3,9 @@ import argparse
 import importlib
 import json
 from pathlib import Path
+import sys
+
+sys.path.insert(0,str(Path(__file__).resolve().parents[2]))
 
 controls = importlib.import_module('experiments.2026-10-24-a4.run_updates')
 controls.CLIENT = '''declare const channel:WebSocket;

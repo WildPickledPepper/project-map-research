@@ -53,6 +53,15 @@ class SerializationTests(unittest.TestCase):
         self.assertEqual(collection['wire_path'],['payload','records'])
         self.assertEqual(collection['source']['selectors'],['member:entries'])
 
+    def test_parenthesized_optional_and_template_member_collection_keep_array_fields(self):
+        r=self.analyze('using J=rapidjson::Value;struct Item{std::string title;};template<class V>struct Pair{V chosen;};'
+            'struct R{Pair<std::vector<Item>> values;};'
+            'std::optional<J> rows(const std::vector<Item>& list){J a;for(const Item& item:list){a.PushBack(J().SetString(item.title.c_str(),alloc),alloc);}return std::optional<J>(std::move(a));}'
+            'J encode(const R& r){J j;j.AddMember("payload",rows(r.values.chosen),alloc);return j;}')
+        fields=self.function(r,'encode')['field_mappings']
+        self.assertTrue(any(m['wire_path']==['payload'] and m['relation']=='array_iteration_source' for m in fields))
+        self.assertTrue(any(m['source']['selectors']==['member:values','member:chosen','element','member:title'] for m in fields))
+
     def test_template_specialization_forwarder_preserves_cast(self):
         r=self.analyze('using J=rapidjson::Value;struct Base{};struct R:Base{int count;};'
             'template<class T>J convert(const T&);template<>J convert<R>(const R& x){J j;j.AddMember("n",x.count,a);return j;}'
