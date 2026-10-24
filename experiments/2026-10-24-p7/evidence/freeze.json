@@ -1,0 +1,20 @@
+{
+  "evidence_kind": "preregistered_heldout_extraction",
+  "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+  "baseline_rules_commit": "a93bafff11e6ac985b08412372953cc2ceec2a31",
+  "scope_files": 192,
+  "heldout_protocol": "Memory/view/memoryUsage",
+  "reference": "cases/memory-usage/README.md",
+  "reference_used_for_extraction": false,
+  "required_chains": [
+    "unit/flows",
+    "timeline/rankOffset",
+    "Memory/view/memoryUsage"
+  ],
+  "declared_dependencies": {
+    "P6": "External assets and applicability integration deferred by user; API must report not_connected"
+  },
+  "first_output": "external results/p7-heldout-01",
+  "missing_requested_paths": [],
+  "file_hash_verification": "not_run_per_user_preference"
+}
