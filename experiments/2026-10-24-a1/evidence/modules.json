@@ -1,0 +1,293 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "modules": [
+    {
+      "path": ".",
+      "files": 1930,
+      "selected_sources": 0,
+      "manifests": [
+        "docker/requirements.txt",
+        "docs/requirements.txt",
+        "package.json",
+        "scripts/cpu_binding_tools/requirements.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "e2e",
+      "files": 288,
+      "selected_sources": 46,
+      "manifests": [
+        "e2e/package.json",
+        "e2e/tsconfig.app.json",
+        "e2e/tsconfig.json",
+        "e2e/tsconfig.node.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules",
+      "files": 27,
+      "selected_sources": 3,
+      "manifests": [
+        "modules/package.json",
+        "modules/testing/tsconfig.json",
+        "modules/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/cluster",
+      "files": 73,
+      "selected_sources": 67,
+      "manifests": [
+        "modules/cluster/package.json",
+        "modules/cluster/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/compute",
+      "files": 77,
+      "selected_sources": 64,
+      "manifests": [
+        "modules/compute/package.json",
+        "modules/compute/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/framework",
+      "files": 69,
+      "selected_sources": 60,
+      "manifests": [
+        "modules/framework/package.json",
+        "modules/framework/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/leaks",
+      "files": 145,
+      "selected_sources": 126,
+      "manifests": [
+        "modules/leaks/package.json",
+        "modules/leaks/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/lib",
+      "files": 159,
+      "selected_sources": 73,
+      "manifests": [
+        "modules/lib/package.json",
+        "modules/lib/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/memory",
+      "files": 59,
+      "selected_sources": 53,
+      "manifests": [
+        "modules/memory/package.json",
+        "modules/memory/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/memory-on-chip",
+      "files": 28,
+      "selected_sources": 22,
+      "manifests": [
+        "modules/memory-on-chip/package.json",
+        "modules/memory-on-chip/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/numa",
+      "files": 53,
+      "selected_sources": 43,
+      "manifests": [
+        "modules/numa/package.json",
+        "modules/numa/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/operator",
+      "files": 30,
+      "selected_sources": 23,
+      "manifests": [
+        "modules/operator/package.json",
+        "modules/operator/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/reinforcement-learning",
+      "files": 32,
+      "selected_sources": 26,
+      "manifests": [
+        "modules/reinforcement-learning/package.json",
+        "modules/reinforcement-learning/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/statistic",
+      "files": 33,
+      "selected_sources": 27,
+      "manifests": [
+        "modules/statistic/package.json",
+        "modules/statistic/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "modules/timeline",
+      "files": 375,
+      "selected_sources": 285,
+      "manifests": [
+        "modules/timeline/package.json",
+        "modules/timeline/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "platform",
+      "files": 23,
+      "selected_sources": 0,
+      "manifests": [
+        "platform/Cargo.toml"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "platform/linux",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "platform/linux/Cargo.toml"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "plugins/jupyterlab",
+      "files": 33,
+      "selected_sources": 15,
+      "manifests": [
+        "plugins/jupyterlab/package.json",
+        "plugins/jupyterlab/pyproject.toml",
+        "plugins/jupyterlab/requirements.txt",
+        "plugins/jupyterlab/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "pre-commit",
+      "files": 3,
+      "selected_sources": 0,
+      "manifests": [
+        "pre-commit/pyproject.toml"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server",
+      "files": 10,
+      "selected_sources": 0,
+      "manifests": [
+        "server/CMakeLists.txt",
+        "server/build/requirements.txt",
+        "server/cmake/third_party.cmake",
+        "server/toolchain.cmake"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/msinsight",
+      "files": 53,
+      "selected_sources": 52,
+      "manifests": [
+        "server/msinsight/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/src",
+      "files": 919,
+      "selected_sources": 917,
+      "manifests": [
+        "server/src/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/src/entry",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "server/src/entry/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/src/entry/server",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "server/src/entry/server/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/src/entry/server/bin",
+      "files": 2,
+      "selected_sources": 1,
+      "manifests": [
+        "server/src/entry/server/bin/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/src/test",
+      "files": 415,
+      "selected_sources": 343,
+      "manifests": [
+        "server/src/test/CMakeLists.txt",
+        "server/src/test/cmake/third_party.cmake"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/src/test/fuzz",
+      "files": 12,
+      "selected_sources": 10,
+      "manifests": [
+        "server/src/test/fuzz/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/third_party",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "server/third_party/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    },
+    {
+      "path": "server/third_party/sqlite",
+      "files": 3,
+      "selected_sources": 0,
+      "manifests": [
+        "server/third_party/sqlite/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "evidence_kind": "executed_test_suites",
+  "python": 305,
+  "typescript": 80,
+  "passed": true,
+  "new_test_module": "tests/test_repository_discovery.py",
+  "refresh_test": "tests/test_snapshot_refresh.py:test_automatic_scope_replans_new_modules_without_configuration_edits",
+  "real_extractor_refresh_test": "tests/test_snapshot_watch.py:test_watcher_tracks_cross_file_identity_registration_consumer_and_configuration_changes",
+  "scope": "authored fixtures plus existing regression suites; no reserved historical sample execution",
+  "checks": [
+    "fixed commit ignores dirty worktree",
+    "add/rename/delete",
+    "roles/size/symlink exclusions",
+    "interfaces and registration candidates",
+    "comment/string false positives",
+    "invalid UTF-8/binary/syntax errors",
+    "worker timeout/exit",
+    "budget/resume/version guard",
+    "automatic scope in existing refresh controller"
+  ]
+}

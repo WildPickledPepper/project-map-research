@@ -1,6 +1,6 @@
 # A1：全仓自动发现与输入生成
 
-状态：实施中。按[下一阶段计划](../../plans/full-repository-plan.md)交付自动输入发现、构建/模块清单、逐文件基础事实和处理状态。历史样本按[开发/验证划分](../../datasets/msinsight-regressions/split.md)约束；本轮使用全仓常规发现和自编模块实验，不开展验证候选定向研究。
+状态：**A1 已完成**。按[下一阶段计划](../../plans/full-repository-plan.md)交付自动输入发现、构建/模块清单、逐文件基础事实和处理状态。实测结果见[完成报告](completion.md)：2,256 个源码和 54 个清单自动纳入，完整测试 305 Python / 80 TS 通过。历史样本按[开发/验证划分](../../datasets/msinsight-regressions/split.md)约束；本轮使用全仓常规发现和自编模块实验，不开展验证候选定向研究。
 
 ## 入口与产物
 
@@ -31,6 +31,8 @@ python scripts/discover_repository.py --source "$SOURCE" --revision d4e8d1cf9f90
 
 预算包括每次执行时间、单文件解析时间、单文件输入大小和 Node worker 256 MiB heap；C++ worker 没有跨平台硬性内存上限，退出时记录 worker_exit。未完成或失败不能作为无依赖证据。
 
+时间预算在文件边界检查；Git 发现、源码导出和 checkpoint 写入不抢占中断。若导出中止，部分输入保留，需要新的输出目录重试；完成导出后的提取任务支持 `--resume`。
+
 ## 验收方法
 
 1. 从固定 Insight 原始提交执行全仓发现与提取，报告语言、角色、纳入/排除及诊断分母。
@@ -39,3 +41,5 @@ python scripts/discover_repository.py --source "$SOURCE" --revision d4e8d1cf9f90
 4. 在既有 191 文件基准重新构图并核对三条链。该固定切片只作为历史回归，不作为全仓入口的输入策略。
 
 基础事实使用既有 Tree-sitter 补充与 TypeScript 编译器 AST。注册拼写提示和成员声明作为候选单列；调用目标、跨语言匹配、全量字段/资源关系和运行行为按 A2–A5 分别验收。全仓源码没有按历史验证候选排除，样本评分和归因不进入提取输入。
+
+公开证据检查：`python experiments/2026-10-24-a1/check_completion.py`。紧凑产物由 `package_evidence.py --results <external-results-root>` 汇总，不读取历史样本表或评分答案。

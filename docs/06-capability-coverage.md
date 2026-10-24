@@ -88,4 +88,4 @@
 
 实现与使用方式见 [P7 入口](../experiments/2026-10-24-p7/README.md)。
 
-下一阶段按[全仓自动发现与覆盖扩展计划](../plans/full-repository-plan.md)推进，先实现自动输入发现，再按本清单扩大机制支持。该计划尚未实施。
+后续按[全仓自动发现与覆盖扩展计划](../plans/full-repository-plan.md)推进。[A1](../experiments/2026-10-24-a1/completion.md)已完成自动输入发现与全仓基础提取，接下来在 A2 扩大连接；本页前述 191 文件语义图与计数保留为 P7 历史证据。

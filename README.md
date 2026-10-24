@@ -10,7 +10,7 @@
 
 P4 的自动刷新、失败恢复及历史记录版本关联已通过，[P5](experiments/2026-10-24-p5/completion.md)已验证 unit/flows 的正常、迟到、并发关联和故障断言。旧运行保留原版本；memoryUsage 的真实运行与资源占用尚未验证。计划和阶段边界见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)及[验收矩阵](plans/acceptance-matrix.md)。
 
-**下一阶段（规划）**：[全仓自动发现与覆盖扩展](plans/full-repository-plan.md)。首先自动生成 TS/C++ 分析范围，使新增模块、文件和接口进入分析流程，随后扩展关系连接、查询、留出测试与运行验证。
+**A1 全仓自动发现已完成**：[完成报告](experiments/2026-10-24-a1/completion.md)。全仓 4,855 个路径保留处理状态，自动纳入 2,256 个 TS/TSX、C++/头文件及 54 个构建清单，输出基础事实和候选。自动策略已接入刷新器；接下来按[扩展计划](plans/full-repository-plan.md)推进 A2 关系连接，A3–A5 分别验收查询、留出和运行能力。
 
 历史问题样本已确认[开发与验证划分](datasets/msinsight-regressions/split.md)：后续按 8 条开发样本推进，4 条关联回归单列，12 条验证候选暂不使用。
 

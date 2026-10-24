@@ -1,0 +1,166 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "tracked_files": 4855,
+  "module_groups": 29,
+  "eligible_sources": 2256,
+  "eligible_manifests": 54,
+  "statuses": {
+    "excluded": 2545,
+    "metadata_parsed": 52,
+    "metadata_with_diagnostics": 2,
+    "parsed": 2237,
+    "syntax_errors": 19
+  },
+  "reasons": {
+    "excluded_role:third_party": 4,
+    "file_size_budget": 38,
+    "not_source_or_build_manifest": 2310,
+    "unsupported_language": 193
+  },
+  "languages": {
+    "cmake": {
+      "tracked": 13,
+      "eligible_sources": 0,
+      "statuses": {
+        "metadata_parsed": 11,
+        "excluded": 2
+      }
+    },
+    "cpp": {
+      "tracked": 1323,
+      "eligible_sources": 1323,
+      "statuses": {
+        "parsed": 1304,
+        "syntax_errors": 19
+      }
+    },
+    "javascript": {
+      "tracked": 53,
+      "eligible_sources": 0,
+      "statuses": {
+        "excluded": 53
+      }
+    },
+    "python": {
+      "tracked": 119,
+      "eligible_sources": 0,
+      "statuses": {
+        "excluded": 119
+      }
+    },
+    "rust": {
+      "tracked": 13,
+      "eligible_sources": 0,
+      "statuses": {
+        "excluded": 13
+      }
+    },
+    "shell": {
+      "tracked": 8,
+      "eligible_sources": 0,
+      "statuses": {
+        "excluded": 8
+      }
+    },
+    "tsx": {
+      "tracked": 384,
+      "eligible_sources": 384,
+      "statuses": {
+        "parsed": 384
+      }
+    },
+    "typescript": {
+      "tracked": 549,
+      "eligible_sources": 549,
+      "statuses": {
+        "parsed": 549
+      }
+    }
+  },
+  "fact_counts": {
+    "symbols": 29050,
+    "calls": 114148,
+    "imports": 11179,
+    "resources": 17287,
+    "types": 3631,
+    "interfaces": 7716,
+    "registrations": 1655,
+    "entries": 308
+  },
+  "build_context_missing": 0,
+  "cpp_compile_context": "not_applied",
+  "complete_semantic_graph": false,
+  "evidence_kind": "executed_committed_tree_discovery_and_local_ast_extraction",
+  "schema_version": "repository-discovery/1",
+  "build_version": {
+    "rules_commit": "b345db2a0eb2fd47e123fc73bba207cae6f06cb9",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "policy": {
+    "version": 1,
+    "roles": [
+      "build_tool",
+      "product",
+      "test"
+    ],
+    "exclude": [],
+    "max_file_bytes": 2097152
+  },
+  "attempts": [
+    {
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "max_files": null,
+      "seconds": 1200.0,
+      "file_timeout": 30.0,
+      "processed": 2310,
+      "resume": false,
+      "retry_errors": false,
+      "elapsed_seconds": 45.453
+    }
+  ],
+  "publication": "file-local facts and full path status; no whole-repository cross-language graph claim",
+  "roles": {
+    "build_tool": {
+      "tracked": 132,
+      "eligible_sources": 0
+    },
+    "product": {
+      "tracked": 3659,
+      "eligible_sources": 1713
+    },
+    "test": {
+      "tracked": 1060,
+      "eligible_sources": 543
+    },
+    "third_party": {
+      "tracked": 4,
+      "eligible_sources": 0
+    }
+  },
+  "cpp_compile_commands_missing": 1323,
+  "ts_build_file_sets": {
+    "included_in_config_file_set": 931,
+    "outside_or_unresolved_config_file_sets": 2
+  },
+  "provenance": {
+    "input_kind": "git_committed_blobs",
+    "working_tree_included": false,
+    "file_hash_verification": "not_run_per_user_preference"
+  },
+  "module_group_origin": "nearest tracked package/CMake/TOML manifest; fallback top-level",
+  "raw_output": "results/a1-final-01 outside research Git; regenerate using README",
+  "definitions": {
+    "interfaces": "syntax interface/type members and virtual/declaration records; not a business API count",
+    "registrations": "AST calls with generic spelling hints; candidate only",
+    "resources": "member/top-level declaration candidates; not runtime allocation/occupancy",
+    "calls": "source call sites with unresolved targets",
+    "build_context_missing": "absence of nearby manifest; does not measure usable compiler context"
+  }
+}
