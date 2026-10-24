@@ -92,3 +92,20 @@ test('overwriting the API result field removes the former boundary projection',(
  const g=graph(source.replace('return result.body;', 'result.body=17;return result.body;'));
  const api=g.inputs.apiEntries[0];assert.deepEqual(g.returns.find(r=>r.entry===api&&r.source_symbol===api).value,{kind:'constant',value:17});
 });
+
+test('callback registration through an imported class retains cross-package reply packaging',()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'p3-return-units-'));
+ try{
+  const start=source.indexOf('const relay='),client=source.indexOf('const client=');
+  const library=source.slice(0,start).replaceAll('abstract class ','export abstract class ').replaceAll('\nclass ','\nexport class ');
+  const files={'shared/package.json':'{"name":"shared"}','host/package.json':'{"name":"host"}','client/package.json':'{"name":"client"}',
+    'shared/bridge.ts':library,'host/main.ts':"import {Relay,Socket} from '../shared/bridge';\n"+source.slice(start,client),
+    'client/main.ts':"import {Front} from '../shared/bridge';\n"+source.slice(client)};
+  for(const [name,body] of Object.entries(files)){fs.mkdirSync(path.dirname(path.join(dir,name)),{recursive:true});fs.writeFileSync(path.join(dir,name),body);}
+  const facts=analyze(ts,dir,Object.keys(files)),resolve=name=>facts.nodes.find(n=>n.kind==='callable'&&n.name===name).id;
+  const g=analyzeReturns(ts,dir,Object.keys(files),{boundarySymbols:['Front.fetch','Socket.fetch'].map(resolve),apiEntries:[resolve('api')],handoffSymbols:[resolve('Front.receive')]}).return_flow;
+  assert(g.callback_bindings.length,'imported callback setter must be discovered');
+  assert(g.transmissions.some(t=>t.entry===g.callback_bindings[0].entry));
+  assert.equal(new Set(g.returns.map(r=>r.id)).size,g.returns.length);
+ }finally{fs.rmSync(dir,{recursive:true,force:true});}
+});

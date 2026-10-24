@@ -562,11 +562,11 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   for(const [uid,entry] of entries)analyzeEntry(uid,entry);
   if(returnOnly){
     const setters=new Map(),registrations=[];
-    for(const n of ast.values())if(ts.isMethodDeclaration(n)&&n.body)ctx.walk(n.body,x=>{
+    for(const sf of ctx.dependencyFiles||ctx.sfList)ctx.walk(sf,n=>{if(ts.isMethodDeclaration(n)&&n.body)ctx.walk(n.body,x=>{
       if(ts.isBinaryExpression(x)&&x.operatorToken.kind===ts.SyntaxKind.EqualsToken&&ts.isPropertyAccessExpression(x.left)&&x.left.expression.kind===ts.SyntaxKind.ThisKeyword){
         const index=n.parameters.indexOf(decl(x.right));if(index>=0)setters.set(n,{slot:x.left.name.text,index,assignment:x});
       }
-    });
+    });});
     for(const call of ctx.calls){if(!ts.isCallExpression(call)||!ts.isPropertyAccessExpression(call.expression))continue;
       const rule=setters.get(target(call)),arg=rule&&call.arguments[rule.index];
       if(arg&&(ts.isArrowFunction(arg)||ts.isFunctionExpression(arg)))registrations.push({call,rule,arg,cls:ownerClass(target(call))});
