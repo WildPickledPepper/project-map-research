@@ -1,0 +1,26 @@
+{
+  "version":"p7-ai-gold/1",
+  "origin":"independent_source_audit_for_scoring_only",
+  "excluded_from_agent_inputs":true,
+  "scoring":"All required facts and relevant source/record citations must be correct; any omitted required fact, definite false connection or unknown promoted to certainty fails that task. First answers are preserved before remediation.",
+  "required":{
+    "T01":["192 selected graph inputs","4856 tracked files in structural inventory","at least one inventory module with not_expanded status","whole repository semantic coverage false"],
+    "T02":["getUnitFlows","QueryFlowsBySliceInfoHandler::HandleRequest","DbTraceDataBase::QueryUnitFlows","TextTraceDatabase::QueryUnitFlows","candidate selection depends on database/factory/runtime state","P5 Text observations do not validate all candidates"],
+    "T03":["memoryCurveGet","moduleName memory","MemoryModule registers QueryMemoryViewHandler","queryTimelineOffset maps to RankOffsetHandler","distinct scoped registrations"],
+    "T04":["hit Exist then ComputeCurve then response.data.lines","miss QueryCurveData then PutCurve then ComputeCurve","ordinary QueryMemoryView and comparison current+baseline queries","CurveContainer ComputeCurve/returned dataLines to serialized lines to resp.lines/lineChartData","source candidate conditions, no claim of runtime cache execution"],
+    "T05":["rankId, type, isCompare in GetRequestKey","start/end excluded from key","PutCurve writes key/title/legends/flatData; ComputeCurve reads; Clear clears; MemoryParse::Reset calls Clear","per-method mutex does not prove multi-call atomicity","logical clear does not prove capacity/RSS release; occupancy unknown","same member type does not prove runtime cache instance/key identity"],
+    "T06":["requestId !== requestIdRef.current returns before setLineChartData","CurveContainer.cpp reverse candidate impact reaches memoryCurveGet","candidate path source evidence","missing entries not proof of no impact"],
+    "T07":["normal adopts and passes","late discards old A after switching B and passes","fault deliberately bypasses guard and assertion fails","path difference alone not bug","P5 basis/snapshot differs from P7; no verification carried forward"],
+    "T08":["not_connected","P6 pending","applicability not evaluated","empty asset list not no-risk conclusion"],
+    "T09":["absent request not_extracted_or_not_an_interface means unknown","depth 0 displays depth_limit_reached","limit 1 displays truncated and next_offset","all are scope/expansion limits not independence proofs"],
+    "T10":["TextMemoryDataBase::QueryMemoryView reverse reaches memoryCurveGet","lines maps to lineChartData with request id guard","DB/Text candidates, cache hit/miss and comparison conditions","P5 runtime evidence belongs to unit/flows, memory branch execution/occupancy unobserved"]
+  },
+  "source_anchors":{
+    "T02":["modules/timeline/src/api/request.ts:174","server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp","server/src/modules/timeline/core/database/DbTraceDataBase2.cpp","server/src/modules/timeline/core/database/TextTraceDatabase.cpp"],
+    "T03":["modules/memory/src/utils/RequestUtils.ts:91","modules/memory/src/connection/index.ts:22","server/src/modules/memory/MemoryModule.cpp:47"],
+    "T04":["server/src/modules/memory/handler/QueryMemoryViewHandler.cpp:42","server/src/modules/memory/handler/QueryMemoryViewHandler.cpp:50","server/src/modules/memory/parser/CurveContainer.cpp:21","modules/memory/src/components/DynamicLineChart.tsx:129"],
+    "T05":["server/src/modules/memory/protocol/MemoryProtocolRequest.h:255","server/src/modules/memory/parser/CurveContainer.cpp:64","server/src/modules/memory/parser/MemoryParse.cpp:427"],
+    "T06":["modules/memory/src/components/DynamicLineChart.tsx:106"],
+    "T07":["runtime.json"]
+  }
+}
