@@ -1,0 +1,394 @@
+{
+  "evidence_kind": "executed_frozen_rule_held_out_chain_scoring",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "snapshot": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:ef242c0908344ae8ae99918ac4bd75d0",
+  "build_version": {
+    "rules_commit": "23f86e81ca7a1cf1979ad1b9489901c91b97dc22",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "reference_source": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "reference_used_for_extraction": false,
+  "protocol_commit": "379da8d",
+  "cases": [
+    {
+      "id": "cluster-iterations",
+      "api": "queryIterations",
+      "module": "cluster",
+      "expected_command": "communication/duration/iterations",
+      "expected_handler": "IterationsHandler::HandleRequest",
+      "protocol_outcome": "identified_unknown",
+      "correct_pairs": 0,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:ba57101966ee75154906df3a",
+          "name": "queryIterations",
+          "message": "protocol:ts:ba57101966ee75154906df3a:message:0",
+          "status": "unknown"
+        },
+        {
+          "consumer": "protocol:ts:ba57101966ee75154906df3a",
+          "name": "queryIterations",
+          "message": "protocol:ts:ba57101966ee75154906df3a:message:1",
+          "status": "unknown"
+        }
+      ],
+      "actual_pairs": [],
+      "gaps": [
+        "request_not_connected_to_expected_provider"
+      ]
+    },
+    {
+      "id": "cluster-stages",
+      "api": "queryStages",
+      "module": "cluster",
+      "expected_command": "communication/matrix/group",
+      "expected_handler": "GroupHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": false,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:369eb7f6e9d0856e2733c575",
+          "name": "<lambda@64:5>",
+          "message": "protocol:ts:369eb7f6e9d0856e2733c575:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:5996d3f3a2b3203be1cfcdd4:registry:d413345942e26e0c4bdcccbd",
+          "command": "communication/matrix/group",
+          "scope": [
+            "communication"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:fbf85a87e25e7e5f5460580f",
+              "name": "Dic::Module::Communication::GroupHandler::HandleRequest",
+              "path": "server/src/modules/communication/handler/GroupHandler.cpp",
+              "line": 30
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [
+        "expected_frontend_consumer_not_fully_connected"
+      ],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:70871008d19ea1bab3aae6c7",
+            "name": "Dic::Module::Communication::ClusterService::QueryGroupInfo",
+            "path": "server/src/modules/communication/core/ClusterService.cpp",
+            "line": 217
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "return_links": 0,
+      "states": [],
+      "expected_state_connected": false,
+      "consumer_contract": {
+        "path": "modules/cluster/src/components/communication/Filter.tsx",
+        "symbol_or_handoff": "getStageOptions",
+        "expected_state": null,
+        "status": "helper_return_or_worker_handoff_not_scored_as_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "spread_source_not_expanded": 1,
+        "unresolved_call_with_input_argument": 4,
+        "exception_paths_not_expanded": 1,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2
+      }
+    },
+    {
+      "id": "operator-category",
+      "api": "queryOperatorCategory",
+      "module": "operator",
+      "expected_command": "operator/category",
+      "expected_handler": "QueryOpCategoryInfoHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:edf0710c78ee691632db65b3",
+          "name": "queryOperatorCategory",
+          "message": "protocol:ts:edf0710c78ee691632db65b3:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:cf0f01c108db1321b2fcc6c0:registry:09a8db0b3f5412ba374ff5af",
+          "command": "operator/category",
+          "scope": [
+            "operator"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:6017b75e376a4218ea4c8a7b",
+              "name": "Dic::Module::Operator::QueryOpCategoryInfoHandler::HandleRequest",
+              "path": "server/src/modules/operator/handler/QueryOpCategoryInfoHandler.cpp",
+              "line": 28
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [
+        "expected_frontend_consumer_not_fully_connected"
+      ],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:dc65477a2fe932540a8e235d",
+            "name": "Dic::Module::FullDb::DbSummaryDataBase::QueryOperatorDurationInfo",
+            "path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+            "line": 189
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "return_links": 0,
+      "states": [],
+      "expected_state_connected": false,
+      "consumer_contract": {
+        "path": "modules/operator/src/components/operator/DetailChart.tsx",
+        "symbol_or_handoff": "updateOpTypeData",
+        "expected_state": "opTypeData",
+        "status": "unresolved_expected_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "unresolved_call_with_input_argument": 4,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "exception_paths_not_expanded": 1
+      }
+    },
+    {
+      "id": "operator-compute",
+      "api": "queryOperatorComputeUnit",
+      "module": "operator",
+      "expected_command": "operator/compute_unit",
+      "expected_handler": "QueryOpComputeUnitHandler::HandleRequest",
+      "protocol_outcome": "correct_unique_conditional",
+      "correct_pairs": 1,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:0a205e9dadfcb2362b431d89",
+          "name": "queryOperatorComputeUnit",
+          "message": "protocol:ts:0a205e9dadfcb2362b431d89:message:0",
+          "status": "matched_conditional"
+        }
+      ],
+      "actual_pairs": [
+        {
+          "provider": "provider:registry:d5f10336f6f54a3fa209a7b2:registry:3a17898d95a06ac8acdc2ec9",
+          "command": "operator/compute_unit",
+          "scope": [
+            "operator"
+          ],
+          "handlers": [
+            {
+              "id": "cpp:0532c74b7e9545c8faf450fb",
+              "name": "Dic::Module::Operator::QueryOpComputeUnitHandler::HandleRequest",
+              "path": "server/src/modules/operator/handler/QueryOpComputeUnitHandler.cpp",
+              "line": 28
+            }
+          ],
+          "correct": true,
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": []
+        }
+      ],
+      "gaps": [
+        "expected_serialized_field_relation_missing",
+        "expected_frontend_consumer_not_fully_connected"
+      ],
+      "request_forward": true,
+      "request_reverse": true,
+      "producers": [
+        {
+          "producer": {
+            "id": "cpp:dc65477a2fe932540a8e235d",
+            "name": "Dic::Module::FullDb::DbSummaryDataBase::QueryOperatorDurationInfo",
+            "path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+            "line": 189
+          },
+          "forward": true,
+          "reverse": true,
+          "forward_depth_cut": false,
+          "reverse_depth_cut": false
+        }
+      ],
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": false,
+      "return_links": 0,
+      "states": [],
+      "expected_state_connected": false,
+      "consumer_contract": {
+        "path": "modules/operator/src/components/operator/DetailChart.tsx",
+        "symbol_or_handoff": "updateComputeData",
+        "expected_state": "computeData",
+        "status": "unresolved_expected_state"
+      },
+      "query_truncated": false,
+      "return_gap_kinds": {
+        "unresolved_call_with_input_argument": 4,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "exception_paths_not_expanded": 1
+      }
+    },
+    {
+      "id": "leaks-blocks",
+      "api": "getBlocksGraphData",
+      "module": "leaks",
+      "expected_command": "Memory/leaks/blocks",
+      "expected_handler": "QueryMemScopeBlockHandler::HandleRequest",
+      "protocol_outcome": "unmatched_expected_provider",
+      "correct_pairs": 0,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:86d528c3b6beb5eb52540403",
+          "name": "getBlocksGraphData",
+          "message": "protocol:ts:86d528c3b6beb5eb52540403:message:0",
+          "status": "unmatched"
+        }
+      ],
+      "actual_pairs": [],
+      "gaps": [
+        "request_not_connected_to_expected_provider"
+      ]
+    },
+    {
+      "id": "leaks-allocations",
+      "api": "getLeaksAllocationsData",
+      "module": "leaks",
+      "expected_command": "Memory/leaks/allocations",
+      "expected_handler": "QueryMemScopeAllocationHandler::HandleRequest",
+      "protocol_outcome": "unmatched_expected_provider",
+      "correct_pairs": 0,
+      "wrong_pairs": 0,
+      "export_alias_name_present": true,
+      "consumer_results": [
+        {
+          "consumer": "protocol:ts:030ae5d6790506cb3e34dc23",
+          "name": "getLeaksAllocationsData",
+          "message": "protocol:ts:030ae5d6790506cb3e34dc23:message:0",
+          "status": "unmatched"
+        }
+      ],
+      "actual_pairs": [],
+      "gaps": [
+        "request_not_connected_to_expected_provider"
+      ]
+    }
+  ],
+  "protocol_outcomes": {
+    "identified_unknown": 1,
+    "correct_unique_conditional": 3,
+    "unmatched_expected_provider": 2
+  },
+  "counts": {
+    "references": 6,
+    "scored": 6,
+    "wrong_protocol_pairs": 0,
+    "correct_protocol_pairs": 3,
+    "missing_expected_protocol_pairs": 3,
+    "producer_forward_paths": 3,
+    "producer_reverse_paths": 3,
+    "serialized_field_relations": 2,
+    "return_state_relations": 0,
+    "state_reference_denominator": 2
+  },
+  "elapsed_seconds": 17.6049,
+  "scope": "source-rule holdout; existing whole-repository inputs were previously extracted; not strict blind or runtime validation",
+  "file_hash_verification": "not_run_per_user_preference"
+}

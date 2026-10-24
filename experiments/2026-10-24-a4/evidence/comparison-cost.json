@@ -1,0 +1,12 @@
+{
+  "elapsed_seconds": 18.2192,
+  "exit_code": 0,
+  "status": "passed",
+  "stop_reason": null,
+  "peak_tree_working_set_bytes_observed": 6993965056,
+  "output_bytes": 1055,
+  "process_budgets": {
+    "seconds": 180,
+    "working_set_bytes": 10737418240
+  }
+}

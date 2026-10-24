@@ -1,0 +1,196 @@
+{
+  "evidence_kind": "executed_authored_real_refresher_and_navigation_updates",
+  "fixture_origin": "authored_existing_property_binding_mechanism",
+  "build_version": {
+    "rules_commit": "23f86e81ca7a1cf1979ad1b9489901c91b97dc22",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "checks": {
+    "baseline_protocol_matches": true,
+    "new_module_and_interface_discovered": true,
+    "old_cursor_rejected_by_new_snapshot": true,
+    "renamed_interface_reconnects": true,
+    "old_paths_have_no_nodes": true,
+    "deleted_provider_invalidates_consumer": true,
+    "other_service_remains_matched": true,
+    "deleted_source_has_no_nodes": true,
+    "failed_update_retains_old_publication": true,
+    "old_snapshot_readable_after_failure": true,
+    "configuration_recovery_reuses_complete_snapshot": true,
+    "dirty_worktree_not_included": true,
+    "fresh_rebuild_equals_updated_graph": true
+  },
+  "passed": true,
+  "cases": {
+    "baseline": {
+      "source_commit": "07889ff26612720939611f0809a4ae536ed76885",
+      "snapshot": "07889ff26612720939611f0809a4ae536ed76885:full:1b32c7d1deb04ed1a299c54d2e6437f4",
+      "inputs": [
+        "back-one/CMakeLists.txt",
+        "back-one/provider.cpp",
+        "front-one/api.ts",
+        "front-one/package.json"
+      ],
+      "entries": [
+        {
+          "seq": 1,
+          "node": "protocol:ts:febb77255e945cee312ac6c9:message:0",
+          "name": "entry",
+          "status": "matched_conditional",
+          "matches": 1,
+          "unknown_identities": 0,
+          "detail": {
+            "entity": "entry",
+            "id": 1
+          }
+        }
+      ],
+      "modules": 2,
+      "nodes": 110,
+      "edges": 118
+    },
+    "module_added": {
+      "source_commit": "7454ec3f70b66186af84a959e999e1a83274fe13",
+      "snapshot": "7454ec3f70b66186af84a959e999e1a83274fe13:full:315c4b44d07c42f08f92d7c5cb1e955e",
+      "inputs": [
+        "back-one/CMakeLists.txt",
+        "back-one/provider.cpp",
+        "back-two/CMakeLists.txt",
+        "back-two/provider.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-two/api.ts",
+        "front-two/package.json"
+      ],
+      "entries": [
+        {
+          "seq": 1,
+          "node": "protocol:ts:febb77255e945cee312ac6c9:message:0",
+          "name": "entry",
+          "status": "matched_conditional",
+          "matches": 1,
+          "unknown_identities": 0,
+          "detail": {
+            "entity": "entry",
+            "id": 1
+          }
+        },
+        {
+          "seq": 2,
+          "node": "protocol:ts:e750680f585c442c686e506b:message:0",
+          "name": "entry",
+          "status": "matched_conditional",
+          "matches": 1,
+          "unknown_identities": 0,
+          "detail": {
+            "entity": "entry",
+            "id": 2
+          }
+        }
+      ],
+      "modules": 4,
+      "nodes": 220,
+      "edges": 236
+    },
+    "renamed": {
+      "source_commit": "1bd3d24efe75727c99a79a8b4b2f6374c6c92588",
+      "snapshot": "1bd3d24efe75727c99a79a8b4b2f6374c6c92588:full:1538c9b23d244fcb996f971c0f44a5cc",
+      "inputs": [
+        "back-one/CMakeLists.txt",
+        "back-one/provider.cpp",
+        "back-two/CMakeLists.txt",
+        "back-two/renamed.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-two/client.ts",
+        "front-two/package.json"
+      ],
+      "entries": [
+        {
+          "seq": 1,
+          "node": "protocol:ts:febb77255e945cee312ac6c9:message:0",
+          "name": "entry",
+          "status": "matched_conditional",
+          "matches": 1,
+          "unknown_identities": 0,
+          "detail": {
+            "entity": "entry",
+            "id": 1
+          }
+        },
+        {
+          "seq": 2,
+          "node": "protocol:ts:a703f33b8a5041f9b162f0ba:message:0",
+          "name": "renamedEntry",
+          "status": "matched_conditional",
+          "matches": 1,
+          "unknown_identities": 0,
+          "detail": {
+            "entity": "entry",
+            "id": 2
+          }
+        }
+      ],
+      "modules": 4,
+      "nodes": 220,
+      "edges": 236
+    },
+    "provider_deleted": {
+      "source_commit": "3fe3576f94cb219a0d70e33b3b8de4645aa8a2d4",
+      "snapshot": "3fe3576f94cb219a0d70e33b3b8de4645aa8a2d4:full:209039333c8d4ffe847db934905c7b08",
+      "inputs": [
+        "back-one/CMakeLists.txt",
+        "back-one/provider.cpp",
+        "back-two/CMakeLists.txt",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-two/client.ts",
+        "front-two/package.json"
+      ],
+      "entries": [
+        {
+          "seq": 1,
+          "node": "protocol:ts:febb77255e945cee312ac6c9:message:0",
+          "name": "entry",
+          "status": "matched_conditional",
+          "matches": 1,
+          "unknown_identities": 0,
+          "detail": {
+            "entity": "entry",
+            "id": 1
+          }
+        },
+        {
+          "seq": 2,
+          "node": "protocol:ts:a703f33b8a5041f9b162f0ba:message:0",
+          "name": "renamedEntry",
+          "status": "unmatched",
+          "matches": 0,
+          "unknown_identities": 0,
+          "detail": {
+            "entity": "entry",
+            "id": 2
+          }
+        }
+      ],
+      "modules": 4,
+      "nodes": 121,
+      "edges": 128
+    }
+  },
+  "event_counts": {
+    "failed": 1,
+    "unchanged": 2,
+    "published": 4,
+    "building": 4
+  },
+  "comparison": "direct JSON equality excluding only snapshot and version.snapshot; no hash verification",
+  "historical_candidates_used_for_rules": false
+}

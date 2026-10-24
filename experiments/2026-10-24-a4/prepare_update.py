@@ -23,7 +23,7 @@ def prepare(source, output):
     subprocess.run(['git', 'clone', '--no-hardlinks', '--no-checkout', str(source.resolve()), str(repo)], check=True, capture_output=True)
     def git(*args):
         return subprocess.check_output(['git', '-C', str(repo), *args], stderr=subprocess.PIPE).decode().strip()
-    git('checkout', '--detach', BASE)
+    git('-c', 'core.autocrlf=false', 'checkout', '--detach', BASE)
     git('config', 'user.name', 'A4 authored updates')
     git('config', 'user.email', 'test@example.invalid')
     git('config', 'core.autocrlf', 'false')
@@ -33,7 +33,7 @@ def prepare(source, output):
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(text, encoding='utf-8', newline='\n')
     def publish(message):
-        git('add', '-A')
+        git('add', '--', 'a4_client', 'a4_server')
         git('commit', '-qm', message)
         return git('rev-parse', 'HEAD')
     write('a4_client/package.json', '{"name":"a4-authored-client","private":true}\n')
@@ -54,9 +54,14 @@ def prepare(source, output):
     config = json.loads((ROOT/'experiments/2026-10-24-a1/evidence/auto-config.json').read_text(encoding='utf-8'))
     config['deployment']['services'].append({'id': 'a4-authored', 'consumer_paths': ['a4_client'], 'provider_paths': ['a4_server']})
     (output/'config.json').write_text(json.dumps(config, indent=2)+'\n', encoding='utf-8')
+    changed_paths = git('diff', '--name-only', BASE, deleted).splitlines()
+    expected = ['a4_client/constant.ts', 'a4_client/package.json', 'a4_client/request.ts',
+        'a4_server/CMakeLists.txt', 'a4_server/renamed.cpp']
+    if changed_paths != expected:
+        raise ValueError('Experimental source change escaped the authored five-file scope')
     result = {'evidence_kind': 'executed_isolated_product_source_mutations', 'base': BASE,
         'commits': {'added': added, 'renamed': renamed, 'provider_deleted': deleted},
-        'final_revision': deleted, 'changed_paths': git('diff', '--name-only', BASE, deleted).splitlines(),
+        'final_revision': deleted, 'changed_paths': changed_paths,
         'fixture_origin': 'authored_protocol_fixture_not_historical_sample', 'upstream_push': 'disabled',
         'file_hash_verification': 'not_run_per_user_preference'}
     (output/'preparation.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8')

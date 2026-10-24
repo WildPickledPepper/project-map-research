@@ -1,0 +1,267 @@
+{
+  "evidence_kind": "executed_phase_and_index_inspection",
+  "request_records": [
+    {
+      "id": "cluster-iterations",
+      "source_call": {
+        "path": "modules/cluster/src/utils/RequestUtils.ts",
+        "line": 55
+      },
+      "source_consumers": [
+        {
+          "name": "queryIterations",
+          "status": "transport_found",
+          "socket_payloads": [
+            {
+              "moduleName": {
+                "state": "unknown",
+                "reason": "binary_runtime"
+              },
+              "command": {
+                "state": "unknown",
+                "reason": "unsupported_expression"
+              }
+            },
+            {
+              "moduleName": {
+                "state": "unknown",
+                "reason": "binary_runtime"
+              },
+              "command": {
+                "state": "unknown",
+                "reason": "unsupported_expression"
+              }
+            }
+          ]
+        }
+      ],
+      "provider_candidates_for_source_command": 1,
+      "provider_paths": [
+        "server/src/modules/communication/CommunicationModule.cpp"
+      ]
+    },
+    {
+      "id": "cluster-stages",
+      "source_call": {
+        "path": "modules/cluster/src/utils/RequestUtils.ts",
+        "line": 65
+      },
+      "source_consumers": [
+        {
+          "name": "<lambda@64:5>",
+          "status": "transport_found",
+          "socket_payloads": [
+            {
+              "moduleName": {
+                "state": "constant",
+                "value": "communication"
+              },
+              "command": {
+                "state": "constant",
+                "value": "communication/matrix/group"
+              }
+            }
+          ]
+        }
+      ],
+      "provider_candidates_for_source_command": 1,
+      "provider_paths": [
+        "server/src/modules/communication/CommunicationModule.cpp"
+      ]
+    },
+    {
+      "id": "operator-category",
+      "source_call": {
+        "path": "modules/operator/src/components/RequestUtils.ts",
+        "line": 47
+      },
+      "source_consumers": [
+        {
+          "name": "queryOperatorCategory",
+          "status": "transport_found",
+          "socket_payloads": [
+            {
+              "moduleName": {
+                "state": "constant",
+                "value": "operator"
+              },
+              "command": {
+                "state": "constant",
+                "value": "operator/category"
+              }
+            }
+          ]
+        }
+      ],
+      "provider_candidates_for_source_command": 1,
+      "provider_paths": [
+        "server/src/modules/operator/OperatorModule.cpp"
+      ]
+    },
+    {
+      "id": "operator-compute",
+      "source_call": {
+        "path": "modules/operator/src/components/RequestUtils.ts",
+        "line": 59
+      },
+      "source_consumers": [
+        {
+          "name": "queryOperatorComputeUnit",
+          "status": "transport_found",
+          "socket_payloads": [
+            {
+              "moduleName": {
+                "state": "constant",
+                "value": "operator"
+              },
+              "command": {
+                "state": "constant",
+                "value": "operator/compute_unit"
+              }
+            }
+          ]
+        }
+      ],
+      "provider_candidates_for_source_command": 1,
+      "provider_paths": [
+        "server/src/modules/operator/OperatorModule.cpp"
+      ]
+    },
+    {
+      "id": "leaks-blocks",
+      "source_call": {
+        "path": "modules/leaks/src/features/memscope/api/requests.ts",
+        "line": 24
+      },
+      "source_consumers": [
+        {
+          "name": "getBlocksGraphData",
+          "status": "transport_found",
+          "socket_payloads": [
+            {
+              "moduleName": {
+                "state": "constant",
+                "value": "leaks"
+              },
+              "command": {
+                "state": "constant",
+                "value": "Memory/leaks/blocks"
+              }
+            }
+          ]
+        }
+      ],
+      "provider_candidates_for_source_command": 0,
+      "provider_paths": []
+    },
+    {
+      "id": "leaks-allocations",
+      "source_call": {
+        "path": "modules/leaks/src/features/memscope/api/requests.ts",
+        "line": 28
+      },
+      "source_consumers": [
+        {
+          "name": "getLeaksAllocationsData",
+          "status": "transport_found",
+          "socket_payloads": [
+            {
+              "moduleName": {
+                "state": "constant",
+                "value": "leaks"
+              },
+              "command": {
+                "state": "constant",
+                "value": "Memory/leaks/allocations"
+              }
+            }
+          ]
+        }
+      ],
+      "provider_candidates_for_source_command": 0,
+      "provider_paths": []
+    }
+  ],
+  "operator_frontend_facts": [
+    {
+      "kind": "frontend_field_read",
+      "name": "data",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 161
+    },
+    {
+      "kind": "api_result_field",
+      "name": "data",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 155
+    },
+    {
+      "kind": "frontend_field_read",
+      "name": "data/map",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 161
+    },
+    {
+      "kind": "api_result_field",
+      "name": "data/map",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 155
+    },
+    {
+      "kind": "frontend_field_read",
+      "name": "data",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 174
+    },
+    {
+      "kind": "api_result_field",
+      "name": "data",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 168
+    },
+    {
+      "kind": "frontend_field_read",
+      "name": "data/map",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 174
+    },
+    {
+      "kind": "api_result_field",
+      "name": "data/map",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 168
+    },
+    {
+      "kind": "frontend_state_path",
+      "name": "opTypeData",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 137
+    },
+    {
+      "kind": "frontend_state_write",
+      "name": "opTypeData",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 137
+    },
+    {
+      "kind": "frontend_state_path",
+      "name": "computeData",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 138
+    },
+    {
+      "kind": "frontend_state_write",
+      "name": "computeData",
+      "path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "line": 138
+    }
+  ],
+  "interpretation": [
+    "debounced iteration command/module values remain unknown",
+    "group request exists under an anonymous callback identity",
+    "two templated MemScope request registrations produce no provider candidates",
+    "operator response reads and reset writes exist; expected mapped-data state writes are not linked",
+    "compute-unit serialized field relation missing in the response query"
+  ],
+  "cause_scope": "these are observed facts; exact missing semantic models require separate focused controls"
+}

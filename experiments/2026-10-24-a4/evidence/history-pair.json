@@ -1,0 +1,116 @@
+{
+  "evidence_kind": "executed_historical_before_after_cpp_fact_extraction",
+  "historical_record": 24,
+  "selection": "all product C++ files changed by the pinned fix",
+  "versions": {
+    "before": {
+      "source_commit": "1c326759c49acfd04cf3a078e4b16d7ffad97c08",
+      "input_paths": [
+        "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+        "server/src/modules/timeline/handler/ImportActionHandler.cpp"
+      ],
+      "nodes": 540,
+      "edges": 501,
+      "coverage": [
+        {
+          "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+          "status": "parsed"
+        },
+        {
+          "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+          "status": "parsed"
+        }
+      ],
+      "numa_calls": [
+        {
+          "call": {
+            "id": "cpp:45a02cbd6def5b0bee69619f",
+            "kind": "call_site",
+            "name": "HasNumaData",
+            "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+            "line": 162
+          },
+          "owners": [
+            {
+              "id": "cpp:24f7ed6b30d146f052d746bc",
+              "name": "ImportActionHandler::TransferProject",
+              "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+              "line": 128
+            }
+          ],
+          "target_edges": []
+        },
+        {
+          "call": {
+            "id": "cpp:1e02c8f5c752eab8976285ad",
+            "kind": "call_site",
+            "name": "HasNumaData",
+            "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+            "line": 195
+          },
+          "owners": [
+            {
+              "id": "cpp:48b34f35a5be1af7a1522ac7",
+              "name": "ImportActionHandler::ImportFile",
+              "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+              "line": 168
+            }
+          ],
+          "target_edges": []
+        }
+      ]
+    },
+    "after": {
+      "source_commit": "a46417e1888f3f1c1c9007daa402aefad6123f66",
+      "input_paths": [
+        "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+        "server/src/modules/timeline/handler/ImportActionHandler.cpp"
+      ],
+      "nodes": 539,
+      "edges": 500,
+      "coverage": [
+        {
+          "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+          "status": "parsed"
+        },
+        {
+          "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+          "status": "parsed"
+        }
+      ],
+      "numa_calls": [
+        {
+          "call": {
+            "id": "cpp:dab12e23fd7c0f1cc8e5b776",
+            "kind": "call_site",
+            "name": "HasNumaData",
+            "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+            "line": 163
+          },
+          "owners": [
+            {
+              "id": "cpp:7ca4f02c3e435f9515fc7231",
+              "name": "Dic::Module::ProjectParserDb::Parser",
+              "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+              "line": 130
+            }
+          ],
+          "target_edges": []
+        }
+      ]
+    }
+  },
+  "checks": {
+    "two_general_import_calls_before": true,
+    "one_db_parser_call_after": true,
+    "general_import_direct_calls_removed": true,
+    "all_three_calls_have_source_owner": true
+  },
+  "passed": true,
+  "limits": [
+    "two-file changed-source fact scope",
+    "external receiver targets and complete downstream chain not validated here",
+    "TEXT cache corruption and timing require runtime evidence"
+  ],
+  "runtime_reproduced": false
+}

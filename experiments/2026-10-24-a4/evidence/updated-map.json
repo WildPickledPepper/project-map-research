@@ -1,0 +1,53 @@
+{
+  "evidence_kind": "executed_full_product_update_and_navigation_queries",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "snapshot": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:ef242c0908344ae8ae99918ac4bd75d0",
+  "counts": {
+    "tracked_files": 4860,
+    "input_files": 2315,
+    "modules": 31,
+    "nodes": 271837,
+    "edges": 386207,
+    "entries": 136,
+    "diagnostic_records": 33162,
+    "providers": 110,
+    "module_relation_groups": 143
+  },
+  "checks": {
+    "updated_commit_matches": true,
+    "all_five_new_inputs_present": true,
+    "module_and_input_denominators_updated": true,
+    "renamed_source_symbol_present": true,
+    "deleted_or_renamed_provider_paths_absent": true,
+    "renamed_provider_identity_present": true,
+    "deleted_provider_identity_absent": true,
+    "old_cursor_rejected": true,
+    "old_snapshot_still_readable": true
+  },
+  "update_fidelity_passed": true,
+  "protocol_discovery_checks": {
+    "new_direct_socket_consumer_discovered": false,
+    "retired_direct_socket_consumer_reported_unmatched": false
+  },
+  "protocol_discovery_passed": false,
+  "direct_socket_sends_found": [
+    {
+      "id": "ts:3c5f3b6c40317843e2a0879e/ts:67a3ae58e514b40ff62c741b:0:unit:a4_client%3Aproduct",
+      "kind": "source_socket_send",
+      "name": "source_socket_send",
+      "path": "a4_client/request.ts",
+      "line": 3
+    },
+    {
+      "id": "ts:f661d2a66f3c42b7f38db61e/ts:1af1d064cd1226a34d151cb3:1:unit:a4_client%3Aproduct",
+      "kind": "source_socket_send",
+      "name": "source_socket_send",
+      "path": "a4_client/request.ts",
+      "line": 4
+    }
+  ],
+  "new_protocol_entries": [],
+  "retired_protocol_entries": [],
+  "gap": "socket facts exist but direct exported sends are not seeded as protocol consumers",
+  "file_hash_verification": "not_run_per_user_preference"
+}

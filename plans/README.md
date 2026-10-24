@@ -4,7 +4,7 @@
 
 [P5 真实运行验证已完成](../experiments/2026-10-24-p5/completion.md)，R01–R06 通过。P4 的 U01–U04、U06 通过，U05 不适用，见 [完成报告](../experiments/2026-10-23-p4/completion.md)。P7 提前交付不依赖外部资产的地图与查询，M3 联合验收仍等待 P6。
 
-**A1–A3 已完成，A4–A5 待实施**：[全仓自动发现与覆盖扩展](full-repository-plan.md)。自动策略已接入输入选择与刷新器；2,256 个源码和 54 个清单完成基础提取及关系图构建，见 [A1 报告](../experiments/2026-10-24-a1/completion.md)和 [A2 报告](../experiments/2026-10-24-a2/completion.md)。[A3](../experiments/2026-10-24-a3/completion.md)已交付同一事实集上的可展开地图、查询预算与源码导航。下一步按约定验收留出及运行能力，历史验证候选等待用户启动。P6 真实资产接入可独立并行。
+**A1–A3 已完成；A4 首轮评估完成，连通性门槛未通过；A5 待实施**：[全仓自动发现与覆盖扩展](full-repository-plan.md)。[A1](../experiments/2026-10-24-a1/completion.md)和 [A2](../experiments/2026-10-24-a2/completion.md)完成自动输入、基础提取及关系构建，[A3](../experiments/2026-10-24-a3/completion.md)交付地图与查询。[A4 首轮](../experiments/2026-10-24-a4/report.md)完成新模块、历史候选和更新评价，发现直接传输入口、延迟值源、模板解码及返回消费缺口；优先按[修正计划](../experiments/2026-10-24-a4/repair-plan.md)复验。P6 真实资产接入可独立并行。
 
 ## 要交付什么
 

@@ -1,0 +1,29 @@
+{
+  "evidence_kind": "executed_full_graph_controller_publication_validation",
+  "navigation_or_runtime_claim": false,
+  "build_version": {
+    "rules_commit": "23f86e81ca7a1cf1979ad1b9489901c91b97dc22",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "measured": {
+    "elapsed_seconds": 23.8359,
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "peak_tree_working_set_bytes_observed": 5339529216,
+    "output_bytes": 45,
+    "process_budgets": {
+      "seconds": 180,
+      "working_set_bytes": 6442450944
+    }
+  },
+  "scope": "controller validation only; no new extraction or publication was performed",
+  "file_hash_verification": "not_run_per_user_preference"
+}

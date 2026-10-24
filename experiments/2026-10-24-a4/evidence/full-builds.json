@@ -1,0 +1,39 @@
+{
+  "evidence_kind": "executed_full_scope_builds_on_updated_product_copy",
+  "runs": [
+    {
+      "evidence_kind": "executed_full_scope_versioned_builder",
+      "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "elapsed_seconds": 741.172,
+      "budgets": {
+        "wall_seconds": 1800.0,
+        "process_tree_working_set_bytes": 6442450944,
+        "node_heap_mib": 3072
+      },
+      "peak_tree_working_set_bytes_observed": 4523700224,
+      "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+      "raw_artifacts": "process.log and build/ retained outside research Git",
+      "file_hash_verification": "not_run_per_user_preference"
+    },
+    {
+      "evidence_kind": "executed_full_scope_versioned_builder",
+      "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "elapsed_seconds": 763.734,
+      "budgets": {
+        "wall_seconds": 1800.0,
+        "process_tree_working_set_bytes": 6442450944,
+        "node_heap_mib": 3072
+      },
+      "peak_tree_working_set_bytes_observed": 4713529344,
+      "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+      "raw_artifacts": "process.log and build/ retained outside research Git",
+      "file_hash_verification": "not_run_per_user_preference"
+    }
+  ]
+}

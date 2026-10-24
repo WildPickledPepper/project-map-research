@@ -1,0 +1,1972 @@
+{
+  "evidence_kind": "executed_historical_git_version_and_current_graph_inventory_audit",
+  "authorization": "user requested A4; protocol frozen at 379da8d before targeted inspection",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+  "records": [
+    {
+      "id": 4,
+      "original_row": "8",
+      "fix_request": 1026,
+      "family": "leaks_shared_drawing_4_6",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/1026",
+        "issue": "https://gitcode.com/Ascend/msinsight/issues/511（[Bug]: 【insight】内存工程切换图层管理显示设置未被初始化）",
+        "introduced_request": "!986；!996；!963",
+        "reported_symptom": "切换项目或重新挂载后，沿用旧图层和缩放状态",
+        "reported_cause": "!986将previousDataContextKeyRef初始化为当前key，首次挂载跳过重置；!996新增图层状态，!963新增缩放状态。!1026把初始key改为null，并统一重置UI、Worker可见性和变换。",
+        "scenario": "Leaks，MemoryBlockDiagram 与 Session/Worker 状态同步。\n具体触发条件：先隐藏块/折线/标记或缩放，再导入另一份数据，复用全局 Worker。",
+        "limits": "同一Issue有三个状态来源：图层选!996，首次挂载选!986，缩放选!963；分别选定子场景后可回退。\n纳入：按图层/首次挂载/缩放拆样本。",
+        "source_evidence": "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx:174 @ 76d8f65ce71f — const defaultXZoomMode = false;\nhttps://gitcode.com/Ascend/msinsight/pull/986\nhttps://gitcode.com/Ascend/msinsight/pull/996\nhttps://gitcode.com/Ascend/msinsight/pull/963"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "65fae2adae63d5779ee4441487b87c54a692eacd",
+            "commit": "65fae2adae63d5779ee4441487b87c54a692eacd"
+          },
+          {
+            "given": "665d4b9580c7b3e87d94ebd97a91f3458b2b1db2",
+            "commit": "665d4b9580c7b3e87d94ebd97a91f3458b2b1db2"
+          },
+          {
+            "given": "76d8f65ce71f5410eb8badd62acb85714661bbd3",
+            "commit": "76d8f65ce71f5410eb8badd62acb85714661bbd3"
+          }
+        ],
+        "pre_fix_first_parent": "1ec271a67311b1cf5ba0076aef976a1bd7cb4378",
+        "fixed_merge": "2595552419e7fd016d02aae8a1fc19571318dfcc",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx",
+          "modules/leaks/src/components/leaks/__tests__/MemoryBlockDiagram.test.tsx"
+        ],
+        "added_lines": 130,
+        "removed_lines": 19,
+        "raw_patch": "4-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 32,
+            "call_site": 210,
+            "callable": 71
+          }
+        },
+        {
+          "path": "modules/leaks/src/components/leaks/__tests__/MemoryBlockDiagram.test.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/components/leaks/__tests__/MemoryBlockDiagram.test.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 29,
+            "call_site": 263,
+            "callable": 55
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 6,
+      "original_row": "13",
+      "fix_request": 1105,
+      "family": "leaks_shared_drawing_4_6",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/1105",
+        "issue": "https://gitcode.com/Ascend/msinsight/issues/550（[Bug]: 【insight】memscop数据支持整卡内存曲线图隐藏功能未实现）",
+        "introduced_request": "!1045",
+        "reported_symptom": "新增内存曲线的图例不能单独隐藏折线",
+        "reported_cause": "!1045新增三类曲线和静态styled.span图例，没有点击状态与绘制可见性传递。!1105改交互图例并贯通Canvas/WebGL可见性。",
+        "scenario": "Leaks，图例 DOM、Worker、WebGL 与 Canvas 回退。\n具体触发条件：reserved/process/device 折线同时显示时尝试点击图例。",
+        "limits": "新增功能配套交互缺口；与原来可用功能被破坏的回归分开标记。\n单列：新增能力完整性样本。",
+        "source_evidence": "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx:80 @ 259818ab4257 — import { ALLOCATION_LINE_STYLES } from '../../leaksWorker/blockWorker/allocationLineStyles';\nmodules/leaks/src/leaksWorker/blockWorker/nativeCanvas/Painter.ts:21 @ 259818ab4257 — import { ALLOCATION_LINE_STYLES } from '../allocationLineStyles';\nmodules/leaks/src/leaksWorker/blockWorker/webgl/Painter.ts:152 @ 259818ab4257 — this.reservedLineProgram?.render(options);\nhttps://gitcode.com/Ascend/msinsight/pull/1045"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "259818ab4257b8a4cb5fff91f63a34d9a3171409",
+            "commit": "259818ab4257b8a4cb5fff91f63a34d9a3171409"
+          }
+        ],
+        "pre_fix_first_parent": "dc7feef5db8c524390f8ecd67dca8c44825400da",
+        "fixed_merge": "6e0a5d09dedd58342498fe10cd0ce84f68bc4932",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx",
+          "modules/leaks/src/components/leaks/__tests__/LifecycleGraphLayerRendering.test.ts",
+          "modules/leaks/src/components/leaks/__tests__/MemoryBlockDiagram.test.tsx",
+          "modules/leaks/src/leaksWorker/blockWorker/allocationLineStyles.ts",
+          "modules/leaks/src/leaksWorker/blockWorker/nativeCanvas/Painter.ts",
+          "modules/leaks/src/leaksWorker/blockWorker/webgl/Painter.ts",
+          "modules/leaks/src/types/ipc.d.ts"
+        ],
+        "added_lines": 176,
+        "removed_lines": 24,
+        "raw_patch": "6-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 32,
+            "call_site": 210,
+            "callable": 71
+          }
+        },
+        {
+          "path": "modules/leaks/src/components/leaks/__tests__/LifecycleGraphLayerRendering.test.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/components/leaks/__tests__/LifecycleGraphLayerRendering.test.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 6,
+            "call_site": 109,
+            "callable": 16
+          }
+        },
+        {
+          "path": "modules/leaks/src/components/leaks/__tests__/MemoryBlockDiagram.test.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/components/leaks/__tests__/MemoryBlockDiagram.test.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 29,
+            "call_site": 263,
+            "callable": 55
+          }
+        },
+        {
+          "path": "modules/leaks/src/leaksWorker/blockWorker/allocationLineStyles.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/leaksWorker/blockWorker/allocationLineStyles.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "callable": 1
+          }
+        },
+        {
+          "path": "modules/leaks/src/leaksWorker/blockWorker/nativeCanvas/Painter.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/leaksWorker/blockWorker/nativeCanvas/Painter.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 2,
+            "call_site": 96,
+            "callable": 28,
+            "type": 1
+          }
+        },
+        {
+          "path": "modules/leaks/src/leaksWorker/blockWorker/webgl/Painter.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/leaksWorker/blockWorker/webgl/Painter.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 34,
+            "callable": 8,
+            "type": 1
+          }
+        },
+        {
+          "path": "modules/leaks/src/types/ipc.d.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/leaks/src/types/ipc.d.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "callable": 1,
+            "type": 23
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 10,
+      "original_row": "31",
+      "fix_request": 1232,
+      "family": "separate",
+      "external_reference": {
+        "fix": "!1231（https://gitcode.com/Ascend/msinsight/pull/1231） → 26.2.0；!1232（https://gitcode.com/Ascend/msinsight/pull/1232） → master",
+        "issue": "#608 窄泳道中“返回数据中”提示换行（https://gitcode.com/Ascend/msinsight/issues/608）",
+        "introduced_request": "!1223（26.2.0）／!1224（master）",
+        "reported_symptom": "修复 #602 时新增等待态普通 span，窄泳道中英文文案折行。",
+        "reported_cause": "新增异步中间态时只实现状态文案，遗漏窄宽度与多语言布局约束。",
+        "scenario": "Timeline UnitInfo；中英文等待态、窄泳道",
+        "limits": "按分支对应 !1223→!1231、!1224→!1232；提交SHA待补。",
+        "source_evidence": "#602 修复 !1223（26.2.0）／!1224（master）新增普通 span；!1231／!1232 补 nowrap。"
+      },
+      "source_versions": {
+        "introduced": [],
+        "pre_fix_first_parent": "8deb60d39b73b570405cda8f4272be69ff671f38",
+        "fixed_merge": "3f4c2624f4241ccd875b26f76c6584cd23c4eb12",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/timeline/src/components/ChartContainer/Units/UnitInfo.tsx"
+        ],
+        "added_lines": 2,
+        "removed_lines": 1,
+        "raw_patch": "10-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/timeline/src/components/ChartContainer/Units/UnitInfo.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/components/ChartContainer/Units/UnitInfo.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "api_result_boundary": 1,
+            "binding": 12,
+            "call_site": 137,
+            "callable": 71,
+            "type": 7
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 14,
+      "original_row": "50",
+      "fix_request": 937,
+      "family": "separate",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/937",
+        "issue": "未明确关联",
+        "introduced_request": "!590",
+        "reported_symptom": "NPU层级改造扩大公共元数据去重匹配，误合并不同节点类型。",
+        "reported_cause": "背景：!590为NPU Metrics层级合并扩大去重范围，影响原Host异类节点。\n根因：去重仅比较processId等业务键，未校验已有Unit类型，误把不同泳道当作同一节点。",
+        "scenario": "Timeline recursiveExpandUnit/checkMetaData；业务ID相同但节点类型不同的Host树。\n具体触发条件：解析Host元数据，同一Thread下PyTorch、CANN、MSTX节点具有相同processId。\n原问题分类：元数据身份：跨节点类型误去重。",
+        "limits": "原表明确删除行blame来自该改造；暂无明确关联Issue。",
+        "source_evidence": "修复回退checkMetaData跨节点类型匹配；删除行blame全部为NPU层级改造。\n\n引入场景：\n!590 / 9f1fb0acf4（2026-05-28）\n\n关联 PR / commit：\nPR #590\ncommit 9f1fb0acf4\n\n原引入阶段：本版本区间新引入\n版本内新特性开发中的共用元数据逻辑改造。\n原问题来源：PR修复说明；未披露具体发现渠道。"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "9f1fb0acf4",
+            "commit": "9f1fb0acf4c9e2159669d2b845be30aae949fcb7"
+          }
+        ],
+        "pre_fix_first_parent": "f32f78ed14cb06bd6462c196bb9e064c41b7994c",
+        "fixed_merge": "449343f299703eda141094b305274669b2197d8e",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/timeline/src/insight/units/__test__/unitFunc.test.ts",
+          "modules/timeline/src/insight/units/unitFunc.ts"
+        ],
+        "added_lines": 139,
+        "removed_lines": 14,
+        "raw_patch": "14-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/timeline/src/insight/units/__test__/unitFunc.test.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/insight/units/__test__/unitFunc.test.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 264,
+            "callable": 46,
+            "type": 1
+          }
+        },
+        {
+          "path": "modules/timeline/src/insight/units/unitFunc.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/insight/units/unitFunc.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 35,
+            "call_site": 62,
+            "callable": 26
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 15,
+      "original_row": "51",
+      "fix_request": 935,
+      "family": "communication_details_15_18",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/935",
+        "issue": "未明确关联",
+        "introduced_request": "!924",
+        "reported_symptom": "通信详情新功能中本地device与全局rank、时间参数转换不一致。",
+        "reported_cause": "背景：!924新通信增强详情按本地Timeline Rank关联全局通信数据，未覆盖多机映射。\n根因：将deviceId当全局rank，且额外时间容差匹配受ns/μs和浮点精度影响，合法记录也被漏配。",
+        "scenario": "Timeline通信Slice Detail与Cluster分析；多Host同Device及时间戳精度差异。\n具体触发条件：多机MS_PROF存在相同本地deviceId，如hostB/device0对应全局Rank8，点击通信Group Slice。\n原问题分类：数据关联正确性：本地设备与全局Rank混用。",
+        "limits": "暂无明确关联Issue。",
+        "source_evidence": "前版本ResolveCommunicationRankId及带timestamp的QueryCommunicationDetail调用均由该通信详情新功能引入。\n\n引入场景：\n!924 / b000a57997（2026-07-29）\n\n关联 PR / commit：\nPR #924\ncommit b000a57997\n\n原引入阶段：本版本区间新引入\n版本内通信详情新功能开发阶段。\n原问题来源：PR修复说明；未披露具体发现渠道。"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "b000a57997",
+            "commit": "b000a57997c0b0c98afeaf0ce681be7b0045419c"
+          }
+        ],
+        "pre_fix_first_parent": "44aa189cc1cf5eff8cd12ebfaf02698dbd0c0a77",
+        "fixed_merge": "13ae14883d599d1ab331b347644f1523e285ce69",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "server/src/modules/communication/database/DbClusterDataBase.cpp",
+          "server/src/modules/communication/database/DbClusterDataBase.h",
+          "server/src/modules/communication/database/TextClusterDatabase.cpp",
+          "server/src/modules/communication/database/TextClusterDatabase.h",
+          "server/src/modules/communication/database/VirtualClusterDatabase.cpp",
+          "server/src/modules/communication/database/VirtualClusterDatabase.h",
+          "server/src/modules/timeline/RenderEngine.cpp",
+          "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+          "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+          "server/src/test/modules/communication/CommunicationTest.cpp",
+          "server/src/test/modules/communication/DbClusterDataBaseTest.cpp",
+          "server/src/test/modules/communication/DbCommunicationTest.cpp",
+          "server/src/test/modules/timeline/RenderEngineTest.cpp"
+        ],
+        "added_lines": 312,
+        "removed_lines": 91,
+        "raw_patch": "15-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "server/src/modules/communication/database/DbClusterDataBase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/DbClusterDataBase.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 206,
+            "callable": 45,
+            "field_write": 45,
+            "object_binding": 129,
+            "object_path": 173,
+            "server_member_getter": 2,
+            "storage_access": 1
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/DbClusterDataBase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/DbClusterDataBase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "callable": 42,
+            "object_binding": 1,
+            "source_member_storage": 2,
+            "storage_member": 4,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/TextClusterDatabase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/TextClusterDatabase.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 423,
+            "callable": 66,
+            "field_write": 21,
+            "object_binding": 147,
+            "object_path": 176,
+            "storage_access": 15
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/TextClusterDatabase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/TextClusterDatabase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "callable": 63,
+            "object_binding": 1,
+            "storage_member": 8,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/VirtualClusterDatabase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/VirtualClusterDatabase.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 767,
+            "callable": 59,
+            "field_write": 179,
+            "object_binding": 234,
+            "object_path": 387,
+            "server_member_getter": 2,
+            "source_json_value": 1,
+            "storage_access": 16
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/VirtualClusterDatabase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/VirtualClusterDatabase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 3,
+            "callable": 88,
+            "object_binding": 3,
+            "source_member_storage": 2,
+            "storage_member": 13,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/RenderEngine.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/RenderEngine.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 183,
+            "callable": 20,
+            "factory_allocation": 4,
+            "field_write": 89,
+            "instance_storage_access": 12,
+            "object_binding": 116,
+            "object_path": 219,
+            "source_object_instance": 2,
+            "storage_access": 27,
+            "storage_member": 2,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+            "status": "syntax_errors"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 1291,
+            "callable": 110,
+            "factory_allocation": 3,
+            "field_write": 409,
+            "object_binding": 546,
+            "object_path": 881,
+            "server_member_getter": 8,
+            "source_object_instance": 6,
+            "storage_access": 27,
+            "storage_member": 1,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 5,
+            "callable": 147,
+            "object_binding": 4,
+            "source_member_storage": 1,
+            "storage_member": 17,
+            "type": 9
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/database/VirtualTraceDatabase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 52,
+            "callable": 59,
+            "field_write": 14,
+            "object_binding": 27,
+            "object_path": 36,
+            "storage_member": 3,
+            "type": 3
+          }
+        },
+        {
+          "path": "server/src/test/modules/communication/CommunicationTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/communication/CommunicationTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 281,
+            "callable": 33,
+            "field_write": 52,
+            "object_binding": 164,
+            "object_path": 223,
+            "storage_access": 34,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/test/modules/communication/DbClusterDataBaseTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/communication/DbClusterDataBaseTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 127,
+            "callable": 16,
+            "factory_allocation": 2,
+            "field_write": 16,
+            "object_binding": 67,
+            "object_path": 74,
+            "source_object_instance": 1,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/test/modules/communication/DbCommunicationTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/communication/DbCommunicationTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 327,
+            "callable": 41,
+            "field_write": 58,
+            "object_binding": 196,
+            "object_path": 244,
+            "source_object_instance": 2,
+            "storage_access": 16,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/RenderEngineTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/RenderEngineTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 393,
+            "callable": 41,
+            "factory_allocation": 13,
+            "field_write": 135,
+            "object_binding": 176,
+            "object_path": 316,
+            "source_object_instance": 14,
+            "storage_access": 3,
+            "storage_member": 2,
+            "type": 15
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 16,
+      "original_row": "52",
+      "fix_request": 957,
+      "family": "communication_details_15_18",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/957",
+        "issue": "未明确关联",
+        "introduced_request": "!924；!935",
+        "reported_symptom": "通信详情只按Cluster数据源查询，单卡/基线场景缺少rank-local、dbPath和连接池适配。",
+        "reported_cause": "背景：!924/!935主要面向普通Cluster，新增详情未完整扩展单卡和独立基线数据源。\n根因：仅按Rank无法区分来源，schema选择和连接生命周期依赖隐式判断，漏掉本地分析库及基线。",
+        "scenario": "Timeline通信详情、RANK_LOCAL/CLUSTER schema和连接池；单卡或同rank多来源。\n具体触发条件：单卡DB旁有analysis.db，或设置独立Cluster基线且当前/基线Rank相同，点击通信Group Slice。\n原问题分类：数据源与生命周期：单卡/基线支持不完整。",
+        "limits": "两个前序PR，不宣称已锁定唯一首次引入；需分别检查其增量。",
+        "source_evidence": "功能最初仅按Cluster数据源查询；本PR加入RANK_LOCAL、dbPath和连接池生命周期。\n\n引入场景：\n!924 / b000a57997；!935 / a70b95a2d1\n\n关联 PR / commit：\nPR #924\nPR #935\ncommit b000a57997\ncommit a70b95a2d1\n\n原引入阶段：本版本区间新引入\n版本内新能力的多场景集成及关联修复阶段。\n原问题来源：PR修复说明；未披露具体发现渠道。"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "b000a57997",
+            "commit": "b000a57997c0b0c98afeaf0ce681be7b0045419c"
+          },
+          {
+            "given": "a70b95a2d1",
+            "commit": "a70b95a2d1678821546a9c87830922114bdbb952"
+          }
+        ],
+        "pre_fix_first_parent": "4f1792e71d2dfa43bddc2365823481175ad586c2",
+        "fixed_merge": "cc82e6c46bda9e21eb7980a2566ccdb19fb4f3ee",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "server/src/modules/communication/database/DbClusterDataBase.cpp",
+          "server/src/modules/communication/database/DbClusterDataBase.h",
+          "server/src/modules/communication/database/TextClusterDatabase.cpp",
+          "server/src/modules/communication/database/TextClusterDatabase.h",
+          "server/src/modules/communication/database/VirtualClusterDatabase.cpp",
+          "server/src/modules/communication/database/VirtualClusterDatabase.h",
+          "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+          "server/src/modules/timeline/RenderEngine.cpp",
+          "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+          "server/src/modules/timeline/core/database/DataBaseManager.h",
+          "server/src/modules/timeline/core/table/TrackInfoManager.cpp",
+          "server/src/modules/timeline/handler/QueryThreadDetailHandler.cpp",
+          "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+          "server/src/protocol/ProtocolParamUtil.h",
+          "server/src/test/modules/communication/CommunicationTest.cpp",
+          "server/src/test/modules/communication/DbClusterDataBaseTest.cpp",
+          "server/src/test/modules/communication/DbCommunicationTest.cpp",
+          "server/src/test/modules/timeline/RenderEngineTest.cpp",
+          "server/src/test/modules/timeline/database/DataBaseManagerTest.cpp",
+          "server/src/test/modules/timeline/protocol/TimelineProtocolTest.cpp",
+          "server/src/test/modules/timeline/table/TrackInfoManagerTest.cpp"
+        ],
+        "added_lines": 744,
+        "removed_lines": 58,
+        "raw_patch": "16-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "server/src/modules/communication/database/DbClusterDataBase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/DbClusterDataBase.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 206,
+            "callable": 45,
+            "field_write": 45,
+            "object_binding": 129,
+            "object_path": 173,
+            "server_member_getter": 2,
+            "storage_access": 1
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/DbClusterDataBase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/DbClusterDataBase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "callable": 42,
+            "object_binding": 1,
+            "source_member_storage": 2,
+            "storage_member": 4,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/TextClusterDatabase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/TextClusterDatabase.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 423,
+            "callable": 66,
+            "field_write": 21,
+            "object_binding": 147,
+            "object_path": 176,
+            "storage_access": 15
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/TextClusterDatabase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/TextClusterDatabase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "callable": 63,
+            "object_binding": 1,
+            "storage_member": 8,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/VirtualClusterDatabase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/VirtualClusterDatabase.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 767,
+            "callable": 59,
+            "field_write": 179,
+            "object_binding": 234,
+            "object_path": 387,
+            "server_member_getter": 2,
+            "source_json_value": 1,
+            "storage_access": 16
+          }
+        },
+        {
+          "path": "server/src/modules/communication/database/VirtualClusterDatabase.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/database/VirtualClusterDatabase.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 3,
+            "callable": 88,
+            "object_binding": 3,
+            "source_member_storage": 2,
+            "storage_member": 13,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 396,
+            "callable": 29,
+            "factory_allocation": 5,
+            "field_write": 66,
+            "object_binding": 133,
+            "object_path": 191,
+            "server_member_consumer": 1,
+            "source_object_instance": 3,
+            "storage_access": 2,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/RenderEngine.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/RenderEngine.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 183,
+            "callable": 20,
+            "factory_allocation": 4,
+            "field_write": 89,
+            "instance_storage_access": 12,
+            "object_binding": 116,
+            "object_path": 219,
+            "source_object_instance": 2,
+            "storage_access": 27,
+            "storage_member": 2,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 354,
+            "callable": 104,
+            "factory_allocation": 20,
+            "field_write": 33,
+            "instance_storage_access": 212,
+            "object_binding": 149,
+            "object_path": 128,
+            "source_object_instance": 1,
+            "storage_access": 212
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/database/DataBaseManager.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 3,
+            "callable": 70,
+            "instance_storage_access": 3,
+            "object_binding": 5,
+            "object_path": 1,
+            "storage_access": 3,
+            "storage_member": 30,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/table/TrackInfoManager.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/table/TrackInfoManager.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 71,
+            "callable": 38,
+            "field_write": 4,
+            "instance_storage_access": 40,
+            "object_binding": 48,
+            "object_path": 32,
+            "server_member_getter": 1,
+            "storage_access": 43
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/handler/QueryThreadDetailHandler.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/handler/QueryThreadDetailHandler.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 21,
+            "callable": 1,
+            "factory_allocation": 1,
+            "field_write": 1,
+            "object_binding": 5,
+            "object_path": 14
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 650,
+            "callable": 84,
+            "factory_allocation": 34,
+            "field_write": 78,
+            "object_binding": 170,
+            "object_path": 534,
+            "protocol_decoder": 41,
+            "serialization_parameter_path": 800,
+            "serialized_field": 798,
+            "serializer_registration": 45,
+            "source_json_value": 35,
+            "storage_access": 85
+          }
+        },
+        {
+          "path": "server/src/protocol/ProtocolParamUtil.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/protocol/ProtocolParamUtil.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 3,
+            "callable": 4,
+            "field_write": 2,
+            "object_binding": 5,
+            "object_path": 4,
+            "type": 5
+          }
+        },
+        {
+          "path": "server/src/test/modules/communication/CommunicationTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/communication/CommunicationTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 281,
+            "callable": 33,
+            "field_write": 52,
+            "object_binding": 164,
+            "object_path": 223,
+            "storage_access": 34,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/test/modules/communication/DbClusterDataBaseTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/communication/DbClusterDataBaseTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 127,
+            "callable": 16,
+            "factory_allocation": 2,
+            "field_write": 16,
+            "object_binding": 67,
+            "object_path": 74,
+            "source_object_instance": 1,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/test/modules/communication/DbCommunicationTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/communication/DbCommunicationTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 327,
+            "callable": 41,
+            "field_write": 58,
+            "object_binding": 196,
+            "object_path": 244,
+            "source_object_instance": 2,
+            "storage_access": 16,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/RenderEngineTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/RenderEngineTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 393,
+            "callable": 41,
+            "factory_allocation": 13,
+            "field_write": 135,
+            "object_binding": 176,
+            "object_path": 316,
+            "source_object_instance": 14,
+            "storage_access": 3,
+            "storage_member": 2,
+            "type": 15
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/database/DataBaseManagerTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/database/DataBaseManagerTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 149,
+            "callable": 15,
+            "object_binding": 49,
+            "object_path": 30,
+            "storage_access": 1,
+            "storage_member": 1,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/protocol/TimelineProtocolTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/protocol/TimelineProtocolTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 507,
+            "callable": 91,
+            "field_write": 7,
+            "object_binding": 222,
+            "object_path": 252,
+            "source_json_value": 3,
+            "source_object_instance": 32,
+            "storage_access": 9,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/table/TrackInfoManagerTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/table/TrackInfoManagerTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 152,
+            "callable": 11,
+            "field_write": 3,
+            "object_binding": 61,
+            "object_path": 74,
+            "type": 1
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 17,
+      "original_row": "53",
+      "fix_request": 962,
+      "family": "communication_details_15_18",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/962",
+        "issue": "未明确关联",
+        "introduced_request": "!924",
+        "reported_symptom": "新通信详情组件关闭复制、按平铺数据排序，复制/折叠行为异常。",
+        "reported_cause": "背景：!924新增详情表时显式关闭公共表格复制，并使用平铺排序。\n根因：设置allowCopy=false且未复用通信页的链路树组织规则，造成能力和结构偏差。",
+        "scenario": "Timeline通信带宽表；SDMA与HCCS/PCIE/SIO并存或缺SDMA数据。\n具体触发条件：选中通信Group Slice查看Communication Bandwidth Info，并尝试复制或展开SDMA链路。\n原问题分类：界面一致性：公共能力被关闭、表格结构不一致。",
+        "limits": "暂无明确关联Issue。",
+        "source_evidence": "allowCopy={false}和原平铺排序均来自通信详情新组件。\n\n引入场景：\n!924 / b000a57997\n\n关联 PR / commit：\nPR #924\ncommit b000a57997\n\n原引入阶段：本版本区间新引入\n版本内新组件开发阶段。\n原问题来源：PR修复说明；未披露具体发现渠道。"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "b000a57997",
+            "commit": "b000a57997c0b0c98afeaf0ce681be7b0045419c"
+          }
+        ],
+        "pre_fix_first_parent": "cc82e6c46bda9e21eb7980a2566ccdb19fb4f3ee",
+        "fixed_merge": "0f5161e677c66351c250ad65244f222b75e11cfc",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/timeline/src/components/details/CommunicationBandwidthInfoTable.test.tsx",
+          "modules/timeline/src/components/details/CommunicationBandwidthInfoTable.tsx"
+        ],
+        "added_lines": 68,
+        "removed_lines": 36,
+        "raw_patch": "17-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/timeline/src/components/details/CommunicationBandwidthInfoTable.test.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/components/details/CommunicationBandwidthInfoTable.test.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 68,
+            "callable": 16
+          }
+        },
+        {
+          "path": "modules/timeline/src/components/details/CommunicationBandwidthInfoTable.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/components/details/CommunicationBandwidthInfoTable.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 24,
+            "callable": 9,
+            "type": 2
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 18,
+      "original_row": "54",
+      "fix_request": 975,
+      "family": "communication_details_15_18",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/975",
+        "issue": "未明确关联",
+        "introduced_request": "!957",
+        "reported_symptom": "数据源限定为 analysis.db；旧TEXT数据只有communication JSON时直接返回。",
+        "reported_cause": "背景：新通信详情能力首先依赖analysis.db，!969虽支持TEXT仍未覆盖JSON-only产物。\n根因：分析库缺失即返回，没有读取旧格式JSON的路径，导致有效数据被判为无详情。",
+        "scenario": "Timeline单卡TEXT通信详情及JSON缓存；无analysis.db且有communication.json。\n具体触发条件：导入仅包含communication.json而没有analysis.db的历史单卡TEXT数据，点击通信Group Slice。\n原问题分类：历史格式兼容性：通信数据源回退缺失。",
+        "limits": "!924为通信详情能力背景；主要错误分支来自!957。",
+        "source_evidence": "分析库不存在即返回的分支来自!957；新功能对旧格式数据遗漏。\n\n引入场景：\n!924通信详情新功能；!957/e2f58dd2b8数据源限定\n\n关联 PR / commit：\nPR #924\nPR #957\ncommit e2f58dd2b8\n\n原引入阶段：本版本区间新引入\n版本内新功能对历史采集格式的兼容扩展阶段。\n原问题来源：PR修复说明；未披露具体发现渠道。"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "e2f58dd2b8",
+            "commit": "e2f58dd2b805c5b928e5fd67c184dd14b9a1b2e2"
+          }
+        ],
+        "pre_fix_first_parent": "3c2d7eb470d5c2d1f46116f0dfe2f97560fe0a3c",
+        "fixed_merge": "e32f118fb99ff15a5ca02e8d3e685c810c204982",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "server/src/modules/communication/parser/SingleRankCommunicationJsonParser.cpp",
+          "server/src/modules/communication/parser/SingleRankCommunicationJsonParser.h",
+          "server/src/modules/timeline/RenderEngine.cpp",
+          "server/src/test/modules/timeline/RenderEngineTest.cpp"
+        ],
+        "added_lines": 672,
+        "removed_lines": 5,
+        "raw_patch": "18-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "server/src/modules/communication/parser/SingleRankCommunicationJsonParser.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/parser/SingleRankCommunicationJsonParser.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 154,
+            "callable": 35,
+            "field_write": 14,
+            "object_binding": 62,
+            "object_path": 63,
+            "type": 4
+          }
+        },
+        {
+          "path": "server/src/modules/communication/parser/SingleRankCommunicationJsonParser.h",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/communication/parser/SingleRankCommunicationJsonParser.h",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "callable": 1
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/RenderEngine.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/RenderEngine.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 183,
+            "callable": 20,
+            "factory_allocation": 4,
+            "field_write": 89,
+            "instance_storage_access": 12,
+            "object_binding": 116,
+            "object_path": 219,
+            "source_object_instance": 2,
+            "storage_access": 27,
+            "storage_member": 2,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/RenderEngineTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/RenderEngineTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 393,
+            "callable": 41,
+            "factory_allocation": 13,
+            "field_write": 135,
+            "object_binding": 176,
+            "object_path": 316,
+            "source_object_instance": 14,
+            "storage_access": 3,
+            "storage_member": 2,
+            "type": 15
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 19,
+      "original_row": "59",
+      "fix_request": 1121,
+      "family": "python_stack_19_20",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/1121",
+        "issue": "未明确关联",
+        "introduced_request": "!1112\n!971",
+        "reported_symptom": "合并泳道修复把前端深度重排应用到普通泳道，破坏普通泳道层级。\n点击优先使用raw threadId，Python Stack虚拟线程的选中/详情/跳转身份丢失。",
+        "reported_cause": "背景：!971点击优先使用raw threadId，!1112又将合并用的前端排层应用到普通泳道。\n根因：展示身份与底层线程身份未保留边界；深度重排缺少仅对合并泳道生效的限制。",
+        "scenario": "Timeline Python Stack选择/跳转及ThreadUnit；虚拟tid与原始tid不同，普通与合并泳道并存。\n具体触发条件：点击或跳转TEXT/DB Python Stack虚拟线程，或加载普通泳道时进入新合并泳道排层逻辑。\n原问题分类：虚拟线程身份与排层适用范围错误",
+        "limits": "同一修复PR !1121另有虚拟线程身份问题，本行单独拆分。\n原分类为“其他”，按P/Q明确的版本内引入证据纳入；与排层问题拆分。",
+        "source_evidence": "点击优先raw threadId来自!971；对所有泳道前端重排来自!1112，均版本内。\n\n引入场景：\n!971 / 49a70a2821；!1112 / d84f8979a0\n\n关联 PR / commit：\nPR #971\nPR #1112\ncommit 49a70a2821\ncommit d84f8979a0\n\n原引入阶段：本版本区间新引入\n本版本新跳转能力及多来源合并修复集成阶段。\n原问题来源：PR修复说明；未披露具体发现渠道。"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "d84f8979a0",
+            "commit": "d84f8979a0399081302358aa9cbb0bf1532d096d"
+          },
+          {
+            "given": "49a70a2821",
+            "commit": "49a70a2821ed59a54f1b292589f5a8d03d2b1a43"
+          }
+        ],
+        "pre_fix_first_parent": "9c43e8534bb5f7d4a9ba7d7dabe323d4094a3f42",
+        "fixed_merge": "f8811ee260fb7eed8deed09cace815ea4bb634e7",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/timeline/src/components/charts/StackStatusChart.test.tsx",
+          "modules/timeline/src/components/charts/StackStatusChart.tsx",
+          "modules/timeline/src/insight/units/AscendUnit.tsx",
+          "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+          "modules/timeline/src/utils/__test__/jumpToUnitOperator.test.ts",
+          "modules/timeline/src/utils/jumpToUnitOperator.ts",
+          "modules/timeline/src/utils/selectionContext.ts"
+        ],
+        "added_lines": 297,
+        "removed_lines": 27,
+        "raw_patch": "19-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/timeline/src/components/charts/StackStatusChart.test.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/components/charts/StackStatusChart.test.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 43,
+            "callable": 13
+          }
+        },
+        {
+          "path": "modules/timeline/src/components/charts/StackStatusChart.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/components/charts/StackStatusChart.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 14,
+            "call_site": 128,
+            "callable": 37,
+            "callback_lookup": 1,
+            "callback_registry": 1,
+            "type": 2
+          }
+        },
+        {
+          "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/insight/units/AscendUnit.tsx",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "api_result_boundary": 4,
+            "api_result_field": 17,
+            "binding": 26,
+            "call_site": 289,
+            "callable": 153,
+            "frontend_field_read": 24,
+            "frontend_state_path": 6,
+            "frontend_state_write": 6,
+            "iframe_return_bridge": 1,
+            "promise_settlement": 1,
+            "source_promise": 1,
+            "source_return_returns": 8,
+            "type": 5
+          }
+        },
+        {
+          "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/insight/units/__test__/AscendUnit.search.test.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 20,
+            "call_site": 374,
+            "callable": 87,
+            "source_promise": 1
+          }
+        },
+        {
+          "path": "modules/timeline/src/utils/__test__/jumpToUnitOperator.test.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/utils/__test__/jumpToUnitOperator.test.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 4,
+            "call_site": 84,
+            "callable": 15
+          }
+        },
+        {
+          "path": "modules/timeline/src/utils/jumpToUnitOperator.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/utils/jumpToUnitOperator.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 5,
+            "call_site": 7,
+            "callable": 4,
+            "source_return_returns": 2
+          }
+        },
+        {
+          "path": "modules/timeline/src/utils/selectionContext.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/utils/selectionContext.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 1,
+            "callable": 4
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 20,
+      "original_row": "60",
+      "fix_request": 1081,
+      "family": "python_stack_19_20",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/1081",
+        "issue": "未明确关联",
+        "introduced_request": "!596",
+        "reported_symptom": "Python独立泳道把Python Stack放入错误层级，未与Python同级。",
+        "reported_cause": "背景：!596新增Python独立泳道时，将Python Stack作为Thread子节点插入元数据树。\n根因：树结构把展示关系误作父子继承，导致层级和身份语义耦合；后续顺序要求又进一步调整。",
+        "scenario": "Timeline Python Stack元数据树；虚拟Stack泳道应与对应Thread同级并使用独立身份。\n具体触发条件：展开含Python Stack的TEXT或DB线程树，检查Stack相对Thread的位置及线程身份。\n原问题分类：泳道层级建模与身份继承错误",
+        "limits": "原表指向后端 child->children.emplace_back(pythonStack)。",
+        "source_evidence": "后端child->children.emplace_back(pythonStack)来自Python独立泳道新功能。\n\n引入场景：\n!596 / dbdf4eb614（2026-05-27）\n\n关联 PR / commit：\nPR #596\ncommit dbdf4eb614\n\n原引入阶段：本版本区间新引入\n本版本Python独立泳道功能设计及后端元数据构建阶段。\n原问题来源：PR修复说明；未披露具体发现渠道。"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "dbdf4eb614",
+            "commit": "dbdf4eb614f670420ceb5d397a4f3080a60aff59"
+          }
+        ],
+        "pre_fix_first_parent": "0853b5d7f8ef0b775cc7d17c7ed2603df592f489",
+        "fixed_merge": "6208f63a26a5088ea65b45d1f5b4b7fa0e75f8c6",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/timeline/src/components/charts/ChartInteractor/__test__/draw.test.ts",
+          "modules/timeline/src/components/charts/ChartInteractor/draw.ts",
+          "modules/timeline/src/insight/units/__test__/unitFunc.test.ts",
+          "modules/timeline/src/insight/units/unitFunc.ts",
+          "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "server/src/test/modules/timeline/database/DbTraceDatabaseTest.cpp",
+          "server/src/test/modules/timeline/database/TextTraceDatabaseMockTest.cpp"
+        ],
+        "added_lines": 314,
+        "removed_lines": 25,
+        "raw_patch": "20-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/timeline/src/components/charts/ChartInteractor/__test__/draw.test.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/components/charts/ChartInteractor/__test__/draw.test.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 16,
+            "call_site": 138,
+            "callable": 21
+          }
+        },
+        {
+          "path": "modules/timeline/src/components/charts/ChartInteractor/draw.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/components/charts/ChartInteractor/draw.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 32,
+            "call_site": 297,
+            "callable": 57,
+            "callback_lookup": 16,
+            "callback_registry": 10,
+            "source_return_returns": 2,
+            "type": 7
+          }
+        },
+        {
+          "path": "modules/timeline/src/insight/units/__test__/unitFunc.test.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/insight/units/__test__/unitFunc.test.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 264,
+            "callable": 46,
+            "type": 1
+          }
+        },
+        {
+          "path": "modules/timeline/src/insight/units/unitFunc.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/insight/units/unitFunc.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 35,
+            "call_site": 62,
+            "callable": 26
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+            "status": "syntax_errors"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 1291,
+            "callable": 110,
+            "factory_allocation": 3,
+            "field_write": 409,
+            "object_binding": 546,
+            "object_path": 881,
+            "server_member_getter": 8,
+            "source_object_instance": 6,
+            "storage_access": 27,
+            "storage_member": 1,
+            "type": 1
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 1106,
+            "callable": 127,
+            "factory_allocation": 7,
+            "field_write": 401,
+            "object_binding": 518,
+            "object_path": 918,
+            "source_object_instance": 1,
+            "storage_access": 45
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/database/DbTraceDatabaseTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/database/DbTraceDatabaseTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 1327,
+            "callable": 183,
+            "factory_allocation": 1,
+            "field_write": 306,
+            "object_binding": 728,
+            "object_path": 1089,
+            "source_object_instance": 1,
+            "storage_access": 172,
+            "storage_member": 1,
+            "type": 9
+          }
+        },
+        {
+          "path": "server/src/test/modules/timeline/database/TextTraceDatabaseMockTest.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/test/modules/timeline/database/TextTraceDatabaseMockTest.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 1168,
+            "callable": 167,
+            "field_write": 139,
+            "object_binding": 544,
+            "object_path": 686,
+            "source_object_instance": 10,
+            "storage_access": 4,
+            "type": 2
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 21,
+      "original_row": "61",
+      "fix_request": 1142,
+      "family": "separate",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/1142",
+        "issue": "未明确关联",
+        "introduced_request": "!533",
+        "reported_symptom": "已有基准算子时，右键左右对齐与L/R语义不一致",
+        "reported_cause": "!533新建actionAlignByOperator，直接构造自动对齐请求，函数没有benchMarkData分派；旧快捷键走基准对齐。!1142只在入口增加基准判断并转alignToBenchmark。",
+        "scenario": "Timeline算子对齐；存在benchmark时的右键菜单与L/R快捷键路径。\n具体触发条件：已设置基准算子后，分别通过右键左右对齐与L/R快捷键对同一目标算子操作。\n原问题分类：交互入口分派与状态一致性错误",
+        "limits": "已经检查!533最初文件及!1142实际增量；后续!972虽调整函数签名，入口遗漏在最初功能已存在。\n纳入：新入口与既有操作语义不一致。",
+        "source_evidence": "modules/timeline/src/actions/actionAlignByOperator.ts:124 @ 47bf828087 — const params = buildRequestParams(session, alignType);\nmodules/timeline/src/actions/actionAlignByOperator.ts:111 @ 42f1feee85b4 — async function alignByOperator(\nhttps://gitcode.com/Ascend/msinsight/pull/533"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "47bf82808797621ff39198d1d2033d58ac48ad04",
+            "commit": "47bf82808797621ff39198d1d2033d58ac48ad04"
+          }
+        ],
+        "pre_fix_first_parent": "3b3c7b34a0320bc6fd407e0524582afea08958cb",
+        "fixed_merge": "d6e59290d7087136712bada93974c9ca03e64d8f",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "modules/timeline/src/actions/actionAlignByOperator.test.ts",
+          "modules/timeline/src/actions/actionAlignByOperator.ts"
+        ],
+        "added_lines": 116,
+        "removed_lines": 1,
+        "raw_patch": "21-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "modules/timeline/src/actions/actionAlignByOperator.test.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/actions/actionAlignByOperator.test.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "binding": 9,
+            "call_site": 278,
+            "callable": 41,
+            "source_promise": 1
+          }
+        },
+        {
+          "path": "modules/timeline/src/actions/actionAlignByOperator.ts",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "modules/timeline/src/actions/actionAlignByOperator.ts",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "api_result_boundary": 1,
+            "api_result_field": 3,
+            "call_site": 32,
+            "callable": 15,
+            "frontend_field_read": 3,
+            "type": 1
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    },
+    {
+      "id": 24,
+      "original_row": "74",
+      "fix_request": 1213,
+      "family": "separate",
+      "external_reference": {
+        "fix": "https://gitcode.com/Ascend/msinsight/merge_requests/1213",
+        "issue": "https://gitcode.com/Ascend/msinsight/issues/596（[Bug]: Timeline 跳伞识别到连线异常、泳道交互及导入存在异常）",
+        "introduced_request": "!1072",
+        "reported_symptom": "NUMA探测进入通用导入路径，污染TEXT缓存状态导致Loading",
+        "reported_cause": "!1072在ImportActionHandler的TransferProject和ImportFile发送响应前统一调用HasNumaData。!1213移除这两个通用入口调用，把探测放回ProjectParserDb的DB专用解析路径。",
+        "scenario": "ImportActionHandler 的 HasNumaData→NumaDataSourceResolver→DataBaseManager::GetTraceDatabaseByFileId→GetConnection。text 旧缓存触发版本检查/重置；具体耗时依数据量而变。",
+        "limits": "两个坏调用均回指!1072同一提交；还需相同TEXT旧缓存样本重现状态污染。#596是综合Issue，只对应其导入子问题。\n优先纳入：新DB功能影响TEXT旧数据导入。",
+        "source_evidence": "server/src/modules/timeline/handler/ImportActionHandler.cpp:162 @ 4b6a8b37108e — response->body.hasNumaData = HasNumaData(*response, request.params.projectName);\nserver/src/modules/timeline/handler/ImportActionHandler.cpp:195 @ 4b6a8b37108e — response->body.hasNumaData = HasNumaData(*response, request.params.projectName);\nhttps://gitcode.com/Ascend/msinsight/pull/1072"
+      },
+      "source_versions": {
+        "introduced": [
+          {
+            "given": "4b6a8b37108e11d1badb08419ce3380b622b6f34",
+            "commit": "4b6a8b37108e11d1badb08419ce3380b622b6f34"
+          }
+        ],
+        "pre_fix_first_parent": "1c326759c49acfd04cf3a078e4b16d7ffad97c08",
+        "fixed_merge": "a46417e1888f3f1c1c9007daa402aefad6123f66",
+        "fixed_is_ancestor_of_current": true
+      },
+      "source_diff": {
+        "changed_paths": [
+          "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+          "server/src/modules/timeline/handler/ImportActionHandler.cpp"
+        ],
+        "added_lines": 35,
+        "removed_lines": 38,
+        "raw_patch": "24-fix.patch"
+      },
+      "current_graph_coverage": [
+        {
+          "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/full_db/ProjectParse/ProjectParserDb.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 396,
+            "callable": 29,
+            "factory_allocation": 5,
+            "field_write": 66,
+            "object_binding": 133,
+            "object_path": 191,
+            "server_member_consumer": 1,
+            "source_object_instance": 3,
+            "storage_access": 2,
+            "type": 2
+          }
+        },
+        {
+          "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+          "tracked_at_current_source": true,
+          "graph_input": true,
+          "coverage": {
+            "path": "server/src/modules/timeline/handler/ImportActionHandler.cpp",
+            "status": "parsed"
+          },
+          "exclusion_reason": null,
+          "node_kinds": {
+            "call_site": 104,
+            "callable": 8,
+            "factory_allocation": 5,
+            "field_write": 7,
+            "object_binding": 30,
+            "object_path": 45
+          }
+        }
+      ],
+      "assessment": {
+        "source_history": "before_and_after_fix_available",
+        "current_static_localization": "entities_present",
+        "historical_graph_execution": "not_run_for_each_bad_and_fixed_version",
+        "automatic_bug_detection": "not_evaluated",
+        "runtime_reproduction": "not_executed_A5",
+        "cause_confirmation": "source_diff_and_external_report_only",
+        "current_graph_is_historical_bad_version": false
+      }
+    }
+  ],
+  "groups": {
+    "communication_details": [
+      15,
+      16,
+      17,
+      18
+    ],
+    "python_stack": [
+      19,
+      20
+    ],
+    "shared_drawing": [
+      4,
+      6
+    ],
+    "shared_drawing_changed_path_overlap": [
+      "modules/leaks/src/components/leaks/MemoryBlockDiagram.tsx",
+      "modules/leaks/src/components/leaks/__tests__/MemoryBlockDiagram.test.tsx"
+    ]
+  },
+  "counts": {
+    "denominator": 12,
+    "source_before_after_available": 12,
+    "current_entities_present": 12,
+    "historical_bad_fixed_graph_pairs_executed": 0,
+    "runtime_reproduced": 0,
+    "automatic_bug_detection_scored": 0
+  },
+  "interpretation": "current fixed-version entity coverage is separate from historical defect detection",
+  "file_hash_verification": "not_run_per_user_preference"
+}

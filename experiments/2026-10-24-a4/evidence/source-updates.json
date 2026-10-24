@@ -1,0 +1,20 @@
+{
+  "evidence_kind": "executed_isolated_product_source_mutations",
+  "base": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "commits": {
+    "added": "b31f4edaebb2927ac8e59938c9baf9c77886e2da",
+    "renamed": "5879b9b7f886f7ae541bd0c4b632cf0a9ae3f58e",
+    "provider_deleted": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9"
+  },
+  "final_revision": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "changed_paths": [
+    "a4_client/constant.ts",
+    "a4_client/package.json",
+    "a4_client/request.ts",
+    "a4_server/CMakeLists.txt",
+    "a4_server/renamed.cpp"
+  ],
+  "fixture_origin": "authored_protocol_fixture_not_historical_sample",
+  "upstream_push": "disabled",
+  "file_hash_verification": "not_run_per_user_preference"
+}

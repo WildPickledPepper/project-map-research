@@ -1,0 +1,55 @@
+{
+  "evidence_kind": "A4_evaluation_delivery_and_tool_acceptance_separated",
+  "protocol_commit": "379da8d",
+  "initial_reference_commit": "bd5d2a8",
+  "tool_baseline": "b85ba0cb3cfc0d89856ce7fed63ca28da705c215",
+  "extraction_changes_since_A2": [],
+  "implementation_path_delta_since_frozen_baseline": [],
+  "A3_only_implementation_additions": [
+    "adapters/project_map.py",
+    "scripts/project_map.py",
+    "scripts/render_project_map.py"
+  ],
+  "evaluation_complete": true,
+  "delivery_checks": {
+    "frozen_source_references_present": true,
+    "all_six_cases_scored_without_script_error": true,
+    "all_twelve_history_records_audited": true,
+    "historical_changed_source_pair_extracted": true,
+    "real_refresh_update_controls_pass": true,
+    "updated_full_map_identity_checks_pass": true,
+    "both_complete_builds_succeeded": true,
+    "complete_rebuild_equal": true,
+    "known_regressions_pass": true,
+    "no_extraction_rules_changed": true
+  },
+  "tool_acceptance_passed": false,
+  "tool_gates": {
+    "all_six_expected_protocol_pairs_recovered": false,
+    "expected_named_frontend_states_connected": false,
+    "direct_socket_protocol_consumers_visible": false,
+    "update_fidelity": true,
+    "reproducible_full_build": true,
+    "known_chain_regression": true
+  },
+  "reviewed_counts": {
+    "references": 6,
+    "scored": 6,
+    "wrong_protocol_pairs": 0,
+    "correct_protocol_pairs": 3,
+    "missing_expected_protocol_pairs": 3,
+    "producer_forward_paths": 3,
+    "producer_reverse_paths": 3,
+    "serialized_field_relations": 2,
+    "return_state_relations": 0,
+    "state_reference_denominator": 2
+  },
+  "initial_reference_corrected_after_first_output": true,
+  "original_first_output_retained": true,
+  "extraction_rules_adapted_to_validation": false,
+  "runtime_reproduction_count": 0,
+  "historical_full_repository_bad_fixed_graph_pairs": 0,
+  "historical_two_file_cpp_fact_pairs": 1,
+  "conclusion": "A4 evaluation complete; current tool fails new-module connection and direct-transport discovery acceptance",
+  "file_hash_verification": "not_run_per_user_preference"
+}

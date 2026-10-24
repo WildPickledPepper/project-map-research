@@ -1,0 +1,38 @@
+{
+  "evidence_kind": "retained_executed_first_attempts_and_methodology_corrections",
+  "items": [
+    {
+      "stage": "product_copy_preparation",
+      "unintended_changed_paths": 130,
+      "issue": "checkout inherited autocrlf before it was disabled; staging all paths recorded line-ending changes",
+      "treatment": "first copy excluded before product extraction; new copy disables conversion at checkout, stages only authored paths and asserts exact five-file scope"
+    },
+    {
+      "stage": "historical_source_read",
+      "record": 10,
+      "issue": "older blob absent from the local partial clone",
+      "treatment": "fetch needed historical objects in the isolated A4 clone; original source checkout unchanged"
+    },
+    {
+      "stage": "first_reference_and_scoring",
+      "original_correct_protocol_pairs": 2,
+      "issues": [
+        "cluster UI group was incorrectly used as backend protocol scope",
+        "export-name-only selection missed the returned anonymous callback",
+        "unmatched rows were initially grouped under identified_unknown"
+      ],
+      "treatment": "retain original reference and results; source-reviewed reference uses actual module constant and source call coordinates; extraction rules unchanged"
+    },
+    {
+      "stage": "legacy_regression_overview_adapter",
+      "failed_attempts": 2,
+      "issue": "automatic discovery uses files/manifests while legacy renderer expects file_count/metadata/dependencies",
+      "treatment": "adapt only the report inventory fields; final 19 known-chain checks pass"
+    },
+    {
+      "stage": "reviewed_reference_preparation",
+      "issue": "one command literal occurs in two exported functions in the same source file",
+      "treatment": "choose the source call inside the selected API declaration; rejected input attempt produced no graph score"
+    }
+  ]
+}
