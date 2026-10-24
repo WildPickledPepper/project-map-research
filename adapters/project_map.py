@@ -15,6 +15,7 @@ import subprocess
 import time
 import uuid
 from functools import wraps
+import sys
 
 from adapters.sqlite_fact_graph import _SCHEMA, validate_graph
 from adapters.snapshot_inputs import validate_path
@@ -86,6 +87,7 @@ def build_index(graph, discovery, destination, *, navigation_version=None):
         ''')
         descriptor = {'schema': SCHEMA, 'source_commit': graph['source_commit'], 'snapshot': snapshot,
             'navigation_version': navigation_version or {'schema': SCHEMA},
+            'navigation_runtime': {'python': sys.version.split()[0], 'sqlite': sqlite3.sqlite_version},
             'graph_version': graph.get('version'), 'counts': {'tracked_files': len(files),
                 'input_files': len(graph['input_paths']), 'modules': len(modules),
                 'nodes': len(graph['nodes']), 'edges': len(graph['edges'])},
@@ -275,7 +277,8 @@ class ProjectMap:
     def overview(self, **page):
         result = self._page('overview', 'SELECT rowid seq,payload FROM pm_map_modules WHERE rowid>? ORDER BY rowid LIMIT ?',
             convert=lambda r: json.loads(r['payload']), **page)
-        result['repository'] = self.info
+        result['repository'] = {k: v for k, v in self.info.items()
+            if k not in {'graph_version', 'navigation_version', 'snapshot', 'source_commit', 'schema'}}
         return self._bounded(result)
 
     def _bounded(self, result):
@@ -332,6 +335,8 @@ class ProjectMap:
                 'detail': {'entity': 'diagnostic', 'id': r['seq']}}, **page)
 
     def resolve(self, selector):
+        if not isinstance(selector, str) or not selector:
+            raise ValueError('Supply --start with an exact node ID or unique callable/entry name')
         row = self.db.execute('SELECT id FROM pm_fact_nodes WHERE snapshot=? AND id=?',
             (self.info['snapshot'], selector)).fetchone()
         if row:
@@ -351,15 +356,19 @@ class ProjectMap:
     def status(self, selector):
         self._begin()
         uid = self.resolve(selector)
-        node = self.db.execute('SELECT id,kind,name,path,line FROM pm_fact_nodes WHERE snapshot=? AND id=?',
+        node = self.db.execute('''SELECT id,kind,name,path,line,json_extract(payload,'$.resolution') resolution,
+            json_extract(payload,'$.status') local_status FROM pm_fact_nodes WHERE snapshot=? AND id=?''',
             (self.info['snapshot'], uid)).fetchone()
         file = self.db.execute('SELECT payload FROM pm_map_files WHERE path=?', (node['path'],)).fetchone()
         degrees = {}
         for direction, column in [('outgoing', 'source'), ('incoming', 'target')]:
             degrees[direction] = [dict(r) for r in self.db.execute(f'''SELECT kind,status,count(*) count FROM pm_fact_edges
                 WHERE snapshot=? AND {column}=? GROUP BY kind,status''', (self.info['snapshot'], uid))]
-        result = self._finish('status', [self._node(node)], file=json.loads(file[0]) if file else None,
-            relations=degrees, diagnostics={'path': node['path'], 'query': 'diagnostics', 'also_check_global': True},
+        diagnostic_count = self.db.execute('SELECT count(*) FROM pm_map_diagnostics WHERE path=?', (node['path'],)).fetchone()[0]
+        result = self._finish('status', [{**self._node(node), 'resolution': node['resolution'], 'local_status': node['local_status']}],
+            file=json.loads(file[0]) if file else None,
+            relations=degrees, diagnostics={'path': node['path'], 'query': 'diagnostics', 'records': diagnostic_count,
+                'also_check_global': True},
             interpretation='local_resolution_flags_and_candidate_edges_must_be_read_together')
         return self._bounded(result)
 
@@ -462,7 +471,7 @@ class ProjectMap:
             'provider': ('pm_map_providers', 'id'),
             'entry': ('pm_map_entries', 'rowid'), 'diagnostic': ('pm_map_diagnostics', 'rowid')}
         if entity not in locations:
-            raise ValueError('Use node/edge/entry/diagnostic')
+            raise ValueError('Use node/edge/entry/provider/diagnostic')
         table, key = locations[entity]
         if pointer and not pointer.startswith('/'):
             raise ValueError('Use a JSON pointer beginning with /')

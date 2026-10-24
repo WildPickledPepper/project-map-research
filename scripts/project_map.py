@@ -3,6 +3,8 @@ import argparse
 import json
 from pathlib import Path
 import sys
+import sqlite3
+import subprocess
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from adapters.project_map import Budget, ProjectMap, build_index, encoded
@@ -47,6 +49,8 @@ def main():
             result = build_index(graph, discover(args.source, graph['source_commit']), args.output,
                 navigation_version={'schema': 'project-map/1', 'rules_commit': rules})
         else:
+            if args.view == 'path' and not args.target:
+                raise ValueError('Path queries require --target')
             q = ProjectMap(args.index, budget=Budget(args.seconds, args.nodes, args.edges, args.output_bytes),
                 expected_snapshot=args.snapshot)
             page = {'limit': args.limit, 'cursor': args.cursor}
@@ -70,7 +74,7 @@ def main():
             finally:
                 q.close()
         print(encoded(result))
-    except (ValueError, OSError) as exc:
+    except (ValueError, OSError, sqlite3.Error, subprocess.SubprocessError) as exc:
         print(encoded({'error': str(exc)}), file=sys.stderr)
         return 2
     return 0
