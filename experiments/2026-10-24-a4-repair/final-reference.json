@@ -1,0 +1,12 @@
+{
+  "evidence_kind": "source_reference_frozen_before_case_graph_queries",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "rules_commit": "b49092d",
+  "scope": "protocol identity and handler only; rule holdout, not strict blind or runtime evaluation",
+  "selection": "first exported request API by source order in numa overview API and memory-on-chip API; retain both outcomes",
+  "case_sources_used_for_rule_tuning": false,
+  "cases": [
+    {"id":"numa-overview", "api":"getNumaOverview", "api_path":"modules/numa/src/features/overview/api/getNumaOverview.ts", "source_call_line":32, "command":"numa/overview", "scope":"numa", "handler_path":"server/src/modules/numa/handler/QueryNumaOverviewHandler.cpp", "handler_suffix":"QueryNumaOverviewHandler::HandleRequest"},
+    {"id":"chip-basic", "api":"getBasicInfo", "api_path":"modules/memory-on-chip/src/api/index.ts", "source_call_line":23, "command":"Triton/memory/basicInfo", "scope":"triton", "handler_path":"server/src/modules/triton/handler/QueryTritonBasicInfoHandler.cpp", "handler_suffix":"QueryTritonBasicInfoHandler::HandleRequest"}
+  ]
+}
