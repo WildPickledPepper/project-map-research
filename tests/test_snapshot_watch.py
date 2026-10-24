@@ -42,7 +42,7 @@ class AutomaticGraphTests(unittest.TestCase):
                 return commit(source)
 
             initial = save({'server/keys.h': 'const std::string ACTION="alpha/read";', 'server/main.cpp': SERVER, 'client/api.ts': CLIENT})
-            config = {'version': 1, 'scope': {'include': ['*']}, 'storage': 'json', 'deployment': {'services': [
+            config = {'version': 1, 'scope': {'include': ['*'], 'discovery': {}}, 'storage': 'json', 'deployment': {'services': [
                 {'id': 'fixture', 'consumer_paths': ['client'], 'provider_paths': ['server']}]}}
             config_file = base/'config.json'; atomic_json(config_file, config)
             errors = []; stop = threading.Event()

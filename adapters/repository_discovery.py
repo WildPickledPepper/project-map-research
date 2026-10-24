@@ -7,7 +7,7 @@ from pathlib import PurePosixPath
 from adapters.snapshot_inputs import commit, git, validate_path
 
 VERSION = 'repository-discovery/1'
-LANGUAGES = {'.ts': 'typescript', '.tsx': 'tsx', '.cpp': 'cpp', '.cc': 'cpp', '.cxx': 'cpp',
+LANGUAGES = {'.ts': 'typescript', '.mts': 'typescript', '.cts': 'typescript', '.tsx': 'tsx', '.cpp': 'cpp', '.cc': 'cpp', '.cxx': 'cpp',
     '.h': 'cpp', '.hpp': 'cpp', '.hh': 'cpp', '.hxx': 'cpp', '.c': 'c',
     '.js': 'javascript', '.jsx': 'javascript', '.mjs': 'javascript', '.cjs': 'javascript',
     '.py': 'python', '.rs': 'rust', '.sh': 'shell', '.ps1': 'powershell', '.cmake': 'cmake'}
@@ -115,7 +115,7 @@ def discover(source, revision='HEAD', configuration=None):
 
 
 def generated_config(discovery, deployment=None):
-    return {'version': 1, 'scope': {'include': [r['path'] for r in discovery['files'] if r['eligible']], 'exclude': []},
+    return {'version': 1, 'scope': {'include': ['*'], 'exclude': [], 'discovery': discovery['policy']},
             'deployment': deployment or {'services': []}, 'storage': 'json'}
 
 

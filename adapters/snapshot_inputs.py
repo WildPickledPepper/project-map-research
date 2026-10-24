@@ -35,8 +35,11 @@ def normalize_config(config):
     if set(config) - {'version', 'scope', 'deployment', 'storage'}:
         raise ValueError('Unknown configuration field')
     scope = config.get('scope')
-    if not isinstance(scope, dict) or set(scope) - {'include', 'exclude'}:
+    if not isinstance(scope, dict) or set(scope) - {'include', 'exclude', 'discovery'}:
         raise ValueError('Expected scope.include / scope.exclude')
+    if 'discovery' in scope:
+        from adapters.repository_discovery import policy
+        scope['discovery'] = policy(scope['discovery'])
     for key, default in [('include', ['*']), ('exclude', [])]:
         values = scope.setdefault(key, default)
         if not isinstance(values, list) or not all(isinstance(p, str) and p for p in values):
@@ -51,6 +54,10 @@ def normalize_config(config):
 def select_inputs(source, revision, config):
     config = normalize_config(config)
     revision = commit(source, revision)
+    discovery = None
+    if 'discovery' in config['scope']:
+        from adapters.repository_discovery import discover
+        discovery = {r['path']: r for r in discover(source, revision, config['scope']['discovery'])['files']}
     selected, omitted, seen = [], [], set()
     raw = git(source, 'ls-tree', '-r', '-z', '--full-tree', revision)
     for record in raw.split(b'\0'):
@@ -62,6 +69,9 @@ def select_inputs(source, revision, config):
         if (not any(fnmatchcase(path, p) for p in scope['include'])
                 or any(fnmatchcase(path, p) for p in scope['exclude'])):
             omitted.append({'path': path, 'reason': 'outside_configured_scope'})
+            continue
+        if discovery is not None and not discovery[path]['eligible']:
+            omitted.append({'path': path, 'reason': discovery[path]['reason']})
             continue
         if kind != 'blob' or mode not in {'100644', '100755'}:
             omitted.append({'path': path, 'reason': 'unsupported_git_mode', 'mode': mode})

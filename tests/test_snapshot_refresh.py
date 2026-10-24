@@ -53,6 +53,19 @@ class RefreshTests(unittest.TestCase):
         self.assertEqual(self.graph()['nodes'][0]['content'], 'original')
         self.assertEqual(refresh.read_snapshot(self.store)['freshness'], 'current_at_observation')
 
+    def test_automatic_scope_replans_new_modules_without_configuration_edits(self):
+        self.config['scope'] = {'discovery': {}}
+        first = self.runner().run()
+        self.write_commit({'new/package.json':'{"name":"new"}', 'new/entry.ts':'export function added(){}',
+                           'vendor/skip.ts':'third party', 'new/help.py':'unsupported'})
+        second = self.runner().run()
+        self.assertEqual(self.graph()['input_paths'], ['a.ts','new/entry.ts','new/package.json'])
+        self.assertEqual(first['last_success']['config'], second['last_success']['config'])
+        self.git('mv','new/entry.ts','new/renamed.ts');self.git('commit','-qm','rename')
+        self.runner().run()
+        self.assertIn('new/renamed.ts',self.graph()['input_paths'])
+        self.assertNotIn('new/entry.ts',self.graph()['input_paths'])
+
     def test_scope_source_and_builder_configuration_changes_trigger_rebuild(self):
         self.runner().run(); old = commit(self.source)
         self.write_commit({'b.ts': 'second'}); self.runner().run()

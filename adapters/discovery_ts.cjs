@@ -52,7 +52,9 @@ function analyze(ts, name, source) {
 function metadata(ts, root, name, source) {
   const parsed=ts.parseConfigFileTextToJson(name,source);
   if(parsed.error)return {path:name,status:'manifest_error',diagnostics:[{kind:'invalid_json',message:ts.flattenDiagnosticMessageText(parsed.error.messageText,' ')}]};
-  const c=parsed.config;
+  let c=parsed.config;
+  if(!c || typeof c!=='object' || Array.isArray(c))throw new Error('Expected manifest object');
+  if(name.split('/').pop()==='package.json')c=JSON.parse(source.replace(/^\uFEFF/,''));
   if(name.split('/').pop()==='package.json')return {path:name,status:'metadata_parsed',kind:'package',name:c.name,
     scripts:c.scripts||{},entries:{main:c.main,module:c.module,exports:c.exports,bin:c.bin},workspaces:c.workspaces||[],
     dependencies:Object.fromEntries(['dependencies','devDependencies','peerDependencies'].map(k=>[k,c[k]||{}]))};

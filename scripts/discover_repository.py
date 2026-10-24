@@ -57,12 +57,13 @@ def simple_manifest(path, kind, source):
     result = {'path': path, 'kind': kind, 'status': 'metadata_parsed'}
     if kind == 'toml':
         data = tomllib.loads(source)
-        result['metadata'] = {k: data[k] for k in ('package', 'project', 'workspace', 'build-system', 'dependencies') if k in data}
+        result['metadata'] = json.loads(json.dumps({k: data[k] for k in ('package', 'project', 'workspace', 'build-system', 'dependencies') if k in data},
+                                                  default=lambda value: value.isoformat()))
     elif kind == 'requirements':
         result['requirements'] = [{'line': i, 'expression': s.strip()} for i, s in enumerate(source.splitlines(), 1)
                                   if s.strip() and not s.lstrip().startswith('#')]
     elif kind == 'cmake':
-        result['commands'] = [{'line': source[:m.start()].count('\n')+1, 'command': m[1].lower(),
+        result['commands'] = [{'line': source[:m.start(1)].count('\n')+1, 'command': m[1].lower(),
             'expression': m[2].strip(), 'resolution': 'source_expression_not_evaluated'}
             for m in re.finditer(r'^\s*(project|add_subdirectory|add_library|add_executable|file|set|option|find_package|target_link_libraries|target_include_directories)\s*\((.*?)\)', source, re.M|re.S|re.I)]
         result['limits'] = ['cmake_expression_fragments_not_executed', 'variables_globs_conditions_not_resolved',
