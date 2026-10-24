@@ -51,6 +51,7 @@ class P7QueryTests(unittest.TestCase):
         q=ProjectQuery(fixture());r=q.impact(name='handle')
         self.assertEqual(r['items'][0]['name'],'fetch');self.assertTrue(r['items'][0]['witness_paths'][0]['found'])
         self.assertTrue(q.impact(name='handle',depth=0)['depth_limit_reached'])
+        self.assertEqual(q.trace('handle',reverse=True)['items'][0]['name'],'fetch')
         self.assertEqual(q.trace('absent')['missing_path_meaning'],'unknown')
         self.assertEqual(q.assets()['risk_assessment'],'not_performed')
         edge=q.graph['edges'][0];selector={k:edge[k] for k in ('source','target','kind')}
@@ -66,7 +67,9 @@ class P7QueryTests(unittest.TestCase):
     def test_old_runtime_never_carries_verification_forward(self):
         q=ProjectQuery(fixture())
         record={'id':'run','basis':{'snapshot':'older','source_commit':'commit'},'provenance':{},
-                'payload':{'execution_context':{'scenario':{'name':'normal'}},'events':[{'stage':'send'}],'outcome':{'status':'pass'}}}
+                'payload':{'execution_context':{'scenario':{'name':'normal'}},'events':[{'stage':'send'}],'outcome':{'status':'pass'},
+                           'mappings':[{'observed_dispatch_target':'SelectedImplementation'}]}}
         with patch.object(module,'query_records',return_value={'items':[{'record':record}]}):r=q.runs('unused')
         row=r['items'][0];self.assertFalse(row['eligible_for_direct_overlay']);self.assertFalse(row['verification_carried_forward'])
         self.assertEqual(row['reason'],'different_graph_snapshot')
+        self.assertEqual(row['observed_dispatch_targets'],['SelectedImplementation'])

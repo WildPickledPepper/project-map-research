@@ -23,7 +23,7 @@ def main():
     for action in ('begin','end'):
         p=sub.add_parser(action);p.add_argument('task')
     p=sub.add_parser('read');p.add_argument('path');p.add_argument('--start',type=int,default=1);p.add_argument('--count',type=int,default=100)
-    sub.add_parser('query')
+    sub.add_parser('query',add_help=False)
     a,rest=ap.parse_known_args()
     if a.mode=='query':a.args=rest
     elif rest:ap.error('Unrecognized arguments: '+' '.join(rest))

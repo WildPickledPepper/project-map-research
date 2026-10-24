@@ -62,12 +62,16 @@ python workbench.py --select items query search QueryMemoryView --kind callable
 python workbench.py --select items query trace memoryCurveGet
 python workbench.py --select chains.0.summary query trace memoryCurveGet --field '["lines"]'
 python workbench.py query impact --changed-path server/src/modules/memory/parser/CurveContainer.cpp
+python workbench.py query impact --name 'Dic::Module::Memory::TextMemoryDataBase::QueryMemoryView'
+python workbench.py query trace 'Dic::Module::Memory::TextMemoryDataBase::QueryMemoryView' --reverse
 python workbench.py query resource CurveContainer
+python workbench.py query assets --target memoryCurveGet
+python workbench.py --select items.0.observed_dispatch_targets read runtime.json
 python workbench.py --select items.0 read runtime.json
 python workbench.py read source/modules/memory/src/components/DynamicLineChart.tsx --start 90 --count 60
 ```
 
-`--select` selects JSON object keys/list indices. Source reads show original line numbers. You may inspect the entire selected-source file through successive reads. If output is large, select a narrower field. Runtime records are materialized in runtime.json from the same unified runs query; no record store is needed in this bundle.
+`--select` selects JSON object keys/list indices. Protocol trace without --field has items; field trace has chains and items. Use `python workbench.py query impact --help` for exact CLI syntax. impact uses --name for a symbol; assets uses --target. resource defaults to a bounded summary; --details expands expressions. Source reads show original line numbers. You may inspect the entire selected-source file through successive reads. If output is large, select a narrower field. Runtime records are materialized in runtime.json from the same unified runs query; no record store is needed in this bundle. observed_dispatch_targets identifies implementations actually observed in those original runs.
 
 Write answers.json and answers.md only under output/. For each question, include concrete findings, evidence paths with original source lines or JSON paths, and remaining unknowns. Cite query paths/conditions as well as source when tracing. Record tool issues accurately. Token/context counts are not exposed by this helper; do not estimate them. Read START.md, ai-tasks.json and bundle.json directly as setup; all subsequent evidence reads go through workbench.
 ''',encoding='utf-8')

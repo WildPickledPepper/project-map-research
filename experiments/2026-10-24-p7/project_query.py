@@ -104,11 +104,19 @@ class ProjectQuery:
     def trace(self, name, *, target=None, reverse=False, depth=16, field=None, details=False, **page):
         if not 0 <= depth <= 64: raise ValueError('Depth must be between 0 and 64')
         if target:
-            path = find_path(self.graph, self.resolve(name), self.resolve(target), END_TO_END_KINDS,
+            path = find_path(self.graph, self.resolve(name), self.resolve(target), END_TO_END_KINDS | {'SOURCE_CALL_CANDIDATE'},
                              reverse=reverse, max_depth=depth)
             return self.result('trace_path', path['edges'], **page, path={k: v for k, v in path.items() if k != 'edges'})
         matches = self.protocol_results(name)
-        if not matches: return self.result('trace', [], **page, status='not_extracted_or_not_an_interface', missing_path_meaning='unknown')
+        if not matches:
+            try:uid=self.resolve(name)
+            except ValueError:return self.result('trace', [], **page, status='not_extracted_or_not_an_interface', missing_path_meaning='unknown')
+            if reverse:
+                result=self.impact(name=uid,depth=depth,**page);result['query']='trace_reverse';return result
+            kinds=END_TO_END_KINDS | {'SOURCE_CALL_CANDIDATE'}
+            reached,cut=self._reachable(uid,kinds,depth)
+            return self.result('trace_forward',[compact(self.nodes[i]) for i in sorted(reached) if i!=uid],**page,
+                               start=compact(self.nodes[uid]),depth_limit_reached=cut,meaning='candidate_source_reachability')
         paths, chains = [], []
         for result in matches:
             if not result['matches']:
@@ -131,6 +139,7 @@ class ProjectQuery:
             return self.result('trace_chain', rows, **page, protocols=paths,
                 chains=[{k: v for k, v in c.items() if k != 'relations'} for c in chains],
                 extraction_truncated=any(c['truncated'] for c in chains),
+                direction='bidirectional_field_evidence',
                 expansion_limits={'protocol_depth':depth,'field_and_transport':'extractor_and_chain_query_limits','returned_value_depth':8})
         return self.result('trace', paths, **page)
 
@@ -147,7 +156,7 @@ class ProjectQuery:
                 seen.add(nxt); queue.append((nxt, d+1))
         return seen, truncated
 
-    def resource(self, name, **page):
+    def resource(self, name, details=False, **page):
         data = self.graph['data']; members=data.get('member_effects', {})
         sources={s['id']:s for s in data['storages']+members.get('members',[])}
         selected = [s for s in sources.values() if name.casefold() in (s['owner']+'::'+s['name']).casefold()]
@@ -156,9 +165,19 @@ class ProjectQuery:
             accesses = [a for a in data['accesses'] if a['storage'] == storage['id']]
             effects=[e for e in members.get('effects',[]) if e['member']==storage['id']]
             symbols={a['source_symbol'] for a in accesses+effects}
-            results.append({'storage': storage, 'accesses': accesses, 'member_effects': effects,
+            def brief(a):
+                return {**{k:v for k,v in a.items() if k not in {'key','value'}},
+                    'key_expression':(a.get('key') or {}).get('expression'),
+                    'value_expression':(a.get('value') or {}).get('expression'),
+                    'value_status':(a.get('value') or {}).get('reason',(a.get('value') or {}).get('kind'))}
+            impacts=[{'source_symbol':i,'entries':[{'name':e['name'],'entries':e['entries'],'status':e['status']} for e in self.impact(name=i,limit=500)['items']]} for i in sorted(symbols)]
+            cap=50
+            results.append({'storage': storage, 'accesses': accesses if details else [brief(a) for a in accesses[:cap]],
+                'member_effects':effects if details else [brief(e) for e in effects[:cap]],
+                'access_count':len(accesses),'member_effect_count':len(effects),
+                'relations_truncated':not details and (len(accesses)>cap or len(effects)>cap),
                 'functions': [compact(self.nodes[i]) for i in sorted(symbols)],
-                'reverse_impacts': [self.impact(name=i,limit=500) for i in sorted(symbols)],
+                'reverse_impacts':impacts,
                 'relationship': 'potential_shared_resource_with_instance_and_key_conditions',
                 'instance_contexts': [a for a in data.get('instances', {}).get('accesses', []) if a['access'] in {x['id'] for x in accesses}],
                 'runtime_occupancy_bytes': None, 'release_completion': 'not_observed'})
@@ -215,6 +234,7 @@ class ProjectQuery:
             records.append({'id':record['id'],'basis':record['basis'],'provenance':record['provenance'],
                 'execution_context':context,'outcome':payload.get('outcome'), 'stage_counts':dict(Counter(e['stage'] for e in payload.get('events',[]))),
                 'mappings':payload.get('mappings',[]),'diagnostics':payload.get('diagnostics',[]),
+                'observed_dispatch_targets':sorted({m['observed_dispatch_target'] for m in payload.get('mappings',[]) if m.get('observed_dispatch_target')}),
                 'same_graph_snapshot':same,'eligible_for_direct_overlay':False,
                 'reason':'explicit_target_execution_context_required' if same else 'different_graph_snapshot',
                 'verification_carried_forward':False})

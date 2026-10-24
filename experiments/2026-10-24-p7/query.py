@@ -18,7 +18,7 @@ def main():
     p=sub.add_parser('search'); p.add_argument('text', nargs='?', default=''); p.add_argument('--kind')
     p=sub.add_parser('trace'); p.add_argument('name'); p.add_argument('--target'); p.add_argument('--reverse', action='store_true')
     p.add_argument('--depth', type=int, default=16); p.add_argument('--field', type=json.loads); p.add_argument('--details', action='store_true')
-    p=sub.add_parser('resource'); p.add_argument('name')
+    p=sub.add_parser('resource'); p.add_argument('name');p.add_argument('--details',action='store_true')
     p=sub.add_parser('impact'); p.add_argument('--name'); p.add_argument('--changed-path', action='append', default=[])
     p.add_argument('--diff', type=Path); p.add_argument('--depth', type=int, default=20)
     p=sub.add_parser('explain'); p.add_argument('--node'); p.add_argument('--gap');p.add_argument('--edge',type=json.loads)
@@ -31,7 +31,7 @@ def main():
     elif args.command=='coverage':result=model.coverage(args.capability,**page)
     elif args.command=='search': result=model.search(args.text,args.kind,**page)
     elif args.command=='trace': result=model.trace(args.name,target=args.target,reverse=args.reverse,depth=args.depth,field=args.field,details=args.details,**page)
-    elif args.command=='resource': result=model.resource(args.name,**page)
+    elif args.command=='resource': result=model.resource(args.name,details=args.details,**page)
     elif args.command=='impact':
         changed=args.changed_path
         if args.diff:
