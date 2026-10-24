@@ -14,7 +14,7 @@ probe = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(probe)
 
 
-def execute(command, output, seconds=120, memory=4 * 1024**3):
+def execute(command, output, seconds=120, memory=6 * 1024**3):
     started, peak, reason = time.perf_counter(), 0, None
     with output.open('w', encoding='utf-8') as stream:
         process = subprocess.Popen(command, cwd=ROOT, stdout=stream, stderr=subprocess.STDOUT)
@@ -58,6 +58,10 @@ if __name__ == '__main__':
             ('diagnostics', ['diagnostics', '--limit', '10'])]:
             results[name] = execute(base + ['query', '--index', str(index.resolve()), *args], a.output / (name + '.json'),
                 seconds=10, memory=256 * 1024**2)
+            if results[name]['status'] == 'passed':
+                value = json.loads((a.output / (name + '.json')).read_text(encoding='utf-8'))
+                results[name].update(query_stop_reason=value.get('stop_reason'),
+                    query_status=value.get('search_status'), elapsed_query_seconds=value['elapsed_seconds'])
     result = {'evidence_kind': 'executed_fresh_navigation_processes', 'build': build, 'queries': results,
         'index_bytes': index.stat().st_size if index.exists() else None,
         'memory_measurement': 'sampled sum of Windows process-tree working sets including Python redirector; shared pages may count twice',

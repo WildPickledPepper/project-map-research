@@ -144,6 +144,31 @@ class ProjectMapTests(unittest.TestCase):
         with self.assertRaises(ValueError): ProjectMap(self.path, expected_snapshot='other')
         with self.assertRaises(ValueError): self.q.source(self.root, path='../secret', line=1)
 
+    def test_navigation_version_and_filter_bound_cursors(self):
+        first = self.q.neighbors('handler', limit=1)
+        with self.assertRaises(ValueError): self.q.neighbors('handler', 'in', cursor=first['next_cursor'])
+        self.q.info['navigation_version'] = {'rules_commit': 'new'}
+        with self.assertRaises(ValueError): self.q.neighbors('handler', cursor=first['next_cursor'])
+
+    def test_ambiguous_symbol_requires_source_identity(self):
+        self.q.close()
+        duplicate = {**self.graph['nodes'][0], 'id': 'another', 'path': 'server/a.cpp'}
+        self.graph['nodes'].append(duplicate)
+        build_index(self.graph, self.discovery, self.path)
+        self.q = ProjectMap(self.path)
+        with self.assertRaises(ValueError): self.q.status('fetch')
+        self.assertEqual(self.q.status('api')['items'][0]['id'], 'api')
+
+    def test_provider_and_escaped_numeric_object_key_detail(self):
+        self.q.close()
+        self.graph['protocol']['providers'] = [{'id': 'p', 'command': 'changed/name', 'path': 'server/a.cpp', 'status': 'candidate'}]
+        self.graph['nodes'][0]['mapping'] = {'0': {'a/b~c': 'correct'}}
+        build_index(self.graph, self.discovery, self.path)
+        self.q = ProjectMap(self.path)
+        self.assertEqual(self.q.providers('changed')['items'][0]['id'], 'p')
+        self.assertEqual(self.q.detail('provider', 'p', '/command')['items'][0]['value'], 'changed/name')
+        self.assertEqual(self.q.detail('node', 'api', '/mapping/0/a~1b~0c')['items'][0]['value'], 'correct')
+
     def test_source_reads_pinned_commit_even_with_dirty_worktree(self):
         source = self.root / 'repo'
         source.mkdir()

@@ -83,6 +83,8 @@ def build_index(graph, discovery, destination, *, navigation_version=None):
             CREATE INDEX pm_map_node_name ON pm_fact_nodes(snapshot,name,kind);
             CREATE INDEX pm_map_node_path ON pm_fact_nodes(snapshot,path,kind);
             CREATE INDEX pm_map_node_kind ON pm_fact_nodes(snapshot,kind);
+            CREATE INDEX pm_map_edges_outgoing ON pm_fact_edges(snapshot,source,ordinal);
+            CREATE INDEX pm_map_edges_incoming ON pm_fact_edges(snapshot,target,ordinal);
             CREATE TABLE pm_map_links (source TEXT,target TEXT,kind TEXT,status TEXT,edges INTEGER);
         ''')
         descriptor = {'schema': SCHEMA, 'source_commit': graph['source_commit'], 'snapshot': snapshot,
@@ -483,7 +485,7 @@ class ProjectMap:
             if is_array and not part.isdigit():
                 raise ValueError('Array pointer requires a nonnegative index')
             path += '[' + part + ']' if is_array else '.' + json.dumps(part)
-        allowance = min(4096, (self.budget.output_bytes - 2500) // 2)
+        allowance = (self.budget.output_bytes - 2500) // 2
         def convert(row):
             value = row['value']
             if row['type'] in {'object', 'array'} and value is not None:
