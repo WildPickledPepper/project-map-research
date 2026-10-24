@@ -1,0 +1,24 @@
+{
+  "evidence_kind": "executed_heldout_first_pass",
+  "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+  "rules_commit": "a93bafff11e6ac985b08412372953cc2ceec2a31",
+  "input_files": 192,
+  "nodes": 31354,
+  "edges": 45086,
+  "raw_artifacts": "p7-heldout-01/store/staging/d288a72c8f6f40deba86f687c1def4d9",
+  "publication": "failed",
+  "storage_error": "512 MiB Kuzu pool exhausted; no snapshot published",
+  "protocols": {
+    "unit/flows": "matched_conditional",
+    "timeline/rankOffset": "matched_conditional",
+    "Memory/view/memoryUsage": "unmatched"
+  },
+  "frontend_memory_state_writes": 0,
+  "identified_gaps": [
+    "relative using namespace type lookup omitted its enclosing namespace",
+    "Promise.then fulfillment and React useState setter not modeled by consumer extractor",
+    "expanded graph transaction exceeded builder storage buffer"
+  ],
+  "first_result_preserved": true,
+  "reference_used_for_extraction": false
+}
