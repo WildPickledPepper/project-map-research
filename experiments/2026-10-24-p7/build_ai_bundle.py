@@ -10,11 +10,11 @@ ROOT=Path(__file__).resolve().parents[2]
 HERE=Path(__file__).resolve().parent
 
 
-def build(graph_path, inventory_path, source, runtime_store, output):
+def build(graph_path, inventory_path, source, runtime_store, output, catalog_path=None):
     if output.exists():raise ValueError('Use a fresh bundle directory')
     output.mkdir(parents=True)
     read=lambda p:json.loads(p.read_text(encoding='utf-8'))
-    graph=read(graph_path);inventory=read(inventory_path);q=ProjectQuery(graph,inventory)
+    graph=read(graph_path);inventory=read(inventory_path);catalog=read(catalog_path) if catalog_path else None;q=ProjectQuery(graph,inventory,catalog)
     def portable(value):
         if isinstance(value,dict):return {k:portable(v) for k,v in value.items()}
         if isinstance(value,list):return [portable(v) for v in value]
@@ -25,6 +25,7 @@ def build(graph_path, inventory_path, source, runtime_store, output):
         p=output/name;p.parent.mkdir(parents=True,exist_ok=True)
         p.write_text(json.dumps(portable(data),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     save('graph.json',graph);save('inventory.json',inventory)
+    if catalog:save('coverage-catalog.json',catalog)
     save('runtime.json',q.runs(runtime_store,limit=500))
     save('overview.json',q.overview(limit=500))
     (output/'map.md').write_text(render_markdown(q.overview(limit=500)),encoding='utf-8')
@@ -47,12 +48,13 @@ def build(graph_path, inventory_path, source, runtime_store, output):
 
 Read only this bundle. Do not read sibling bundles, the research repository, scoring references, prior agent outputs, or external sources. Do not message other agents or create subagents.
 
-Use `python workbench.py begin T01` before each task and `python workbench.py end T01` after writing its answer. All source/query reads during a task must use workbench so elapsed time and bytes are measured. Use the same pattern for all 10 tasks.
+Use `python workbench.py begin T01` before each task and `python workbench.py end T01` after writing its answer. All source/query reads during a task must use workbench so elapsed time and bytes are measured. Use the same pattern for all tasks in ai-tasks.json.
 
 Examples (run in this bundle):
 
 ```
 python workbench.py --select coverage query --limit 500 overview
+python workbench.py --select repository.languages query coverage
 python workbench.py --select items query search QueryMemoryView --kind callable
 python workbench.py --select items query trace memoryCurveGet
 python workbench.py --select chains.0.summary query trace memoryCurveGet --field '["lines"]'
@@ -72,4 +74,5 @@ Write answers.json and answers.md only under output/. For each question, include
 if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('graph','inventory','source','runtime-store','output'):p.add_argument('--'+name,type=Path,required=True)
-    a=p.parse_args();print(json.dumps(build(a.graph,a.inventory,a.source,a.runtime_store,a.output)))
+    p.add_argument('--catalog',type=Path)
+    a=p.parse_args();print(json.dumps(build(a.graph,a.inventory,a.source,a.runtime_store,a.output,a.catalog)))

@@ -1,5 +1,5 @@
 {
-  "version":"p7-ai-gold/1",
+  "version":"p7-ai-gold/2",
   "origin":"independent_source_audit_for_scoring_only",
   "excluded_from_agent_inputs":true,
   "scoring":"All required facts and relevant source/record citations must be correct; any omitted required fact, definite false connection or unknown promoted to certainty fails that task. First answers are preserved before remediation.",
@@ -13,7 +13,8 @@
     "T07":["normal adopts and passes","late discards old A after switching B and passes","fault deliberately bypasses guard and assertion fails","path difference alone not bug","P5 basis/snapshot differs from P7; no verification carried forward"],
     "T08":["not_connected","P6 pending","applicability not evaluated","empty asset list not no-risk conclusion"],
     "T09":["absent request not_extracted_or_not_an_interface means unknown","depth 0 displays depth_limit_reached","limit 1 displays truncated and next_offset","all are scope/expansion limits not independence proofs"],
-    "T10":["TextMemoryDataBase::QueryMemoryView reverse reaches memoryCurveGet","lines maps to lineChartData with request id guard","DB/Text candidates, cache hit/miss and comparison conditions","P5 runtime evidence belongs to unit/flows, memory branch execution/occupancy unobserved"]
+    "T10":["TextMemoryDataBase::QueryMemoryView reverse reaches memoryCurveGet","lines maps to lineChartData with request id guard","DB/Text candidates, cache hit/miss and comparison conditions","P5 runtime evidence belongs to unit/flows, memory branch execution/occupancy unobserved"],
+    "T11":["Python 119 and Rust 13 tracked language files; both 0 graph inputs","three uncovered categories from catalog e.g FFI/process/background/cancellation/lock ordering","lexical candidates not semantic edges","three chains do not prove whole-repository completeness"]
   },
   "source_anchors":{
     "T02":["modules/timeline/src/api/request.ts:174","server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp","server/src/modules/timeline/core/database/DbTraceDataBase2.cpp","server/src/modules/timeline/core/database/TextTraceDatabase.cpp"],

@@ -19,9 +19,12 @@ def compact(node):
 
 
 class ProjectQuery:
-    def __init__(self, graph, inventory=None):
+    def __init__(self, graph, inventory=None, catalog=None):
         self.graph = graph
         self.inventory = inventory
+        self.catalog = catalog
+        if catalog and (catalog['source_commit']!=graph['source_commit'] or catalog['snapshot']!=graph['snapshot']):
+            raise ValueError('Coverage catalog and graph version differ')
         self.nodes = {n['id']: n for n in graph['nodes']}
         self.providers = {p['id']: p for p in graph['protocol']['providers']}
         self.out, self.inc = defaultdict(list), defaultdict(list)
@@ -64,7 +67,19 @@ class ProjectQuery:
         return self.result('overview', modules, **page, repository_inventory={k: v for k, v in inventory.items() if k != 'modules'},
             coverage={'graph_input_files': len(self.graph['input_paths']), 'whole_repository_semantic_analysis': False,
                       'statuses': dict(Counter(c['status'] for c in self.graph['coverage']))},
+            full_repository_catalog={k:self.catalog[k] for k in ('scan','languages','top_level_groups','limits')} if self.catalog else {'status':'not_supplied'},
             assets={'status': 'not_connected', 'dependency': 'P6'}, description_origin='package_metadata_and_source_structure')
+
+    def coverage(self, capability=None, **page):
+        if not self.catalog:return self.result('coverage',[],**page,status='not_supplied')
+        if capability:
+            rows=[c for c in self.catalog['capabilities'] if c['id']==capability]
+            if not rows:return self.result('coverage_signals',[],**page,status='unknown_capability')
+            c=rows[0]
+            return self.result('coverage_signals',c['evidence'],**page,capability={k:v for k,v in c.items() if k!='evidence'},
+                               evidence_kind='lexical_candidate_not_semantic_relation')
+        return self.result('coverage',[{k:v for k,v in c.items() if k!='evidence'} for c in self.catalog['capabilities']],**page,
+            repository={k:v for k,v in self.catalog.items() if k!='capabilities'},evidence_kind='full_tree_inventory_and_lexical_candidates')
 
     def resolve(self, name):
         if name in self.nodes: return name
@@ -211,6 +226,14 @@ def render_markdown(result):
            'Query: '+result['query']+'. Items '+str(result['offset'])+'–'+str(result['offset']+len(result['items']))+' of '+str(result['total'])+'.',
            'Truncated: '+str(result['truncated']).lower()+'.', '']
     if result['query']=='overview':
+        catalog=result.get('full_repository_catalog',{})
+        if 'languages' in catalog:
+            lines+=['## Whole repository inventory','','| Language | Tracked files | Graph input files |','|---|---:|---:|']
+            for row in catalog['languages']:lines.append('| '+row['name']+' | '+str(row['tracked_files'])+' | '+str(row['graph_input_files'])+' |')
+            lines+=['','Top-level directories (including unexpanded parts):','',
+                '| Directory | Tracked | Graph inputs |','|---|---:|---:|']
+            for row in catalog['top_level_groups']:lines.append('| '+row['path']+' | '+str(row['tracked_files'])+' | '+str(row['selected_files'])+' |')
+            lines+=['','Use `coverage` for supported mechanisms and source candidates; lexical matches are not connections.','','## Selected module navigation','']
         lines+=['| Module | Tracked files | Analyzed files | Semantic coverage |','|---|---:|---:|---|']
         for m in result['items']: lines.append('| '+m['path']+' | '+str(m['file_count'])+' | '+str(m['analyzed_files'])+' | '+m['semantic_coverage']+' |')
         for m in result['items']:

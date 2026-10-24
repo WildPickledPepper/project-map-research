@@ -22,6 +22,16 @@ def fixture():
 
 
 class P7QueryTests(unittest.TestCase):
+    def test_coverage_signals_stay_separate_and_versioned(self):
+        catalog={'source_commit':'commit','snapshot':'snapshot','languages':[],
+                 'capabilities':[{'id':'ffi','support':'inventory_only','evidence':[{'path':'a.rs','line':1},{'path':'b.py','line':2}]}]}
+        q=ProjectQuery(fixture(),catalog=catalog);r=q.coverage('ffi',limit=1)
+        self.assertEqual(r['evidence_kind'],'lexical_candidate_not_semantic_relation')
+        self.assertTrue(r['truncated']);self.assertEqual(r['next_offset'],1)
+        self.assertEqual(q.coverage()['items'][0]['support'],'inventory_only')
+        catalog['snapshot']='other'
+        with self.assertRaises(ValueError):ProjectQuery(fixture(),catalog=catalog)
+
     def test_protocol_provider_record_is_not_graph_node_and_new_command_is_discovered(self):
         q=ProjectQuery(fixture());r=q.trace('changed/name')
         self.assertEqual(r['items'][0]['provider']['id'],'p')

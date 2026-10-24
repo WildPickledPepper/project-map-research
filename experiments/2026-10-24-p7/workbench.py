@@ -23,8 +23,11 @@ def main():
     for action in ('begin','end'):
         p=sub.add_parser(action);p.add_argument('task')
     p=sub.add_parser('read');p.add_argument('path');p.add_argument('--start',type=int,default=1);p.add_argument('--count',type=int,default=100)
-    p=sub.add_parser('query');p.add_argument('args',nargs=argparse.REMAINDER)
-    a=ap.parse_args();begin=time.perf_counter();state=json.loads(STATE.read_text()) if STATE.exists() else {}
+    sub.add_parser('query')
+    a,rest=ap.parse_known_args()
+    if a.mode=='query':a.args=rest
+    elif rest:ap.error('Unrecognized arguments: '+' '.join(rest))
+    begin=time.perf_counter();state=json.loads(STATE.read_text()) if STATE.exists() else {}
     if a.mode=='begin':
         state={'task':a.task,'started':time.time()};STATE.write_text(json.dumps(state));log({'action':'begin',**state});print(a.task);return
     if a.mode=='end':
@@ -39,7 +42,8 @@ def main():
             lines=text.splitlines();text='\n'.join(f'{i+1}: {lines[i]}' for i in range(max(0,a.start-1),min(len(lines),a.start-1+min(a.count,200))))
     else:
         result=subprocess.run([sys.executable,str(ROOT/'experiments/2026-10-24-p7/query.py'),
-            '--graph',str(ROOT/'graph.json'),'--inventory',str(ROOT/'inventory.json'),*a.args],capture_output=True,text=True,encoding='utf-8')
+            '--graph',str(ROOT/'graph.json'),'--inventory',str(ROOT/'inventory.json'),
+            '--catalog',str(ROOT/'coverage-catalog.json'),*a.args],capture_output=True,text=True,encoding='utf-8')
         if result.returncode:raise RuntimeError(result.stderr)
         text=result.stdout;value=json.loads(text) if a.select else None
     raw_bytes=len(text.encode('utf-8'))

@@ -1,5 +1,6 @@
 {
-  "version": "p7-ai-tasks/1",
+  "version": "p7-ai-tasks/2",
+  "revision_reason":"Before any agent execution, add whole-repository mechanism coverage question following user architecture review.",
   "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
   "evaluation": "Two independent agents use the same graph, sources and questions. This measures graph-assisted usability, not superiority over source-only work.",
   "tasks": [
@@ -12,7 +13,8 @@
     {"id":"T07","question":"运行记录中 normal、late、fault 的结果分别是什么？迟到响应路径不同是否就是 bug？这些旧记录能否直接作为当前 P7 图已经运行验证的证据？"},
     {"id":"T08","question":"修改 memoryUsage 时能查到哪些历史契约？当前 assets 状态具体意味着什么，能否据此说没有历史风险？"},
     {"id":"T09","question":"查询不存在的 Memory/view/definitely-absent；再用深度 0 查 memoryCurveGet，并用 limit=1 分页搜索 QueryMemoryView。分别解释未提取、深度截断和分页截断，避免把它们解释为没有依赖。"},
-    {"id":"T10","question":"从 TextMemoryDataBase::QueryMemoryView 和返回字段 lines 分别反查消费入口。列出与其相关的数据库/缓存/前端条件，并说明这条 memory 链是否已有实际运行或内存占用验证。"}
+    {"id":"T10","question":"从 TextMemoryDataBase::QueryMemoryView 和返回字段 lines 分别反查消费入口。列出与其相关的数据库/缓存/前端条件，并说明这条 memory 链是否已有实际运行或内存占用验证。"},
+    {"id":"T11","question":"查看全仓 coverage 清单：Python 和 Rust 有多少文件、多少进入语义图？列出三个尚未贯通的机制类别。词法扫描命中能否当作已连接的调用关系？三条链通过能否证明全仓完整？"}
   ],
   "answer_format": "answers.json: array of {id,answer,evidence:[{file,line_or_json_path,claim}],unknowns:[string]}; plus answers.md. Every task uses workbench begin/end; tool/read usage and elapsed time are recorded. Token/context counts unavailable from the agent API must be reported unavailable."
 }
