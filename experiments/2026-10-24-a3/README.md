@@ -1,6 +1,6 @@
 # A3：可展开项目地图与查询
 
-状态：实施中。输入复用 A2 已发布的全仓事实图，源码固定为 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。源码与图的生成规则沿用 A2；本阶段独立记录导航规则版本。
+状态：已完成，见[完成报告](completion.md)、[自动模块图](evidence/project-map.md)和 [AI 查询示例](walkthrough.md)。输入复用 A2 已发布的全仓事实图，源码固定为 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。源码与图的生成规则沿用 A2；本阶段独立记录导航规则版本。
 
 目标是让 AI 从概览定位模块，从任意已发现入口或符号查看处理状态，沿已有关系正向、反向展开，检查证据和缺口，并读取相同提交的源码。
 
@@ -34,6 +34,7 @@ python scripts/project_map.py build --graph <A2-graph.json> --source <Insight-ch
 python scripts/project_map.py query --index <map.sqlite> overview
 python scripts/project_map.py query --index <map.sqlite> links --module modules/timeline
 python scripts/project_map.py query --index <map.sqlite> entries --name getUnitFlows
+python scripts/project_map.py query --index <map.sqlite> providers --text unit/flows
 python scripts/project_map.py query --index <map.sqlite> search --text QueryFlowsBySliceInfoHandler --kind callable
 python scripts/project_map.py query --index <map.sqlite> status --start <node-id>
 python scripts/project_map.py query --index <map.sqlite> neighbors --start <node-id> --direction out --limit 10

@@ -1,0 +1,1025 @@
+{
+  "query": "overview",
+  "schema": "project-map/1",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "graph_version": {
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+    "config": {
+      "version": 1,
+      "scope": {
+        "include": [
+          "*"
+        ],
+        "exclude": [],
+        "discovery": {
+          "version": 1,
+          "roles": [
+            "build_tool",
+            "product",
+            "test"
+          ],
+          "exclude": [],
+          "max_file_bytes": 2097152
+        }
+      },
+      "deployment": {
+        "version": 1,
+        "evidence_kind": "configured_analysis_scope",
+        "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+        "services": [
+          {
+            "id": "insight-backend",
+            "consumer_paths": [
+              "modules/framework"
+            ],
+            "provider_paths": [
+              "server"
+            ]
+          }
+        ]
+      },
+      "storage": "json"
+    },
+    "build_version": {
+      "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  },
+  "navigation_version": {
+    "schema": "project-map/1",
+    "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+  },
+  "evidence_kind": "indexed_existing_source_facts",
+  "items": [
+    {
+      "path": ".",
+      "files": 1930,
+      "selected_sources": 0,
+      "manifests": [
+        "docker/requirements.txt",
+        "docs/requirements.txt",
+        "package.json",
+        "scripts/cpu_binding_tools/requirements.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 4,
+      "source_statuses": {
+        "unsupported_extension": 3,
+        "workspace_package_metadata": 1
+      },
+      "inventory_statuses": {
+        "excluded": 1926,
+        "pending": 4
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "e2e",
+      "files": 288,
+      "selected_sources": 46,
+      "manifests": [
+        "e2e/package.json",
+        "e2e/tsconfig.app.json",
+        "e2e/tsconfig.json",
+        "e2e/tsconfig.node.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 50,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 46,
+        "configuration_recorded_not_applied": 3
+      },
+      "inventory_statuses": {
+        "excluded": 238,
+        "pending": 50
+      },
+      "node_kinds": {
+        "call_site": 4647,
+        "callable": 560,
+        "callback_deletion": 1,
+        "callback_lookup": 1,
+        "callback_registry": 1,
+        "promise_settlement": 13,
+        "source_promise": 3,
+        "type": 47
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules",
+      "files": 27,
+      "selected_sources": 3,
+      "manifests": [
+        "modules/package.json",
+        "modules/testing/tsconfig.json",
+        "modules/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 6,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 3,
+        "configuration_recorded_not_applied": 2
+      },
+      "inventory_statuses": {
+        "excluded": 21,
+        "pending": 6
+      },
+      "node_kinds": {
+        "call_site": 7,
+        "callable": 15,
+        "source_promise": 1
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/cluster",
+      "files": 73,
+      "selected_sources": 67,
+      "manifests": [
+        "modules/cluster/package.json",
+        "modules/cluster/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 69,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 67,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 4,
+        "pending": 69
+      },
+      "node_kinds": {
+        "api_result_boundary": 30,
+        "api_result_field": 62,
+        "binding": 127,
+        "call_site": 3268,
+        "callable": 1284,
+        "callback_lookup": 2,
+        "callback_registry": 2,
+        "frontend_field_read": 59,
+        "frontend_state_path": 18,
+        "frontend_state_write": 20,
+        "iframe_return_bridge": 20,
+        "source_promise": 5,
+        "source_return_returns": 98,
+        "type": 154
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/compute",
+      "files": 77,
+      "selected_sources": 64,
+      "manifests": [
+        "modules/compute/package.json",
+        "modules/compute/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 66,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 64,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 11,
+        "pending": 66
+      },
+      "node_kinds": {
+        "api_result_boundary": 9,
+        "api_result_field": 34,
+        "binding": 60,
+        "call_site": 1649,
+        "callable": 794,
+        "callback_lookup": 1,
+        "callback_registry": 1,
+        "frontend_field_read": 33,
+        "frontend_state_path": 5,
+        "frontend_state_write": 5,
+        "iframe_return_bridge": 11,
+        "promise_settlement": 1,
+        "source_promise": 1,
+        "source_return_boundaries": 11,
+        "source_return_returns": 55,
+        "type": 99
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/framework",
+      "files": 69,
+      "selected_sources": 60,
+      "manifests": [
+        "modules/framework/package.json",
+        "modules/framework/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 62,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 60,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 7,
+        "pending": 62
+      },
+      "node_kinds": {
+        "binding": 87,
+        "call_site": 1754,
+        "callable": 769,
+        "callback_deletion": 6,
+        "callback_lookup": 13,
+        "callback_registration": 1,
+        "callback_registry": 10,
+        "promise_settlement": 13,
+        "protocol_message": 126,
+        "request_key_binding": 1,
+        "socket_receiver_link": 1,
+        "source_counter_update": 4,
+        "source_promise": 7,
+        "source_return_boundaries": 1,
+        "source_return_callback_bindings": 1,
+        "source_return_returns": 43,
+        "source_return_transmissions": 1,
+        "source_socket_assignment": 5,
+        "source_socket_channel": 4,
+        "source_socket_creation": 5,
+        "source_socket_listener": 4,
+        "source_socket_send": 7,
+        "source_transmission": 4,
+        "type": 93
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/leaks",
+      "files": 145,
+      "selected_sources": 126,
+      "manifests": [
+        "modules/leaks/package.json",
+        "modules/leaks/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 128,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 126,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 17,
+        "pending": 128
+      },
+      "node_kinds": {
+        "binding": 706,
+        "call_site": 9233,
+        "callable": 2938,
+        "callback_deletion": 14,
+        "callback_lookup": 48,
+        "callback_registration": 6,
+        "callback_registry": 30,
+        "promise_settlement": 2,
+        "source_counter_update": 32,
+        "source_promise": 49,
+        "source_return_boundaries": 1,
+        "source_return_returns": 48,
+        "type": 170
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/lib",
+      "files": 159,
+      "selected_sources": 73,
+      "manifests": [
+        "modules/lib/package.json",
+        "modules/lib/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 75,
+      "source_statuses": {
+        "parsed": 73,
+        "workspace_package_metadata": 1,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 84,
+        "pending": 75
+      },
+      "node_kinds": {
+        "binding": 91,
+        "call_site": 1870,
+        "callable": 917,
+        "callback_deletion": 7,
+        "callback_lookup": 18,
+        "callback_registration": 1,
+        "callback_registry": 12,
+        "promise_settlement": 10,
+        "request_key_binding": 2,
+        "source_counter_update": 27,
+        "source_promise": 9,
+        "source_return_boundaries": 60,
+        "source_return_handoffs": 95,
+        "source_return_returns": 1231,
+        "source_return_transmissions": 4,
+        "source_return_window_listeners": 115,
+        "source_transmission": 13,
+        "type": 73
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/memory",
+      "files": 59,
+      "selected_sources": 53,
+      "manifests": [
+        "modules/memory/package.json",
+        "modules/memory/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 55,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 53,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 4,
+        "pending": 55
+      },
+      "node_kinds": {
+        "api_result_boundary": 15,
+        "api_result_field": 16,
+        "binding": 141,
+        "call_site": 2664,
+        "callable": 858,
+        "callback_deletion": 1,
+        "callback_lookup": 1,
+        "callback_registry": 1,
+        "frontend_field_read": 20,
+        "frontend_state_path": 11,
+        "frontend_state_write": 14,
+        "iframe_return_bridge": 9,
+        "source_return_boundaries": 9,
+        "source_return_returns": 18,
+        "type": 51
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/memory-on-chip",
+      "files": 28,
+      "selected_sources": 22,
+      "manifests": [
+        "modules/memory-on-chip/package.json",
+        "modules/memory-on-chip/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 24,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 22,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 4,
+        "pending": 24
+      },
+      "node_kinds": {
+        "binding": 1,
+        "call_site": 150,
+        "callable": 96,
+        "type": 15
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/numa",
+      "files": 53,
+      "selected_sources": 43,
+      "manifests": [
+        "modules/numa/package.json",
+        "modules/numa/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 45,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 43,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 8,
+        "pending": 45
+      },
+      "node_kinds": {
+        "binding": 3,
+        "call_site": 688,
+        "callable": 206,
+        "callback_lookup": 6,
+        "callback_registry": 4,
+        "type": 30
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/operator",
+      "files": 30,
+      "selected_sources": 23,
+      "manifests": [
+        "modules/operator/package.json",
+        "modules/operator/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 25,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 23,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 5,
+        "pending": 25
+      },
+      "node_kinds": {
+        "api_result_boundary": 6,
+        "api_result_field": 7,
+        "binding": 36,
+        "call_site": 392,
+        "callable": 191,
+        "frontend_field_read": 7,
+        "frontend_state_path": 2,
+        "frontend_state_write": 2,
+        "iframe_return_bridge": 6,
+        "source_return_returns": 6,
+        "type": 24
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/reinforcement-learning",
+      "files": 32,
+      "selected_sources": 26,
+      "manifests": [
+        "modules/reinforcement-learning/package.json",
+        "modules/reinforcement-learning/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 28,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 26,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 4,
+        "pending": 28
+      },
+      "node_kinds": {
+        "binding": 1,
+        "call_site": 133,
+        "callable": 58,
+        "type": 17
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/statistic",
+      "files": 33,
+      "selected_sources": 27,
+      "manifests": [
+        "modules/statistic/package.json",
+        "modules/statistic/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 29,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 27,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 4,
+        "pending": 29
+      },
+      "node_kinds": {
+        "api_result_boundary": 3,
+        "api_result_field": 11,
+        "binding": 38,
+        "call_site": 271,
+        "callable": 152,
+        "callback_deletion": 1,
+        "callback_lookup": 2,
+        "callback_registry": 2,
+        "frontend_field_read": 10,
+        "frontend_state_path": 6,
+        "frontend_state_write": 6,
+        "iframe_return_bridge": 3,
+        "source_return_boundaries": 3,
+        "source_return_returns": 6,
+        "type": 22
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "modules/timeline",
+      "files": 375,
+      "selected_sources": 285,
+      "manifests": [
+        "modules/timeline/package.json",
+        "modules/timeline/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 287,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "parsed": 285,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 88,
+        "pending": 287
+      },
+      "node_kinds": {
+        "api_result_boundary": 45,
+        "api_result_field": 108,
+        "binding": 754,
+        "call_site": 11100,
+        "callable": 4365,
+        "callback_deletion": 1,
+        "callback_lookup": 32,
+        "callback_registry": 24,
+        "frontend_field_read": 107,
+        "frontend_state_path": 41,
+        "frontend_state_write": 41,
+        "iframe_return_bridge": 34,
+        "promise_settlement": 20,
+        "source_counter_update": 14,
+        "source_promise": 19,
+        "source_return_boundaries": 12,
+        "source_return_returns": 895,
+        "type": 465
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "platform",
+      "files": 23,
+      "selected_sources": 0,
+      "manifests": [
+        "platform/Cargo.toml"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 1,
+      "source_statuses": {
+        "unsupported_extension": 1
+      },
+      "inventory_statuses": {
+        "excluded": 22,
+        "pending": 1
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "platform/linux",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "platform/linux/Cargo.toml"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 1,
+      "source_statuses": {
+        "unsupported_extension": 1
+      },
+      "inventory_statuses": {
+        "pending": 1
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "plugins/jupyterlab",
+      "files": 33,
+      "selected_sources": 15,
+      "manifests": [
+        "plugins/jupyterlab/package.json",
+        "plugins/jupyterlab/pyproject.toml",
+        "plugins/jupyterlab/requirements.txt",
+        "plugins/jupyterlab/tsconfig.json"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 19,
+      "source_statuses": {
+        "workspace_package_metadata": 1,
+        "unsupported_extension": 2,
+        "parsed": 15,
+        "configuration_recorded_not_applied": 1
+      },
+      "inventory_statuses": {
+        "excluded": 14,
+        "pending": 19
+      },
+      "node_kinds": {
+        "binding": 6,
+        "call_site": 310,
+        "callable": 185,
+        "type": 20
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "pre-commit",
+      "files": 3,
+      "selected_sources": 0,
+      "manifests": [
+        "pre-commit/pyproject.toml"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 1,
+      "source_statuses": {
+        "unsupported_extension": 1
+      },
+      "inventory_statuses": {
+        "excluded": 2,
+        "pending": 1
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server",
+      "files": 10,
+      "selected_sources": 0,
+      "manifests": [
+        "server/CMakeLists.txt",
+        "server/build/requirements.txt",
+        "server/cmake/third_party.cmake",
+        "server/toolchain.cmake"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 4,
+      "source_statuses": {
+        "unsupported_extension": 4
+      },
+      "inventory_statuses": {
+        "excluded": 6,
+        "pending": 4
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/msinsight",
+      "files": 53,
+      "selected_sources": 52,
+      "manifests": [
+        "server/msinsight/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 53,
+      "source_statuses": {
+        "unsupported_extension": 1,
+        "parsed": 52
+      },
+      "inventory_statuses": {
+        "pending": 53
+      },
+      "node_kinds": {
+        "call_site": 1852,
+        "callable": 632,
+        "factory_allocation": 13,
+        "field_write": 213,
+        "instance_storage_access": 179,
+        "object_binding": 886,
+        "object_path": 895,
+        "server_member_consumer": 5,
+        "server_member_getter": 12,
+        "server_object_store": 1,
+        "source_json_value": 42,
+        "source_member_storage": 11,
+        "source_object_instance": 14,
+        "storage_access": 32,
+        "storage_member": 15,
+        "type": 65
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/src",
+      "files": 919,
+      "selected_sources": 917,
+      "manifests": [
+        "server/src/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 918,
+      "source_statuses": {
+        "unsupported_extension": 1,
+        "parsed": 911,
+        "syntax_errors": 6
+      },
+      "inventory_statuses": {
+        "pending": 918,
+        "excluded": 1
+      },
+      "node_kinds": {
+        "call_site": 34323,
+        "callable": 10171,
+        "factory_allocation": 611,
+        "field_write": 7389,
+        "instance_storage_access": 7345,
+        "object_binding": 13942,
+        "object_path": 21757,
+        "protocol_decoder": 98,
+        "protocol_dispatch": 98,
+        "protocol_registration": 98,
+        "serialization_parameter_path": 3919,
+        "serialized_field": 3917,
+        "serializer_registration": 128,
+        "server_allocation": 3,
+        "server_channel_initializer": 1,
+        "server_channel_origin_link": 9,
+        "server_listener": 1,
+        "server_member_consumer": 41,
+        "server_member_getter": 104,
+        "server_object_store": 1,
+        "server_registration": 1,
+        "source_constant_guard": 3,
+        "source_constant_member": 1,
+        "source_cpp_transmission": 2,
+        "source_json_value": 221,
+        "source_member_storage": 67,
+        "source_object_instance": 124,
+        "storage_access": 2442,
+        "storage_member": 896,
+        "type": 1345
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/src/entry",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "server/src/entry/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 1,
+      "source_statuses": {
+        "unsupported_extension": 1
+      },
+      "inventory_statuses": {
+        "pending": 1
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/src/entry/server",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "server/src/entry/server/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 1,
+      "source_statuses": {
+        "unsupported_extension": 1
+      },
+      "inventory_statuses": {
+        "pending": 1
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/src/entry/server/bin",
+      "files": 2,
+      "selected_sources": 1,
+      "manifests": [
+        "server/src/entry/server/bin/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 2,
+      "source_statuses": {
+        "unsupported_extension": 1,
+        "parsed": 1
+      },
+      "inventory_statuses": {
+        "pending": 2
+      },
+      "node_kinds": {
+        "call_site": 35,
+        "callable": 5,
+        "field_write": 4,
+        "object_binding": 11,
+        "object_path": 13,
+        "source_object_instance": 1,
+        "type": 2
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/src/test",
+      "files": 415,
+      "selected_sources": 343,
+      "manifests": [
+        "server/src/test/CMakeLists.txt",
+        "server/src/test/cmake/third_party.cmake"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 345,
+      "source_statuses": {
+        "unsupported_extension": 2,
+        "parsed": 336,
+        "syntax_errors": 7
+      },
+      "inventory_statuses": {
+        "pending": 345,
+        "excluded": 70
+      },
+      "node_kinds": {
+        "call_site": 39587,
+        "callable": 4829,
+        "factory_allocation": 632,
+        "field_write": 6430,
+        "instance_storage_access": 15,
+        "object_binding": 19451,
+        "object_path": 24238,
+        "serialization_parameter_path": 6,
+        "serialized_field": 6,
+        "server_listener": 1,
+        "server_member_consumer": 43,
+        "server_member_getter": 24,
+        "server_registration": 1,
+        "source_json_value": 98,
+        "source_member_storage": 10,
+        "source_object_instance": 1112,
+        "storage_access": 1295,
+        "storage_member": 36,
+        "type": 543
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/src/test/fuzz",
+      "files": 12,
+      "selected_sources": 10,
+      "manifests": [
+        "server/src/test/fuzz/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 11,
+      "source_statuses": {
+        "unsupported_extension": 1,
+        "parsed": 4,
+        "syntax_errors": 6
+      },
+      "inventory_statuses": {
+        "pending": 11,
+        "excluded": 1
+      },
+      "node_kinds": {
+        "call_site": 215,
+        "callable": 25,
+        "field_write": 13,
+        "object_binding": 36,
+        "object_path": 30,
+        "storage_access": 4,
+        "storage_member": 2,
+        "type": 3
+      },
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/third_party",
+      "files": 1,
+      "selected_sources": 0,
+      "manifests": [
+        "server/third_party/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 0,
+      "source_statuses": {},
+      "inventory_statuses": {
+        "excluded": 1
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    },
+    {
+      "path": "server/third_party/sqlite",
+      "files": 3,
+      "selected_sources": 0,
+      "manifests": [
+        "server/third_party/sqlite/CMakeLists.txt"
+      ],
+      "origin": "nearest_tracked_manifest_or_top_level",
+      "graph_inputs": 0,
+      "source_statuses": {},
+      "inventory_statuses": {
+        "excluded": 3
+      },
+      "node_kinds": {},
+      "module_ownership": "structural_nearest_manifest",
+      "semantic_completeness": "not_established"
+    }
+  ],
+  "budgets": {
+    "seconds": 3,
+    "nodes": 200,
+    "edges": 500,
+    "output_bytes": 131072,
+    "sqlite_cache_kib": 8192,
+    "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+  },
+  "runtime_execution": "unknown_unless_linked_run",
+  "missing_relation_meaning": "unknown",
+  "next_cursor": null,
+  "page_complete": true,
+  "stop_reason": null,
+  "pagination": "snapshot_bound_keyset",
+  "elapsed_seconds": 0.0005,
+  "repository": {
+    "navigation_runtime": {
+      "python": "3.11.9",
+      "sqlite": "3.45.1"
+    },
+    "counts": {
+      "tracked_files": 4855,
+      "input_files": 2310,
+      "modules": 29,
+      "nodes": 271737,
+      "edges": 386100,
+      "entries": 136,
+      "diagnostic_records": 33154,
+      "providers": 109,
+      "module_relation_groups": 143
+    },
+    "coverage": {
+      "unsupported_extension": 20,
+      "workspace_package_metadata": 16,
+      "parsed": 2237,
+      "configuration_recorded_not_applied": 18,
+      "syntax_errors": 19
+    },
+    "provenance": {
+      "input_kind": "git_committed_blobs",
+      "working_tree_included": false,
+      "file_hash_verification": "not_run_per_user_preference"
+    },
+    "interpretation": "source_relations_and_conditional_candidates",
+    "runtime_execution": "unknown_unless_linked_run",
+    "assets": {
+      "status": "not_connected",
+      "dependency": "P6"
+    },
+    "metadata_projection": "navigation_descriptor_not_full_extraction_metadata",
+    "index_seconds": 27.282
+  }
+}

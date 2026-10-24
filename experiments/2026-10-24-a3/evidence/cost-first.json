@@ -1,0 +1,127 @@
+{
+  "evidence_kind": "executed_fresh_navigation_processes",
+  "build": {
+    "elapsed_seconds": 38.0775,
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "peak_tree_working_set_bytes_observed": 4288262144,
+    "output_bytes": 1999,
+    "process_budgets": {
+      "seconds": 120,
+      "working_set_bytes": 4294967296
+    }
+  },
+  "queries": {
+    "overview": {
+      "elapsed_seconds": 0.0814,
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "peak_tree_working_set_bytes_observed": 17047552,
+      "output_bytes": 9970,
+      "process_budgets": {
+        "seconds": 10,
+        "working_set_bytes": 268435456
+      },
+      "query_stop_reason": null,
+      "query_status": null,
+      "elapsed_query_seconds": 0.000258
+    },
+    "entries": {
+      "elapsed_seconds": 0.0787,
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "peak_tree_working_set_bytes_observed": 16609280,
+      "output_bytes": 1881,
+      "process_budgets": {
+        "seconds": 10,
+        "working_set_bytes": 268435456
+      },
+      "query_stop_reason": null,
+      "query_status": null,
+      "elapsed_query_seconds": 0.000222
+    },
+    "search": {
+      "elapsed_seconds": 0.1171,
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "peak_tree_working_set_bytes_observed": 27148288,
+      "output_bytes": 2819,
+      "process_budgets": {
+        "seconds": 10,
+        "working_set_bytes": 268435456
+      },
+      "query_stop_reason": null,
+      "query_status": null,
+      "elapsed_query_seconds": 0.037112
+    },
+    "trace": {
+      "elapsed_seconds": 3.0858,
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "peak_tree_working_set_bytes_observed": 27312128,
+      "output_bytes": 33788,
+      "process_budgets": {
+        "seconds": 10,
+        "working_set_bytes": 268435456
+      },
+      "query_stop_reason": "wall_time_budget",
+      "query_status": "budget_stopped",
+      "elapsed_query_seconds": 3.000456
+    },
+    "reverse": {
+      "elapsed_seconds": 3.044,
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "peak_tree_working_set_bytes_observed": 27279360,
+      "output_bytes": 11833,
+      "process_budgets": {
+        "seconds": 10,
+        "working_set_bytes": 268435456
+      },
+      "query_stop_reason": null,
+      "query_status": "depth_scoped",
+      "elapsed_query_seconds": 2.959531
+    },
+    "source": {
+      "elapsed_seconds": 0.2055,
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "peak_tree_working_set_bytes_observed": 35581952,
+      "output_bytes": 2164,
+      "process_budgets": {
+        "seconds": 10,
+        "working_set_bytes": 268435456
+      },
+      "query_stop_reason": null,
+      "query_status": null,
+      "elapsed_query_seconds": 0.121848
+    },
+    "diagnostics": {
+      "elapsed_seconds": 0.0795,
+      "exit_code": 0,
+      "status": "passed",
+      "stop_reason": null,
+      "peak_tree_working_set_bytes_observed": 16973824,
+      "output_bytes": 5500,
+      "process_budgets": {
+        "seconds": 10,
+        "working_set_bytes": 268435456
+      },
+      "query_stop_reason": null,
+      "query_status": null,
+      "elapsed_query_seconds": 0.000228
+    }
+  },
+  "index_bytes": 1060818944,
+  "memory_measurement": "sampled sum of Windows process-tree working sets including Python redirector; shared pages may count twice",
+  "cold_definition": "new Python process for every query; operating-system file cache not flushed",
+  "file_hash_verification": "not_run_per_user_preference",
+  "interpretation": "process status is separate from query completion; trace reached its wall-time budget"
+}

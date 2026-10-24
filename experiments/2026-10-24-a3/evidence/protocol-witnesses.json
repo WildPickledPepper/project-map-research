@@ -1,0 +1,1400 @@
+[
+  {
+    "api": "getUnitFlows",
+    "forward": {
+      "query": "path",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "ordinal": 52176,
+          "source": "ts:922f26ccc99ac699aa030c2c",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+          "kind": "EMITS_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52176
+          }
+        },
+        {
+          "ordinal": 52177,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+          "kind": "MATCHES_REGISTERED_PROTOCOL",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52177
+          }
+        },
+        {
+          "ordinal": 52178,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+          "kind": "DECODES_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52178
+          }
+        },
+        {
+          "ordinal": 52179,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+          "kind": "DISPATCHES_REGISTERED_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52179
+          }
+        },
+        {
+          "ordinal": 52180,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+          "target": "cpp:d7a6f20ca5a84774ae8db47d",
+          "kind": "RESOLVES_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52180
+          }
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "start": "ts:922f26ccc99ac699aa030c2c",
+      "target": "cpp:d7a6f20ca5a84774ae8db47d",
+      "direction": "out",
+      "kinds": [
+        "DECODES_MESSAGE",
+        "DISPATCHES_REGISTERED_HANDLER",
+        "EMITS_MESSAGE",
+        "MATCHES_REGISTERED_PROTOCOL",
+        "RESOLVES_HANDLER"
+      ],
+      "depth": 8,
+      "visited_nodes": 6,
+      "examined_edges": 5,
+      "stop_reason": null,
+      "depth_scope_reached": false,
+      "found": true,
+      "display_truncated": false,
+      "search_status": "found",
+      "continue_with": {
+        "query": "neighbors",
+        "direction": "out",
+        "note": "page each selected node to expand further"
+      },
+      "elapsed_seconds": 0.000375
+    },
+    "reverse": {
+      "query": "path",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "ordinal": 52180,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+          "target": "cpp:d7a6f20ca5a84774ae8db47d",
+          "kind": "RESOLVES_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52180
+          }
+        },
+        {
+          "ordinal": 52179,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+          "kind": "DISPATCHES_REGISTERED_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52179
+          }
+        },
+        {
+          "ordinal": 52178,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+          "kind": "DECODES_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52178
+          }
+        },
+        {
+          "ordinal": 52177,
+          "source": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+          "kind": "MATCHES_REGISTERED_PROTOCOL",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52177
+          }
+        },
+        {
+          "ordinal": 52176,
+          "source": "ts:922f26ccc99ac699aa030c2c",
+          "target": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+          "kind": "EMITS_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52176
+          }
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "start": "cpp:d7a6f20ca5a84774ae8db47d",
+      "target": "ts:922f26ccc99ac699aa030c2c",
+      "direction": "in",
+      "kinds": [
+        "DECODES_MESSAGE",
+        "DISPATCHES_REGISTERED_HANDLER",
+        "EMITS_MESSAGE",
+        "MATCHES_REGISTERED_PROTOCOL",
+        "RESOLVES_HANDLER"
+      ],
+      "depth": 8,
+      "visited_nodes": 6,
+      "examined_edges": 5,
+      "stop_reason": null,
+      "depth_scope_reached": false,
+      "found": true,
+      "display_truncated": false,
+      "search_status": "found",
+      "continue_with": {
+        "query": "neighbors",
+        "direction": "in",
+        "note": "page each selected node to expand further"
+      },
+      "elapsed_seconds": 0.000328
+    },
+    "nodes": [
+      {
+        "id": "ts:922f26ccc99ac699aa030c2c",
+        "kind": "callable",
+        "name": "getUnitFlows",
+        "path": "modules/timeline/src/api/request.ts",
+        "line": 174,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+        "kind": "protocol_message",
+        "name": "getUnitFlows message",
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 284,
+        "resolution": "matched_conditional",
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:registration",
+        "kind": "protocol_registration",
+        "name": "unit/flows",
+        "path": "server/src/modules/timeline/TimelineModule.cpp",
+        "line": 87,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:decode",
+        "kind": "protocol_decoder",
+        "name": "ToUnitFlowsRequest",
+        "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+        "line": 74,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:6deded7fb6c3a8efab357462:message:0:provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d:dispatch",
+        "kind": "protocol_dispatch",
+        "name": "std::make_unique<QueryFlowsBySliceInfoHandler>()",
+        "path": "server/src/modules/timeline/TimelineModule.cpp",
+        "line": 87,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "cpp:d7a6f20ca5a84774ae8db47d",
+        "kind": "callable",
+        "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+        "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line": 28,
+        "resolution": null,
+        "local_status": null
+      }
+    ],
+    "source": {
+      "query": "source",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "line": 172,
+          "text": "}"
+        },
+        {
+          "line": 173,
+          "text": ""
+        },
+        {
+          "line": 174,
+          "text": "export async function getUnitFlows(params: GetUnitFlowsParams): Promise<GetUnitFlowsResult> {"
+        },
+        {
+          "line": 175,
+          "text": "    return window.requestData('unit/flows', params, 'timeline');"
+        },
+        {
+          "line": 176,
+          "text": "}"
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "path": "modules/timeline/src/api/request.ts",
+      "requested_line": 174,
+      "source_kind": "git_committed_blob",
+      "working_tree_read": false,
+      "decode": "UTF-8 with replacement",
+      "display_truncated": false,
+      "elapsed_seconds": 0.136892
+    }
+  },
+  {
+    "api": "queryTimelineOffset",
+    "forward": {
+      "query": "path",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "ordinal": 52181,
+          "source": "ts:fcf1129f0a28b4c40434c11e",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+          "kind": "EMITS_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52181
+          }
+        },
+        {
+          "ordinal": 52182,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+          "kind": "MATCHES_REGISTERED_PROTOCOL",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52182
+          }
+        },
+        {
+          "ordinal": 52183,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+          "kind": "DECODES_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52183
+          }
+        },
+        {
+          "ordinal": 52184,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+          "kind": "DISPATCHES_REGISTERED_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52184
+          }
+        },
+        {
+          "ordinal": 52185,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+          "target": "cpp:3538bff650c3fa93a15d99aa",
+          "kind": "RESOLVES_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52185
+          }
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "start": "ts:fcf1129f0a28b4c40434c11e",
+      "target": "cpp:3538bff650c3fa93a15d99aa",
+      "direction": "out",
+      "kinds": [
+        "DECODES_MESSAGE",
+        "DISPATCHES_REGISTERED_HANDLER",
+        "EMITS_MESSAGE",
+        "MATCHES_REGISTERED_PROTOCOL",
+        "RESOLVES_HANDLER"
+      ],
+      "depth": 8,
+      "visited_nodes": 6,
+      "examined_edges": 5,
+      "stop_reason": null,
+      "depth_scope_reached": false,
+      "found": true,
+      "display_truncated": false,
+      "search_status": "found",
+      "continue_with": {
+        "query": "neighbors",
+        "direction": "out",
+        "note": "page each selected node to expand further"
+      },
+      "elapsed_seconds": 0.000371
+    },
+    "reverse": {
+      "query": "path",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "ordinal": 52185,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+          "target": "cpp:3538bff650c3fa93a15d99aa",
+          "kind": "RESOLVES_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52185
+          }
+        },
+        {
+          "ordinal": 52184,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+          "kind": "DISPATCHES_REGISTERED_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52184
+          }
+        },
+        {
+          "ordinal": 52183,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+          "kind": "DECODES_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52183
+          }
+        },
+        {
+          "ordinal": 52182,
+          "source": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+          "kind": "MATCHES_REGISTERED_PROTOCOL",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52182
+          }
+        },
+        {
+          "ordinal": 52181,
+          "source": "ts:fcf1129f0a28b4c40434c11e",
+          "target": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+          "kind": "EMITS_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52181
+          }
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "start": "cpp:3538bff650c3fa93a15d99aa",
+      "target": "ts:fcf1129f0a28b4c40434c11e",
+      "direction": "in",
+      "kinds": [
+        "DECODES_MESSAGE",
+        "DISPATCHES_REGISTERED_HANDLER",
+        "EMITS_MESSAGE",
+        "MATCHES_REGISTERED_PROTOCOL",
+        "RESOLVES_HANDLER"
+      ],
+      "depth": 8,
+      "visited_nodes": 6,
+      "examined_edges": 5,
+      "stop_reason": null,
+      "depth_scope_reached": false,
+      "found": true,
+      "display_truncated": false,
+      "search_status": "found",
+      "continue_with": {
+        "query": "neighbors",
+        "direction": "in",
+        "note": "page each selected node to expand further"
+      },
+      "elapsed_seconds": 0.000326
+    },
+    "nodes": [
+      {
+        "id": "ts:fcf1129f0a28b4c40434c11e",
+        "kind": "callable",
+        "name": "queryTimelineOffset",
+        "path": "modules/timeline/src/api/request.ts",
+        "line": 178,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+        "kind": "protocol_message",
+        "name": "queryTimelineOffset message",
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 284,
+        "resolution": "matched_conditional",
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:registration",
+        "kind": "protocol_registration",
+        "name": "timeline/rankOffset",
+        "path": "server/src/modules/timeline/TimelineModule.cpp",
+        "line": 123,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:decode",
+        "kind": "protocol_decoder",
+        "name": "ToRankOffsetRequest",
+        "path": "server/src/modules/timeline/protocol/TimelineProtocol.cpp",
+        "line": 103,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0:provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4:dispatch",
+        "kind": "protocol_dispatch",
+        "name": "std::make_unique<RankOffsetHandler>()",
+        "path": "server/src/modules/timeline/TimelineModule.cpp",
+        "line": 123,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "cpp:3538bff650c3fa93a15d99aa",
+        "kind": "callable",
+        "name": "Dic::Module::Timeline::RankOffsetHandler::HandleRequest",
+        "path": "server/src/modules/timeline/handler/RankOffsetHandler.cpp",
+        "line": 119,
+        "resolution": null,
+        "local_status": null
+      }
+    ],
+    "source": {
+      "query": "source",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "line": 176,
+          "text": "}"
+        },
+        {
+          "line": 177,
+          "text": ""
+        },
+        {
+          "line": 178,
+          "text": "export async function queryTimelineOffset(params: QueryTimelineOffsetParams): Promise<QueryTimelineOffsetResult> {"
+        },
+        {
+          "line": 179,
+          "text": "    return window.requestData('timeline/rankOffset', params, 'timeline');"
+        },
+        {
+          "line": 180,
+          "text": "}"
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "path": "modules/timeline/src/api/request.ts",
+      "requested_line": 178,
+      "source_kind": "git_committed_blob",
+      "working_tree_read": false,
+      "decode": "UTF-8 with replacement",
+      "display_truncated": false,
+      "elapsed_seconds": 0.130728
+    }
+  },
+  {
+    "api": "memoryCurveGet",
+    "forward": {
+      "query": "path",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "ordinal": 52026,
+          "source": "ts:668e2dade37bde168ce3f2bc",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0",
+          "kind": "EMITS_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52026
+          }
+        },
+        {
+          "ordinal": 52027,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:registration",
+          "kind": "MATCHES_REGISTERED_PROTOCOL",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52027
+          }
+        },
+        {
+          "ordinal": 52028,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:registration",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:decode",
+          "kind": "DECODES_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52028
+          }
+        },
+        {
+          "ordinal": 52029,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:decode",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:dispatch",
+          "kind": "DISPATCHES_REGISTERED_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52029
+          }
+        },
+        {
+          "ordinal": 52030,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:dispatch",
+          "target": "cpp:d0e0fb2506f3b38358c5de2b",
+          "kind": "RESOLVES_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52030
+          }
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "start": "ts:668e2dade37bde168ce3f2bc",
+      "target": "cpp:d0e0fb2506f3b38358c5de2b",
+      "direction": "out",
+      "kinds": [
+        "DECODES_MESSAGE",
+        "DISPATCHES_REGISTERED_HANDLER",
+        "EMITS_MESSAGE",
+        "MATCHES_REGISTERED_PROTOCOL",
+        "RESOLVES_HANDLER"
+      ],
+      "depth": 8,
+      "visited_nodes": 6,
+      "examined_edges": 5,
+      "stop_reason": null,
+      "depth_scope_reached": false,
+      "found": true,
+      "display_truncated": false,
+      "search_status": "found",
+      "continue_with": {
+        "query": "neighbors",
+        "direction": "out",
+        "note": "page each selected node to expand further"
+      },
+      "elapsed_seconds": 0.000335
+    },
+    "reverse": {
+      "query": "path",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "ordinal": 52030,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:dispatch",
+          "target": "cpp:d0e0fb2506f3b38358c5de2b",
+          "kind": "RESOLVES_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52030
+          }
+        },
+        {
+          "ordinal": 52029,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:decode",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:dispatch",
+          "kind": "DISPATCHES_REGISTERED_HANDLER",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52029
+          }
+        },
+        {
+          "ordinal": 52028,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:registration",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:decode",
+          "kind": "DECODES_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52028
+          }
+        },
+        {
+          "ordinal": 52027,
+          "source": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:registration",
+          "kind": "MATCHES_REGISTERED_PROTOCOL",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52027
+          }
+        },
+        {
+          "ordinal": 52026,
+          "source": "ts:668e2dade37bde168ce3f2bc",
+          "target": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0",
+          "kind": "EMITS_MESSAGE",
+          "status": "conditional",
+          "detail": {
+            "entity": "edge",
+            "id": 52026
+          }
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "start": "cpp:d0e0fb2506f3b38358c5de2b",
+      "target": "ts:668e2dade37bde168ce3f2bc",
+      "direction": "in",
+      "kinds": [
+        "DECODES_MESSAGE",
+        "DISPATCHES_REGISTERED_HANDLER",
+        "EMITS_MESSAGE",
+        "MATCHES_REGISTERED_PROTOCOL",
+        "RESOLVES_HANDLER"
+      ],
+      "depth": 8,
+      "visited_nodes": 6,
+      "examined_edges": 5,
+      "stop_reason": null,
+      "depth_scope_reached": false,
+      "found": true,
+      "display_truncated": false,
+      "search_status": "found",
+      "continue_with": {
+        "query": "neighbors",
+        "direction": "in",
+        "note": "page each selected node to expand further"
+      },
+      "elapsed_seconds": 0.000277
+    },
+    "nodes": [
+      {
+        "id": "ts:668e2dade37bde168ce3f2bc",
+        "kind": "callable",
+        "name": "memoryCurveGet",
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "line": 91,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0",
+        "kind": "protocol_message",
+        "name": "memoryCurveGet message",
+        "path": "modules/framework/src/centralServer/websocket/connection.ts",
+        "line": 284,
+        "resolution": "matched_conditional",
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:registration",
+        "kind": "protocol_registration",
+        "name": "Memory/view/memoryUsage",
+        "path": "server/src/modules/memory/MemoryModule.cpp",
+        "line": 47,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:decode",
+        "kind": "protocol_decoder",
+        "name": "ToMemoryViewRequest",
+        "path": "server/src/modules/memory/protocol/MemoryProtocol.cpp",
+        "line": 35,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0:provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e:dispatch",
+        "kind": "protocol_dispatch",
+        "name": "std::make_unique<QueryMemoryViewHandler>()",
+        "path": "server/src/modules/memory/MemoryModule.cpp",
+        "line": 47,
+        "resolution": null,
+        "local_status": null
+      },
+      {
+        "id": "cpp:d0e0fb2506f3b38358c5de2b",
+        "kind": "callable",
+        "name": "Dic::Module::Memory::QueryMemoryViewHandler::HandleRequest",
+        "path": "server/src/modules/memory/handler/QueryMemoryViewHandler.cpp",
+        "line": 28,
+        "resolution": null,
+        "local_status": null
+      }
+    ],
+    "source": {
+      "query": "source",
+      "schema": "project-map/1",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "graph_version": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+        "config": {
+          "version": 1,
+          "scope": {
+            "include": [
+              "*"
+            ],
+            "exclude": [],
+            "discovery": {
+              "version": 1,
+              "roles": [
+                "build_tool",
+                "product",
+                "test"
+              ],
+              "exclude": [],
+              "max_file_bytes": 2097152
+            }
+          },
+          "deployment": {
+            "version": 1,
+            "evidence_kind": "configured_analysis_scope",
+            "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+            "services": [
+              {
+                "id": "insight-backend",
+                "consumer_paths": [
+                  "modules/framework"
+                ],
+                "provider_paths": [
+                  "server"
+                ]
+              }
+            ]
+          },
+          "storage": "json"
+        },
+        "build_version": {
+          "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        }
+      },
+      "navigation_version": {
+        "schema": "project-map/1",
+        "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+      },
+      "evidence_kind": "indexed_existing_source_facts",
+      "items": [
+        {
+          "line": 89,
+          "text": " * @returns {OperatorDetail[]} 查询结果"
+        },
+        {
+          "line": 90,
+          "text": " */"
+        },
+        {
+          "line": 91,
+          "text": "export const memoryCurveGet = async (params: MemoryCurveGetParams): Promise<MemoryCurve> => {"
+        },
+        {
+          "line": 92,
+          "text": "    return window.request({ command: 'Memory/view/memoryUsage', params: { ...params } });"
+        },
+        {
+          "line": 93,
+          "text": "};"
+        }
+      ],
+      "budgets": {
+        "seconds": 3,
+        "nodes": 200,
+        "edges": 500,
+        "output_bytes": 131072,
+        "sqlite_cache_kib": 8192,
+        "memory_policy": "bounded_visits_and_output; SQLite cache is a target, not a process RSS cap"
+      },
+      "runtime_execution": "unknown_unless_linked_run",
+      "missing_relation_meaning": "unknown",
+      "path": "modules/memory/src/utils/RequestUtils.ts",
+      "requested_line": 91,
+      "source_kind": "git_committed_blob",
+      "working_tree_read": false,
+      "decode": "UTF-8 with replacement",
+      "display_truncated": false,
+      "elapsed_seconds": 0.130586
+    }
+  }
+]

@@ -1,0 +1,30 @@
+{
+  "evidence_kind": "retained_executed_first_failures",
+  "items": [
+    {
+      "phase": "authored_controls_first",
+      "passed": 11,
+      "total": 12,
+      "failure": "sub-tick deadline was not observed with Windows monotonic clock",
+      "fix": "use perf_counter for query deadlines; retain real deadline test"
+    },
+    {
+      "phase": "full_acceptance_first",
+      "status": "stopped",
+      "failure": "harness treated output-budget continuation as a failed file-list query",
+      "fix": "accept output_budget only with returned items and a next cursor; continue paging"
+    },
+    {
+      "phase": "navigation_cost_first",
+      "status": "trace_wall_budget",
+      "failure": "SQLite chose snapshot/ordinal scan for each adjacency read",
+      "fix": "add snapshot/source/ordinal and snapshot/target/ordinal indexes"
+    },
+    {
+      "phase": "typescript_environment_first",
+      "failed_test_files": 6,
+      "failure": "typescript dependency was unavailable because NODE_PATH was unset",
+      "fix": "set NODE_PATH to the existing pinned TypeScript installation; final 88 tests passed"
+    }
+  ]
+}

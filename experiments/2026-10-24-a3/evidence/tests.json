@@ -1,0 +1,14 @@
+{
+  "evidence_kind": "executed_local_complete_test_suites",
+  "python": {
+    "passed": 329,
+    "seconds": 60.563,
+    "failures": 0
+  },
+  "typescript": {
+    "passed": 88,
+    "failures": 0
+  },
+  "new_navigation_controls": 15,
+  "historical_validation_candidates": "not_used"
+}

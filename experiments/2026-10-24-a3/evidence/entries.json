@@ -1,0 +1,1634 @@
+[
+  {
+    "seq": 1,
+    "node": "protocol:ts:ba57101966ee75154906df3a:message:0",
+    "name": "queryIterations",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 1
+    }
+  },
+  {
+    "seq": 2,
+    "node": "protocol:ts:ba57101966ee75154906df3a:message:1",
+    "name": "queryIterations",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 2
+    }
+  },
+  {
+    "seq": 3,
+    "node": "protocol:ts:369eb7f6e9d0856e2733c575:message:0",
+    "name": "<lambda@64:5>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 3
+    }
+  },
+  {
+    "seq": 4,
+    "node": "protocol:ts:4e03a877c5aad1529e376d90:message:0",
+    "name": "queryRanks",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 4
+    }
+  },
+  {
+    "seq": 5,
+    "node": "protocol:ts:d19a928eaad5fb4c5af03777:message:0",
+    "name": "queryOperators",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 5
+    }
+  },
+  {
+    "seq": 6,
+    "node": "protocol:ts:136da244fad7714eb5eba5ca:message:0",
+    "name": "queryMatrixOperators",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 6
+    }
+  },
+  {
+    "seq": 7,
+    "node": "protocol:ts:136da244fad7714eb5eba5ca:message:1",
+    "name": "queryMatrixOperators",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 7
+    }
+  },
+  {
+    "seq": 8,
+    "node": "protocol:ts:7521a05fd791ccd7749ec1b4:message:0",
+    "name": "queryCommunication",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 8
+    }
+  },
+  {
+    "seq": 9,
+    "node": "protocol:ts:32c6a7b108b68d2f7859ed94:message:0",
+    "name": "queryCommunicationExpertAdvisor",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 9
+    }
+  },
+  {
+    "seq": 10,
+    "node": "protocol:ts:32c6a7b108b68d2f7859ed94:message:1",
+    "name": "queryCommunicationExpertAdvisor",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 10
+    }
+  },
+  {
+    "seq": 11,
+    "node": "protocol:ts:f50b5a35954158ac2d461a84:message:0",
+    "name": "queryCommunicationOperatorLists",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 11
+    }
+  },
+  {
+    "seq": 12,
+    "node": "protocol:ts:48648edaf31787ca438076e6:message:0",
+    "name": "queryOperatorDetails",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 12
+    }
+  },
+  {
+    "seq": 13,
+    "node": "protocol:ts:7fb3bad34e8d7509da0460d9:message:0",
+    "name": "querySummaryStatistics",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 13
+    }
+  },
+  {
+    "seq": 14,
+    "node": "protocol:ts:0a093b8f5d531ac5f46689ae:message:0",
+    "name": "queryComputeDetail",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 14
+    }
+  },
+  {
+    "seq": 15,
+    "node": "protocol:ts:8b274acfc3be51a4695d0c54:message:0",
+    "name": "queryCommunicationDetail",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 15
+    }
+  },
+  {
+    "seq": 16,
+    "node": "protocol:ts:e2878b1b207318c18a41a4a4:message:0",
+    "name": "queryTopSummary",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 16
+    }
+  },
+  {
+    "seq": 17,
+    "node": "protocol:ts:698c7d1addce9185ca04c8ab:message:0",
+    "name": "queryCommunicationMatrix",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 17
+    }
+  },
+  {
+    "seq": 18,
+    "node": "protocol:ts:698c7d1addce9185ca04c8ab:message:1",
+    "name": "queryCommunicationMatrix",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 18
+    }
+  },
+  {
+    "seq": 19,
+    "node": "protocol:ts:63e989168072cc9612d2355d:message:0",
+    "name": "queryFwpBwdTimeline",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 19
+    }
+  },
+  {
+    "seq": 20,
+    "node": "protocol:ts:7c3b40d11069782df678930b:message:0",
+    "name": "getParallelStrategy",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 20
+    }
+  },
+  {
+    "seq": 21,
+    "node": "protocol:ts:cd8d9543f46b504d97728f95:message:0",
+    "name": "setParallelStrategy",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 21
+    }
+  },
+  {
+    "seq": 22,
+    "node": "protocol:ts:d07bc6b132cf97264d7f1edc:message:0",
+    "name": "<lambda@378:5>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 22
+    }
+  },
+  {
+    "seq": 23,
+    "node": "protocol:ts:3b2e665ed12476e2ca47cf69:message:0",
+    "name": "queryAllConnections",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 23
+    }
+  },
+  {
+    "seq": 24,
+    "node": "protocol:ts:e49b2511d72f38b6fe669aa6:message:0",
+    "name": "<lambda@388:5>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 24
+    }
+  },
+  {
+    "seq": 25,
+    "node": "protocol:ts:027b37afff360bf2a3d8e2c2:message:0",
+    "name": "slowRankAdvisor",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 25
+    }
+  },
+  {
+    "seq": 26,
+    "node": "protocol:ts:8b26c0f2d146985e7fc25c4c:message:0",
+    "name": "importExpertData",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 26
+    }
+  },
+  {
+    "seq": 27,
+    "node": "protocol:ts:60c5e5466df68de91c8a974f:message:0",
+    "name": "queryExpertHotspot",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 27
+    }
+  },
+  {
+    "seq": 28,
+    "node": "protocol:ts:d43688ca879e4d8e683ec66c:message:0",
+    "name": "queryModelInfo",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 28
+    }
+  },
+  {
+    "seq": 29,
+    "node": "protocol:ts:f2f4ef5362b5d928d089dea1:message:0",
+    "name": "queryCommunicationBandwidth",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 29
+    }
+  },
+  {
+    "seq": 30,
+    "node": "protocol:ts:20115ea8ef1de1faa473fbfd:message:0",
+    "name": "queryCommunicationDistribution",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 30
+    }
+  },
+  {
+    "seq": 31,
+    "node": "protocol:ts:a715cff2467ae0dca8ad1ee9:message:0",
+    "name": "queryTimelineUnitKernelDetail",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 31
+    }
+  },
+  {
+    "seq": 32,
+    "node": "protocol:ts:2cbe47ad809548ab0a16982b:message:0",
+    "name": "getSlowRankList",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 32
+    }
+  },
+  {
+    "seq": 33,
+    "node": "protocol:ts:2cbe47ad809548ab0a16982b:message:1",
+    "name": "getSlowRankList",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 33
+    }
+  },
+  {
+    "seq": 34,
+    "node": "protocol:ts:0b310c62684ef9d47e67e79b:message:0",
+    "name": "querySourceCode",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 34
+    }
+  },
+  {
+    "seq": 35,
+    "node": "protocol:ts:2fa67c1a18875601d512751c:message:0",
+    "name": "queryApiLine",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 35
+    }
+  },
+  {
+    "seq": 36,
+    "node": "protocol:ts:b8d453ad43e3a91c1b0a7d94:message:0",
+    "name": "queryDynamicLine",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 36
+    }
+  },
+  {
+    "seq": 37,
+    "node": "protocol:ts:b5ce4bf5bf43684a46155447:message:0",
+    "name": "queryApiInstr",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 37
+    }
+  },
+  {
+    "seq": 38,
+    "node": "protocol:ts:4924947326d306bee409a76b:message:0",
+    "name": "queryDynamicInstr",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 38
+    }
+  },
+  {
+    "seq": 39,
+    "node": "protocol:ts:1682108be6fed693e4da1ae7:message:0",
+    "name": "queryBaseInfo",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 39
+    }
+  },
+  {
+    "seq": 40,
+    "node": "protocol:ts:8aa0427288cc1b103591feff:message:0",
+    "name": "queryComputeWorkload",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 40
+    }
+  },
+  {
+    "seq": 41,
+    "node": "protocol:ts:74ac571979880aeed629e550:message:0",
+    "name": "queryMemoryTable",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 41
+    }
+  },
+  {
+    "seq": 42,
+    "node": "protocol:ts:5f5c31e4720aa67c053feab1:message:0",
+    "name": "queryMemoryGraph",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 42
+    }
+  },
+  {
+    "seq": 43,
+    "node": "protocol:ts:d42bb4e5fc7bade30e891b70:message:0",
+    "name": "queryCoreOccupancy",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 43
+    }
+  },
+  {
+    "seq": 44,
+    "node": "protocol:ts:dcbc3b53e1402c60df4e33f7:message:0",
+    "name": "queryRoofline",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 44
+    }
+  },
+  {
+    "seq": 45,
+    "node": "protocol:ts:7f36af4d4b1ebd9f6cbf3ba4:message:0",
+    "name": "queryCacheRecord",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 45
+    }
+  },
+  {
+    "seq": 46,
+    "node": "protocol:ts:2aa9ecab1f113dbe7678c1e1:message:0",
+    "name": "queryTopWarpStallReason",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 46
+    }
+  },
+  {
+    "seq": 47,
+    "node": "protocol:ts:bb466017cae2b9d20856d20c:message:0",
+    "name": "<lambda@45:22>",
+    "status": "unknown",
+    "matches": 0,
+    "unknown_identities": 109,
+    "detail": {
+      "entity": "entry",
+      "id": 47
+    }
+  },
+  {
+    "seq": 48,
+    "node": null,
+    "name": "DataViewerController.handleRenderAllIframes",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 48
+    }
+  },
+  {
+    "seq": 49,
+    "node": "protocol:ts:86d528c3b6beb5eb52540403:message:0",
+    "name": "getBlocksGraphData",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 49
+    }
+  },
+  {
+    "seq": 50,
+    "node": "protocol:ts:030ae5d6790506cb3e34dc23:message:0",
+    "name": "getLeaksAllocationsData",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 50
+    }
+  },
+  {
+    "seq": 51,
+    "node": "protocol:ts:99324d00640ba6d1517e4151:message:0",
+    "name": "getMemoryDetailData",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 51
+    }
+  },
+  {
+    "seq": 52,
+    "node": "protocol:ts:3bbc423f6ba3117575116f5b:message:0",
+    "name": "getFuncData",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 52
+    }
+  },
+  {
+    "seq": 53,
+    "node": "protocol:ts:6fb0b61dda8cdb1705c6ab64:message:0",
+    "name": "getBlockDetails",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 53
+    }
+  },
+  {
+    "seq": 54,
+    "node": "protocol:ts:f5d7578d7e0a393722c05bfc:message:0",
+    "name": "getEventDetails",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 54
+    }
+  },
+  {
+    "seq": 55,
+    "node": "protocol:ts:d8fa8fd5523c564b9bf470b5:message:0",
+    "name": "getSnapshotBlocks",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 55
+    }
+  },
+  {
+    "seq": 56,
+    "node": "protocol:ts:13bbfcfd249ec5cf895a872d:message:0",
+    "name": "getSnapshotAllocations",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 56
+    }
+  },
+  {
+    "seq": 57,
+    "node": "protocol:ts:9d1c1af8424565d789656674:message:0",
+    "name": "getSnapshotAllocationLines",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 57
+    }
+  },
+  {
+    "seq": 58,
+    "node": "protocol:ts:69b406a02799e0e26e576f4e:message:0",
+    "name": "getSnapshotBlockTable",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 58
+    }
+  },
+  {
+    "seq": 59,
+    "node": "protocol:ts:eee695f4fb7b80116ef9e98c:message:0",
+    "name": "getSnapshotLeakStats",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 59
+    }
+  },
+  {
+    "seq": 60,
+    "node": "protocol:ts:cf130b4b06eca1882ec928d5:message:0",
+    "name": "getSnapshotEvent",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 60
+    }
+  },
+  {
+    "seq": 61,
+    "node": "protocol:ts:e852c49e4b659b16df9cd899:message:0",
+    "name": "getMemoryStateData",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 61
+    }
+  },
+  {
+    "seq": 62,
+    "node": "protocol:ts:a336fd5b42090be9f2a90451:message:0",
+    "name": "getSnapshotDetail",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 62
+    }
+  },
+  {
+    "seq": 63,
+    "node": null,
+    "name": "<lambda@159:5>.<lambda@215:44>",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 63
+    }
+  },
+  {
+    "seq": 64,
+    "node": null,
+    "name": "SliceRangeSelector.<lambda@544:36>",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 64
+    }
+  },
+  {
+    "seq": 65,
+    "node": null,
+    "name": "SliceRangeSelector.scheduleRangeChange",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 65
+    }
+  },
+  {
+    "seq": 66,
+    "node": null,
+    "name": "<lambda@69:30>.scheduleRangeChange",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 66
+    }
+  },
+  {
+    "seq": 67,
+    "node": null,
+    "name": "<lambda@69:30>.scheduleRangeChange",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 67
+    }
+  },
+  {
+    "seq": 68,
+    "node": null,
+    "name": "useSmartDebounceRequest.<lambda@59:14>",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 68
+    }
+  },
+  {
+    "seq": 69,
+    "node": null,
+    "name": "useSmartDebounceRequest.onBeforeRequest",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 69
+    }
+  },
+  {
+    "seq": 70,
+    "node": null,
+    "name": "useSmartDebounceRequest.onAfterRequest",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 70
+    }
+  },
+  {
+    "seq": 71,
+    "node": "protocol:ts:c222a584a1bf38e997197076:message:0",
+    "name": "memoryTypeGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 71
+    }
+  },
+  {
+    "seq": 72,
+    "node": "protocol:ts:6702a7d984b27327b93a2d99:message:0",
+    "name": "resourceTypeGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 72
+    }
+  },
+  {
+    "seq": 73,
+    "node": "protocol:ts:bf5c87c9cf4675a9c968a9c0:message:0",
+    "name": "staticOpMemoryListGet",
+    "status": "unmatched",
+    "matches": 0,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 73
+    }
+  },
+  {
+    "seq": 74,
+    "node": "protocol:ts:cae609e4dd22bd2d6c55dbd6:message:0",
+    "name": "staticOpMemoryGraphGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 74
+    }
+  },
+  {
+    "seq": 75,
+    "node": "protocol:ts:73e14e391a50bcc4fa996910:message:0",
+    "name": "operatorsMemoryGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 75
+    }
+  },
+  {
+    "seq": 76,
+    "node": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0",
+    "name": "memoryCurveGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 76
+    }
+  },
+  {
+    "seq": 77,
+    "node": "protocol:ts:47dda6acdc7f66b0f13ff27b:message:0",
+    "name": "fetchTableDataByComponent",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 77
+    }
+  },
+  {
+    "seq": 78,
+    "node": "protocol:ts:bbaae204ffe05d70e4aa065a:message:0",
+    "name": "fetchOperatorPosition",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 78
+    }
+  },
+  {
+    "seq": 79,
+    "node": "protocol:ts:21f4c654bfb4eb83652618bd:message:0",
+    "name": "fetchDynamicOperatorMaxMin",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 79
+    }
+  },
+  {
+    "seq": 80,
+    "node": "protocol:ts:92796eb33f1b78bc0085e790:message:0",
+    "name": "fetchStaticOperatorMaxMin",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 80
+    }
+  },
+  {
+    "seq": 81,
+    "node": "protocol:ts:edf0710c78ee691632db65b3:message:0",
+    "name": "queryOperatorCategory",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 81
+    }
+  },
+  {
+    "seq": 82,
+    "node": "protocol:ts:0a205e9dadfcb2362b431d89:message:0",
+    "name": "queryOperatorComputeUnit",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 82
+    }
+  },
+  {
+    "seq": 83,
+    "node": "protocol:ts:29ee9d93b3e21b1261ee9ccf:message:0",
+    "name": "queryOperators",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 83
+    }
+  },
+  {
+    "seq": 84,
+    "node": "protocol:ts:7da7e7a0cff09ff8d61eda96:message:0",
+    "name": "queryOperatorStatic",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 84
+    }
+  },
+  {
+    "seq": 85,
+    "node": "protocol:ts:627a625200daf8c5ed931150:message:0",
+    "name": "queryOperatorsInStatic",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 85
+    }
+  },
+  {
+    "seq": 86,
+    "node": "protocol:ts:1bd53327bae2a632e51b573e:message:0",
+    "name": "exportOperatorDetail",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 86
+    }
+  },
+  {
+    "seq": 87,
+    "node": "protocol:ts:625269918770a5809c21e67b:message:0",
+    "name": "tableDataGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 87
+    }
+  },
+  {
+    "seq": 88,
+    "node": "protocol:ts:201b3276af04e41495ef42ba:message:0",
+    "name": "curveGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 88
+    }
+  },
+  {
+    "seq": 89,
+    "node": "protocol:ts:bec0ab82a145c0e247945273:message:0",
+    "name": "groupGet",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 89
+    }
+  },
+  {
+    "seq": 90,
+    "node": "protocol:ts:abe89234097803d824716977:message:0",
+    "name": "SimpleCache.<lambda@103:27>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 90
+    }
+  },
+  {
+    "seq": 91,
+    "node": "protocol:ts:dee99bf4ab842967b7be4c0b:message:0",
+    "name": "requestProcessData",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 91
+    }
+  },
+  {
+    "seq": 92,
+    "node": "protocol:ts:d778dfb8d354648fa50e391b:message:0",
+    "name": "requestCounterData",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 92
+    }
+  },
+  {
+    "seq": 93,
+    "node": "protocol:ts:2899828e598654e88545e56d:message:0",
+    "name": "queryFtraceStat",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 93
+    }
+  },
+  {
+    "seq": 94,
+    "node": "protocol:ts:db60ac7f2b976f3b3e2656db:message:0",
+    "name": "parseCards",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 94
+    }
+  },
+  {
+    "seq": 95,
+    "node": "protocol:ts:efd94b49cd7c56d892d4b997:message:0",
+    "name": "getOverallMetrics",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 95
+    }
+  },
+  {
+    "seq": 96,
+    "node": "protocol:ts:fb9e96dd00d3e2d5f58e8d16:message:0",
+    "name": "getOverallMetrics.<lambda@77:24>.<lambda@90:60>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 96
+    }
+  },
+  {
+    "seq": 97,
+    "node": "protocol:ts:a447062274a88b50ae5e0532:message:0",
+    "name": "getOverallMetricsMoreList",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 97
+    }
+  },
+  {
+    "seq": 98,
+    "node": "protocol:ts:5a6627d2511de934d6601680:message:0",
+    "name": "getMemcpyOverallMetrics",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 98
+    }
+  },
+  {
+    "seq": 99,
+    "node": "protocol:ts:8489f8dc513898b57212a182:message:0",
+    "name": "getMemcpyOverallMetricsMoreList",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 99
+    }
+  },
+  {
+    "seq": 100,
+    "node": "protocol:ts:2f4958eae0a54c2689c11e23:message:0",
+    "name": "setCardAliasReq",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 100
+    }
+  },
+  {
+    "seq": 101,
+    "node": "protocol:ts:70d16b9c0609f54a87ec22e9:message:0",
+    "name": "queryExpertAnalysis",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 101
+    }
+  },
+  {
+    "seq": 102,
+    "node": "protocol:ts:f93d31bc3c0bf7b97f9ae6d5:message:0",
+    "name": "queryOperatorDispatch",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 102
+    }
+  },
+  {
+    "seq": 103,
+    "node": "protocol:ts:be2763a75ee10ea79d034ec2:message:0",
+    "name": "queryAllSameOperatorsDuration",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 103
+    }
+  },
+  {
+    "seq": 104,
+    "node": "protocol:ts:422d6aaa28e1fe5052a9ffe4:message:0",
+    "name": "queryCommunicationKernelDetail",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 104
+    }
+  },
+  {
+    "seq": 105,
+    "node": "protocol:ts:2d053c19021699a5277add5d:message:0",
+    "name": "createCurve",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 105
+    }
+  },
+  {
+    "seq": 106,
+    "node": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+    "name": "getUnitFlows",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 106
+    }
+  },
+  {
+    "seq": 107,
+    "node": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+    "name": "queryTimelineOffset",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 107
+    }
+  },
+  {
+    "seq": 108,
+    "node": "protocol:ts:5d655eb26f901680c754387a:message:0",
+    "name": "queryKernelMfuList",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 108
+    }
+  },
+  {
+    "seq": 109,
+    "node": "protocol:ts:614cba0630f843b8a675abe2:message:0",
+    "name": "querySystemViewTrace",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 109
+    }
+  },
+  {
+    "seq": 110,
+    "node": "protocol:ts:72cee57994264df4e1e8121a:message:0",
+    "name": "querySystemViewDetails",
+    "status": "ambiguous",
+    "matches": 2,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 110
+    }
+  },
+  {
+    "seq": 111,
+    "node": "protocol:ts:601c0a46d0211b31623d5648:message:0",
+    "name": "queryFtraceStat",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 111
+    }
+  },
+  {
+    "seq": 112,
+    "node": "protocol:ts:b125e077087b1f0767432922:message:0",
+    "name": "queryTableDataNameList",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 112
+    }
+  },
+  {
+    "seq": 113,
+    "node": "protocol:ts:b8ad61e4e22bd7e79ecba447:message:0",
+    "name": "queryTableDataDetails",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 113
+    }
+  },
+  {
+    "seq": 114,
+    "node": "protocol:ts:cb944acce986f49cabfffff7:message:0",
+    "name": "queryKernelDetails",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 114
+    }
+  },
+  {
+    "seq": 115,
+    "node": "protocol:ts:c383ebecc133443b1eeac26a:message:0",
+    "name": "queryOneKernel",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 115
+    }
+  },
+  {
+    "seq": 116,
+    "node": "protocol:ts:34c61fa1905b2b3202c6d8f3:message:0",
+    "name": "searchAllSlices",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 116
+    }
+  },
+  {
+    "seq": 117,
+    "node": "protocol:ts:ef5d53fe8d5e9f40da15f69f:message:0",
+    "name": "queryAffinityOptimizer",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 117
+    }
+  },
+  {
+    "seq": 118,
+    "node": "protocol:ts:1ef5947b57101fb97dba3f31:message:0",
+    "name": "queryAffinityAPI",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 118
+    }
+  },
+  {
+    "seq": 119,
+    "node": "protocol:ts:4b1d6e39da48daf51b96bff2:message:0",
+    "name": "exportAffinityAPI",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 119
+    }
+  },
+  {
+    "seq": 120,
+    "node": "protocol:ts:d5a60754fa63cfc28cc7983c:message:0",
+    "name": "queryOperatorFusion",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 120
+    }
+  },
+  {
+    "seq": 121,
+    "node": "protocol:ts:1476bf104a73379795394220:message:0",
+    "name": "queryAICPUOperators",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 121
+    }
+  },
+  {
+    "seq": 122,
+    "node": "protocol:ts:f7a256a2dd1c1c9c4faa1b2d:message:0",
+    "name": "queryACLNNOperators",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 122
+    }
+  },
+  {
+    "seq": 123,
+    "node": "protocol:ts:a613e546ffa9bd0d0933644c:message:0",
+    "name": "eventViewData",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 123
+    }
+  },
+  {
+    "seq": 124,
+    "node": "protocol:ts:a543881119c1e950e02c54d9:message:0",
+    "name": "queryKernelE2ETime",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 124
+    }
+  },
+  {
+    "seq": 125,
+    "node": "protocol:ts:800fbe1c35384c5d5ad816cc:message:0",
+    "name": "requestModelStreamInfo",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 125
+    }
+  },
+  {
+    "seq": 126,
+    "node": "protocol:ts:cadaef1c9f6c07916fdeca5d:message:0",
+    "name": "queryDataCount",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 126
+    }
+  },
+  {
+    "seq": 127,
+    "node": "protocol:ts:f4e6e08108cb17a7df5c836f:message:0",
+    "name": "jumpSlice",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 127
+    }
+  },
+  {
+    "seq": 128,
+    "node": "protocol:ts:9f60f2fc5504f11f2f21dd47:message:0",
+    "name": "fetchLinkLineForCard",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 128
+    }
+  },
+  {
+    "seq": 129,
+    "node": "protocol:ts:6814371df1dbd4c3b1e97f83:message:0",
+    "name": "useGetCategories.<lambda@342:21>.<lambda@357:34>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 129
+    }
+  },
+  {
+    "seq": 130,
+    "node": null,
+    "name": "<lambda@89:44>.<lambda@139:42>.<lambda@140:27>",
+    "status": "unknown_callable",
+    "matches": 0,
+    "unknown_identities": null,
+    "detail": {
+      "entity": "entry",
+      "id": 130
+    }
+  },
+  {
+    "seq": 131,
+    "node": "protocol:ts:a64bcc01aee0f44f0df12aa9:message:0",
+    "name": "queryOperatorStatistic",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 131
+    }
+  },
+  {
+    "seq": 132,
+    "node": "protocol:ts:2253a5756d8a82211ec39309:message:0",
+    "name": "fetchData.<lambda@118:76>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 132
+    }
+  },
+  {
+    "seq": 133,
+    "node": "protocol:ts:c841b8a80ccd7e577633f83a:message:0",
+    "name": "fetchData",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 133
+    }
+  },
+  {
+    "seq": 134,
+    "node": "protocol:ts:bcf2fef60bff7c7ff00bb988:message:0",
+    "name": "mapFunc.<lambda@627:71>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 134
+    }
+  },
+  {
+    "seq": 135,
+    "node": "protocol:ts:d23d11b4041b9c0595bebdda:message:0",
+    "name": "mapFunc.<lambda@627:71>",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 135
+    }
+  },
+  {
+    "seq": 136,
+    "node": "protocol:ts:e2547129894bc4ad4de69a71:message:0",
+    "name": "remoteDeleteRequest",
+    "status": "matched_conditional",
+    "matches": 1,
+    "unknown_identities": 0,
+    "detail": {
+      "entity": "entry",
+      "id": 136
+    }
+  }
+]

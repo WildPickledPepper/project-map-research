@@ -1,0 +1,150 @@
+{
+  "evidence_kind": "executed_A3_full_graph_navigation_acceptance",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+  "navigation_version": {
+    "schema": "project-map/1",
+    "rules_commit": "11664a0c49916a7ccb7a88b4839a40e3a2fe4237"
+  },
+  "graph_version": {
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+    "config": {
+      "version": 1,
+      "scope": {
+        "include": [
+          "*"
+        ],
+        "exclude": [],
+        "discovery": {
+          "version": 1,
+          "roles": [
+            "build_tool",
+            "product",
+            "test"
+          ],
+          "exclude": [],
+          "max_file_bytes": 2097152
+        }
+      },
+      "deployment": {
+        "version": 1,
+        "evidence_kind": "configured_analysis_scope",
+        "description": "Framework transport and server sources belong to the same logical Insight deployment for this experiment. Actual host/port selection remains runtime evidence for P5.",
+        "services": [
+          {
+            "id": "insight-backend",
+            "consumer_paths": [
+              "modules/framework"
+            ],
+            "provider_paths": [
+              "server"
+            ]
+          }
+        ]
+      },
+      "storage": "json"
+    },
+    "build_version": {
+      "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  },
+  "counts": {
+    "tracked_files": 4855,
+    "input_files": 2310,
+    "modules": 29,
+    "nodes": 271737,
+    "edges": 386100,
+    "entries": 136,
+    "diagnostic_records": 33154,
+    "providers": 109,
+    "module_relation_groups": 143
+  },
+  "checks": {
+    "all_node_payloads_equal": true,
+    "all_parallel_edge_payloads_equal": true,
+    "all_counts_equal": true,
+    "automatic_module_file_input_counts": true,
+    "module_links_have_source_status": true,
+    "all_entry_statuses_retained": true,
+    "entry_payloads_equal": true,
+    "provider_payloads_equal": true,
+    "every_entry_node_has_status_and_expansion": true,
+    "getUnitFlows_bidirectional_witness": true,
+    "getUnitFlows_conditions_and_evidence": true,
+    "getUnitFlows_pinned_source": true,
+    "queryTimelineOffset_bidirectional_witness": true,
+    "queryTimelineOffset_conditions_and_evidence": true,
+    "queryTimelineOffset_pinned_source": true,
+    "memoryCurveGet_bidirectional_witness": true,
+    "memoryCurveGet_conditions_and_evidence": true,
+    "memoryCurveGet_pinned_source": true,
+    "resource_search_and_reverse_expand": true,
+    "field_and_state_discovery": true,
+    "node_budget_visible": true,
+    "edge_budget_visible": true,
+    "wall_budget_visible": true,
+    "output_budget_visible": true,
+    "unsupported_languages_visible": true,
+    "no_runtime_or_assets_invented": true,
+    "diagnostics_and_global_limits_readable": true
+  },
+  "passed": true,
+  "details": {
+    "entries": {
+      "total": 136,
+      "with_node": 126,
+      "statuses": {
+        "unknown": 11,
+        "matched_conditional": 96,
+        "unmatched": 18,
+        "unknown_callable": 10,
+        "ambiguous": 1
+      },
+      "assessed": 126
+    },
+    "protocol_regressions": [
+      {
+        "api": "getUnitFlows",
+        "start": "ts:922f26ccc99ac699aa030c2c",
+        "target": "cpp:d7a6f20ca5a84774ae8db47d",
+        "edges": 5,
+        "conditions": 14,
+        "evidence": 7
+      },
+      {
+        "api": "queryTimelineOffset",
+        "start": "ts:fcf1129f0a28b4c40434c11e",
+        "target": "cpp:3538bff650c3fa93a15d99aa",
+        "edges": 5,
+        "conditions": 14,
+        "evidence": 7
+      },
+      {
+        "api": "memoryCurveGet",
+        "start": "ts:668e2dade37bde168ce3f2bc",
+        "target": "cpp:d0e0fb2506f3b38358c5de2b",
+        "edges": 5,
+        "conditions": 15,
+        "evidence": 7
+      }
+    ],
+    "field_resource_navigation": {
+      "resources": 6,
+      "fields": 20,
+      "timeline_states": 41
+    }
+  },
+  "elapsed_seconds": 20.7292,
+  "comparison": "direct parsed JSON equality for every node, parallel edge, consumer and provider; no hash verification",
+  "historical_validation_candidates": "not_used",
+  "scope": "navigation fidelity and known A2 regressions; semantic extraction correctness remains A4"
+}

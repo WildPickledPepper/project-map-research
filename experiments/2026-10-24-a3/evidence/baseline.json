@@ -1,0 +1,46 @@
+{
+  "evidence_kind": "executed_existing_P7_queries_on_A2_full_graph",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+  "load_seconds": 7.61,
+  "adjacency_seconds": 0.922,
+  "working_set_bytes_after_queries": 2780131328,
+  "queries": {
+    "search": {
+      "seconds": 0.062,
+      "total": 6,
+      "output_bytes": 1843,
+      "status": null
+    },
+    "overview": {
+      "seconds": 0.797,
+      "total": 29,
+      "output_bytes": 11046,
+      "status": {
+        "graph_input_files": 2310,
+        "whole_repository_semantic_analysis": false,
+        "statuses": {
+          "unsupported_extension": 20,
+          "workspace_package_metadata": 16,
+          "parsed": 2237,
+          "configuration_recorded_not_applied": 18,
+          "syntax_errors": 19
+        }
+      }
+    },
+    "trace": {
+      "seconds": 0.0,
+      "total": 1,
+      "output_bytes": 70687,
+      "status": null
+    }
+  },
+  "observations": [
+    "full_JSON_loaded_before_query",
+    "overview_labels_selected_source_only",
+    "paging_after_materialization",
+    "no_query_time_or_visit_budget",
+    "no_pinned_Git_source_command"
+  ],
+  "file_hash_verification": "not_run_per_user_preference"
+}
