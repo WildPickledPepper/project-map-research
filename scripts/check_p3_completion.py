@@ -44,11 +44,12 @@ def check():
     assert (s['nodes'], s['edges']) == (report['counts']['nodes'], report['counts']['edges'])
     assert report['file_hash_verification'] == 'not_run_per_user_preference'
     case = (ROOT/'cases/memory-usage/README.md').read_text(encoding='utf-8')
-    assert '待 P7 冻结规则后执行' in case and 'Memory/view/memoryUsage' in case
+    # P3 registered the case; later phases may advance its execution status.
+    assert 'Memory/view/memoryUsage' in case and report['source_commit'] in case
     for name in ['chain_queries.py', 'cpp_encoding.py', 'cpp_source_conditions.py']:
         text = (ROOT/'adapters'/name).read_text(encoding='utf-8')
         assert not any(s in text for s in ['unit/flows', 'unitAllFlows', 'useResponseQueue', 'GbkToUtf8', 'QueryUnitFlows', 'Memory/view'])
-    print('OK: P3 D01-D05 pass together on the selected 154-file source graph; P4-P7 remain.')
+    print('OK: P3 D01-D05 evidence on the selected 154-file graph; cross-module case identity retained.')
 
 
 if __name__ == '__main__': check()
