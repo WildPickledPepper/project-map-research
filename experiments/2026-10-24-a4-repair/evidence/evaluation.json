@@ -1,0 +1,41 @@
+{
+  "evidence_kind": "executed_post_repair_A4_acceptance",
+  "tool_acceptance_passed": true,
+  "gates": {
+    "six_protocol_pairs_correct_without_extra": true,
+    "six_producer_paths_bidirectional": true,
+    "six_serialized_field_relations": true,
+    "both_named_frontend_states_connected": true,
+    "selected_queries_not_truncated": true,
+    "three_supplementary_development_protocol_cases": true,
+    "two_final_frozen_protocol_cases": true,
+    "full_navigation_fidelity_and_direct_entries": true,
+    "thirteen_real_refresh_controls": true,
+    "nineteen_known_chain_regressions": true,
+    "complete_rebuild_equal": true,
+    "full_builds_within_budgets": true,
+    "controller_full_graph_validation": true,
+    "tests_passed": true,
+    "fact_version_basis_preserved": true
+  },
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "build_version": {
+    "rules_commit": "573330ff1d534e847e4e1ad2cc4db7ab65547bc5",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "query_controller_rule": "3537a62873ede8c7fa4e9aa9a62095620781fd09",
+  "original_failed_evaluation_preserved": true,
+  "six_cases_used_for_development": true,
+  "three_supplementary_cases_reused_for_development": true,
+  "two_final_cases_scope": "protocol-rule holdout; complete-return robustness was subsequently repaired without adapting protocol rules to these two cases",
+  "historical_validation_records_used_for_tuning": false,
+  "new_runtime_reproductions": 0,
+  "file_hash_verification": "not_run_per_user_preference"
+}

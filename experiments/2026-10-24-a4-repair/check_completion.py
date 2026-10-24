@@ -29,7 +29,11 @@ assert read('direct-updates.json')['fixture_origin']=='authored_direct_platform_
 assert read('known-regression.json')['passed'] and len(read('known-regression.json')['checks'])==19
 assert read('rebuild.json')['equal'] and not read('rebuild.json')['differing_top_level_keys']
 assert read('publication.json')['measured']['status']=='passed'
-assert read('tests.json')=={'python':{'count':339,'passed':True},'typescript':{'count':97,'passed':True}}
+assert read('tests.json')=={'python':{'count':340,'passed':True},'typescript':{'count':97,'passed':True}}
+assert read('query-first-regression.json')['checks']['removed_serialized_field_has_no_consumer_link'] is False
+assert read('controller-first-validation.json')['measured']['status']=='budget_stopped'
+assert read('missing-field-probe.json')['passed'] and read('missing-field-probe.json')['after_deleted_field_links']==0
+assert not read('component-versions.json')['facts_extraction_changed']
 assert read('first-complete-repair-chains.json')['counts']['serialized_field_relations']==5
 assert len(read('serializer-probe.json')['inputs'])==27
 assert [c['outcome'] for c in read('first-repair.json')['new_cases']]==['correct_unique_conditional','correct_unique_conditional','omission']

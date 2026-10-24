@@ -1,0 +1,42 @@
+{
+  "evidence_kind": "executed_complete_graph_direct_JSON_comparison",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "snapshots": [
+    "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:e326009ede754f25ae12d5094d0dcd2d",
+    "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:46595259e89746c6bd110cc12e143be3"
+  ],
+  "build_versions": [
+    {
+      "rules_commit": "573330ff1d534e847e4e1ad2cc4db7ab65547bc5",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    },
+    {
+      "rules_commit": "573330ff1d534e847e4e1ad2cc4db7ab65547bc5",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  ],
+  "equal": true,
+  "differing_top_level_keys": [],
+  "counts": {
+    "nodes": 280559,
+    "edges": 401303,
+    "inputs": 2315
+  },
+  "elapsed_seconds": 21.3206,
+  "comparison": "direct parsed JSON equality excluding only snapshot and version.snapshot",
+  "file_hash_verification": "not_run_per_user_preference"
+}

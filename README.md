@@ -16,7 +16,7 @@ P4 的自动刷新、失败恢复及历史记录版本关联已通过，[P5](exp
 
 **A3 可展开地图已完成**：[完成报告](experiments/2026-10-24-a3/completion.md)和 [AI 查询示例](experiments/2026-10-24-a3/walkthrough.md)。同一事实集生成 SQLite 导航索引，支持自动模块图、接口/资源正反查、证据分页、预算和固定版本源码导航。27 项全仓检查、当批 329 项 Python、88 项 TypeScript 测试通过；七类新进程查询实测约 0.09–0.25 秒。
 
-**A4 首轮评估完成，连通性验收未通过**：[报告](experiments/2026-10-24-a4/report.md)。冻结规则下复核六个新模块请求，3 个发送端正确匹配、1 个未知、2 个未匹配，两个明确返回状态目标均未贯通；直接 socket 入口发现也有缺口。更新控制、完整重建一致性及既有 19 项链回归通过，334 项 Python、88 项 TypeScript 测试通过。下一步优先执行[通用机制修正与复验](experiments/2026-10-24-a4/repair-plan.md)，阶段状态见[扩展计划](plans/full-repository-plan.md)。
+**A4 修复复验通过**：[完成报告](experiments/2026-10-24-a4-repair/completion.md)。六条请求到数据生产函数的正反向路径、六个响应字段和两个指定前端状态通过；新增直接入口、13 项刷新、26 项导航、19 项既有链回归及两次完整重建一致性通过。340 项 Python、97 项 TypeScript 测试通过。[首轮未通过结果](experiments/2026-10-24-a4/report.md)与修复中的失败保留；防抖 Promise 返回、分页到 Worker 的字段传播继续列为静态覆盖待办。A5 开展运行扩展，阶段边界见[扩展计划](plans/full-repository-plan.md)。
 
 历史问题样本按[开发与验证划分](datasets/msinsight-regressions/split.md)执行：8 条开发、4 条关联回归、12 条验证候选。本轮用户启动 A4 后，12 条已完成版本与当前静态覆盖登记；未逐条运行复现，也未用于调整提取规则。
 

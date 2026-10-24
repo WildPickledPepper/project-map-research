@@ -1,0 +1,21 @@
+{
+  "evidence_kind": "executed_component_source_AST_delta_audit",
+  "facts_rule": "573330ff1d534e847e4e1ad2cc4db7ab65547bc5",
+  "query_controller_rule": "3537a62873ede8c7fa4e9aa9a62095620781fd09",
+  "changed_source_modules": [
+    "adapters/return_bridge_queries.py",
+    "adapters/snapshot_refresh.py"
+  ],
+  "changed_query_functions": [
+    "dependency_path",
+    "explain_return_bridge"
+  ],
+  "changed_controller_methods": [
+    "validate"
+  ],
+  "extracted_iframe_links_ast_unchanged": true,
+  "facts_extraction_changed": false,
+  "complete_fact_rebuild_required_for_this_delta": false,
+  "scope": "existing snapshots retain their extraction version; final query/controller checks record their own code version",
+  "file_hash_verification": "not_run_per_user_preference"
+}

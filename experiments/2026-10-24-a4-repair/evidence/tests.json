@@ -1,0 +1,10 @@
+{
+  "python": {
+    "count": 340,
+    "passed": true
+  },
+  "typescript": {
+    "count": 97,
+    "passed": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "before_links": 7,
+  "after_deleted_field_links": 0,
+  "passed": true,
+  "scope": "in-memory extracted-fact mutation; original graph/source not changed"
+}

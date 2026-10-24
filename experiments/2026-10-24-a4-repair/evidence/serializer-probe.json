@@ -1,0 +1,2170 @@
+{
+  "evidence_kind": "executed_source_include_closure_serialization_probe",
+  "inputs": [
+    "server/msinsight/include/WsSender.h",
+    "server/msinsight/include/base/ModuleRequestHandler.h",
+    "server/msinsight/include/base/ProtocolUtil.h",
+    "server/msinsight/include/utils/NumberSafeUtil.h",
+    "server/msinsight/include/utils/SafeQueue.h",
+    "server/msinsight/include/utils/ServerLog.h",
+    "server/msinsight/src/base/ProtocolUtil.cpp",
+    "server/msinsight/src/utils/FileDef.h",
+    "server/msinsight/src/utils/FileUtil.h",
+    "server/msinsight/src/utils/JsonUtil.h",
+    "server/msinsight/src/utils/NumberUtil.h",
+    "server/msinsight/src/utils/ProtocolEnumUtil.h",
+    "server/msinsight/src/utils/RegexUtil.h",
+    "server/msinsight/src/utils/StringUtil.h",
+    "server/msinsight/src/utils/SystemUtil.h",
+    "server/msinsight/src/utils/UtilErrorManager.h",
+    "server/msinsight/src/utils/pch.h",
+    "server/src/modules/ProtocolMessage.h",
+    "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+    "server/src/modules/communication/protocol/CommunicationProtocol.h",
+    "server/src/modules/communication/protocol/CommunicationProtocolRequest.h",
+    "server/src/modules/communication/protocol/CommunicationProtocolResponse.h",
+    "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+    "server/src/modules/communication/protocol/CommunicationProtocolUtil.h",
+    "server/src/modules/defs/GlobalDefs.h",
+    "server/src/modules/defs/NumDefs.h",
+    "server/src/modules/defs/ProtocolDefs.h"
+  ],
+  "functions": [
+    {
+      "name": "Dic::Protocol::CommunicationProtocol::ToIterationsResponse",
+      "field_mappings": [
+        {
+          "wire_path": [
+            "id"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:id"
+            ],
+            "root_type": "Response",
+            "value_type": "unsigned int",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "ProtocolMessage"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 110,
+                "expression": "response.id"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 110,
+              "expression": "json.AddMember(\"id\", response.id, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 110,
+              "expression": "response.id"
+            }
+          ],
+          "conditions": []
+        },
+        {
+          "wire_path": [
+            "requestId"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:requestId"
+            ],
+            "root_type": "Response",
+            "value_type": "unsigned int",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "Response"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 111,
+                "expression": "response.requestId"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 111,
+              "expression": "json.AddMember(\"requestId\", response.requestId, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 111,
+              "expression": "response.requestId"
+            }
+          ],
+          "conditions": []
+        },
+        {
+          "wire_path": [
+            "result"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:result"
+            ],
+            "root_type": "Response",
+            "value_type": "bool",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "Response"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 112,
+                "expression": "response.result"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 112,
+              "expression": "json.AddMember(\"result\", response.result, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 112,
+              "expression": "response.result"
+            }
+          ],
+          "conditions": []
+        },
+        {
+          "wire_path": [
+            "command"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:command"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "Response"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 113,
+                "expression": "response.command"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "RapidJSON_SetString"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 113,
+              "expression": "JsonUtil::AddMember(json, \"command\", response.command, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 455,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.data(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 461,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.c_str(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 479,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.c_str(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 473,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.data(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 113,
+              "expression": "response.command"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "command"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:command"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "Response"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 113,
+                "expression": "response.command"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 113,
+              "expression": "JsonUtil::AddMember(json, \"command\", response.command, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 113,
+              "expression": "response.command"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "moduleName"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:moduleName"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "ProtocolMessage"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 114,
+                "expression": "response.moduleName"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "RapidJSON_SetString"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 114,
+              "expression": "JsonUtil::AddMember(json, \"moduleName\", response.moduleName, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 455,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.data(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 461,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.c_str(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 479,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.c_str(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 473,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.data(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 114,
+              "expression": "response.moduleName"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "moduleName"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:moduleName"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "ProtocolMessage"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 114,
+                "expression": "response.moduleName"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 114,
+              "expression": "JsonUtil::AddMember(json, \"moduleName\", response.moduleName, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 114,
+              "expression": "response.moduleName"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "error",
+            "code"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:error",
+              "member:code"
+            ],
+            "root_type": "Response",
+            "value_type": "int",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "ErrorMessage"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 117,
+                "expression": "response.error"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 117,
+                "expression": "response.error.value().code"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "optional_value"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 119,
+              "expression": "json.AddMember(\"error\", error, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 117,
+              "expression": "JsonUtil::AddMember(error, \"code\", response.error.value().code, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 117,
+              "expression": "response.error"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 117,
+              "expression": "response.error.value().code"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "branch",
+              "expression": "(response.error.has_value() && !response.error->message.empty())",
+              "when": true,
+              "line": 115,
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+            },
+            {
+              "kind": "branch",
+              "expression": "(response.error.has_value() && !response.error->message.empty())",
+              "when": true,
+              "line": 115,
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "error",
+            "message"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:error",
+              "member:message"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "ErrorMessage"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 118,
+                "expression": "response.error"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 118,
+                "expression": "response.error.value().message"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "RapidJSON_SetString"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 119,
+              "expression": "json.AddMember(\"error\", error, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 118,
+              "expression": "JsonUtil::AddMember(error, \"message\", response.error.value().message, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 455,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.data(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 461,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.c_str(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 479,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.c_str(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 473,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()),\n            json_t().SetString(value.data(), value.length(), allocator), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 118,
+              "expression": "response.error"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 118,
+              "expression": "response.error.value().message"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "branch",
+              "expression": "(response.error.has_value() && !response.error->message.empty())",
+              "when": true,
+              "line": 115,
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+            },
+            {
+              "kind": "branch",
+              "expression": "(response.error.has_value() && !response.error->message.empty())",
+              "when": true,
+              "line": 115,
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "error",
+            "message"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:error",
+              "member:message"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "ErrorMessage"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 118,
+                "expression": "response.error"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 118,
+                "expression": "response.error.value().message"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "optional_value"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 119,
+              "expression": "json.AddMember(\"error\", error, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 118,
+              "expression": "JsonUtil::AddMember(error, \"message\", response.error.value().message, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 118,
+              "expression": "response.error"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 118,
+              "expression": "response.error.value().message"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "branch",
+              "expression": "(response.error.has_value() && !response.error->message.empty())",
+              "when": true,
+              "line": 115,
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+            },
+            {
+              "kind": "branch",
+              "expression": "(response.error.has_value() && !response.error->message.empty())",
+              "when": true,
+              "line": 115,
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "resultCallbackId"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:resultCallbackId"
+            ],
+            "root_type": "Response",
+            "value_type": "int",
+            "type_path": "server/msinsight/include/base/ProtocolUtil.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "ProtocolMessage"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 107,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+                "line": 122,
+                "expression": "response.resultCallbackId"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "optional_value"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 104,
+              "expression": "ProtocolUtil::SetResponseJsonBaseInfo(response, json)"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 122,
+              "expression": "json.AddMember(\"resultCallbackId\", response.resultCallbackId.value(), allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 107,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+              "line": 122,
+              "expression": "response.resultCallbackId"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "branch",
+              "expression": "(response.resultCallbackId.has_value())",
+              "when": true,
+              "line": 121,
+              "path": "server/msinsight/src/base/ProtocolUtil.cpp"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "body",
+            "iterationOrRankId",
+            "compare"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:body",
+              "member:compare"
+            ],
+            "root_type": "Response",
+            "value_type": "std::vector<IterationsOrRanksObject>",
+            "type_path": "server/src/modules/communication/protocol/CommunicationProtocolResponse.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "IterationsOrRanksResponse"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 107,
+                "expression": "response.body"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 107,
+                "expression": "response.body.compare"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &"
+          },
+          "relation": "array_iteration_source",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 112,
+              "expression": "JsonUtil::AddMember(json, \"body\", body, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 111,
+              "expression": "JsonUtil::AddMember(body, \"iterationOrRankId\", iterationOrRankId, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 108,
+              "expression": "JsonUtil::AddMember(iterationOrRankId, \"compare\", compareData, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 95,
+              "expression": "iterationIdList.PushBack(json_t().SetString(ranksObject.iterationOrRankId.c_str(), allocator), allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 107,
+              "expression": "response.body"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 107,
+              "expression": "response.body.compare"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "loop",
+              "expression": "for (const IterationsOrRanksObject &ranksObject : objs) {",
+              "line": 94,
+              "iteration": "runtime_unknown",
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "body",
+            "iterationOrRankId",
+            "compare",
+            "*"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:body",
+              "member:compare",
+              "element",
+              "member:iterationOrRankId"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/src/modules/communication/protocol/CommunicationProtocolResponse.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "IterationsOrRanksObject"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 107,
+                "expression": "response.body"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 107,
+                "expression": "response.body.compare"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 92,
+                "expression": "const std::vector<IterationsOrRanksObject> &objs"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 95,
+                "expression": "ranksObject.iterationOrRankId"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "RapidJSON_SetString"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 112,
+              "expression": "JsonUtil::AddMember(json, \"body\", body, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 111,
+              "expression": "JsonUtil::AddMember(body, \"iterationOrRankId\", iterationOrRankId, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 108,
+              "expression": "JsonUtil::AddMember(iterationOrRankId, \"compare\", compareData, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 95,
+              "expression": "iterationIdList.PushBack(json_t().SetString(ranksObject.iterationOrRankId.c_str(), allocator), allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 107,
+              "expression": "response.body"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 107,
+              "expression": "response.body.compare"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 92,
+              "expression": "const std::vector<IterationsOrRanksObject> &objs"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 95,
+              "expression": "ranksObject.iterationOrRankId"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "loop",
+              "expression": "for (const IterationsOrRanksObject &ranksObject : objs) {",
+              "line": 94,
+              "iteration": "runtime_unknown",
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "body",
+            "iterationOrRankId",
+            "baseline"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:body",
+              "member:baseline"
+            ],
+            "root_type": "Response",
+            "value_type": "std::vector<IterationsOrRanksObject>",
+            "type_path": "server/src/modules/communication/protocol/CommunicationProtocolResponse.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "IterationsOrRanksResponse"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 109,
+                "expression": "response.body"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 109,
+                "expression": "response.body.baseline"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &"
+          },
+          "relation": "array_iteration_source",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 112,
+              "expression": "JsonUtil::AddMember(json, \"body\", body, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 111,
+              "expression": "JsonUtil::AddMember(body, \"iterationOrRankId\", iterationOrRankId, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 110,
+              "expression": "JsonUtil::AddMember(iterationOrRankId, \"baseline\", baselineData, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 95,
+              "expression": "iterationIdList.PushBack(json_t().SetString(ranksObject.iterationOrRankId.c_str(), allocator), allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 109,
+              "expression": "response.body"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 109,
+              "expression": "response.body.baseline"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "loop",
+              "expression": "for (const IterationsOrRanksObject &ranksObject : objs) {",
+              "line": 94,
+              "iteration": "runtime_unknown",
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp"
+            }
+          ]
+        },
+        {
+          "wire_path": [
+            "body",
+            "iterationOrRankId",
+            "baseline",
+            "*"
+          ],
+          "source": {
+            "kind": "source",
+            "parameter": 0,
+            "selectors": [
+              "member:body",
+              "member:baseline",
+              "element",
+              "member:iterationOrRankId"
+            ],
+            "root_type": "Response",
+            "value_type": "std::string",
+            "type_path": "server/src/modules/communication/protocol/CommunicationProtocolResponse.h",
+            "type_scope": [
+              "Dic",
+              "Protocol",
+              "IterationsOrRanksObject"
+            ],
+            "json_type": false,
+            "evidence": [
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+                "line": 254,
+                "expression": "const Response &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 101,
+                "expression": "const IterationsOrRanksResponse &response"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 109,
+                "expression": "response.body"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 109,
+                "expression": "response.body.baseline"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 92,
+                "expression": "const std::vector<IterationsOrRanksObject> &objs"
+              },
+              {
+                "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+                "line": 95,
+                "expression": "ranksObject.iterationOrRankId"
+              }
+            ],
+            "cast_type": "const IterationsOrRanksResponse &",
+            "conversion": "RapidJSON_SetString"
+          },
+          "relation": "value_dependency",
+          "evidence": [
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 255,
+              "expression": "return ToResponseJson<IterationsOrRanksResponse>(dynamic_cast<const IterationsOrRanksResponse &>(response));"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 112,
+              "expression": "JsonUtil::AddMember(json, \"body\", body, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 111,
+              "expression": "JsonUtil::AddMember(body, \"iterationOrRankId\", iterationOrRankId, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 110,
+              "expression": "JsonUtil::AddMember(iterationOrRankId, \"baseline\", baselineData, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 54,
+              "expression": "AddMemberHelper(json, key, std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 450,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), std::forward<T>(value), allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 468,
+              "expression": "json.AddMember(rapidjson::StringRef(key.data(), key.length()), value, allocator)"
+            },
+            {
+              "path": "server/msinsight/src/utils/JsonUtil.h",
+              "line": 65,
+              "expression": "AddMemberHelper(json, key, value, allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 95,
+              "expression": "iterationIdList.PushBack(json_t().SetString(ranksObject.iterationOrRankId.c_str(), allocator), allocator)"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocol.cpp",
+              "line": 254,
+              "expression": "const Response &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 101,
+              "expression": "const IterationsOrRanksResponse &response"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 109,
+              "expression": "response.body"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 109,
+              "expression": "response.body.baseline"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 92,
+              "expression": "const std::vector<IterationsOrRanksObject> &objs"
+            },
+            {
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+              "line": 95,
+              "expression": "ranksObject.iterationOrRankId"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "preprocessor",
+              "expression": "#ifndef DATA_INSIGHT_CORE_JSON_UTIL_H",
+              "line": 19,
+              "path": "server/msinsight/src/utils/JsonUtil.h"
+            },
+            {
+              "kind": "loop",
+              "expression": "for (const IterationsOrRanksObject &ranksObject : objs) {",
+              "line": 94,
+              "iteration": "runtime_unknown",
+              "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp"
+            }
+          ]
+        }
+      ],
+      "gaps": []
+    }
+  ],
+  "scope": "serializer summary only; not a complete graph or response-route test"
+}

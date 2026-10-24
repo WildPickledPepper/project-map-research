@@ -1,0 +1,2032 @@
+{
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "build_version": {
+    "rules_commit": "573330ff1d534e847e4e1ad2cc4db7ab65547bc5",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "development_counts": {
+    "references": 6,
+    "scored": 6,
+    "wrong_protocol_pairs": 0,
+    "correct_protocol_pairs": 6,
+    "missing_expected_protocol_pairs": 0,
+    "producer_forward_paths": 6,
+    "producer_reverse_paths": 6,
+    "serialized_field_relations": 6,
+    "return_state_relations": 2,
+    "state_reference_denominator": 2
+  },
+  "development_consumers": [
+    {
+      "id": "cluster-iterations",
+      "expected": "getiterationOptions",
+      "state": null,
+      "found": []
+    },
+    {
+      "id": "cluster-stages",
+      "expected": "getStageOptions",
+      "state": null,
+      "found": [
+        {
+          "source": {
+            "id": "ts:5b38ca9c32f423e4284ae9eb",
+            "name": "isNumberPairsFormat",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 215
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 217,
+              "column": 12,
+              "expression": "pattern.test(str)"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "map",
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 245,
+              "column": 39,
+              "expression": "list\n        .map(item => {\n            // 如果stage是由数字组成，则对数据进行重排序，否则不做任何处理（p2p的情况）\n            const stageAfterSort = isNumberPairsFormat(item.group) ? toSortedStage(item.group) : item.group;\n            // 并行策略 如果该数据后端传回来已有该数据，则直接使用，如果没有则显示group id的hash值\n            const strategy = item.parallelStrategy;\n            // value使用group id的hash值，考虑对比场景，使用两个hash值拼接而成，\n            const value = generateStageKeyValue(item.groupIdHash.compare, item.groupIdHash.baseline);\n            // label的显示格式为 并行策"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "group"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:97f1094f13d136a8f9fae1e9",
+            "name": "getStageOptions.<lambda@246:14>",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 246
+          },
+          "mode": "helper_return",
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 257,
+              "column": 13,
+              "expression": "return { value, strategy, label, stageAfterSort, groupIdHash: item.groupIdHash, stage: item.group };"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "map",
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 245,
+              "column": 39,
+              "expression": "list\n        .map(item => {\n            // 如果stage是由数字组成，则对数据进行重排序，否则不做任何处理（p2p的情况）\n            const stageAfterSort = isNumberPairsFormat(item.group) ? toSortedStage(item.group) : item.group;\n            // 并行策略 如果该数据后端传回来已有该数据，则直接使用，如果没有则显示group id的hash值\n            const strategy = item.parallelStrategy;\n            // value使用group id的hash值，考虑对比场景，使用两个hash值拼接而成，\n            const value = generateStageKeyValue(item.groupIdHash.compare, item.groupIdHash.baseline);\n            // label的显示格式为 并行策"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "parallelStrategy"
+            ],
+            [
+              "data",
+              "*",
+              "group"
+            ],
+            [
+              "data",
+              "*",
+              "groupIdHash"
+            ],
+            [
+              "data",
+              "*",
+              "group"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:5b38ca9c32f423e4284ae9eb",
+            "name": "isNumberPairsFormat",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 215
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 217,
+              "column": 12,
+              "expression": "pattern.test(str)"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "map",
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 245,
+              "column": 39,
+              "expression": "list\n        .map(item => {\n            // 如果stage是由数字组成，则对数据进行重排序，否则不做任何处理（p2p的情况）\n            const stageAfterSort = isNumberPairsFormat(item.group) ? toSortedStage(item.group) : item.group;\n            // 并行策略 如果该数据后端传回来已有该数据，则直接使用，如果没有则显示group id的hash值\n            const strategy = item.parallelStrategy;\n            // value使用group id的hash值，考虑对比场景，使用两个hash值拼接而成，\n            const value = generateStageKeyValue(item.groupIdHash.compare, item.groupIdHash.baseline);\n            // label的显示格式为 并行策"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "group"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:5b38ca9c32f423e4284ae9eb",
+            "name": "isNumberPairsFormat",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 215
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 217,
+              "column": 12,
+              "expression": "pattern.test(str)"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "map",
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 245,
+              "column": 39,
+              "expression": "list\n        .map(item => {\n            // 如果stage是由数字组成，则对数据进行重排序，否则不做任何处理（p2p的情况）\n            const stageAfterSort = isNumberPairsFormat(item.group) ? toSortedStage(item.group) : item.group;\n            // 并行策略 如果该数据后端传回来已有该数据，则直接使用，如果没有则显示group id的hash值\n            const strategy = item.parallelStrategy;\n            // value使用group id的hash值，考虑对比场景，使用两个hash值拼接而成，\n            const value = generateStageKeyValue(item.groupIdHash.compare, item.groupIdHash.baseline);\n            // label的显示格式为 并行策"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "group"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:97f1094f13d136a8f9fae1e9",
+            "name": "getStageOptions.<lambda@246:14>",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 246
+          },
+          "mode": "helper_return",
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 257,
+              "column": 13,
+              "expression": "return { value, strategy, label, stageAfterSort, groupIdHash: item.groupIdHash, stage: item.group };"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "map",
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 245,
+              "column": 39,
+              "expression": "list\n        .map(item => {\n            // 如果stage是由数字组成，则对数据进行重排序，否则不做任何处理（p2p的情况）\n            const stageAfterSort = isNumberPairsFormat(item.group) ? toSortedStage(item.group) : item.group;\n            // 并行策略 如果该数据后端传回来已有该数据，则直接使用，如果没有则显示group id的hash值\n            const strategy = item.parallelStrategy;\n            // value使用group id的hash值，考虑对比场景，使用两个hash值拼接而成，\n            const value = generateStageKeyValue(item.groupIdHash.compare, item.groupIdHash.baseline);\n            // label的显示格式为 并行策"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "parallelStrategy"
+            ],
+            [
+              "data",
+              "*",
+              "group"
+            ],
+            [
+              "data",
+              "*",
+              "groupIdHash"
+            ],
+            [
+              "data",
+              "*",
+              "group"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:5b38ca9c32f423e4284ae9eb",
+            "name": "isNumberPairsFormat",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 215
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 217,
+              "column": 12,
+              "expression": "pattern.test(str)"
+            }
+          ],
+          "conditions": [
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "map",
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 245,
+              "column": 39,
+              "expression": "list\n        .map(item => {\n            // 如果stage是由数字组成，则对数据进行重排序，否则不做任何处理（p2p的情况）\n            const stageAfterSort = isNumberPairsFormat(item.group) ? toSortedStage(item.group) : item.group;\n            // 并行策略 如果该数据后端传回来已有该数据，则直接使用，如果没有则显示group id的hash值\n            const strategy = item.parallelStrategy;\n            // value使用group id的hash值，考虑对比场景，使用两个hash值拼接而成，\n            const value = generateStageKeyValue(item.groupIdHash.compare, item.groupIdHash.baseline);\n            // label的显示格式为 并行策"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "group"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operator-category",
+      "expected": "updateOpTypeData",
+      "state": "opTypeData",
+      "found": [
+        {
+          "source": {
+            "id": "ts:da338eddbabeb018640e33dd",
+            "name": "<lambda@136:30>.updateOpTypeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 154
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 162,
+              "column": 44,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 158,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:da338eddbabeb018640e33dd",
+            "name": "<lambda@136:30>.updateOpTypeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 154
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 162,
+              "column": 44,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 158,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:da338eddbabeb018640e33dd",
+            "name": "<lambda@136:30>.updateOpTypeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 154
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 162,
+              "column": 44,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 158,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:da338eddbabeb018640e33dd",
+            "name": "<lambda@136:30>.updateOpTypeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 154
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 162,
+              "column": 44,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 158,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "operator-compute",
+      "expected": "updateComputeData",
+      "state": "computeData",
+      "found": [
+        {
+          "source": {
+            "id": "ts:b215a71844de5f7b7cb7422e",
+            "name": "<lambda@136:30>.updateComputeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 167
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 175,
+              "column": 45,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 171,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:b215a71844de5f7b7cb7422e",
+            "name": "<lambda@136:30>.updateComputeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 167
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 175,
+              "column": 45,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 171,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:b215a71844de5f7b7cb7422e",
+            "name": "<lambda@136:30>.updateComputeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 167
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 175,
+              "column": 45,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 171,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:b215a71844de5f7b7cb7422e",
+            "name": "<lambda@136:30>.updateComputeData",
+            "path": "modules/operator/src/components/operator/DetailChart.tsx",
+            "line": 167
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 175,
+              "column": 45,
+              "expression": "JSON.stringify(data)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/operator/src/components/operator/DetailChart.tsx",
+              "line": 171,
+              "column": 13,
+              "expression": "res === null || res === undefined",
+              "when": false
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "data",
+              "*",
+              "name"
+            ],
+            [
+              "data",
+              "*",
+              "duration"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "leaks-blocks",
+      "expected": "workerSetMemoryBlockData",
+      "state": null,
+      "found": []
+    },
+    {
+      "id": "leaks-allocations",
+      "expected": "loadAllocation",
+      "state": null,
+      "found": [
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": true
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": true
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": true
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": true
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:18a88f2b98d977e3d53a473d",
+            "name": "getAllocationDataMaxSize.<lambda@54:30>",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 54
+          },
+          "mode": "external_argument_handoff",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 50,
+              "expression": "Math.max(maxSize, item.totalSize)"
+            }
+          ],
+          "conditions": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 373,
+              "column": 9,
+              "expression": "session.deviceId === ''",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 376,
+              "column": 9,
+              "expression": "!isMemSnapshotSliceReadyForQuery(session)",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 388,
+              "column": 9,
+              "expression": "session.module === 'memsnapshot'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 419,
+              "column": 5,
+              "expression": "try {\n        const param: BlockParam = {\n            deviceId: session.deviceId,\n            relativeTime: true,\n            eventType: session.eventType,\n            isTable: false,\n            sliceIndex: session.module === 'memsnapshot' ? session.selectedSliceIndex : undefined,\n        };\n        const cacheFileHash = createBlockPathCacheHash(\n            session.snapshotParsingComplete !== false && !session.memSnapshotCacheRefreshPending ? session.fileHash : '',\n            param.deviceId,\n",
+              "kind": "try_completes_without_exception"
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 504,
+              "column": 13,
+              "expression": "!isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 507,
+              "column": 13,
+              "expression": "cacheStatus === 'unavailable'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 513,
+              "column": 13,
+              "expression": "cacheStatus === 'hit'",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 455,
+              "column": 17,
+              "expression": "!requestActive || !isLatestRequest()",
+              "when": false
+            },
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 458,
+              "column": 17,
+              "expression": "session.module === 'memsnapshot'",
+              "when": true
+            },
+            {
+              "kind": "standard_array_callback_candidate",
+              "method": "forEach",
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 54,
+              "column": 5,
+              "expression": "data.allocations.forEach(item => { maxSize = Math.max(maxSize, item.totalSize); })"
+            },
+            {
+              "kind": "external_callee_receives_argument; downstream_behavior_unknown"
+            }
+          ],
+          "dependencies": [
+            [
+              "allocations",
+              "*",
+              "totalSize"
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "new_reference": {
+    "evidence_kind": "source_reference_frozen_before_new_case_graph_queries",
+    "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+    "rules_commit": "2631af8",
+    "scope": "protocol identity and handler connection; not independent runtime or complete return validation",
+    "selection": "first two exported request APIs in compute RequestUtils; sole exported request API in reinforcement-learning api/index; selected from source before scoring the repaired graph",
+    "cases": [
+      {
+        "id": "compute-source",
+        "api": "querySourceCode",
+        "api_path": "modules/compute/src/components/RequestUtils.ts",
+        "source_call_line": 27,
+        "command": "source/code/file",
+        "scope": "source",
+        "handler_path": "server/src/modules/source/handler/QueryCodeFileHandler.cpp",
+        "handler_suffix": "QueryCodeFileHandler::HandleRequest"
+      },
+      {
+        "id": "compute-line",
+        "api": "queryApiLine",
+        "api_path": "modules/compute/src/components/RequestUtils.ts",
+        "source_call_line": 38,
+        "command": "source/api/line",
+        "scope": "source",
+        "handler_path": "server/src/modules/source/handler/QueryApiLineHandler.cpp",
+        "handler_suffix": "QueryApiLineHandler::HandleRequest"
+      },
+      {
+        "id": "rl-pipeline",
+        "api": "getTraceData",
+        "api_path": "modules/reinforcement-learning/src/api/index.ts",
+        "source_call_line": 23,
+        "command": "RL/pipeline",
+        "scope": "rl",
+        "handler_path": "server/src/modules/rl/handler/RLPipelineHandler.cpp",
+        "handler_suffix": "RLPipelineHandler::HandleRequest"
+      }
+    ]
+  },
+  "new_protocol_cases": [
+    {
+      "id": "compute-source",
+      "api": "querySourceCode",
+      "outcome": "correct_unique_conditional",
+      "source_coordinate_matched": true,
+      "entries": [
+        {
+          "consumer": "protocol:ts:0b310c62684ef9d47e67e79b",
+          "name": "querySourceCode",
+          "message": "protocol:ts:0b310c62684ef9d47e67e79b:message:0",
+          "status": "matched_conditional",
+          "matches": [
+            {
+              "provider": "provider:registry:6a4105cd4951d15cc6f26248:registry:3080f5e4ae695eec54f96f3d",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "try_completes_without_exception",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "gaps": [],
+              "consumer_services": [
+                "insight-backend"
+              ],
+              "provider_services": [
+                "insight-backend"
+              ]
+            }
+          ],
+          "unknown_identities": [],
+          "service_binding_origin": "supplied_deployment_config",
+          "runtime_connection": "not_observed",
+          "aliases": [
+            {
+              "name": "querySourceCode",
+              "relationship": "callback_in_export_initializer",
+              "path": "modules/compute/src/components/RequestUtils.ts",
+              "line": 26,
+              "column": 14
+            }
+          ],
+          "source_name": "querySourceCode"
+        }
+      ],
+      "pairs": [
+        {
+          "provider": "provider:registry:6a4105cd4951d15cc6f26248:registry:3080f5e4ae695eec54f96f3d",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "compute-line",
+      "api": "queryApiLine",
+      "outcome": "correct_unique_conditional",
+      "source_coordinate_matched": true,
+      "entries": [
+        {
+          "consumer": "protocol:ts:2fa67c1a18875601d512751c",
+          "name": "queryApiLine",
+          "message": "protocol:ts:2fa67c1a18875601d512751c:message:0",
+          "status": "matched_conditional",
+          "matches": [
+            {
+              "provider": "provider:registry:e278fa8c3384f6c94f04e9a8:registry:83ca1a8c47afb6fca161582d",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "binding_is_active_at_call_in_same_runtime_scope",
+                "try_completes_without_exception",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "gaps": [],
+              "consumer_services": [
+                "insight-backend"
+              ],
+              "provider_services": [
+                "insight-backend"
+              ]
+            }
+          ],
+          "unknown_identities": [],
+          "service_binding_origin": "supplied_deployment_config",
+          "runtime_connection": "not_observed",
+          "aliases": [
+            {
+              "name": "queryApiLine",
+              "relationship": "callback_in_export_initializer",
+              "path": "modules/compute/src/components/RequestUtils.ts",
+              "line": 37,
+              "column": 14
+            }
+          ],
+          "source_name": "queryApiLine"
+        }
+      ],
+      "pairs": [
+        {
+          "provider": "provider:registry:e278fa8c3384f6c94f04e9a8:registry:83ca1a8c47afb6fca161582d",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "rl-pipeline",
+      "api": "getTraceData",
+      "outcome": "correct_unique_conditional",
+      "source_coordinate_matched": true,
+      "entries": [
+        {
+          "consumer": "protocol:ts:ac055308a9f3078aa6c30ce7",
+          "name": "getTraceData",
+          "message": "protocol:ts:ac055308a9f3078aa6c30ce7:message:0",
+          "status": "matched_conditional",
+          "matches": [
+            {
+              "provider": "provider:registry:8d9561f946dd59bb7d460d46:registry:09367923ed9ce3aabc8d350f",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "exported_source_call_path_candidate",
+                "try_completes_without_exception",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "gaps": [],
+              "consumer_services": [
+                "insight-backend"
+              ],
+              "provider_services": [
+                "insight-backend"
+              ]
+            }
+          ],
+          "unknown_identities": [],
+          "service_binding_origin": "supplied_deployment_config",
+          "runtime_connection": "not_observed",
+          "aliases": [
+            {
+              "name": "getTraceData",
+              "relationship": "callback_in_export_initializer",
+              "path": "modules/reinforcement-learning/src/api/index.ts",
+              "line": 22,
+              "column": 14
+            }
+          ],
+          "source_name": "getTraceData",
+          "discovery": "exported_source_wrapper"
+        }
+      ],
+      "pairs": [
+        {
+          "provider": "provider:registry:8d9561f946dd59bb7d460d46:registry:09367923ed9ce3aabc8d350f",
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "new_protocol_passed": true,
+  "supplementary_cases_reused_for_development": true,
+  "final_reference": {
+    "evidence_kind": "source_reference_frozen_before_case_graph_queries",
+    "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+    "rules_commit": "b49092d",
+    "scope": "protocol identity and handler only; rule holdout, not strict blind or runtime evaluation",
+    "selection": "first exported request API by source order in numa overview API and memory-on-chip API; retain both outcomes",
+    "case_sources_used_for_rule_tuning": false,
+    "cases": [
+      {
+        "id": "numa-overview",
+        "api": "getNumaOverview",
+        "api_path": "modules/numa/src/features/overview/api/getNumaOverview.ts",
+        "source_call_line": 33,
+        "command": "numa/overview",
+        "scope": "numa",
+        "handler_path": "server/src/modules/numa/handler/QueryNumaOverviewHandler.cpp",
+        "handler_suffix": "QueryNumaOverviewHandler::HandleRequest"
+      },
+      {
+        "id": "chip-basic",
+        "api": "getBasicInfo",
+        "api_path": "modules/memory-on-chip/src/api/index.ts",
+        "source_call_line": 23,
+        "command": "Triton/memory/basicInfo",
+        "scope": "triton",
+        "handler_path": "server/src/modules/triton/handler/QueryTritonBasicInfoHandler.cpp",
+        "handler_suffix": "QueryTritonBasicInfoHandler::HandleRequest"
+      }
+    ]
+  },
+  "final_protocol_cases": [
+    {
+      "id": "numa-overview",
+      "api": "getNumaOverview",
+      "outcome": "correct_unique_conditional",
+      "source_coordinate_matched": true,
+      "entries": [
+        {
+          "consumer": "protocol:ts:ad1120fb4e419e41f9657b5c",
+          "name": "getNumaOverview",
+          "message": "protocol:ts:ad1120fb4e419e41f9657b5c:message:0",
+          "status": "matched_conditional",
+          "matches": [
+            {
+              "provider": "provider:registry:32e0c7ce4973e1a812500078:registry:a7d3f51de908c4bf43f73814",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "exported_source_call_path_candidate",
+                "try_completes_without_exception",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "gaps": [],
+              "consumer_services": [
+                "insight-backend"
+              ],
+              "provider_services": [
+                "insight-backend"
+              ]
+            }
+          ],
+          "unknown_identities": [],
+          "service_binding_origin": "supplied_deployment_config",
+          "runtime_connection": "not_observed",
+          "aliases": [
+            {
+              "name": "getNumaOverview",
+              "relationship": "callback_in_export_initializer",
+              "path": "modules/numa/src/features/overview/api/getNumaOverview.ts",
+              "line": 32,
+              "column": 14
+            }
+          ],
+          "source_name": "getNumaOverview",
+          "discovery": "exported_source_wrapper"
+        }
+      ],
+      "pairs": [
+        {
+          "provider": "provider:registry:32e0c7ce4973e1a812500078:registry:a7d3f51de908c4bf43f73814",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "chip-basic",
+      "api": "getBasicInfo",
+      "outcome": "correct_unique_conditional",
+      "source_coordinate_matched": true,
+      "entries": [
+        {
+          "consumer": "protocol:ts:9eee7edc815cdfdc423039d9",
+          "name": "getBasicInfo",
+          "message": "protocol:ts:9eee7edc815cdfdc423039d9:message:0",
+          "status": "matched_conditional",
+          "matches": [
+            {
+              "provider": "provider:registry:63baeaa95a9b0bfd06617f2c:registry:3e2a15ded2bac3280615a483",
+              "conditions": [
+                "configured_service_binding",
+                "source_registration_active",
+                "runtime_transport_reaches_configured_service",
+                "source_type_and_factory_candidates",
+                "request_passes_validation_and_filters",
+                "exported_source_call_path_candidate",
+                "try_completes_without_exception",
+                "registered_receiver_is_message_destination",
+                "try_completes_without_exception",
+                "!typeof event.data.id !== 'number' || !this._responseForFetch",
+                "!connection === undefined",
+                "!!this.isConnected",
+                "!this._ws === undefined",
+                "!this._ws === undefined"
+              ],
+              "gaps": [],
+              "consumer_services": [
+                "insight-backend"
+              ],
+              "provider_services": [
+                "insight-backend"
+              ]
+            }
+          ],
+          "unknown_identities": [],
+          "service_binding_origin": "supplied_deployment_config",
+          "runtime_connection": "not_observed",
+          "aliases": [
+            {
+              "name": "getBasicInfo",
+              "relationship": "callback_in_export_initializer",
+              "path": "modules/memory-on-chip/src/api/index.ts",
+              "line": 22,
+              "column": 14
+            }
+          ],
+          "source_name": "getBasicInfo",
+          "discovery": "exported_source_wrapper"
+        }
+      ],
+      "pairs": [
+        {
+          "provider": "provider:registry:63baeaa95a9b0bfd06617f2c:registry:3e2a15ded2bac3280615a483",
+          "correct": true
+        }
+      ]
+    }
+  ],
+  "final_protocol_passed": true,
+  "runtime_reproduced": false,
+  "historical_validation_records_used_for_tuning": false
+}

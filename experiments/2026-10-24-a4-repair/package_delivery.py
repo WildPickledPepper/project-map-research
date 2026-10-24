@@ -13,20 +13,22 @@ def read(path): return json.loads(path.read_text(encoding='utf-8'))
 def run(results,output):
     output.mkdir(parents=True,exist_ok=True)
     paths={
-        'chains.json':results/'a4-repair-scoring-02/development-replay/first-results.json',
-        'retest.json':results/'a4-repair-scoring-02/result.json',
+        'chains.json':results/'a4-repair-scoring-03/development-replay/first-results.json',
+        'retest.json':results/'a4-repair-scoring-03/result.json',
         'navigation.json':results/'a4-repair-navigation-02/result.json',
-        'direct-updates.json':results/'a4-repair-direct-updates-04/result.json',
+        'direct-updates.json':results/'a4-repair-direct-updates-05/result.json',
         'rebuild.json':results/'a4-repair-comparison-02/comparison.json',
-        'known-regression.json':results/'a4-repair-known-02/queries/validation.json',
-        'publication.json':results/'a4-repair-publication-02/result.json',
+        'known-regression.json':results/'a4-repair-known-03/queries/validation.json',
+        'publication.json':results/'a4-repair-publication-03/result.json',
         'serializer-probe.json':results/'a4-repair-serializer-probe-01.json',
+        'component-versions.json':results/'a4-repair-component-versions-01.json',
+        'missing-field-probe.json':results/'a4-repair-missing-field-probe-01.json',
     }
     data={name:read(path) for name,path in paths.items()}
     builds=[read(results/name/'result.json') for name in ['a4-repair-full-06','a4-repair-full-07']]
     versions=[read(results/name/'build/request.json')['build_version'] for name in ['a4-repair-full-06','a4-repair-full-07']]
     data['builds.json']={'runs':builds,'build_versions':versions,'concurrent_execution':True}
-    python=(results/'a4-repair-python-05.txt').read_text(encoding='utf-8')
+    python=(results/'a4-repair-python-06.txt').read_text(encoding='utf-8')
     typescript=(results/'a4-repair-typescript-03.txt').read_text(encoding='utf-8')
     data['tests.json']={'python':{'count':int(re.search(r'Ran (\d+) tests',python)[1]),'passed':'\nOK' in python and 'FAILED' not in python},
         'typescript':{'count':int(re.search(r'# tests (\d+)',typescript)[1]),'passed':'# fail 0' in typescript}}
@@ -46,10 +48,14 @@ def run(results,output):
         'full_builds_within_budgets':all(b['status']=='passed' and b['elapsed_seconds']<b['budgets']['wall_seconds'] and b['peak_tree_working_set_bytes_observed']<b['budgets']['process_tree_working_set_bytes'] for b in builds),
         'controller_full_graph_validation':data['publication.json']['measured']['status']=='passed',
         'tests_passed':all(t['passed'] for t in data['tests.json'].values()),
-        'same_rule_version':versions[0]==versions[1]==data['navigation.json']['build_version']==data['retest.json']['build_version']==data['direct-updates.json']['build_version'],
+        'fact_version_basis_preserved':versions[0]==versions[1]==data['navigation.json']['build_version']==data['retest.json']['build_version'] and
+            versions[0]['rules_commit']==data['component-versions.json']['facts_rule'] and
+            data['direct-updates.json']['build_version']['rules_commit']==data['component-versions.json']['query_controller_rule'] and
+            not data['component-versions.json']['facts_extraction_changed'],
     }
     data['evaluation.json']={'evidence_kind':'executed_post_repair_A4_acceptance','tool_acceptance_passed':all(gates.values()),'gates':gates,
         'source_commit':data['navigation.json']['source_commit'],'build_version':versions[0],
+        'query_controller_rule':data['component-versions.json']['query_controller_rule'],
         'original_failed_evaluation_preserved':True,'six_cases_used_for_development':True,
         'three_supplementary_cases_reused_for_development':True,
         'two_final_cases_scope':'protocol-rule holdout; complete-return robustness was subsequently repaired without adapting protocol rules to these two cases',
