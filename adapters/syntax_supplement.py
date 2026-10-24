@@ -124,7 +124,7 @@ def cpp_callable(node):
                         'virtual': 'virtual' in tokens, 'pure_virtual': pure}
 
 
-def extract(source: bytes, path: str, language: str, parser):
+def extract(source: bytes, path: str, language: str, parser, *, tree=None, record_hash=True):
     """Return portable source facts using an injected, existing parser."""
     rel = PurePosixPath(path)
     if rel.is_absolute() or '..' in rel.parts or '\\' in path or ':' in path:
@@ -133,8 +133,8 @@ def extract(source: bytes, path: str, language: str, parser):
         raise ValueError(f'Unsupported language: {language}')
     source = source.replace(b'\r\n', b'\n')
     source.decode('utf-8')
-    tree = parser.parse(source)
-    result = {'path': path, 'language': language, 'sha256_lf_utf8': hashlib.sha256(source).hexdigest(),
+    tree = tree if tree is not None else parser.parse(source)
+    result = {'path': path, 'language': language, 'sha256_lf_utf8': hashlib.sha256(source).hexdigest() if record_hash else None,
               'extractor': 'syntax_supplement', 'extractor_version': VERSION,
               'evidence_kind': 'source_syntax', 'symbols': [], 'calls': [], 'bindings': [],
               'diagnostics': [], 'limitations': ['preprocessing_not_evaluated', 'call_targets_not_resolved',
