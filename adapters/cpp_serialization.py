@@ -70,7 +70,8 @@ class Serialization:
         if implicit_receiver:
             params.append({'name':'this','type':owner,'implicit_receiver':True})
             env['this']={'kind':'source','parameter':0,'selectors':[],'root_type':owner,'value_type':owner,
-                'receiver_type':owner,'type_path':path,'type_scope':info['scope'],'json_type':False,'evidence':[ev(info['container'])]}
+                'receiver_type':owner,'receiver_type_path':path,'receiver_type_scope':info['scope'],
+                'type_path':path,'type_scope':info['scope'],'json_type':False,'evidence':[ev(info['container'])]}
         for i,p in enumerate(info['parameter_nodes']):
             typ=text(p.child_by_field_name('type'));params.append({'name':text(declared_name(p)),'type':typ})
             env[text(declared_name(p))]={'kind':'source','parameter':i,'selectors':[],
@@ -90,7 +91,7 @@ class Serialization:
                         'type_path':value.get('type_path',path),'type_scope':value.get('type_scope',info['scope']),
                         'evidence':actual.get('evidence',[])+value.get('evidence',[])}
                 if value.get('cast_type'):actual={**actual,'cast_type':value['cast_type']}
-                if value.get('receiver_type'):actual={**actual,'receiver_type':value['receiver_type']}
+                if value.get('receiver_type'):actual={**actual,**{k:value[k] for k in ('receiver_type','receiver_type_path','receiver_type_scope')}}
                 if value.get('conversion'):actual={**actual,'conversion':value['conversion']}
                 return actual
             if value['kind']=='json':
@@ -334,7 +335,8 @@ class Serialization:
             summary=self.analyze(uid);mappings,gaps=self.mappings(summary)
             info=self.x.functions_by_id[uid]
             for mapping in mappings:
-                source=mapping['source'];source['root_types']=self.x.resolve_type(source.get('receiver_type',source.get('cast_type',source['root_type'])),info['path'],info['scope'])['names']
+                source=mapping['source'];source['root_types']=self.x.resolve_type(source.get('receiver_type',source.get('cast_type',source['root_type'])),
+                    source.get('receiver_type_path',info['path']),source.get('receiver_type_scope',info['scope']))['names']
             if mappings or summary['operations'] or summary['gaps'] or gaps or any(r['value']['kind']=='json' for r in summary['returns']):
                 functions.append({'source_symbol':uid,'name':self.x.nodes[uid]['name'],'parameters':summary['parameters'],
                     'field_mappings':mappings,'wrapper_operation_count':len(summary['operations']),

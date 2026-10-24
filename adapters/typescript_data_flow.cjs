@@ -110,31 +110,36 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     visit(out);return out;
   }
   function ownerClass(n){for(let q=n;q;q=q.parent)if(ts.isClassDeclaration(q))return q;return null;}
-  function baseClass(n){const h=n?.heritageClauses?.find(h=>h.token===ts.SyntaxKind.ExtendsKeyword)?.types?.[0];return h?decl(h.expression):null;}
+  function baseClass(n){const h=n?.heritageClauses?.find(h=>h.token===ts.SyntaxKind.ExtendsKeyword)?.types?.[0],base=h?decl(h.expression):null;
+    if(base&&(ts.isClassDeclaration(base)||ts.isClassExpression(base)))return base;
+    if(h)diagnostics.push({kind:'base_class_outside_source_model',entry:currentEntry,...src(h),effect:'inherited_initializers_and_constructor_unknown'});
+    return null;}
   function member(cls,key){for(let q=cls;q;q=baseClass(q)){const m=q.members?.find(x=>x.name?.getText().replace(/^['"]|['"]$/g,'')===key);if(m)return m;}return null;}
   function resolverRefs(v,seen=new Set()){
     if(!v||seen.has(v))return [];seen.add(v);if(v.tag==='resolver')return [{promise:v.promise,mode:v.mode}];
     const children=[...Object.values(v.props||{}),...(v.values||[]),...(v.tag==='function'?[...v.env.values()]:[])];
     return uniq(children.flatMap(x=>resolverRefs(x,seen)));
   }
-  function describe(v,depth=0,seen=new Set()){
-    if(!v)return {kind:'undefined'};if(depth>8||seen.has(v))return {kind:'unknown',reason:'value_description_limit'};seen.add(v);
+  const descriptionLimits=new Set();
+  function describe(v,depth=0,seen=new Set(),budget={remaining:2048},compact=false){
+    if(!v)return {kind:'undefined'};if(--budget.remaining<0){if(!descriptionLimits.has(currentEntry)){descriptionLimits.add(currentEntry);diagnostics.push({kind:'value_description_budget_exceeded',entry:currentEntry,limit:2048});}return {kind:'unknown',reason:'value_description_budget_exceeded'};}
+    if(depth>8||seen.has(v))return {kind:'unknown',reason:'value_description_limit'};seen.add(v);
     if(v.tag==='literal')return v.value===undefined?{kind:'undefined'}:{kind:'constant',value:v.value};
-    if(v.tag==='input')return {kind:'input_path',root:v.root,path:v.path,transforms:v.transforms||[],evidence:v.evidence||[],conditions:v.conditions||[],gaps:v.gaps||[],
+    if(v.tag==='input')return {kind:'input_path',root:v.root,path:v.path,transforms:v.transforms||[],evidence:compact?[]:v.evidence||[],conditions:compact?[]:v.conditions||[],gaps:v.gaps||[],
       ...(v.receiver_type?{receiver_type:v.receiver_type}:{}),
       ...(returnOnly&&v.selections?{selections:v.selections}:{}),
-      ...(v.assigned?.length?{overrides:Object.fromEntries(v.assigned.map(k=>[k,describe(v.props[k],depth+1,new Set(seen))]))}:{})};
-    if(v.tag==='function')return {kind:'source_callback',source_symbol:id(v.node,'callable'),resolvers:resolverRefs(v)};
+      ...(v.assigned?.length?{overrides:Object.fromEntries(v.assigned.map(k=>[k,describe(v.props[k],depth+1,new Set(seen),budget,compact)]))}:{})};
+    if(v.tag==='function')return {kind:'source_callback',source_symbol:id(v.node,'callable'),resolvers:compact?[]:resolverRefs(v)};
     if(v.tag==='resolver')return {kind:'promise_resolver',promise:v.promise,mode:v.mode};
-    if(v.tag==='union')return {kind:'alternatives',values:v.values.map(x=>describe(x,depth+1,new Set(seen)))};
+    if(v.tag==='union')return {kind:'alternatives',values:v.values.map(x=>describe(x,depth+1,new Set(seen),budget,compact))};
     if(v.tag==='registry_lookup')return {kind:'registry_lookup',lookup:v.lookup,selectors:v.selectors};
-    if(v.tag==='json')return {kind:'json_string',value:describe(v.value,depth+1,new Set(seen)),evidence:v.evidence};
+    if(v.tag==='json')return {kind:'json_string',value:describe(v.value,depth+1,new Set(seen),budget,compact),evidence:v.evidence};
     if(v.tag==='native_socket')return {kind:'native_socket',allocation:v.allocation,evidence:v.evidence};
-    if(returnOnly&&v.tag==='promise')return describe(v.value,depth+1,new Set(seen));
+    if(returnOnly&&v.tag==='promise')return describe(v.value,depth+1,new Set(seen),budget,compact);
     if(returnOnly&&v.tag==='instance')return {kind:'source_instance',receiver_type:id(v.classNode,'type'),allocation:v.allocation||null};
     if((socketOnly||returnOnly)&&v.tag==='computed'&&v.inputs)return {kind:'source_expression',operation:v.operation,
-      inputs:v.inputs.map(x=>describe(x,depth+1,new Set(seen))),evidence:v.evidence||[]};
-    if(v.tag==='object')return {kind:'object',fields:Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,describe(x,depth+1,new Set(seen))]))};
+      inputs:v.inputs.map(x=>describe(x,depth+1,new Set(seen),budget,compact)),evidence:compact?[]:v.evidence||[]};
+    if(v.tag==='object')return {kind:'object',fields:Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,describe(x,depth+1,new Set(seen),budget,compact)]))};
     return {kind:'unknown',reason:v.reason||v.tag};
   }
   function settle(resolver,args,c,n){
@@ -314,11 +319,11 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       else if(ts.isBlock(s)){const r=block(s.statements,c);if(r){returned.push(r);break;}}
       else if(ts.isIfStatement(s)){
         const condition=ev(s.expression,c),run=(branch,cc)=>branch?block(ts.isBlock(branch)?branch.statements:[branch],cc):null;
-        if(returnOnly)guardTests.push({source_symbol:id(c.current,'callable'),entry:currentEntry,...src(s.expression),test:describe(condition)});
+        if(returnOnly)guardTests.push({source_symbol:id(c.current,'callable'),entry:currentEntry,...src(s.expression),test:describe(condition,0,new Set(),{remaining:2048},true)});
         if(condition.tag==='literal'){const r=run(condition.value?s.thenStatement:s.elseStatement,c);if(r){returned.push(r);break;}}
         else {
           const branches=[s.thenStatement,s.elseStatement].map((branch,i)=>{const memo=new Map(),cc={...c,env:new Map([...c.env].map(([k,v])=>[k,clone(v,memo)])),receiver:clone(c.receiver,memo),awaited:new Set(c.awaited),
-            conditions:[...c.conditions,{...src(s.expression),when:i===0,...(returnOnly?{test:describe(condition)}:{})}]};return {ctx:cc,result:run(branch,cc)};});
+            conditions:[...c.conditions,{...src(s.expression),when:i===0,...(returnOnly?{test:describe(condition,0,new Set(),{remaining:2048},true)}:{})}]};return {ctx:cc,result:run(branch,cc)};});
           returned.push(...branches.filter(b=>b.result).map(b=>guarded(b.result,b.ctx.conditions)));
           const live=branches.filter(b=>!b.result);if(!live.length)break;
           if(live.length===1){c.env=live[0].ctx.env;c.receiver=live[0].ctx.receiver;c.conditions=live[0].ctx.conditions;c.awaited=live[0].ctx.awaited;}
@@ -642,7 +647,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       transmissions:uniq(transmissions),window_listeners:windowListeners.map(r=>r.record),handoffs:uniq(handoffs),guard_tests:uniq(guardTests),diagnostics:uniq(diagnostics),
       limits:['fulfilled_boundary_values_are_source_inputs','window_destination_and_origin_require_matching_deployment',
         'registered_callback_requires_same_receiver_and_lifetime','exceptions_and_unresolved_mutations_keep_gaps','runtime_delivery_not_observed'],
-      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
+      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048}};
   }
   if(socketOnly){phase='socket';for(const [uid,entry] of socketEntries)analyzeEntry(uid,entry);
     return {version:'0.1.0',entries:analyzed,creations:uniq(socketCreations),channel_bindings:uniq(channelBindings),listener_bindings:uniq(listenerBindings),
@@ -650,7 +655,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       limits:['native_WebSocket_alternative_requires_source_branch','class_field_identity_requires_same_runtime_instance',
         'listener_must_remain_active_until_delivery','dynamic_URL_kept_as_source_expression','source_endpoint_is_not_observed_network_connection',
       'nonstandard_socket_alternatives_remain_unknown','unsupported_expressions_and_control_flow_keep_unknown'],
-      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
+      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048}};
   }
   if(responseRegistries){phase='register';for(const [uid,entry] of promiseEntries)analyzeEntry(uid,entry);
     phase='lookup';for(const [uid,entry] of lookupEntries)analyzeEntry(uid,entry);
@@ -658,7 +663,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       lookups:uniq(lookups),settlements:uniq(settlements),deletions:uniq(deletions),callback_bindings:uniq(callbackBindings),diagnostics:uniq(diagnostics),
       limits:['registry_join_requires_same_runtime_instance_and_equal_key','registration_lifetime_requires_runtime_or_reaching_definition_validation',
         'source_projection_not_observed_fulfillment','callback_and_promise_selection_is_contextual_candidate','network_transport_and_API_boundary_join_pending',
-        'unsupported_expressions_and_exception_paths_keep_unknown'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
+        'unsupported_expressions_and_exception_paths_keep_unknown'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048}};
   }
   return {version:'0.2.0',api_symbols:[...apis],entries:analyzed,api_calls:uniq(calls),field_reads:uniq(reads),consumptions:uniq(consumptions),
     state_writes:uniq(writes.filter(w=>w.value_dependencies.length||w.continuation_apis.length)),diagnostics:uniq(diagnostics),
@@ -666,7 +671,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       'range_iterations_symbolic','external_callbacks_require_callee_invocation','unresolved_call_results_keep_unknown',
       'exceptions_and_some_control_flow_not_expanded','state_roots_are_entry_parameters',
       'conditional_alias_and_callback_effects_are_candidates','branch_caller_alias_effects_not_composed',
-      'opaque_mutations_keep_candidate_with_gap'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
+      'opaque_mutations_keep_candidate_with_gap'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048}};
 }
 
 function analyzeData(ts,root,files,apis,options){return analyze(ts,root,files,{pathsFromConfigs:true,outputKey:'data_flow',run:ctx=>extractData(ctx,apis,options)});}

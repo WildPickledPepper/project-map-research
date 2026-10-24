@@ -3,7 +3,7 @@
 This supplements compiler-free candidates; it never chooses a runtime object.
 """
 import re
-from adapters.cpp_facts import declared_name,scoped_name
+from adapters.cpp_facts import declared_name,scoped_name,parameter_type
 from adapters.syntax_supplement import cpp_scope,parents,text,walk
 
 
@@ -88,7 +88,9 @@ class ValueTypes:
             if variables:
                 var=variables[0];key=(info['path'],var['node'].start_byte)
                 if key in seen:return self.unknown('recursive_initializer')
-                if var['type']!='auto':return self.type(var['type'],info['path'],info['scope'],bindings)
+                if var['type']!='auto':
+                    spelling=parameter_type(var['node'],preserve_space=True) if var['node'].type in {'parameter_declaration','optional_parameter_declaration'} else var['type']
+                    return self.type(spelling,info['path'],info['scope'],bindings)
                 writes=[n for n in walk(info['container']) if n.type=='assignment_expression' and text(n.child_by_field_name('left'))==text(node)
                         and var['node'].end_byte<=n.start_byte<node.start_byte]
                 origins=[var['value']] if var['value'] is not None else []

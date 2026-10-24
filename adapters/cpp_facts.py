@@ -34,14 +34,15 @@ def declared_name(node):
     return None
 
 
-def parameter_type(node):
+def parameter_type(node, *, preserve_space=False):
     named = declared_name(node)
     end = node.child_by_field_name('default_value')
     raw = node.text[:end.start_byte-node.start_byte].rstrip(b' =') if end else node.text
     if named:
         start, finish = named.start_byte-node.start_byte, named.end_byte-node.start_byte
         raw = raw[:start]+raw[finish:]
-    return compact(raw.decode('utf-8'))
+    value=raw.decode('utf-8')
+    return value.strip() if preserve_space else compact(value)
 
 
 class Extractor:

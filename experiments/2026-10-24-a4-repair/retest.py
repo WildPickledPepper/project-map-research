@@ -37,24 +37,33 @@ def run(graph_path, output):
         consumers.append({'id':case['id'], 'expected':case['consumer'], 'state':case['state'], 'found':found})
     new_ref = json.loads((Path(__file__).parent/'new-reference.json').read_text(encoding='utf-8'))
     providers = {p['id']:p for p in graph['protocol']['providers']}
-    rows = []
-    for case in new_ref['cases']:
-        entries = [r for r in graph['protocol']['results'] if r['name'] == case['api'] and
-                   nodes.get(r['consumer'].removeprefix('protocol:'),{}).get('path') == case['api_path']]
-        pairs = []
-        for entry in entries:
-            for match in entry['matches']:
-                p = providers[match['provider']]
-                pairs.append({'provider':p['id'], 'correct':scoring.provider_correct(case,p,[nodes[t] for t in p['handler_methods']])})
-        rows.append({'id':case['id'], 'api':case['api'], 'outcome':scoring.classify_outcome(entries,pairs),
-                     'entries':entries, 'pairs':pairs})
+    def protocols(reference):
+        rows = []
+        for case in reference['cases']:
+            entries = [r for r in graph['protocol']['results'] if r['name'] == case['api'] and
+                       nodes.get(r['consumer'].removeprefix('protocol:'),{}).get('path') == case['api_path']]
+            pairs = []
+            for entry in entries:
+                for match in entry['matches']:
+                    p = providers[match['provider']]
+                    pairs.append({'provider':p['id'], 'correct':scoring.provider_correct(case,p,[nodes[t] for t in p['handler_methods']])})
+            rows.append({'id':case['id'], 'api':case['api'], 'outcome':scoring.classify_outcome(entries,pairs),
+                         'source_coordinate_matched':any(nodes.get(e['consumer'].removeprefix('protocol:'),{}).get('line')==case['source_call_line'] for e in entries),
+                         'entries':entries, 'pairs':pairs})
+        return rows
+    rows = protocols(new_ref)
+    final_ref = json.loads((Path(__file__).parent/'final-reference.json').read_text(encoding='utf-8'))
+    final_rows = protocols(final_ref)
     result = {'source_commit':graph['source_commit'], 'build_version':graph['version']['build_version'],
         'development_counts':score['counts'], 'development_consumers':consumers,
         'new_reference':new_ref, 'new_protocol_cases':rows,
         'new_protocol_passed':all(r['outcome']=='correct_unique_conditional' for r in rows),
+        'supplementary_cases_reused_for_development':True,
+        'final_reference':final_ref, 'final_protocol_cases':final_rows,
+        'final_protocol_passed':all(r['outcome']=='correct_unique_conditional' and r['source_coordinate_matched'] for r in final_rows),
         'runtime_reproduced':False, 'historical_validation_records_used_for_tuning':False}
     (output/'result.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
-    print(json.dumps({'development':score['counts'], 'new':[(r['id'],r['outcome']) for r in rows]}))
+    print(json.dumps({'development':score['counts'], 'new':[(r['id'],r['outcome']) for r in rows], 'final':[(r['id'],r['outcome']) for r in final_rows]}))
 
 
 if __name__ == '__main__':

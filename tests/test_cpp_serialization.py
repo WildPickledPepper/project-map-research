@@ -34,6 +34,12 @@ class SerializationTests(unittest.TestCase):
         f=self.function(r,'relay');self.assertEqual({tuple(m['wire_path']) for m in f['field_mappings']},{('rows',),('other',)})
         self.assertEqual({tuple(m['source']['root_types']) for m in f['field_mappings']},{('A',),('B',)})
 
+    def test_virtual_receiver_type_keeps_its_defining_header_visibility(self):
+        r=self.analyze(files={'base.h':'using J=rapidjson::Value;struct Base{virtual J encode()const=0;};',
+            'derived.h':'#include "base.h"\nstruct Derived:Base{int count;J encode()const override{J j;j.AddMember("rows",count,a);return j;}};',
+            'relay.cpp':'#include "base.h"\nJ relay(const Base& value){return value.encode();}'})
+        mapping,=self.function(r,'relay')['field_mappings'];self.assertEqual(mapping['source']['root_types'],['Derived'])
+
     def test_nested_collection_and_returning_json_helper(self):
         r=self.analyze('using J=rapidjson::Value;struct Item{int count;};struct R{std::vector<Item> entries;};'
             'J itemJson(const Item& x){J j;j.AddMember("total",x.count,a);return j;}'

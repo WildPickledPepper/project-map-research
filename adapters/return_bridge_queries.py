@@ -250,7 +250,8 @@ def explain_return_bridge(graph, provider, *, field_path=None, state=None, max_l
         'status': 'conditional_return_to_frontend_state' if links else 'unresolved', 'bridges': bridges[:max_links], 'links': links[:max_links],
         'total_bridges': len(bridges), 'total_links': len(links), 'field_path': field_path, 'state': state,
         'truncated': len(bridges) > max_links or len(links) > max_links or sockets['truncated'] or routes['truncated'] or
-            any(e['truncated'] for e in graph['return_flow']['entries'] if e['source_symbol'] in entries),
+            any(e['truncated'] for e in graph['return_flow']['entries'] if e['source_symbol'] in entries) or
+            any(g['kind']=='value_description_budget_exceeded' and g['entry'] in entries for g in graph['return_flow']['diagnostics']),
         'gaps': [g for g in graph['return_flow']['diagnostics'] if g['entry'] in entries],
         'remaining': ['unresolved_encoding_and_queue_branches', 'runtime_connection_lifetime_and_value_assertions'],
         'runtime_delivery': 'unknown', 'limits': graph['return_flow']['limits']}

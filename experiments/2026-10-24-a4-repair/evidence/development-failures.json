@@ -1,0 +1,91 @@
+{
+  "evidence_kind": "executed_development_failures_retained",
+  "runs": [
+    {
+      "run": "a4-repair-full-02",
+      "build_version": {
+        "rules_commit": "b49092d142ad352508214bcbfe27de15dc5bc89f",
+        "python": "3.11.9",
+        "node": "v22.23.3",
+        "typescript": "5.9.3",
+        "packages": {
+          "tree-sitter": "0.25.2",
+          "tree-sitter-language-pack": "1.20.0",
+          "kuzu": "0.11.3"
+        }
+      },
+      "measured": {
+        "evidence_kind": "executed_full_scope_versioned_builder",
+        "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+        "exit_code": 1,
+        "status": "failed",
+        "stop_reason": null,
+        "elapsed_seconds": 564.703,
+        "budgets": {
+          "wall_seconds": 1800.0,
+          "process_tree_working_set_bytes": 6442450944,
+          "node_heap_mib": 3072
+        },
+        "peak_tree_working_set_bytes_observed": 4856233984,
+        "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+        "raw_artifacts": "process.log and build/ retained outside research Git",
+        "file_hash_verification": "not_run_per_user_preference"
+      },
+      "cause": "TypeError: q.members is not iterable in external constructor inheritance",
+      "manual_stop": false,
+      "complete_graph_published": false
+    },
+    {
+      "run": "a4-repair-full-03",
+      "build_version": {
+        "rules_commit": "b49092d142ad352508214bcbfe27de15dc5bc89f",
+        "python": "3.11.9",
+        "node": "v22.23.3",
+        "typescript": "5.9.3",
+        "packages": {
+          "tree-sitter": "0.25.2",
+          "tree-sitter-language-pack": "1.20.0",
+          "kuzu": "0.11.3"
+        }
+      },
+      "measured": {
+        "evidence_kind": "executed_full_scope_versioned_builder",
+        "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+        "exit_code": 1,
+        "status": "failed",
+        "stop_reason": null,
+        "elapsed_seconds": 391.843,
+        "budgets": {
+          "wall_seconds": 1800.0,
+          "process_tree_working_set_bytes": 6442450944,
+          "node_heap_mib": 3072
+        },
+        "peak_tree_working_set_bytes_observed": 3767541760,
+        "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+        "raw_artifacts": "process.log and build/ retained outside research Git",
+        "file_hash_verification": "not_run_per_user_preference"
+      },
+      "cause": "cancelled duplicate after same frozen rules failed in full-02",
+      "manual_stop": true,
+      "complete_graph_published": false
+    }
+  ],
+  "return_replay": {
+    "evidence_kind": "executed_tool_output_transcribed",
+    "base_rules": "b49092d",
+    "uncommitted_base_class_fix": true,
+    "compact_guard_descriptions": false,
+    "error": "RangeError: Invalid string length in uniq/guarded",
+    "repair": "structural guard descriptions omit recursively embedded path conditions; value description has a finite node budget"
+  },
+  "repaired_return_replay": {
+    "evidence_kind": "executed_uncommitted_development_replay",
+    "entries": 147,
+    "boundaries": 157,
+    "returns": 4462,
+    "transmissions": 55,
+    "window_listeners": 146,
+    "handoffs": 118,
+    "complete_graph_published": false
+  }
+}

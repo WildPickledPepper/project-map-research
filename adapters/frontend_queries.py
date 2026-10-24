@@ -43,6 +43,7 @@ def explain_frontend(graph, api=None, entry=None, field_path=None, state=None, m
             'state': state, 'api_calls': calls, 'writes': writes[:max_writes], 'consumers': consumers[:max_writes],
             'total_writes': len(writes), 'total_consumers': len(consumers), 'max_writes': max_writes, 'truncated': len(writes) > max_writes or len(consumers) > max_writes,
             'gaps': [d for d in data.get('diagnostics', []) if d['entry'] in selected_entries],
-            'extraction_truncated': any(e['truncated'] for e in data.get('entries', []) if e['source_symbol'] in selected_entries),
+            'extraction_truncated': any(e['truncated'] for e in data.get('entries', []) if e['source_symbol'] in selected_entries) or
+                any(d['kind']=='value_description_budget_exceeded' and d['entry'] in selected_entries for d in data.get('diagnostics', [])),
             'transport_status': 'pending_transport_join', 'runtime_execution': 'unknown',
             'limits': data.get('limits', [])}

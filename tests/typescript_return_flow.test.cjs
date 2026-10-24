@@ -56,6 +56,12 @@ test('source registration packages a fulfilled value and API unwraps its respons
  assert.equal(g.handoffs.filter(h=>h.target===g.inputs.handoffSymbols[0]).length,1);
  assert(reply.receiver.selections.length);assert(g.handoffs.some(h=>h.conditions.some(c=>c.test?.operation==='===')));
 });
+test('a declared external constructor base stays unknown while local class initialization continues',()=>{
+ const g=graph(source.replace('export async function api(){',
+   'declare const External: new()=>object; class Local extends External {value=1;} export async function api(){new Local();'));
+ assert(g.returns.some(r=>r.entry===g.inputs.apiEntries[0]&&r.value.path?.[0]==='body'));
+ assert(g.diagnostics.some(d=>d.kind==='base_class_outside_source_model'));
+});
 test('renamed wrappers and fields are discovered from source',()=>{
  const g=graph(source.replaceAll('Front','Pane').replaceAll('Socket','Transport').replaceAll('body','payload'),{},
    {boundaries:['Pane.fetch','Transport.fetch'],handoffs:['Pane.receive']});
