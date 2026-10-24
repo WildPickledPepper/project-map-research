@@ -1,12 +1,12 @@
 # 实施验收矩阵 v0.1
 
-日期：2026-10-23。状态：**P1–P3 完成，F01–F05、L01–L06、D01–D05 通过**。计划入口见 [总计划](README.md)，步骤见 [详细计划书](implementation-plan.md)。
+日期：2026-10-24。状态：**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 计划入口见 [总计划](README.md)，步骤见 [详细计划书](implementation-plan.md)。
 
 ## 当前执行记录
 
-P4 已完成：U01、U02、U03、U04、U06 通过，完整 Python 套件 274 项通过。记录保存与改名失效验证补齐 U03、U06；真实 Insight 图上的四类 synthetic 记录保留原版本，新图不会继承旧验证。增量关闭，U05 不适用。见 [P4 完成报告](../experiments/2026-10-23-p4/completion.md)。P5 的 [R01–R06 已通过](../experiments/2026-10-24-p5/README.md)，P5 完成并停止推进，H/Q 门槛保留但暂不实施。
+P4 的 U01、U02、U03、U04、U06 通过，增量关闭，U05 不适用，见 [P4 报告](../experiments/2026-10-23-p4/completion.md)。P5 的 [R01–R06 已通过](../experiments/2026-10-24-p5/README.md)。P7 的 Q 项执行结果见 [P7 报告](../experiments/2026-10-24-p7/completion.md)：覆盖地图、查询、跨模块复用、隔离 AI 任务和独立重建。H01–H06 仍待真实资产接入。
 
-P3 最新验收：**D01–D05 在 154 文件的同一快照通过**，237 项 Python、76 项 TypeScript 测试及存储读回通过。统一查询与源码条件见 [完成报告](../experiments/2026-10-23-p3/completion.md)，第三条跨模块链见 [登记](../cases/memory-usage/README.md)。P4 自动刷新与 P5 真实运行已完成；P6 历史资产与 P7 综合验收保留原范围，暂不展开。
+P3 的 D01–D05 在 154 文件的同一快照通过，见[完成报告](../experiments/2026-10-23-p3/completion.md)。第三条 memory 链的首次失败、新机制和回归保留在 [P7 证据](../experiments/2026-10-24-p7/README.md)。三条协议链不等于三条全路径动态验证；正式静态输入和 P5 运行记录保留各自版本。
 
 证据入口：[P1 完成验收](../experiments/2026-10-23-p1-completion/README.md)。F01–F05 在统一 65 文件、共用合成样例及原生数据库副本范围通过：关键 C++ 声明/定义与候选、TS 静态目标/绑定/回调、条件与来源、替换/删除/恢复均可检查。P1 当时为 56 项 Python、13 项 TS 测试。L01–L06 的三条真实协议路径、改名与隔离反例及存储试验通过，见 [P2 完成验收](../experiments/2026-10-23-p2/README.md)，当时为 74 项 Python、22 项 TS 测试。
 

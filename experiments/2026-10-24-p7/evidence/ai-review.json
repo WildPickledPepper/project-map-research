@@ -1,0 +1,338 @@
+{
+  "method": "coordinator_manual_review_against_frozen_required_facts_and_evidence",
+  "status": "passed_after_remediation",
+  "trials": [
+    {
+      "participant": "a",
+      "gold": "ai-gold.json",
+      "passed_tasks": 10,
+      "total_tasks": 11,
+      "tasks": [
+        {
+          "task": "T01",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T01",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T02",
+          "passed": false,
+          "required_fact_count": 6,
+          "missing_required_facts": [
+            "P5 Text observations do not validate all candidates"
+          ],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T02",
+          "note": "Static candidates correct; known P5 observed Text implementation omitted."
+        },
+        {
+          "task": "T03",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T03",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T04",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T04",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T05",
+          "passed": true,
+          "required_fact_count": 6,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T05",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T06",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T06",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T07",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T07",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T08",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T08",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T09",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T09",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T10",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T10",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T11",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-a-answers.json#T11",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        }
+      ]
+    },
+    {
+      "participant": "b",
+      "gold": "ai-gold.json",
+      "passed_tasks": 11,
+      "total_tasks": 11,
+      "tasks": [
+        {
+          "task": "T01",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T01",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T02",
+          "passed": true,
+          "required_fact_count": 6,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T02",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T03",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T03",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T04",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T04",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T05",
+          "passed": true,
+          "required_fact_count": 6,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T05",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T06",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T06",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T07",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T07",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T08",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T08",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T09",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T09",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T10",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T10",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T11",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-b-answers.json#T11",
+          "note": "Required facts and relevant evidence accepted; unknowns retained."
+        }
+      ]
+    },
+    {
+      "participant": "upstream",
+      "gold": "ai-gold-upstream.json",
+      "passed_tasks": 11,
+      "total_tasks": 11,
+      "tasks": [
+        {
+          "task": "T01",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T01",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained. Unexpanded platform is evidenced by full-repository inventory selected_files=0; semantic equivalent of an unexpanded inventory module."
+        },
+        {
+          "task": "T02",
+          "passed": true,
+          "required_fact_count": 6,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T02",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained. Explicitly identifies the observed Text implementation in old P5 records and distinguishes current static candidates."
+        },
+        {
+          "task": "T03",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T03",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T04",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T04",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained. The database_reverse_paths label also includes cache value producers; answer treats it as a conditional source-path count, not observed database objects. Naming clarification retained in completion report."
+        },
+        {
+          "task": "T05",
+          "passed": true,
+          "required_fact_count": 6,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T05",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T06",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T06",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T07",
+          "passed": true,
+          "required_fact_count": 5,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T07",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T08",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T08",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T09",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T09",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T10",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T10",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        },
+        {
+          "task": "T11",
+          "passed": true,
+          "required_fact_count": 4,
+          "missing_required_facts": [],
+          "evidence_review": "source/query/record citations reviewed against supplied version",
+          "answer_reference": "ai-upstream-answers.json#T11",
+          "note": "Required facts and relevant source/query/record evidence accepted; unknowns retained."
+        }
+      ]
+    }
+  ],
+  "first_failure_preserved": true,
+  "remediation": [
+    "CLI help and exact parameter guidance",
+    "bounded resource summaries",
+    "symbol reverse trace",
+    "observed runtime dispatch summary"
+  ],
+  "P6": "pending_external_assets",
+  "scope": "Fixed graph-assisted tasks; no source-only baseline or whole-repository completeness claim"
+}

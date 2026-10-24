@@ -1,0 +1,401 @@
+[
+  {
+    "id": "T01",
+    "answer": "静态范围：图输入为 192 个文件，其中 parsed 180、workspace_package_metadata 6、configuration_recorded_not_applied 5、syntax_errors 1；打包的 source_files=201 不能混同图语义输入数。全仓结构清单 tracked_files=4856，2488 个文本源码或清单被词法扫描。未展开模块示例 modules/build：1 个文件、analyzed_files=0、semantic_coverage=not_expanded。地图明确 whole_repository_semantic_analysis=false；结构枚举、词法扫描及选中源码解析均不证明全仓语义关系覆盖。实测：本题只执行静态查询，没有运行被分析软件。",
+    "evidence": [
+      {
+        "file": "query overview --limit 500",
+        "line_or_json_path": "$.coverage",
+        "claim": "192 个图输入及状态，whole_repository_semantic_analysis=false"
+      },
+      {
+        "file": "query overview --limit 500",
+        "line_or_json_path": "$.items[0]",
+        "claim": "modules/build 未展开"
+      },
+      {
+        "file": "coverage-catalog.json",
+        "line_or_json_path": "6-9",
+        "claim": "4856 个 tracked 文件，2488 个文本扫描"
+      },
+      {
+        "file": "bundle.json",
+        "line_or_json_path": "$.source_files",
+        "claim": "包内 201 个 source files，与图输入含义不同"
+      }
+    ],
+    "unknowns": [
+      "全仓未展开机制的具体调用关系仍未知。",
+      "首次完整 overview 返回过大，在工具输出显示处被截断；其后使用字段选择，未将截断当成不存在。",
+      "Token/context 计数不可用，不估计。"
+    ]
+  },
+  {
+    "id": "T02",
+    "answer": "静态候选：前端 getUnitFlows(params) 通过 window.requestData('unit/flows', sentParams, 'timeline') 发出；TimelineModule 注册 QueryFlowsBySliceInfoHandler，入口 HandleRequest。handler 在 dbPath 为空时按 rankId 获取数据库，否则按 dbPath/fileId 获取；校验通过且数据库非空后调用虚方法 QueryUnitFlows。两类实现为 Timeline::TextTraceDatabase::QueryUnitFlows 和 FullDb::DbTraceDataBase::QueryUnitFlows。前者存在 isSimulation 分支及文本轨迹分析器路径，后者通过预编译查询读取 PYTORCH_API/CANN_API/TASK 等表。实测选择不能从两个候选推定：trace consumer 标记 matched_conditional、runtime_connection=not_observed，实际对象依赖已加载数据与数据库管理器状态。本题未新运行软件。",
+    "evidence": [
+      {
+        "file": "source/modules/timeline/src/api/request.ts",
+        "line_or_json_path": "174-180",
+        "claim": "getUnitFlows 前端命令及 timeline moduleName"
+      },
+      {
+        "file": "query trace unit/flows",
+        "line_or_json_path": "$.items[0].provider.handler_registration",
+        "claim": "TimelineModule.cpp:87 注册 QueryFlowsBySliceInfoHandler；ProtocolDefs.h:88 定义命令"
+      },
+      {
+        "file": "source/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+        "line_or_json_path": "29-69",
+        "claim": "参数验证、按 rankId/fileId 取库、非空检查、虚方法调用及异常返回"
+      },
+      {
+        "file": "source/server/src/modules/timeline/core/database/TextTraceDatabase.cpp",
+        "line_or_json_path": "636-669",
+        "claim": "TextTraceDatabase 候选实现"
+      },
+      {
+        "file": "source/server/src/modules/timeline/core/database/DbTraceDataBase2.cpp",
+        "line_or_json_path": "337-377",
+        "claim": "DbTraceDataBase 候选实现"
+      },
+      {
+        "file": "query trace unit/flows",
+        "line_or_json_path": "$.items[0].consumer; $.items[0].conditions",
+        "claim": "连接依赖服务配置、注册激活、传输到达、验证过滤等条件"
+      }
+    ],
+    "unknowns": [
+      "本题未证明任意一次请求实际选择哪类数据库。",
+      "工具问题：--select chains query trace unit/flows 抛 KeyError: 'chains'；原始响应实际用 items，已保留错误并改用公开响应字段，无工具修改。原始完整 trace 输出曾被显示截断。"
+    ]
+  },
+  {
+    "id": "T03",
+    "answer": "静态候选：memoryCurveGet 发出 Memory/view/memoryUsage；memory connector 的 module='memory' 经公共发送路径进入 wire moduleName='memory'，MemoryModule 的 REQ_RES_MEMORY_VIEW 注册 QueryMemoryViewHandler。对照 queryTimelineOffset 发出 timeline/rankOffset，moduleName='timeline'，TimelineModule 的 REQ_RES_RANK_OFFSET 注册 RankOffsetHandler。两次独立 trace 分别只匹配各自注册键和 provider，公共发送函数没有将它们连接到同一个 handler；BaseModule 实际按 request.command 查 requestHandlerMap。实测：两条 trace 都是 matched_conditional、runtime_connection=not_observed，不能据静态结果断言实际部署从未发生路由错误。",
+    "evidence": [
+      {
+        "file": "source/modules/memory/src/utils/RequestUtils.ts",
+        "line_or_json_path": "91-92",
+        "claim": "memoryCurveGet 命令"
+      },
+      {
+        "file": "query trace Memory/view/memoryUsage",
+        "line_or_json_path": "$.items[0].message.payload.fields.moduleName; $.items[0].message.flow_evidence",
+        "claim": "moduleName=memory；connection/index.ts:20 与 bootstrap.tsx:55,72 的绑定及发送证据"
+      },
+      {
+        "file": "query trace Memory/view/memoryUsage",
+        "line_or_json_path": "$.items[0].provider.handler_registration",
+        "claim": "MemoryModule.cpp:47 / ProtocolDefs.h:158 注册 QueryMemoryViewHandler"
+      },
+      {
+        "file": "source/modules/timeline/src/api/request.ts",
+        "line_or_json_path": "183-184",
+        "claim": "queryTimelineOffset 命令和 timeline 模块"
+      },
+      {
+        "file": "query trace timeline/rankOffset",
+        "line_or_json_path": "$.items[0].consumer; $.items[0].provider.handler_registration",
+        "claim": "独立 provider；TimelineModule.cpp:123 / ProtocolDefs.h:117 注册 RankOffsetHandler"
+      },
+      {
+        "file": "source/server/msinsight/src/base/BaseModule.cpp",
+        "line_or_json_path": "28-46",
+        "claim": "command 查表分发"
+      }
+    ],
+    "unknowns": [
+      "运行时连接、绑定激活、注册激活及过滤通过仍需实际记录验证。",
+      "message.flow_evidence 完整输出曾被工具显示截断，结论只采用已显示的绑定、payload 和独立 handler 注册。"
+    ]
+  },
+  {
+    "id": "T04",
+    "answer": "静态路径：CommonCheck 通过后，Exist(GetRequestKey()) 命中则 ComputeCurve(start,end,key)，直接复制 title/legends/dataLines 到响应并成功返回，不进入 QueryCurveData。未命中进入 QueryCurveData：按 rankId 取内存数据库且要求非空、deviceId 非空；普通模式一次 QueryMemoryView(params,response.data,offsetTime)。比较模式要求 baselineId 与基准数据库有效，分别查询当前与基准数据库，并使用各自时间偏移；查询基准前更新 params.deviceId，之后合并 legends/tempData。成功后把 tempData/title/legends 放入 CurveView，PutCurve(key,curve)，ComputeCurve(0,0,key) 计算初始全范围（容器将零零区间扩展到首末时间）。最终 curve.dataLines → response.data.lines → ToResponseJson<MemoryViewResponse> 的 body.lines；响应到达并通过请求关联后，bootstrap window.request 解包 body，memoryCurveGet 的 then 回调使用 resp.lines 作为 setLineChartData.rows。旧 requestId 会提前退出，空 columns 或 lines 则清空状态。\n连接为有条件静态候选：trace memoryCurveGet --field '[\"lines\"]' 汇总 1 个 API、1 个 handler、2 个 producer candidates、7 个 response exits、28 个 transmission paths、lineChartData 状态及 2 个 database reverse paths。要求分支和候选实现选择成立、请求/响应键仍有效、部署及父子窗口对应、通道会话存活、编码成功且无未建模突变。实测：本题未执行内存请求；链标记 not_executed_in_P3。",
+    "evidence": [
+      {
+        "file": "source/server/src/modules/memory/handler/QueryMemoryViewHandler.cpp",
+        "line_or_json_path": "28-62;65-129;132-198",
+        "claim": "命中/未命中、普通/比较查询及 lines 赋值"
+      },
+      {
+        "file": "source/server/src/modules/memory/parser/CurveContainer.cpp",
+        "line_or_json_path": "21-61;124-149",
+        "claim": "0,0 扩展全范围、分桶或全点、dataLines 生成"
+      },
+      {
+        "file": "source/server/src/modules/memory/protocol/MemoryProtocolUtil.cpp",
+        "line_or_json_path": "155-177",
+        "claim": "response.data.lines 序列化为 body.lines"
+      },
+      {
+        "file": "source/modules/memory/src/bootstrap.tsx",
+        "line_or_json_path": "55-75",
+        "claim": "connector.fetch 后返回 body"
+      },
+      {
+        "file": "source/modules/memory/src/components/DynamicLineChart.tsx",
+        "line_or_json_path": "99-141",
+        "claim": "响应条件、rows 和 lineChartData 更新"
+      },
+      {
+        "file": "query trace memoryCurveGet --field '[\"lines\"]'",
+        "line_or_json_path": "$.chains[0].summary; $.chains[0].conditions; $.chains[0].unexpanded; $.chains[0].runtime_observation",
+        "claim": "连接计数、必要条件及未运行状态"
+      }
+    ],
+    "unknowns": [
+      "网络分帧与工作线程调度、完整路径条件可满足性、编码检测和外部 API 失败、图外消费者未展开。",
+      "实际数据库类型、缓存命中率、比较数值正确性与实际内存占用未证明。",
+      "按 START 示例不带 --field 选择 chains 报 KeyError；带 --field 后获得 trace_chain。早期全链输出被显示截断，随后改读 summary/conditions 和原始源码。"
+    ]
+  },
+  {
+    "id": "T05",
+    "answer": "静态源码：键是 rankId + '@@@@' + type + '@@@@' + ('IsCompare' 或 'NotCompare')；start/end、deviceId、baselineId 不在键中。CurveContainer 是 MemoryParse 成员，保存单个 key/title/legends/flatData，PutCurve 会覆盖当前值。写入者是 QueryMemoryViewHandler 未命中且查询成功后调用 MemoryParse::PutCurve，再转到 CurveContainer::PutCurve；读者通过 MemoryParse::Exist、ComputeCurve，内部读取 key/legends/flatData 并生成 dataLines；MemoryParse::Reset 调用 CurveContainer::Clear 清空四个成员。每个 Exist/PutCurve/ComputeCurve/Clear 分别在函数内持同一 mutex 的 unique_lock，但 Exist 返回后锁已释放，下一次 ComputeCurve 重新加锁，期间允许 PutCurve/Clear，所以不能证明整段检查到计算的原子性；ComputeCurve 会再次核验 key。Clear 只见 clear 调用，不能从源码推出分配器归还量、RSS 减少或释放完成；vector.clear 不要求回收 capacity。实测：resource 返回 runtime_occupancy_bytes=null、release_completion=not_observed、instance_identity=class_member_instance_unresolved，未做内存测量。",
+    "evidence": [
+      {
+        "file": "source/server/src/modules/memory/protocol/MemoryProtocolRequest.h",
+        "line_or_json_path": "230-263",
+        "claim": "请求参数与 GetRequestKey 精确组成"
+      },
+      {
+        "file": "source/server/src/modules/memory/parser/CurveContainer.h",
+        "line_or_json_path": "32-44",
+        "claim": "单个缓存实例的成员及 mutex"
+      },
+      {
+        "file": "source/server/src/modules/memory/parser/CurveContainer.cpp",
+        "line_or_json_path": "21-83",
+        "claim": "各方法独立锁、key 复核、写入与 clear"
+      },
+      {
+        "file": "source/server/src/modules/memory/parser/MemoryParse.cpp",
+        "line_or_json_path": "427-443;747-753",
+        "claim": "Reset 清理与缓存方法代理"
+      },
+      {
+        "file": "source/server/src/modules/memory/handler/QueryMemoryViewHandler.cpp",
+        "line_or_json_path": "42-60",
+        "claim": "检查、读取、写入分离的调用次序"
+      },
+      {
+        "file": "query resource CurveContainer",
+        "line_or_json_path": "$.items[*].storage; $.items[*].runtime_occupancy_bytes; $.items[*].release_completion",
+        "claim": "资源身份候选、占用未知和释放未观测"
+      }
+    ],
+    "unknowns": [
+      "未测实际容量、峰值、释放字节、回收时间与并发交错是否发生。",
+      "首次 resource 完整输出非常大，被工具显示截断；之后仅提取 storage 与占用/释放状态。"
+    ]
+  },
+  {
+    "id": "T06",
+    "answer": "静态前端条件：onMemoryCurveGet 先递增 requestIdRef.current，并捕获 requestId；then 中若 requestId !== requestIdRef.current 立即 return，因此旧响应不会执行清空或写入 lineChartData。当前响应若 columns 或 resp.lines 为空则清空，否则写入 {title,columns,rows:resp.lines}。catch 同样忽略旧请求；finally 仅当前请求关闭转圈。\n反向查询 impact --changed-path server/src/modules/memory/parser/CurveContainer.cpp 返回 memoryCurveGet（RequestUtils.ts:91）这一个 candidate_impact。证据路径示例：CurveContainer::Exist（72）← MemoryParse::Exist（753）← QueryMemoryViewHandler::HandleRequest（28，调用点42）← MemoryModule 注册（47）← ToMemoryViewRequest 解码/Memory/view/memoryUsage 协议消息 ← memoryCurveGet。结合 DynamicLineChart.tsx:105 的调用及 :126-130 的 rows 写入，可判定该图表为候选前端受影响位置。该查询 total=1、truncated=false、depth_limit_reached=false 仅表示本次已提取范围内查询完成，不能断言未返回入口不受影响；结果明确 missing_path_does_not_prove_independence。实测：未运行修改，结构路径不证明行为确已变化。",
+    "evidence": [
+      {
+        "file": "source/modules/memory/src/components/DynamicLineChart.tsx",
+        "line_or_json_path": "99-141",
+        "claim": "请求序号、旧响应 guard、图表状态及 finally 条件"
+      },
+      {
+        "file": "query impact --changed-path server/src/modules/memory/parser/CurveContainer.cpp",
+        "line_or_json_path": "$.items[0].entries; $.items[0].status; $.items[0].witness_paths[0].nodes",
+        "claim": "memoryCurveGet 候选影响和反向路径"
+      },
+      {
+        "file": "query impact --changed-path server/src/modules/memory/parser/CurveContainer.cpp",
+        "line_or_json_path": "$.items[0].conditions; $.items[0].witness_paths[*].meaning; $.analysis_scope; $.interpretation",
+        "claim": "条件化结构路径，缺失路径不证明独立"
+      }
+    ],
+    "unknowns": [
+      "图外代码、动态绑定和未提取依赖可能遗漏；没有实际修改执行的回归结果。",
+      "首次展开 witness 完整 nodes/evidence 输出过大被显示截断，随后仅提取节点名称/路径/行号。"
+    ]
+  },
+  {
+    "id": "T07",
+    "answer": "历史实测（P5 unit/flows）：normal（p5-r06-normal-01）scenario/browser 均通过、capture_complete=true，返回 1 条 flow、最终 1 条线，记录 response.delivered、api.resolved、state.applied。late（p5-r06-late-01）也通过：A 请求在切换 B 后才释放，isOldRequest=true，response.discarded，B 的 before/after 状态不变；没有 delivered/resolved/state.applied 并非 bug，而是保护『B 活跃后 A 的响应不能改 B 的选择和 flow 状态』。fault（p5-fault-01）将 allow_stale_response=true，旧响应被 delivered 并 state.applied，B 的 singleLinkLine 从空变为 A 的 async_task_queue，scenario/browser 均失败且 capture_complete=false；对照 p5-fault-control-01 关闭注入则通过。因此应比较业务不变量，而非仅比较路径是否相同。\n静态/版本边界：P5 记录保留旧 basis snapshot（normal/late 为 ...8bd79423...；fault 为 7f851c66...:full:a51f4e...），当前 P7 snapshot 为 ccd0d880...:full:03cde2c...。所有记录 same_graph_snapshot=false、eligible_for_direct_overlay=false、reason=different_graph_snapshot、verification_carried_forward=false；不能直接说当前 P7 图已经运行验证，也不能把 unit/flows 测试当 memory 链实测。",
+    "evidence": [
+      {
+        "file": "runtime.json",
+        "line_or_json_path": "$.items[4].execution_context.scenario; $.items[4].outcome; $.items[4].stage_counts",
+        "claim": "normal 通过且返回/最终线数均为1"
+      },
+      {
+        "file": "runtime.json",
+        "line_or_json_path": "$.items[3].outcome.assertions; $.items[3].stage_counts",
+        "claim": "late 旧响应丢弃，before/after 一致"
+      },
+      {
+        "file": "runtime.json",
+        "line_or_json_path": "$.items[1].outcome; $.items[1].stage_counts; $.items[2].outcome",
+        "claim": "故障注入失败及关闭注入对照通过"
+      },
+      {
+        "file": "runtime.json",
+        "line_or_json_path": "$.items[*].basis.snapshot; $.items[*].same_graph_snapshot; $.items[*].eligible_for_direct_overlay; $.items[*].verification_carried_forward",
+        "claim": "旧图快照记录不自动继承验证"
+      },
+      {
+        "file": "bundle.json",
+        "line_or_json_path": "$.snapshot; $.runtime_origin",
+        "claim": "当前 P7 图及 P5 real records 来源"
+      }
+    ],
+    "unknowns": [
+      "本题仅读取既有运行记录，未重新运行 normal/late/fault 或 memory 链。",
+      "原始全部运行对象含大量构建信息，显示输出曾截断；随后逐项提取 outcome、stages、snapshot 核对。",
+      "构建来源记录声明未重新哈希二进制，不能额外推断二进制独立认证。"
+    ]
+  },
+  {
+    "id": "T08",
+    "answer": "静态查询 assets --target Memory/view/memoryUsage 返回 items=[]、total=0，但状态是 not_connected、dependency=P6；适用性 applicability=not_evaluated、风险 risk_assessment=not_performed。修改 QueryMemoryViewHandler.cpp 的 impact 也给出同样 assets 状态。因此本包查不到已连接到 memoryUsage 的历史契约；这表示历史资产能力/数据尚未接入，不能解释成没有历史契约、没有回归风险或风险审查已通过。可从源码识别 lines 格式、缓存键、旧响应 guard 等当前行为，但它们不能冒充已检索到的历史契约。实测：没有历史资产关联或风险验证运行。",
+    "evidence": [
+      {
+        "file": "query assets --target Memory/view/memoryUsage",
+        "line_or_json_path": "$.items; $.status; $.dependency; $.target; $.applicability; $.risk_assessment",
+        "claim": "未接入 P6，适用性未评估，风险未执行"
+      },
+      {
+        "file": "query impact --changed-path server/src/modules/memory/handler/QueryMemoryViewHandler.cpp",
+        "line_or_json_path": "$.assets",
+        "claim": "修改影响查询也报告历史资产未接入"
+      }
+    ],
+    "unknowns": [
+      "具体历史约束、过去缺陷与变更风险未知，需另有连接后的历史证据。",
+      "工具问题：assets memoryUsage 位置参数被拒绝（unrecognized arguments），管道解析随之 JSONDecodeError；assets --help 只显示 workbench 包装层帮助。改用 --target 成功，未修改工具。"
+    ]
+  },
+  {
+    "id": "T09",
+    "answer": "三个实查结果含义不同（均为静态查询，非应用执行）：① trace Memory/view/definitely-absent：total=0、items=[]、truncated=false，status=not_extracted_or_not_an_interface、missing_path_meaning=unknown。只能说明当前图未提取到该接口，不能推断真实仓库无依赖。② trace memoryCurveGet --depth 0：total=1、truncated=false，仍找到 consumer 与 Memory/view/memoryUsage 注册，但 handlers=[]、depth_limit_reached=true；空 handler 是深度预算阻止展开，不是没有 handler。③ search QueryMemoryView --limit 1：total=305、offset=0、truncated=true、next_offset=1，第一页仅 DbMemoryDataBase.cpp:174 的定义；继续 --offset 1 得第二页，next_offset=2。这是结果分页截断，需要沿 next_offset 翻页，不能把第一页当全量匹配，更不能据此排除其他依赖。分页标志与深度标志要分别判断。",
+    "evidence": [
+      {
+        "file": "query trace Memory/view/definitely-absent",
+        "line_or_json_path": "$.status; $.missing_path_meaning; $.total; $.items",
+        "claim": "未提取/非接口，缺失路径含义未知"
+      },
+      {
+        "file": "query trace memoryCurveGet --depth 0",
+        "line_or_json_path": "$.items[0].handlers; $.items[0].depth_limit_reached; $.items[0].provider.handler_registration",
+        "claim": "深度截断但协议注册已知"
+      },
+      {
+        "file": "query --limit 1 search QueryMemoryView",
+        "line_or_json_path": "$.total; $.offset; $.truncated; $.next_offset; $.items[0]",
+        "claim": "305 个匹配，第一页仅1项"
+      },
+      {
+        "file": "query --limit 1 --offset 1 search QueryMemoryView",
+        "line_or_json_path": "$.offset; $.next_offset; $.items[0]",
+        "claim": "第二页实际翻页"
+      }
+    ],
+    "unknowns": [
+      "本题为展示分页读了前两页，未声称枚举全部305项。",
+      "深度0完整 trace 显示过大被截断，随后只提取 consumer/handlers/深度标志。"
+    ]
+  },
+  {
+    "id": "T10",
+    "answer": "静态反查：先 search TextMemoryDataBase::QueryMemoryView 定位定义 cpp:7349dc0b46c6520b01ca656f（TextMemoryDataBase.cpp:466），再 impact --changed-path 该文件，保留 witness 中含此定义的路径，得到 memoryCurveGet 候选入口。路径是 TextMemoryDataBase::QueryMemoryView 定义/声明 ← VirtualMemoryDataBase::QueryMemoryView（h:53）← handler 中 database->QueryMemoryView（83）← QueryCurveData（65）← HandleRequest（28、50）← MemoryModule 注册（47）← Memory/view/memoryUsage 消息 ← RequestUtils.ts:91 memoryCurveGet。返回字段用 trace memoryCurveGet --field '[\"lines\"]' --reverse 查询，RETURN_FIELD_TO_STATE 的 api_dependencies.path=['lines'] 指向同一 API，消费状态为 DynamicLineChart.tsx:60 lineChartData，实际更新在 :126-130（rows:resp.lines）。\n相关条件：数据库路径只在缓存未命中并通过 CommonCheck 后进入；rankId 合法、type 为 Overall/Stream/Component，比较模式禁止 Stream；数据库及 deviceId 有效。普通模式查询当前库，比较模式须 baselineId/基准库有效，当前及基准两次查询成功后合并。Text 实现 SQL 按 deviceId 过滤，并扣除全局 startTime 与 offsetTime；DbMemoryDataBase 也是虚调用候选，其 withMemoryRecord、PYTORCH 及 withNpuMem 条件不同，不能把候选当实际选择。缓存键为 rankId/type/isCompare，ComputeCurve 又要求 key 匹配和 legends 非空；命中直接计算，未命中查询/PutCurve 后计算。前端需要同一存活的请求/会话/窗口/组件、有效回调、Promise fulfilled，requestId 当前且 columns/lines 非空才写 rows；编码传输成功和无未建模突变也是假设。\n实测：这条 memory 链没有本包内的运行或内存占用验证。trace 是 source_candidate/value_dependency_candidate、not_executed_in_P3；resource 的占用 null、释放 not_observed；runtime.json 是旧 P5 unit/flows，不能替代 memory 测试。",
+    "evidence": [
+      {
+        "file": "query search TextMemoryDataBase::QueryMemoryView --kind callable",
+        "line_or_json_path": "$.items[0]",
+        "claim": "精确数据库定义及符号ID"
+      },
+      {
+        "file": "query impact --changed-path server/src/modules/memory/database/TextMemoryDataBase.cpp",
+        "line_or_json_path": "$.items[*].witness_paths[?nodes contains cpp:7349dc0b46c6520b01ca656f]; $.items[*].entries",
+        "claim": "从具体数据库方法反向找到 memoryCurveGet"
+      },
+      {
+        "file": "query --limit 500 trace memoryCurveGet --field '[\"lines\"]' --reverse",
+        "line_or_json_path": "$.items[?stage=frontend_state].api_dependencies; $.items[?stage=frontend_state].conditions; $.chains[0].nodes",
+        "claim": "lines 返回字段消费到 lineChartData 及必要条件"
+      },
+      {
+        "file": "source/server/src/modules/memory/database/TextMemoryDataBase.cpp",
+        "line_or_json_path": "466-480",
+        "claim": "Text SQL/deviceId/偏移与后续图数据计算"
+      },
+      {
+        "file": "source/server/src/modules/memory/database/DbMemoryDataBase.cpp",
+        "line_or_json_path": "174-211",
+        "claim": "Db 候选的表存在、文件类型和 NPU_MEM 条件"
+      },
+      {
+        "file": "source/server/src/modules/memory/protocol/MemoryProtocolRequest.h",
+        "line_or_json_path": "237-263",
+        "claim": "合法参数和缓存键"
+      },
+      {
+        "file": "source/server/src/modules/memory/handler/QueryMemoryViewHandler.cpp",
+        "line_or_json_path": "34-124",
+        "claim": "缓存/普通/比较数据库分支"
+      },
+      {
+        "file": "query trace memoryCurveGet --field '[\"lines\"]'",
+        "line_or_json_path": "$.chains[0].runtime_observation; $.chains[0].conditions",
+        "claim": "静态条件链未执行"
+      },
+      {
+        "file": "query resource CurveContainer",
+        "line_or_json_path": "$.items[*].runtime_occupancy_bytes; $.items[*].release_completion",
+        "claim": "无内存测量"
+      }
+    ],
+    "unknowns": [
+      "完整分支可满足性、实际虚派发对象和运行占用均未知；无返回不能视作没有消费者。",
+      "工具问题保留：impact 不接受 --target、位置符号、--symbol 或 --changed-symbol，分别报 unrecognized arguments，并引起管道 JSONDecodeError。trace 数据库名称 --reverse 返回 not_extracted_or_not_an_interface；改用已支持的 changed-path 并筛选具体方法 witness，成功完成反查，未修改工具。",
+      "输出写入问题：合并写 answers.json/answers.md 的命令超过 Windows 进程命令长度，CreateProcess 报 os error 206；已拆为两个独立写命令，不改工具。"
+    ]
+  },
+  {
+    "id": "T11",
+    "answer": "静态全仓 coverage：Python tracked_files=119、graph_input_files=0；Rust tracked_files=13、graph_input_files=0。已查看18类机制的完整清单（total=18、truncated=false）。三个尚未贯通的类别为：files_external_process（inventory_only，文件/进程边界未连接，324次词法信号、104个候选文件、仅3个选入）；ffi_native_plugin（inventory_only，Rust/Python/native/plugin 边未连接，204次信号、45个候选文件、3个选入）；background_entry（inventory_only，后台工作流未追踪，149次信号、63个候选文件、1个选入）。另有 locks_concurrency、cancellation_timeout 也仅清单级支持。\n词法命中不能当已连接调用关系：finding_kind 明确为 lexical_candidate_not_semantic_relation，规则可匹配注释、字符串和测试；no_signal_meaning=unknown_not_absent。候选文件被选入也不代表该机制完整建模。三条链通过只能说明选定链及相应范围的查询/断言成立，不能证明语言、框架或全仓语义完整。实测范围清单明确只有已记录的 P5 unit/flows 场景；memory 与其他机制不能据此继承运行验证。",
+    "evidence": [
+      {
+        "file": "query coverage",
+        "line_or_json_path": "$.repository.languages[4]; $.repository.languages[5]; $.total; $.truncated",
+        "claim": "Python 119/0、Rust 13/0，18类机制完整返回"
+      },
+      {
+        "file": "query coverage",
+        "line_or_json_path": "$.items[13]",
+        "claim": "files_external_process 仅清单，跨文件/进程关系未连接"
+      },
+      {
+        "file": "query coverage",
+        "line_or_json_path": "$.items[15]",
+        "claim": "ffi_native_plugin 仅清单，跨语言/原生插件边未连接"
+      },
+      {
+        "file": "query coverage",
+        "line_or_json_path": "$.items[16]",
+        "claim": "background_entry 仅清单，后台流程未追踪"
+      },
+      {
+        "file": "query coverage",
+        "line_or_json_path": "$.items[*].finding_kind; $.items[*].no_signal_meaning; $.repository.limits",
+        "claim": "词法信号不是已提取连接，无信号不证明不存在，运行覆盖仅P5指定场景"
+      },
+      {
+        "file": "coverage-catalog.json",
+        "line_or_json_path": "34-41",
+        "claim": "Python/Rust 的文件计数与图输入计数"
+      }
+    ],
+    "unknowns": [
+      "未建模机制的调用、生命周期、配置变体、调度交错和跨语言关系仍未知。",
+      "11题均为本次工具解题；除读取明确标注的旧运行记录外，没有新执行被分析应用。Token/context 计数不可用，不作估计。"
+    ]
+  }
+]

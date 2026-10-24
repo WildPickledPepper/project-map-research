@@ -2,6 +2,8 @@
 
 核对日期：2026-10-23。这里的“候选”不等于已经适配 Insight；不得把不同输入范围的结果排成准确率榜单。
 
+2026-10-24 更新：P1 已选定 CGC/Kuzu，后续增加独立机制适配；[P7 报告](../experiments/2026-10-24-p7/completion.md)记录当前地图与查询，[能力矩阵](../docs/06-capability-coverage.md)说明各工具对应的系统部分。下列原版试验保留其固定版本和当时范围。
+
 ## 已执行或审计的工具
 
 | 工具 | 已核实的作用 | 证据等级与局限 |
@@ -30,7 +32,7 @@ CodeGraph 和 code-map 已追加原版实际执行：[unit/flows 结果与复现
 
 CodeGraph 指上述特定仓库，不是 CodeGraphContext。两者不能混用名称和结果。
 
-P1 已追加 [CBM/CGC/CodeGraph 统一输入对照](../experiments/2026-10-23-p1/README.md)：65 个真实文件与 3 个相同 fixture。CGC 的关键 C++ 定义提取和 CodeGraph 的 TS 类归属各有优势；CGC 已验证补充事实的存储集成，CodeGraph 保留底座候选资格。最终选择等待类型/调用门槛与接入成本比较。
+P1 已追加 [CBM/CGC/CodeGraph 统一输入对照](../experiments/2026-10-23-p1/README.md)：65 个真实文件与 3 个相同 fixture。随后完成必要类型/调用与存储门槛，选用 CGC/Kuzu，CodeGraph 保留替换资格，见 [P1 决策](../experiments/2026-10-23-p1-completion/README.md)。
 
 code-map 的实际 `src/core/endpoints.mjs` 对路径有 `/api` 前缀约束，匹配边标为 medium；因此不把它表述为无框架限制、编译器级或任意项目可直接使用。
 
@@ -41,7 +43,7 @@ code-map 的实际 `src/core/endpoints.mjs` 对路径有 `/api` 前缀约束，�
 - [Playwright](https://playwright.dev/docs/trace-viewer)：前端场景及操作证据；不能自动替代 C++ 后端追踪。
 - [Hypothesis stateful testing](https://hypothesis.readthedocs.io/en/latest/stateful.html)：状态机测试机制；不是 Insight 的现成行为模型。
 
-以上动态方案尚未在本研究对象上接入。
+上表列出调查过的动态组件。[P5](../experiments/2026-10-24-p5/completion.md)现已完成实际运行采集和场景断言；实际采用方式、环境与边界以该报告为准，不能把候选列表理解为全部已经集成。
 
 ## 许可证核对
 

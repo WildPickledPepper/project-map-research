@@ -1,0 +1,448 @@
+{
+  "evidence_kind": "executed_isolated_agent_helper_logs",
+  "trials": [
+    {
+      "participant": "a",
+      "input": {
+        "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+        "snapshot": "ccd0d88080861b0c7185bcca70a85bd61f823168:full:03cde2c328e748b5b721e97c0821b58a",
+        "rules": {
+          "rules_commit": "2e3553435d2a53704c4694932d9c8fa9df6c2d0c",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        },
+        "query_commit": "02b78b9eaf1b6f6352cdeac91d4ccbdd8b2fb500",
+        "source_files": 201,
+        "questions": "ai-tasks.json",
+        "gold_included": false,
+        "isolation": "separate directory and instruction-restricted reads; shared filesystem is not a security boundary",
+        "runtime_origin": "P5 real records; original versions retained; not new memory-chain execution",
+        "tasks_version": "p7-ai-tasks/2",
+        "coverage_catalog": "coverage-catalog.json"
+      },
+      "tasks": [
+        {
+          "task": "T01",
+          "elapsed_seconds": 34.523,
+          "successful_calls": {
+            "query": 3,
+            "read": 1
+          },
+          "tool_seconds": 6.052,
+          "result_bytes": 899018,
+          "displayed_bytes": 303224
+        },
+        {
+          "task": "T02",
+          "elapsed_seconds": 72.042,
+          "successful_calls": {
+            "query": 8,
+            "read": 5
+          },
+          "tool_seconds": 16.767,
+          "result_bytes": 417174,
+          "displayed_bytes": 257872
+        },
+        {
+          "task": "T03",
+          "elapsed_seconds": 29.973,
+          "successful_calls": {
+            "read": 3,
+            "query": 5
+          },
+          "tool_seconds": 11.906,
+          "result_bytes": 434560,
+          "displayed_bytes": 61254
+        },
+        {
+          "task": "T04",
+          "elapsed_seconds": 71.786,
+          "successful_calls": {
+            "read": 9,
+            "query": 5
+          },
+          "tool_seconds": 16.881,
+          "result_bytes": 1359932,
+          "displayed_bytes": 558062
+        },
+        {
+          "task": "T05",
+          "elapsed_seconds": 46.217,
+          "successful_calls": {
+            "read": 5,
+            "query": 5
+          },
+          "tool_seconds": 11.206,
+          "result_bytes": 7902896,
+          "displayed_bytes": 7704678
+        },
+        {
+          "task": "T06",
+          "elapsed_seconds": 40.792,
+          "successful_calls": {
+            "query": 4,
+            "read": 1
+          },
+          "tool_seconds": 8.392,
+          "result_bytes": 3971548,
+          "displayed_bytes": 2150813
+        },
+        {
+          "task": "T07",
+          "elapsed_seconds": 41.129,
+          "successful_calls": {
+            "read": 4
+          },
+          "tool_seconds": 0.025,
+          "result_bytes": 838844,
+          "displayed_bytes": 426542
+        },
+        {
+          "task": "T08",
+          "elapsed_seconds": 39.865,
+          "successful_calls": {
+            "query": 3
+          },
+          "tool_seconds": 5.93,
+          "result_bytes": 1169507,
+          "displayed_bytes": 27686
+        },
+        {
+          "task": "T09",
+          "elapsed_seconds": 27.677,
+          "successful_calls": {
+            "query": 5
+          },
+          "tool_seconds": 12.928,
+          "result_bytes": 215070,
+          "displayed_bytes": 215070
+        },
+        {
+          "task": "T10",
+          "elapsed_seconds": 133.998,
+          "successful_calls": {
+            "query": 8,
+            "read": 3
+          },
+          "tool_seconds": 25.317,
+          "result_bytes": 5017023,
+          "displayed_bytes": 4717642
+        },
+        {
+          "task": "T11",
+          "elapsed_seconds": 37.964,
+          "successful_calls": {
+            "query": 2
+          },
+          "tool_seconds": 3.918,
+          "result_bytes": 63796,
+          "displayed_bytes": 40295
+        }
+      ]
+    },
+    {
+      "participant": "b",
+      "input": {
+        "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+        "snapshot": "ccd0d88080861b0c7185bcca70a85bd61f823168:full:03cde2c328e748b5b721e97c0821b58a",
+        "rules": {
+          "rules_commit": "2e3553435d2a53704c4694932d9c8fa9df6c2d0c",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        },
+        "query_commit": "02b78b9eaf1b6f6352cdeac91d4ccbdd8b2fb500",
+        "source_files": 201,
+        "questions": "ai-tasks.json",
+        "gold_included": false,
+        "isolation": "separate directory and instruction-restricted reads; shared filesystem is not a security boundary",
+        "runtime_origin": "P5 real records; original versions retained; not new memory-chain execution",
+        "tasks_version": "p7-ai-tasks/2",
+        "coverage_catalog": "coverage-catalog.json"
+      },
+      "tasks": [
+        {
+          "task": "T01",
+          "elapsed_seconds": 32.785,
+          "successful_calls": {
+            "query": 3,
+            "read": 1
+          },
+          "tool_seconds": 6.34,
+          "result_bytes": 899018,
+          "displayed_bytes": 303224
+        },
+        {
+          "task": "T02",
+          "elapsed_seconds": 56.149,
+          "successful_calls": {
+            "query": 4,
+            "read": 3
+          },
+          "tool_seconds": 8.222,
+          "result_bytes": 414067,
+          "displayed_bytes": 225350
+        },
+        {
+          "task": "T03",
+          "elapsed_seconds": 24.995,
+          "successful_calls": {
+            "query": 2,
+            "read": 5
+          },
+          "tool_seconds": 4.167,
+          "result_bytes": 179602,
+          "displayed_bytes": 179602
+        },
+        {
+          "task": "T04",
+          "elapsed_seconds": 81.786,
+          "successful_calls": {
+            "read": 10,
+            "query": 5
+          },
+          "tool_seconds": 14.697,
+          "result_bytes": 1059523,
+          "displayed_bytes": 1031502
+        },
+        {
+          "task": "T05",
+          "elapsed_seconds": 53.244,
+          "successful_calls": {
+            "query": 3,
+            "read": 6
+          },
+          "tool_seconds": 6.694,
+          "result_bytes": 7876181,
+          "displayed_bytes": 7862434
+        },
+        {
+          "task": "T06",
+          "elapsed_seconds": 33.117,
+          "successful_calls": {
+            "query": 2,
+            "read": 1
+          },
+          "tool_seconds": 4.22,
+          "result_bytes": 1986772,
+          "displayed_bytes": 1986772
+        },
+        {
+          "task": "T07",
+          "elapsed_seconds": 47.402,
+          "successful_calls": {
+            "read": 5
+          },
+          "tool_seconds": 0.024,
+          "result_bytes": 841253,
+          "displayed_bytes": 750725
+        },
+        {
+          "task": "T08",
+          "elapsed_seconds": 43.3,
+          "successful_calls": {
+            "query": 3
+          },
+          "tool_seconds": 5.933,
+          "result_bytes": 1169507,
+          "displayed_bytes": 27686
+        },
+        {
+          "task": "T09",
+          "elapsed_seconds": 29.839,
+          "successful_calls": {
+            "query": 4
+          },
+          "tool_seconds": 10.065,
+          "result_bytes": 128468,
+          "displayed_bytes": 128468
+        },
+        {
+          "task": "T10",
+          "elapsed_seconds": 125.983,
+          "successful_calls": {
+            "query": 5,
+            "read": 4
+          },
+          "tool_seconds": 16.192,
+          "result_bytes": 4364208,
+          "displayed_bytes": 4350501
+        },
+        {
+          "task": "T11",
+          "elapsed_seconds": 51.108,
+          "successful_calls": {
+            "query": 2,
+            "read": 1
+          },
+          "tool_seconds": 3.902,
+          "result_bytes": 93109,
+          "displayed_bytes": 63801
+        }
+      ]
+    },
+    {
+      "participant": "upstream",
+      "input": {
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:bef7b86942a4416cb1e1719aeeaf7c1b",
+        "rules": {
+          "rules_commit": "2e3553435d2a53704c4694932d9c8fa9df6c2d0c",
+          "python": "3.11.9",
+          "node": "v22.23.3",
+          "typescript": "5.9.3",
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0",
+            "kuzu": "0.11.3"
+          }
+        },
+        "query_commit": "859f27db1a304dbbba41b4db461e46fd0d2fd7ba",
+        "source_files": 200,
+        "questions": "ai-tasks.json",
+        "gold_included": false,
+        "isolation": "separate directory and instruction-restricted reads; shared filesystem is not a security boundary",
+        "runtime_origin": "P5 real records; original versions retained; not new memory-chain execution",
+        "tasks_version": "p7-ai-tasks/3-upstream"
+      },
+      "tasks": [
+        {
+          "task": "T01",
+          "elapsed_seconds": 36.56,
+          "successful_calls": {
+            "query": 4
+          },
+          "tool_seconds": 9.463,
+          "result_bytes": 1156425,
+          "displayed_bytes": 586990
+        },
+        {
+          "task": "T02",
+          "elapsed_seconds": 54.475,
+          "successful_calls": {
+            "query": 4,
+            "read": 7
+          },
+          "tool_seconds": 8.015,
+          "result_bytes": 368343,
+          "displayed_bytes": 111717
+        },
+        {
+          "task": "T03",
+          "elapsed_seconds": 25.29,
+          "successful_calls": {
+            "read": 5,
+            "query": 2
+          },
+          "tool_seconds": 4.055,
+          "result_bytes": 180359,
+          "displayed_bytes": 146099
+        },
+        {
+          "task": "T04",
+          "elapsed_seconds": 74.866,
+          "successful_calls": {
+            "read": 10,
+            "query": 5
+          },
+          "tool_seconds": 15.831,
+          "result_bytes": 1378330,
+          "displayed_bytes": 613131
+        },
+        {
+          "task": "T05",
+          "elapsed_seconds": 45.296,
+          "successful_calls": {
+            "read": 7,
+            "query": 3
+          },
+          "tool_seconds": 6.345,
+          "result_bytes": 261960,
+          "displayed_bytes": 228914
+        },
+        {
+          "task": "T06",
+          "elapsed_seconds": 34.328,
+          "successful_calls": {
+            "query": 2,
+            "read": 1
+          },
+          "tool_seconds": 4.16,
+          "result_bytes": 1986650,
+          "displayed_bytes": 1885940
+        },
+        {
+          "task": "T07",
+          "elapsed_seconds": 39.876,
+          "successful_calls": {
+            "read": 5
+          },
+          "tool_seconds": 0.02,
+          "result_bytes": 1059770,
+          "displayed_bytes": 571590
+        },
+        {
+          "task": "T08",
+          "elapsed_seconds": 19.347,
+          "successful_calls": {
+            "query": 2
+          },
+          "tool_seconds": 4.096,
+          "result_bytes": 27523,
+          "displayed_bytes": 27523
+        },
+        {
+          "task": "T09",
+          "elapsed_seconds": 96.985,
+          "successful_calls": {
+            "query": 28
+          },
+          "tool_seconds": 54.959,
+          "result_bytes": 451162,
+          "displayed_bytes": 451162
+        },
+        {
+          "task": "T10",
+          "elapsed_seconds": 119.139,
+          "successful_calls": {
+            "read": 7,
+            "query": 8
+          },
+          "tool_seconds": 23.42,
+          "result_bytes": 3370908,
+          "displayed_bytes": 2858285
+        },
+        {
+          "task": "T11",
+          "elapsed_seconds": 77.028,
+          "successful_calls": {
+            "query": 4,
+            "read": 13
+          },
+          "tool_seconds": 8.144,
+          "result_bytes": 500590,
+          "displayed_bytes": 72431
+        }
+      ]
+    }
+  ],
+  "model": "parent model inherited; exact model identifier not exposed by agent tool",
+  "tokens": "not_exposed",
+  "context_tokens": "not_exposed",
+  "cost": "not_exposed",
+  "measurement": "task begin/end intervals, not total session duration; counts and bytes are successful helper operations; errors before logging are absent; setup and answer-file writing outside task intervals excluded",
+  "output_bytes": "UTF-8 bytes, not tokens; displayed_bytes precedes any outer tool/UI truncation",
+  "isolation": "separate input/output directories and instructions; no peer results supplied; shared filesystem is not a security boundary",
+  "comparison": "graph-assisted usability only; no source-only control and no accuracy generalization"
+}

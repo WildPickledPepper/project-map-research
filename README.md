@@ -6,9 +6,9 @@
 
 **设计范围 v0.1**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 
-**P1–P3 已完成，F01–F05、L01–L06、D01–D05 通过。** 主底座 CGC/Kuzu，复用 TypeScript 编译器与 C++ 语法/类型候选。首链的协议、数据库候选、返回字段、前端状态和反向影响已在 154 文件范围合并验收，237 项 Python、76 项 TypeScript 测试及存储读回通过。见 [P3 完成报告](experiments/2026-10-23-p3/completion.md)、[P2 完成报告](experiments/2026-10-23-p2/README.md)和 [P1 底座决策](experiments/2026-10-23-p1-completion/README.md)。P4–P5 也已完成，P6–P7 保持待办，详见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)和 [验收矩阵](plans/acceptance-matrix.md)。
+**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 主底座为 CGC/Kuzu，复用 TypeScript 编译器及 C++ 语法/类型候选。当前地图枚举全仓 4,855 个文件，在所选 191 个输入上恢复三条协议链，其中 unit/flows 与 memoryUsage 的返回字段连接到前端状态。见 [P7 验收报告](experiments/2026-10-24-p7/completion.md)、[项目地图](experiments/2026-10-24-p7/evidence/project-map.md)和[能力覆盖矩阵](docs/06-capability-coverage.md)。全仓结构清单与语义覆盖分别报告；P6 完成后再进行 M3 联合验收。
 
-**P4 已完成**：[自动刷新、发布与恢复](experiments/2026-10-23-p4/automatic-refresh.md)及[历史记录版本关联](experiments/2026-10-23-p4/versioned-records.md)通过验收，完整 Python 套件 274 项通过。见 [P4 完成报告](experiments/2026-10-23-p4/completion.md)。**P5 已完成**：R01–R06 的真实运行、状态断言、故障自检和同版本图关联通过，见 [P5 完成报告](experiments/2026-10-24-p5/completion.md)。本轮到此停止，P6–P7 暂不实施。
+P4 的自动刷新、失败恢复及历史记录版本关联已通过，[P5](experiments/2026-10-24-p5/completion.md)已验证 unit/flows 的正常、迟到、并发关联和故障断言。旧运行保留原版本；memoryUsage 的真实运行与资源占用尚未验证。计划和阶段边界见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)及[验收矩阵](plans/acceptance-matrix.md)。
 
 ## 我们要解决的问题
 
@@ -52,6 +52,8 @@ flowchart TD
 |---|---|
 | [研究目标与范围](docs/01-problem-and-scope.md) | 什么算成功，哪些内容由其他团队维护 |
 | [设计基线 v0.1](docs/05-design-baseline.md) | 三个视图、历史问题契约库协作、范围与成功条件 |
+| [能力架构与覆盖矩阵](docs/06-capability-coverage.md) | 系统组成、18 类机制、工具复用与全仓未展开部分 |
+| [P7 地图与查询](experiments/2026-10-24-p7/README.md) | 生成地图、CLI、覆盖预检、复现和隔离 AI 任务 |
 | [研究计划](plans/README.md) | 阶段、里程碑、依赖、工作量假设和当前状态 |
 | [详细计划书](plans/implementation-plan.md) | 适配与选型、数据约定、更新、运行和历史资产接入 |
 | [验收矩阵](plans/acceptance-matrix.md) | 正反例、证据要求、必需与扩展范围 |
@@ -106,10 +108,12 @@ python scripts/check_p3_socket_receivers.py
 python scripts/check_p3_server_channels.py
 python scripts/check_p3_return_bridge.py
 python scripts/check_p3_completion.py
+python experiments/2026-10-24-p5/check_completion.py
+python experiments/2026-10-24-p7/check_completion.py
 python scripts/verify_case_sources.py --repo /path/to/msinsight
 ```
 
-前十五条检查文档、案例和实测证据的一致性，不重新核验文件哈希。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网。适配器测试需 `python -m pip install -r requirements-store.txt`，随后执行 `python -m unittest discover -s tests -v`；TS 测试执行 `npm ci --ignore-scripts --no-audit --no-fund` 和 `npm test`。源码构图和查询见 [P1 复现步骤](experiments/2026-10-23-p1-completion/reproduce.md)。
+检查脚本核对文档、案例和实测证据的一致性，不核验文件哈希。最后一条在固定提交的本地 Insight checkout 中核实案例锚点；均不执行 Insight，不联网。适配器测试需 `python -m pip install -r requirements-store.txt`，随后执行 `python -m unittest discover -s tests -v`；TS 测试执行 `npm ci --ignore-scripts --no-audit --no-fund` 和 `npm test`。当前构图与查询见 [P7 复现步骤](experiments/2026-10-24-p7/README.md)。
 
 ## 协作原则
 

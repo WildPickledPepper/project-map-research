@@ -1,0 +1,1003 @@
+{
+  "schema_version": "coverage-catalog/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:bef7b86942a4416cb1e1719aeeaf7c1b",
+  "origin": "full_git_tree_inventory_and_lexical_preflight",
+  "scan": {
+    "tracked_files": 4855,
+    "not_source_or_manifest": 2368,
+    "text_scanned": 2487
+  },
+  "unread": [],
+  "languages": [
+    {
+      "name": "C++",
+      "tracked_files": 725,
+      "graph_input_files": 39
+    },
+    {
+      "name": "C/C++ header",
+      "tracked_files": 598,
+      "graph_input_files": 103
+    },
+    {
+      "name": "CMake",
+      "tracked_files": 13,
+      "graph_input_files": 0
+    },
+    {
+      "name": "JavaScript",
+      "tracked_files": 53,
+      "graph_input_files": 0
+    },
+    {
+      "name": "Python",
+      "tracked_files": 119,
+      "graph_input_files": 0
+    },
+    {
+      "name": "Rust",
+      "tracked_files": 13,
+      "graph_input_files": 0
+    },
+    {
+      "name": "Shell",
+      "tracked_files": 8,
+      "graph_input_files": 0
+    },
+    {
+      "name": "TypeScript",
+      "tracked_files": 549,
+      "graph_input_files": 31
+    },
+    {
+      "name": "TypeScript/React",
+      "tracked_files": 384,
+      "graph_input_files": 7
+    }
+  ],
+  "top_level_groups": [
+    {
+      "path": ".gitcode",
+      "tracked_files": 5,
+      "selected_files": 0,
+      "languages": {}
+    },
+    {
+      "path": "<root>",
+      "tracked_files": 13,
+      "selected_files": 1,
+      "languages": {}
+    },
+    {
+      "path": "assets",
+      "tracked_files": 1,
+      "selected_files": 0,
+      "languages": {}
+    },
+    {
+      "path": "build",
+      "tracked_files": 14,
+      "selected_files": 0,
+      "languages": {
+        "Python": 8,
+        "Shell": 6
+      }
+    },
+    {
+      "path": "docker",
+      "tracked_files": 12,
+      "selected_files": 0,
+      "languages": {
+        "Shell": 1
+      }
+    },
+    {
+      "path": "docs",
+      "tracked_files": 1589,
+      "selected_files": 0,
+      "languages": {
+        "JavaScript": 5,
+        "Python": 2
+      }
+    },
+    {
+      "path": "e2e",
+      "tracked_files": 288,
+      "selected_files": 0,
+      "languages": {
+        "JavaScript": 1,
+        "TypeScript": 46
+      }
+    },
+    {
+      "path": "modules",
+      "tracked_files": 1160,
+      "selected_files": 48,
+      "languages": {
+        "JavaScript": 44,
+        "Python": 1,
+        "TypeScript/React": 382,
+        "TypeScript": 490
+      }
+    },
+    {
+      "path": "platform",
+      "tracked_files": 24,
+      "selected_files": 0,
+      "languages": {
+        "Rust": 13
+      }
+    },
+    {
+      "path": "plugins",
+      "tracked_files": 57,
+      "selected_files": 0,
+      "languages": {
+        "Python": 27,
+        "TypeScript/React": 2,
+        "TypeScript": 13,
+        "JavaScript": 1
+      }
+    },
+    {
+      "path": "pre-commit",
+      "tracked_files": 3,
+      "selected_files": 0,
+      "languages": {}
+    },
+    {
+      "path": "scripts",
+      "tracked_files": 120,
+      "selected_files": 0,
+      "languages": {
+        "Python": 70,
+        "JavaScript": 2
+      }
+    },
+    {
+      "path": "server",
+      "tracked_files": 1417,
+      "selected_files": 142,
+      "languages": {
+        "CMake": 13,
+        "Python": 4,
+        "Shell": 1,
+        "C/C++ header": 598,
+        "C++": 725
+      }
+    },
+    {
+      "path": "streamer",
+      "tracked_files": 4,
+      "selected_files": 0,
+      "languages": {
+        "Python": 2
+      }
+    },
+    {
+      "path": "test",
+      "tracked_files": 148,
+      "selected_files": 0,
+      "languages": {
+        "Python": 5
+      }
+    }
+  ],
+  "manifests": [
+    {
+      "path": "docker/requirements.txt",
+      "line": 1,
+      "kind": "requirements.txt",
+      "selected": false
+    },
+    {
+      "path": "docs/requirements.txt",
+      "line": 1,
+      "kind": "requirements.txt",
+      "selected": false
+    },
+    {
+      "path": "e2e/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/cluster/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/compute/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/framework/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": true
+    },
+    {
+      "path": "modules/leaks/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/lib/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": true
+    },
+    {
+      "path": "modules/memory-on-chip/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/memory/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": true
+    },
+    {
+      "path": "modules/numa/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/operator/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": true
+    },
+    {
+      "path": "modules/reinforcement-learning/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/statistic/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "modules/timeline/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": true
+    },
+    {
+      "path": "package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": true
+    },
+    {
+      "path": "platform/Cargo.toml",
+      "line": 1,
+      "kind": "Cargo.toml",
+      "selected": false
+    },
+    {
+      "path": "platform/linux/Cargo.toml",
+      "line": 1,
+      "kind": "Cargo.toml",
+      "selected": false
+    },
+    {
+      "path": "plugins/jupyterlab/package.json",
+      "line": 1,
+      "kind": "package.json",
+      "selected": false
+    },
+    {
+      "path": "plugins/jupyterlab/pyproject.toml",
+      "line": 1,
+      "kind": "pyproject.toml",
+      "selected": false
+    },
+    {
+      "path": "plugins/jupyterlab/requirements.txt",
+      "line": 1,
+      "kind": "requirements.txt",
+      "selected": false
+    },
+    {
+      "path": "pre-commit/pyproject.toml",
+      "line": 1,
+      "kind": "pyproject.toml",
+      "selected": false
+    },
+    {
+      "path": "scripts/cpu_binding_tools/requirements.txt",
+      "line": 1,
+      "kind": "requirements.txt",
+      "selected": false
+    },
+    {
+      "path": "server/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/build/requirements.txt",
+      "line": 1,
+      "kind": "requirements.txt",
+      "selected": false
+    },
+    {
+      "path": "server/msinsight/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/src/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/src/entry/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/src/entry/server/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/src/entry/server/bin/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/src/test/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/src/test/fuzz/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/third_party/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    },
+    {
+      "path": "server/third_party/sqlite/CMakeLists.txt",
+      "line": 1,
+      "kind": "CMakeLists.txt",
+      "selected": false
+    }
+  ],
+  "capabilities": [
+    {
+      "id": "protocol_transport",
+      "support": "partial",
+      "boundary": "P2/P3 custom WS and iframe mechanism; other protocols unvalidated",
+      "signal_count": 401,
+      "candidate_files": 96,
+      "selected_candidate_files": 14,
+      "evidence": [
+        {
+          "path": "build/ci-build-scripts/ci-build-common.sh",
+          "line": 64,
+          "excerpt": "# Immutable commit behind uWebSockets v20.48.0, verified against both the",
+          "graph_input": false
+        },
+        {
+          "path": "build/ci-build-scripts/ci-build-common.sh",
+          "line": 365,
+          "excerpt": "local dependency_dir=\"${SOURCE_DIR}/server/third_party/uWebSockets\"",
+          "graph_input": false
+        },
+        {
+          "path": "build/ci-build-scripts/ci-build-common.sh",
+          "line": 379,
+          "excerpt": "|| die \"cannot verify cached uWebSockets revision: ${dependency_dir} is not a Git checkout\"",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "WebSocket|postMessage\\s*\\(|fetch\\s*\\(|XMLHttpRequest|\\b(?:send|recv|accept)\\s*\\(",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 401,
+      "evidence_truncated": true
+    },
+    {
+      "id": "registration_dispatch",
+      "support": "partial",
+      "boundary": "Source maps/factories and handler candidates; dynamic plugin registration unknown",
+      "signal_count": 8420,
+      "candidate_files": 937,
+      "selected_candidate_files": 133,
+      "evidence": [
+        {
+          "path": "build/ci-build-scripts/ci-build-common.sh",
+          "line": 88,
+          "excerpt": "# never registered here.",
+          "graph_input": false
+        },
+        {
+          "path": "modules/.eslintrc.js",
+          "line": 112,
+          "excerpt": "'n/no-callback-literal': ['off'],",
+          "graph_input": false
+        },
+        {
+          "path": "modules/cluster/src/components/__tests__/CommunicationMatrix.test.tsx",
+          "line": 42,
+          "excerpt": "const callbacks = new Map<Element, () => void>();",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "(?:[Rr]egister|[Rr]outer|[Hh]andlerMap|[Pp]rotocol|[Cc]allback)",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 8420,
+      "evidence_truncated": true
+    },
+    {
+      "id": "frontend_state",
+      "support": "partial",
+      "boundary": "Selected await/Promise.then and named React.useState; other hooks and functional updaters incomplete",
+      "signal_count": 2166,
+      "candidate_files": 302,
+      "selected_candidate_files": 11,
+      "evidence": [
+        {
+          "path": "modules/cluster/src/CommunicationIndex.tsx",
+          "line": 18,
+          "excerpt": "import React, { useEffect, useState } from 'react';",
+          "graph_input": false
+        },
+        {
+          "path": "modules/cluster/src/CommunicationIndex.tsx",
+          "line": 34,
+          "excerpt": "const [locale, setLocale] = useState<'zhCN' | 'enUS'>('zhCN');",
+          "graph_input": false
+        },
+        {
+          "path": "modules/cluster/src/CommunicationIndex.tsx",
+          "line": 36,
+          "excerpt": "useEffect(() => {",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\b(?:useState|useReducer|useEffect|useRef|makeAutoObservable|runInAction)\\b",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 2166,
+      "evidence_truncated": true
+    },
+    {
+      "id": "promise_callback",
+      "support": "partial",
+      "boundary": "Selected Promise delivery, C++ callbacks and captures; arbitrary callback effects incomplete",
+      "signal_count": 1246,
+      "candidate_files": 317,
+      "selected_candidate_files": 26,
+      "evidence": [
+        {
+          "path": "e2e/src/components/Checkbox.ts",
+          "line": 22,
+          "excerpt": "async click(): Promise<void> {",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/src/components/Checkbox.ts",
+          "line": 28,
+          "excerpt": "async isChecked(): Promise<boolean> {",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/src/components/Component.ts",
+          "line": 42,
+          "excerpt": "async isVisible(): Promise<void> {",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\bPromise\\b|\\.then\\s*\\(|\\.catch\\s*\\(|std::function|\\bcallback\\b",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 1246,
+      "evidence_truncated": true
+    },
+    {
+      "id": "event_subscription",
+      "support": "partial",
+      "boundary": "Selected WS/window listeners; general event buses unexpanded",
+      "signal_count": 255,
+      "candidate_files": 67,
+      "selected_candidate_files": 2,
+      "evidence": [
+        {
+          "path": "docs/_static/mermaid_init.js",
+          "line": 19,
+          "excerpt": "document.addEventListener('DOMContentLoaded', function() {",
+          "graph_input": false
+        },
+        {
+          "path": "docs/_static/public_operation.js",
+          "line": 19,
+          "excerpt": "document.addEventListener('DOMContentLoaded', function () {",
+          "graph_input": false
+        },
+        {
+          "path": "docs/_static/repo_links.js",
+          "line": 19,
+          "excerpt": "window.addEventListener('DOMContentLoaded', function () {",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "addEventListener|removeEventListener|\\b(?:subscribe|unsubscribe|emit|publish)\\s*\\(",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 255,
+      "evidence_truncated": true
+    },
+    {
+      "id": "database_sql",
+      "support": "partial",
+      "boundary": "DB/Text implementation candidates and selected output fields; general SQL lineage/transactions unexpanded",
+      "signal_count": 5262,
+      "candidate_files": 194,
+      "selected_candidate_files": 14,
+      "evidence": [
+        {
+          "path": "scripts/MemSnapDump/test/tools_test/snapshot2db_test.py",
+          "line": 158,
+          "excerpt": "conn.execute(\"CREATE TABLE consumer_cache(value TEXT)\")",
+          "graph_input": false
+        },
+        {
+          "path": "scripts/MemSnapDump/test/tools_test/snapshot2db_test.py",
+          "line": 159,
+          "excerpt": "conn.execute(\"INSERT INTO consumer_cache VALUES ('keep')\")",
+          "graph_input": false
+        },
+        {
+          "path": "scripts/MemSnapDump/test/tools_test/snapshot2db_test.py",
+          "line": 164,
+          "excerpt": "self.assertEqual(conn.execute(\"SELECT value FROM consumer_cache\").fetchall(), [('keep',)])",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\b(?:SELECT\\s|INSERT\\s|UPDATE\\s|DELETE\\s|sqlite3_|ExecuteQuery|ExecuteSql|CREATE TABLE)",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 5262,
+      "evidence_truncated": true
+    },
+    {
+      "id": "cache_shared_state",
+      "support": "partial",
+      "boundary": "Member reads/writes, selected source instances and literal-key isolation; complete alias/key/lifetime proof absent",
+      "signal_count": 4590,
+      "candidate_files": 682,
+      "selected_candidate_files": 62,
+      "evidence": [
+        {
+          "path": "build/build.py",
+          "line": 795,
+          "excerpt": "logging.error(\"Clean backend build cache failed\")",
+          "graph_input": false
+        },
+        {
+          "path": "build/ci-build-scripts/ci-build-common.sh",
+          "line": 576,
+          "excerpt": "# Normalize a proven CRLF-only cache after every path validates.",
+          "graph_input": false
+        },
+        {
+          "path": "build/ci-build-scripts/ci-build-common.sh",
+          "line": 593,
+          "excerpt": "# Prevent a migrated cache from being converted again by a later checkout.",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\b(?:cache|Cache|singleton|Instance)\\b|std::(?:unordered_)?map\\s*<",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 4590,
+      "evidence_truncated": true
+    },
+    {
+      "id": "field_transform_serialization",
+      "support": "partial",
+      "boundary": "Selected JSON and response fields; arbitrary conversion/value equivalence unproved",
+      "signal_count": 2145,
+      "candidate_files": 140,
+      "selected_candidate_files": 14,
+      "evidence": [
+        {
+          "path": "e2e/src/utils/index.ts",
+          "line": 90,
+          "excerpt": "const res = JSON.parse(event.payload);",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/src/utils/index.ts",
+          "line": 122,
+          "excerpt": "const res = JSON.parse(event.payload);",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/src/utils/index.ts",
+          "line": 149,
+          "excerpt": "const request = JSON.parse(payload.toString());",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "JSON\\.(?:parse|stringify)|AddMember\\s*\\(|rapidjson|serialize|deserialize",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 2145,
+      "evidence_truncated": true
+    },
+    {
+      "id": "threads_tasks",
+      "support": "partial",
+      "boundary": "Selected response queue lineage and P5 request IDs; general scheduler/interleavings unexpanded",
+      "signal_count": 243,
+      "candidate_files": 60,
+      "selected_candidate_files": 9,
+      "evidence": [
+        {
+          "path": "modules/leaks/src/leaksWorker/blockWorker/worker.ts",
+          "line": 30,
+          "excerpt": "export const BlockWorker = new Worker(new URL('./', import.meta.url));",
+          "graph_input": false
+        },
+        {
+          "path": "modules/leaks/src/leaksWorker/stateWorker/worker.ts",
+          "line": 21,
+          "excerpt": "export const StateWorker = new Worker(new URL('./', import.meta.url));",
+          "graph_input": false
+        },
+        {
+          "path": "server/msinsight/include/utils/ThreadPool.h",
+          "line": 33,
+          "excerpt": "class ThreadPool {",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "std::thread|ThreadPool|threadPool|\\bSubmit\\s*\\(|std::async|QThread|Worker\\s*\\(",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 243,
+      "evidence_truncated": true
+    },
+    {
+      "id": "locks_concurrency",
+      "support": "inventory_only",
+      "boundary": "Lock source locations; no happens-before or deadlock proof",
+      "signal_count": 476,
+      "candidate_files": 106,
+      "selected_candidate_files": 29,
+      "evidence": [
+        {
+          "path": "server/msinsight/include/base/ProtocolUtil.h",
+          "line": 135,
+          "excerpt": "std::mutex mutex;",
+          "graph_input": true
+        },
+        {
+          "path": "server/msinsight/include/utils/SafeQueue.h",
+          "line": 28,
+          "excerpt": "std::unique_lock<std::mutex> lock(mutex);",
+          "graph_input": false
+        },
+        {
+          "path": "server/msinsight/include/utils/SafeQueue.h",
+          "line": 33,
+          "excerpt": "std::unique_lock<std::mutex> lock(mutex);",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "std::(?:mutex|shared_mutex|unique_lock|lock_guard|atomic)|condition_variable",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 476,
+      "evidence_truncated": true
+    },
+    {
+      "id": "lifetime_cleanup",
+      "support": "partial",
+      "boundary": "Selected cleanup calls and member effects; ownership, capacity and RSS unmeasured",
+      "signal_count": 616,
+      "candidate_files": 231,
+      "selected_candidate_files": 22,
+      "evidence": [
+        {
+          "path": "build/ci-build-scripts/ci-build-common.sh",
+          "line": 681,
+          "excerpt": "# Keep URL generation free of filesystem/network side effects so all path",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/src/page-object/framework.ts",
+          "line": 63,
+          "excerpt": "this.deleteSelectedBtn = page.getByTestId('btn-delete');",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/src/page-object/framework.ts",
+          "line": 78,
+          "excerpt": "this.deleteProjectsDialog = page.getByText('Are you sure to delete');",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\b(?:delete|free)\\b|\\.reset\\s*\\(|\\b(?:Close|Shutdown|Dispose|Release|Clear)\\s*\\(",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 616,
+      "evidence_truncated": true
+    },
+    {
+      "id": "cancellation_timeout",
+      "support": "inventory_only",
+      "boundary": "Source candidates; end-to-end cancellation/timeouts not accepted",
+      "signal_count": 331,
+      "candidate_files": 108,
+      "selected_candidate_files": 6,
+      "evidence": [
+        {
+          "path": "build/build.py",
+          "line": 280,
+          "excerpt": "'--timeout',",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 647,
+          "excerpt": "process.communicate(timeout=600)",
+          "graph_input": false
+        },
+        {
+          "path": "build/build_mac_program.py",
+          "line": 144,
+          "excerpt": "def execute_cmd(ssh_client, cmd, timeout: int = 3*60, sensitive: bool = False, *args):",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "AbortController|AbortSignal|\\b(?:cancel|Cancel|timeout|Timeout)\\b|setTimeout|clearTimeout",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 331,
+      "evidence_truncated": true
+    },
+    {
+      "id": "errors_retries",
+      "support": "partial",
+      "boundary": "Selected error/early-return and late-response guards; general retry/idempotency unvalidated",
+      "signal_count": 598,
+      "candidate_files": 223,
+      "selected_candidate_files": 23,
+      "evidence": [
+        {
+          "path": "docs/_static/mermaid_init.js",
+          "line": 49,
+          "excerpt": "} catch (error) {",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/playwright.config.ts",
+          "line": 49,
+          "excerpt": "throw new Error(`Unsupported platform: ${platform}`);",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/playwright.config.ts",
+          "line": 67,
+          "excerpt": "/* No retry */",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\b(?:throw|catch|retry|Retry)\\b|Promise\\.reject|set_exception",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 598,
+      "evidence_truncated": true
+    },
+    {
+      "id": "files_external_process",
+      "support": "inventory_only",
+      "boundary": "Source candidates; file/process boundaries unconnected",
+      "signal_count": 324,
+      "candidate_files": 104,
+      "selected_candidate_files": 3,
+      "evidence": [
+        {
+          "path": "build/build.py",
+          "line": 30,
+          "excerpt": "import subprocess",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 145,
+          "excerpt": "with subprocess.Popen(build_modules, cwd=modules_dir, stdout=subprocess.PIPE):",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 147,
+          "excerpt": "with subprocess.Popen(build_platform, cwd=platform_dir, stdout=subprocess.PIPE):",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\b(?:fopen|ifstream|ofstream|popen|fork|exec|spawn|subprocess|Command::new)\\b",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 324,
+      "evidence_truncated": true
+    },
+    {
+      "id": "configuration_build",
+      "support": "partial",
+      "boundary": "Manifest inventory and graph deployment binding; complete variant/build graph unexpanded",
+      "signal_count": 1018,
+      "candidate_files": 686,
+      "selected_candidate_files": 106,
+      "evidence": [
+        {
+          "path": "build/build.py",
+          "line": 266,
+          "excerpt": "if os.getenv('BUILD_JUPYTERLAB', '').lower() != 'true':",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 368,
+          "excerpt": "if os.getenv('BEPHOME') is not None:  # 规避目前cargo不能跑bep问题",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 426,
+          "excerpt": "NSIS_PATH = os.getenv('NSIS_PATH', 'C:\\\\Program Files (x86)\\\\NSIS')",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "process\\.env|\\bgetenv\\b|#if|CMAKE_|\\boption\\s*\\(|cfg\\s*!?\\(",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 1018,
+      "evidence_truncated": true
+    },
+    {
+      "id": "ffi_native_plugin",
+      "support": "inventory_only",
+      "boundary": "Source candidates; Rust/Python/native/plugin edges unconnected",
+      "signal_count": 204,
+      "candidate_files": 45,
+      "selected_candidate_files": 3,
+      "evidence": [
+        {
+          "path": "build/build.py",
+          "line": 68,
+          "excerpt": "BIN_SUFFIX = '.exe' if platform.system() == WINDOWS_OS else ''",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 77,
+          "excerpt": "PACKAGE_SUFFIX = PRODUCT_FORMAT.get(platform.system(), '.zip')",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 261,
+          "excerpt": "return f\"{Const.ASCEND_INSIGHT_PREFIX}_{version}_{os_tag}{Const.PACKAGE_SUFFIX}\"",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "extern\\s+\"C\"|ctypes|cffi|pybind|napi_|FFI|dlopen|LoadLibrary|\\btauri\\b",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 204,
+      "evidence_truncated": true
+    },
+    {
+      "id": "background_entry",
+      "support": "inventory_only",
+      "boundary": "Entry candidates; background workflows not traced",
+      "signal_count": 149,
+      "candidate_files": 63,
+      "selected_candidate_files": 1,
+      "evidence": [
+        {
+          "path": "build/build.py",
+          "line": 869,
+          "excerpt": "def main():",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 891,
+          "excerpt": "if __name__ == \"__main__\":",
+          "graph_input": false
+        },
+        {
+          "path": "build/build.py",
+          "line": 892,
+          "excerpt": "sys.exit(main())",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\bmain\\s*\\(|__main__|\\b(?:schedule|setInterval|cron)\\b|jupyter_server_extension",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 149,
+      "evidence_truncated": true
+    },
+    {
+      "id": "tests_assertions",
+      "support": "partial",
+      "boundary": "P5 real unit/flows scenarios; general requirement-to-test coverage not established",
+      "signal_count": 17847,
+      "candidate_files": 502,
+      "selected_candidate_files": 4,
+      "evidence": [
+        {
+          "path": "e2e/playwright.config.ts",
+          "line": 60,
+          "excerpt": "* Maximum time expect() should wait for the condition to be met.",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/playwright.config.ts",
+          "line": 61,
+          "excerpt": "* For example in `await expect(locator).toHaveText();`",
+          "graph_input": false
+        },
+        {
+          "path": "e2e/src/components/Component.ts",
+          "line": 43,
+          "excerpt": "await expect(this.locator).toBeVisible();",
+          "graph_input": false
+        }
+      ],
+      "signal_rule": "\\b(?:assert|ASSERT_[A-Z_]+|EXPECT_[A-Z_]+|describe|test|it|expect)\\s*\\(",
+      "finding_kind": "lexical_candidate_not_semantic_relation",
+      "no_signal_meaning": "unknown_not_absent",
+      "evidence_total": 17847,
+      "evidence_truncated": true
+    }
+  ],
+  "limits": [
+    "lexical_signals_can_match_comments_strings_and_tests",
+    "signals_are_not_extracted_connections",
+    "no_automatic_completeness_proof_for_language_or_framework_mechanisms",
+    "runtime_coverage_only_for_recorded_P5_unit_flows_scenarios",
+    "P6_assets_not_connected"
+  ],
+  "publication": "counts and at most three lexical examples per category; regenerate full catalog with coverage_catalog.py"
+}
