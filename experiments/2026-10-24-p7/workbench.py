@@ -41,7 +41,7 @@ def main():
         if not a.select:
             lines=text.splitlines();text='\n'.join(f'{i+1}: {lines[i]}' for i in range(max(0,a.start-1),min(len(lines),a.start-1+min(a.count,200))))
     else:
-        result=subprocess.run([sys.executable,str(ROOT/'experiments/2026-10-24-p7/query.py'),
+        result=subprocess.run([sys.executable,'-X','utf8',str(ROOT/'experiments/2026-10-24-p7/query.py'),
             '--graph',str(ROOT/'graph.json'),'--inventory',str(ROOT/'inventory.json'),
             '--catalog',str(ROOT/'coverage-catalog.json'),*a.args],capture_output=True,text=True,encoding='utf-8')
         if result.returncode:raise RuntimeError(result.stderr)
