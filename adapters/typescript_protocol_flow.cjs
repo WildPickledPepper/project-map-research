@@ -5,7 +5,7 @@
 const fs=require('node:fs'),path=require('node:path');
 const {analyze}=require('./typescript_facts.cjs');
 
-function extract(ctx) {
+function extract(ctx,{forwarded=[],receiversOnly=false}={}) {
   const {ts,checker,loc,id,walk,callableOwner,facts,sfList}=ctx;
   const sourceFiles=new Set(ctx.relativeFiles);
   const bindingsByCall=new Map();for(const edge of facts.edges)if(edge.kind==='USES_BINDING'){
@@ -21,6 +21,13 @@ function extract(ctx) {
     if(v.tag==='object')return {state:'object',fields:Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,plain(x,depth+1)]))};
     if(v.tag==='json')return {state:'json_string',value:plain(v.value,depth+1)};
     return {state:'unknown',reason:v.reason||v.tag};
+  }
+  function symbolic(v){
+    if(v.state==='constant')return lit(v.value);
+    if(v.state==='undefined')return lit(undefined);
+    if(v.state==='object')return obj(Object.fromEntries(Object.entries(v.fields).map(([k,x])=>[k,symbolic(x)])));
+    if(v.state==='json_string')return {tag:'json',value:symbolic(v.value)};
+    return unk(v.reason||'forwarded_value_unknown');
   }
   function clone(v,memo=new Map()) {
     if(v?.tag!=='object')return v;if(memo.has(v))return memo.get(v);
@@ -191,37 +198,58 @@ function extract(ctx) {
   }
   for(const sf of sfList)walk(sf,n=>{if(ts.isFunctionLike(n))ast.set(id(n,'callable'),n);if(ts.isBinaryExpression(n))ast.set(id(n,'binding'),n);});
   const setters=new Map(),registrations=[];
-  for(const sf of sfList)walk(sf,n=>{if(!ts.isMethodDeclaration(n)||!n.body)return;walk(n.body,x=>{
+  for(const sf of ctx.dependencyFiles||sfList)walk(sf,n=>{if(!ts.isMethodDeclaration(n)||!n.body)return;walk(n.body,x=>{
     if(!ts.isBinaryExpression(x)||x.operatorToken.kind!==ts.SyntaxKind.EqualsToken||!ts.isPropertyAccessExpression(x.left)||x.left.expression.kind!==ts.SyntaxKind.ThisKeyword)return;
     const index=n.parameters.indexOf(decl(x.right));if(index>=0)setters.set(n,{slot:x.left.name.text,index,evidence:src(x)});
   });});
   for(const call of ctx.calls){if(!ts.isCallExpression(call)||!ts.isPropertyAccessExpression(call.expression))continue;const target=checker.getResolvedSignature(call)?.declaration,rule=setters.get(target),arg=rule&&call.arguments[rule.index];
     if(rule&&arg&&(ts.isArrowFunction(arg)||ts.isFunctionExpression(arg))&&ts.isClassDeclaration(target.parent))registrations.push({cls:target.parent,callback:arg,slot:rule.slot,call,setter:rule.evidence});}
-  for(const call of ctx.calls) {
+  function dispatch(item,sent,c){for(const registration of registrations) {
+    const receiver={tag:'object',props:{[registration.slot]:fn(registration.callback,new Map())},classNode:registration.cls},handlers=[];
+    for(let cls=registration.cls;cls;cls=base(cls))for(const member of cls.members)if(ts.isConstructorDeclaration(member)&&member.body)walk(member.body,x=>{
+      if(ts.isBinaryExpression(x)&&x.operatorToken.kind===ts.SyntaxKind.EqualsToken&&ts.isPropertyAccessExpression(x.left)&&x.left.name.text==='onmessage'&&(ts.isArrowFunction(x.right)||ts.isFunctionExpression(x.right)))handlers.push(x.right);
+    });
+    for(const handler of handlers){const before=item.boundaries.length;item.events=[...sent.events,{kind:'callback_registration',...src(registration.call),setter:registration.setter,slot:registration.slot},{kind:'message_receiver',...src(handler),connection:'deployment_scope_required'}];
+      invoke(fn(handler,new Map(),receiver),[obj({data:{tag:'json',value:clone(sent.payload)}})],{...c,receiver,conditions:[...c.conditions,'registered_receiver_is_message_destination']});
+      for(const boundary of item.boundaries.slice(before))boundary.receiver_scope=loc(registration.call).path;
+    }
+  }}
+  for(const call of receiversOnly?[]:ctx.calls) {
     const callId=id(call,'call_site'),bindings=bindingsByCall.get(callId)||[];if(!bindings.length)continue;
     const owner=callableOwner(call),item={id:'protocol:'+callId,source_call:callId,source_owner:owner?id(owner,'callable'):null,name:owner?ctx.qualified(owner):call.expression.getText(),...loc(call),binding_count:bindings.length,events:[],boundaries:[]};
     active=item;steps=0;if(bindings.length!==1){item.status='ambiguous_binding';consumers.push(item);continue;}
     const binding=ast.get(bindings[0].target),c={env:new Map(),resolving:new Set(),receiver:null,depth:0,current:null,conditions:[bindings[0].condition]};
     const closure=binding?ev(binding.right,c):unk('binding_missing');if(closure.tag!=='function'){item.status='unknown_callable';consumers.push(item);continue;}
     note(binding,'property_binding',{source_binding:bindings[0].target},c);invoke(closure,(call.arguments||[]).map(a=>ev(a,c)),c,call);
-    for(const sent of [...item.boundaries].filter(b=>b.transport==='window.postMessage'))for(const registration of registrations) {
-      const receiver={tag:'object',props:{[registration.slot]:fn(registration.callback,new Map())},classNode:registration.cls},handlers=[];
-      for(let cls=registration.cls;cls;cls=base(cls))for(const member of cls.members)if(ts.isConstructorDeclaration(member)&&member.body)walk(member.body,x=>{
-        if(ts.isBinaryExpression(x)&&x.operatorToken.kind===ts.SyntaxKind.EqualsToken&&ts.isPropertyAccessExpression(x.left)&&x.left.name.text==='onmessage'&&(ts.isArrowFunction(x.right)||ts.isFunctionExpression(x.right)))handlers.push(x.right);
-      });
-      for(const handler of handlers){const before=item.boundaries.length;item.events=[...sent.events,{kind:'callback_registration',...src(registration.call),setter:registration.setter,slot:registration.slot},{kind:'message_receiver',...src(handler),connection:'deployment_scope_required'}];
-        invoke(fn(handler,new Map(),receiver),[obj({data:{tag:'json',value:clone(sent.payload)}})],{...c,receiver,conditions:[...c.conditions,'registered_receiver_is_message_destination']});
-        for(const boundary of item.boundaries.slice(before))boundary.receiver_scope=loc(registration.call).path;
-      }
-    }
+    for(const sent of [...item.boundaries].filter(b=>b.transport==='window.postMessage'))dispatch(item,sent,c);
     item.status=item.boundaries.length?'transport_found':'no_transport_found';consumers.push(item);
+  }
+  if(registrations.length)for(const input of forwarded){
+    const item={...input.consumer,events:[],boundaries:[]};active=item;steps=0;
+    dispatch(item,{...input.boundary,payload:symbolic(input.boundary.payload)},
+      {env:new Map(),resolving:new Set(),receiver:null,depth:0,current:null,conditions:input.boundary.conditions||[]});
+    if(item.boundaries.length){item.status='transport_found';consumers.push(item);}
   }
   active=null;
   return {version:'0.2.0',consumers:consumers.map(t=>({...t,boundaries:t.boundaries.map(b=>({...b,payload:plain(b.payload)}))})),diagnostics,
     limits:['bounded_source_propagation','runtime_receiver_is_candidate','deployment_scope_required','unsupported_expressions_keep_unknown','unknown_control_flow_is_conditional']};
 }
 
-function analyzeProtocol(ts,root,files){return analyze(ts,root,files,{pathsFromConfigs:true,run:extract});}
+function analyzeProtocol(ts,root,files){
+  const result=analyze(ts,root,files,{pathsFromConfigs:true,run:ctx=>extract(ctx)});
+  const forwarded=result.protocol.consumers.flatMap(consumer=>consumer.boundaries.filter(b=>b.transport==='window.postMessage').map(boundary=>({consumer:{...consumer,boundaries:[],events:[]},boundary})));
+  if(forwarded.length){
+    const receivers=analyze(ts,root,files,{pathsFromConfigs:true,run:ctx=>extract(ctx,{forwarded,receiversOnly:true})});
+    const byId=new Map(result.protocol.consumers.map(c=>[c.id,c]));
+    for(const consumer of receivers.protocol.consumers){const original=byId.get(consumer.id);
+      original.boundaries=[...new Map([...original.boundaries,...consumer.boundaries].map(b=>[JSON.stringify(b),b])).values()];
+      original.status=original.boundaries.length?'transport_found':original.status;
+    }
+    result.protocol.diagnostics=[...new Map([...result.protocol.diagnostics,...receivers.protocol.diagnostics].map(d=>[JSON.stringify(d),d])).values()];
+    result.protocol.limits.push('cross_unit_window_dispatch_is_source_candidate_requires_deployment');
+  }
+  return result;
+}
 module.exports={analyzeProtocol};
 if(require.main===module){const [root,manifest,tsModule,output]=process.argv.slice(2),ts=require(path.resolve(tsModule));if(ts.version!=='5.9.3')throw new Error('Expected TypeScript 5.9.3');if(fs.existsSync(output))throw new Error('Use a new output file');
   const g=analyzeProtocol(ts,root,JSON.parse(fs.readFileSync(manifest,'utf8')).files.map(f=>f.path));fs.writeFileSync(output,JSON.stringify(g,null,2)+'\n');process.stdout.write(JSON.stringify({consumers:g.protocol.consumers.length,boundaries:g.protocol.consumers.flatMap(c=>c.boundaries).length})+'\n');}

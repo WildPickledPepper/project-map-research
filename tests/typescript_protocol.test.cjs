@@ -65,3 +65,29 @@ test('wire snapshot survives later mutation; finally writes happen before subseq
   assert.equal(sent(graph(f))[0].payload.fields.verb.value,'alpha/read');
   assert.equal(sent(graph(fixture('try{}finally{packet.verb="finally";}')))[0].payload.fields.verb.value,'finally');
 });
+
+function separatedWindowFixture(event='ask'){
+  return {'client/package.json':'{"name":"client"}','host/package.json':'{"name":"host"}',
+    'bridge/package.json':'{"name":"bridge"}',
+    'client/main.ts':`declare const b:{invoke:(x:string)=>void};
+      function make(){return (label:string)=>window.parent.postMessage(JSON.stringify({event:'${event}',args:{op:label},zone:'north'}),'*');}
+      b.invoke=make();export function enter(){b.invoke('alpha/read');}`,
+    'bridge/receiver.ts':`export class Receiver {cb:(p:any)=>void=()=>{};
+      constructor(){window.onmessage=event=>{const packet=JSON.parse(event.data);if(packet.event==='ask')this.cb(packet);};}
+      set(cb:(p:any)=>void){this.cb=cb;}}`,
+    'host/main.ts':`import {Receiver} from '../bridge/receiver';declare const socket:WebSocket;
+      const receiver=new Receiver();receiver.set(body=>socket.send(JSON.stringify({verb:body.args.op,zone:body.zone})));`};
+}
+test('cross-package Window messages reach an independently analyzed receiver and socket',()=>{
+  const g=graph(separatedWindowFixture()),boundary=sent(g)[0];
+  assert(boundary);assert.equal(boundary.payload.fields.verb.value,'alpha/read');
+  assert.equal(boundary.payload.fields.zone.value,'north');
+  assert.equal(boundary.receiver_scope,'host/main.ts');
+  assert(boundary.conditions.includes('registered_receiver_is_message_destination'));
+  assert.equal(g.analysis_units.length,3);
+});
+test('cross-package forwarding respects message filters and deleted callback registration',()=>{
+  assert.equal(sent(graph(separatedWindowFixture('other'))).length,0);
+  const files=separatedWindowFixture();files['host/main.ts']=files['host/main.ts'].replace(/receiver.set\(body=>.*;/,'');
+  assert.equal(sent(graph(files)).length,0);
+});

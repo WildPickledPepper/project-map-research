@@ -76,6 +76,12 @@ def build(source, request, output, log, *, typescript):
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
+    write_json(output/'protocol-checkpoint.json', {'stage': 'protocol_only_not_complete_graph',
+        'source_commit': revision, 'build_version': request['build_version'],
+        'protocol': graph['protocol'], 'nodes': [n for n in graph['nodes'] if n['kind'] == 'protocol_message'],
+        'edges': [e for e in graph['edges'] if e['kind'] == 'EMITS_MESSAGE']})
+    from collections import Counter
+    print('Protocol joins ' + json.dumps(dict(Counter(r['status'] for r in graph['protocol']['results']))), file=log, flush=True)
     print('Extract C++ data, objects and fields', file=log, flush=True)
     graph = data_graph(graph, extractor.build(), paths)
     # Node phases consume boundary identities, never the multi-hundred-MB graph.
