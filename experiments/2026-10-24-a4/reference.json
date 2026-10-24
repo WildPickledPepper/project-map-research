@@ -1,0 +1,496 @@
+{
+  "evidence_kind": "manual_source_audit_reference_before_graph_queries",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "protocol_commit": "379da8d",
+  "tool_baseline": "b85ba0cb3cfc0d89856ce7fed63ca28da705c215",
+  "selection": "first two exported request APIs by product source path and declaration line, in each preselected module",
+  "reference_used_for_extraction": false,
+  "cases": [
+    {
+      "id": "cluster-iterations",
+      "module": "cluster",
+      "api": "queryIterations",
+      "api_path": "modules/cluster/src/utils/RequestUtils.ts",
+      "command": "communication/duration/iterations",
+      "scope": "cluster",
+      "constant": "REQ_RES_COMMUNICATION_ITERATIONS",
+      "handler_suffix": "IterationsHandler::HandleRequest",
+      "handler_path": "server/src/modules/communication/handler/IterationsHandler.cpp",
+      "producer_suffix": "ClusterService::QueryIterations",
+      "producer_path": "server/src/modules/communication/core/ClusterService.cpp",
+      "field": [
+        "iterationOrRankId"
+      ],
+      "consumer_path": "modules/cluster/src/components/communication/Filter.tsx",
+      "consumer": "getiterationOptions",
+      "state": null,
+      "anchors": {
+        "api": {
+          "path": "modules/cluster/src/utils/RequestUtils.ts",
+          "line": 54,
+          "needle": "export const queryIterations",
+          "all_matching_lines": [
+            54
+          ]
+        },
+        "command": {
+          "path": "server/src/modules/defs/ProtocolDefs.h",
+          "line": 125,
+          "needle": "REQ_RES_COMMUNICATION_ITERATIONS =",
+          "all_matching_lines": [
+            125
+          ]
+        },
+        "registration": {
+          "path": "server/src/modules/communication/CommunicationModule.cpp",
+          "line": 47,
+          "needle": "requestHandlerMap.emplace(REQ_RES_COMMUNICATION_ITERATIONS",
+          "all_matching_lines": [
+            47
+          ]
+        },
+        "handler": {
+          "path": "server/src/modules/communication/handler/IterationsHandler.cpp",
+          "line": 31,
+          "needle": "IterationsHandler::HandleRequest",
+          "all_matching_lines": [
+            31
+          ]
+        },
+        "producer": {
+          "path": "server/src/modules/communication/core/ClusterService.cpp",
+          "line": 199,
+          "needle": "ClusterService::QueryIterations(",
+          "all_matching_lines": [
+            199
+          ]
+        },
+        "serialization": {
+          "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+          "line": 111,
+          "needle": "\"iterationOrRankId\"",
+          "all_matching_lines": [
+            111
+          ]
+        },
+        "consumer": {
+          "path": "modules/cluster/src/components/communication/Filter.tsx",
+          "line": 172,
+          "needle": "getiterationOptions",
+          "all_matching_lines": [
+            172,
+            203
+          ]
+        }
+      }
+    },
+    {
+      "id": "cluster-stages",
+      "module": "cluster",
+      "api": "queryStages",
+      "api_path": "modules/cluster/src/utils/RequestUtils.ts",
+      "command": "communication/matrix/group",
+      "scope": "cluster",
+      "constant": "REQ_RES_COMMUNICATION_MATRIX_GROUP",
+      "handler_suffix": "GroupHandler::HandleRequest",
+      "handler_path": "server/src/modules/communication/handler/GroupHandler.cpp",
+      "producer_suffix": "ClusterService::QueryGroupInfo",
+      "producer_path": "server/src/modules/communication/core/ClusterService.cpp",
+      "field": [
+        "data"
+      ],
+      "consumer_path": "modules/cluster/src/components/communication/Filter.tsx",
+      "consumer": "getStageOptions",
+      "state": null,
+      "anchors": {
+        "api": {
+          "path": "modules/cluster/src/utils/RequestUtils.ts",
+          "line": 63,
+          "needle": "export const queryStages",
+          "all_matching_lines": [
+            63
+          ]
+        },
+        "command": {
+          "path": "server/src/modules/defs/ProtocolDefs.h",
+          "line": 150,
+          "needle": "REQ_RES_COMMUNICATION_MATRIX_GROUP =",
+          "all_matching_lines": [
+            150
+          ]
+        },
+        "registration": {
+          "path": "server/src/modules/communication/CommunicationModule.cpp",
+          "line": 51,
+          "needle": "requestHandlerMap.emplace(REQ_RES_COMMUNICATION_MATRIX_GROUP",
+          "all_matching_lines": [
+            51
+          ]
+        },
+        "handler": {
+          "path": "server/src/modules/communication/handler/GroupHandler.cpp",
+          "line": 30,
+          "needle": "GroupHandler::HandleRequest",
+          "all_matching_lines": [
+            30
+          ]
+        },
+        "producer": {
+          "path": "server/src/modules/communication/core/ClusterService.cpp",
+          "line": 217,
+          "needle": "ClusterService::QueryGroupInfo(",
+          "all_matching_lines": [
+            217
+          ]
+        },
+        "serialization": {
+          "path": "server/src/modules/communication/protocol/CommunicationProtocolUtil.cpp",
+          "line": 230,
+          "needle": "\"data\"",
+          "all_matching_lines": [
+            230,
+            257,
+            354
+          ]
+        },
+        "consumer": {
+          "path": "modules/cluster/src/components/communication/Filter.tsx",
+          "line": 144,
+          "needle": "getStageOptions",
+          "all_matching_lines": [
+            144,
+            179,
+            239
+          ]
+        }
+      }
+    },
+    {
+      "id": "operator-category",
+      "module": "operator",
+      "api": "queryOperatorCategory",
+      "api_path": "modules/operator/src/components/RequestUtils.ts",
+      "command": "operator/category",
+      "scope": "operator",
+      "constant": "REQ_RES_OPERATOR_CATEGORY_INFO",
+      "handler_suffix": "QueryOpCategoryInfoHandler::HandleRequest",
+      "handler_path": "server/src/modules/operator/handler/QueryOpCategoryInfoHandler.cpp",
+      "producer_suffix": "QueryOperatorDurationInfo",
+      "producer_path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+      "field": [
+        "data"
+      ],
+      "consumer_path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "consumer": "updateOpTypeData",
+      "state": "opTypeData",
+      "anchors": {
+        "api": {
+          "path": "modules/operator/src/components/RequestUtils.ts",
+          "line": 46,
+          "needle": "export const queryOperatorCategory",
+          "all_matching_lines": [
+            46
+          ]
+        },
+        "command": {
+          "path": "server/src/modules/defs/ProtocolDefs.h",
+          "line": 189,
+          "needle": "REQ_RES_OPERATOR_CATEGORY_INFO =",
+          "all_matching_lines": [
+            189
+          ]
+        },
+        "registration": {
+          "path": "server/src/modules/operator/OperatorModule.cpp",
+          "line": 37,
+          "needle": "requestHandlerMap.emplace(REQ_RES_OPERATOR_CATEGORY_INFO",
+          "all_matching_lines": [
+            37
+          ]
+        },
+        "handler": {
+          "path": "server/src/modules/operator/handler/QueryOpCategoryInfoHandler.cpp",
+          "line": 28,
+          "needle": "QueryOpCategoryInfoHandler::HandleRequest",
+          "all_matching_lines": [
+            28
+          ]
+        },
+        "producer": {
+          "path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+          "line": 189,
+          "needle": "QueryOperatorDurationInfo(",
+          "all_matching_lines": [
+            189
+          ]
+        },
+        "serialization": {
+          "path": "server/src/modules/operator/protocol/OperatorProtocolUtil.cpp",
+          "line": 37,
+          "needle": "\"data\"",
+          "all_matching_lines": [
+            37,
+            55,
+            92,
+            148,
+            192
+          ]
+        },
+        "consumer": {
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 147,
+          "needle": "updateOpTypeData",
+          "all_matching_lines": [
+            147,
+            154
+          ]
+        }
+      }
+    },
+    {
+      "id": "operator-compute",
+      "module": "operator",
+      "api": "queryOperatorComputeUnit",
+      "api_path": "modules/operator/src/components/RequestUtils.ts",
+      "command": "operator/compute_unit",
+      "scope": "operator",
+      "constant": "REQ_RES_OPERATOR_COMPUTE_UNIT_INFO",
+      "handler_suffix": "QueryOpComputeUnitHandler::HandleRequest",
+      "handler_path": "server/src/modules/operator/handler/QueryOpComputeUnitHandler.cpp",
+      "producer_suffix": "QueryOperatorDurationInfo",
+      "producer_path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+      "field": [
+        "data"
+      ],
+      "consumer_path": "modules/operator/src/components/operator/DetailChart.tsx",
+      "consumer": "updateComputeData",
+      "state": "computeData",
+      "anchors": {
+        "api": {
+          "path": "modules/operator/src/components/RequestUtils.ts",
+          "line": 58,
+          "needle": "export const queryOperatorComputeUnit",
+          "all_matching_lines": [
+            58
+          ]
+        },
+        "command": {
+          "path": "server/src/modules/defs/ProtocolDefs.h",
+          "line": 190,
+          "needle": "REQ_RES_OPERATOR_COMPUTE_UNIT_INFO =",
+          "all_matching_lines": [
+            190
+          ]
+        },
+        "registration": {
+          "path": "server/src/modules/operator/OperatorModule.cpp",
+          "line": 38,
+          "needle": "requestHandlerMap.emplace(REQ_RES_OPERATOR_COMPUTE_UNIT_INFO",
+          "all_matching_lines": [
+            38
+          ]
+        },
+        "handler": {
+          "path": "server/src/modules/operator/handler/QueryOpComputeUnitHandler.cpp",
+          "line": 28,
+          "needle": "QueryOpComputeUnitHandler::HandleRequest",
+          "all_matching_lines": [
+            28
+          ]
+        },
+        "producer": {
+          "path": "server/src/modules/operator/database/DbSummaryDataBase.cpp",
+          "line": 189,
+          "needle": "QueryOperatorDurationInfo(",
+          "all_matching_lines": [
+            189
+          ]
+        },
+        "serialization": {
+          "path": "server/src/modules/operator/protocol/OperatorProtocolUtil.cpp",
+          "line": 37,
+          "needle": "\"data\"",
+          "all_matching_lines": [
+            37,
+            55,
+            92,
+            148,
+            192
+          ]
+        },
+        "consumer": {
+          "path": "modules/operator/src/components/operator/DetailChart.tsx",
+          "line": 149,
+          "needle": "updateComputeData",
+          "all_matching_lines": [
+            149,
+            167
+          ]
+        }
+      }
+    },
+    {
+      "id": "leaks-blocks",
+      "module": "leaks",
+      "api": "getBlocksGraphData",
+      "api_path": "modules/leaks/src/features/memscope/api/requests.ts",
+      "command": "Memory/leaks/blocks",
+      "scope": "leaks",
+      "constant": "REQ_RES_MEM_SCOPE_MEMORY_BLOCKS",
+      "handler_suffix": "QueryMemScopeBlockHandler::HandleRequest",
+      "handler_path": "server/src/modules/memscope/handler/QueryMemScopeBlockHandler.cpp",
+      "producer_suffix": "MemScopeDatabase::QueryMemoryBlocks",
+      "producer_path": "server/src/modules/memscope/database/MemScopeDatabase.cpp",
+      "field": [
+        "blocks"
+      ],
+      "consumer_path": "modules/leaks/src/components/dataHandler.ts",
+      "consumer": "workerSetMemoryBlockData",
+      "state": null,
+      "anchors": {
+        "api": {
+          "path": "modules/leaks/src/features/memscope/api/requests.ts",
+          "line": 23,
+          "needle": "export const getBlocksGraphData",
+          "all_matching_lines": [
+            23
+          ]
+        },
+        "command": {
+          "path": "server/src/modules/defs/ProtocolDefs.h",
+          "line": 166,
+          "needle": "REQ_RES_MEM_SCOPE_MEMORY_BLOCKS =",
+          "all_matching_lines": [
+            166
+          ]
+        },
+        "registration": {
+          "path": "server/src/modules/memscope/MemScopeModule.cpp",
+          "line": 44,
+          "needle": "requestHandlerMap.emplace(REQ_RES_MEM_SCOPE_MEMORY_BLOCKS",
+          "all_matching_lines": [
+            44
+          ]
+        },
+        "handler": {
+          "path": "server/src/modules/memscope/handler/QueryMemScopeBlockHandler.cpp",
+          "line": 23,
+          "needle": "QueryMemScopeBlockHandler::HandleRequest",
+          "all_matching_lines": [
+            23
+          ]
+        },
+        "producer": {
+          "path": "server/src/modules/memscope/database/MemScopeDatabase.cpp",
+          "line": 594,
+          "needle": "MemScopeDatabase::QueryMemoryBlocks(",
+          "all_matching_lines": [
+            594
+          ]
+        },
+        "serialization": {
+          "path": "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h",
+          "line": 86,
+          "needle": "\"blocks\"",
+          "all_matching_lines": [
+            86
+          ]
+        },
+        "consumer": {
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 20,
+          "needle": "workerSetMemoryBlockData",
+          "all_matching_lines": [
+            20,
+            530
+          ]
+        }
+      }
+    },
+    {
+      "id": "leaks-allocations",
+      "module": "leaks",
+      "api": "getLeaksAllocationsData",
+      "api_path": "modules/leaks/src/features/memscope/api/requests.ts",
+      "command": "Memory/leaks/allocations",
+      "scope": "leaks",
+      "constant": "REQ_RES_MEM_SCOPE_MEMORY_ALLOCATIONS",
+      "handler_suffix": "QueryMemScopeAllocationHandler::HandleRequest",
+      "handler_path": "server/src/modules/memscope/handler/QueryMemScopeAllocationHandler.cpp",
+      "producer_suffix": "MemScopeDatabase::QueryMemoryAllocations",
+      "producer_path": "server/src/modules/memscope/database/MemScopeDatabase.cpp",
+      "field": [
+        "allocations"
+      ],
+      "consumer_path": "modules/leaks/src/components/dataHandler.ts",
+      "consumer": "loadAllocation",
+      "state": null,
+      "anchors": {
+        "api": {
+          "path": "modules/leaks/src/features/memscope/api/requests.ts",
+          "line": 27,
+          "needle": "export const getLeaksAllocationsData",
+          "all_matching_lines": [
+            27
+          ]
+        },
+        "command": {
+          "path": "server/src/modules/defs/ProtocolDefs.h",
+          "line": 167,
+          "needle": "REQ_RES_MEM_SCOPE_MEMORY_ALLOCATIONS =",
+          "all_matching_lines": [
+            167
+          ]
+        },
+        "registration": {
+          "path": "server/src/modules/memscope/MemScopeModule.cpp",
+          "line": 43,
+          "needle": "requestHandlerMap.emplace(REQ_RES_MEM_SCOPE_MEMORY_ALLOCATIONS",
+          "all_matching_lines": [
+            43
+          ]
+        },
+        "handler": {
+          "path": "server/src/modules/memscope/handler/QueryMemScopeAllocationHandler.cpp",
+          "line": 26,
+          "needle": "QueryMemScopeAllocationHandler::HandleRequest",
+          "all_matching_lines": [
+            26
+          ]
+        },
+        "producer": {
+          "path": "server/src/modules/memscope/database/MemScopeDatabase.cpp",
+          "line": 629,
+          "needle": "MemScopeDatabase::QueryMemoryAllocations(",
+          "all_matching_lines": [
+            629
+          ]
+        },
+        "serialization": {
+          "path": "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h",
+          "line": 116,
+          "needle": "\"allocations\"",
+          "all_matching_lines": [
+            116
+          ]
+        },
+        "consumer": {
+          "path": "modules/leaks/src/components/dataHandler.ts",
+          "line": 443,
+          "needle": "loadAllocation",
+          "all_matching_lines": [
+            443,
+            518,
+            522
+          ]
+        }
+      }
+    }
+  ],
+  "limits": [
+    "DB/Text implementations are candidates until runtime selection is observed",
+    "leaks block consumer uses conditional function selection and Worker handoff",
+    "cluster queryStages wraps a returned async function with a debounce helper",
+    "consumer anchors do not assert that the graph has connected the return chain"
+  ]
+}
