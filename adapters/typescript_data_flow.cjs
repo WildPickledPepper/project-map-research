@@ -29,8 +29,11 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
   function decl(n){let s=ts.isIdentifier(n)&&ts.isShorthandPropertyAssignment(n.parent)?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration||s?.declarations?.[0];}
   const inside=n=>n&&sourceFiles.has(loc(n).path);
   function target(n){const d=checker.getResolvedSignature(n)?.declaration;return inside(d)&&ts.isFunctionLike(d)?d:null;}
-  function apiTarget(n){const t=target(n);if(t&&apis.has(id(t,'callable')))return id(t,'callable');
-    const d=decl(n.expression);if(d&&ts.isVariableDeclaration(d)&&d.initializer){const found=[];ctx.walk(d.initializer,x=>{if(ts.isFunctionLike(x)&&apis.has(id(x,'callable')))found.push(id(x,'callable'));});if(found.length===1)return found[0];}return null;}
+  const apiTargets=new WeakMap();
+  function apiTarget(n){if(!apis.size)return null;if(apiTargets.has(n))return apiTargets.get(n);let result=null;
+    const t=target(n);if(t&&apis.has(id(t,'callable')))result=id(t,'callable');
+    else {const d=decl(n.expression);if(d&&ts.isVariableDeclaration(d)&&d.initializer){const found=[];ctx.walk(d.initializer,x=>{if(ts.isFunctionLike(x)&&apis.has(id(x,'callable')))found.push(id(x,'callable'));});if(found.length===1)result=found[0];}}
+    apiTargets.set(n,result);return result;}
   const standard=(n,name)=>{const d=decl(n);return n.getText()===name&&d&&loc(d).path.startsWith('<typescript-lib>/');};
   function importedReactHook(n,name){
     if(!ts.isIdentifier(n))return false;
@@ -446,7 +449,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       }
       if(ts.isPropertyAccessExpression(n.expression)) {
         const receiver=ev(n.expression.expression,c),name=n.expression.name.text;
-        if(['map','filter','flatMap','forEach'].includes(name)&&args[0]?.tag==='function'&&!callee?.body&&
+        if(!responseRegistries&&['map','filter','flatMap','forEach'].includes(name)&&args[0]?.tag==='function'&&!callee?.body&&
             (platform(n.expression.expression,'Array')||['response','input','union'].includes(receiver.tag)||receiver.array)){
           function projectArray(value){
             if(value.tag==='union')return value.values.map(projectArray).reduce(merge);

@@ -237,6 +237,15 @@ function extract(ctx,{forwarded=[],receiversOnly=false}={}) {
     for(const sent of [...item.boundaries].filter(b=>b.transport==='window.postMessage'))dispatch(item,sent,c);
     item.status=item.boundaries.length?'transport_found':'no_transport_found';consumers.push(item);
   }
+  const existingOwners=new Set(consumers.map(t=>t.source_owner));
+  for(const {owner,call} of receiversOnly?[]:require('./typescript_entry_roots.cjs').roots(ctx,bindingsByCall,platformType)){
+    const ownerId=id(owner,'callable');if(existingOwners.has(ownerId))continue;existingOwners.add(ownerId);
+    const item={id:'protocol:'+id(call,'call_site'),source_call:id(call,'call_site'),source_owner:ownerId,name:ctx.qualified(owner),...loc(call),binding_count:0,discovery:'exported_source_wrapper',events:[],boundaries:[]};
+    active=item;steps=0;const c={env:new Map(),resolving:new Set(),receiver:null,depth:0,current:owner,conditions:['exported_source_call_path_candidate']};
+    invoke(fn(owner,c.env),owner.parameters.map(()=>unk('entry_parameter_runtime')),c);
+    for(const sent of [...item.boundaries].filter(b=>b.transport==='window.postMessage'))dispatch(item,sent,c);
+    item.status=item.boundaries.length?'transport_found':'no_transport_found';consumers.push(item);
+  }
   // A transport is an entry even when no global property was assigned to it.
   // Prefer already recovered contextual paths over a second generic send root.
   const covered=new Set(consumers.flatMap(t=>t.boundaries.map(b=>b.path+':'+b.line+':'+b.column+':'+b.expression))),directOwners=new Set();

@@ -116,3 +116,9 @@ test('a shared module Map may be populated before entry; a local unmatched key s
   const local=graph({'a.ts':`declare const socket:WebSocket;declare const b:{go:(x:string)=>void};function make(){const saved=new Map();return (x:string)=>{saved.set('one',x);socket.send(JSON.stringify({verb:saved.get('two')}));};}b.go=make();function enter(){b.go('alpha/read');}`});
   assert.notEqual(sent(local)[0].payload.fields.verb.state,'constant');
 });
+test('exported callers of an imported transport wrapper keep their literal request context',()=>{
+  const g=graph({'transport.ts':`declare const socket:WebSocket;export class Link{async fetch(packet:any){socket.send(JSON.stringify(packet));}}`,
+    'wrapper.ts':`import {Link} from './transport';const link=new Link();type Request=(packet:any)=>Promise<any>;export const request:Request=async packet=>link.fetch(packet);`,
+    'api.ts':`import {request} from './wrapper';export function first(){return request({verb:'first/read',zone:'north'});}export function second(){return request({verb:'second/read',zone:'north'});}`});
+  assert.equal(sent(g,'first')[0]?.payload.fields.verb.value,'first/read');assert.equal(sent(g,'second')[0]?.payload.fields.verb.value,'second/read');
+});
