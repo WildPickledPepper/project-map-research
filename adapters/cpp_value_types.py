@@ -127,6 +127,12 @@ class ValueTypes:
             return element['second'] if element.get('kind')=='pair' else element
         if kind=='call_expression':
             f=node.child_by_field_name('function');args=node.child_by_field_name('arguments');args=list(args.named_children) if args else []
+            head,type_args=split_template(text(f))
+            if head in {'std::make_unique','std::make_shared'} and len(type_args)==1:
+                pointer='std::unique_ptr' if head=='std::make_unique' else 'std::shared_ptr'
+                return self.type(pointer+'<'+type_args[0]+'>',info['path'],info['scope'],bindings)
+            if head in {'dynamic_cast','static_cast','const_cast'} and len(type_args)==1:
+                return self.type(type_args[0],info['path'],info['scope'],bindings)
             if text(f) in {'std::move','std::forward'} and args:return infer(args[0])
             if text(f)=='std::find_if' and args:return infer(args[0])
             if f and f.type=='field_expression':

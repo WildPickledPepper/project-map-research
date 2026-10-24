@@ -15,6 +15,12 @@ def explain_frontend(graph, api=None, entry=None, field_path=None, state=None, m
              and (entry is None or c['entry'] == entry)]
     contexts = {c['request_context'] for c in calls}
     writes = []
+    consumers = []
+    if state is None:
+        for consumer in data.get('consumptions', []):
+            deps = [d for d in consumer['value_dependencies'] if d['request_context'] in contexts
+                    and (field_path is None or overlap(field_path, d['path']))]
+            if deps: consumers.append({**consumer, 'matching_dependencies': deps})
     for write in data.get('state_writes', []):
         if state is not None and write['state_node'] != state:
             continue
@@ -27,14 +33,15 @@ def explain_frontend(graph, api=None, entry=None, field_path=None, state=None, m
                            'relationship': 'value_dependency_candidate' if deps else 'fulfillment_continuation'})
     if state is not None or field_path is not None:
         used = {d['request_context'] for w in writes for d in w['matching_dependencies']}
+        used.update(d['request_context'] for c in consumers for d in c['matching_dependencies'])
         if field_path is None:
             used.update(c for w in writes for c in w['matching_continuations'])
         calls = [c for c in calls if c['request_context'] in used]
     selected_entries = {c['entry'] for c in calls}
     return {'status': 'source_frontend_candidates' if calls else 'not_extracted',
             'snapshot': graph['snapshot'], 'api': api, 'entry': entry, 'field_path': field_path,
-            'state': state, 'api_calls': calls, 'writes': writes[:max_writes],
-            'total_writes': len(writes), 'max_writes': max_writes, 'truncated': len(writes) > max_writes,
+            'state': state, 'api_calls': calls, 'writes': writes[:max_writes], 'consumers': consumers[:max_writes],
+            'total_writes': len(writes), 'total_consumers': len(consumers), 'max_writes': max_writes, 'truncated': len(writes) > max_writes or len(consumers) > max_writes,
             'gaps': [d for d in data.get('diagnostics', []) if d['entry'] in selected_entries],
             'extraction_truncated': any(e['truncated'] for e in data.get('entries', []) if e['source_symbol'] in selected_entries),
             'transport_status': 'pending_transport_join', 'runtime_execution': 'unknown',

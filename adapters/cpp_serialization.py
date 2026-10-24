@@ -49,9 +49,10 @@ class Serialization:
         if not isinstance(value,dict):return value
         if id(value) in seen:return ('cycle',)
         kind=value['kind']
-        if kind=='source':return (kind,value['parameter'],tuple(value['selectors']),value.get('cast_type'),value.get('conversion'))
+        if kind=='source':return (kind,value['parameter'],tuple(value['selectors']),value.get('cast_type'),value.get('receiver_type'),value.get('conversion'))
         if kind=='literal':return (kind,value['value'])
         if kind=='unknown':return (kind,value['reason'])
+        if kind=='alternatives':return (kind,tuple(Serialization.value_key(v,seen|{id(value)}) for v in value['values']))
         return (kind,tuple((op['kind'],Serialization.value_key(op.get('key'),seen|{id(value)}),
             Serialization.value_key(op['value'],seen|{id(value)}),Serialization.value_key(op.get('iteration'),seen|{id(value)}),
             json.dumps(op.get('conditions',[]),sort_keys=True),
@@ -64,6 +65,12 @@ class Serialization:
         ev=lambda n:self.d.evidence(path,n)
         guards=lambda n:[{**c,'path':path} for c in predicates(n)]
         params=[]
+        owner='::'.join(info['scope'])
+        implicit_receiver=not info['parameter_nodes'] and owner in self.x.classes and 'static' not in text(info['container']).split('{',1)[0].split()
+        if implicit_receiver:
+            params.append({'name':'this','type':owner,'implicit_receiver':True})
+            env['this']={'kind':'source','parameter':0,'selectors':[],'root_type':owner,'value_type':owner,
+                'receiver_type':owner,'type_path':path,'type_scope':info['scope'],'json_type':False,'evidence':[ev(info['container'])]}
         for i,p in enumerate(info['parameter_nodes']):
             typ=text(p.child_by_field_name('type'));params.append({'name':text(declared_name(p)),'type':typ})
             env[text(declared_name(p))]={'kind':'source','parameter':i,'selectors':[],
@@ -83,6 +90,7 @@ class Serialization:
                         'type_path':value.get('type_path',path),'type_scope':value.get('type_scope',info['scope']),
                         'evidence':actual.get('evidence',[])+value.get('evidence',[])}
                 if value.get('cast_type'):actual={**actual,'cast_type':value['cast_type']}
+                if value.get('receiver_type'):actual={**actual,'receiver_type':value['receiver_type']}
                 if value.get('conversion'):actual={**actual,'conversion':value['conversion']}
                 return actual
             if value['kind']=='json':
@@ -94,6 +102,7 @@ class Serialization:
                         converted['type_requirements']=[r for r in converted['type_requirements'] if self.type_family(r['value'],path,info['scope']) is None]
                         cloned['entries'].append(converted)
                 return cloned
+            if value['kind']=='alternatives':return {**value,'values':[substitute(v,actuals,seen|{id(value)}) for v in value['values']]}
             return deepcopy(value)
 
         def apply(destination,op):
@@ -104,11 +113,18 @@ class Serialization:
 
         def targets(node):
             found=set(self.d.targets(node,uid,info));fn=node.child_by_field_name('function')
+            if fn and fn.type=='field_expression':
+                receiver=self.d.types.infer(fn.child_by_field_name('argument'),uid,info)
+                for variant in self.d.types.variants(receiver):
+                    for cls in self.d.types.dereference(variant).get('names',[]):
+                        for group in self.x.members(cls,text(fn.child_by_field_name('field'))):found.update(group)
             if fn and fn.type in {'template_function','qualified_identifier','identifier'}:
                 spelling=text(fn)
                 for q in self.protocol.qnames(spelling,path,info['scope'],self.protocol.functions):
                     found.update(t for t,f in self.protocol.functions[q] if len(f['parameter_nodes'])==len(arguments(node)))
-            return sorted(found&self.eligible)
+            expanded=set(found)
+            for target in found:expanded.update(self.protocol.reachable_factory(target))
+            return sorted(expanded&self.eligible)
 
         def evaluate(node,scope,loops):
             nonlocal steps
@@ -118,8 +134,12 @@ class Serialization:
                 return self.unknown('analysis_budget_exhausted')
             if node is None:return self.unknown('missing_expression')
             kind=node.type
+            if kind=='this' and 'this' in scope:return scope['this']
             if kind in {'identifier','qualified_identifier'}:
                 if text(node) in scope:return scope[text(node)]
+                member=self.d.field(text(node),owner) if implicit_receiver else None
+                if member:return {**scope['this'],'selectors':['member:'+text(node)],'value_type':member['type'],
+                    'type_path':member['path'],'type_scope':member['owner'].split('::'),'evidence':[ev(node)]}
                 value,evidence=self.protocol.constant(node,path,info['scope'])
                 return {'kind':'literal','value':value,'literal_type':'string','evidence':evidence} if value is not None else self.unknown('unresolved_identifier')
             if kind=='string_literal':
@@ -176,6 +196,11 @@ class Serialization:
                     actuals=[evaluate(a,scope,loops) for a in args];result=[];applied={}
                     for target in candidates:
                         callee=self.x.functions_by_id[target]
+                        summary=self.analyze(target)
+                        target_actuals=actuals
+                        if summary.get('implicit_receiver'):
+                            if fn is None or fn.type!='field_expression':continue
+                            target_actuals=[evaluate(fn.child_by_field_name('argument'),scope,loops),*actuals]
                         requirements=[];incompatible=False
                         for a,p in zip(actuals,callee['parameter_nodes']):
                             expected=self.type_family({'value_type':text(p.child_by_field_name('type'))},callee['path'],callee['scope'])
@@ -183,14 +208,13 @@ class Serialization:
                             if expected and actual and expected!=actual:incompatible=True;break
                             if expected and not actual:requirements.append({'value':a,'family':expected})
                         if incompatible:continue
-                        summary=self.analyze(target)
                         for operation in summary['operations']:
-                            op={**operation,**{k:substitute(operation[k],actuals) for k in ['key','value','iteration'] if k in operation},
+                            op={**operation,**{k:substitute(operation[k],target_actuals) for k in ['key','value','iteration'] if k in operation},
                                 'evidence':[ev(node),*operation['evidence']],
                                 'conditions':guards(node)+operation['conditions'],
                                 'source_functions':[uid,*operation['source_functions']]}
-                            destination=substitute(operation['destination'],actuals);op.pop('destination',None)
-                            needed=[{**r,'value':substitute(r['value'],actuals)} for r in operation.get('type_requirements',[])]+requirements
+                            destination=substitute(operation['destination'],target_actuals);op.pop('destination',None)
+                            needed=[{**r,'value':substitute(r['value'],target_actuals)} for r in operation.get('type_requirements',[])]+requirements
                             if any(self.type_family(r['value'],path,info['scope']) not in {None,r['family']} for r in needed):continue
                             op['type_requirements']=[r for r in needed if self.type_family(r['value'],path,info['scope']) is None]
                             if op['kind']=='append' and loops:op.setdefault('iteration',loops[-1])
@@ -205,10 +229,11 @@ class Serialization:
                                 kept['evidence'] += [e for e in op['evidence'] if json.dumps(e,sort_keys=True) not in known]
                             else:apply(destination,op);applied[semantic]=op
                         for returned in summary['returns']:
-                            result.append(substitute(returned['value'],actuals))
+                            result.append(substitute(returned['value'],target_actuals))
                         if summary['gaps']:gaps.append({'kind':'callee_has_unresolved_steps','callee':target,'evidence':[ev(node)]})
                     if len(result)==1:return result[0]
                     if result and all(self.value_key(r)==self.value_key(result[0]) for r in result):return result[0]
+                    if result:return {'kind':'alternatives','values':result}
                     return self.unknown('ambiguous_or_void_source_return')
                 if any(evaluate(a,scope,loops).get('kind')=='json' for a in args):
                     gaps.append({'kind':'unknown_call_may_mutate_json','evidence':[ev(node)]})
@@ -260,12 +285,15 @@ class Serialization:
             elif node.type=='return_statement':
                 if node.named_children:returns.append({'value':evaluate(node.named_children[0],scope,loops),'conditions':guards(node),'evidence':[ev(node)]})
                 return True
+            elif node.type=='try_statement':
+                gaps.append({'kind':'exception_paths_not_expanded','evidence':[ev(node)]})
+                return statement(node.child_by_field_name('body'),scope,loops)
             elif node.type not in {'comment','break_statement','continue_statement'}:
                 gaps.append({'kind':'statement_not_modeled','statement':node.type,'evidence':[ev(node)]})
             return False
 
         statement(info['container'].child_by_field_name('body'),env,[])
-        result={'source_symbol':uid,'parameters':params,'operations':operations,'returns':returns,'gaps':gaps}
+        result={'source_symbol':uid,'parameters':params,'implicit_receiver':implicit_receiver,'operations':operations,'returns':returns,'gaps':gaps}
         self.cache[uid]=result;self.active.remove(uid);return result
 
     def mappings(self,summary):
@@ -277,6 +305,9 @@ class Serialization:
                 if visits==self.max_mapping_visits+1:gaps.append({'kind':'mapping_budget_exhausted','max_visits':self.max_mapping_visits})
                 return
             if id(value) in seen:gaps.append({'kind':'cyclic_json_builder'});return
+            if value['kind']=='alternatives':
+                for alternative in value['values']:visit(alternative,wire,evidence,conditions+[{'kind':'source_virtual_or_overload_candidate'}],seen|{id(value)})
+                return
             if value['kind']=='source':
                 records.append({'wire_path':wire,'source':value,'relation':'value_dependency',
                     'evidence':evidence+value.get('evidence',[]),'conditions':conditions});return
@@ -303,7 +334,7 @@ class Serialization:
             summary=self.analyze(uid);mappings,gaps=self.mappings(summary)
             info=self.x.functions_by_id[uid]
             for mapping in mappings:
-                source=mapping['source'];source['root_types']=self.x.resolve_type(source.get('cast_type',source['root_type']),info['path'],info['scope'])['names']
+                source=mapping['source'];source['root_types']=self.x.resolve_type(source.get('receiver_type',source.get('cast_type',source['root_type'])),info['path'],info['scope'])['names']
             if mappings or summary['operations'] or summary['gaps'] or gaps or any(r['value']['kind']=='json' for r in summary['returns']):
                 functions.append({'source_symbol':uid,'name':self.x.nodes[uid]['name'],'parameters':summary['parameters'],
                     'field_mappings':mappings,'wrapper_operation_count':len(summary['operations']),

@@ -25,6 +25,22 @@ test('array construction through a helper preserves source element fields',()=>{
   assert(g.state_writes[0].value_dependencies.some(d=>JSON.stringify(d.path)==='["entries","*","label"]'));
   assert(g.field_reads.some(r=>r.call_chain.length));
 });
+test('array map carries result fields to state without treating the method as a wire field',()=>{
+  const g=graph(prefix+`async function use(state:any){const r=await load();state.lines=r.entries.map((row:any)=>({label:row.title,value:row.size}));}`).data_flow;
+  const deps=g.state_writes.flatMap(w=>w.value_dependencies);assert(deps.some(d=>JSON.stringify(d.path)==='["entries","*","title"]'));
+  assert(deps.some(d=>JSON.stringify(d.path)==='["entries","*","size"]'));assert(!g.field_reads.some(r=>r.response.path.includes('map')));
+});
+test('empty arrays and a project method named map do not invent array projections',()=>{
+  const empty=graph(prefix+`async function use(state:any){await load();state.lines=[].map(()=>{state.bad=7;return 2;});}`).data_flow;
+  assert(!empty.state_writes.some(w=>w.target.path.includes('bad')));
+  const local=graph(prefix+`async function use(state:any){const r=await load();const helper={map(cb:any){return 7;}};state.lines=helper.map(()=>r.rows);}`).data_flow;
+  assert(local.state_writes.every(w=>!w.value_dependencies.length));
+});
+test('helper returns and external handoffs retain field origins as distinct consumers',()=>{
+  const g=graph(prefix+`declare function transfer(x:any):void;async function use(){const r=await load();transfer(r.rows);return r.items.map((item:any)=>item.label);}`).data_flow;
+  assert(g.consumptions.some(c=>c.mode==='helper_return'&&c.value_dependencies.some(d=>d.path.join('/')==='items/*/label')));
+  assert(g.consumptions.some(c=>c.mode==='external_argument_handoff'&&c.value_dependencies.some(d=>d.path.join('/')==='rows')));
+});
 test('known helper ignoring response input does not invent a value dependency',()=>{
   const g=graph(prefix+'function constant(items:any){return 7;}async function use(state:any){const r=await load();state.n=constant(r.records);}').data_flow;
   assert.equal(g.state_writes[0].value_dependencies.length,0);assert.equal(g.state_writes[0].continuation_apis.length,1);

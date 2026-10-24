@@ -73,6 +73,15 @@ def augment_frontend(base, facts):
             edge(requests[context]['result_node'], uid, 'FULFILLMENT_PRECEDES_STATE_WRITE',
                  write['evidence'], write['conditions'])
 
+    for index, consumer in enumerate(flow.get('consumptions', [])):
+        uid = key('frontend-consumer', consumer['entry'], consumer['id'], index)
+        consumer['source_site'] = consumer['id']; consumer['id'] = uid
+        node(uid, 'frontend_result_consumer', consumer.get('callee', consumer['mode']), consumer['evidence'], **consumer)
+        edge(consumer['source_symbol'], uid, 'OBSERVES_RESULT_CONSUMER', consumer['evidence'], consumer['conditions'])
+        for dep in consumer['value_dependencies']:
+            edge(field(dep), uid, 'VALUE_MAY_REACH_CONSUMER', dep['evidence'] + consumer['evidence'],
+                 consumer['conditions'] + dep.get('conditions', []), gaps=dep.get('gaps', []))
+
     graph['nodes'] = list(nodes.values())
     graph['frontend'] = flow
     graph['snapshot'] = graph['source_commit'] + ':p3-data-v6'

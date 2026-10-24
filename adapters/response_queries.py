@@ -126,6 +126,8 @@ def explain_response(graph,provider_id,max_depth=12,max_states=2000):
                         for callback in set(registration['functions'])&set(serializers):
                             mappings=[];links=[]
                             for m in serializers[callback]['field_mappings']:
+                                root_types=set(m['source'].get('root_types',[]));actual_types=names(roots[origin_root]['type'])
+                                if root_types and actual_types and not any(lineage(t)&root_types for t in actual_types):continue
                                 i=m['source']['parameter']
                                 actual=locs.get(call['arguments'][i]) if i<len(call['arguments']) else None
                                 prefix=mapped(actual,state)

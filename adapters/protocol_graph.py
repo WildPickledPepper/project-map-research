@@ -59,13 +59,14 @@ def augment(graph,typescript,cpp,config):
     def edge(a,b,kind,evidence,**extra):
         edges.append(dict(source=a,target=b,kind=kind,status='conditional',evidence=evidence,**extra))
     for consumer in typescript['consumers']:
+        entry_identity = {k: consumer[k] for k in ('aliases', 'source_name', 'discovery') if k in consumer}
         boundaries=[b for b in consumer['boundaries'] if b['transport']=='socket']
         if not boundaries:
-            results.append({'consumer':consumer['id'],'name':consumer['name'],'status':consumer['status'],'matches':[]});continue
+            results.append({'consumer':consumer['id'],'name':consumer['name'],'status':consumer['status'],'matches':[],**entry_identity});continue
         for index,message in enumerate(boundaries):
             mid=consumer['id']+':message:'+str(index)
             outcome=match_message(message,providers,config)
-            results.append({'consumer':consumer['id'],'name':consumer['name'],'message':mid,**outcome})
+            results.append({'consumer':consumer['id'],'name':consumer['name'],'message':mid,**outcome,**entry_identity})
             node(mid,'protocol_message',consumer['name']+' message',message['path'],message['line'],payload=message['payload'],
                  flow_evidence=message['events'],conditions=message['conditions'],resolution=outcome['status'])
             start=consumer['source_owner'] or consumer['source_call']

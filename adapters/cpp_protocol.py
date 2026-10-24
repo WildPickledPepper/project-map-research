@@ -251,10 +251,37 @@ class ProtocolExtractor:
                         value,evidence=self.constant(a[0],path,info['scope'])
                         targets,allocation=self.allocated(a[1],info)
                         target_functions=[]
+                        template_contexts=[]
                         if not targets:
                             for q in self.qnames(text(a[1]),path,info['scope'],self.functions):target_functions.extend(t for t,_ in self.functions[q])
+                            # A template-id is a callable value, not a literal
+                            # function name. Bind explicit arguments before
+                            # resolving dependent static calls in its body.
+                            from adapters.cpp_value_types import split_template
+                            head,actual_types=split_template(text(a[1]))
+                            if actual_types:
+                                for q in self.qnames(head,path,info['scope'],self.functions):
+                                    for tid,callee in self.functions[q]:
+                                        declaration=next((p for p in parents(callee['container']) if p.type=='template_declaration'),None)
+                                        parameters=declaration.child_by_field_name('parameters') if declaration else None
+                                        names=[text(p.child_by_field_name('name') or next((c for c in p.named_children if c.type=='type_identifier'),None)) for p in parameters.named_children] if parameters else []
+                                        if len(names)!=len(actual_types):
+                                            self.diagnostics.append({'kind':'template_callable_arguments_unresolved',**self.ev(path,a[1])});continue
+                                        bindings={name:self.x.resolve_type(typ,path,info['scope'])['names'] for name,typ in zip(names,actual_types)}
+                                        dependent=[]
+                                        for call in walk(callee['container']):
+                                            if call.type!='call_expression':continue
+                                            spelling=text(call.child_by_field_name('function'));owner,sep,member=spelling.partition('::')
+                                            if not sep or owner not in bindings:continue
+                                            for concrete_class in bindings[owner]:
+                                                dependent.extend(cid for cid,f in self.functions.get(concrete_class+'::'+member,[]) if len(f['parameter_nodes'])==len(args(call)))
+                                        target_functions.extend([tid,*dependent])
+                                        template_contexts.append({'template':tid,'type_arguments':dict(zip(names,actual_types)),
+                                            'resolved_types':bindings,'dependent_targets':sorted(set(dependent)),
+                                            'status':'explicit_template_source_candidate','evidence':[self.ev(path,a[1])]})
                         self.registrations.append({'id':'registry:'+identity(path,'registration',n),'owner':cls,'registry':registry,
-                            'key':value,'key_expression':text(a[0]),'value_expression':text(a[1]),'objects':targets,'functions':target_functions,
+                            'key':value,'key_expression':text(a[0]),'value_expression':text(a[1]),'objects':targets,'functions':sorted(set(target_functions)),
+                            'template_contexts':template_contexts,
                             'factory_method':self.factory_method(a[1],info),
                             'factory_targets':self.factory_targets(a[1],uid,info),
                             'path':path,'line':n.start_point[0]+1,'source_symbol':uid,'conditions':self.x.conditions(n),

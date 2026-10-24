@@ -30,12 +30,15 @@ function extract(ctx,{forwarded=[],receiversOnly=false}={}) {
     return unk(v.reason||'forwarded_value_unknown');
   }
   function clone(v,memo=new Map()) {
+    if(v?.tag==='map'){if(memo.has(v))return memo.get(v);const r={...v,entries:new Map()};memo.set(v,r);for(const [k,x] of v.entries)r.entries.set(k,clone(x,memo));return r;}
     if(v?.tag!=='object')return v;if(memo.has(v))return memo.get(v);
     const r={...v,props:{}};memo.set(v,r);for(const [k,x] of Object.entries(v.props))r.props[k]=clone(x,memo);return r;
   }
   function merge(a,b) {
     if(a?.classNode!==b?.classNode)return unk('receiver_class_differs');
     if(a?.tag==='function'||b?.tag==='function')return a===b?a:unk('branch_callbacks_differ');
+    if(a?.tag==='map'&&b?.tag==='map')return {tag:'map',closed:a.closed&&b.closed,entries:new Map([...new Set([...a.entries.keys(),...b.entries.keys()])].map(k=>[k,merge(a.entries.get(k)??lit(undefined),b.entries.get(k)??lit(undefined))]))};
+    if(a?.tag==='map'||b?.tag==='map')return unk('branch_map_values_differ');
     if(JSON.stringify(plain(a))===JSON.stringify(plain(b)))return a;
     if(a?.tag==='object'&&b?.tag==='object')return {...a,props:Object.fromEntries([...new Set([...Object.keys(a.props),...Object.keys(b.props)])].map(k=>[k,merge(a.props[k],b.props[k])]))};
     return unk('branch_values_differ');
@@ -99,7 +102,7 @@ function extract(ctx,{forwarded=[],receiversOnly=false}={}) {
     if(callable?.tag!=='function')return unk('callee_not_resolved');const n=callable.node;
     if(!n.body)return unk('declaration_without_body');if(c.depth>=20)return unk('call_depth_limit');
     const sub={...c,env:new Map(callable.env),receiver:callable.receiver||c.receiver,depth:c.depth+1,current:n};
-    n.parameters.forEach((p,i)=>bind(p.name,args[i]??(p.initializer?ev(p.initializer,sub):lit(undefined)),sub));
+    n.parameters.forEach((p,i)=>bind(p.name,p.dotDotDotToken?{...obj(Object.fromEntries(args.slice(i).map((x,j)=>[String(j),x]))),array:true,props:{...Object.fromEntries(args.slice(i).map((x,j)=>[String(j),x])),length:lit(args.length-i)}}:args[i]??(p.initializer?ev(p.initializer,sub):lit(undefined)),sub));
     if(at)note(at,'argument_transfer',{target:src(n),arguments:args.map(v=>plain(v))},sub);
     return ts.isBlock(n.body)?(block(n.body.statements,sub)?.value||lit(undefined)):ev(n.body,sub);
   }
@@ -168,13 +171,23 @@ function extract(ctx,{forwarded=[],receiversOnly=false}={}) {
     if(ts.isNewExpression(n)) {
       const args=(n.arguments||[]).map(x=>ev(x,c)),name=n.expression.getText(),target=decl(n.expression);
       if(name==='Promise'&&external(n.expression)){if(args[0]?.tag==='function')invoke(args[0],[unk('resolve'),unk('reject')],c,n);return unk('promise_result');}
-      if(name==='Map'&&external(n.expression))return {tag:'map'};
+      if(name==='Map'&&external(n.expression))return {tag:'map',entries:new Map(),closed:callableOwner(n)===c.current&&c.current!==null};
       if(target&&ts.isClassDeclaration(target))return instance(target,args,c);return unk('external_construction');
     }
     if(ts.isCallExpression(n)) {
-      const args=n.arguments.map(a=>ev(a,c)),expr=unwrap(n.expression);
+      const args=[];for(const a of n.arguments){if(ts.isSpreadElement(a)){const v=ev(a.expression,c);if(v.array&&v.props.length?.tag==='literal')for(let i=0;i<v.props.length.value;i++)args.push(v.props[i]);else {args.push(unk('spread_arguments_unknown'));diagnostics.push({kind:'spread_arguments_unknown',...loc(a),consumer:active?.id});}}else args.push(ev(a,c));}const expr=unwrap(n.expression);
+      if(n.questionDotToken){const v=ev(expr,c);if(v.tag==='literal'&&v.value==null)return lit(undefined);}
+      if(ts.isIdentifier(expr)&&['setTimeout','queueMicrotask'].includes(expr.text)&&external(expr)&&args[0]?.tag==='function'){
+        note(n,'deferred_callback_candidate',{scheduler:expr.text},c);invoke(args[0],args.slice(expr.text==='setTimeout'?2:1),{...c,conditions:[...c.conditions,'scheduled_callback_fires_without_cancel_or_replacement']},n);return unk('timer_handle');
+      }
       if(ts.isPropertyAccessExpression(expr)) {
         const receiver=ev(expr.expression,c),name=expr.name.text;
+        if(receiver.tag==='map'){
+          const key=args[0]?.tag==='literal'?'literal:'+JSON.stringify(args[0].value):args[0];
+          if(name==='set'){receiver.entries.set(key,args[1]);return receiver;}
+          if(name==='get')return receiver.entries.has(key)?receiver.entries.get(key):receiver.closed&&receiver.entries.size===0?lit(undefined):unk('map_key_or_prior_runtime_population_unknown');
+          if(name==='delete'){receiver.entries.delete(key);return unk('map_delete_result');}
+        }
         if(expr.expression.getText()==='JSON'&&external(expr.expression)){if(name==='stringify')return {tag:'json',value:args[0]};if(name==='parse'&&args[0]?.tag==='json')return args[0].value;}
         if(expr.expression.getText()==='Object'&&external(expr.expression)&&name==='assign'&&args[0]?.tag==='object'){for(const v of args.slice(1)){if(v.tag==='object')Object.assign(args[0].props,v.props);else {for(const k of Object.keys(args[0].props))args[0].props[k]=unk('unknown_assign_source');args[0].props['<unknown_fields>']=unk('unknown_assign_source');}}return args[0];}
         if(receiver.tag==='literal'&&typeof receiver.value==='string'){if(name==='split'&&args[0]?.tag==='literal')return obj(Object.fromEntries(receiver.value.split(args[0].value).map((v,i)=>[String(i),lit(v)])));if(name==='toLowerCase')return lit(receiver.value.toLowerCase());}
@@ -223,6 +236,27 @@ function extract(ctx,{forwarded=[],receiversOnly=false}={}) {
     note(binding,'property_binding',{source_binding:bindings[0].target},c);invoke(closure,(call.arguments||[]).map(a=>ev(a,c)),c,call);
     for(const sent of [...item.boundaries].filter(b=>b.transport==='window.postMessage'))dispatch(item,sent,c);
     item.status=item.boundaries.length?'transport_found':'no_transport_found';consumers.push(item);
+  }
+  // A transport is an entry even when no global property was assigned to it.
+  // Prefer already recovered contextual paths over a second generic send root.
+  const covered=new Set(consumers.flatMap(t=>t.boundaries.map(b=>b.path+':'+b.line+':'+b.column+':'+b.expression))),directOwners=new Set();
+  for(const call of receiversOnly?[]:ctx.calls){
+    if(!ts.isCallExpression(call)||!ts.isPropertyAccessExpression(call.expression))continue;
+    const e=call.expression,transport=e.name.text==='send'&&platformType(e.expression,'WebSocket')||e.name.text==='postMessage'&&platformType(e.expression,'Window');
+    if(!transport||covered.has(loc(call).path+':'+loc(call).line+':'+loc(call).column+':'+call.getText().slice(0,500)))continue;
+    const owner=callableOwner(call),ownerId=owner?id(owner,'callable'):id(call,'call_site');if(directOwners.has(ownerId))continue;directOwners.add(ownerId);
+    const item={id:'protocol:'+id(call,'call_site'),source_call:id(call,'call_site'),source_owner:owner?id(owner,'callable'):null,name:owner?ctx.qualified(owner):call.expression.getText(),...loc(call),binding_count:0,discovery:'direct_platform_transport',events:[],boundaries:[]};
+    active=item;steps=0;const c={env:new Map(),resolving:new Set(),receiver:null,depth:0,current:owner,conditions:['direct_transport_source_candidate']};
+    if(owner?.body)invoke(fn(owner,c.env),owner.parameters.map(()=>unk('entry_parameter_runtime')),c);else ev(call,c);
+    for(const sent of [...item.boundaries].filter(b=>b.transport==='window.postMessage'))dispatch(item,sent,c);
+    item.status=item.boundaries.length?'transport_found':'no_transport_found';consumers.push(item);
+  }
+  for(const item of consumers){const owner=ast.get(item.source_owner);if(!owner)continue;
+    for(let p=owner.parent;p&&!ts.isSourceFile(p);p=p.parent)if(ts.isVariableDeclaration(p)&&p.initializer&&p.initializer.pos<=owner.pos&&p.initializer.end>=owner.end){
+      const statement=p.parent?.parent;if(ts.isVariableStatement(statement)&&statement.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword)){
+        item.aliases=[{name:p.name.getText(),relationship:'callback_in_export_initializer',...loc(p)}];item.source_name=item.name;item.name=p.name.getText();break;
+      }
+    }
   }
   if(registrations.length)for(const input of forwarded){
     const item={...input.consumer,events:[],boundaries:[]};active=item;steps=0;

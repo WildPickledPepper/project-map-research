@@ -91,3 +91,28 @@ test('cross-package forwarding respects message filters and deleted callback reg
   const files=separatedWindowFixture();files['host/main.ts']=files['host/main.ts'].replace(/receiver.set\(body=>.*;/,'');
   assert.equal(sent(graph(files)).length,0);
 });
+
+test('direct platform sends are discovered without a property binding and keep dynamic fields unknown',()=>{
+  const g=graph({'a.ts':`declare const s:WebSocket;export function direct(value:string){const packet={verb:value,space:'lab'};s.send(JSON.stringify(packet));}`});
+  const rows=g.protocol.consumers.filter(c=>c.name==='direct');assert.equal(rows.length,1);
+  assert.equal(rows[0].boundaries[0].payload.fields.verb.state,'unknown');assert.equal(rows[0].boundaries[0].payload.fields.space.value,'lab');
+});
+test('rest, spread, Map storage and scheduled closures preserve arguments with a scheduling condition',()=>{
+  const g=graph({'a.ts':`declare const s:WebSocket;declare const b:{go:(x:string)=>void};
+    function wrap(fn:(...xs:any[])=>void){const saved=new Map();return (...xs:any[])=>{saved.set('key',{xs});setTimeout(()=>{const state=saved.get('key');fn(...state.xs);},20);};}
+    b.go=wrap((label:string)=>s.send(JSON.stringify({verb:label,zone:'north'})));export function enter(){b.go('alpha/read');}`});
+  const b=sent(g)[0];assert.equal(b.payload.fields.verb.value,'alpha/read');assert(b.conditions.includes('scheduled_callback_fires_without_cancel_or_replacement'));
+  assert.equal(g.protocol.consumers.filter(c=>c.discovery==='direct_platform_transport').length,0);
+});
+test('an exported factory callback keeps its source identity and discoverable export name',()=>{
+  const g=graph({'a.ts':`declare const s:WebSocket;declare const b:{go:(x:string)=>void};b.go=(x:string)=>s.send(JSON.stringify({verb:x}));
+    function wrap(cb:()=>void){return cb;}export const exported=wrap(()=>b.go('alias/read'));`});
+  const row=g.protocol.consumers.find(c=>c.name==='exported');assert(row);assert(row.source_owner);assert.equal(row.aliases[0].relationship,'callback_in_export_initializer');
+});
+test('a shared module Map may be populated before entry; a local unmatched key stays unresolved',()=>{
+  const g=graph({'a.ts':`declare const socket:WebSocket;class Link{send(tag:string){socket.send(JSON.stringify({verb:tag}));}}
+    const links=new Map<string,Link>();declare const b:{go:(x:string)=>void};b.go=(tag:string)=>{const link=links.get('live');if(link===undefined)return;link.send(tag);};
+    export function enter(){b.go('alpha/read');}`});assert.equal(sent(g)[0].payload.fields.verb.value,'alpha/read');
+  const local=graph({'a.ts':`declare const socket:WebSocket;declare const b:{go:(x:string)=>void};function make(){const saved=new Map();return (x:string)=>{saved.set('one',x);socket.send(JSON.stringify({verb:saved.get('two')}));};}b.go=make();function enter(){b.go('alpha/read');}`});
+  assert.notEqual(sent(local)[0].payload.fields.verb.state,'constant');
+});

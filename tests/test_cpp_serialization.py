@@ -26,6 +26,14 @@ class SerializationTests(unittest.TestCase):
         self.assertTrue(any('wrap(' in e['expression'] for e in m['evidence']))
         self.assertTrue(any('AddMember(' in e['expression'] for e in m['evidence']))
 
+    def test_virtual_json_receiver_keeps_concrete_type_and_implicit_fields(self):
+        r=self.analyze('using J=rapidjson::Value;struct Base{virtual J encode()const=0;};'
+            'struct A:Base{int count;J encode()const override{J j;j.AddMember("rows",count,a);return j;}};'
+            'struct B:Base{int size;J encode()const override{J j;j.AddMember("other",size,a);return j;}};'
+            'J relay(const Base& value){try{const auto& ref=dynamic_cast<const Base&>(value);return ref.encode();}catch(...){return {};}}')
+        f=self.function(r,'relay');self.assertEqual({tuple(m['wire_path']) for m in f['field_mappings']},{('rows',),('other',)})
+        self.assertEqual({tuple(m['source']['root_types']) for m in f['field_mappings']},{('A',),('B',)})
+
     def test_nested_collection_and_returning_json_helper(self):
         r=self.analyze('using J=rapidjson::Value;struct Item{int count;};struct R{std::vector<Item> entries;};'
             'J itemJson(const Item& x){J j;j.AddMember("total",x.count,a);return j;}'

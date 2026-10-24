@@ -16,7 +16,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
   }
   const src=n=>({...loc(n),expression:n.getText().slice(0,500)});
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
-  const entries=new Map(),writes=[],reads=[],calls=[],diagnostics=[];let steps=0,currentEntry=null;
+  const entries=new Map(),writes=[],reads=[],calls=[],consumptions=[],diagnostics=[];let steps=0,currentEntry=null;
   const promiseEntries=new Map(),lookupEntries=new Map(),registrations=[],lookups=[],settlements=[],promises=[],deletions=[],callbackBindings=[];
   const transmissions=[],counterUpdates=[];
   const socketEntries=new Map(),socketCreations=[],channelBindings=[],listenerBindings=[];
@@ -29,6 +29,8 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
   function decl(n){let s=ts.isIdentifier(n)&&ts.isShorthandPropertyAssignment(n.parent)?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration||s?.declarations?.[0];}
   const inside=n=>n&&sourceFiles.has(loc(n).path);
   function target(n){const d=checker.getResolvedSignature(n)?.declaration;return inside(d)&&ts.isFunctionLike(d)?d:null;}
+  function apiTarget(n){const t=target(n);if(t&&apis.has(id(t,'callable')))return id(t,'callable');
+    const d=decl(n.expression);if(d&&ts.isVariableDeclaration(d)&&d.initializer){const found=[];ctx.walk(d.initializer,x=>{if(ts.isFunctionLike(x)&&apis.has(id(x,'callable')))found.push(id(x,'callable'));});if(found.length===1)return found[0];}return null;}
   const standard=(n,name)=>{const d=decl(n);return n.getText()===name&&d&&loc(d).path.startsWith('<typescript-lib>/');};
   function importedReactHook(n,name){
     if(!ts.isIdentifier(n))return false;
@@ -46,7 +48,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     if(d?.type)ctx.walk(d.type,t=>{if(ts.isTypeReferenceNode(t)&&standard(t.typeName,name))found=true;});
     return found;
   }
-  for(const call of ctx.calls){const t=target(call);if(t&&apis.has(id(t,'callable'))){const owner=callableOwner(call);if(owner?.body)entries.set(id(owner,'callable'),owner);}}
+  for(const call of ctx.calls){if(apiTarget(call)){const owner=callableOwner(call);if(owner?.body)entries.set(id(owner,'callable'),owner);}}
   if(responseRegistries)for(const call of ctx.calls){
     const owner=callableOwner(call);if(!owner?.body)continue;
     if(ts.isNewExpression(call)&&standard(call.expression,'Promise'))promiseEntries.set(id(owner,'callable'),owner);
@@ -302,7 +304,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       if(++steps>maxSteps){note(s,'step_limit',c);return unknown('step_limit');}
       if(ts.isVariableStatement(s)){for(const d of s.declarationList.declarations)bind(d.name,d.initializer?ev(d.initializer,c):literal(undefined),c);}
       else if(ts.isExpressionStatement(s))ev(s.expression,c);
-      else if(ts.isReturnStatement(s)){returned.push(s.expression?ev(s.expression,c):literal(undefined));break;}
+      else if(ts.isReturnStatement(s)){const value=s.expression?ev(s.expression,c):literal(undefined);returned.push(value);
+        if(!responseRegistries&&dependencies(value).length)consumptions.push({id:contextualId(s,'result_return',c),entry:currentEntry,source_symbol:id(c.current,'callable'),
+          mode:'helper_return',value_dependencies:dependencies(value),conditions:c.conditions,evidence:[src(s)],call_chain:c.chain});break;}
       else if(ts.isThrowStatement(s)){note(s,'throw_path',c);returned.push({tag:'throw'});break;}
       else if(ts.isBlock(s)){const r=block(s.statements,c);if(r){returned.push(r);break;}}
       else if(ts.isIfStatement(s)){
@@ -434,13 +438,28 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
           return ctor?invoke({...fn(ctor,c),receiver:c.receiver},args,c,n):literal(undefined);
         }
       }
-      if(callee&&apis.has(id(callee,'callable'))){
+      const api=apiTarget(n);
+      if(api){
         const request_context=[currentEntry,...c.chain.map(s=>s.call_site),callId].join('/');
-        const record={api:id(callee,'callable'),api_call:callId,request_context,entry:currentEntry,evidence:[src(n)]};calls.push(record);
+        const record={api,api_call:callId,request_context,entry:currentEntry,evidence:[src(n)]};calls.push(record);
         return {tag:'promise',value:{tag:'response',...record,path:[],props:{},conditions:c.conditions}};
       }
       if(ts.isPropertyAccessExpression(n.expression)) {
         const receiver=ev(n.expression.expression,c),name=n.expression.name.text;
+        if(['map','filter','flatMap','forEach'].includes(name)&&args[0]?.tag==='function'&&!callee?.body&&
+            (platform(n.expression.expression,'Array')||['response','input','union'].includes(receiver.tag)||receiver.array)){
+          function projectArray(value){
+            if(value.tag==='union')return value.values.map(projectArray).reduce(merge);
+            const cc={...c,conditions:[...c.conditions,{kind:'standard_array_callback_candidate',method:name,...src(n)}]};
+            const items=value.array?Object.entries(value.props).filter(([k])=>k!=='length').map(([,v])=>v):
+              ['response','input'].includes(value.tag)?[get(value,'*',n,cc)]:[];
+            const results=items.map((item,i)=>({item,value:invoke(args[0],[item,value.array?literal(i):unknown('array_index'),value],cc,n)}));
+            if(name==='forEach')return literal(undefined);
+            const selected=results.filter(r=>name!=='filter'||r.value.tag!=='literal'||r.value.value).map(r=>name==='filter'?r.item:r.value);
+            return {tag:'object',array:true,props:Object.fromEntries(selected.map((v,i)=>[value.array?String(i):'*',v])),dependencies:[]};
+          }
+          return projectArray(receiver);
+        }
         if(!responseRegistries&&receiver.tag==='promise'&&['then','catch','finally'].includes(name)){
           if(name==='catch')return receiver;
           const callback=args[0];
@@ -524,6 +543,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
         args.forEach(mark);if(affected.length)note(n,'unresolved_call_with_input_argument',c,{inputs:affected});
       }
       if(args.some(a=>dependencies(a).length)){
+        if(!responseRegistries)consumptions.push({id:contextualId(n,'result_handoff',c),entry:currentEntry,source_symbol:id(c.current,'callable'),
+          mode:'external_argument_handoff',callee:n.expression.getText(),value_dependencies:uniq(args.flatMap(a=>dependencies(a))),
+          conditions:[...c.conditions,{kind:'external_callee_receives_argument; downstream_behavior_unknown'}],evidence:[src(n)],call_chain:c.chain});
         note(n,'unresolved_call_with_response_argument',c,{argument_dependencies:args.map(a=>dependencies(a))});
         const seen=new Set();function taint(v){if(!v||seen.has(v))return;seen.add(v);
           const gap={kind:'possible_mutation_by_unresolved_call',...src(n)};
@@ -635,7 +657,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
         'source_projection_not_observed_fulfillment','callback_and_promise_selection_is_contextual_candidate','network_transport_and_API_boundary_join_pending',
         'unsupported_expressions_and_exception_paths_keep_unknown'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
   }
-  return {version:'0.1.0',api_symbols:[...apis],entries:analyzed,api_calls:uniq(calls),field_reads:uniq(reads),
+  return {version:'0.2.0',api_symbols:[...apis],entries:analyzed,api_calls:uniq(calls),field_reads:uniq(reads),consumptions:uniq(consumptions),
     state_writes:uniq(writes.filter(w=>w.value_dependencies.length||w.continuation_apis.length)),diagnostics:uniq(diagnostics),
     limits:['API_fulfillment_is_an_input_boundary_pending_transport_join','source_dependencies_not_executed_values',
       'range_iterations_symbolic','external_callbacks_require_callee_invocation','unresolved_call_results_keep_unknown',

@@ -51,6 +51,15 @@ class CppProtocolTests(unittest.TestCase):
         self.assertEqual(p['decoded_key_status'],'source_mapping_candidate')
         self.assertTrue(any(w['member']=='internalTag' and w['wire_fields']==['wireTag'] for w in p['decoded_key_mappings']))
 
+    def test_explicit_template_decoder_preserves_concrete_static_target(self):
+        source=SOURCE.replace('struct Codec {','struct Concrete {static Record parse(const Json& j){Record r;copyKey(r.internalTag,j,"wireTag");return r;}};\n'
+            'template<class Payload> Record factory(const Json& j){return Payload::parse(j);}\nstruct Codec {').replace('decoders.emplace(ACTION,decode);','decoders.emplace(ACTION,factory<Concrete>);')
+        g=self.graph(source);p,=g['protocol']['providers'];nodes={n['id']:n for n in g['facts']['nodes']}
+        contexts=p['decoder_registration']['template_contexts'];self.assertEqual(contexts[0]['type_arguments'],{'Payload':'Concrete'})
+        self.assertIn('Concrete::parse',[nodes[t]['name'] for t in p['decoder_registration']['functions']])
+        other=self.graph(source.replace('factory<Concrete>','factory<Missing>'))['protocol']['providers'][0]
+        self.assertEqual(other['decoder_registration']['template_contexts'][0]['dependent_targets'],[])
+
     def test_all_project_symbols_and_wire_fields_can_change(self):
         import re
         source=SOURCE

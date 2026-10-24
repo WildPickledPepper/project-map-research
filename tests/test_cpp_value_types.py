@@ -45,6 +45,11 @@ class ValueTypeTests(unittest.TestCase):
         self.assertEqual(self.targets(g,'entries.at(1)->work()'),['Thing::work'])
         self.assertEqual(self.targets(g,'entries[2].get()->work()'),['Thing::work'])
 
+    def test_auto_smart_pointer_factory_keeps_concrete_type_and_reassignment(self):
+        g=self.graph('struct Thing{void work(){}};void use(){auto item=std::make_unique<Thing>();item->work();item=external();item->work();}')
+        calls=[c for s in g['data']['summaries'] for c in s['calls'] if c['expression']=='item->work()']
+        self.assertTrue(calls[0]['targets']);self.assertEqual(calls[1]['targets'],[])
+
     def test_project_identifiers_and_template_parameters_can_be_renamed(self):
         source='struct X{void go(){}};template<typename T>struct Pool{T* open(){return nullptr;}};struct M{std::map<int,Pool<X>*> table;void use(){auto it=table.find(1);it->second->open()->go();}};'
         for a,b in [('X','Payload'),('T','Element'),('Pool','Bucket'),('open','acquire'),('table','registry'),('go','act')]:

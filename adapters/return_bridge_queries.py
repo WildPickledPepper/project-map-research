@@ -229,10 +229,20 @@ def explain_return_bridge(graph, provider, *, field_path=None, state=None, max_l
                                         if fields: mappings.append({'consumer_dependency': dep, 'wire_path': selected_wire, 'fields': fields, 'production': production})
                                     if mappings or field_path is None and write['relationship'] == 'fulfillment_continuation' and write['matching_continuations']:
                                         writes.append({'write': write, 'value_mappings': mappings})
-                                if not writes: continue
+                                consumers = []
+                                for consumer in frontend.get('consumers', []):
+                                    mappings = []
+                                    for dep in consumer['matching_dependencies']:
+                                        prefix = projection['output_path']
+                                        if dep['path'][:len(prefix)] != prefix: continue
+                                        selected_wire = wire + dep['path'][len(prefix):]
+                                        fields = [f for f in route['field_mappings'] if overlap(selected_wire, f['wire_path'])]
+                                        if fields: mappings.append({'consumer_dependency': dep, 'wire_path': selected_wire, 'fields': fields})
+                                    if mappings: consumers.append({'consumer': consumer, 'value_mappings': mappings})
+                                if not writes and not consumers: continue
                                 uid = key('return-to-state', bridge['id'], delivery['settlement']['id'], route['steps'][0]['call_site'], projection['output_path'], wire)
                                 links.append({'id': uid, 'bridge': bridge['id'], 'receiver': receiver['id'], 'socket_delivery': delivery,
-                                    'response_send_site': route['steps'][0], 'wire_to_api': projection, 'writes': writes,
+                                    'response_send_site': route['steps'][0], 'wire_to_api': projection, 'writes': writes, 'consumers': consumers,
                                     'conditions': route['conditions'] + bridge['conditions'], 'runtime_delivery': 'unknown'})
                                 used.add(bridge['id'])
     entries = {b['api'] for b in bridges} | {b['reply_send']['entry'] for b in bridges}
