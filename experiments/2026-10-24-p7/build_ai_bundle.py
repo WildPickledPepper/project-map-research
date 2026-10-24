@@ -10,11 +10,13 @@ ROOT=Path(__file__).resolve().parents[2]
 HERE=Path(__file__).resolve().parent
 
 
-def build(graph_path, inventory_path, source, runtime_store, output, catalog_path=None):
+def build(graph_path, inventory_path, source, runtime_store, output, catalog_path=None,tasks_path=None):
     if output.exists():raise ValueError('Use a fresh bundle directory')
     output.mkdir(parents=True)
     read=lambda p:json.loads(p.read_text(encoding='utf-8'))
     graph=read(graph_path);inventory=read(inventory_path);catalog=read(catalog_path) if catalog_path else None;q=ProjectQuery(graph,inventory,catalog)
+    tasks_path=tasks_path or HERE/'ai-tasks.json'
+    if read(tasks_path)['source_commit']!=graph['source_commit']:raise ValueError('Task input version and graph differ')
     def portable(value):
         if isinstance(value,dict):return {k:portable(v) for k,v in value.items()}
         if isinstance(value,list):return [portable(v) for v in value]
@@ -32,7 +34,8 @@ def build(graph_path, inventory_path, source, runtime_store, output, catalog_pat
     shutil.copytree(ROOT/'adapters',output/'adapters',ignore=shutil.ignore_patterns('__pycache__'))
     query_dir=output/'experiments/2026-10-24-p7';query_dir.mkdir(parents=True)
     for name in ('project_query.py','query.py'):shutil.copyfile(HERE/name,query_dir/name)
-    for name in ('workbench.py','ai-tasks.json'):shutil.copyfile(HERE/name,output/name)
+    shutil.copyfile(HERE/'workbench.py',output/'workbench.py')
+    shutil.copyfile(tasks_path,output/'ai-tasks.json')
     paths=set(graph['input_paths'])
     for module in inventory['modules']:paths.update(m['path'] for m in module['metadata'])
     for path in sorted(paths):
@@ -75,4 +78,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('graph','inventory','source','runtime-store','output'):p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--catalog',type=Path)
-    a=p.parse_args();print(json.dumps(build(a.graph,a.inventory,a.source,a.runtime_store,a.output,a.catalog)))
+    p.add_argument('--tasks',type=Path)
+    a=p.parse_args();print(json.dumps(build(a.graph,a.inventory,a.source,a.runtime_store,a.output,a.catalog,a.tasks)))

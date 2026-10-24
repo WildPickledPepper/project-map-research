@@ -1,0 +1,53 @@
+{
+  "version": "p7-ai-tasks/3-upstream",
+  "revision_reason": "Same frozen questions on uninstrumented upstream input; first instrumented runs retained. No previous answers or scores supplied to the new agent.",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "evaluation": "Two independent agents use the same graph, sources and questions. This measures graph-assisted usability, not superiority over source-only work.",
+  "tasks": [
+    {
+      "id": "T01",
+      "question": "这张地图覆盖多少源码文件？仓库结构清单有多少文件？指出一个未展开模块。它是否证明整个仓库的语义关系已覆盖？"
+    },
+    {
+      "id": "T02",
+      "question": "unit/flows 的前端 API、后端 handler 和两类数据库候选实现分别是什么？给出源码依据，区分静态候选与实际运行选择。"
+    },
+    {
+      "id": "T03",
+      "question": "Memory/view/memoryUsage 由哪个前端 API、哪个 moduleName 发出，注册到哪个 handler？同时查 timeline/rankOffset，确认两者没有因公共发送器而串到同一 handler。"
+    },
+    {
+      "id": "T04",
+      "question": "memoryUsage 的缓存命中与未命中路径有什么不同？普通查询和比较模式怎样访问数据库？最终 lines 怎样从计算结果进入前端图表状态？说明连接条件与仍未证明的部分。"
+    },
+    {
+      "id": "T05",
+      "question": "CurveContainer 缓存的键由什么组成？谁写、谁读、谁清理缓存？start/end 是否属于键？源码中的 Clear 和锁能否证明实际内存释放量以及整段命中检查到计算的原子性？"
+    },
+    {
+      "id": "T06",
+      "question": "DynamicLineChart 收到旧请求响应时，哪个条件控制 lineChartData 更新？反向查询修改 CurveContainer.cpp 的候选前端影响，给出路径证据。查询未返回的入口是否可以判定不受影响？"
+    },
+    {
+      "id": "T07",
+      "question": "运行记录中 normal、late、fault 的结果分别是什么？迟到响应路径不同是否就是 bug？这些旧记录能否直接作为当前 P7 图已经运行验证的证据？"
+    },
+    {
+      "id": "T08",
+      "question": "修改 memoryUsage 时能查到哪些历史契约？当前 assets 状态具体意味着什么，能否据此说没有历史风险？"
+    },
+    {
+      "id": "T09",
+      "question": "查询不存在的 Memory/view/definitely-absent；再用深度 0 查 memoryCurveGet，并用 limit=1 分页搜索 QueryMemoryView。分别解释未提取、深度截断和分页截断，避免把它们解释为没有依赖。"
+    },
+    {
+      "id": "T10",
+      "question": "从 TextMemoryDataBase::QueryMemoryView 和返回字段 lines 分别反查消费入口。列出与其相关的数据库/缓存/前端条件，并说明这条 memory 链是否已有实际运行或内存占用验证。"
+    },
+    {
+      "id": "T11",
+      "question": "查看全仓 coverage 清单：Python 和 Rust 有多少文件、多少进入语义图？列出三个尚未贯通的机制类别。词法扫描命中能否当作已连接的调用关系？三条链通过能否证明全仓完整？"
+    }
+  ],
+  "answer_format": "answers.json: array of {id,answer,evidence:[{file,line_or_json_path,claim}],unknowns:[string]}; plus answers.md. Every task uses workbench begin/end; tool/read usage and elapsed time are recorded. Token/context counts unavailable from the agent API must be reported unavailable."
+}
