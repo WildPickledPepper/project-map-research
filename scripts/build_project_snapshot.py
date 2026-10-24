@@ -49,7 +49,7 @@ def build(source, request, output, log, *, typescript):
 
     if os.environ.get('PROJECT_MAP_PARSER_CACHE'): pack.configure(pack.PackConfig(cache_dir=os.environ['PROJECT_MAP_PARSER_CACHE']))
     paths = request['input_paths']; revision = request['source_commit']
-    manifest = output/'input-manifest.json'; checkpoint = output/'working-graph.json'
+    manifest = output/'input-manifest.json'; checkpoint = output/'phase-input.json'
     write_json(manifest, {'source_commit': revision, 'files': [{'path': p} for p in paths]})
 
     def ts_phase(name, *args):
@@ -77,7 +77,10 @@ def build(source, request, output, log, *, typescript):
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     print('Extract C++ data, objects and fields', file=log, flush=True)
     graph = data_graph(graph, extractor.build(), paths)
-    write_json(checkpoint, graph)
+    # Node phases consume boundary identities, never the multi-hundred-MB graph.
+    matched = {r['message'] for r in graph['protocol']['results'] if r.get('matches')}
+    write_json(checkpoint, {'project_map_phase': 'frontend', 'api_symbols': sorted({
+        e['source'] for e in graph['edges'] if e['kind'] == 'EMITS_MESSAGE' and e['target'] in matched})})
     graph = augment_frontend(graph, ts_phase('typescript_data_flow.cjs', checkpoint))
     graph = augment_callbacks(graph, ts_phase('typescript_response_flow.cjs'))
     transmission = Transmission(extractor).build()
@@ -85,7 +88,10 @@ def build(source, request, output, log, *, typescript):
     graph = augment_sockets(graph, ts_phase('typescript_socket_flow.cjs'))
     print('Extract source server connections', file=log, flush=True)
     graph = augment_server_channels(graph, extractor.facts, SocketOrigins(extractor).build(), paths)
-    write_json(checkpoint, graph)
+    write_json(checkpoint, {'project_map_phase': 'return',
+        'boundarySymbols': sorted({r['entry'] for r in graph['response_callbacks']['registrations']}),
+        'apiEntries': graph['frontend']['api_symbols'],
+        'handoffSymbols': sorted({r['entry'] for r in graph['response_callbacks']['settlements'] if r.get('registry_context')})})
     graph = augment_returns(graph, ts_phase('typescript_return_flow.cjs', checkpoint))
     graph = closure(graph, extractor, transmission, extract_conditions(extractor))
     graph['snapshot'] = request['snapshot']

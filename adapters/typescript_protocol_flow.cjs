@@ -8,6 +8,9 @@ const {analyze}=require('./typescript_facts.cjs');
 function extract(ctx) {
   const {ts,checker,loc,id,walk,callableOwner,facts,sfList}=ctx;
   const sourceFiles=new Set(ctx.relativeFiles);
+  const bindingsByCall=new Map();for(const edge of facts.edges)if(edge.kind==='USES_BINDING'){
+    if(!bindingsByCall.has(edge.source))bindingsByCall.set(edge.source,[]);bindingsByCall.get(edge.source).push(edge);
+  }
   const lit=value=>({tag:'literal',value}),unk=reason=>({tag:'unknown',reason}),obj=(props={})=>({tag:'object',props});
   const fn=(node,env,receiver=null)=>({tag:'function',node,env:new Map(env),receiver});
   const diagnostics=[],consumers=[],ast=new Map();let active=null,steps=0;
@@ -195,7 +198,7 @@ function extract(ctx) {
   for(const call of ctx.calls){if(!ts.isCallExpression(call)||!ts.isPropertyAccessExpression(call.expression))continue;const target=checker.getResolvedSignature(call)?.declaration,rule=setters.get(target),arg=rule&&call.arguments[rule.index];
     if(rule&&arg&&(ts.isArrowFunction(arg)||ts.isFunctionExpression(arg))&&ts.isClassDeclaration(target.parent))registrations.push({cls:target.parent,callback:arg,slot:rule.slot,call,setter:rule.evidence});}
   for(const call of ctx.calls) {
-    const callId=id(call,'call_site'),bindings=facts.edges.filter(e=>e.source===callId&&e.kind==='USES_BINDING');if(!bindings.length)continue;
+    const callId=id(call,'call_site'),bindings=bindingsByCall.get(callId)||[];if(!bindings.length)continue;
     const owner=callableOwner(call),item={id:'protocol:'+callId,source_call:callId,source_owner:owner?id(owner,'callable'):null,name:owner?ctx.qualified(owner):call.expression.getText(),...loc(call),binding_count:bindings.length,events:[],boundaries:[]};
     active=item;steps=0;if(bindings.length!==1){item.status='ambiguous_binding';consumers.push(item);continue;}
     const binding=ast.get(bindings[0].target),c={env:new Map(),resolving:new Set(),receiver:null,depth:0,current:null,conditions:[bindings[0].condition]};

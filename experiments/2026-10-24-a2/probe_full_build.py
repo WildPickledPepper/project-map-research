@@ -1,4 +1,4 @@
-"""Bound the unchanged whole-graph builder and preserve its first full-scope result."""
+"""Run a committed whole-graph builder with visible time and process-tree budgets."""
 import argparse
 import ctypes
 import json
@@ -85,7 +85,7 @@ def main():
                 process.wait();break
             try:process.wait(timeout=2)
             except subprocess.TimeoutExpired:pass
-    result={'evidence_kind':'executed_first_full_scope_unchanged_builder','source_commit':a.revision,
+    result={'evidence_kind':'executed_full_scope_versioned_builder','source_commit':a.revision,
         'exit_code':process.returncode,'status':'budget_stopped' if reason else 'passed' if process.returncode==0 else 'failed',
         'stop_reason':reason,'elapsed_seconds':round(time.monotonic()-started,3),
         'budgets':{'wall_seconds':a.seconds,'process_tree_working_set_bytes':6*1024**3,'node_heap_mib':3072},

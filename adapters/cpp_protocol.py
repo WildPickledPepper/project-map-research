@@ -31,6 +31,10 @@ class ProtocolExtractor:
         self.functions=defaultdict(list)
         self.registrations=[];self.lookups=[];self.groups=[];self.diagnostics=[]
         self.reference_writes={};self.field_writes=[]
+        self.factory_links=defaultdict(set);self.factory_reachable={}
+        for edge in self.facts['edges']:
+            if edge['kind'] in {'DECLARES_DEFINITION','OVERRIDE_CANDIDATE'}:
+                self.factory_links[edge['source']].add(edge['target'])
         self.class_nodes={}
         for path,unit in self.x.units.items():
             for n in walk(unit['tree'].root_node):
@@ -199,6 +203,30 @@ class ProtocolExtractor:
             if f and f.type=='field_expression' and not args(node):return text(f.child_by_field_name('field'))
         return None
 
+    def factory_targets(self,node,uid,info,depth=0):
+        """Resolve getter identities; spelling alone never identifies a factory."""
+        if node is None or depth>8:return []
+        if node.type=='identifier':
+            return self.factory_targets(self.local_initializer(text(node),node,info),uid,info,depth+1)
+        if node.type=='call_expression':
+            function=node.child_by_field_name('function')
+            if text(function)=='std::move' and len(args(node))==1:
+                return self.factory_targets(args(node)[0],uid,info,depth+1)
+            if function and function.type=='field_expression' and not args(node):
+                groups,_=self.x.targets(node,info['path'],info['scope'],uid)
+                return sorted({target for group in groups for target in group})
+        return []
+
+    def reachable_factory(self,target):
+        if target not in self.factory_reachable:
+            found=set();todo=[target]
+            while todo:
+                current=todo.pop()
+                if current in found:continue
+                found.add(current);todo.extend(self.factory_links[current]-found)
+            self.factory_reachable[target]=found
+        return self.factory_reachable[target]
+
     def collect_registries(self):
         for uid,info in self.x.functions_by_id.items():
             if not self.x.nodes[uid]['definition']:continue
@@ -219,6 +247,7 @@ class ProtocolExtractor:
                         self.registrations.append({'id':'registry:'+identity(path,'registration',n),'owner':cls,'registry':registry,
                             'key':value,'key_expression':text(a[0]),'value_expression':text(a[1]),'objects':targets,'functions':target_functions,
                             'factory_method':self.factory_method(a[1],info),
+                            'factory_targets':self.factory_targets(a[1],uid,info),
                             'path':path,'line':n.start_point[0]+1,'source_symbol':uid,'conditions':self.x.conditions(n),
                             'evidence':[self.ev(path,n),*evidence,*allocation]})
                     if operation in {'at','find'} and len(a)==1:
@@ -348,8 +377,9 @@ class ProtocolExtractor:
                 matches=[r for r in decoders if r['key']==handler['key'] and r['key'] is not None]
                 for decoder in matches:
                     key_fields=sorted({o['field'] for r in self.lookups if r['registry']==decoder['registry'] for o in r['key_origins'] if o['kind']=='json_subscript'})
-                    component_methods={c['method'] for c in group['components'] if c['class']==decoder['owner']}
-                    scope_registrations=[r for r in self.registrations if r['factory_method'] in component_methods]
+                    component_targets={c['source_symbol'] for c in group['components'] if c['class']==decoder['owner']}
+                    scope_registrations=[r for r in self.registrations if any(
+                        component_targets & self.reachable_factory(target) for target in r['factory_targets'])]
                     scope_lookups=[r for r in self.lookups if r['registry'] in {x['registry'] for x in scope_registrations} and any(o['kind']=='json_subscript' for o in r['key_origins'])]
                     scope_fields=sorted({o['field'] for r in scope_lookups for o in r['key_origins'] if o['kind']=='json_subscript'})
                     methods=self.dispatch_methods(handler)
@@ -358,6 +388,7 @@ class ProtocolExtractor:
                     providers.append({'id':'provider:'+handler['id']+':'+decoder['id'],'path':handler['path'],'line':handler['line'],
                         'name':handler['value_expression'],'command':handler['key'],'command_fields':key_fields,'scope_values':sorted({k['value'] for k in group['keys']}),
                         'scope_fields':scope_fields,'scope_registrations':scope_registrations,'scope_lookups':scope_lookups,
+                        'scope_identity_status':'source_callable_candidate' if scope_registrations else 'factory_target_unresolved',
                         'factory_group':group,'handler_registration':handler,'decoder_registration':decoder,
                         'handler_methods':[m['id'] for m in methods],'dispatch_evidence':methods,
                         'decoded_key_mappings':mapping,'decoded_key_status':'source_mapping_candidate' if any(set(w['wire_fields'])&set(key_fields) for w in mapping) else 'unresolved',

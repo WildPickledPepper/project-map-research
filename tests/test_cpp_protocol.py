@@ -65,6 +65,25 @@ class CppProtocolTests(unittest.TestCase):
         for source in [SOURCE.replace('entries.emplace(ACTION,std::make_unique<SpecificWork>());',''),SOURCE.replace('entries.emplace(ACTION,','entries.emplace(runtime(),')]:
             self.assertEqual(self.graph(source)['protocol']['providers'],[])
 
+    def test_same_getter_spelling_in_another_service_does_not_join_scope(self):
+        providers=self.graph(files={'one.cpp':'namespace one {'+SOURCE+'}',
+            'two.cpp':'namespace two {'+SOURCE.replace('"space"','"tenant"')+'}'})['protocol']['providers']
+        self.assertEqual({p['path']:p['scope_fields'] for p in providers},
+                         {'one.cpp':['space'],'two.cpp':['tenant']})
+
+    def test_unresolved_factory_receiver_retains_unknown_scope(self):
+        provider,=self.graph(SOURCE.replace('install(Bundle* b','install(Unknown* b'))['protocol']['providers']
+        self.assertEqual(provider['scope_fields'],[])
+        self.assertEqual(provider['scope_identity_status'],'factory_target_unresolved')
+
+    def test_virtual_factory_candidate_follows_base_declaration_to_component(self):
+        source=SOURCE.replace('struct Bundle:Base',
+            'struct Base {virtual std::unique_ptr<Codec> codec()=0;}; struct Bundle:Base')
+        source=source.replace('install(Bundle* b','install(Base* b')
+        provider,=self.graph(source)['protocol']['providers']
+        self.assertEqual(provider['scope_fields'],['space'])
+        self.assertEqual(provider['scope_identity_status'],'source_callable_candidate')
+
     def test_unknown_key_transformation_does_not_reuse_input_field(self):
         source=SOURCE.replace('j["wireTag"].GetString()','j["wireTag"].digest()')
         self.assertEqual(self.graph(source)['protocol']['providers'],[])

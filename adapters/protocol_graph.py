@@ -37,6 +37,7 @@ def match_message(message,providers,config):
         gaps=[]
         if len(source_services)!=1 or len(target_services)!=1:gaps.append('service_scope_unknown_or_ambiguous')
         if reason or len(p['scope_values'])!=1:gaps.append('module_scope_unknown_or_ambiguous')
+        if p.get('scope_identity_status')=='factory_target_unresolved':gaps.append('factory_target_unresolved')
         if p['status']!='registered_candidate':gaps.append(p['status'])
         if p.get('decoded_key_status')!='source_mapping_candidate':gaps.append('decoded_dispatch_key_mapping_unresolved')
         if not p['handler_methods']:gaps.append('handler_body_outside_input_or_unresolved')

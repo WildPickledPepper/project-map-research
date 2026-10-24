@@ -9,6 +9,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     returnOnly=false,boundarySymbols=[],apiEntries=[],handoffSymbols=[]}={}) {
   const {ts,checker,loc,id,callableOwner,qualified}=ctx,apis=new Set(apiSymbols);
   const sourceFiles=new Set(ctx.relativeFiles);
+  const bindingsByCall=new Map();for(const edge of ctx.facts.edges)if(edge.kind==='USES_BINDING'){
+    if(!bindingsByCall.has(edge.source))bindingsByCall.set(edge.source,[]);bindingsByCall.get(edge.source).push(edge);
+  }
   const src=n=>({...loc(n),expression:n.getText().slice(0,500)});
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
   const entries=new Map(),writes=[],reads=[],calls=[],diagnostics=[];let steps=0,currentEntry=null;
@@ -405,7 +408,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         return unknown('react_state_binding_unresolved');
       }
       if(returnOnly){
-        const bindings=ctx.facts.edges.filter(e=>e.source===callId&&e.kind==='USES_BINDING');
+        const bindings=bindingsByCall.get(callId)||[];
         if(bindings.length){
           if(bindings.length!==1){note(n,'ambiguous_global_binding',c);return unknown('ambiguous_global_binding');}
           const assignment=ast.get(bindings[0].target),callable=assignment?ev(assignment.right,c):null;
@@ -631,8 +634,9 @@ function analyzeData(ts,root,files,apis,options){return analyze(ts,root,files,{p
 module.exports={analyzeData,extractData};
 if(require.main===module){const [root,manifest,base,tsModule,output]=process.argv.slice(2),ts=require(path.resolve(tsModule));
   if(ts.version!=='5.9.3')throw new Error('Expected TypeScript 5.9.3');if(fs.existsSync(output))throw new Error('Use a new output file');
-  const g=JSON.parse(fs.readFileSync(base,'utf8')),matched=new Set(g.protocol.results.filter(r=>r.matches?.length).map(r=>r.message));
-  const apis=[...new Set(g.edges.filter(e=>e.kind==='EMITS_MESSAGE'&&matched.has(e.target)).map(e=>e.source))];
+  const g=JSON.parse(fs.readFileSync(base,'utf8'));
+  const matched=new Set((g.protocol?.results||[]).filter(r=>r.matches?.length).map(r=>r.message));
+  const apis=g.project_map_phase==='frontend'?g.api_symbols:[...new Set(g.edges.filter(e=>e.kind==='EMITS_MESSAGE'&&matched.has(e.target)).map(e=>e.source))];
   const result=analyzeData(ts,root,JSON.parse(fs.readFileSync(manifest,'utf8')).files.map(f=>f.path),apis);
   fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');process.stdout.write(JSON.stringify({entries:result.data_flow.entries.length,reads:result.data_flow.field_reads.length,writes:result.data_flow.state_writes.length})+'\n');
 }

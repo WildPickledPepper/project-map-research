@@ -44,6 +44,12 @@ class FullSnapshotTests(unittest.TestCase):
                 self.assertEqual(graph['provenance']['update_mode'], 'full_rebuild')
                 self.assertEqual(graph['provenance']['trigger'], 'caller')
                 self.assertFalse(result['storage_roundtrip'])
+                phase_input=json.loads((output/'phase-input.json').read_text(encoding='utf-8'))
+                self.assertEqual(phase_input['project_map_phase'],'return')
+                self.assertNotIn('nodes',phase_input)
+                self.assertEqual(phase_input['apiEntries'],graph['frontend']['api_symbols'])
+                self.assertEqual(set(phase_input['boundarySymbols']),
+                                 {r['entry'] for r in graph['response_callbacks']['registrations']})
                 graphs.append(graph)
                 # Only the provider changes. The unchanged consumer must lose its old match.
                 (source/'server/main.cpp').write_text(SOURCE.replace('alpha/read', 'beta/read'), encoding='utf-8')
