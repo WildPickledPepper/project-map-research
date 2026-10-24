@@ -5,9 +5,11 @@
 const fs=require('node:fs'),path=require('node:path');
 const {analyze}=require('./typescript_facts.cjs');
 
-function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistries=false,socketOnly=false,
+function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=64,responseRegistries=false,socketOnly=false,
     returnOnly=false,boundarySymbols=[],apiEntries=[],handoffSymbols=[]}={}) {
   const {ts,checker,loc,id,callableOwner,qualified}=ctx,apis=new Set(apiSymbols);
+  if(!Number.isInteger(maxAlternatives)||maxAlternatives<1)throw new Error('maxAlternatives must be a positive integer');
+  const sourceNodes=new Map(ctx.facts.nodes.map(n=>[n.id,n])),widened=new Set();
   const sourceFiles=new Set(ctx.relativeFiles);
   const bindingsByCall=new Map();for(const edge of ctx.facts.edges)if(edge.kind==='USES_BINDING'){
     if(!bindingsByCall.has(edge.source))bindingsByCall.set(edge.source,[]);bindingsByCall.get(edge.source).push(edge);
@@ -82,7 +84,18 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(v.tag==='json')out.value=clone(v.value,memo);
     if(v.values)out.values=v.values.map(x=>clone(x,memo));return out;
   }
-  function merge(a,b){if(a===b)return a;return {tag:'union',values:[...(a?.tag==='union'?a.values:[a||unknown('missing_branch')]),...(b?.tag==='union'?b.values:[b||unknown('missing_branch')])]};}
+  function merge(a,b){
+    if(a===b)return a;
+    const values=[...new Set([...(a?.tag==='union'?a.values:[a||unknown('missing_branch')]),...(b?.tag==='union'?b.values:[b||unknown('missing_branch')])])];
+    if(values.length>maxAlternatives){
+      const key=currentEntry+':'+phase;
+      if(!widened.has(key)){widened.add(key);const node=sourceNodes.get(currentEntry);
+        diagnostics.push({kind:'alternative_budget_exceeded',entry:currentEntry,phase,limit:maxAlternatives,
+          ...(node?{path:node.path,line:node.line}:{}),effect:'merged_value_is_unknown; missing_flow_is_not_independence'});}
+      return unknown('alternative_budget_exceeded');
+    }
+    return values.length===1?values[0]:{tag:'union',values};
+  }
   function note(n,kind,c,extra={}){diagnostics.push({kind,...src(n),entry:currentEntry,call_chain:c.chain,...extra});}
   function guarded(v,conditions){
     const out=clone(v),seen=new Set();
@@ -604,14 +617,15 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       transmissions:uniq(transmissions),window_listeners:windowListeners.map(r=>r.record),handoffs:uniq(handoffs),guard_tests:uniq(guardTests),diagnostics:uniq(diagnostics),
       limits:['fulfilled_boundary_values_are_source_inputs','window_destination_and_origin_require_matching_deployment',
         'registered_callback_requires_same_receiver_and_lifetime','exceptions_and_unresolved_mutations_keep_gaps','runtime_delivery_not_observed'],
-      budgets:{max_steps:maxSteps,max_depth:maxDepth}};
+      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
   }
   if(socketOnly){phase='socket';for(const [uid,entry] of socketEntries)analyzeEntry(uid,entry);
     return {version:'0.1.0',entries:analyzed,creations:uniq(socketCreations),channel_bindings:uniq(channelBindings),listener_bindings:uniq(listenerBindings),
-      transmissions:uniq(transmissions),diagnostics:uniq(diagnostics),budgets:{max_steps:maxSteps,max_depth:maxDepth},
+      transmissions:uniq(transmissions),diagnostics:uniq(diagnostics),
       limits:['native_WebSocket_alternative_requires_source_branch','class_field_identity_requires_same_runtime_instance',
         'listener_must_remain_active_until_delivery','dynamic_URL_kept_as_source_expression','source_endpoint_is_not_observed_network_connection',
-        'nonstandard_socket_alternatives_remain_unknown','unsupported_expressions_and_control_flow_keep_unknown']};
+      'nonstandard_socket_alternatives_remain_unknown','unsupported_expressions_and_control_flow_keep_unknown'],
+      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
   }
   if(responseRegistries){phase='register';for(const [uid,entry] of promiseEntries)analyzeEntry(uid,entry);
     phase='lookup';for(const [uid,entry] of lookupEntries)analyzeEntry(uid,entry);
@@ -619,7 +633,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       lookups:uniq(lookups),settlements:uniq(settlements),deletions:uniq(deletions),callback_bindings:uniq(callbackBindings),diagnostics:uniq(diagnostics),
       limits:['registry_join_requires_same_runtime_instance_and_equal_key','registration_lifetime_requires_runtime_or_reaching_definition_validation',
         'source_projection_not_observed_fulfillment','callback_and_promise_selection_is_contextual_candidate','network_transport_and_API_boundary_join_pending',
-        'unsupported_expressions_and_exception_paths_keep_unknown'],budgets:{max_steps:maxSteps,max_depth:maxDepth}};
+        'unsupported_expressions_and_exception_paths_keep_unknown'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
   }
   return {version:'0.1.0',api_symbols:[...apis],entries:analyzed,api_calls:uniq(calls),field_reads:uniq(reads),
     state_writes:uniq(writes.filter(w=>w.value_dependencies.length||w.continuation_apis.length)),diagnostics:uniq(diagnostics),
@@ -627,7 +641,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       'range_iterations_symbolic','external_callbacks_require_callee_invocation','unresolved_call_results_keep_unknown',
       'exceptions_and_some_control_flow_not_expanded','state_roots_are_entry_parameters',
       'conditional_alias_and_callback_effects_are_candidates','branch_caller_alias_effects_not_composed',
-      'opaque_mutations_keep_candidate_with_gap'],budgets:{max_steps:maxSteps,max_depth:maxDepth}};
+      'opaque_mutations_keep_candidate_with_gap'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives}};
 }
 
 function analyzeData(ts,root,files,apis,options){return analyze(ts,root,files,{pathsFromConfigs:true,outputKey:'data_flow',run:ctx=>extractData(ctx,apis,options)});}

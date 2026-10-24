@@ -13,6 +13,15 @@ const wrapper=`class Client {
  receive(event:any){const packet=JSON.parse(event.data);const callback=this.pending.get(packet.token);if(callback===undefined)return;this.pending.delete(packet.token);callback(packet);}
 }`;
 
+test('branch alternative growth is bounded and retains an entry diagnostic',()=>{
+  const source='class M {q=new Map<number,any>();send(flag:any){return new Promise(resolve=>{let box={a:1};'+
+    'if(flag){}else{}'.repeat(14)+'this.q.set(1,resolve);});}}';
+  const g=graph(source,{maxAlternatives:4});
+  assert.equal(g.budgets.max_alternatives,4);
+  assert(g.diagnostics.some(d=>d.kind==='alternative_budget_exceeded'&&d.entry&&d.path==='a.ts'&&d.limit===4));
+  assert(g.entries.every(e=>e.steps<20000));
+});
+
 test('a stored source closure projects a decoded response into its captured resolver',()=>{
   const g=graph(wrapper);
   assert.equal(g.registrations.length,1);assert.equal(g.lookups.length,1);
