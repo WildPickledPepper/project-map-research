@@ -102,6 +102,9 @@ def build(source, request, output, log, *, typescript):
         'apiEntries': graph['frontend']['api_symbols'],
         'handoffSymbols': sorted({r['entry'] for r in graph['response_callbacks']['settlements'] if r.get('registry_context')})})
     graph = augment_returns(graph, ts_phase('typescript_return_flow.cjs', checkpoint))
+    print('Checkpoint extracted relations before closure validation', file=log, flush=True)
+    write_json(output/'return-checkpoint.json', {'stage': 'pre_closure_unvalidated_not_published', 'request': request, 'graph': graph})
+    print('Finalize and validate source graph', file=log, flush=True)
     graph = closure(graph, extractor, transmission, extract_conditions(extractor))
     graph['snapshot'] = request['snapshot']
     graph['version'] = {k: request[k] for k in ['source_commit', 'snapshot', 'config', 'build_version']}

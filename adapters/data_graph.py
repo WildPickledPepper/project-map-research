@@ -139,7 +139,9 @@ def augment(base,cpp,paths):
             edges[-1]['conversion']=source.get('conversion');edges[-1]['relation']=mapping['relation']
     for registration in data.get('serialization',{}).get('registrations',[]):
         rid='serialization:'+registration['id']
-        node({**registration,'id':rid},'serializer_registration',registration['key'])
+        known_key=registration['key'] is not None
+        node({**registration,'id':rid,'key_resolution':'constant' if known_key else 'unresolved'},
+             'serializer_registration',registration['key'] if known_key else registration['key_expression'])
         for uid in registration['functions']:
             edge(rid,uid,'REGISTERS_SERIALIZER_CANDIDATE',registration['evidence'],['registration_executed','matching_protocol_instance_and_key'])
     # Parallel evidence edges remain distinct; exact duplicates are redundant.

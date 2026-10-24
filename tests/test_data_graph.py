@@ -50,6 +50,14 @@ class DataGraphTests(unittest.TestCase):
         self.assertTrue(find_path(g,b,a,RESOURCE_IMPACT_KINDS,reverse=True)['found'])
         self.assertFalse(find_path(g,a,c,RESOURCE_IMPACT_KINDS)['found'])
 
+    def test_unknown_serializer_registry_key_survives_graph_validation(self):
+        g=self.graph('struct R{int n;};using J=rapidjson::Value;J encode(R& r){J out;out.AddMember("n",r.n,a);return out;}'
+            'struct Codec{std::map<std::string,Fn> encoders;void install(std::string label){encoders.emplace(label,encode);}};')
+        registration,=[n for n in g['nodes'] if n['kind']=='serializer_registration']
+        self.assertIsNone(registration['key'])
+        self.assertEqual(registration['key_resolution'],'unresolved')
+        self.assertEqual(registration['name'],'label')
+
     def test_known_distinct_keys_do_not_share_an_impact_path(self):
         g=self.graph('struct A{std::map<int,int> state;void write(){state[1]=7;}int read(){return state.at(2);}};')
         self.assertFalse(find_path(g,self.symbol(g,'A::write'),self.symbol(g,'A::read'),RESOURCE_IMPACT_KINDS)['found'])

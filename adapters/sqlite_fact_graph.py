@@ -84,7 +84,11 @@ def _prepare(graph):
             raise ValueError(f"duplicate node ID in snapshot: {node_id}")
         node_ids.add(node_id)
         for key in ("kind", "path", "name"):
-            _text(node.get(key), f"nodes[{index}].{key}", nonempty=key == "kind")
+            try:
+                _text(node.get(key), f"nodes[{index}].{key}", nonempty=key == "kind")
+            except ValueError as error:
+                location={k:node.get(k) for k in ('id','kind','path','line')}
+                raise ValueError(str(error)+'; node='+repr(location)) from error
         line = node.get("line")
         if type(line) is not int or line < 0:
             raise ValueError(f"nodes[{index}].line must be a nonnegative integer")
