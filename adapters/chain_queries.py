@@ -9,6 +9,7 @@ from adapters.return_bridge_queries import explain_return_bridge
 from adapters.server_channel_queries import explain_server_channels
 from adapters.socket_queries import explain_socket_receivers
 from adapters.transmission_queries import explain_transmission
+from adapters.value_origin_queries import explain_value_origins
 
 
 def evidence_in(value):
@@ -59,14 +60,17 @@ def explain_chain(graph, provider, field_path, *, include_details=False):
     # The field's production call chain selects producer entry candidates.
     productions = {p['write'] + json.dumps(p['production_calls'], sort_keys=True): p for link in returned['links']
                    for w in link['writes'] for m in w['value_mappings'] for p in m['production']}
+    write_ids={p['write'] for p in productions.values()}
+    value_origins=explain_value_origins(graph,[w for w in graph['data']['field_flow']['writes'] if w['id'] in write_ids])
     calls = {p['production_calls'][0]['call_site']: p['production_calls'][0] for p in productions.values() if p['production_calls']}
     receivers = {site: explain_receiver(graph, site) for site in sorted(calls)}
-    candidates = sorted({p['production_calls'][0]['callee'] for p in productions.values() if p['production_calls']})
+    candidates = sorted({p['production_calls'][0]['callee'] for p in productions.values() if p['production_calls']} |
+                        {r['source'] for r in value_origins['relations'] if r['kind']=='RETURNED_VALUE_SOURCE'})
     database_paths = []
     for candidate in candidates:
         for api in apis:
-            forward = find_path(graph, api, candidate, END_TO_END_KINDS, max_depth=16)
-            reverse = find_path(graph, candidate, api, END_TO_END_KINDS, reverse=True, max_depth=16)
+            forward = find_path(graph, api, candidate, END_TO_END_KINDS | {'SOURCE_CALL_CANDIDATE'}, max_depth=24)
+            reverse = find_path(graph, candidate, api, END_TO_END_KINDS | {'SOURCE_CALL_CANDIDATE'}, reverse=True, max_depth=24)
             database_paths.append({'api': api, 'candidate': candidate, 'forward': forward, 'reverse': reverse})
             for edge in forward['edges']:
                 add('database', edge['kind'], edge['source'], edge['target'], edge['evidence'], edge.get('conditions', []))
@@ -77,6 +81,8 @@ def explain_chain(graph, provider, field_path, *, include_details=False):
     for p in productions.values():
         add('production', 'FIELD_PRODUCTION_CALL_CHAIN', p['writer'], p['write'], p, p['conditions'],
             wire_path=p['wire_path'], calls=p['production_calls'])
+    for r in value_origins['relations']:
+        add('return_value_production',r['kind'],r['source'],r['consumer'],[r['evidence'],r['steps']],r['conditions'],selectors=r['selectors'])
     for route in response['routes']:
         for step in route['steps']:
             add('response_object', step['kind'], step['caller'], step['callee'], step['evidence'], step.get('conditions', []), call_site=step['call_site'])
@@ -107,7 +113,7 @@ def explain_chain(graph, provider, field_path, *, include_details=False):
         constant = next(k for k in graph['source_conditions']['constants'] if k['id'] == c['constant'])
         add('source_conditions', 'CONST_MEMBER_GUARD', c['constant'], c['id'], [c, constant], constant['conditions'],
             value=c['value'], branches=c['branches'], resolution=c['status'])
-    sections = {'returns': returned, 'response': response, 'transmission': sent, 'sockets': sockets, 'server': server}
+    sections = {'returns': returned, 'response': response, 'transmission': sent, 'sockets': sockets, 'server': server, 'value_origins': value_origins}
     for stage, result in sections.items():
         for gap in result.get('gaps', []):
             gaps.append({'stage': stage, 'kind': gap['kind'], 'evidence': refs(gap),

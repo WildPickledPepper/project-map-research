@@ -254,11 +254,13 @@ class DataExtractor:
         from adapters.cpp_response_routing import ResponseRouting
         routing=ResponseRouting(self,field_engine,serializer.protocol).build()
         field_flow['roots']=list(field_engine.roots.values());field_flow['locations']=list(field_engine.locations.values())
+        from adapters.cpp_member_effects import extract_member_effects
         return {'facts':self.facts,'data':{'version':'0.6.0','storages':[f for f in self.fields.values() if f['container']],
             'accesses':self.accesses,'allocations':self.allocations,'selections':self.selections,'summaries':self.summaries,
             'callbacks':self.callbacks,
             'instances':instances,
             'field_flow':field_flow,
+            'member_effects':extract_member_effects(self),
             'serialization':serialization,
             'response_routing':routing,
             'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',
