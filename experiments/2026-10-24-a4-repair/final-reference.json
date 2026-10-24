@@ -6,7 +6,7 @@
   "selection": "first exported request API by source order in numa overview API and memory-on-chip API; retain both outcomes",
   "case_sources_used_for_rule_tuning": false,
   "cases": [
-    {"id":"numa-overview", "api":"getNumaOverview", "api_path":"modules/numa/src/features/overview/api/getNumaOverview.ts", "source_call_line":32, "command":"numa/overview", "scope":"numa", "handler_path":"server/src/modules/numa/handler/QueryNumaOverviewHandler.cpp", "handler_suffix":"QueryNumaOverviewHandler::HandleRequest"},
+    {"id":"numa-overview", "api":"getNumaOverview", "api_path":"modules/numa/src/features/overview/api/getNumaOverview.ts", "source_call_line":33, "command":"numa/overview", "scope":"numa", "handler_path":"server/src/modules/numa/handler/QueryNumaOverviewHandler.cpp", "handler_suffix":"QueryNumaOverviewHandler::HandleRequest"},
     {"id":"chip-basic", "api":"getBasicInfo", "api_path":"modules/memory-on-chip/src/api/index.ts", "source_call_line":23, "command":"Triton/memory/basicInfo", "scope":"triton", "handler_path":"server/src/modules/triton/handler/QueryTritonBasicInfoHandler.cpp", "handler_suffix":"QueryTritonBasicInfoHandler::HandleRequest"}
   ]
 }
