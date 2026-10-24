@@ -14,7 +14,9 @@ sys.path.insert(0, str(ROOT))
 
 
 def write_json(path, value):
-    path.write_text(json.dumps(value, ensure_ascii=False, separators=(',', ':')) + '\n', encoding='utf-8')
+    with path.open('w', encoding='utf-8', newline='\n') as stream:
+        json.dump(value, stream, ensure_ascii=False, separators=(',', ':'))
+        stream.write('\n')
 
 
 def build(source, request, output, log, *, typescript):
