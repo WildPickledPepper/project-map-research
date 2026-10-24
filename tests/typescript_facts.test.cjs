@@ -44,6 +44,32 @@ test('separate package runtime scopes do not cross-bind globals',()=>{
     'a/boot.ts':'window.alert=()=>{};','b/use.ts':"window.alert('x');"});
   assert.equal(pairs(g,'USES_BINDING').length,0);
 });
+test('independent package globals have separate compiler declarations',()=>{
+  const g=graph({'a/package.json':'{"name":"a"}','b/package.json':'{"name":"b"}',
+    'a/boot.ts':'export {};declare global {interface Window {query:(x:string)=>void;}} window.query=x=>{};',
+    'a/use.ts':"window.query('a');",
+    'b/boot.ts':'export {};declare global {interface Window {query:(x:number,y:number)=>void;}} window.query=(x,y)=>{};',
+    'b/use.ts':'window.query(1,2);'});
+  assert.equal(pairs(g,'USES_BINDING').length,2);
+  assert(!g.diagnostics.some(d=>d.kind==='typescript_semantic'));
+  assert.equal(g.analysis_units.length,2);
+});
+test('test mocks do not create product global binding ambiguity',()=>{
+  const g=graph({'package.json':'{"name":"app"}',
+    'boot.ts':'export {};declare global {interface Window {query:(x:string)=>void;}} window.query=x=>{};',
+    'use.ts':"window.query('a');",'tests/use.test.ts':"window.query=x=>{};window.query('test');"});
+  const call=g.nodes.find(n=>n.path==='use.ts'&&n.kind==='call_site');
+  assert.equal(call.resolution,'conditional_binding');
+  const bindings=pairs(g,'USES_BINDING').filter(([a])=>a.id===call.id);
+  assert.equal(bindings.length,1);assert.equal(bindings[0][1].path,'boot.ts');
+  assert.equal(g.analysis_units.length,2);
+  assert.equal(g.coverage.length,3);
+});
+test('workspace imports retain targets across automatic compiler root units',()=>{
+  const g=graph({'a/package.json':'{"name":"a"}','b/package.json':'{"name":"b","exports":{".":"./api.ts"}}',
+    'a/use.ts':"import {helper} from 'b';helper();",'b/api.ts':'export function helper(){return 1;}'});
+  assert(pairs(g,'STATIC_CALL_TARGET').some(([a,b])=>a.path==='a/use.ts'&&b.path==='b/api.ts'));
+});
 test('semantic error does not publish a certain call target',()=>{
   const g=graph({'a.ts':"function f(x:number){} f('wrong');"});
   assert.equal(pairs(g,'STATIC_CALL_TARGET').length,0);

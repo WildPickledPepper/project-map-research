@@ -73,7 +73,8 @@ def build(source, request, output, log, *, typescript):
         'nodes': facts['nodes'] + ts['nodes'], 'edges': facts['edges'] + ts['edges'],
         'diagnostics': facts['diagnostics'] + ts['diagnostics'], 'limits': facts['limits'] + ts['limits'],
         'provenance': {'reference_used_for_extraction': False, 'file_hash_verification': 'not_run_per_user_preference',
-            'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs']}
+            'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
+        'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     print('Extract C++ data, objects and fields', file=log, flush=True)
     graph = data_graph(graph, extractor.build(), paths)

@@ -3,7 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 
-function analyze(ts, root, relativeFiles, extension=null) {
+function analyzeUnit(ts, root, relativeFiles, extension=null, roots=relativeFiles) {
   root = path.resolve(root);
   const allowed = new Set(relativeFiles.map(p => path.resolve(root,p)));
   const options = {target:ts.ScriptTarget.ES2020, module:ts.ModuleKind.ESNext,
@@ -46,10 +46,11 @@ function analyze(ts, root, relativeFiles, extension=null) {
     moduleMisses.push({path:rel(containingFile),kind:'module_outside_input',module:name});
     return undefined;
   });
-  const program = ts.createProgram([...allowed].filter(p => /\.tsx?$/.test(p)),options,host);
+  const program = ts.createProgram(roots.map(p=>path.resolve(root,p)).filter(p => /\.tsx?$/.test(p)),options,host);
   const checker = program.getTypeChecker();
   const nodes = new Map(), edges = [], diagnostics = [], sourceHashes=new Map(), scopeCache=new Map();
-  const sfList = program.getSourceFiles().filter(f => allowed.has(path.resolve(f.fileName)) && /\.tsx?$/.test(f.fileName));
+  const owned=new Set(roots.map(p=>path.resolve(root,p)));
+  const sfList = program.getSourceFiles().filter(f => owned.has(path.resolve(f.fileName)) && /\.tsx?$/.test(f.fileName));
   function rel(p) { return internal(p)?path.relative(root,p).replaceAll('\\','/'):'<typescript-lib>/'+path.basename(p); }
   function loc(n) { const sf=n.getSourceFile(), pos=sf.getLineAndCharacterOfPosition(n.getStart(sf));
     return {path:rel(sf.fileName),line:pos.line+1,column:pos.character+1}; }
@@ -184,6 +185,12 @@ function analyze(ts, root, relativeFiles, extension=null) {
   return result;
 }
 
+function analyze(ts,root,relativeFiles,extension=null){
+  const {partition,merge}=require('./typescript_analysis_units.cjs'),units=partition(relativeFiles);
+  if(!units.length)return analyzeUnit(ts,root,relativeFiles,extension);
+  return merge(units.map(unit=>analyzeUnit(ts,root,relativeFiles,extension,unit.root_files)),units,
+    extension?(extension.outputKey||'protocol'):null);
+}
 module.exports={analyze};
 if(require.main===module) {
   const [root,manifest,tsModule,output]=process.argv.slice(2);

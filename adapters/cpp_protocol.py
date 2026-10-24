@@ -29,6 +29,7 @@ class ProtocolExtractor:
         self.facts=facts if facts is not None else self.x.build()
         self.constants=defaultdict(list)
         self.functions=defaultdict(list)
+        self.methods_by_class=defaultdict(list)
         self.registrations=[];self.lookups=[];self.groups=[];self.diagnostics=[]
         self.reference_writes={};self.field_writes=[]
         self.factory_links=defaultdict(set);self.factory_reachable={}
@@ -50,6 +51,11 @@ class ProtocolExtractor:
         for uid,info in self.x.functions_by_id.items():
             if self.x.nodes[uid]['definition']:
                 self.functions[info['signature'][0]].append((uid,info))
+                owners={'::'.join(info['scope'])}
+                for parent in parents(info['container']):
+                    if parent.type in {'class_specifier','struct_specifier'} and parent.child_by_field_name('name'):
+                        owners.add(scoped_name('::'.join(cpp_scope(parent)+[text(parent.child_by_field_name('name'))]),info['path']))
+                for owner in owners:self.methods_by_class[owner].append((uid,info))
         self.callers=defaultdict(list)
         for uid,info in self.x.functions_by_id.items():
             if not self.x.nodes[uid]['definition']:continue
@@ -263,7 +269,7 @@ class ProtocolExtractor:
         # A source class that constructs two registered components supplies the
         # common scope. Names of the class and factory methods are irrelevant.
         for cls,node in self.class_nodes.items():
-            methods=[(uid,f) for uid,f in self.x.functions_by_id.items() if ('::'.join(f['scope'])==cls or node in parents(f['container'])) and self.x.nodes[uid]['definition']]
+            methods=self.methods_by_class[cls]
             returned=[];keys=[]
             for uid,f in methods:
                 for n in walk(f['container']):
