@@ -99,6 +99,19 @@ class ValueTypes:
                     origins.append(write.child_by_field_name('right'))
                 values=[self.infer(o,uid,info,bindings,depth+1,seen|{key}) for o in origins]
                 return values[0] if len(values)==1 else {'kind':'union','variants':values} if values else self.unknown('uninitialized_auto')
+            for loop in parents(node):
+                if loop.type!='for_range_loop':continue
+                declarator=loop.child_by_field_name('declarator')
+                structured=next((n for n in walk(declarator) if n.type=='structured_binding_declarator'),None) if declarator else None
+                names=[text(n) for n in structured.named_children] if structured else [text(declared_name(loop))]
+                if text(node) not in names:continue
+                if any(loop.start_byte<offset<node.start_byte for offset in self.x._assignments.get(uid,{}).get(text(node),[])):
+                    return self.unknown('range_binding_reassigned')
+                element=self.elements(infer(loop.child_by_field_name('right')))
+                if structured:
+                    if element.get('kind')!='pair' or len(names)!=2:return self.unknown('structured_range_element_unknown')
+                    return element['first' if names.index(text(node))==0 else 'second']
+                return element
             return self.field_type(node,uid,info,bindings) or self.unknown('unresolved_identifier')
         if kind=='conditional_expression':return {'kind':'union','variants':[infer(node.child_by_field_name(k)) for k in ['consequence','alternative']]}
         if kind=='field_expression':

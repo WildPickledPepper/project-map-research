@@ -59,3 +59,12 @@ class ValueTypeTests(unittest.TestCase):
     def test_same_method_on_unrelated_class_is_not_a_target(self):
         g=self.graph('struct A{void act(){}};struct B{void act(){}};struct M{std::map<int,A*> table;void use(){auto it=table.find(1);it->second->act();}};')
         self.assertEqual(self.targets(g,'it->second->act()'),['A::act'])
+
+    def test_structured_map_range_and_sequence_range_resolve_element_types(self):
+        g=self.graph('struct Item{void work(){}};struct M{std::map<int,std::unique_ptr<Item>> data;std::vector<Item*> values;void use(){for(const auto &[key,item]:data){item->work();}for(auto value:values){value->work();}}};')
+        self.assertEqual(self.targets(g,'item->work()'),['Item::work'])
+        self.assertEqual(self.targets(g,'value->work()'),['Item::work'])
+
+    def test_reassigned_range_binding_keeps_unknown_receiver(self):
+        g=self.graph('struct Item{void work(){}};struct M{std::vector<Item*> data;void use(){for(auto item:data){item=external();item->work();}}};')
+        self.assertEqual(self.targets(g,'item->work()'),[])

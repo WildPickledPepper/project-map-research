@@ -84,6 +84,12 @@ class CppProtocolTests(unittest.TestCase):
         self.assertEqual(provider['scope_fields'],['space'])
         self.assertEqual(provider['scope_identity_status'],'source_callable_candidate')
 
+    def test_factory_receiver_from_structured_range_binding(self):
+        source=SOURCE.replace('void install(Bundle* b,std::string k){auto item=b->codec();codecs.emplace(k,std::move(item));}',
+            'std::map<std::string,std::unique_ptr<Bundle>> bundles; void install(){for(const auto &[k,b]:bundles){auto item=b->codec();codecs.emplace(k,std::move(item));}}')
+        provider,=self.graph(source)['protocol']['providers']
+        self.assertEqual(provider['scope_fields'],['space'])
+
     def test_unknown_key_transformation_does_not_reuse_input_field(self):
         source=SOURCE.replace('j["wireTag"].GetString()','j["wireTag"].digest()')
         self.assertEqual(self.graph(source)['protocol']['providers'],[])

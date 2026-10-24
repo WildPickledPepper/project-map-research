@@ -70,6 +70,14 @@ test('workspace imports retain targets across automatic compiler root units',()=
     'a/use.ts':"import {helper} from 'b';helper();",'b/api.ts':'export function helper(){return 1;}'});
   assert(pairs(g,'STATIC_CALL_TARGET').some(([a,b])=>a.path==='a/use.ts'&&b.path==='b/api.ts'));
 });
+test('symbolic records are unit-scoped while source identities and literal values are preserved',()=>{
+  const {scopeFlow}=require('../adapters/typescript_analysis_units.cjs');
+  const flow={records:[{id:'generated',source_symbol:'source',value:'generated'}],references:[{root:'generated',target:'source'}]};
+  const a=scopeFlow(flow,'a'),b=scopeFlow(flow,'b');
+  assert.notEqual(a.records[0].id,b.records[0].id);
+  assert.equal(a.references[0].root,a.records[0].id);
+  assert.equal(a.references[0].target,'source');assert.equal(a.records[0].value,'generated');
+});
 test('semantic error does not publish a certain call target',()=>{
   const g=graph({'a.ts':"function f(x:number){} f('wrong');"});
   assert.equal(pairs(g,'STATIC_CALL_TARGET').length,0);

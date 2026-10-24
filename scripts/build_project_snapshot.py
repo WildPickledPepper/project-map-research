@@ -62,7 +62,7 @@ def build(source, request, output, log, *, typescript):
     print('Extract C++ declarations and protocol', file=log, flush=True)
     inputs = {p: (source/p).read_bytes() for p in paths if Path(p).suffix in {'.h', '.hpp', '.cpp', '.cc', '.cxx'}}
     extractor = DataExtractor(inputs, pack.get_parser('cpp'))
-    cpp = ProtocolExtractor({}, None, extractor=extractor.x, facts=extractor.facts).build()
+    cpp = ProtocolExtractor({}, None, extractor=extractor.x, facts=extractor.facts, value_types=extractor.types).build()
     ts = ts_phase('typescript_protocol_flow.cjs'); facts = cpp['facts']
     covered = {r['path'] for g in (facts, ts) for r in g['coverage']}
     graph = {'schema_version': 1, 'snapshot': revision + ':protocol', 'source_commit': revision,

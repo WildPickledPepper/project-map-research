@@ -24,9 +24,10 @@ def make_type(n):
 
 
 class ProtocolExtractor:
-    def __init__(self,sources,parser,*,extractor=None,facts=None):
+    def __init__(self,sources,parser,*,extractor=None,facts=None,value_types=None):
         self.x=extractor if extractor is not None else Extractor(sources,parser)
         self.facts=facts if facts is not None else self.x.build()
+        self.value_types=value_types
         self.constants=defaultdict(list)
         self.functions=defaultdict(list)
         self.methods_by_class=defaultdict(list)
@@ -220,7 +221,9 @@ class ProtocolExtractor:
                 return self.factory_targets(args(node)[0],uid,info,depth+1)
             if function and function.type=='field_expression' and not args(node):
                 groups,_=self.x.targets(node,info['path'],info['scope'],uid)
-                return sorted({target for group in groups for target in group})
+                targets={target for group in groups for target in group}
+                if not targets and self.value_types:targets.update(self.value_types.call(node,uid,info)['targets'])
+                return sorted(targets)
         return []
 
     def reachable_factory(self,target):
@@ -403,4 +406,7 @@ class ProtocolExtractor:
                 'providers':providers,'field_mappings':self.field_writes,'diagnostics':self.diagnostics,'limits':['source_type_candidates','registry_value_must_be_const_key','preprocessor_conditions_not_evaluated','object_factory_group_is_source_scope','RapidJSON_string_accessor_model','reference_write_summaries_are_candidates']}}
 
 
-def analyze_protocol(sources,parser):return ProtocolExtractor(sources,parser).build()
+def analyze_protocol(sources,parser):
+    from adapters.cpp_data import DataExtractor
+    data=DataExtractor(sources,parser)
+    return ProtocolExtractor(None,None,extractor=data.x,facts=data.facts,value_types=data.types).build()

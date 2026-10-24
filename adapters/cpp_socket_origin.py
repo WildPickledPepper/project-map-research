@@ -23,7 +23,7 @@ class SocketOrigins(Transmission):
 
     def __init__(self, data, **budgets):
         super().__init__(data, **budgets)
-        self.protocol = ProtocolExtractor(None, None, extractor=self.x, facts=data.facts)
+        self.protocol = ProtocolExtractor(None, None, extractor=self.x, facts=data.facts, value_types=data.types)
         self.instances = extract_instances(data); self.accessors = {a['source_symbol']: a for a in self.instances['accessors']}
         self.registrations = []; self.listeners = []; self.allocations = []; self.channel_initializers = []; self.stores = []
 

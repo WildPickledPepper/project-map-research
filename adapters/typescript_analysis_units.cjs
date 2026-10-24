@@ -21,6 +21,7 @@ function partition(files){
 }
 
 function merge(results,units,key){
+  if(key&&key!=='protocol')results=results.map((r,index)=>({...r,[key]:scopeFlow(r[key],units[index].id)}));
   const first=results[0],combined={...first};
   const unique=values=>[...new Map(values.map(v=>[JSON.stringify(v),v])).values()];
   const nodes=new Map();for(const r of results)for(const n of r.nodes){
@@ -38,4 +39,16 @@ function merge(results,units,key){
   return combined;
 }
 
-module.exports={partition,merge};
+function scopeFlow(flow,unit){
+  const identities=new Map();for(const values of Object.values(flow))if(Array.isArray(values))
+    for(const record of values)if(record&&typeof record==='object'&&record.id)identities.set(record.id,record.id+':unit:'+encodeURIComponent(unit));
+  function rewrite(value,key){
+    if(typeof value==='string')return ['value','expression','name','text','reason'].includes(key)?value:(identities.get(value)||value);
+    if(Array.isArray(value))return value.map(v=>rewrite(v,key));
+    if(value&&typeof value==='object')return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,rewrite(v,k)]));
+    return value;
+  }
+  return rewrite(flow);
+}
+
+module.exports={partition,merge,scopeFlow};

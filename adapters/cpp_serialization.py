@@ -21,7 +21,7 @@ class Serialization:
         if min(max_steps,max_mapping_visits,max_depth)<1:raise ValueError('analysis budgets must be positive')
         self.max_steps=max_steps;self.max_mapping_visits=max_mapping_visits;self.max_depth=max_depth
         self.d=data;self.x=data.x;self.types=LibraryTypes(self.x);self.cache={};self.active=set()
-        self.protocol=ProtocolExtractor(None,None,extractor=self.x,facts=data.facts)
+        self.protocol=ProtocolExtractor(None,None,extractor=self.x,facts=data.facts,value_types=data.types)
         self.eligible={uid for uid,info in self.x.functions_by_id.items() if self.x.nodes[uid]['definition'] and
             (self.types.is_json(info['return_type'],info['path'],info['scope']) or
              any(self.types.is_json(text(p.child_by_field_name('type')),info['path'],info['scope']) for p in info['parameter_nodes']))}
