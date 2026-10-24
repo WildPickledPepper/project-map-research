@@ -1,0 +1,12 @@
+{
+  "evidence_kind": "source_reference_frozen_before_new_case_graph_queries",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "rules_commit": "2631af8",
+  "scope": "protocol identity and handler connection; not independent runtime or complete return validation",
+  "selection": "first two exported request APIs in compute RequestUtils; sole exported request API in reinforcement-learning api/index; selected from source before scoring the repaired graph",
+  "cases": [
+    {"id":"compute-source", "api":"querySourceCode", "api_path":"modules/compute/src/components/RequestUtils.ts", "source_call_line":27, "command":"source/code/file", "scope":"source", "handler_path":"server/src/modules/source/handler/QueryCodeFileHandler.cpp", "handler_suffix":"QueryCodeFileHandler::HandleRequest"},
+    {"id":"compute-line", "api":"queryApiLine", "api_path":"modules/compute/src/components/RequestUtils.ts", "source_call_line":38, "command":"source/api/line", "scope":"source", "handler_path":"server/src/modules/source/handler/QueryApiLineHandler.cpp", "handler_suffix":"QueryApiLineHandler::HandleRequest"},
+    {"id":"rl-pipeline", "api":"getTraceData", "api_path":"modules/reinforcement-learning/src/api/index.ts", "source_call_line":23, "command":"RL/pipeline", "scope":"rl", "handler_path":"server/src/modules/rl/handler/RLPipelineHandler.cpp", "handler_suffix":"RLPipelineHandler::HandleRequest"}
+  ]
+}
