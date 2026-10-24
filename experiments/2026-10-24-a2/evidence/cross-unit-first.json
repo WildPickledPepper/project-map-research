@@ -1,0 +1,59 @@
+{
+  "evidence_kind": "executed_cross_unit_protocol_gap",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "build_version": {
+    "rules_commit": "bc392f0d10943b4e9ac59c40a1e571114cbd3d2b",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "termination": "coordinator_stopped_both_runs_after_identifying_gap; no final graph published",
+  "runs": [
+    {
+      "evidence_kind": "executed_full_scope_versioned_builder",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "exit_code": 1,
+      "status": "failed",
+      "stop_reason": null,
+      "elapsed_seconds": 508.562,
+      "budgets": {
+        "wall_seconds": 1200.0,
+        "process_tree_working_set_bytes": 6442450944,
+        "node_heap_mib": 3072
+      },
+      "peak_tree_working_set_bytes_observed": 5051334656,
+      "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+      "raw_artifacts": "process.log and build/ retained outside research Git",
+      "file_hash_verification": "not_run_per_user_preference"
+    },
+    {
+      "evidence_kind": "executed_full_scope_versioned_builder",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "exit_code": 1,
+      "status": "failed",
+      "stop_reason": null,
+      "elapsed_seconds": 342.109,
+      "budgets": {
+        "wall_seconds": 1200.0,
+        "process_tree_working_set_bytes": 6442450944,
+        "node_heap_mib": 3072
+      },
+      "peak_tree_working_set_bytes_observed": 2391736320,
+      "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+      "raw_artifacts": "process.log and build/ retained outside research Git",
+      "file_hash_verification": "not_run_per_user_preference"
+    }
+  ],
+  "observed": {
+    "window_postMessage_boundaries": 126,
+    "socket_boundaries": 0,
+    "frontend_api_symbols": []
+  },
+  "cause": "Compiler root separation also separated the consumer from framework callback registrations. Original interpreter only composed receivers in the same analysis context.",
+  "remedy": "Independently evaluate source messages and registered receivers in their own compiler contexts, then compose symbolic message templates with source identity and deployment conditions."
+}

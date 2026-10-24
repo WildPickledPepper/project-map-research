@@ -1,0 +1,60 @@
+{
+  "evidence_kind": "executed_full_scope_schema_failure_after_all_extractors",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "build_version": {
+    "rules_commit": "18139a6ecd88d90ac269dd1710b668142f692464",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "first": {
+    "evidence_kind": "executed_full_scope_versioned_builder",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "exit_code": 1,
+    "status": "failed",
+    "stop_reason": null,
+    "elapsed_seconds": 714.375,
+    "budgets": {
+      "wall_seconds": 1800.0,
+      "process_tree_working_set_bytes": 6442450944,
+      "node_heap_mib": 3072
+    },
+    "peak_tree_working_set_bytes_observed": 4771135488,
+    "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+    "raw_artifacts": "process.log and build/ retained outside research Git",
+    "file_hash_verification": "not_run_per_user_preference"
+  },
+  "second": {
+    "evidence_kind": "executed_full_scope_versioned_builder",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "exit_code": 1,
+    "status": "failed",
+    "stop_reason": null,
+    "elapsed_seconds": 680.422,
+    "budgets": {
+      "wall_seconds": 1800.0,
+      "process_tree_working_set_bytes": 6442450944,
+      "node_heap_mib": 3072
+    },
+    "peak_tree_working_set_bytes_observed": 4687761408,
+    "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+    "raw_artifacts": "process.log and build/ retained outside research Git",
+    "file_hash_verification": "not_run_per_user_preference"
+  },
+  "second_termination": "coordinator stopped after identical unknown-key label failure was identified in first run",
+  "failure": {
+    "phase": "final graph validation",
+    "message": "serializer_registration node name was null for two unresolved registry keys",
+    "unresolved_key_expressions": [
+      "std::string(REQ_RES_DETAILS_ROOFLINE)",
+      "std::string(REQ_RES_CACHELINE_RECORD)"
+    ],
+    "source_path": "server/src/modules/source/protocol/SourceProtocol.cpp",
+    "remedy": "Use source key expression as display name; keep key=null and key_resolution=unresolved, with no protocol identity promotion"
+  }
+}

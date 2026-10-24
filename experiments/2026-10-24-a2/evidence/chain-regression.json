@@ -1,0 +1,295 @@
+{
+  "evidence_kind": "executed_source_queries_and_independent_case_scoring",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+  "build_version": {
+    "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "counts": {
+    "input_files": 2310,
+    "nodes": 271737,
+    "edges": 386100,
+    "member_effects": 23657,
+    "coverage": {
+      "unsupported_extension": 20,
+      "workspace_package_metadata": 16,
+      "parsed": 2237,
+      "configuration_recorded_not_applied": 18,
+      "syntax_errors": 19
+    }
+  },
+  "checks": {
+    "getUnitFlows_unique_scoped_handler": true,
+    "getUnitFlows_return_to_state": true,
+    "queryTimelineOffset_unique_scoped_handler": true,
+    "memoryCurveGet_unique_scoped_handler": true,
+    "memoryCurveGet_return_to_state": true,
+    "deleted_provider_not_matched": true,
+    "changed_command_not_matched": true,
+    "other_module_not_matched": true,
+    "removed_serialized_field_has_no_consumer_link": true,
+    "cache_reverse_entry": true,
+    "Dic::Module::FullDb::DbMemoryDataBase::QueryMemoryView_reverse": true,
+    "Dic::Module::Memory::TextMemoryDataBase::QueryMemoryView_reverse": true,
+    "cache_member_write_read_and_clear_present": true,
+    "frontend_request_id_guard_retained": true,
+    "runtime_records_keep_original_versions": true,
+    "P6_pending_explicit": true,
+    "all_tracked_paths_in_inventory": true,
+    "unexpanded_languages_visible": true,
+    "paging_and_depth_explicit": true
+  },
+  "passed": true,
+  "chains": [
+    {
+      "api": "getUnitFlows",
+      "handler": [
+        {
+          "id": "cpp:d7a6f20ca5a84774ae8db47d",
+          "kind": "callable",
+          "name": "Dic::Module::Timeline::QueryFlowsBySliceInfoHandler::HandleRequest",
+          "path": "server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp",
+          "line": 28,
+          "definition": true,
+          "parameters": [
+            "std::unique_ptr<Protocol::Request>"
+          ]
+        }
+      ],
+      "provider": "provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d",
+      "status": "matched_conditional",
+      "field": [
+        "unitAllFlows"
+      ],
+      "chain": {
+        "status": "conditional_source_chain",
+        "summary": {
+          "apis": [
+            "ts:922f26ccc99ac699aa030c2c"
+          ],
+          "handlers": [
+            "cpp:d7a6f20ca5a84774ae8db47d"
+          ],
+          "producer_candidates": [
+            "cpp:7769ebee6acbd7410d9384eb",
+            "cpp:d7ab5e9beb6d6ec70ca03837"
+          ],
+          "response_exits": 4,
+          "transmission_paths": 16,
+          "states": [
+            "frontend-state:[\"ts:5699454f50c140c37b3d62bd\",\"ts:1db84d8dbe02fb38c61ad23a\",[\"singleLinkLine\"]]",
+            "frontend-state:[\"ts:af6dc998441fd9a1bc5bb201\",\"ts:3f03d6a51c99e0064faf658c\",[\"singleLinkLine\"]]"
+          ],
+          "reverse_states": {
+            "frontend-state:[\"ts:5699454f50c140c37b3d62bd\",\"ts:1db84d8dbe02fb38c61ad23a\",[\"singleLinkLine\"]]": 4,
+            "frontend-state:[\"ts:af6dc998441fd9a1bc5bb201\",\"ts:3f03d6a51c99e0064faf658c\",[\"singleLinkLine\"]]": 4
+          },
+          "database_reverse_paths": 2
+        },
+        "truncated": false,
+        "conditions": [
+          "source_branches_and_candidate_implementations_selected",
+          "request_and_response_keys_still_live",
+          "configured_service_and_parent_child_windows_match",
+          "channel_and_session_lifetimes_valid",
+          "encoding_calls_succeed_without_loss",
+          "no_intervening_unmodeled_mutations"
+        ],
+        "unexpanded": [
+          "request_network_buffer_framing_and_worker_schedule",
+          "full_path_constraint_satisfiability",
+          "encoding_detection_algorithm_and_external_api_failures",
+          "whole_repository_consumers_outside_input"
+        ]
+      },
+      "stages": {
+        "request": 5,
+        "database": 11,
+        "database_selection": 3,
+        "production": 7,
+        "return_value_production": 2,
+        "response_object": 9,
+        "serialization": 40,
+        "response_transport": 284,
+        "server_connection": 1,
+        "socket_delivery": 1,
+        "iframe_reply": 1,
+        "frontend_state": 8,
+        "source_conditions": 3
+      },
+      "gap_kinds": {
+        "unresolved_call_with_input_argument": 5,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "exception_paths_not_expanded": 1,
+        "operator_transfer_not_expanded": 1,
+        "call_effects_unresolved": 32,
+        "statement_not_expanded": 1,
+        "source_return_has_unlinked_alternative": 1,
+        "assignment_receiver_unresolved": 4,
+        "throw_path": 1
+      }
+    },
+    {
+      "api": "queryTimelineOffset",
+      "handler": [
+        {
+          "id": "cpp:3538bff650c3fa93a15d99aa",
+          "kind": "callable",
+          "name": "Dic::Module::Timeline::RankOffsetHandler::HandleRequest",
+          "path": "server/src/modules/timeline/handler/RankOffsetHandler.cpp",
+          "line": 119,
+          "definition": true,
+          "parameters": [
+            "std::unique_ptr<Protocol::Request>"
+          ]
+        }
+      ],
+      "provider": "provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4",
+      "status": "matched_conditional"
+    },
+    {
+      "api": "memoryCurveGet",
+      "handler": [
+        {
+          "id": "cpp:d0e0fb2506f3b38358c5de2b",
+          "kind": "callable",
+          "name": "Dic::Module::Memory::QueryMemoryViewHandler::HandleRequest",
+          "path": "server/src/modules/memory/handler/QueryMemoryViewHandler.cpp",
+          "line": 28,
+          "definition": true,
+          "parameters": [
+            "std::unique_ptr<Protocol::Request>"
+          ]
+        }
+      ],
+      "provider": "provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e",
+      "status": "matched_conditional",
+      "field": [
+        "lines"
+      ],
+      "chain": {
+        "status": "conditional_source_chain",
+        "summary": {
+          "apis": [
+            "ts:668e2dade37bde168ce3f2bc"
+          ],
+          "handlers": [
+            "cpp:d0e0fb2506f3b38358c5de2b"
+          ],
+          "producer_candidates": [
+            "cpp:98ee87f6ff00185000654f5f",
+            "cpp:f0f9e145479b050a3af96b18"
+          ],
+          "response_exits": 7,
+          "transmission_paths": 28,
+          "states": [
+            "frontend-state:[\"ts:69536d59807e822238e9a081\",\"ts:f298f3e1dc3c97fefd6f7328\",[\"lineChartData\"]]"
+          ],
+          "reverse_states": {
+            "frontend-state:[\"ts:69536d59807e822238e9a081\",\"ts:f298f3e1dc3c97fefd6f7328\",[\"lineChartData\"]]": 7
+          },
+          "database_reverse_paths": 2
+        },
+        "truncated": false,
+        "conditions": [
+          "source_branches_and_candidate_implementations_selected",
+          "request_and_response_keys_still_live",
+          "configured_service_and_parent_child_windows_match",
+          "channel_and_session_lifetimes_valid",
+          "encoding_calls_succeed_without_loss",
+          "no_intervening_unmodeled_mutations"
+        ],
+        "unexpanded": [
+          "request_network_buffer_framing_and_worker_schedule",
+          "full_path_constraint_satisfiability",
+          "encoding_detection_algorithm_and_external_api_failures",
+          "whole_repository_consumers_outside_input"
+        ]
+      },
+      "stages": {
+        "request": 5,
+        "database": 9,
+        "production": 2,
+        "return_value_production": 10,
+        "response_object": 13,
+        "serialization": 3,
+        "response_transport": 284,
+        "server_connection": 1,
+        "socket_delivery": 1,
+        "iframe_reply": 1,
+        "frontend_state": 4,
+        "source_conditions": 3
+      },
+      "gap_kinds": {
+        "unresolved_call_with_input_argument": 5,
+        "array_elements_unresolved": 2,
+        "control_flow_not_expanded": 2,
+        "spread_source_not_expanded": 1,
+        "exception_paths_not_expanded": 1,
+        "operator_transfer_not_expanded": 1,
+        "call_effects_unresolved": 5,
+        "statement_not_expanded": 1,
+        "source_return_has_unlinked_alternative": 1,
+        "assignment_receiver_unresolved": 4,
+        "throw_path": 1,
+        "intervening_assignment": 1
+      }
+    }
+  ],
+  "database_reverse": [
+    {
+      "node": {
+        "id": "cpp:819440c589a7d09e253b759b",
+        "kind": "callable",
+        "name": "Dic::Module::FullDb::DbMemoryDataBase::QueryMemoryView",
+        "path": "server/src/modules/memory/database/DbMemoryDataBase.cpp",
+        "line": 174,
+        "definition": true,
+        "parameters": [
+          "Protocol::MemoryViewParams&",
+          "Protocol::MemoryViewData&",
+          "uint64_t"
+        ]
+      },
+      "reaches_memory_api": true
+    },
+    {
+      "node": {
+        "id": "cpp:7349dc0b46c6520b01ca656f",
+        "kind": "callable",
+        "name": "Dic::Module::Memory::TextMemoryDataBase::QueryMemoryView",
+        "path": "server/src/modules/memory/database/TextMemoryDataBase.cpp",
+        "line": 466,
+        "definition": true,
+        "parameters": [
+          "Protocol::MemoryViewParams&",
+          "Protocol::MemoryViewData&",
+          "uint64_t"
+        ]
+      },
+      "reaches_memory_api": true
+    }
+  ],
+  "negative_scope": "extracted-fact mutations; source refresh was separately accepted in P4",
+  "negative_results": {
+    "delete_provider": "unmatched",
+    "change_command": "unmatched",
+    "different_module": "unmatched",
+    "removed_field_links": 0
+  },
+  "rebuild": {
+    "status": "not_run"
+  },
+  "P6": "pending_external_assets",
+  "memory_runtime": "not_executed",
+  "whole_repository_semantics": false
+}

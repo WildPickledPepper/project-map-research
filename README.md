@@ -6,11 +6,13 @@
 
 **设计范围 v0.1**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 
-**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 主底座为 CGC/Kuzu，复用 TypeScript 编译器及 C++ 语法/类型候选。当前地图枚举全仓 4,855 个文件，在所选 191 个输入上恢复三条协议链，其中 unit/flows 与 memoryUsage 的返回字段连接到前端状态。见 [P7 验收报告](experiments/2026-10-24-p7/completion.md)、[项目地图](experiments/2026-10-24-p7/evidence/project-map.md)和[能力覆盖矩阵](docs/06-capability-coverage.md)。全仓结构清单与语义覆盖分别报告；P6 完成后再进行 M3 联合验收。
+**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 主底座为 CGC/Kuzu，复用 TypeScript 编译器及 C++ 语法/类型候选。P7 枚举全仓 4,855 个文件，其 191 输入历史基准恢复三条协议链，其中 unit/flows 与 memoryUsage 的返回字段连接到前端状态。见 [P7 验收报告](experiments/2026-10-24-p7/completion.md)、[项目地图](experiments/2026-10-24-p7/evidence/project-map.md)和[能力覆盖矩阵](docs/06-capability-coverage.md)。最新全仓静态范围见 A2；P6 完成后再进行 M3 联合验收。
 
 P4 的自动刷新、失败恢复及历史记录版本关联已通过，[P5](experiments/2026-10-24-p5/completion.md)已验证 unit/flows 的正常、迟到、并发关联和故障断言。旧运行保留原版本；memoryUsage 的真实运行与资源占用尚未验证。计划和阶段边界见 [研究计划](plans/README.md)、[详细计划书](plans/implementation-plan.md)及[验收矩阵](plans/acceptance-matrix.md)。
 
-**A1 全仓自动发现已完成**：[完成报告](experiments/2026-10-24-a1/completion.md)。全仓 4,855 个路径保留处理状态，自动纳入 2,256 个 TS/TSX、C++/头文件及 54 个构建清单，输出基础事实和候选。自动策略已接入刷新器；接下来按[扩展计划](plans/full-repository-plan.md)推进 A2 关系连接，A3–A5 分别验收查询、留出和运行能力。
+**A1 全仓自动发现已完成**：[完成报告](experiments/2026-10-24-a1/completion.md)。全仓 4,855 个路径保留处理状态，自动纳入 2,256 个 TS/TSX、C++/头文件及 54 个构建清单，输出基础事实和候选。自动策略已接入刷新器。
+
+**A2 全仓静态连接已完成**：[完成报告](experiments/2026-10-24-a2/completion.md)。2,310 个自动输入生成 271,737 个节点、386,100 条关系；109 个协议提供方候选、96 条唯一有条件匹配记录。三条已知链在同一全仓图上回归，独立重建内容一致；314 项 Python、88 项 TypeScript 和 14 项源码变更检查通过。静态候选、未知项与运行证据分别保留；当前完整图使用 JSON，下一步按[扩展计划](plans/full-repository-plan.md)推进 A3 可展开地图与查询，A4–A5 验收留出和运行能力。
 
 历史问题样本已确认[开发与验证划分](datasets/msinsight-regressions/split.md)：后续按 8 条开发样本推进，4 条关联回归单列，12 条验证候选暂不使用。
 

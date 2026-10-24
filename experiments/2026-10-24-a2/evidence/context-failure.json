@@ -1,0 +1,108 @@
+{
+  "evidence_kind": "executed_full_scope_with_identified_compiler_context_failure",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "exit_code": 1,
+  "status": "failed",
+  "stop_reason": null,
+  "elapsed_seconds": 543.547,
+  "budgets": {
+    "wall_seconds": 1200.0,
+    "process_tree_working_set_bytes": 6442450944,
+    "node_heap_mib": 3072
+  },
+  "peak_tree_working_set_bytes_observed": 5063741440,
+  "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+  "raw_artifacts": "process.log and build/ retained outside research Git",
+  "file_hash_verification": "not_run_per_user_preference",
+  "completion": "coordinator_stopped_after_missing_regression_consumer_was_identified; no final graph published",
+  "build_version": {
+    "rules_commit": "282626ea083b4d0a538d8efbd6bd059862951a92",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "failure": {
+    "phase": "typescript compiler roots",
+    "missing_existing_consumer": "memoryCurveGet",
+    "source_path": "modules/memory/src/utils/RequestUtils.ts",
+    "diagnostics": [
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 41,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 45,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 54,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 65,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 74,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 92,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 102,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 112,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 120,
+        "message": "Expected 2 arguments, but got 1."
+      },
+      {
+        "path": "modules/memory/src/utils/RequestUtils.ts",
+        "kind": "typescript_semantic",
+        "code": 2554,
+        "line": 128,
+        "message": "Expected 2 arguments, but got 1."
+      }
+    ],
+    "cause": "Unrelated package global declarations and test assignments were combined as one compiler program",
+    "remedy": "Automatic nearest-package and source-role compiler root partitions; keep all files available for imports"
+  }
+}

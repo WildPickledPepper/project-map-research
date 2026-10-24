@@ -1,0 +1,58 @@
+[
+  {
+    "evidence_kind": "executed_full_scope_versioned_builder",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "elapsed_seconds": 792.266,
+    "budgets": {
+      "wall_seconds": 1800.0,
+      "process_tree_working_set_bytes": 6442450944,
+      "node_heap_mib": 3072
+    },
+    "peak_tree_working_set_bytes_observed": 5174411264,
+    "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+    "raw_artifacts": "process.log and build/ retained outside research Git",
+    "file_hash_verification": "not_run_per_user_preference",
+    "build_version": {
+      "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  },
+  {
+    "evidence_kind": "executed_full_scope_versioned_builder",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "elapsed_seconds": 789.563,
+    "budgets": {
+      "wall_seconds": 1800.0,
+      "process_tree_working_set_bytes": 6442450944,
+      "node_heap_mib": 3072
+    },
+    "peak_tree_working_set_bytes_observed": 4911083520,
+    "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+    "raw_artifacts": "process.log and build/ retained outside research Git",
+    "file_hash_verification": "not_run_per_user_preference",
+    "build_version": {
+      "rules_commit": "87fa4a87d9123d1025d41e962f82fc0d37816b22",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  }
+]

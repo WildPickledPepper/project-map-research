@@ -31,6 +31,7 @@ jobs:
       - run: python experiments/2026-10-24-p5/check_completion.py
       - run: python experiments/2026-10-24-p7/check_completion.py
       - run: python experiments/2026-10-24-a1/check_completion.py
+      - run: python experiments/2026-10-24-a2/check_completion.py
   facts:
     runs-on: ubuntu-latest
     steps:

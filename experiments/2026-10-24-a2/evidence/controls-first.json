@@ -1,0 +1,496 @@
+{
+  "evidence_kind": "executed_authored_cross_language_source_mutation_controls",
+  "fixture_origin": "authored_no_historical_sample",
+  "build_version": {
+    "rules_commit": "e5c09c07f6d050a1c1d3de820b13f7972375a67b",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "checks": {
+    "same_command_and_scope_isolated_by_service": true,
+    "typescript_import_call_has_source_target": true,
+    "shared_resource_connects_read_write": true,
+    "different_constant_key_not_connected": true,
+    "same_member_name_other_owner_not_connected": true,
+    "provider_edit_invalidates_unchanged_consumer": true,
+    "deleted_registration_removes_match": true,
+    "dynamic_command_not_promoted_to_unique_match": true,
+    "duplicate_provider_preserves_ambiguity": true,
+    "different_module_not_matched": true,
+    "renamed_symbols_fields_command_reconnect": false,
+    "file_rename_replans_and_removes_old_nodes": true,
+    "file_delete_removes_provider_and_edges": true,
+    "unknown_service_keeps_both_candidates": true
+  },
+  "passed": false,
+  "cases": {
+    "baseline": {
+      "source_commit": "794d903d0ac1b24d0b6ae11e09527c6b653b6ad4",
+      "snapshot": "794d903d0ac1b24d0b6ae11e09527c6b653b6ad4:full:3eb4ab5673084dcabdb2083d1a4e25cd",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-one/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 241,
+      "edges": 261
+    },
+    "provider_command_changed": {
+      "source_commit": "cf85f97594874ecc11f9d57eccd6d09b8d1f42f9",
+      "snapshot": "cf85f97594874ecc11f9d57eccd6d09b8d1f42f9:full:0149acd82f264e51b70e9d466356d30e",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "unmatched",
+          "name": "entry",
+          "matches": []
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 233,
+      "edges": 253
+    },
+    "registration_deleted": {
+      "source_commit": "c8a83eedbbcab2a3e4625436fd32c2c1caa88c84",
+      "snapshot": "c8a83eedbbcab2a3e4625436fd32c2c1caa88c84:full:9d2b59ab00fc401c8008a8a49fbfe633",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "unmatched",
+          "name": "entry",
+          "matches": []
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 229,
+      "edges": 246
+    },
+    "dynamic_provider_command": {
+      "source_commit": "af4eca1569c3e43ec39dc412dc878aed88a969c5",
+      "snapshot": "af4eca1569c3e43ec39dc412dc878aed88a969c5:full:18e5bf59b6334b479eb041c1ec6a157e",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "unmatched",
+          "name": "entry",
+          "matches": []
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 234,
+      "edges": 253
+    },
+    "duplicate_registration": {
+      "source_commit": "11ac80f8e4ec60929ae491b234c9a2d1c5b66314",
+      "snapshot": "11ac80f8e4ec60929ae491b234c9a2d1c5b66314:full:fe3d00312ea94a0987efd181ada00542",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "ambiguous",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-one/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            },
+            {
+              "command": "alpha/read",
+              "provider_path": "back-one/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 248,
+      "edges": 272
+    },
+    "different_module": {
+      "source_commit": "7aefd49a448de8f6d9f25c25a1860545079f2beb",
+      "snapshot": "7aefd49a448de8f6d9f25c25a1860545079f2beb:full:76a70be84d4447698669f5bcfe2c0031",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "unmatched",
+          "name": "entry",
+          "matches": []
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 233,
+      "edges": 253
+    },
+    "names_and_wire_fields_renamed": {
+      "source_commit": "468b6f05a9321c9a2906f33021e41487eadef8eb",
+      "snapshot": "468b6f05a9321c9a2906f33021e41487eadef8eb:full:def20683756a4dafb7dbdd8afec39b21",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "candidate",
+          "name": "launch",
+          "matches": [
+            {
+              "command": "renamed/read",
+              "provider_path": "back-one/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": [
+                "module_scope_unknown_or_ambiguous"
+              ]
+            }
+          ]
+        },
+        "front-two/api.ts": {
+          "status": "candidate",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": [
+                "module_scope_unknown_or_ambiguous"
+              ]
+            }
+          ]
+        }
+      },
+      "nodes": 241,
+      "edges": 261
+    },
+    "provider_file_renamed": {
+      "source_commit": "5b4ea419a0fd14f8eeaa551db68e7d288da5f4ba",
+      "snapshot": "5b4ea419a0fd14f8eeaa551db68e7d288da5f4ba:full:1cdea65472854b8d8d29e086e3bc852c",
+      "inputs": [
+        "back-one/renamed.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-one/renamed.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 241,
+      "edges": 261
+    },
+    "provider_file_deleted": {
+      "source_commit": "5eb38ac8ab51bae47b408deec3cb3c92827cace9",
+      "snapshot": "5eb38ac8ab51bae47b408deec3cb3c92827cace9:full:f6f3f8e684e1491fae43365cb546fb3c",
+      "inputs": [
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "unmatched",
+          "name": "entry",
+          "matches": []
+        },
+        "front-two/api.ts": {
+          "status": "matched_conditional",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": []
+            }
+          ]
+        }
+      },
+      "nodes": 141,
+      "edges": 152
+    },
+    "missing_service_binding": {
+      "source_commit": "ecc588b3b04332013c050d654010b57043f02b2d",
+      "snapshot": "ecc588b3b04332013c050d654010b57043f02b2d:full:f29239c2133e4e8d83d9a6d67db75ec7",
+      "inputs": [
+        "back-one/protocol.cpp",
+        "back-one/resources.cpp",
+        "back-two/protocol.cpp",
+        "front-one/api.ts",
+        "front-one/package.json",
+        "front-one/util.ts",
+        "front-two/api.ts",
+        "front-two/package.json",
+        "front-two/util.ts"
+      ],
+      "consumers": {
+        "front-one/api.ts": {
+          "status": "ambiguous",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-one/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": [
+                "service_scope_unknown_or_ambiguous"
+              ]
+            },
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": [
+                "service_scope_unknown_or_ambiguous"
+              ]
+            }
+          ]
+        },
+        "front-two/api.ts": {
+          "status": "ambiguous",
+          "name": "entry",
+          "matches": [
+            {
+              "command": "alpha/read",
+              "provider_path": "back-one/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": [
+                "service_scope_unknown_or_ambiguous"
+              ]
+            },
+            {
+              "command": "alpha/read",
+              "provider_path": "back-two/protocol.cpp",
+              "scope_values": [
+                "north"
+              ],
+              "gaps": [
+                "service_scope_unknown_or_ambiguous"
+              ]
+            }
+          ]
+        }
+      },
+      "nodes": 247,
+      "edges": 269
+    }
+  },
+  "confidence": "source relations and conditional candidates; no runtime execution claim",
+  "file_hash_verification": "not_run_per_user_preference"
+}

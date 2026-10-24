@@ -1,0 +1,11 @@
+{
+  "evidence_kind": "executed_fresh_full_graph_direct_comparison",
+  "passed": true,
+  "snapshots": [
+    "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:db2898b7ae2d485d899b2775fe68eb31",
+    "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:71787a556c164271baaf8063c63658ed"
+  ],
+  "comparison": "Direct parsed JSON equality excluding only snapshot and version.snapshot; no hashes",
+  "differing_top_level_keys": [],
+  "file_hash_verification": "not_run_per_user_preference"
+}

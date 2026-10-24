@@ -1,0 +1,147 @@
+{
+  "evidence_kind": "executed_existing_case_regression_with_explicit_unresolved_factory",
+  "scope": "P7 historical regression only, not full-scope acceptance",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "build_version": {
+    "rules_commit": "eaf5df460b829a3f29bd26a14d4e89e36eb77026",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "termination": "natural build failure during return graph attachment",
+  "results": [
+    {
+      "consumer": "protocol:ts:bfc0f9438bcd0d805628ec0f",
+      "name": "memoryCurveGet",
+      "message": "protocol:ts:bfc0f9438bcd0d805628ec0f:message:0",
+      "status": "candidate",
+      "matches": [
+        {
+          "provider": "provider:registry:df35a1de4a111a6486d8d518:registry:086ff52f410f23bf7273622e",
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "!lastRequestTime !== null && lastRequestTime !== undefined && (now - lastRequestTime) < 100",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": [
+            "module_scope_unknown_or_ambiguous",
+            "factory_target_unresolved"
+          ],
+          "consumer_services": [
+            "insight-backend"
+          ],
+          "provider_services": [
+            "insight-backend"
+          ]
+        }
+      ],
+      "unknown_identities": [],
+      "service_binding_origin": "supplied_deployment_config",
+      "runtime_connection": "not_observed"
+    },
+    {
+      "consumer": "protocol:ts:6deded7fb6c3a8efab357462",
+      "name": "getUnitFlows",
+      "message": "protocol:ts:6deded7fb6c3a8efab357462:message:0",
+      "status": "candidate",
+      "matches": [
+        {
+          "provider": "provider:registry:cdb1a04ef30726dc964f3a66:registry:8cc84bafd0ccae7c02b7357d",
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": [
+            "module_scope_unknown_or_ambiguous",
+            "factory_target_unresolved"
+          ],
+          "consumer_services": [
+            "insight-backend"
+          ],
+          "provider_services": [
+            "insight-backend"
+          ]
+        }
+      ],
+      "unknown_identities": [],
+      "service_binding_origin": "supplied_deployment_config",
+      "runtime_connection": "not_observed"
+    },
+    {
+      "consumer": "protocol:ts:d3f9fbaad2fda75135a2876e",
+      "name": "queryTimelineOffset",
+      "message": "protocol:ts:d3f9fbaad2fda75135a2876e:message:0",
+      "status": "candidate",
+      "matches": [
+        {
+          "provider": "provider:registry:86c09aa8665f8e1bf79feb9f:registry:206047bd583d43b48f638fb4",
+          "conditions": [
+            "configured_service_binding",
+            "source_registration_active",
+            "runtime_transport_reaches_configured_service",
+            "source_type_and_factory_candidates",
+            "request_passes_validation_and_filters",
+            "binding_is_active_at_call_in_same_runtime_scope",
+            "try_completes_without_exception",
+            "registered_receiver_is_message_destination",
+            "try_completes_without_exception",
+            "!typeof event.data.id !== 'number' || !this._responseForFetch",
+            "!connection === undefined",
+            "!!this.isConnected",
+            "!this._ws === undefined",
+            "!this._ws === undefined"
+          ],
+          "gaps": [
+            "module_scope_unknown_or_ambiguous",
+            "factory_target_unresolved"
+          ],
+          "consumer_services": [
+            "insight-backend"
+          ],
+          "provider_services": [
+            "insight-backend"
+          ]
+        }
+      ],
+      "unknown_identities": [],
+      "service_binding_origin": "supplied_deployment_config",
+      "runtime_connection": "not_observed"
+    }
+  ],
+  "cause": "Structured range-for bindings did not supply receiver types for factory calls. No spelling fallback was used.",
+  "additional_failure": {
+    "phase": "augment_returns",
+    "error": "Return node identity collision",
+    "cause": "Symbolic records from separate compiler units reused local counters",
+    "remedy": "Namespace generated flow record identities by analysis unit; preserve AST source identities and literal payload values"
+  }
+}
