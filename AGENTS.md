@@ -2,6 +2,7 @@
 
 - Read README.md and the relevant case before changing conclusions.
 - Keep the focus on automatically maintained, cross-language project understanding.
+- For historical regression samples, read and follow [the confirmed sample split](datasets/msinsight-regressions/split.md). Sample-driven development is limited to its eight development records. Do not investigate, prepare, execute, score, or tune rules against validation candidates until the user explicitly starts validation. Keep related regressions separate from independent validation; ordinary repository-wide discovery remains allowed as specified in the split.
 - Label evidence: executed experiment, source inspection, documentation claim, proposal, unknown.
 - Cite a source and pinned version for concrete tool behavior. Do not turn README claims into measured results.
 - Do not call manually assembled reference data an automatically extracted graph.
