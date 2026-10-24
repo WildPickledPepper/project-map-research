@@ -24,6 +24,13 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   const inside=n=>n&&ctx.relativeFiles.includes(loc(n).path);
   function target(n){const d=checker.getResolvedSignature(n)?.declaration;return inside(d)&&ts.isFunctionLike(d)?d:null;}
   const standard=(n,name)=>{const d=decl(n);return n.getText()===name&&d&&loc(d).path.startsWith('<typescript-lib>/');};
+  function importedReactHook(n,name){
+    if(!ts.isIdentifier(n))return false;
+    const symbol=checker.getSymbolAtLocation(n);
+    return (symbol?.declarations||[]).some(d=>ts.isImportSpecifier(d)&&
+      (d.propertyName||d.name).text===name&&ts.isImportDeclaration(d.parent.parent.parent)&&
+      d.parent.parent.parent.moduleSpecifier.text==='react');
+  }
   function platform(n,name){
     const check=t=>t?.isUnion?.()?t.types.some(check):t?.symbol?.getName()===name&&t.symbol.declarations?.some(d=>loc(d).path.startsWith('<typescript-lib>/'));
     if(check(checker.getTypeAtLocation(n)))return true;
@@ -184,6 +191,13 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
     if(returnOnly&&ts.isExportAssignment(d))return ev(d.expression,c);
     if(ts.isFunctionLike(d))return fn(d,c);
     if(ts.isVariableDeclaration(d)&&d.initializer){if(c.resolving.has(d))return unknown('initializer_cycle');c.resolving.add(d);const v=ev(d.initializer,c);c.resolving.delete(d);c.env.set(d,v);return v;}
+    if(!responseRegistries&&ts.isBindingElement(d)&&ts.isArrayBindingPattern(d.parent)&&ts.isVariableDeclaration(d.parent.parent)){
+      const declaration=d.parent.parent;
+      if(declaration.initializer&&!c.resolving.has(declaration)){
+        c.resolving.add(declaration);bind(declaration.name,ev(declaration.initializer,c),c);c.resolving.delete(declaration);
+        if(c.env.has(d))return c.env.get(d);
+      }
+    }
     return unknown('external_or_runtime_value');
   }
   function assign(left,value,c,at,operation='=') {
@@ -379,6 +393,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       const branches=[n.whenTrue,n.whenFalse].map((b,i)=>{const conditions=[...c.conditions,{...src(n.condition),when:i===0}];return guarded(ev(b,{...c,conditions}),conditions);});return branches.reduce(merge);}
     if(ts.isCallExpression(n)) {
       const callee=target(n),args=n.arguments.map(a=>ev(a,c)),callId=id(n,'call_site');
+      if(!responseRegistries&&importedReactHook(n.expression,'useState')){
+        const declaration=n.parent;
+        if(ts.isVariableDeclaration(declaration)&&ts.isArrayBindingPattern(declaration.name)){
+          const binding=declaration.name.elements[0];
+          if(binding&&ts.isBindingElement(binding)&&ts.isIdentifier(binding.name))
+            return {tag:'object',array:true,props:{'0':{tag:'input',root:id(binding,'input_binding'),path:[binding.name.text],props:{}},
+              '1':{tag:'react_setter',root:id(binding,'input_binding'),path:[binding.name.text],evidence:[src(n)]}}};
+        }
+        return unknown('react_state_binding_unresolved');
+      }
       if(returnOnly){
         const bindings=ctx.facts.edges.filter(e=>e.source===callId&&e.kind==='USES_BINDING');
         if(bindings.length){
@@ -400,6 +424,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
       }
       if(ts.isPropertyAccessExpression(n.expression)) {
         const receiver=ev(n.expression.expression,c),name=n.expression.name.text;
+        if(!responseRegistries&&receiver.tag==='promise'&&['then','catch','finally'].includes(name)){
+          if(name==='catch')return receiver;
+          const callback=args[0];
+          if(callback?.tag!=='function')return receiver;
+          const awaited=new Set(c.awaited);
+          for(const dependency of dependencies(receiver.value))awaited.add(dependency.request_context);
+          const continuation={...c,awaited,conditions:[...c.conditions,{kind:name==='then'?'promise_fulfilled':'promise_settled',...src(n.expression)}]};
+          const result=invoke(callback,name==='then'?[receiver.value]:[],continuation,n);
+          return name==='finally'?receiver:{tag:'promise',value:result,awaited:[...awaited]};
+        }
         if(socketOnly&&name==='replace'){
           const declaration=checker.getResolvedSignature(n)?.declaration;
           if(declaration&&loc(declaration).path.startsWith('<typescript-lib>/')&&declaration.parent?.name?.getText()==='String')
@@ -450,6 +484,15 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
         if(callee?.body)return invoke({...fn(callee,c),receiver},args,c,n);
       }
       const callable=ev(n.expression,c);
+      if(!responseRegistries&&callable.tag==='react_setter'){
+        if(args[0]?.tag==='function'){note(n,'react_functional_state_updater_not_expanded',c);return literal(undefined);}
+        writes.push({id:id(n,'state_write'),entry:currentEntry,source_symbol:id(c.current,'callable'),
+          target:{root:callable.root,path:callable.path},operation:'React.useState.setter',
+          value_dependencies:dependencies(args[0]),continuation_apis:[...c.awaited],
+          conditions:[...c.conditions,{kind:'same_component_instance_and_mount'}],
+          evidence:[...callable.evidence,src(n)],call_chain:c.chain});
+        return literal(undefined);
+      }
       if(responseRegistries&&callable.tag==='resolver')return settle(callable,args,c,n);
       if(responseRegistries&&callable.tag==='registry_lookup'&&phase==='lookup')return invokeLookup(callable,args,c,n);
       if(callable.tag==='function'&&callable.node.body)return invoke(callable,args,c,n);

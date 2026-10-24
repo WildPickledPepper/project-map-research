@@ -101,7 +101,7 @@ def build(source, request, output, log, *, typescript):
         from adapters import kuzu_fact_graph as store
         dll = os.add_dll_directory(os.environ['PROJECT_MAP_DLL_DIR']) if os.name == 'nt' and os.environ.get('PROJECT_MAP_DLL_DIR') else None
         import kuzu
-        db = kuzu.Database(str(output/'graph.kuzu'), buffer_pool_size=512*1024*1024); conn = kuzu.Connection(db)
+        db = kuzu.Database(str(output/'graph.kuzu'), buffer_pool_size=1024*1024*1024); conn = kuzu.Connection(db)
         try:
             store.replace_snapshot(conn, graph)
             if store.read_snapshot(conn, graph['snapshot']) != graph: raise ValueError('Stored graph differs from built graph')

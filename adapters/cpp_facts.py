@@ -52,6 +52,7 @@ class Extractor:
         self.diagnostics = []
         self.units = {}
         self.classes = defaultdict(list)
+        self.namespaces = defaultdict(set)
         self.functions = defaultdict(list)
         self.functions_by_id = {}
         self.base_names = defaultdict(set)
@@ -63,6 +64,12 @@ class Extractor:
             self.diagnostics.extend(dict(d,path=path) for d in syntax['diagnostics'])
             symbols = {s['id']:s for s in syntax['symbols']}
             for n in walk(tree.root_node):
+                if n.type == 'namespace_definition':
+                    named = n.child_by_field_name('name')
+                    if named is not None:
+                        parts = '::'.join(cpp_scope(n)+[text(named)]).split('::')
+                        for count in range(1, len(parts)+1):
+                            self.namespaces['::'.join(parts[:count])].add(path)
                 if n.type in {'class_specifier','struct_specifier'}:
                     named = n.child_by_field_name('name')
                     if named is None or named.has_error:continue
@@ -169,9 +176,19 @@ class Extractor:
                 for p in visible:
                     for prefix,namespace in self.units[p]['using']:
                         # A using directive applies within its namespace and children.
-                        prefix = '::'.join(prefix)
-                        if prefix and not '::'.join(scope).startswith(prefix+'::') and '::'.join(scope)!=prefix:continue
-                        q = namespace+'::'+atom
+                        joined = '::'.join(prefix)
+                        if joined and not '::'.join(scope).startswith(joined+'::') and '::'.join(scope)!=joined:continue
+                        # Relative namespace names are resolved where the using
+                        # directive is declared. The nearest namespace may hide
+                        # an outer namespace even when it lacks the requested type.
+                        resolved = namespace[2:] if namespace.startswith('::') else None
+                        if resolved is None:
+                            for length in range(len(prefix), -1, -1):
+                                candidate = '::'.join(prefix[:length]+[namespace])
+                                if self.namespaces.get(candidate, set()) & visible:
+                                    resolved = candidate; break
+                        if resolved is None: continue
+                        q = resolved+'::'+atom
                         if exists(q):names.append(q)
         return {'names':sorted(set(names)),'wrapper':wrapper,'evidence':[]}
 

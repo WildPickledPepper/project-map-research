@@ -10,6 +10,19 @@ if os.environ.get('PROJECT_MAP_PARSER_CACHE'):
 
 
 class CppFactsTests(unittest.TestCase):
+    def test_relative_using_namespace_resolves_from_declaration_scope(self):
+        g=self.graph({'a.h':'namespace world { namespace implementation { struct Worker { void act(); }; } using namespace implementation; void run(Worker& value) { value.act(); } }'})
+        pairs=self.relations(g,'MEMBER_TARGET_CANDIDATE')
+        self.assertEqual([(a['name'],b['name']) for a,b in pairs],[('value.act','world::implementation::Worker::act')])
+
+    def test_nearest_empty_namespace_does_not_fall_back_to_outer_type(self):
+        g=self.graph({'a.h':'namespace implementation { struct Worker { void act(); }; } namespace world { namespace implementation {} using namespace implementation; void run(Worker& value) { value.act(); } }'})
+        self.assertFalse(self.relations(g,'MEMBER_TARGET_CANDIDATE'))
+
+    def test_explicit_global_using_namespace_keeps_global_target(self):
+        g=self.graph({'a.h':'namespace implementation { struct Worker { void act(); }; } namespace world { namespace implementation {struct Worker {void act();};} using namespace ::implementation; void run(Worker& value) { value.act(); } }'})
+        self.assertEqual([b['name'] for _,b in self.relations(g,'MEMBER_TARGET_CANDIDATE')],['implementation::Worker::act'])
+
     @classmethod
     def setUpClass(cls):
         cls.parser=pack.get_parser('cpp')

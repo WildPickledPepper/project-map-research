@@ -82,3 +82,35 @@ test('an unawaited async helper does not impose fulfillment on its caller',()=>{
   assert.equal(g.entries.length,2);
   assert.equal(g.state_writes.length,0);
 });
+
+
+test('React imported setter receives Promise fulfillment with request guard',()=>{
+  const g=graph(prefix+`import {useState as stateHook} from 'react';
+    declare const runtimeCounter:number;function Component(){const [view, update]=stateHook<any>();let current=runtimeCounter;
+      function refresh(){const id=current;load().then(response=>{if(id!==current)return;update({rows:response.lines});});}}
+  `).data_flow;
+  const write=g.state_writes.find(w=>w.operation==='React.useState.setter');
+  assert(write);assert.deepEqual(write.target.path,['view']);assert.deepEqual(write.value_dependencies[0].path,['lines']);
+  assert(write.conditions.some(c=>c.expression==='id!==current'&&c.when===false));
+  assert(write.conditions.some(c=>c.kind==='promise_fulfilled'));
+});
+
+test('same-named local hook does not manufacture a React state target',()=>{
+  const g=graph(prefix+`declare function useState():any;function Component(){const [view, update]=useState();
+    function refresh(){load().then(response=>update(response.lines));}}`).data_flow;
+  assert.equal(g.state_writes.length,0);
+});
+
+test('different React hook bindings keep independent state roots',()=>{
+  const g=graph(prefix+`import {useState} from 'react';function A(){const [view, set]=useState<any>();
+    function refresh(){load().then(response=>set(response.left));}}
+    function B(){const [view, set]=useState<any>();function refresh(){load().then(response=>set(response.right));}}`).data_flow;
+  assert.equal(g.state_writes.length,2);assert.equal(new Set(g.state_writes.map(w=>w.target.root)).size,2);
+});
+
+test('replaced setter and rejection callbacks cannot adopt fulfillment fields',()=>{
+  const g=graph(prefix+`import {useState} from 'react';declare const opaque:any;
+    function Component(){let [view, update]=useState<any>();
+      function refresh(){update=opaque;load().then(response=>update(response.lines));load().catch(error=>update(error.lines));}}`).data_flow;
+  assert.equal(g.state_writes.length,0);
+});
