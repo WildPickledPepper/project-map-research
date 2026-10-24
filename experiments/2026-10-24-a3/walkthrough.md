@@ -52,10 +52,13 @@ python scripts/project_map.py query --index <map.sqlite> search --text unitAllFl
 python scripts/project_map.py query --index <map.sqlite> search --text CurveContainer --kind storage_member
 python scripts/project_map.py query --index <map.sqlite> search --kind frontend_state_write --module modules/timeline
 python scripts/project_map.py query --index <map.sqlite> neighbors --start <resource-node-id> --direction in
+python scripts/project_map.py query --index <map.sqlite> neighbors --start <resource-node-id> --direction out
 python scripts/project_map.py query --index <map.sqlite> impact --start <resource-node-id> --depth 4
 ```
 
 实测检索到 20 个 unitAllFlows 字段节点、6 个匹配 CurveContainer 路径的 storage_member 节点、41 个 timeline 状态写入节点。这些是源码实体计数，具体语义由节点和关系证据说明。
+
+资源两侧沿不同方向连接：`WRITES_RESOURCE` 指向资源，`RESOURCE_READ_BY` 从资源指向读取位置，随后由 `AFFECTS_READER` 连到函数。检查资源读写时展开两个方向；`impact` 固定沿反向关系，资源影响读取者时使用正向 trace，再按函数反查入口。
 
 P7 的 `trace --field` 组合账本继续使用原有入口，见 [P7 完成报告](../2026-10-24-p7/completion.md)。A3 通用邻接图保留 A2 全部节点和边，便于按需检查各段关系。
 
