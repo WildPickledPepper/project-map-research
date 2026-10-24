@@ -4,7 +4,7 @@ from adapters.cpp_data import analyze_data
 from adapters.data_graph import augment,RESOURCE_IMPACT_KINDS,INSTANCE_IMPACT_KINDS
 from adapters.data_queries import explain_receiver
 from adapters.fact_queries import find_path
-from adapters.sqlite_fact_graph import _prepare
+from adapters.sqlite_fact_graph import _prepare,validate_graph
 
 
 class DataGraphTests(unittest.TestCase):
@@ -57,6 +57,18 @@ class DataGraphTests(unittest.TestCase):
         self.assertIsNone(registration['key'])
         self.assertEqual(registration['key_resolution'],'unresolved')
         self.assertEqual(registration['name'],'label')
+
+    def test_nonmaterializing_validation_retains_lossless_json_and_endpoint_checks(self):
+        from copy import deepcopy
+        graph=self.graph('void f(){}');validate_graph(graph)
+        for value in [(1,),{1:'key'},float('nan'),{1,2}]:
+            broken=deepcopy(graph);broken['metadata']=value
+            with self.assertRaises(ValueError):validate_graph(broken)
+            with self.assertRaises(ValueError):_prepare(broken)
+        cyclic=[];cyclic.append(cyclic);broken=deepcopy(graph);broken['metadata']=cyclic
+        with self.assertRaises(ValueError):validate_graph(broken)
+        broken=deepcopy(graph);broken['edges']=[{'source':'missing','target':'missing','kind':'candidate','status':'unknown','evidence':[]}]
+        with self.assertRaises(ValueError):validate_graph(broken)
 
     def test_known_distinct_keys_do_not_share_an_impact_path(self):
         g=self.graph('struct A{std::map<int,int> state;void write(){state[1]=7;}int read(){return state.at(2);}};')

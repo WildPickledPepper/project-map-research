@@ -13,7 +13,7 @@ from adapters.cpp_data import DataExtractor
 from adapters.cpp_transmission import Transmission
 from adapters.cpp_source_conditions import extract_conditions
 from adapters.transmission_graph import augment_transmission
-from adapters.sqlite_fact_graph import _prepare
+from adapters.sqlite_fact_graph import validate_graph
 
 
 def augment(base, data, transmission, conditions):
@@ -35,7 +35,7 @@ def augment(base, data, transmission, conditions):
     graph['snapshot'] = graph['source_commit'] + ':p3-data-v13'
     graph['provenance']['chain_closure_base_snapshot'] = base['snapshot']
     graph['extractors']['cpp_source_conditions'] = 'cpp_source_conditions/' + conditions['version']
-    _prepare(graph)
+    validate_graph(graph)
     return graph
 
 

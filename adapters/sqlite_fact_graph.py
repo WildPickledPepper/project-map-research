@@ -9,6 +9,7 @@ These functions persist supplied facts; they do not infer code relationships.
 
 from contextlib import contextmanager
 import json
+import math
 import sqlite3
 import uuid
 
@@ -68,7 +69,35 @@ def _json(value):
         raise ValueError(f"payload must contain JSON-compatible values: {exc}") from exc
 
 
-def _prepare(graph):
+def _validate_json(value):
+    """Check the lossless JSON domain without allocating an encoded graph copy."""
+    active=set();done=set()
+    def visit(item):
+        if item is None or isinstance(item,(str,bool,int)):return
+        if isinstance(item,float):
+            if not math.isfinite(item):raise ValueError('payload is not losslessly JSON compatible: nonfinite number')
+            return
+        if not isinstance(item,(dict,list)):raise ValueError('payload is not losslessly JSON compatible: '+type(item).__name__)
+        uid=id(item)
+        if uid in active:raise ValueError('payload is not losslessly JSON compatible: cycle')
+        if uid in done:return
+        active.add(uid)
+        if isinstance(item,dict):
+            for key,child in item.items():
+                if not isinstance(key,str):raise ValueError('payload is not losslessly JSON compatible: nonstring key')
+                visit(child)
+        else:
+            for child in item:visit(child)
+        active.remove(uid);done.add(uid)
+    visit(value)
+
+
+def validate_graph(graph):
+    """Validate a private JSON snapshot without materializing database rows."""
+    _prepare(graph,materialize=False)
+
+
+def _prepare(graph,*,materialize=True):
     if not isinstance(graph, dict):
         raise ValueError("graph must be a dictionary")
     snapshot = _text(graph.get("snapshot"), "snapshot")
@@ -92,8 +121,9 @@ def _prepare(graph):
         line = node.get("line")
         if type(line) is not int or line < 0:
             raise ValueError(f"nodes[{index}].line must be a nonnegative integer")
-        node_rows.append((snapshot, node_id, node["kind"], node["path"], line,
-                          node["name"], _json(node)))
+        if materialize:
+            node_rows.append((snapshot, node_id, node["kind"], node["path"], line,
+                              node["name"], _json(node)))
     for index, edge in enumerate(edges):
         if not isinstance(edge, dict):
             raise ValueError(f"edges[{index}] must be a dictionary")
@@ -103,8 +133,12 @@ def _prepare(graph):
             raise ValueError(f"edges[{index}].evidence must be a list")
         if edge["source"] not in node_ids or edge["target"] not in node_ids:
             raise ValueError(f"edges[{index}] endpoints must exist in the same snapshot")
-        edge_rows.append((snapshot, index, edge["source"], edge["target"],
-                          edge["kind"], edge["status"], _json(edge)))
+        if materialize:
+            edge_rows.append((snapshot, index, edge["source"], edge["target"],
+                              edge["kind"], edge["status"], _json(edge)))
+    if not materialize:
+        _validate_json(graph)
+        return
     metadata = {key: value for key, value in graph.items() if key not in ("nodes", "edges")}
     return snapshot, _json(metadata), node_rows, edge_rows
 

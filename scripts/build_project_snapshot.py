@@ -46,7 +46,7 @@ def build(source, request, output, log, *, typescript):
     from adapters.cpp_source_conditions import extract_conditions
     from scripts.build_chain_closure_graph import augment as closure
     from scripts.build_fact_graph import remaining_coverage
-    from adapters.sqlite_fact_graph import _prepare
+    from adapters.sqlite_fact_graph import validate_graph
     import tree_sitter_language_pack as pack
 
     if os.environ.get('PROJECT_MAP_PARSER_CACHE'): pack.configure(pack.PackConfig(cache_dir=os.environ['PROJECT_MAP_PARSER_CACHE']))
@@ -112,7 +112,7 @@ def build(source, request, output, log, *, typescript):
     graph['provenance']['working_tree_included'] = False
     graph['provenance']['update_mode'] = 'full_rebuild'
     graph['provenance']['trigger'] = request.get('trigger', 'caller')
-    _prepare(graph)
+    validate_graph(graph)
     write_json(output/'graph.json', graph)
     if request['config'].get('storage', 'kuzu') == 'kuzu':
         print('Persist and verify Kuzu snapshot', file=log, flush=True)
