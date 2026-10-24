@@ -68,7 +68,8 @@ class P7QueryTests(unittest.TestCase):
         q=ProjectQuery(fixture())
         record={'id':'run','basis':{'snapshot':'older','source_commit':'commit'},'provenance':{},
                 'payload':{'execution_context':{'scenario':{'name':'normal'}},'events':[{'stage':'send'}],'outcome':{'status':'pass'},
-                           'mappings':[{'observed_dispatch_target':'SelectedImplementation'}]}}
+                           'mappings':[{'role':'observed_dispatch_target','status':'mapped','node':{'name':'SelectedImplementation'}},
+                                       {'role':'capture_hook','status':'mapped','node':{'name':'NotAnObservedTarget'}}]}}
         with patch.object(module,'query_records',return_value={'items':[{'record':record}]}):r=q.runs('unused')
         row=r['items'][0];self.assertFalse(row['eligible_for_direct_overlay']);self.assertFalse(row['verification_carried_forward'])
         self.assertEqual(row['reason'],'different_graph_snapshot')

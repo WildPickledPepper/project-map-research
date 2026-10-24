@@ -234,7 +234,8 @@ class ProjectQuery:
             records.append({'id':record['id'],'basis':record['basis'],'provenance':record['provenance'],
                 'execution_context':context,'outcome':payload.get('outcome'), 'stage_counts':dict(Counter(e['stage'] for e in payload.get('events',[]))),
                 'mappings':payload.get('mappings',[]),'diagnostics':payload.get('diagnostics',[]),
-                'observed_dispatch_targets':sorted({m['observed_dispatch_target'] for m in payload.get('mappings',[]) if m.get('observed_dispatch_target')}),
+                'observed_dispatch_targets':sorted({m['node']['name'] for m in payload.get('mappings',[])
+                    if m.get('role')=='observed_dispatch_target' and m.get('status')=='mapped' and m.get('node',{}).get('name')}),
                 'same_graph_snapshot':same,'eligible_for_direct_overlay':False,
                 'reason':'explicit_target_execution_context_required' if same else 'different_graph_snapshot',
                 'verification_carried_forward':False})
