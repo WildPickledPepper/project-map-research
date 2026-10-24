@@ -1,5 +1,5 @@
 import unittest
-from adapters.return_bridge_queries import project, wire_path, constant_test, evaluate_guard, UNKNOWN
+from adapters.return_bridge_queries import project, wire_path, constant_test, evaluate_guard, dependency_path, UNKNOWN
 
 
 def path(root, selectors, **extra):
@@ -7,6 +7,10 @@ def path(root, selectors, **extra):
 
 
 class ReturnBridgeQueryTests(unittest.TestCase):
+    def test_whole_object_consumption_cannot_substitute_a_sibling_for_the_requested_field(self):
+        self.assertEqual(dependency_path([],['lines']),['lines'])
+        self.assertIsNone(dependency_path(['limits'],['lines']))
+        self.assertEqual(dependency_path(['lines','*','name'],['lines']),['lines','*','name'])
     def test_overwritten_input_selector_uses_new_source(self):
         v = path('old', [], overrides={'body': {'kind': 'constant', 'value': 4}})
         self.assertEqual(project(v, ['body']), [{'kind': 'constant', 'value': 4}])

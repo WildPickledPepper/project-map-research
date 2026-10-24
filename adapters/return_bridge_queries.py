@@ -30,6 +30,14 @@ def clean(v):
     return v.get('kind') == 'input_path' and not v.get('gaps') and not v.get('overrides')
 
 
+def dependency_path(actual, requested):
+    """A whole-object use must still prove the specifically requested field."""
+    if requested is None: return actual
+    if not overlap(requested, actual): return None
+    return [actual[i] if i < len(actual) and actual[i] != '*' else requested[i]
+            if i < len(requested) else actual[i] for i in range(max(len(actual),len(requested)))]
+
+
 def wire_path(v, event_parameter):
     if not clean(v) or v['root'] != event_parameter: return None
     transforms = v.get('transforms', [])
@@ -221,9 +229,11 @@ def explain_return_bridge(graph, provider, *, field_path=None, state=None, max_l
                                 for write in frontend['writes']:
                                     mappings = []
                                     for dep in write['matching_dependencies']:
+                                        selected = dependency_path(dep['path'], field_path)
+                                        if selected is None: continue
                                         prefix = projection['output_path']
-                                        if dep['path'][:len(prefix)] != prefix: continue
-                                        selected_wire = wire + dep['path'][len(prefix):]
+                                        if selected[:len(prefix)] != prefix: continue
+                                        selected_wire = wire + selected[len(prefix):]
                                         fields = [f for f in route['field_mappings'] if overlap(selected_wire, f['wire_path'])]
                                         production = [p for p in route['production_links'] if overlap(selected_wire, p['wire_path'])]
                                         if fields: mappings.append({'consumer_dependency': dep, 'wire_path': selected_wire, 'fields': fields, 'production': production})
@@ -233,9 +243,11 @@ def explain_return_bridge(graph, provider, *, field_path=None, state=None, max_l
                                 for consumer in frontend.get('consumers', []):
                                     mappings = []
                                     for dep in consumer['matching_dependencies']:
+                                        selected = dependency_path(dep['path'], field_path)
+                                        if selected is None: continue
                                         prefix = projection['output_path']
-                                        if dep['path'][:len(prefix)] != prefix: continue
-                                        selected_wire = wire + dep['path'][len(prefix):]
+                                        if selected[:len(prefix)] != prefix: continue
+                                        selected_wire = wire + selected[len(prefix):]
                                         fields = [f for f in route['field_mappings'] if overlap(selected_wire, f['wire_path'])]
                                         if fields: mappings.append({'consumer_dependency': dep, 'wire_path': selected_wire, 'fields': fields})
                                     if mappings: consumers.append({'consumer': consumer, 'value_mappings': mappings})

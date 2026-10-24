@@ -15,7 +15,7 @@ import traceback
 import uuid
 
 from adapters.snapshot_inputs import commit, export_inputs, normalize_config, select_inputs
-from adapters.sqlite_fact_graph import _prepare
+from adapters.sqlite_fact_graph import validate_graph
 
 
 def now():
@@ -144,7 +144,7 @@ class Refresher:
 
     def validate(self, directory, request, result):
         graph = json.loads((directory/'graph.json').read_text(encoding='utf-8'))
-        _prepare(graph)
+        validate_graph(graph)
         expected = {key: request[key] for key in ['snapshot', 'source_commit', 'config', 'build_version']}
         if graph.get('version') != expected or graph['snapshot'] != request['snapshot']:
             raise ValueError('Graph version does not match build request')
