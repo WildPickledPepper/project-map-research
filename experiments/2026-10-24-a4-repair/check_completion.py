@@ -29,7 +29,9 @@ assert read('direct-updates.json')['fixture_origin']=='authored_direct_platform_
 assert read('known-regression.json')['passed'] and len(read('known-regression.json')['checks'])==19
 assert read('rebuild.json')['equal'] and not read('rebuild.json')['differing_top_level_keys']
 assert read('publication.json')['measured']['status']=='passed'
-assert read('tests.json')=={'python':{'count':338,'passed':True},'typescript':{'count':97,'passed':True}}
+assert read('tests.json')=={'python':{'count':339,'passed':True},'typescript':{'count':97,'passed':True}}
+assert read('first-complete-repair-chains.json')['counts']['serialized_field_relations']==5
+assert len(read('serializer-probe.json')['inputs'])==27
 assert [c['outcome'] for c in read('first-repair.json')['new_cases']]==['correct_unique_conditional','correct_unique_conditional','omission']
 assert not read('first-repair.json')['manual_stop']['partial_graph_published']
 assert all(not r['complete_graph_published'] for r in read('development-failures.json')['runs'])

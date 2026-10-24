@@ -13,19 +13,20 @@ def read(path): return json.loads(path.read_text(encoding='utf-8'))
 def run(results,output):
     output.mkdir(parents=True,exist_ok=True)
     paths={
-        'chains.json':results/'a4-repair-scoring-01/development-replay/first-results.json',
-        'retest.json':results/'a4-repair-scoring-01/result.json',
-        'navigation.json':results/'a4-repair-navigation-01/result.json',
-        'direct-updates.json':results/'a4-repair-direct-updates-03/result.json',
-        'rebuild.json':results/'a4-repair-comparison-01/comparison.json',
-        'known-regression.json':results/'a4-repair-known-01/queries/validation.json',
-        'publication.json':results/'a4-repair-publication-01/result.json',
+        'chains.json':results/'a4-repair-scoring-02/development-replay/first-results.json',
+        'retest.json':results/'a4-repair-scoring-02/result.json',
+        'navigation.json':results/'a4-repair-navigation-02/result.json',
+        'direct-updates.json':results/'a4-repair-direct-updates-04/result.json',
+        'rebuild.json':results/'a4-repair-comparison-02/comparison.json',
+        'known-regression.json':results/'a4-repair-known-02/queries/validation.json',
+        'publication.json':results/'a4-repair-publication-02/result.json',
+        'serializer-probe.json':results/'a4-repair-serializer-probe-01.json',
     }
     data={name:read(path) for name,path in paths.items()}
-    builds=[read(results/name/'result.json') for name in ['a4-repair-full-04','a4-repair-full-05']]
-    versions=[read(results/name/'build/request.json')['build_version'] for name in ['a4-repair-full-04','a4-repair-full-05']]
+    builds=[read(results/name/'result.json') for name in ['a4-repair-full-06','a4-repair-full-07']]
+    versions=[read(results/name/'build/request.json')['build_version'] for name in ['a4-repair-full-06','a4-repair-full-07']]
     data['builds.json']={'runs':builds,'build_versions':versions,'concurrent_execution':True}
-    python=(results/'a4-repair-python-04.txt').read_text(encoding='utf-8')
+    python=(results/'a4-repair-python-05.txt').read_text(encoding='utf-8')
     typescript=(results/'a4-repair-typescript-03.txt').read_text(encoding='utf-8')
     data['tests.json']={'python':{'count':int(re.search(r'Ran (\d+) tests',python)[1]),'passed':'\nOK' in python and 'FAILED' not in python},
         'typescript':{'count':int(re.search(r'# tests (\d+)',typescript)[1]),'passed':'# fail 0' in typescript}}
