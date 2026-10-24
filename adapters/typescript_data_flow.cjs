@@ -8,6 +8,7 @@ const {analyze}=require('./typescript_facts.cjs');
 function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistries=false,socketOnly=false,
     returnOnly=false,boundarySymbols=[],apiEntries=[],handoffSymbols=[]}={}) {
   const {ts,checker,loc,id,callableOwner,qualified}=ctx,apis=new Set(apiSymbols);
+  const sourceFiles=new Set(ctx.relativeFiles);
   const src=n=>({...loc(n),expression:n.getText().slice(0,500)});
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
   const entries=new Map(),writes=[],reads=[],calls=[],diagnostics=[];let steps=0,currentEntry=null;
@@ -21,7 +22,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,responseRegistri
   let phase='consumers';
   const unwrap=n=>{while(n&&(ts.isAsExpression(n)||ts.isParenthesizedExpression(n)||ts.isNonNullExpression(n)||ts.isTypeAssertionExpression(n)))n=n.expression;return n;};
   function decl(n){let s=ts.isIdentifier(n)&&ts.isShorthandPropertyAssignment(n.parent)?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration||s?.declarations?.[0];}
-  const inside=n=>n&&ctx.relativeFiles.includes(loc(n).path);
+  const inside=n=>n&&sourceFiles.has(loc(n).path);
   function target(n){const d=checker.getResolvedSignature(n)?.declaration;return inside(d)&&ts.isFunctionLike(d)?d:null;}
   const standard=(n,name)=>{const d=decl(n);return n.getText()===name&&d&&loc(d).path.startsWith('<typescript-lib>/');};
   function importedReactHook(n,name){

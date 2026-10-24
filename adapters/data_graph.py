@@ -1,5 +1,6 @@
 """Attach data evidence to the portable graph without merging instance identities."""
 from copy import deepcopy
+from collections import defaultdict
 import json
 
 from adapters.protocol_graph import PROTOCOL_KINDS
@@ -61,10 +62,13 @@ def augment(base,cpp,paths):
         if allocation['enclosing_allocation'] in allocations:
             edge(allocation['enclosing_allocation'],allocation['id'],'PASSES_FACTORY_ALLOCATION',allocation['evidence'],
                  [*allocation['conditions'],'constructor_callback_invocation_required'])
+    readers_by_storage=defaultdict(list)
+    for reader in data['accesses']:
+        if reader['role']=='read':readers_by_storage[reader['storage']].append(reader)
     for writer in data['accesses']:
         if writer['role']!='write' and not writer.get('implicit_write'):continue
-        for reader in data['accesses']:
-            if reader['role']!='read' or writer['storage']!=reader['storage'] or not keys_compatible(writer,reader):continue
+        for reader in readers_by_storage.get(writer['storage'],[]):
+            if not keys_compatible(writer,reader):continue
             edge(writer['id'],reader['id'],'POTENTIALLY_READ_BY',writer['evidence']+reader['evidence'],
                  ['same_runtime_instance','matching_runtime_key','write_reaches_read_without_intervening_update'])
     instances=data.get('instances',{});objects={o['id']:o for o in instances.get('objects',[])}
@@ -78,15 +82,18 @@ def augment(base,cpp,paths):
         edge(rec['id'],oid,'REFERS_TO_INSTANCE',objects[oid]['evidence'],conditions)
         if access['role']=='write' or access.get('implicit_write'):edge(uid,rec['id'],'OBSERVES_INSTANCE_WRITE',access['evidence'],conditions)
         if access['role']=='read':edge(rec['id'],uid,'AFFECTS_INSTANCE_READER',access['evidence'],conditions)
+    readers_by_instance=defaultdict(list)
+    for reader in contextual:
+        if reader['role']=='read':readers_by_instance[(reader['instance'],reader['storage'])].append(reader)
     for writer in contextual:
         if writer['role']!='write' and not writer.get('implicit_write'):continue
-        for reader in contextual:
-            if reader['role']!='read' or writer['instance']!=reader['instance'] or writer['storage']!=reader['storage'] or not keys_compatible(writer,reader):continue
+        for reader in readers_by_instance.get((writer['instance'],writer['storage']),[]):
+            if not keys_compatible(writer,reader):continue
             edge(writer['id'],reader['id'],'INSTANCE_VALUE_READ_BY',writer['evidence']+reader['evidence'],
                  [writer['instance_scope'],'matching_runtime_key','write_reaches_read_without_intervening_update'])
     for access in data['accesses']:
         if access['role']!='write' or not access['value']:continue
-        for expr in set(expression_ids(access['value'])):
+        for expr in sorted(set(expression_ids(access['value']))):
             if expr in allocation_exprs:
                 edge(access['id'],allocation_exprs[expr],'STORED_ALLOCATION_CANDIDATE',access['evidence'],
                      [*access['conditions'],'reaching_definition_and_successful_insertion_required'])

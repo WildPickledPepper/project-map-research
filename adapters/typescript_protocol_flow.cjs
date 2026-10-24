@@ -7,6 +7,7 @@ const {analyze}=require('./typescript_facts.cjs');
 
 function extract(ctx) {
   const {ts,checker,loc,id,walk,callableOwner,facts,sfList}=ctx;
+  const sourceFiles=new Set(ctx.relativeFiles);
   const lit=value=>({tag:'literal',value}),unk=reason=>({tag:'unknown',reason}),obj=(props={})=>({tag:'object',props});
   const fn=(node,env,receiver=null)=>({tag:'function',node,env:new Map(env),receiver});
   const diagnostics=[],consumers=[],ast=new Map();let active=null,steps=0;
@@ -30,7 +31,7 @@ function extract(ctx) {
     return unk('branch_values_differ');
   }
   function decl(n) {let s=ts.isIdentifier(n)&&ts.isShorthandPropertyAssignment(n.parent)?checker.getShorthandAssignmentValueSymbol(n.parent):checker.getSymbolAtLocation(n);if(s?.flags&ts.SymbolFlags.Alias)s=checker.getAliasedSymbol(s);return s?.valueDeclaration||s?.declarations?.[0];}
-  const external=n=>{const d=decl(n);return d&&!ctx.relativeFiles.includes(loc(d).path);};
+  const external=n=>{const d=decl(n);return d&&!sourceFiles.has(loc(d).path);};
   function platformType(n,name) {
     const type=checker.getTypeAtLocation(n);
     const has=t=>t?.isUnion?.()?t.types.some(has):t?.symbol?.getName()===name&&t.symbol.declarations?.some(d=>loc(d).path.startsWith('<typescript-lib>/'));
@@ -174,7 +175,7 @@ function extract(ctx) {
         if(transport){const payload=args[0]?.tag==='json'?args[0].value:args[0];note(n,'platform_send',{transport,payload:plain(payload),receiver_type:type},c);if(active)active.boundaries.push({transport,...src(n),payload:clone(payload),events:[...active.events],conditions:[...c.conditions]});return lit(undefined);}
         const callee=get(receiver,name,c);if(callee.tag==='function')return invoke(callee,args,c,n);
         const target=checker.getResolvedSignature(n)?.declaration;
-        if(target?.body&&ctx.relativeFiles.includes(loc(target).path)){const owner=ts.isClassDeclaration(target.parent)?target.parent:null;note(n,'typed_receiver_candidate',{receiver_type:type,runtime_instance:'unknown'},c);return invoke(fn(target,c.env,owner?{tag:'object',props:{},classNode:owner}:receiver),args,c,n);}
+        if(target?.body&&sourceFiles.has(loc(target).path)){const owner=ts.isClassDeclaration(target.parent)?target.parent:null;note(n,'typed_receiver_candidate',{receiver_type:type,runtime_instance:'unknown'},c);return invoke(fn(target,c.env,owner?{tag:'object',props:{},classNode:owner}:receiver),args,c,n);}
         if(receiver.tag==='map'&&name==='get')note(n,'runtime_map_selection',{key:plain(args[0])},c);
         else {for(const a of args)invalidate(a,'unresolved_call_may_mutate_argument');invalidate(receiver,'unresolved_call_may_mutate_receiver');}
         return unk('external_or_unresolved_call');

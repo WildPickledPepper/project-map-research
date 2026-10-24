@@ -48,7 +48,7 @@ function analyze(ts, root, relativeFiles, extension=null) {
   });
   const program = ts.createProgram([...allowed].filter(p => /\.tsx?$/.test(p)),options,host);
   const checker = program.getTypeChecker();
-  const nodes = new Map(), edges = [], diagnostics = [];
+  const nodes = new Map(), edges = [], diagnostics = [], sourceHashes=new Map(), scopeCache=new Map();
   const sfList = program.getSourceFiles().filter(f => allowed.has(path.resolve(f.fileName)) && /\.tsx?$/.test(f.fileName));
   function rel(p) { return internal(p)?path.relative(root,p).replaceAll('\\','/'):'<typescript-lib>/'+path.basename(p); }
   function loc(n) { const sf=n.getSourceFile(), pos=sf.getLineAndCharacterOfPosition(n.getStart(sf));
@@ -68,7 +68,9 @@ function analyze(ts, root, relativeFiles, extension=null) {
     const uid=id(n,kind);
     if(!nodes.has(uid)) nodes.set(uid,{id:uid,kind,...loc(n),name:qualified(n),
       evidence_kind:'typescript_compiler_ast',compiler_version:ts.version,
-      source_sha256:crypto.createHash('sha256').update(n.getSourceFile().text.replaceAll('\r\n','\n')).digest('hex'),
+      source_sha256:(()=>{const sf=n.getSourceFile();if(!sourceHashes.has(sf.fileName))
+        sourceHashes.set(sf.fileName,crypto.createHash('sha256').update(sf.text.replaceAll('\r\n','\n')).digest('hex'));
+        return sourceHashes.get(sf.fileName);})(),
       ...(kind==='callable'?{parameters:n.parameters?.map(p=>p.getText())||[],
         type_parameters:n.typeParameters?.map(p=>p.getText())||[],definition:!!n.body}:{} )});
     return uid;
@@ -78,10 +80,11 @@ function analyze(ts, root, relativeFiles, extension=null) {
   }
   function callableOwner(n) { for(let p=n.parent;p;p=p.parent)if(ts.isFunctionLike(p))return p;return null; }
   function walk(n,fn) { fn(n); ts.forEachChild(n,c=>walk(c,fn)); }
-  const calls=[], assignments=[], semanticErrors=[];
+  const calls=[], assignments=[], semanticErrors=new Map();
   for(const sf of sfList) {
+    const errors=[];semanticErrors.set(sf.fileName,errors);
     for(const d of program.getSemanticDiagnostics(sf)) {
-      semanticErrors.push({file:sf.fileName,start:d.start||0,end:(d.start||0)+(d.length||1)});
+      errors.push({start:d.start||0,end:(d.start||0)+(d.length||1)});
       diagnostics.push({path:rel(sf.fileName),kind:'typescript_semantic',code:d.code,
         line:sf.getLineAndCharacterOfPosition(d.start||0).line+1,
         message:ts.flattenDiagnosticMessageText(d.messageText,' ').replaceAll(root,'<source>')});
@@ -100,7 +103,8 @@ function analyze(ts, root, relativeFiles, extension=null) {
   }
   function appScope(n) {
     const file=path.resolve(n.getSourceFile().fileName);
-    return packages.filter(p=>file.startsWith(p.dir+path.sep)).sort((a,b)=>b.dir.length-a.dir.length)[0]?.data.name || '<analysis-root>';
+    if(!scopeCache.has(file))scopeCache.set(file,packages.filter(p=>file.startsWith(p.dir+path.sep)).sort((a,b)=>b.dir.length-a.dir.length)[0]?.data.name || '<analysis-root>');
+    return scopeCache.get(file);
   }
   function propertyKey(expr) {
     const base=expr.expression;
@@ -138,7 +142,7 @@ function analyze(ts, root, relativeFiles, extension=null) {
   }
   for(const call of calls) {
     const uid=node(call,'call_site'), owner=callableOwner(call);
-    const hasError=semanticErrors.some(e=>e.file===call.getSourceFile().fileName && e.start<call.end && e.end>call.getStart());
+    const hasError=(semanticErrors.get(call.getSourceFile().fileName)||[]).some(e=>e.start<call.end && e.end>call.getStart());
     const target=hasError?null:targetOf(call);
     Object.assign(nodes.get(uid),{name:call.expression.getText(),arguments:call.arguments?.map(a=>a.getText())||[],resolution:'unresolved'});
     if(owner)edge(node(owner,'callable'),uid,'OBSERVES_CALL',[loc(call)]);

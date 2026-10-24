@@ -43,6 +43,16 @@ class CppFactsTests(unittest.TestCase):
         self.assertTrue(all(a['parameters']==b['parameters'] for a,b in pairs))
         self.assertEqual({a['parameters'][0] for a,b in pairs},{'int','constchar*'})
 
+    def test_cross_file_spelling_join_retains_unknown_build_and_type_identity(self):
+        graph=self.graph({'one/api.h':'namespace product { int read(int); }',
+                          'two/impl.cpp':'namespace product { int read(int value){return value;} }'})
+        links=[e for e in graph['edges'] if e['kind']=='DECLARES_DEFINITION']
+        self.assertEqual(len(links),1)
+        self.assertEqual(links[0]['status'],'candidate')
+        self.assertEqual(links[0]['build_linkage'],'not_validated')
+        self.assertEqual(links[0]['identity_condition'],'same_program_and_compatible_types')
+        self.assertFalse(links[0]['types_checked'])
+
     def test_fixture_preserves_namespace_and_excludes_pointer_mismatch(self):
         folder=Path(__file__).resolve().parents[1]/'experiments/2026-10-23-p1/fixtures'
         g=self.graph({p.name:p.read_text(encoding='utf-8') for p in folder.glob('contracts.*')})

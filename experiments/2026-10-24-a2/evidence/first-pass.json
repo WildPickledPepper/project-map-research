@@ -1,0 +1,25 @@
+{
+  "evidence_kind": "executed_first_full_scope_unchanged_builder",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "exit_code": 1,
+  "status": "budget_stopped",
+  "stop_reason": "wall_time_budget",
+  "elapsed_seconds": 301.547,
+  "budgets": {
+    "wall_seconds": 300.0,
+    "root_working_set_bytes": 6442450944,
+    "node_heap_mib": 3072
+  },
+  "peak_root_working_set_bytes_observed": 4513792,
+  "memory_measurement": "root Python working set sampled; Node children not included",
+  "raw_artifacts": "process.log and build/ retained outside research Git",
+  "file_hash_verification": "not_run_per_user_preference",
+  "rules_commit": "b345db2a0eb2fd47e123fc73bba207cae6f06cb9",
+  "input_files": 2310,
+  "source_files": 2256,
+  "last_log_phases": [
+    "Extract C++ declarations and protocol",
+    "Extract typescript_protocol_flow.cjs"
+  ],
+  "memory_scope_note": "The cgc-env Python launcher has a child interpreter. This first measurement excludes it and Node; it is not total process-tree memory. Later runner measures descendants."
+}

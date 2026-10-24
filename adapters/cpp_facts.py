@@ -58,8 +58,8 @@ class Extractor:
         self.base_names = defaultdict(set)
         for path, source in sorted(sources.items()):
             data = source.replace(b'\r\n',b'\n')
-            syntax = extract(data,path,'cpp',parser)
             tree = parser.parse(data)
+            syntax = extract(data,path,'cpp',parser,tree=tree)
             unit = self.units[path] = {'tree':tree,'syntax':syntax,'using':[],'includes':[],'variables':[]}
             self.diagnostics.extend(dict(d,path=path) for d in syntax['diagnostics'])
             symbols = {s['id']:s for s in syntax['symbols']}
@@ -140,6 +140,22 @@ class Extractor:
                     self.diagnostics.append({'path':path,'line':line,'kind':'include_ambiguous' if candidates else 'include_outside_input',
                                              'include':inc,'candidates':candidates})
         self.visibility = {p:self.include_closure(p,set()) for p in self.units}
+        self._type_cache = {}
+        self._functions_by_name = defaultdict(list)
+        for signature, group in self.functions.items():
+            self._functions_by_name[signature[0]].append(group)
+        self._variables_by_name = {}
+        for path, unit in self.units.items():
+            index = defaultdict(list)
+            for variable in unit['variables']:index[variable['name']].append(variable)
+            self._variables_by_name[path] = index
+        self._assignments = {}
+        for uid, info in self.functions_by_id.items():
+            index = defaultdict(list)
+            for node in walk(info['container']):
+                if node.type == 'assignment_expression':
+                    index[text(node.child_by_field_name('left'))].append(node.start_byte)
+            self._assignments[uid] = index
 
     @staticmethod
     def conditions(node):
@@ -160,6 +176,14 @@ class Extractor:
         return seen
 
     def resolve_type(self,spelling,path,scope):
+        key = (spelling,path,tuple(scope))
+        if key not in self._type_cache:
+            result = self._resolve_type(spelling,path,scope)
+            self._type_cache[key] = (tuple(result['names']),result['wrapper'])
+        names,wrapper = self._type_cache[key]
+        return {'names':list(names),'wrapper':wrapper,'evidence':[]}
+
+    def _resolve_type(self,spelling,path,scope):
         atom = re.sub(r'\b(const|volatile|struct|class|typename)\b','',spelling).strip().strip('&* ').strip()
         wrapper = 'value'
         match = re.fullmatch(r'std::(shared_ptr|unique_ptr)\s*<\s*([^,<>]+)\s*>',atom)
@@ -196,9 +220,9 @@ class Extractor:
         seen = set() if seen is None else seen
         if owner in seen:return []
         seen.add(owner)
-        own = [ids for key,ids in self.functions.items() if key[0]==owner+'::'+name]
+        own = self._functions_by_name.get(owner+'::'+name,[])
         if own:return own
-        return [group for base in self.base_names[owner] for group in self.members(base,name,seen)]
+        return [group for base in sorted(self.base_names[owner]) for group in self.members(base,name,seen)]
 
     def relations(self):
         for name,ids in self.classes.items():
@@ -215,12 +239,13 @@ class Extractor:
             definitions = [i for i in ids if self.nodes[i]['definition']]
             for a in declarations:
                 for b in definitions:
-                    self.edge(a,b,'DECLARES_DEFINITION','source_relation' if len(definitions)==1 else 'candidate',
-                              {'basis':'same_qualified_owner_parameter_spelling_and_cvref','types_checked':False})
+                    self.edge(a,b,'DECLARES_DEFINITION','candidate',
+                              {'basis':'same_qualified_owner_parameter_spelling_and_cvref','types_checked':False,
+                               'identity_condition':'same_program_and_compatible_types','build_linkage':'not_validated'})
             owner, _, method = signature[0].rpartition('::')
             for uid in ids:
                 for cls in self.classes.get(owner,[]):self.edge(cls,uid,'DECLARES_MEMBER')
-            for base in self.base_names[owner]:
+            for base in sorted(self.base_names[owner]):
                 for group in self.members(base,method):
                     for parent in group:
                         if tuple(self.nodes[parent]['parameters'])!=signature[1]:continue
@@ -231,7 +256,7 @@ class Extractor:
                                       {'basis':'inheritance_and_matching_parameter_spelling','runtime_selection':'unknown'})
 
     def variables(self,name,node,path,owner):
-        found = [v for v in self.units[path]['variables'] if v['name']==name and v['range'][0]<=node.start_byte<v['range'][1]
+        found = [v for v in self._variables_by_name[path].get(name,[]) if v['range'][0]<=node.start_byte<v['range'][1]
                  and v['node'].start_byte<=node.start_byte and (v['owner'] is None or v['owner']==owner)]
         return sorted(found,key=lambda v:(v['range'][1]-v['range'][0],-v['node'].start_byte))
 
@@ -246,8 +271,8 @@ class Extractor:
             # Reassignments require dataflow analysis; do not keep a stale initializer.
             function = self.functions_by_id.get(owner,{}).get('container')
             if function is not None:
-                if any(n.type=='assignment_expression' and var['node'].end_byte<n.start_byte<node.start_byte
-                       and text(n.child_by_field_name('left'))==text(node) for n in walk(function)):
+                if any(var['node'].end_byte<offset<node.start_byte
+                       for offset in self._assignments.get(owner,{}).get(text(node),[])):
                     return empty
             result = infer(var['value']) if var['type']=='auto' else self.resolve_type(var['type'],path,scope)
             return {**result,'evidence':result['evidence']+[{'path':path,'line':var['node'].start_point[0]+1,'basis':'declared_or_initialized_variable'}]}
