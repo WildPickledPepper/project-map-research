@@ -131,13 +131,9 @@ def build(source, request, output, log, *, typescript):
 
 
 def build_version(typescript):
-    from adapters.snapshot_inputs import git
-    inputs = ['adapters', 'scripts', 'requirements-*.txt', 'package.json', 'package-lock.json']
-    if git(ROOT, 'status', '--porcelain', '--untracked-files=all', '--', *inputs).strip():
-        raise ValueError('Commit builder changes before recording a reproducible builder version')
+    from projectmap.version import rules_version
     ts = subprocess.check_output(['node', '-e', 'process.stdout.write(require(process.argv[1]).version)', str(typescript)], text=True)
-    rules = git(ROOT, 'log', '-1', '--format=%H', '--', *inputs).decode().strip()
-    if not rules: raise ValueError('No committed builder revision found')
+    rules = rules_version(require_clean=True)
     return {'rules_commit': rules, 'python': platform.python_version(),
             'node': subprocess.check_output(['node', '--version'], text=True).strip(), 'typescript': ts,
             'packages': {name: importlib.metadata.version(name) for name in ['tree-sitter', 'tree-sitter-language-pack', 'kuzu']}}

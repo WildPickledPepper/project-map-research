@@ -1,5 +1,7 @@
 # 研究与实施计划 v0.1
 
+**2026-10-25 当前安排**：先完成[工具与 skill 交付](tool-and-skill.md)，P6 历史资产接入暂缓。随后先开展源码与源码＋工具的对照，历史资产作为第三阶段新增输入单独评价。下文保留原 P0–P7 的设计与执行记录。
+
 日期：2026-10-24。设计依据：[设计基线 v0.1](../docs/05-design-baseline.md)，基线提交 `547269e`。**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 当前范围见 [P7 报告](../experiments/2026-10-24-p7/completion.md)和[能力覆盖矩阵](../docs/06-capability-coverage.md)。主底座选用 CGC/Kuzu，见 [P1 完成证据与决策](../experiments/2026-10-23-p1-completion/README.md)。
 
 [P5 真实运行验证已完成](../experiments/2026-10-24-p5/completion.md)，R01–R06 通过。P4 的 U01–U04、U06 通过，U05 不适用，见 [完成报告](../experiments/2026-10-23-p4/completion.md)。P7 提前交付不依赖外部资产的地图与查询，M3 联合验收仍等待 P6。

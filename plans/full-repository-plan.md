@@ -1,5 +1,7 @@
 # 下一阶段：全仓自动发现与覆盖扩展
 
+**A1–A5 后的当前工作**：[工具与 skill 交付](tool-and-skill.md)。历史资产接入暂缓，优先形成可独立安装、供 AI 查询项目的 skill，并准备源码组与工具组对照。
+
 日期：2026-10-25。状态：**A1–A5 已完成规定验收；静态连接扩展的五项指定目标已贯通**。本计划承接 [P7 验收](../experiments/2026-10-24-p7/completion.md)，按[能力架构与覆盖矩阵](../docs/06-capability-coverage.md)安排下一阶段工作。结果见 [A1 报告](../experiments/2026-10-24-a1/completion.md)、[A2 报告](../experiments/2026-10-24-a2/completion.md)、[A3 报告](../experiments/2026-10-24-a3/completion.md)、[A4 首轮报告](../experiments/2026-10-24-a4/report.md)、[A4 修复复验](../experiments/2026-10-24-a4-repair/completion.md)、[静态连接扩展](../experiments/2026-10-25-static-async/completion.md)及 [A5 运行报告](../experiments/2026-10-25-a5/completion.md)。
 
 A2 已在 2,310 个自动输入上构建静态事实与条件候选图，A3 完成同一事实集上的地图与查询。A4 首轮复核为 3/6 协议匹配、0/2 状态连接；修正后六条请求、六个响应字段和两个指定状态通过，新增直接入口、更新、导航及重建检查通过。原始负结果保持不变；用于修正的材料按开发回归登记，最后两项新参考评价协议与 handler 连接。

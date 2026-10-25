@@ -2,7 +2,7 @@ import importlib
 import unittest
 from unittest.mock import patch
 
-module=importlib.import_module('experiments.2026-10-24-p7.project_query')
+module=importlib.import_module('adapters.project_query')
 ProjectQuery=module.ProjectQuery
 
 

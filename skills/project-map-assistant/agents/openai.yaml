@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目地图助手"
+  short_description: "查询版本化项目地图、跨模块接口与数据关系，并核对运行证据"
+  default_prompt: "使用 $project-map-assistant 理解当前项目，并查询这次修改涉及的调用链和影响范围。"

@@ -82,8 +82,17 @@ def writer_lock(store):
             else: fcntl.flock(stream.fileno(), fcntl.LOCK_UN)
 
 
+def read_json(path):
+    """Allow short Windows delete-sharing conflicts during atomic publication."""
+    for attempt in range(10):
+        try:return json.loads(Path(path).read_text(encoding='utf-8'))
+        except PermissionError as error:
+            if getattr(error,'winerror',None) not in {5,32,33} or attempt==9:raise
+            time.sleep(0.01 * 2**min(attempt,4))
+
+
 def read_state(store):
-    try: return json.loads((Path(store)/'state.json').read_text(encoding='utf-8'))
+    try: return read_json(Path(store)/'state.json')
     except FileNotFoundError: return None
 
 
