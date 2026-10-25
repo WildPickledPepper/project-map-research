@@ -1,0 +1,427 @@
+{
+  "schema": "javascript-trial-score/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:d0ea69e9447741f0828eb069902a8b0f",
+  "build_version": {
+    "rules_commit": "7fbd29bd03dcc7f19c524d90e15612ac74757a55",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "passed": true,
+  "runtime_execution": false,
+  "whole_G02_accepted": false,
+  "checks": [
+    {
+      "id": "ui_constructor",
+      "passed": true,
+      "edges": [
+        {
+          "source": "ts:f5c4a5334a5e290531962a2d",
+          "target": "js:ec4abc5c9407b59f599049ad",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/components/hotMethod/CodeTextSearch.tsx",
+              "line": 96,
+              "column": 22
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 25,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        },
+        {
+          "source": "ts:5906fd8963ccc125046ff757",
+          "target": "js:ec4abc5c9407b59f599049ad",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/components/hotMethod/CodeTextSearch.tsx",
+              "line": 107,
+              "column": 22
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 25,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        }
+      ]
+    },
+    {
+      "id": "ui_mark",
+      "passed": true,
+      "edges": [
+        {
+          "source": "ts:e68016f07473cde654b09ce2",
+          "target": "js:3e46df2560411f2b1f55f9b5",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/components/hotMethod/CodeTextSearch.tsx",
+              "line": 118,
+              "column": 9
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 401,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        }
+      ]
+    },
+    {
+      "id": "ui_unmark",
+      "passed": true,
+      "edges": [
+        {
+          "source": "ts:f8877328334d0038dc478d25",
+          "target": "js:7e3bb09bd04e53297352a889",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/components/hotMethod/CodeTextSearch.tsx",
+              "line": 97,
+              "column": 5
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 438,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        }
+      ]
+    },
+    {
+      "id": "iterator_constructor",
+      "passed": true,
+      "edges": [
+        {
+          "source": "js:ae093c664dc22212ae10c03d",
+          "target": "js:b6973ee278b7c6e952fdbd5a",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 51,
+              "column": 16
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/domiterator.js",
+              "line": 22,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        }
+      ]
+    },
+    {
+      "id": "iterator_method",
+      "passed": true,
+      "edges": [
+        {
+          "source": "js:f2d9397d60ea94e71fc30b78",
+          "target": "js:a28edc7b05a5de5d38b20947",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 109,
+              "column": 9
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/domiterator.js",
+              "line": 119,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        },
+        {
+          "source": "js:59d8ec761a40cf28d6ac3fb1",
+          "target": "js:a28edc7b05a5de5d38b20947",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 442,
+              "column": 9
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/domiterator.js",
+              "line": 119,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        }
+      ]
+    },
+    {
+      "id": "regexp_constructor",
+      "passed": true,
+      "edges": [
+        {
+          "source": "js:401393cfe0eec0c6435a98c0",
+          "target": "js:0b6c460e7b3da88f4481f1bb",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 409,
+              "column": 28
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/RegExpTool.js",
+              "line": 19,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        }
+      ]
+    },
+    {
+      "id": "regexp_method",
+      "passed": true,
+      "edges": [
+        {
+          "source": "js:0fc24c1017a0dfba6535c929",
+          "target": "js:8769f1a3554c61b66224a440",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "static",
+          "evidence": [
+            {
+              "path": "modules/compute/src/utils/DomSearch/mark.js",
+              "line": 409,
+              "column": 28
+            },
+            {
+              "path": "modules/compute/src/utils/DomSearch/RegExpTool.js",
+              "line": 31,
+              "column": 5
+            }
+          ],
+          "basis": "typescript_getResolvedSignature",
+          "runtime_dispatch": "not_observed"
+        }
+      ]
+    },
+    {
+      "id": "import.0",
+      "passed": true
+    },
+    {
+      "id": "import.1",
+      "passed": true
+    },
+    {
+      "id": "import.2",
+      "passed": true
+    },
+    {
+      "id": "dynamic_selection_retained",
+      "passed": true,
+      "candidates": [
+        "Mark.wrapMatchesAcrossElements",
+        "Mark.wrapMatches"
+      ]
+    },
+    {
+      "id": "navigation_forward_path",
+      "passed": true,
+      "result": {
+        "found": true,
+        "direction": "out",
+        "items": [
+          {
+            "ordinal": 219,
+            "source": "ts:a5d26bc23d8fce165bd8cc61",
+            "target": "ts:e68016f07473cde654b09ce2",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 219
+            }
+          },
+          {
+            "ordinal": 220,
+            "source": "ts:e68016f07473cde654b09ce2",
+            "target": "js:3e46df2560411f2b1f55f9b5",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 220
+            }
+          },
+          {
+            "ordinal": 193,
+            "source": "js:3e46df2560411f2b1f55f9b5",
+            "target": "js:92bcd625a27892d5f56b97a8",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 193
+            }
+          },
+          {
+            "ordinal": 194,
+            "source": "js:92bcd625a27892d5f56b97a8",
+            "target": "js:8ce7456dd6c0a59df1fd3c2a",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 194
+            }
+          },
+          {
+            "ordinal": 174,
+            "source": "js:8ce7456dd6c0a59df1fd3c2a",
+            "target": "js:0fc24c1017a0dfba6535c929",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 174
+            }
+          },
+          {
+            "ordinal": 175,
+            "source": "js:0fc24c1017a0dfba6535c929",
+            "target": "js:8769f1a3554c61b66224a440",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 175
+            }
+          }
+        ],
+        "stop_reason": null,
+        "visited_nodes": 44,
+        "examined_edges": 45,
+        "runtime_execution": "unknown_unless_linked_run"
+      }
+    },
+    {
+      "id": "navigation_reverse_path",
+      "passed": true,
+      "result": {
+        "found": true,
+        "direction": "in",
+        "items": [
+          {
+            "ordinal": 175,
+            "source": "js:0fc24c1017a0dfba6535c929",
+            "target": "js:8769f1a3554c61b66224a440",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 175
+            }
+          },
+          {
+            "ordinal": 174,
+            "source": "js:8ce7456dd6c0a59df1fd3c2a",
+            "target": "js:0fc24c1017a0dfba6535c929",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 174
+            }
+          },
+          {
+            "ordinal": 194,
+            "source": "js:92bcd625a27892d5f56b97a8",
+            "target": "js:8ce7456dd6c0a59df1fd3c2a",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 194
+            }
+          },
+          {
+            "ordinal": 193,
+            "source": "js:3e46df2560411f2b1f55f9b5",
+            "target": "js:92bcd625a27892d5f56b97a8",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 193
+            }
+          },
+          {
+            "ordinal": 220,
+            "source": "ts:e68016f07473cde654b09ce2",
+            "target": "js:3e46df2560411f2b1f55f9b5",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 220
+            }
+          },
+          {
+            "ordinal": 219,
+            "source": "ts:a5d26bc23d8fce165bd8cc61",
+            "target": "ts:e68016f07473cde654b09ce2",
+            "kind": "OBSERVES_CALL",
+            "status": "static",
+            "detail": {
+              "entity": "edge",
+              "id": 219
+            }
+          }
+        ],
+        "stop_reason": null,
+        "visited_nodes": 10,
+        "examined_edges": 10,
+        "runtime_execution": "unknown_unless_linked_run"
+      }
+    },
+    {
+      "id": "javascript_source_navigation",
+      "passed": true
+    }
+  ]
+}

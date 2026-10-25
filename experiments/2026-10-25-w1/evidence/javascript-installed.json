@@ -1,0 +1,113 @@
+{
+  "schema": "installed-javascript-smoke/1",
+  "source_commits": [
+    "07031b07ae336eaa664e127e8416fd9c25c99be9",
+    "b0fc6ac44ded1881b93e33117e2821ff368082be"
+  ],
+  "installed_rules_commit": "7fbd29bd03dcc7f19c524d90e15612ac74757a55",
+  "checks": [
+    {
+      "id": "installed_package_isolated",
+      "passed": true
+    },
+    {
+      "id": "real_default_build_ready",
+      "passed": true
+    },
+    {
+      "id": "js_and_cjs_definitions_present",
+      "passed": true
+    },
+    {
+      "id": "typescript_to_js_to_cjs_path",
+      "passed": true
+    },
+    {
+      "id": "reverse_mixed_path",
+      "passed": true
+    },
+    {
+      "id": "decoy_present",
+      "passed": true
+    },
+    {
+      "id": "same_name_decoy_not_connected",
+      "passed": true
+    },
+    {
+      "id": "javascript_source_version",
+      "passed": true
+    },
+    {
+      "id": "cpp_regression_present",
+      "passed": true
+    },
+    {
+      "id": "unchanged_snapshot_reused",
+      "passed": true
+    },
+    {
+      "id": "new_commit_stale_rejected",
+      "passed": true
+    },
+    {
+      "id": "added_module_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "added_module_connected",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_identity",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_connected",
+      "passed": true
+    },
+    {
+      "id": "deleted_provider_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "deleted_definition_removed",
+      "passed": true
+    },
+    {
+      "id": "retained_consumer_reports_missing_module",
+      "passed": true
+    },
+    {
+      "id": "tool_did_not_mutate_source",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_inherited",
+      "passed": true
+    },
+    {
+      "id": "no_historical_assets",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "build_counts": {
+    "tracked_files": 8,
+    "input_files": 8,
+    "modules": 4,
+    "nodes": 17,
+    "edges": 12,
+    "entries": 0,
+    "diagnostic_records": 102,
+    "providers": 0,
+    "module_relation_groups": 2
+  },
+  "source_modified_by_tool": false,
+  "historical_assets_enabled": false,
+  "execution": "installed CLI in isolated Python mode; production builder and navigation; synthetic source executed only by static analysis"
+}
