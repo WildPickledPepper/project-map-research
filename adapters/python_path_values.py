@@ -17,6 +17,9 @@ from adapters.python_path_storage import StorageVersions
 from adapters.python_path_iterations import Iterations
 from adapters.python_file_predicates import Predicates
 from adapters.python_mapping_paths import MappingPaths
+from adapters.python_process_calls import ProcessCalls
+
+ADAPTER_VERSION='import_bound_paths_mappings_and_process_calls/0.7.0'
 
 PATH_TYPES={'pathlib.Path','pathlib.PurePath','pathlib.PureWindowsPath','pathlib.PurePosixPath'}
 FILE_APIS={'shutil.copyfile':('copy_file','exact_path'),
@@ -45,6 +48,7 @@ class Paths(Boundaries):
                 end_column=len(lines[parent.end_lineno-1].encode('utf-8')[:parent.end_col_offset].decode('utf-8'))+1
                 for node in by_position.get((path,parent.lineno,column,parent.end_lineno,end_column),[]):
                     if (node.get('expression_kind')==type(parent).__name__ or node['kind']=='call_site' and isinstance(parent,ast.Call) or
+                        node['kind'] in {'callable','type'} and isinstance(parent,(ast.FunctionDef,ast.AsyncFunctionDef,ast.Lambda,ast.ClassDef)) or
                         node['kind']=='binding' and isinstance(parent,(ast.Name,ast.Attribute)) and isinstance(parent.ctx,ast.Store)):
                         self.ast[node['id']]=parent
                         self.ast_ids[id(parent)]=node['id']
@@ -146,6 +150,9 @@ class Paths(Boundaries):
         elif node['kind']=='call_site':result=self.call(uid,ev,frame,seen)
         elif isinstance(self.ast.get(uid),ast.Dict):result=self.mappings.literal(uid,frame,ev)
         elif isinstance(self.ast.get(uid),ast.Subscript):result=self.mappings.subscript(uid,frame,ev)
+        elif isinstance(self.ast.get(uid),(ast.List,ast.Tuple)):
+            result=operation('python_sequence',*[ev(t) for t in self.children(uid,'elts')],source=uid,
+                container='list' if isinstance(self.ast[uid],ast.List) else 'tuple')
         elif node.get('expression_kind')=='IfExp':
             result={'op':'choice','source':uid,'choices':[{'value':ev(t),
                 'conditions':[{'kind':'python_conditional_expression','source':uid,'branch':field}]+self.guard_conditions(t,frame)} for field in ('body','orelse') for t in self.children(uid,field)]}
@@ -292,6 +299,7 @@ class Paths(Boundaries):
                     'gaps':frame['gaps'],'runtime_execution':'not_observed'}
                 self.added.append(context);self.nodes[context['id']]=context;self.link(bid,context['id'],'FILE_OPERATION_CONTEXT')
                 for role,argument in roles:self.publish(node,argument,role,frame,context)
+        ProcessCalls(self).run()
         self.facts['nodes'].extend(self.added);self.facts['edges'].extend(self.links);self.facts['diagnostics'].extend(self.errors)
         self.facts['limits'].extend(['python_path_styles_are_explicit_runtime_candidates',
             'python_file_operations_require_control_flow_options_destination_and_deployment_context',

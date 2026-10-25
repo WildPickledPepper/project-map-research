@@ -115,6 +115,8 @@ class Predicates:
     def enrich(self,conditions):
         rows=[]
         for condition in conditions:
+            if condition['kind']=='later_storage_assignment_not_selected':
+                rows.append({**condition,'selection_guards':self.enrich(condition.get('selection_guards',[]))});continue
             frame=self.paths.calls.registry.get(condition.get('evaluation_context'));predicates=[]
             refs=([condition] if condition.get('test') else [])+condition.get('when',[])
             if frame:

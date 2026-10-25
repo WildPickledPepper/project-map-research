@@ -121,6 +121,11 @@ def conditions(guards,**context):
     residual=[];proof=[]
     for guard in guards:
         if guard['kind']=='later_storage_assignment_not_selected':
+            if guard.get('selection_complete'):
+                later=conditions(guard['selection_guards'],**context)
+                if not later['permitted']:
+                    proof.append({'condition':guard,'permitted':True});continue
+                if not later['residual']:return {'permitted':False,'excluded_by':guard,'proof':proof,'residual':residual}
             residual.append({'condition':guard,'reason':'reaching_definition_selection_not_expanded'});continue
         if guard['kind'] not in {'enclosing_source_branch','preceding_control_transfer_not_taken','mapping_entry_selected'}:continue
         rows=guard.get('predicate_expressions')

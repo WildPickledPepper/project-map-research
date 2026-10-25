@@ -141,7 +141,7 @@ if platform.system()=='Windows':
 '''})
         self.assertFalse(self.permitted(self.values(g)[0],'native/archive.a',host_system={'name':'Windows','path_style':'windows'})['permitted'])
 
-    def test_old_value_before_conditional_overwrite_keeps_selection_gap(self):
+    def test_known_conditional_overwrite_excludes_old_value(self):
         g=self.graph({'assemble.py':'''import platform,shutil
 source='old'
 if platform.system()=='Windows': source='new'
@@ -149,7 +149,7 @@ shutil.copyfile(source,'ship')
 '''})
         old=next(v for v in self.values(g) if v['value']['path']=='old')
         result=conditions(old['value']['conditions'],style='posix',host_system={'name':'Windows','path_style':'windows'})
-        self.assertTrue(any(r['reason']=='reaching_definition_selection_not_expanded' for r in result['residual']))
+        self.assertFalse(result['permitted'])
 
 
 if __name__=='__main__':unittest.main()

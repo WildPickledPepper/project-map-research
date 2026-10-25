@@ -12,7 +12,7 @@ import uuid
 
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
 from adapters.snapshot_inputs import git,select_inputs,export_inputs,normalize_config
-from adapters.python_path_values import augment as paths
+from adapters.python_path_values import augment as paths,ADAPTER_VERSION
 from adapters.artifact_copy_graph import augment as copies
 from adapters.sqlite_fact_graph import validate_graph
 from projectmap.version import rules_version
@@ -67,7 +67,7 @@ def main():
     for key in ('nodes','edges','diagnostics','coverage'):cpp[key].extend(python[key])
     cpp['limits']=list(dict.fromkeys(cpp['limits']+python['limits']))
     cpp['input_paths']=inputs;cpp=copies(cpp)
-    cpp['extractors']['python']={'components':python['components'],'path_values':'import_bound_paths_and_guarded_dictionary_selection/0.6.0'}
+    cpp['extractors']['python']={'components':python['components'],'path_values':ADAPTER_VERSION}
     cpp['extractors']['artifact_copy_flow']=cpp['artifact_copy_flow']['adapter']
     snapshot=revision+':artifact-copy-control:'+uuid.uuid4().hex
     version={'rules_commit':current,'packages':packages,'python':py_runtime,'reused_cpp_cmake':cpp_base,'reused_python_semantics':py_base,

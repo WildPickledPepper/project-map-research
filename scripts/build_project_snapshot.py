@@ -72,7 +72,7 @@ def build(source, request, output, log, *, typescript):
         print('Extract Python declarations, values and Jedi references', file=log, flush=True)
         from adapters.python_facts import analyze as python_facts
         from adapters.python_boundaries import augment as python_boundaries
-        from adapters.python_path_values import augment as python_path_values
+        from adapters.python_path_values import augment as python_path_values,ADAPTER_VERSION as python_path_version
         python=python_facts(source,paths,emit=lambda row:print('Python '+json.dumps(row),file=log,flush=True))
         python=python_boundaries(python)
         python=python_path_values(source,python)
@@ -100,7 +100,7 @@ def build(source, request, output, log, *, typescript):
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
     if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components'],
-        'path_values':'import_bound_paths_and_guarded_dictionary_selection/0.6.0'}
+        'path_values':python_path_version}
     if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components'],
         'path_values':'native_bound_positioned_paths/0.1.0'}
     from adapters.cmake_project import extract as cmake_facts, roots as cmake_roots

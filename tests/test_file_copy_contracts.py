@@ -91,11 +91,11 @@ for part in ['a','b']: shutil.copyfile(os.path.join('raw',part),os.path.join('sh
         self.assertEqual(self.destinations(self.mappings(body,'one/worker')),['first/renamed'])
         self.assertEqual(self.destinations(self.mappings(body,'raw/a')),['ship/a'])
 
-    def test_conditional_overwrite_keeps_static_selection_gap(self):
+    def test_known_conditional_overwrite_excludes_previous_source(self):
         body="source='raw/old'\nif platform.system()=='Linux': source='raw/new'\nshutil.copyfile(source,'ship')\n"
         results=self.mappings(body,'raw/old')
         self.assertEqual(self.destinations(results),[])
-        self.assertTrue(any(r['reason']=='copy_guard_static_context_incomplete' for r in results))
+        self.assertTrue(any(r['reason']=='source_predicate_rejects_member' for r in results))
 
     def test_unset_runtime_environment_remains_a_condition(self):
         body="if os.getenv('ENABLED','')=='yes': shutil.copyfile('raw/worker','ship/worker')\n"

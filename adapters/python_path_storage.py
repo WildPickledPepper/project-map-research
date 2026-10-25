@@ -49,7 +49,11 @@ class StorageVersions:
                 if loop is not None and point and paths.iterations.contains(paths.ast.get(point),loop.body):conditional=False
                 if not conditional:available=[]
                 else:
-                    for prior in available:prior['conditions']=prior['conditions']+[{'kind':'later_storage_assignment_not_selected','binding':bid}]
+                    scope=paths.calls.scope(paths.nodes[bid].get('enclosing_symbol'),frame)
+                    guards=paths.guard_conditions(bid,scope)
+                    complete=bool(guards) and all(c['kind'] in {'If','IfExp'} for e in values for c in e.get('conditions',[]))
+                    for prior in available:prior['conditions']=prior['conditions']+[{'kind':'later_storage_assignment_not_selected','binding':bid,
+                        'selection_guards':guards,'selection_complete':complete}]
                 available.append({'uid':bid,'conditions':[]})
             if not available:rows.append({'uid':uid,'reason':'python_binding_not_available_at_read'})
             rows.extend(available)

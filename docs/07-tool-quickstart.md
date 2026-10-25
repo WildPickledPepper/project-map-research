@@ -41,6 +41,8 @@ Python 路径条件中的 `predicate_expressions` 保存可计算谓词及源码
 
 可用 `query search --kind copied_artifact` 查复制后的产物，沿 COPIES_ARTIFACT_TO 正向查看后续打包，或反向追溯原生构建产物。COPY_OPERATION、COPY_SOURCE_PATH、COPY_DESTINATION_PATH 提供复制位置及两端路径依据。候选保留构建、调用、过滤、操作顺序和物化条件，执行状态单列；当前范围见[原生产物传播](../experiments/2026-10-25-w1/python-packaging.md#原生产物的生产图传播)。
 
+可用 `query search --kind python_process_invocation` 查 Python 外部程序调用。PROCESS_ARGUMENT_SOURCE/COMPONENT、PROCESS_WORKING_DIRECTORY、PROCESS_SETTING_SOURCE 和 PROCESS_CALL_STACK 展开参数、cwd、选项与调用帧；PROCESS_ENVIRONMENT_EFFECT 指向同一根调用内较早或顺序未定的环境操作。字符串/数组、继承/替换环境及运行采用条件分别保留，详见[进程调用与环境来源](../experiments/2026-10-25-w1/python-processes.md)。
+
 查询结果带版本、预算和停止原因。静态候选与源码依赖用于查找可能的关系；实际执行由相同版本与场景的运行记录验证。未解析的调用和导入保留在节点的 `resolution` / `reason` 中，可用 `status` / `detail` 检查；`diagnostics` 汇总解析与其他诊断。源码工作区的未提交修改需要另读 diff。
 
 Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验证组合为 Rust 1.94.0 与 rust-analyzer 2026-10-19 发布版。可通过 PATH 或 `PROJECT_MAP_CARGO`、`PROJECT_MAP_RUSTC`、`PROJECT_MAP_RUST_ANALYZER` 指定可执行文件。`doctor` 单列这些检查。分析器使用导出副本与离线 Cargo metadata，禁用构建脚本和 proc-macro；外部依赖须已存在于调用方的 Cargo 缓存。缺少工具或上下文时保留语法事实及必需缺项，不记为完整 Rust 语义覆盖。

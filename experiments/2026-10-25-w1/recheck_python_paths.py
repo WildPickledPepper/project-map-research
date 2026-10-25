@@ -13,7 +13,7 @@ import uuid
 
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
 from adapters.snapshot_inputs import export_inputs,select_inputs,git
-from adapters.python_path_values import augment
+from adapters.python_path_values import augment,ADAPTER_VERSION
 from adapters.sqlite_fact_graph import validate_graph
 from projectmap.version import rules_version
 from projectmap.workspace import Workspace
@@ -68,7 +68,7 @@ def main():
         'adapter_history_unchanged':True,'component_versions_unchanged':True,'input_context_unchanged':True,'counts':base_counts}
     version={'rules_commit':current,'python_components':components,'base_facts':base_facts}
     graph.pop('cached_stage',None)
-    graph.update(snapshot=snapshot,extractors={'python':'production_paths_recomputed_cached_ast_jedi_and_interfaces/1'},
+    graph.update(snapshot=snapshot,extractors={'python':{'adapter':'production_values_recomputed_cached_ast_jedi_and_interfaces/1','values':ADAPTER_VERSION}},
         version={'source_commit':selected['source_commit'],'snapshot':snapshot,'config':selected['config'],'build_version':version},
         provenance={'input_kind':'git_committed_blob_export','working_tree_included':False,'reference_used_for_extraction':False,
             'mode':'cached_language_interface_facts_production_path_recheck','file_hash_verification':'not_run_per_user_preference'})

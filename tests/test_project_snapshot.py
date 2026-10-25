@@ -98,7 +98,9 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
             root=Path(tmp);source=root/'source';source.mkdir();output=root/'output';output.mkdir()
             files={'start.py':'''from aiohttp import web
 from handlers import serve
-import os,shutil
+import os,shutil,subprocess
+os.putenv('BUILD_OUTPUT','objects')
+subprocess.run(['cargo','build'],cwd='workspace')
 shutil.copytree(os.path.join('native','payload'),os.path.join('package','resources'))
 for name in os.listdir('native'):
  shutil.copyfile(os.path.join('native',name),os.path.join('package',name))
@@ -128,6 +130,9 @@ site=web.TCPSite(runner,'127.0.0.1',9100)
             self.assertTrue(any(e['kind']=='CONTEXT_PATH_VALUE' for e in graph['edges']))
             self.assertTrue(any(n['kind']=='path_value' and n['value']['resolution']=='pattern' for n in graph['nodes']))
             self.assertTrue(any(n['kind']=='path_iteration' for n in graph['nodes']))
+            self.assertTrue(any(n['kind']=='python_process_invocation' for n in graph['nodes']))
+            self.assertTrue(any(e['kind']=='PROCESS_ENVIRONMENT_EFFECT' for e in graph['edges']))
+            self.assertTrue(any(e['kind']=='PROCESS_BOUNDARY' for e in graph['edges']))
 
     def test_complete_rebuild_recomputes_cross_file_protocol_matching(self):
         with tempfile.TemporaryDirectory() as tmp:
