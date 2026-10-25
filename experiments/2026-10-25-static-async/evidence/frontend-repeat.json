@@ -1,0 +1,8 @@
+{
+  "evidence_kind": "executed_complete_frontend_phase_JSON_comparison",
+  "equal": true,
+  "differing_keys": [],
+  "scope": "all frontend phase facts and metadata; not a second C++ or complete graph rebuild",
+  "elapsed_seconds": 2.016,
+  "file_hash_verification": "not_run_per_user_preference"
+}

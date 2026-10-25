@@ -1,0 +1,113 @@
+{
+  "initial_authored_checks": {
+    "counts": {
+      "tests": 8,
+      "pass": 3,
+      "fail": 5
+    },
+    "failed_names": [
+      "a saved resolver and scheduled rest arguments retain the fulfilled boundary projection",
+      "a leading queue settles after the source result has been assigned",
+      "pagination carries accumulated fields to an external handoff",
+      "bounded loops report truncation and an infinite loop cannot prove a later handoff",
+      "sorting source array values keeps field origins while local sort implementations stay explicit"
+    ],
+    "original_failures_pass_after_repair": true
+  },
+  "initial_product_debounce_probe": [
+    {
+      "name": "trailingApi",
+      "boundary_projection": false
+    },
+    {
+      "name": "leadingApi",
+      "boundary_projection": false
+    }
+  ],
+  "first_full_build": {
+    "evidence_kind": "executed_full_scope_versioned_builder",
+    "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "elapsed_seconds": 1080.437,
+    "budgets": {
+      "wall_seconds": 1800.0,
+      "process_tree_working_set_bytes": 6442450944,
+      "node_heap_mib": 3072
+    },
+    "peak_tree_working_set_bytes_observed": 5664608256,
+    "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+    "raw_artifacts": "process.log and build/ retained outside research Git",
+    "file_hash_verification": "not_run_per_user_preference"
+  },
+  "first_full_query_rule": "3a694631a97208e91128c4c1a252ecd8a39a3329",
+  "first_full_facts_rule": {
+    "rules_commit": "f6ae8f00b414639846d534b3be40af075f17c6fd",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "first_five_connections": [
+    {
+      "id": "iterations-helper",
+      "connected": false
+    },
+    {
+      "id": "stages-helper",
+      "connected": false
+    },
+    {
+      "id": "memscope-worker",
+      "connected": false
+    },
+    {
+      "id": "snapshot-pagination",
+      "connected": false
+    },
+    {
+      "id": "snapshot-worker",
+      "connected": false
+    }
+  ],
+  "first_known_checks": {
+    "getUnitFlows_unique_scoped_handler": true,
+    "getUnitFlows_return_to_state": false,
+    "queryTimelineOffset_unique_scoped_handler": true,
+    "memoryCurveGet_unique_scoped_handler": true,
+    "memoryCurveGet_return_to_state": false,
+    "deleted_provider_not_matched": true,
+    "changed_command_not_matched": true,
+    "other_module_not_matched": true,
+    "removed_serialized_field_has_no_consumer_link": true,
+    "cache_reverse_entry": true,
+    "Dic::Module::FullDb::DbMemoryDataBase::QueryMemoryView_reverse": true,
+    "Dic::Module::Memory::TextMemoryDataBase::QueryMemoryView_reverse": true,
+    "cache_member_write_read_and_clear_present": true,
+    "frontend_request_id_guard_retained": false,
+    "runtime_records_keep_original_versions": true,
+    "P6_pending_explicit": true,
+    "all_tracked_paths_in_inventory": true,
+    "unexpanded_languages_visible": true,
+    "paging_and_depth_explicit": true
+  },
+  "first_a4_scoring_budget_stop": {
+    "elapsed_seconds": 31.9009,
+    "exit_code": 1,
+    "status": "budget_stopped",
+    "stop_reason": "process_tree_working_set_budget",
+    "peak_tree_working_set_bytes_observed": 6453637120,
+    "output_bytes": 0,
+    "process_budgets": {
+      "seconds": 300,
+      "working_set_bytes": 6442450944
+    }
+  },
+  "mechanism": "branch-copied callback alternatives were not dispatched by invokeLookup; fixed in b8eac24",
+  "scope": "development history retained; first failures are not replaced by final results"
+}

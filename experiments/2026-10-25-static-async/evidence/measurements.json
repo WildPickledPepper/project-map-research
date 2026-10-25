@@ -1,0 +1,62 @@
+{
+  "chains": {
+    "elapsed_seconds": 23.0075,
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "peak_tree_working_set_bytes_observed": 6126419968,
+    "output_bytes": 2482,
+    "process_budgets": {
+      "seconds": 300,
+      "working_set_bytes": 6442450944
+    }
+  },
+  "a4-replay": {
+    "elapsed_seconds": 57.6048,
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "peak_tree_working_set_bytes_observed": 6771064832,
+    "output_bytes": 905,
+    "process_budgets": {
+      "seconds": 300,
+      "working_set_bytes": 8589934592
+    }
+  },
+  "known": {
+    "elapsed_seconds": 115.453,
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "peak_tree_working_set_bytes_observed": 7422873600,
+    "output_bytes": 873,
+    "process_budgets": {
+      "seconds": 300,
+      "working_set_bytes": 10737418240
+    }
+  },
+  "navigation": {
+    "elapsed_seconds": 57.651,
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "peak_tree_working_set_bytes_observed": 6126534656,
+    "output_bytes": 1234,
+    "process_budgets": {
+      "seconds": 300,
+      "working_set_bytes": 6442450944
+    }
+  },
+  "frontend-repeat": {
+    "elapsed_seconds": 2.2981,
+    "exit_code": 0,
+    "status": "passed",
+    "stop_reason": null,
+    "peak_tree_working_set_bytes_observed": 1045000192,
+    "output_bytes": 285,
+    "process_budgets": {
+      "seconds": 180,
+      "working_set_bytes": 6442450944
+    }
+  }
+}

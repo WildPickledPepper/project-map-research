@@ -1,0 +1,89 @@
+{
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "snapshot": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:d2cf0a2c1f7147f2a49ecd70e3ced6c8",
+  "build_version": {
+    "rules_commit": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "counts": {
+    "references": 6,
+    "scored": 6,
+    "wrong_protocol_pairs": 0,
+    "correct_protocol_pairs": 6,
+    "missing_expected_protocol_pairs": 0,
+    "producer_forward_paths": 6,
+    "producer_reverse_paths": 6,
+    "serialized_field_relations": 6,
+    "return_state_relations": 2,
+    "state_reference_denominator": 2
+  },
+  "protocol_outcomes": {
+    "correct_unique_conditional": 6
+  },
+  "elapsed_seconds": 30.0025,
+  "evidence_kind": "executed_existing_A4_development_regression",
+  "independent_holdout": false,
+  "cases": [
+    {
+      "id": "cluster-iterations",
+      "protocol_outcome": "correct_unique_conditional",
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "expected_state_connected": false,
+      "query_truncated": true
+    },
+    {
+      "id": "cluster-stages",
+      "protocol_outcome": "correct_unique_conditional",
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "expected_state_connected": false,
+      "query_truncated": true
+    },
+    {
+      "id": "operator-category",
+      "protocol_outcome": "correct_unique_conditional",
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "expected_state_connected": true,
+      "query_truncated": true
+    },
+    {
+      "id": "operator-compute",
+      "protocol_outcome": "correct_unique_conditional",
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "expected_state_connected": true,
+      "query_truncated": true
+    },
+    {
+      "id": "leaks-blocks",
+      "protocol_outcome": "correct_unique_conditional",
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "expected_state_connected": false,
+      "query_truncated": true
+    },
+    {
+      "id": "leaks-allocations",
+      "protocol_outcome": "correct_unique_conditional",
+      "producer_forward": true,
+      "producer_reverse": true,
+      "serialized_field_present": true,
+      "expected_state_connected": false,
+      "query_truncated": true
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "snapshot": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:d2cf0a2c1f7147f2a49ecd70e3ced6c8",
+  "build_version": {
+    "rules_commit": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "counts": {
+    "input_files": 2315,
+    "nodes": 282168,
+    "edges": 413390,
+    "member_effects": 23957,
+    "coverage": {
+      "parsed": 2240,
+      "workspace_package_metadata": 17,
+      "unsupported_extension": 21,
+      "configuration_recorded_not_applied": 18,
+      "syntax_errors": 19
+    }
+  },
+  "checks": {
+    "getUnitFlows_unique_scoped_handler": true,
+    "getUnitFlows_return_to_state": true,
+    "queryTimelineOffset_unique_scoped_handler": true,
+    "memoryCurveGet_unique_scoped_handler": true,
+    "memoryCurveGet_return_to_state": true,
+    "deleted_provider_not_matched": true,
+    "changed_command_not_matched": true,
+    "other_module_not_matched": true,
+    "removed_serialized_field_has_no_consumer_link": true,
+    "cache_reverse_entry": true,
+    "Dic::Module::FullDb::DbMemoryDataBase::QueryMemoryView_reverse": true,
+    "Dic::Module::Memory::TextMemoryDataBase::QueryMemoryView_reverse": true,
+    "cache_member_write_read_and_clear_present": true,
+    "frontend_request_id_guard_retained": true,
+    "runtime_records_keep_original_versions": true,
+    "P6_pending_explicit": true,
+    "all_tracked_paths_in_inventory": true,
+    "unexpanded_languages_visible": true,
+    "paging_and_depth_explicit": true
+  },
+  "passed": true
+}

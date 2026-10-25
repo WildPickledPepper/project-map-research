@@ -1,0 +1,32 @@
+{
+  "new_protocol_passed": true,
+  "final_protocol_passed": true,
+  "independent_holdout": false,
+  "cases": [
+    {
+      "id": "compute-source",
+      "api": "querySourceCode",
+      "outcome": "correct_unique_conditional"
+    },
+    {
+      "id": "compute-line",
+      "api": "queryApiLine",
+      "outcome": "correct_unique_conditional"
+    },
+    {
+      "id": "rl-pipeline",
+      "api": "getTraceData",
+      "outcome": "correct_unique_conditional"
+    },
+    {
+      "id": "numa-overview",
+      "api": "getNumaOverview",
+      "outcome": "correct_unique_conditional"
+    },
+    {
+      "id": "chip-basic",
+      "api": "getBasicInfo",
+      "outcome": "correct_unique_conditional"
+    }
+  ]
+}

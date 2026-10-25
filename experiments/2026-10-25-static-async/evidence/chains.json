@@ -1,0 +1,664 @@
+{
+  "evidence_kind": "executed_source_development_chain_replay",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "facts_version": {
+    "rules_commit": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "query_version": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+  "independent_holdout": false,
+  "runtime_scenarios_executed": 0,
+  "cases": [
+    {
+      "id": "iterations-helper",
+      "api": "queryIterations",
+      "field": [
+        "iterationOrRankId"
+      ],
+      "consumer": "getiterationOptions",
+      "expected_mode": "helper_return",
+      "protocol_statuses": [
+        "matched_conditional",
+        "unknown"
+      ],
+      "providers": [
+        "provider:registry:dbbf5ba8f7bde92a5c3465f6:registry:8a5cfb34e05e2f86ab61c28d"
+      ],
+      "queries": [
+        {
+          "provider": "provider:registry:dbbf5ba8f7bde92a5c3465f6:registry:8a5cfb34e05e2f86ab61c28d",
+          "status": "conditional_return_to_frontend_state",
+          "truncated": true,
+          "gaps": [
+            "array_elements_unresolved",
+            "exception_paths_not_expanded",
+            "loop_iteration_budget_exceeded",
+            "spread_source_not_expanded",
+            "unresolved_call_with_input_argument"
+          ]
+        }
+      ],
+      "connected": true,
+      "consumer_count": 2,
+      "consumer_samples": [
+        {
+          "source": {
+            "id": "ts:27c6a3f518452efc4222cddd",
+            "name": "getiterationOptions",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 203
+          },
+          "mode": "helper_return",
+          "callee": null,
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 208,
+              "column": 5,
+              "expression": "return { compare: compareOptions, baseline: baselineOptions, diff: [] };"
+            }
+          ],
+          "field_paths": [
+            [
+              "iterationOrRankId",
+              "baseline",
+              "*"
+            ],
+            [
+              "iterationOrRankId",
+              "compare",
+              "*"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "iterationOrRankId",
+              "baseline",
+              "*"
+            ],
+            [
+              "body",
+              "iterationOrRankId",
+              "compare",
+              "*"
+            ]
+          ],
+          "condition_kinds": []
+        },
+        {
+          "source": {
+            "id": "ts:27c6a3f518452efc4222cddd",
+            "name": "getiterationOptions",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 203
+          },
+          "mode": "helper_return",
+          "callee": null,
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 208,
+              "column": 5,
+              "expression": "return { compare: compareOptions, baseline: baselineOptions, diff: [] };"
+            }
+          ],
+          "field_paths": [
+            [
+              "iterationOrRankId",
+              "baseline",
+              "*"
+            ],
+            [
+              "iterationOrRankId",
+              "compare",
+              "*"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "iterationOrRankId",
+              "baseline",
+              "*"
+            ],
+            [
+              "body",
+              "iterationOrRankId",
+              "compare",
+              "*"
+            ]
+          ],
+          "condition_kinds": []
+        }
+      ]
+    },
+    {
+      "id": "stages-helper",
+      "api": "queryStages",
+      "field": [
+        "data"
+      ],
+      "consumer": "getStageOptions",
+      "expected_mode": "helper_return",
+      "protocol_statuses": [
+        "matched_conditional"
+      ],
+      "providers": [
+        "provider:registry:5996d3f3a2b3203be1cfcdd4:registry:d413345942e26e0c4bdcccbd"
+      ],
+      "queries": [
+        {
+          "provider": "provider:registry:5996d3f3a2b3203be1cfcdd4:registry:d413345942e26e0c4bdcccbd",
+          "status": "conditional_return_to_frontend_state",
+          "truncated": true,
+          "gaps": [
+            "array_elements_unresolved",
+            "exception_paths_not_expanded",
+            "loop_iteration_budget_exceeded",
+            "spread_source_not_expanded",
+            "unresolved_call_with_input_argument",
+            "unresolved_call_with_response_argument"
+          ]
+        }
+      ],
+      "connected": true,
+      "consumer_count": 4,
+      "consumer_samples": [
+        {
+          "source": {
+            "id": "ts:24404f7ee861f15c0080dd9f",
+            "name": "getStageOptions",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 239
+          },
+          "mode": "helper_return",
+          "callee": null,
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 282,
+              "column": 5,
+              "expression": "return options;"
+            }
+          ],
+          "field_paths": [
+            [
+              "data",
+              "*",
+              "group"
+            ],
+            [
+              "data",
+              "*",
+              "groupIdHash"
+            ],
+            [
+              "data",
+              "*",
+              "parallelStrategy"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "data",
+              "*",
+              "group"
+            ],
+            [
+              "body",
+              "data",
+              "*",
+              "groupIdHash"
+            ],
+            [
+              "body",
+              "data",
+              "*",
+              "parallelStrategy"
+            ]
+          ],
+          "condition_kinds": [
+            "source_guard",
+            "standard_array_callback_candidate"
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:24404f7ee861f15c0080dd9f",
+            "name": "getStageOptions",
+            "path": "modules/cluster/src/components/communication/Filter.tsx",
+            "line": 239
+          },
+          "mode": "helper_return",
+          "callee": null,
+          "evidence": [
+            {
+              "path": "modules/cluster/src/components/communication/Filter.tsx",
+              "line": 282,
+              "column": 5,
+              "expression": "return options;"
+            }
+          ],
+          "field_paths": [
+            [
+              "data",
+              "*",
+              "group"
+            ],
+            [
+              "data",
+              "*",
+              "groupIdHash"
+            ],
+            [
+              "data",
+              "*",
+              "parallelStrategy"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "data",
+              "*",
+              "group"
+            ],
+            [
+              "body",
+              "data",
+              "*",
+              "groupIdHash"
+            ],
+            [
+              "body",
+              "data",
+              "*",
+              "parallelStrategy"
+            ]
+          ],
+          "condition_kinds": [
+            "source_guard",
+            "standard_array_callback_candidate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "memscope-worker",
+      "api": "getBlocksGraphData",
+      "field": [
+        "blocks"
+      ],
+      "consumer": "getBarNewData",
+      "expected_mode": "source_argument_handoff",
+      "protocol_statuses": [
+        "matched_conditional"
+      ],
+      "providers": [
+        "provider:registry:5ffdf5c7816a83dc56723724:registry:2ac0d444c16d6247740e240a"
+      ],
+      "queries": [
+        {
+          "provider": "provider:registry:5ffdf5c7816a83dc56723724:registry:2ac0d444c16d6247740e240a",
+          "status": "conditional_return_to_frontend_state",
+          "truncated": true,
+          "gaps": [
+            "alternative_budget_exceeded",
+            "array_elements_unresolved",
+            "assignment_receiver_unresolved",
+            "exception_paths_not_expanded",
+            "loop_iteration_budget_exceeded",
+            "spread_source_not_expanded",
+            "throw_path",
+            "unresolved_call_with_input_argument",
+            "unresolved_call_with_response_argument"
+          ]
+        }
+      ],
+      "connected": true,
+      "consumer_count": 16,
+      "consumer_samples": [
+        {
+          "source": {
+            "id": "ts:2e03999ff2de8a23a2d89357",
+            "name": "getBarNewData",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 368
+          },
+          "mode": "source_argument_handoff",
+          "callee": "workerSetMemoryBlockData",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 530,
+              "column": 33,
+              "expression": "workerSetMemoryBlockData({ data: blockData, fileHash: cacheFileHash })"
+            }
+          ],
+          "field_paths": [
+            []
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "blocks"
+            ]
+          ],
+          "condition_kinds": [
+            "source_guard",
+            "try_completes_without_exception"
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:2e03999ff2de8a23a2d89357",
+            "name": "getBarNewData",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 368
+          },
+          "mode": "source_argument_handoff",
+          "callee": "workerSetMemoryBlockData",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 530,
+              "column": 33,
+              "expression": "workerSetMemoryBlockData({ data: blockData, fileHash: cacheFileHash })"
+            }
+          ],
+          "field_paths": [
+            []
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "blocks"
+            ]
+          ],
+          "condition_kinds": [
+            "source_guard",
+            "try_completes_without_exception"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snapshot-pagination",
+      "api": "getSnapshotBlocks",
+      "field": [
+        "blocks"
+      ],
+      "consumer": "fetchSnapshotViewBlocksPaginated",
+      "expected_mode": "helper_return",
+      "protocol_statuses": [
+        "matched_conditional"
+      ],
+      "providers": [
+        "provider:registry:7da9b0122a0533607720bd6e:registry:1b1176f474da7035a4baa522"
+      ],
+      "queries": [
+        {
+          "provider": "provider:registry:7da9b0122a0533607720bd6e:registry:1b1176f474da7035a4baa522",
+          "status": "conditional_return_to_frontend_state",
+          "truncated": true,
+          "gaps": [
+            "alternative_budget_exceeded",
+            "array_elements_unresolved",
+            "assignment_receiver_unresolved",
+            "exception_paths_not_expanded",
+            "loop_iteration_budget_exceeded",
+            "spread_source_not_expanded",
+            "throw_path",
+            "unresolved_call_with_input_argument",
+            "unresolved_call_with_response_argument"
+          ]
+        }
+      ],
+      "connected": true,
+      "consumer_count": 40,
+      "consumer_samples": [
+        {
+          "source": {
+            "id": "ts:e5d87b7a2075d5a1a51f9578",
+            "name": "fetchSnapshotViewBlocksPaginated",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 209
+          },
+          "mode": "helper_return",
+          "callee": null,
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 261,
+              "column": 5,
+              "expression": "return merged as RenderData;"
+            }
+          ],
+          "field_paths": [
+            [
+              "blocks"
+            ],
+            [
+              "blocks",
+              "*"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "blocks"
+            ],
+            [
+              "body",
+              "blocks",
+              "*"
+            ]
+          ],
+          "condition_kinds": [
+            "bounded_loop_iteration",
+            "source_guard"
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:e5d87b7a2075d5a1a51f9578",
+            "name": "fetchSnapshotViewBlocksPaginated",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 209
+          },
+          "mode": "helper_return",
+          "callee": null,
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 261,
+              "column": 5,
+              "expression": "return merged as RenderData;"
+            }
+          ],
+          "field_paths": [
+            [
+              "blocks"
+            ],
+            [
+              "blocks",
+              "*"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "blocks"
+            ],
+            [
+              "body",
+              "blocks",
+              "*"
+            ]
+          ],
+          "condition_kinds": [
+            "bounded_loop_iteration",
+            "source_guard",
+            "try_completes_without_exception"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "snapshot-worker",
+      "api": "getSnapshotBlocks",
+      "field": [
+        "blocks"
+      ],
+      "consumer": "getBarNewData",
+      "expected_mode": "source_argument_handoff",
+      "protocol_statuses": [
+        "matched_conditional"
+      ],
+      "providers": [
+        "provider:registry:7da9b0122a0533607720bd6e:registry:1b1176f474da7035a4baa522"
+      ],
+      "queries": [
+        {
+          "provider": "provider:registry:7da9b0122a0533607720bd6e:registry:1b1176f474da7035a4baa522",
+          "status": "conditional_return_to_frontend_state",
+          "truncated": true,
+          "gaps": [
+            "alternative_budget_exceeded",
+            "array_elements_unresolved",
+            "assignment_receiver_unresolved",
+            "exception_paths_not_expanded",
+            "loop_iteration_budget_exceeded",
+            "spread_source_not_expanded",
+            "throw_path",
+            "unresolved_call_with_input_argument",
+            "unresolved_call_with_response_argument"
+          ]
+        }
+      ],
+      "connected": true,
+      "consumer_count": 20,
+      "consumer_samples": [
+        {
+          "source": {
+            "id": "ts:2e03999ff2de8a23a2d89357",
+            "name": "getBarNewData",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 368
+          },
+          "mode": "source_argument_handoff",
+          "callee": "workerSetMemoryBlockData",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 530,
+              "column": 33,
+              "expression": "workerSetMemoryBlockData({ data: blockData, fileHash: cacheFileHash })"
+            }
+          ],
+          "field_paths": [
+            [],
+            [
+              "blocks"
+            ],
+            [
+              "blocks",
+              "*"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "blocks"
+            ],
+            [
+              "body",
+              "blocks",
+              "*"
+            ]
+          ],
+          "condition_kinds": [
+            "bounded_loop_iteration",
+            "source_guard",
+            "try_completes_without_exception"
+          ]
+        },
+        {
+          "source": {
+            "id": "ts:2e03999ff2de8a23a2d89357",
+            "name": "getBarNewData",
+            "path": "modules/leaks/src/components/dataHandler.ts",
+            "line": 368
+          },
+          "mode": "source_argument_handoff",
+          "callee": "workerSetMemoryBlockData",
+          "evidence": [
+            {
+              "path": "modules/leaks/src/components/dataHandler.ts",
+              "line": 530,
+              "column": 33,
+              "expression": "workerSetMemoryBlockData({ data: blockData, fileHash: cacheFileHash })"
+            }
+          ],
+          "field_paths": [
+            [],
+            [
+              "blocks"
+            ],
+            [
+              "blocks",
+              "*"
+            ]
+          ],
+          "field_mappings": [
+            [
+              "body",
+              "blocks"
+            ],
+            [
+              "body",
+              "blocks",
+              "*"
+            ]
+          ],
+          "condition_kinds": [
+            "bounded_loop_iteration",
+            "source_guard",
+            "try_completes_without_exception"
+          ]
+        }
+      ]
+    }
+  ],
+  "unpublished_callback_component_substitution": false,
+  "graph_counts": {
+    "nodes": 282168,
+    "edges": 413390,
+    "inputs": 2315,
+    "providers": 126,
+    "frontend_api_symbols": 154,
+    "protocol_results": {
+      "matched_conditional": 145,
+      "unmatched": 5,
+      "unknown": 11,
+      "transport_found": 44,
+      "unknown_callable": 10,
+      "candidate": 2,
+      "no_transport_found": 53,
+      "ambiguous": 1
+    }
+  },
+  "elapsed_seconds": 21.328,
+  "all_five_connections": true,
+  "snapshot": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:d2cf0a2c1f7147f2a49ecd70e3ced6c8",
+  "snapshot_identity_source": "complete_builder_request"
+}

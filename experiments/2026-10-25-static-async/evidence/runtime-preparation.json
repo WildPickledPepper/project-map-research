@@ -1,0 +1,89 @@
+{
+  "environment": {
+    "evidence_kind": "executed_runtime_environment_preparation",
+    "source_commit": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+    "push_disabled": true,
+    "source_dirty_before": false,
+    "node_version": "v22.23.3",
+    "builds": {
+      "cluster": {
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 95.047,
+        "index_present": true,
+        "node_heap_mib": 3072,
+        "wall_budget_seconds": 600,
+        "process_memory_measured": false
+      },
+      "leaks": {
+        "status": "passed",
+        "exit_code": 0,
+        "elapsed_seconds": 37.266,
+        "index_present": true,
+        "node_heap_mib": 3072,
+        "wall_budget_seconds": 600,
+        "process_memory_measured": false
+      }
+    },
+    "product_scenarios_executed": 0,
+    "file_hash_verification": "not_run_per_user_preference",
+    "inputs": {
+      "server/output/win_mingw64/bin/profiler_server.exe": {
+        "present": true,
+        "bytes": 46234112
+      },
+      "modules/framework/build/index.html": {
+        "present": true,
+        "bytes": 508
+      },
+      "modules/timeline/build/index.html": {
+        "present": true,
+        "bytes": 432
+      },
+      "e2e/node_modules/playwright/package.json": {
+        "present": true,
+        "bytes": 2238
+      },
+      "server/src/test/test_data/cluster_analysis_output/cluster_communication.json": {
+        "present": true,
+        "bytes": 12299
+      },
+      "server/src/test/test_data/full_db/leaks_dump_20250806.dat": {
+        "present": true,
+        "bytes": 16080896
+      }
+    },
+    "source_dirty_after": false
+  },
+  "browser": {
+    "evidence_kind": "executed_headless_browser_environment_probe",
+    "browser_version": "143.0.7499.4",
+    "capabilities": {
+      "context": "about:blank",
+      "worker": "function",
+      "offscreenCanvas": "function",
+      "webgl2": true,
+      "sharedArrayBuffer": "undefined",
+      "secureContext": false,
+      "crossOriginIsolated": false
+    },
+    "product_scenarios_executed": 0,
+    "scope": "about:blank probe; product headers, OPFS storage and Worker rendering require a served-product scenario"
+  },
+  "snapshot_input": {
+    "evidence_kind": "executed_public_fixture_input_inspection",
+    "path": "server/src/test/test_data/snapshot/snapshot_expandable.pkl",
+    "bytes": 581140,
+    "root_keys": [
+      "device_traces",
+      "segments"
+    ],
+    "segments": 2,
+    "block_records": 717,
+    "device_trace_events": 8092,
+    "pickle_class_loading": "disabled",
+    "scope": "input inventory; query filters and expected results will be frozen with the runtime scenario",
+    "product_scenarios_executed": 0,
+    "file_hash_verification": "not_run_per_user_preference"
+  }
+}

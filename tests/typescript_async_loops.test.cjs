@@ -105,6 +105,9 @@ test('bounded loops report truncation and an infinite loop cannot prove a later 
 test('sorting source array values keeps field origins while local sort implementations stay explicit',()=>{
   const code=`declare function load():Promise<any>;async function use(){return (await load()).rows.map((x:any)=>({label:x.title})).sort((a:any,b:any)=>0);}`;
   const {graph:g}=run({'a.ts':code},'data');assert(g.consumptions.some(c=>c.value_dependencies.some(d=>d.path.join('/')==='rows/*/title')));
+  const local=run({'a.ts':`declare function load():Promise<any>;async function use(){const source=await load();
+    const helper={sort(value:any){return 9;}};return helper.sort(source.rows);}`},'data').graph;
+  assert(!local.consumptions.some(c=>c.mode==='helper_return'&&c.value_dependencies.length));
 });
 test('a conditional callable alias keeps API identity and its selection condition',()=>{
   const code=`declare function load():Promise<any>;declare function transfer(x:any):void;function other(){return {rows:[]};}

@@ -1,0 +1,43 @@
+{
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "facts_version": {
+    "rules_commit": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "query_version": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+  "static_connection_gates": {
+    "complete_build_passed": true,
+    "five_conditional_connection_targets_found": true,
+    "six_existing_protocols": true,
+    "six_existing_producer_paths": true,
+    "five_existing_protocol_references": true,
+    "six_existing_fields": true,
+    "two_existing_state_targets": true,
+    "nineteen_known_checks": true,
+    "navigation_fidelity": true,
+    "thirteen_refresh_checks": true,
+    "frontend_repeat_equal": true,
+    "python_tests": true,
+    "typescript_tests": true,
+    "initial_mechanism_failures_repaired": true
+  },
+  "static_connection_acceptance_passed": true,
+  "runtime_preparation_gates": {
+    "module_builds": true,
+    "headless_browser_started": true,
+    "public_snapshot_inspected": true,
+    "isolated_checkout_clean": true
+  },
+  "a5_preparation_completed": true,
+  "new_product_runtime_scenarios": 0,
+  "historical_validation_records_used_for_tuning": false,
+  "loop_iteration_budget": 3,
+  "scope": "five named conditional source connections; loop budget and other extraction gaps remain visible; not whole-project path completeness"
+}

@@ -1,0 +1,70 @@
+{
+  "evidence_kind": "executed_repaired_full_graph_navigation_fidelity",
+  "source_commit": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9",
+  "snapshot": "8b2d4deaf2c995fac11efb280e9ec3b7a1610be9:full:d2cf0a2c1f7147f2a49ecd70e3ced6c8",
+  "build_version": {
+    "rules_commit": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "checks": {
+    "all_node_counts_equal": true,
+    "all_edge_counts_equal": true,
+    "all_node_payloads_equal": true,
+    "all_parallel_edge_payloads_equal": true,
+    "all_protocol_entry_payloads_equal": true,
+    "all_provider_payloads_equal": true,
+    "automatic_product_counts": true,
+    "correct_source_commit": true,
+    "new_direct_consumer_found": true,
+    "deleted_provider_invalidates_direct_consumer": true,
+    "removed_paths_absent": true,
+    "deleted_provider_absent": true,
+    "renamed_provider_present": true,
+    "old_cursor_rejected": true,
+    "old_snapshot_readable": true,
+    "queryIterations_matched_visible": true,
+    "queryStages_matched_visible": true,
+    "queryOperatorCategory_matched_visible": true,
+    "queryOperatorComputeUnit_matched_visible": true,
+    "getBlocksGraphData_matched_visible": true,
+    "getLeaksAllocationsData_matched_visible": true,
+    "getTraceData_matched_visible": true,
+    "getNumaOverview_matched_visible": true,
+    "getBasicInfo_matched_visible": true,
+    "direct_protocol_bidirectional_navigation": true,
+    "pinned_committed_source_readable": true
+  },
+  "passed": true,
+  "counts": {
+    "tracked_files": 4860,
+    "input_files": 2315,
+    "modules": 31,
+    "nodes": 282168,
+    "edges": 413390,
+    "entries": 271,
+    "diagnostic_records": 35323,
+    "providers": 126,
+    "module_relation_groups": 177
+  },
+  "index_bytes": 1504497664,
+  "protocol_status_records": {
+    "matched_conditional": 145,
+    "unmatched": 5,
+    "unknown": 11,
+    "transport_found": 44,
+    "unknown_callable": 10,
+    "candidate": 2,
+    "no_transport_found": 53,
+    "ambiguous": 1
+  },
+  "unique_consumer_identities": 262,
+  "elapsed_seconds": 56.8991,
+  "file_hash_verification": "not_run_per_user_preference"
+}

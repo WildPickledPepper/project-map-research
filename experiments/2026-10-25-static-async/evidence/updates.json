@@ -1,0 +1,31 @@
+{
+  "evidence_kind": "executed_authored_real_refresher_and_navigation_updates",
+  "fixture_origin": "authored_direct_platform_transport_without_property_binding",
+  "build_version": {
+    "rules_commit": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3"
+    }
+  },
+  "checks": {
+    "baseline_protocol_matches": true,
+    "new_module_and_interface_discovered": true,
+    "old_cursor_rejected_by_new_snapshot": true,
+    "renamed_interface_reconnects": true,
+    "old_paths_have_no_nodes": true,
+    "deleted_provider_invalidates_consumer": true,
+    "other_service_remains_matched": true,
+    "deleted_source_has_no_nodes": true,
+    "failed_update_retains_old_publication": true,
+    "old_snapshot_readable_after_failure": true,
+    "configuration_recovery_reuses_complete_snapshot": true,
+    "dirty_worktree_not_included": true,
+    "fresh_rebuild_equals_updated_graph": true
+  },
+  "passed": true
+}
