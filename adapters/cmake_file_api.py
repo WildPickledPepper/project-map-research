@@ -1,0 +1,205 @@
+"""Normalize native CMake File API replies; never interpret project CMake code.
+
+A context is bound by its caller to an immutable source export and revision.
+Configured sources/outputs are build facts, not evidence of compilation or use.
+"""
+from collections import defaultdict
+import json
+from pathlib import Path
+from urllib.parse import quote
+
+
+class NativeContextError(ValueError):
+    pass
+
+
+def _read(path):
+    return json.loads(path.read_text(encoding='utf-8'))
+
+
+def _reply_file(reply, name):
+    path = (reply / name).resolve()
+    if not path.is_relative_to(reply) or not path.is_file():
+        raise NativeContextError('Missing or unsafe native reply file')
+    return _read(path)
+
+
+def _load(build, index_name=None):
+    reply = (build / '.cmake/api/v1/reply').resolve()
+    indexes = sorted(reply.glob('index-*.json'))
+    if index_name is None:
+        if not indexes: raise NativeContextError('No successful native File API index')
+        index_name = indexes[-1].name
+    index = _reply_file(reply, index_name)
+    objects = {}
+    for row in index.get('objects', []):
+        if row.get('kind') in {'codemodel', 'cache', 'toolchains', 'cmakeFiles'}:
+            objects[row['kind']] = _reply_file(reply, row['jsonFile'])
+    model = objects.get('codemodel')
+    if not model or model.get('version', {}).get('major') != 2:
+        raise NativeContextError('Native codemodel version 2 required')
+    if Path(model['paths']['build']).resolve() != build:
+        raise NativeContextError('Native build directory differs from context')
+    configurations = []
+    for configuration in model['configurations']:
+        targets = [_reply_file(reply, r['jsonFile']) for r in configuration['targets']]
+        if len({r['id'] for r in targets}) != len(targets):
+            raise NativeContextError('Duplicate native target ID within configuration')
+        configurations.append((configuration['name'], targets))
+    return index_name, index, objects, configurations
+
+
+def analyze(build, repository, *, context_key, source_commit, expected_commit,
+            selected_paths, configure_returncode, index_name=None, dependency_prefixes=()):
+    """Return native build facts; unusable contexts yield an explicit required gap.
+
+    ``selected_paths`` comes from committed discovery, not a target whitelist.
+    Sources outside that set remain visible without claiming symbol coverage.
+    """
+    build = Path(build).resolve(); repository = Path(repository).resolve()
+    selected = set(selected_paths); nodes = {}; edges = []; diagnostics = []
+    result = {'nodes': [], 'edges': edges, 'diagnostics': diagnostics, 'coverage': [],
+              'limits': ['configured_native_context_not_a_compiled_or_executed_product'],
+              'native_context': {'key': context_key, 'source_commit': source_commit, 'status': 'unavailable'}}
+    def fail(reason):
+        diagnostics.append({'kind': 'cmake_context_unavailable', 'context_key': context_key,
+                            'reason': reason, 'required': True})
+        return result
+    if not isinstance(context_key, str) or not context_key:
+        return fail('Context key is required')
+    if not source_commit or source_commit != expected_commit:
+        return fail('Native context source revision does not match graph source revision')
+    if type(configure_returncode) is not int or configure_returncode != 0:
+        return fail('Native configuration did not succeed; previous replies are not applicable')
+    try:
+        index_name, index, objects, configurations = _load(build, index_name)
+        source_root = Path(objects['codemodel']['paths']['source']).resolve()
+        if not source_root.is_relative_to(repository):
+            return fail('Native project source directory is outside the committed export')
+        for _, targets in configurations:
+            ids = {t['id'] for t in targets}
+            if any(d['id'] not in ids for t in targets for d in t.get('dependencies', [])):
+                return fail('Native target dependency is missing from its configuration')
+    except (OSError, ValueError, KeyError, TypeError) as error:
+        return fail(str(error))
+
+    def location(path):
+        path = Path(path).resolve()
+        # Build paths may be inside the export; their identity stays a build path.
+        for root, base in [('build', build), ('source', repository)]:
+            if path.is_relative_to(base): return {'root': root, 'path': path.relative_to(base).as_posix()}
+        return {'root': 'external', 'path': str(path)}
+
+    def identity(*parts): return 'cmake:' + ':'.join(quote(str(p), safe='') for p in parts)
+    def node(uid, kind, name, loc, **extra):
+        if uid not in nodes:
+            nodes[uid] = {'id': uid, 'kind': kind, 'name': name,
+                'path': loc['path'] if loc['root'] == 'source' else '@' + loc['root'] + '/' + Path(loc['path']).name,
+                'line': 0, 'language': 'cmake', 'location': loc, 'source_commit': source_commit,
+                'runtime_execution': 'not_observed', **extra}
+        return uid
+    def edge(source, target, kind, evidence, **extra):
+        edges.append({'source': source, 'target': target, 'kind': kind, 'status': 'static',
+                      'evidence': evidence, 'basis': 'native_cmake_codemodel', **extra})
+    def trace(target, offset):
+        graph = target.get('backtraceGraph', {}); records = []; seen = set()
+        while offset is not None:
+            if offset in seen: raise NativeContextError('Cyclic native backtrace')
+            seen.add(offset); row = graph['nodes'][offset]
+            loc = location(source_root / graph['files'][row['file']])
+            records.append({'location': loc, 'path': loc['path'] if loc['root'] == 'source' else '',
+                            'line': row.get('line', 0),
+                            **({'command': graph['commands'][row['command']]} if 'command' in row else {})})
+            offset = row.get('parent')
+        return records
+
+    try:
+        for configuration, targets in configurations:
+            context = identity(context_key, configuration)
+            root_loc = location(source_root / 'CMakeLists.txt')
+            node(context, 'build_configuration', configuration or 'default', root_loc,
+                context_key=context_key, configuration=configuration, reply_index=index_name,
+                cmake_version=index['cmake']['version']['string'], generator=index['cmake']['generator'],
+                project_source=location(source_root), native_codemodel_version=objects['codemodel']['version'],
+                cache_options=[{k: r[k] for k in ('name', 'type', 'value')}
+                               for r in objects.get('cache', {}).get('entries', []) if r['type'] == 'BOOL'],
+                state='configured_not_built')
+            target_ids = {t['id']: identity(context_key, configuration, 'target', t['id']) for t in targets}
+            for target in targets:
+                declaration = trace(target, target.get('backtrace'))
+                loc = declaration[0]['location'] if declaration else location(source_root / target['paths']['source'] / 'CMakeLists.txt')
+                uid = node(target_ids[target['id']], 'build_target', target['name'], loc,
+                    line=declaration[0]['line'] if declaration else 0, native_id=target['id'],
+                    target_type=target['type'], build_context=context, configuration=configuration,
+                    declaration=declaration, name_on_disk=target.get('nameOnDisk'),
+                    link_fragments=target.get('link', {}).get('commandFragments', []))
+                edge(context, uid, 'CONFIGURES_BUILD_TARGET', declaration, build_context=context)
+                for dependency in target.get('dependencies', []):
+                    edge(uid, target_ids[dependency['id']], 'LINKS_BUILD_TARGET',
+                         trace(target, dependency.get('backtrace')), build_context=context)
+                for artifact in target.get('artifacts', []):
+                    artifact_loc = location(build / artifact['path'])
+                    primary = bool(target.get('nameOnDisk') and Path(artifact_loc['path']).name == target['nameOnDisk'])
+                    artifact_id = node(identity(context_key, configuration, 'artifact', artifact_loc['root'], artifact_loc['path']),
+                        'build_artifact', Path(artifact_loc['path']).name, artifact_loc,
+                        build_context=context, configuration=configuration, materialization='not_verified')
+                    edge(uid, artifact_id, 'PRODUCES_ARTIFACT', declaration,
+                         build_context=context, artifact_role='primary' if primary else 'auxiliary_or_unclassified')
+                for ordinal, source in enumerate(target.get('sources', [])):
+                    source_loc = location(source_root / source['path'])
+                    evidence = trace(target, source.get('backtrace'))
+                    group_index = source.get('compileGroupIndex')
+                    group = target.get('compileGroups', [])[group_index] if group_index is not None else None
+                    tracked = source_loc['root'] == 'source' and source_loc['path'] in selected
+                    dependency = source_loc['root'] == 'source' and any(
+                        source_loc['path'] == prefix or source_loc['path'].startswith(prefix.rstrip('/') + '/')
+                        for prefix in dependency_prefixes)
+                    source_id = node(identity(context_key, configuration, 'source', target['id'], ordinal),
+                        'build_source', Path(source_loc['path']).name, source_loc,
+                        native_source_ordinal=ordinal, build_context=context, target=uid,
+                        generated=source.get('isGenerated', False), selected_source=tracked, dependency_source=dependency,
+                        symbol_coverage='eligible_for_selected_source_join' if tracked else
+                            'versioned_dependency_source' if dependency else 'outside_selected_source_or_generated',
+                        compile_group={'language': group.get('language'),
+                            'definitions': [{'define': r['define'], 'declaration': trace(target, r.get('backtrace'))}
+                                            for r in group.get('defines', [])],
+                            'includes': [{'location': location(r['path']), 'system': r.get('isSystem', False),
+                                          'declaration': trace(target, r.get('backtrace'))} for r in group.get('includes', [])],
+                            'command_fragments': group.get('compileCommandFragments', [])} if group else None,
+                        declaration=evidence)
+                    edge(uid, source_id, 'COMPILES_SOURCE' if group else 'HAS_BUILD_INPUT', evidence, build_context=context)
+                    if not tracked and target['type'] != 'UTILITY':
+                        diagnostics.append({'kind': 'cmake_source_outside_semantic_inputs', 'path': nodes[source_id]['path'],
+                            'build_context': context, 'generated': source.get('isGenerated', False),
+                            'reason': 'versioned_dependency_internals_not_expanded' if dependency else
+                                'native_source_kept_without_claiming_selected_symbol_coverage', 'required': not dependency})
+    except (OSError, ValueError, KeyError, IndexError, TypeError) as error:
+        # A malformed reply must never publish a partial target/dependency graph.
+        edges.clear(); diagnostics.clear()
+        return fail('Invalid native codemodel: ' + str(error))
+    result['nodes'] = list(nodes.values())
+    result['native_context'].update(status='configured', reply_index=index_name,
+        cmake_version=index['cmake']['version']['string'], configurations=[c for c, _ in configurations])
+    return result
+
+
+def link_source_symbols(build_facts, source_facts):
+    """Join only declarations in native target inputs; entry edges remain candidates."""
+    by_path = defaultdict(list)
+    for symbol in source_facts['nodes']:
+        if symbol['kind'] in {'callable', 'type'}: by_path[symbol['path']].append(symbol)
+    nodes = {n['id']: n for n in build_facts['nodes']}; edges = []
+    for unit in nodes.values():
+        if unit['kind'] != 'build_source' or not unit['selected_source'] or unit['compile_group'] is None: continue
+        target = nodes[unit['target']]
+        for symbol in by_path[unit['path']]:
+            if not (symbol.get('language') in {'c', 'cpp'} or symbol['id'].startswith('cpp:')): continue
+            evidence = unit['declaration'] + [{'path': symbol['path'], 'line': symbol['line']}]
+            extra = {'status': 'candidate', 'build_context': unit['build_context'], 'evidence': evidence,
+                     'basis': 'native_compilation_input_and_source_declaration',
+                     'condition': 'source_preprocessor_and_link_selection_not_proven', 'runtime_execution': 'not_observed'}
+            edges.append({'source': unit['id'], 'target': symbol['id'], 'kind': 'INCLUDES_SOURCE_DECLARATION', **extra})
+            if (target['target_type'] == 'EXECUTABLE' and symbol['kind'] == 'callable' and symbol.get('definition')
+                    and symbol['name'] == 'main' and symbol.get('return_type_spelling', '').replace(' ', '') == 'int'):
+                edges.append({'source': target['id'], 'target': symbol['id'], 'kind': 'EXECUTABLE_ENTRY_CANDIDATE', **extra})
+    return edges
