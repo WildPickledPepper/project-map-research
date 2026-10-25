@@ -106,6 +106,8 @@ site=web.TCPSite(runner,'127.0.0.1',9100)
             self.assertTrue(any(n['kind']=='python_file_operation' and n['destination_semantics']==['directory_root'] for n in graph['nodes']))
             self.assertTrue(any(n['kind']=='path_value' and n.get('language')=='python' and n['value']['relative_path']=='native/payload' for n in graph['nodes']))
             self.assertTrue(any(e['kind']=='FILE_SOURCE' for e in graph['edges']))
+            self.assertTrue(any(n['kind']=='file_operation_context' for n in graph['nodes']))
+            self.assertTrue(any(e['kind']=='CONTEXT_PATH_VALUE' for e in graph['edges']))
 
     def test_complete_rebuild_recomputes_cross_file_protocol_matching(self):
         with tempfile.TemporaryDirectory() as tmp:

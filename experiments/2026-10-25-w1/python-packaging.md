@@ -1,6 +1,6 @@
 # Python 打包路径与文件操作
 
-2026-10-25 开始接入，10-26 发布真实控制结果。基础适配已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入控制检查](evidence/python-path-control.json)34 项通过。它将 Python 导入、常量和路径计算连接到复制、移动和改名操作，为构建产物到发行目录的传播提供来源。下一步展开跨函数参数、目录枚举及过滤，再进行完整打包链和产物配对验收。
+2026-10-25 开始接入，10-26 发布真实控制结果。基础适配及按调用位置区分的参数传播已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项通过。接下来展开目录项、过滤及动态文件名，连接完整打包链和构建产物。
 
 ## 自动提取的内容
 
@@ -26,7 +26,7 @@ Python 路径保留 Windows 与 Posix 两种显式运行候选，分析机器的
 
 首轮测试缺少统一图验证所需的 fixture snapshot，补齐测试元数据后通过。生产适配在评分前运行，夹具的预期名称仅留在测试侧。
 
-当前文件操作的 `mapping_status` 为 `requires_control_flow_options_and_destination_context`：已保留路径和操作事实，调用参数上下文、目录项、循环过滤、提前 continue/return、复制选项与目录状态由下一步传播处理。参数保持各函数自身身份，避免将不同调用者的参数合并。动态 realpath 与缺少原始拼写的 dirname 表达式保留缺项。
+9806c76 基础版本的文件操作 `mapping_status` 为 `requires_control_flow_options_and_destination_context`：已保留路径和操作事实，调用参数上下文、目录项、循环过滤、提前 continue/return、复制选项与目录状态留待传播。该基线将参数保留为各函数自身身份；后续调用上下文适配见下节。动态 realpath 与缺少原始拼写的 dirname 表达式继续保留缺项。
 
 本项已接入生产构图及统一索引可接受的 schema。完整 Insight 打包链、当前规则全仓、安装更新和 CMake/Rust 进程配对分别继续验收；G02/G03 保持未通过。skill 统一整理安排在工具能力稳定后。
 
@@ -57,3 +57,17 @@ python experiments/2026-10-25-w1/run_python_path_control.py --source SOURCE --re
 python experiments/2026-10-25-w1/score_python_path_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
 python experiments/2026-10-25-w1/check_path_evidence.py
 ```
+
+## 2026-10-26：调用上下文、路径返回与读取位置
+
+当前路径适配从原生 STATIC_CALL_TARGET/CANDIDATE、BINDS_ARGUMENT、HAS_PARAMETER 和 DEFAULT_VALUE 建立逐次调用帧。复制源和目标共同关联 `file_operation_context`，通过 FILE_OPERATION_CONTEXT、CONTEXT_PATH_VALUE 和 PATH_CALL_CONTEXT 查询，避免将不同调用位置的两端交叉配对。未发现静态调用者的函数标明 `root_basis=no_resolved_static_callers`，参数保留符号身份。
+
+支持跨文件包装、位置/关键字参数、字面量默认参数、单一返回的源函数，以及直接嵌套函数的外层参数。库 API 按每次调用的实际参数和可见赋值重新确认。同一个本地声明作用域中的赋值按读取位置或调用位置选择；右值读取排除尚未完成的本次赋值。全局变量在两次调用之间改值时，两次结果分别保留。
+
+每条路径保存前置 Return/Raise/Break/Continue 未被采用的条件，以及外围 if 分支。PATH_GUARD_SOURCE 指向实际谓词节点；这些是可查询的源码条件，实际执行仍由运行证据验证。已完成的前序循环中的 break 不作为后续语句的退出条件。
+
+16 项上下文检查与基础 Python、接口、共享路径及混合生产建图共 64 项定向检查通过。检查覆盖跨文件/嵌套调用、两组配对、库变量改值、读取时机、字面量默认值、递归、星号参数、多返回缺项及调用预算。扩展检查首轮发现库变量重赋值使发现阶段只看到最后一次写入，已修正为候选发现后逐调用筛选；原始失败日志保留。
+
+接入后的完整 Windows 回归运行 507 项，结果通过，1 项按平台跳过；包括原生 Rust/CMake、统一图和已有接口检查。
+
+调用深度上限为 12，调用上下文上限为 32，剩余部分产生必需缺项。非字面量默认值的定义时刻、多返回函数的控制选择、目录枚举、复杂对象/别名写入以及异常/上下文管理器的控制效果继续展开。当前文件映射状态仍要求控制条件、复制选项和目标目录上下文；G02/G03 保持未通过。

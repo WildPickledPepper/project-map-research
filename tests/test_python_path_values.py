@@ -93,11 +93,14 @@ def bundle(left,right):
 bundle('a','x')
 bundle('b','y')
 '''})
-        a=self.values(g)[0]['value'];b=self.values(g,'destination')[0]['value']
-        self.assertEqual(a['base']['kind'],'parameter');self.assertEqual(b['base']['kind'],'parameter')
-        self.assertNotEqual(a['base']['source'],b['base']['source']);self.assertIsNone(a['path'])
+        pairs={}
+        for role in ('source','destination'):
+            for value in self.values(g,role):pairs.setdefault(value['operation_context'],{})[role]=value['value']['path']
+        self.assertEqual({(p['source'],p['destination']) for p in pairs.values()},
+                         {('a/payload','x/resources'),('b/payload','y/resources')})
+        self.assertTrue(all(len(v['call_stack'])==1 for v in self.values(g)))
 
-    def test_dynamic_directory_iteration_star_args_and_custom_path_helpers_are_required_gaps(self):
+    def test_directory_iteration_and_star_args_remain_gaps_while_simple_helper_resolves(self):
         g=self.graph({'make.py':'''import os,shutil
 def custom(value): return os.path.join('native',value)
 for name in os.listdir('native'):
@@ -108,6 +111,7 @@ shutil.copytree(*('native','ship'))
         self.assertTrue(any(n['value']['resolution']=='unresolved' for n in self.values(g)))
         self.assertTrue(any(d['kind']=='python_path_value_unresolved' and d['required'] for d in g['diagnostics']))
         self.assertTrue(any(d['kind']=='python_file_operation_argument_expansion' and d['required'] for d in g['diagnostics']))
+        self.assertTrue(any(v['value']['path']=='native/worker' for v in self.values(g)))
 
     def test_conditional_paths_keep_alternatives_and_enclosing_branch(self):
         g=self.graph({'make.py':'''import shutil

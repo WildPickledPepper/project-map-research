@@ -100,7 +100,7 @@ def build(source, request, output, log, *, typescript):
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
     if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components'],
-        'path_values':'import_bound_paths_and_file_operations/0.1.0'}
+        'path_values':'import_bound_positioned_paths_and_caller_contexts/0.2.0'}
     if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components'],
         'path_values':'native_bound_positioned_paths/0.1.0'}
     from adapters.cmake_project import extract as cmake_facts, roots as cmake_roots
