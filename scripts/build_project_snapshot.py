@@ -147,6 +147,9 @@ def build(source, request, output, log, *, typescript):
     from adapters.cpp_argv_origins import augment as argv_origins
     graph = argv_origins(graph,extractor,protocol_engine)
     graph['extractors']['cpp_argv_origins']=graph['cpp_argv_origins']['adapter']
+    from adapters.process_argument_bindings import augment as process_arguments
+    graph = process_arguments(graph,visibility=extractor.x.visibility)
+    graph['extractors']['process_argument_bindings']=graph['process_argument_bindings']['adapter']
     # Node phases consume boundary identities, never the multi-hundred-MB graph.
     write_json(checkpoint, {'project_map_phase': 'frontend', 'api_symbols': sorted({
         e['source'] for e in graph['edges'] if e['kind'] == 'EMITS_MESSAGE'})})

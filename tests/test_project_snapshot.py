@@ -37,7 +37,12 @@ class FullSnapshotTests(unittest.TestCase):
  let _client=std::net::TcpStream::connect(format!("127.0.0.1:{{chosen}}"));
 }}
 ''', 'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Worker LANGUAGES CXX)\nadd_executable(worker_engine ../server/main.cpp)\nset_target_properties(worker_engine PROPERTIES OUTPUT_NAME "worker" RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../native")\n',
-                'server/main.cpp':'int main(){return 0;}\n', 'view.ts':'export function show(){return 1;}\n',
+                'server/main.cpp':'''#include <string>
+const std::string key="--channel=";
+bool receive(const std::string& value){return !value.empty();}
+bool decode(const std::string& text){auto position=text.find(key);if(position!=std::string::npos){return receive(text.substr(position+key.size()));}return false;}
+int main(int count,char **words){decode(std::string(words[1]));return 0;}
+''', 'view.ts':'export function show(){return 1;}\n',
                 'assemble.py':f'''import os,subprocess,shutil
 ROOT=os.path.dirname(os.path.realpath(__file__))
 os.putenv('CARGO_TARGET_DIR',os.path.join(ROOT,'rust-objects'))
@@ -83,6 +88,15 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
                             kinds=['BOUNDARY_ARGUMENT_TEMPLATE','TEMPLATE_VALUE_SLOT'],depth=3,nodes=30,edges=30)
                         self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
             self.assertEqual(len(contextual_slots),len(set(contextual_slots)))
+            argument_matches=[n for n in graph['nodes'] if n['kind']=='process_argument_binding']
+            self.assertEqual(len(argument_matches),1);argument_match=argument_matches[0]
+            self.assertEqual(argument_match['name'],'--channel=');self.assertEqual(argument_match['provider'],provider['id'])
+            self.assertEqual(argument_match['payload_equivalence'],'not_established')
+            receive=next(n for n in graph['nodes'] if n['kind']=='callable' and n['path']=='server/main.cpp' and n['name']=='receive')
+            kinds=['BIND_PROCESS_ARGUMENT','MATCHES_ARGV_DECODER_CANDIDATE','BINDS_ARGV_DECODER_CANDIDATE','DECODED_VALUE_TARGET_CANDIDATE']
+            for direction,start,end in [('out',argument_match['template'],receive['id']),('in',receive['id'],argument_match['template'])]:
+                route=workspace.query('path',start=start,target=end,direction=direction,kinds=kinds,depth=5,nodes=60,edges=80,output_bytes=524288)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
             self.assertEqual(git('status','--porcelain'),'')
 
     def test_native_cmake_target_and_entry_survive_workspace_build_and_bidirectional_query(self):
