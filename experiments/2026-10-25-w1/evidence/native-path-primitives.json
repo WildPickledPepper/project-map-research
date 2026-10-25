@@ -1,0 +1,110 @@
+{
+  "schema": "native-path-primitives-probe/1",
+  "origin": "executed_independent_native_analysis",
+  "rules_commit": "07dcab66e14cdc5e94e4e7074320dbb7632388ee",
+  "tools": {
+    "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+    "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+    "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+  },
+  "target": "x86_64-pc-windows-msvc",
+  "observations": [
+    {
+      "name": "root.to_path_buf",
+      "line": 4,
+      "expression": "root.to_path_buf()",
+      "resolution": "external_reference",
+      "api_declarations": [
+        {
+          "package": "std",
+          "version": null,
+          "module": "src/path.rs",
+          "name": "to_path_buf",
+          "container": "Path",
+          "declaration_kind": "function_item",
+          "canonical": "std::path::Path::to_path_buf"
+        }
+      ],
+      "conditions": []
+    },
+    {
+      "name": "output.push",
+      "line": 5,
+      "expression": "output.push(piece)",
+      "resolution": "external_reference",
+      "api_declarations": [
+        {
+          "package": "std",
+          "version": null,
+          "module": "src/path.rs",
+          "name": "push",
+          "container": "PathBuf",
+          "declaration_kind": "function_item",
+          "canonical": "std::path::PathBuf::push"
+        }
+      ],
+      "conditions": []
+    },
+    {
+      "name": "output.set_extension",
+      "line": 6,
+      "expression": "output.set_extension(\"exe\")",
+      "resolution": "external_reference",
+      "api_declarations": [
+        {
+          "package": "std",
+          "version": null,
+          "module": "src/path.rs",
+          "name": "set_extension",
+          "container": "PathBuf",
+          "declaration_kind": "function_item",
+          "canonical": "std::path::PathBuf::set_extension"
+        }
+      ],
+      "conditions": [
+        {
+          "kind": "rust_attribute",
+          "expression": "#[cfg(windows)]",
+          "line": 6
+        }
+      ]
+    },
+    {
+      "name": "value.push",
+      "line": 12,
+      "expression": "value.push(\"other\")",
+      "resolution": "inferred_unique",
+      "api_declarations": [],
+      "conditions": []
+    }
+  ],
+  "loop_pattern_bindings": [],
+  "checks": [
+    {
+      "id": "native_identity.root.to_path_buf",
+      "passed": true
+    },
+    {
+      "id": "native_identity.output.push",
+      "passed": true
+    },
+    {
+      "id": "native_identity.output.set_extension",
+      "passed": true
+    },
+    {
+      "id": "local_pathbuf_homonym_not_std",
+      "passed": true
+    },
+    {
+      "id": "current_loop_binding_gap_observed",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "interpretation": "component_identity_and_existing_gap_not_path_propagation_acceptance",
+  "path_value_propagation_implemented": false,
+  "product_executed": false,
+  "process_counterpart_connected": false,
+  "whole_G03_accepted": false
+}
