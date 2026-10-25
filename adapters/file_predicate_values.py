@@ -26,7 +26,7 @@ def evaluate(expression,*,style,bindings=None,host_system=None,artifact_path=Non
     try:term=expression_from_dag(expression) if expression.get('schema') else expression
     except (ValueError,KeyError,TypeError):return {'known':False,'reason':'invalid_predicate_expression'}
     def primitive(value):
-        return value is None or type(value) in {bool,int,float,str} or isinstance(value,tuple) and all(primitive(v) for v in value)
+        return value is None or type(value) in {bool,int,float,str} or isinstance(value,(tuple,list)) and all(primitive(v) for v in value)
     def rewrite(current):
         key=id(current)
         if key in substituted:return substituted[key]
@@ -74,8 +74,8 @@ def evaluate(expression,*,style,bindings=None,host_system=None,artifact_path=Non
             name=walk(args[0]);value=Missing('runtime_environment_not_supplied')
             if isinstance(name,str) and environment is not None and name in environment:
                 supplied=environment[name];value=walk(args[1]) if supplied is None else supplied if isinstance(supplied,str) else Missing('invalid_environment_value')
-        elif op=='tuple':
-            items=[walk(a) for a in args];value=tuple(items) if not any(isinstance(v,Missing) for v in items) else Missing('tuple_item_not_known')
+        elif op in {'tuple','list'}:
+            items=[walk(a) for a in args];value=(tuple(items) if op=='tuple' else items) if not any(isinstance(v,Missing) for v in items) else Missing('collection_item_not_known')
         elif op in {'boolean_and','boolean_or'}:
             value=Missing('boolean_operand_not_known')
             for arg in args:
@@ -122,7 +122,7 @@ def conditions(guards,**context):
     for guard in guards:
         if guard['kind']=='later_storage_assignment_not_selected':
             residual.append({'condition':guard,'reason':'reaching_definition_selection_not_expanded'});continue
-        if guard['kind'] not in {'enclosing_source_branch','preceding_control_transfer_not_taken'}:continue
+        if guard['kind'] not in {'enclosing_source_branch','preceding_control_transfer_not_taken','mapping_entry_selected'}:continue
         rows=guard.get('predicate_expressions')
         if rows is None or not guard.get('predicate_complete',False):
             residual.append({'condition':guard,'reason':'predicate_context_not_bound'});continue

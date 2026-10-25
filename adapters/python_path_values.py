@@ -16,6 +16,7 @@ from adapters.python_path_guards import SourceGuards
 from adapters.python_path_storage import StorageVersions
 from adapters.python_path_iterations import Iterations
 from adapters.python_file_predicates import Predicates
+from adapters.python_mapping_paths import MappingPaths
 
 PATH_TYPES={'pathlib.Path','pathlib.PurePath','pathlib.PureWindowsPath','pathlib.PurePosixPath'}
 FILE_APIS={'shutil.copyfile':('copy_file','exact_path'),
@@ -52,6 +53,7 @@ class Paths(Boundaries):
         self.storage=StorageVersions(self)
         self.iterations=Iterations(self)
         self.predicates=Predicates(self)
+        self.mappings=MappingPaths(self)
 
     def guard_conditions(self,uid,frame):
         return [{**c,'evaluation_context':self.calls.identity(frame)} for c in self.guards.at(uid)]
@@ -142,6 +144,8 @@ class Paths(Boundaries):
         elif node.get('identifier')=='__file__' and not self.targets(uid,{'READS_BINDING'}):
             result={'op':'source_file','source':uid,'path':node['path']}
         elif node['kind']=='call_site':result=self.call(uid,ev,frame,seen)
+        elif isinstance(self.ast.get(uid),ast.Dict):result=self.mappings.literal(uid,frame,ev)
+        elif isinstance(self.ast.get(uid),ast.Subscript):result=self.mappings.subscript(uid,frame,ev)
         elif node.get('expression_kind')=='IfExp':
             result={'op':'choice','source':uid,'choices':[{'value':ev(t),
                 'conditions':[{'kind':'python_conditional_expression','source':uid,'branch':field}]+self.guard_conditions(t,frame)} for field in ('body','orelse') for t in self.children(uid,field)]}
@@ -173,6 +177,8 @@ class Paths(Boundaries):
         def arg(index,keywords=()):
             rows=self.argument(uid,index,keywords)
             return self.choice([ev(t) for t in rows],uid)
+        selected=self.mappings.call(uid,frame,ev)
+        if selected is not None:return selected
         if apis&PATH_TYPES:
             selected=apis&PATH_TYPES
             if self.style=='posix' and 'pathlib.PureWindowsPath' in selected or self.style=='windows' and 'pathlib.PurePosixPath' in selected:
@@ -243,7 +249,11 @@ class Paths(Boundaries):
                 for call in frame['calls']:self.link(uid,call,'PATH_CALL_CONTEXT',path_style=style)
                 predicates={c['test'] for c in value['conditions'] if c.get('test') in self.nodes}
                 predicates.update(p['test'] for c in value['conditions'] for p in c.get('when',[]) if p.get('test') in self.nodes)
+                predicates.update(p['source'] for c in value['conditions'] if c['kind']=='mapping_entry_selected'
+                    for p in c['predicate_expressions'] if p['source'] in self.nodes)
                 for predicate in sorted(predicates):self.link(uid,predicate,'PATH_GUARD_SOURCE',path_style=style)
+                for source in sorted({c['mapping'] for c in value['conditions'] if c['kind']=='mapping_entry_selected'}):
+                    self.link(uid,source,'PATH_LOOKUP_SOURCE',path_style=style)
                 if value['unresolved']:self.errors.append({'kind':'python_path_value_unresolved','path':row['path'],'line':row['line'],
                     'source':argument,'path_style':style,'reasons':value['unresolved'],'required':True})
 

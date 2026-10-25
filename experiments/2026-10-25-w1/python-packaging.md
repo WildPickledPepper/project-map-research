@@ -58,6 +58,18 @@ python experiments/2026-10-25-w1/score_python_path_control.py --trial NEW_OUTSID
 python experiments/2026-10-25-w1/check_path_evidence.py
 ```
 
+## 平台字典与启动器改名路径
+
+路径适配 0.6.0 支持有界内建字典的 `.get(key, default)` 和下标读取。字典来自实际 AST/Jedi 值来源，键可为字符串、整数、布尔、None 及其元组；键由平台值决定时，候选路径保留 `mapping_entry_selected` 的可计算条件。默认值按键是否缺失选择，已有键的值为 None 时仍保留该值。相等键采用最后一次字面量条目，保持 Python 字典语义。
+
+PATH_LOOKUP_SOURCE 指向字典定义，PATH_GUARD_SOURCE 指向查询键。每个调用帧分别传播配置来源，库名、字典名、平台键和改名结果都由输入发现。字典只读性在选定源码的原生绑定及别名/参数关系上检查；修改、删除、未知调用逃逸、未展开 `**` 和预算耗尽给出具体缺项。通过已解析源函数参数的只读查询可继续传播。
+
+9 项新检查与既有 16 项谓词检查通过，覆盖平台/元组键、两端文件名、默认值、重复相等键、None、列表键负例、跨文件别名、源函数参数、自定义 get、别名修改、未知逃逸及预算。列表和元组在谓词中分别表示，保留 Python 内建类型差异。
+
+接入后的完整 Windows 回归运行 572 项，通过，1 项按平台跳过。
+
+语义依据：[Python 3.11 内建映射类型](https://docs.python.org/3.11/library/stdtypes.html#mapping-types-dict)。本项继续服务于 Cargo 启动器打包与 Rust current_exe 基址连接；产物身份和部署根目录按构建及实际复制来源确定。
+
 ## 2026-10-26：文件过滤谓词
 
 生产路径适配版本 0.4.0 为外围分支和前序退出条件保存 `predicate_expressions`。每个表达式带源码节点、分支极性及实际求值调用帧；`predicate_complete` 区分完整表达式与尚缺上下文。复制选项的 `option_expressions` 使用相同的有界 DAG。条件表达式和赋值所在分支随路径候选保留。

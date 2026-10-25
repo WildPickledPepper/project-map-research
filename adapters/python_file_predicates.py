@@ -57,7 +57,7 @@ class Predicates:
             terms=[ev(p.children(uid,'left')[0]),*[ev(v) for v in p.children(uid,'comparators')]]
             result=operation('compare',*terms,operators=[type(o).__name__ for o in syntax.ops],source=uid)
         elif isinstance(syntax,(ast.Tuple,ast.List)):
-            result=operation('tuple',*[ev(v) for v in p.children(uid,'elts')],source=uid)
+            result=operation('tuple' if isinstance(syntax,ast.Tuple) else 'list',*[ev(v) for v in p.children(uid,'elts')],source=uid)
         elif node['kind']=='call_site':result=self.call(uid,frame,ev)
         elif node.get('identifier')=='__file__':result=p.evaluate(uid,frame)
         else:
