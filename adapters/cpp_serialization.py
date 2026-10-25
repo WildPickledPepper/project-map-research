@@ -138,7 +138,7 @@ class Serialization:
             if kind=='this' and 'this' in scope:return scope['this']
             if kind in {'identifier','qualified_identifier'}:
                 if text(node) in scope:return scope[text(node)]
-                member=self.d.field(text(node),owner) if implicit_receiver else None
+                member=self.d.field(text(node),owner,path=path) if implicit_receiver else None
                 if member:return {**scope['this'],'selectors':['member:'+text(node)],'value_type':member['type'],
                     'type_path':member['path'],'type_scope':member['owner'].split('::'),'evidence':[ev(node)]}
                 value,evidence=self.protocol.constant(node,path,info['scope'])
@@ -156,7 +156,7 @@ class Serialization:
                 if text(node.child_by_field_name('operator'))=='->' and head in {'std::optional','std::unique_ptr','std::shared_ptr'} and len(args)==1:typ=args[0]
                 receiver_type=self.d.types.type(typ,base.get('type_path',path),base.get('type_scope',info['scope']))
                 owners=receiver_type.get('names',[])
-                fields=[self.d.field(member,owner) for owner in owners];fields=[f for f in fields if f]
+                fields=[self.d.field(member,owner,path=path) for owner in owners];fields=[f for f in fields if f]
                 typ=fields[0]['type'] if len(fields)==1 else ''
                 bound=receiver_type.get('template_bindings',{}).get(fields[0]['owner'],{}).get(typ) if len(fields)==1 else None
                 if bound:typ=bound.get('spelling',typ)

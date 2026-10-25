@@ -56,6 +56,6 @@ def predicates(node):
             condition=parent.child_by_field_name('condition')
             result.append({'kind':'loop','expression':text(condition) or text(parent).splitlines()[0],
                            'line':parent.start_point[0]+1,'iteration':'runtime_unknown'})
-        elif parent.type.startswith('preproc_if'):
-            result.append({'kind':'preprocessor','expression':text(parent).splitlines()[0],'line':parent.start_point[0]+1})
+    from adapters.cpp_member_declarations import preprocessor_conditions
+    result.extend(preprocessor_conditions(node))
     return result

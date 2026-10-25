@@ -116,7 +116,7 @@ class Transmission:
         env = state['env']; conditions = state['conditions']; kind = node.type
         if kind in {'identifier', 'this'}:
             if text(node) in env: return env[text(node)]
-            field = self.d.field(text(node), '::'.join(info['scope']))
+            field = self.d.field(text(node), '::'.join(info['scope']),path=info['path'])
             if field and env['this'].get('instance'):
                 return value('object', field['type'], type_path=field['path'], type_scope=field['owner'].split('::'),
                              instance=key('member', env['this'].get('instance'), field['id']), field=field['id'])
@@ -145,7 +145,7 @@ class Transmission:
             return value('lambda', node=node, captured=captured, capture_records=records)
         if kind == 'field_expression':
             base = self.evaluate(node.child_by_field_name('argument'), state, info, context)
-            fields = [self.d.field(text(node.child_by_field_name('field')), owner) for owner in self.owners(base, info)]
+            fields = [self.d.field(text(node.child_by_field_name('field')), owner,path=info['path']) for owner in self.owners(base, info)]
             fields = [f for f in fields if f]
             if len(fields) == 1:
                 f = fields[0]; return value('object', f['type'], type_path=f['path'], type_scope=f['owner'].split('::'),

@@ -55,29 +55,23 @@ class DataExtractor:
     def evidence(path,node):return {'path':path,'line':node.start_point[0]+1,'expression':text(node)[:700]}
 
     def discover_fields(self):
-        for path,unit in self.x.units.items():
-            for node in walk(unit['tree'].root_node):
-                if node.type not in {'class_specifier','struct_specifier'}:continue
-                name=node.child_by_field_name('name');body=node.child_by_field_name('body')
-                if name is None or body is None:continue
-                owner=scoped_name(canonical('::'.join(cpp_scope(node)+[text(name)])),path)
-                for member in body.named_children:
-                    if member.type!='field_declaration':continue
-                    field=declared_name(member)
-                    if field is None:continue
-                    typ=text(member.child_by_field_name('type'));match=re.match(r'std::(\w+)\s*<',typ)
-                    self.fields[(owner,text(field))]={'id':'storage:'+identity(path,'member',member),'owner':owner,'name':text(field),
-                        'path':path,'line':member.start_point[0]+1,'type':typ,
-                        'container':match[1] if match and match[1] in self.CONTAINERS else None,
-                        'instance_identity':'class_member_instance_unresolved','evidence':[self.evidence(path,member)]}
+        from adapters.cpp_member_declarations import discover
+        discover(self)
 
-    def field(self,name,owner,seen=None):
+    def field(self,name,owner,seen=None,*,path=None):
         owner=canonical(owner);seen=set() if seen is None else seen
         if owner in seen:return None
         seen.add(owner)
-        if (owner,name) in self.fields:return self.fields[(owner,name)]
+        candidates=self.member_candidates.get((owner,name),[])
+        if path is not None:candidates=[f for f in candidates if f['path'] in self.x.visibility.get(path,{path})]
+        if len(candidates)==1:return candidates[0]
+        if len(candidates)>1:
+            diagnostic={'kind':'cpp_member_declaration_unresolved','reason':'member_owner_definition_not_selected',
+                'required':True,'path':path or candidates[0]['path'],'line':candidates[0]['line'],'owner':owner,'name':name}
+            if diagnostic not in self.diagnostics:self.diagnostics.append(diagnostic)
+            return None
         for base in sorted(self.x.base_names.get(owner,[])):
-            found=self.field(name,base,seen)
+            found=self.field(name,base,seen,path=path)
             if found:return found
         return None
 
@@ -85,16 +79,16 @@ class DataExtractor:
         if node is None:return None
         if node.type=='identifier':
             if self.x.variables(text(node),node,info['path'],uid):return None
-            return self.field(text(node),'::'.join(info['scope']))
+            return self.field(text(node),'::'.join(info['scope']),path=info['path'])
         if node.type=='field_expression':
             receiver=node.child_by_field_name('argument');name=text(node.child_by_field_name('field'))
-            if text(receiver)=='this':return self.field(name,'::'.join(info['scope']))
+            if text(receiver)=='this':return self.field(name,'::'.join(info['scope']),path=info['path'])
             if hasattr(self,'types'):
                 inferred=self.types.infer(receiver,uid,info)
                 if text(node.child_by_field_name('operator'))=='->':inferred=self.types.dereference(inferred)
                 types=inferred.get('names',[])
             else:types=self.x.infer(receiver,info['path'],info['scope'],uid)['names']
-            found=[self.field(name,t) for t in types];found=[f for f in found if f]
+            found=[self.field(name,t,path=info['path']) for t in types];found=[f for f in found if f]
             if len(found)==1:return found[0]
         return None
 
@@ -236,7 +230,7 @@ class DataExtractor:
                             self.callbacks.append({'kind':'invoke','member':field['id'],'owner':field['owner'],'source_symbol':uid,
                                 'path':info['path'],'line':node.start_point[0]+1,'conditions':predicates(node),'evidence':[self.evidence(info['path'],node)]})
                 if node.type=='field_initializer':
-                    field=self.field(text(node.named_children[0]),'::'.join(info['scope'])) if node.named_children else None
+                    field=self.field(text(node.named_children[0]),'::'.join(info['scope']),path=info['path']) if node.named_children else None
                     args=next((c for c in node.named_children if c.type=='argument_list'),None)
                     if field and field['type'].startswith('std::function<') and args and len(args.named_children)==1:
                         value=args.named_children[0]
@@ -269,7 +263,7 @@ class DataExtractor:
             'callbacks':self.callbacks,
             'instances':instances,
             'field_flow':field_flow,
-            'member_effects':extract_member_effects(self),
+            'member_effects':extract_member_effects(self),'member_declarations':list(self.fields.values()),
             'serialization':serialization,
             'response_routing':routing,
             'diagnostics':self.diagnostics,'limits':['source_type_candidates','member_instance_aliasing_unresolved','runtime_keys_not_observed',

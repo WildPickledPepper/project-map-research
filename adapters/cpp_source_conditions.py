@@ -8,6 +8,13 @@ def extract_conditions(data):
     x = data.x; constants = {}; guards = []
     for field in data.fields.values():
         if field['type'] != 'bool': continue
+        declarations=field.get('declarations',[])
+        if any(d['conditions'] for d in declarations):
+            if not all('const' in d['qualifiers'] for d in declarations):continue
+            constants[field['id']]={'id':key('const-member-value',field['id']),'field':field,'value':None,'default_value':None,
+                'status':'configuration_dependent','constructors':[],'missing_constructors':[],'evidence':field['evidence'],
+                'conditions':['member_declaration_requires_selected_preprocessor_context']}
+            continue
         node = next((n for n in walk(x.units[field['path']]['tree'].root_node)
                      if n.type == 'field_declaration' and n.start_point[0] + 1 == field['line']
                      and text(declared_name(n)) == field['name']), None)

@@ -2,6 +2,7 @@
 from adapters.cpp_control import predicates
 from adapters.cpp_data import enclosing_function
 from adapters.syntax_supplement import identity, text, walk
+from adapters.cpp_member_declarations import selected_declaration
 
 
 def extract_member_effects(data):
@@ -28,7 +29,7 @@ def extract_member_effects(data):
                 'source_symbol':uid,'role':role,'operation':operation,
                 'value':data.expr(parent.child_by_field_name('right'),uid,info) if assignment else None,
                 'receiver':text(node.child_by_field_name('argument')) if node.type=='field_expression' else 'implicit_this',
-                'conditions':predicates(node),'evidence':[data.evidence(info['path'],evidence_node)],
+                'conditions':predicates(node)+selected_declaration(field),'evidence':[data.evidence(info['path'],evidence_node)],
                 'instance_identity':'unresolved','status':'source_member_effect_candidate'})
     used={e['member'] for e in effects}
     return {'version':'0.1','members':[f for f in data.fields.values() if f['id'] in used], 'effects':effects,

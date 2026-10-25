@@ -28,7 +28,7 @@ class Decoders:
             for node in walk(info['container']):
                 if node.type!='field_initializer' or not node.named_children:continue
                 for owner in {tuple(info['scope']),tuple(cpp_scope(node))}:
-                    field=self.d.field(text(node.named_children[0]),'::'.join(owner))
+                    field=self.d.field(text(node.named_children[0]),'::'.join(owner),path=info['path'])
                     if field:self.overridden.add(field['id'])
 
     def variable(self,node,uid,info):

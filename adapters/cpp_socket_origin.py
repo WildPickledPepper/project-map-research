@@ -141,7 +141,7 @@ class SocketOrigins(Transmission):
                     if init.type != 'field_initializer_list': continue
                     for field_init in init.named_children:
                         if field_init.type != 'field_initializer' or not field_init.named_children: continue
-                        name = text(field_init.named_children[0]); field = self.d.field(name, owner)
+                        name = text(field_init.named_children[0]); field = self.d.field(name, owner,path=ctor['path'])
                         argv = next((c for c in field_init.named_children if c.type in {'argument_list', 'initializer_list'}), None)
                         if not field or not argv or len(argv.named_children) != 1: continue
                         val = self.evaluate(argv.named_children[0], {'env': env, 'conditions': state['conditions']}, ctor, context)

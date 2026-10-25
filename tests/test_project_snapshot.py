@@ -110,6 +110,13 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
                 'src/helper.cpp':'int helper(){return 2;}\n',
                 'src/entry.cpp':'''#include <string>
 const std::string key="--socket-renamed=";
+struct ModeOptions {
+#ifdef SMALL_HOST
+ std::string path="";
+#else
+ std::string path="./";
+#endif
+};
 bool receive(const std::string& value){return true;}
 bool decode(const std::string& word){auto position=word.find(key);if(position!=std::string::npos){return receive(word.substr(position+key.length()));}return false;}
 int main(int count,char **incoming){decode(std::string(incoming[1]));return 0;}
@@ -148,6 +155,15 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
                 self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
             graph=json.loads(Path(workspace.config['active']['graph']).read_text(encoding='utf-8'))
             self.assertEqual(graph['cpp_string_decoders']['counts'],{'decoders':1})
+            member=next(n for n in graph['nodes'] if n['kind']=='source_member_storage' and n['name']=='ModeOptions::path')
+            declarations=[n for n in graph['nodes'] if n['kind']=='cpp_member_declaration']
+            self.assertEqual(len(declarations),2);self.assertEqual(len(member['declarations']),2)
+            for declaration in declarations:
+                route=workspace.query('path',start=member['id'],target=declaration['id'],kinds=['HAS_MEMBER_DECLARATION'],depth=2)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+                reverse=workspace.query('path',start=declaration['id'],target=member['id'],direction='in',kinds=['HAS_MEMBER_DECLARATION'],depth=2)
+                self.assertTrue(reverse['found'])
+                proof=workspace.query('source',start=declaration['id']);self.assertEqual(proof['source_commit'],revision)
             self.assertEqual(graph['cpp_argv_origins']['counts'],{'bindings':1,'complete_origins':1})
             binding=next(n for n in graph['nodes'] if n['kind']=='cpp_argv_decoder_binding')
             self.assertTrue(binding['origin_complete']);self.assertEqual(binding['entry'],entries[0]['id'])

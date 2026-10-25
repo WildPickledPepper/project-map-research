@@ -81,7 +81,7 @@ class FieldFlow:
             if text(node.child_by_field_name('operator'))=='->':lid=self.dereference(lid)
             if lid is None:return None
             loc=self.locations[lid];name=text(node.child_by_field_name('field'))
-            fields=[self.d.field(name,owner) for owner in loc['type'].get('names',[])];fields=[f for f in fields if f]
+            fields=[self.d.field(name,owner,path=info['path']) for owner in loc['type'].get('names',[])];fields=[f for f in fields if f]
             typ=self.d.types.type(fields[0]['type'],fields[0]['path'],fields[0]['owner'].split('::')) if len(fields)==1 else self.d.types.unknown('field_type_unresolved')
             return self.intern(loc['root'],loc['selectors']+['member:'+name],typ)
         if kind=='subscript_expression':
