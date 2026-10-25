@@ -8,6 +8,8 @@
 
 循环基础事实已实现：每个 for 有独立 iteration，绑定记录有效范围和模式投影；ITERATION_SOURCE / ITERATES_VALUE 保存元素来源，数组/元组成员保存顺序，重复数组的长度单列 repeat_count。原生定义导航将两个相邻循环的同名变量及外层同名变量分别绑定。新增 2 项语法、1 项原生语义检查，与既有 Rust 检查共 25 项通过；首轮数组元数据分支位置错误已由测试发现并修正。路径变更后的值由下一步适配计算。
 
+路径接入检查发现 Rust 1.94 的部分 const impl/约束超出了当前 grammar 覆盖，Option.unwrap 丢失 impl 结构，Result.unwrap 未得到命名声明。外部声明规范化现可从 rust-analyzer 返回的精确 selection 读取并核对源码标识符，记录 native_selection_token 及未解析结构；不从使用处的调用拼写补名字。标准库来源、模块和版本上下文继续保留。新增原生 Result/Option 检查通过，路径入口的辅助函数检查也能追到可执行文件目录。
+
 接下来按三段连接：
 
 1. Rust：补循环绑定和常量数组元素来源；在已确认的标准 Path/PathBuf API 上传播路径，保存顺序、接收者及目标平台条件。动态片段保留其来源和剩余表达式。

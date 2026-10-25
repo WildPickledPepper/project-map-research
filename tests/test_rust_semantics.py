@@ -18,7 +18,7 @@ class RustSemanticsTests(unittest.TestCase):
         cls.parser=pack.get_parser('rust')
         cls.target=next(s.removeprefix('host: ') for s in tool_output([binary('rustc'),'-vV'],Path.cwd()).splitlines() if s.startswith('host: '))
 
-    def graph(self,files,*,configurations=None):
+    def graph(self,files,*,configurations=None,transform=None):
         with tempfile.TemporaryDirectory(prefix='rust semantic ') as directory:
             root=Path(directory)
             files={'Cargo.toml':'[package]\nname="independent"\nversion="0.1.0"\nedition="2021"\n',**files}
@@ -27,6 +27,7 @@ class RustSemanticsTests(unittest.TestCase):
             contexts=[('Cargo.toml',{'target':self.target,'features':features,'debug_assertions':False})
                 for features in (configurations or [[]])]
             g=analyze(root,list(files),self.parser,contexts=contexts)
+            if transform:g=transform(root,g,self.parser)
             self.assertFalse(list(root.rglob('EXECUTED')))
             validate_graph({'snapshot':'native-rust-fixture',**g})
             self.assertFalse([d for d in g['diagnostics'] if d['kind']=='rust_context_failed'])
@@ -53,6 +54,13 @@ class RustSemanticsTests(unittest.TestCase):
                 self.assertLess(binding['scope_range']['start_byte'],source['start_byte'])
                 self.assertGreater(binding['scope_range']['end_byte'],source['end_byte'])
             else:self.assertEqual(binding['binding_kind'],'let_declaration')
+
+    def test_native_standard_result_selection_keeps_name_when_grammar_lacks_new_syntax(self):
+        g=self.graph({'src/lib.rs':'fn entry(){let path=std::env::current_exe().unwrap();let _=path.parent().unwrap();}'})
+        references=self.pairs(g,'EXTERNAL_CALL_REFERENCE')
+        unwrap=[b['external_declaration'] for a,b,e in references if a['name'].endswith('.unwrap')]
+        self.assertEqual(len(unwrap),2)
+        self.assertTrue(all(d['name']=='unwrap' and d['package']=='core' and d['module'] in {'src/option.rs','src/result.rs'} for d in unwrap))
 
     def test_receiver_impl_self_parameter_and_call_arguments(self):
         g=self.graph({'src/lib.rs':'struct A;struct B;impl A{fn run(&self,value:u8){}}impl B{fn run(&self,value:u8){}}fn entry(){let a=A;a.run(3);}'})

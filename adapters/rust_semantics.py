@@ -62,6 +62,20 @@ class Linker:
         package,version,module,records=self.external_cache[path];point=(selection['start']['line'],selection['start']['character'])
         record=records.get(point,{'package':package,'version':version,'module':module,'declaration_kind':'unindexed_external_declaration',
             'name':'<external>','canonical':package+'::'+module})
+        if record['declaration_kind']=='unindexed_external_declaration':
+            # New compiler syntax can exceed the grammar's coverage. Retain the
+            # exact identifier selected by the native server, without inventing
+            # an impl/container or using the spelling of the source call.
+            try:
+                lines=path.read_text(encoding='utf-8').splitlines();start=selection['start'];end=selection['end']
+                if start['line']==end['line']:
+                    raw=lines[start['line']].encode('utf-16-le')
+                    token=raw[start['character']*2:end['character']*2].decode('utf-16-le')
+                    if re.fullmatch(r'[A-Za-z_][A-Za-z_0-9]*',token):
+                        record={**record,'name':token,'declaration_kind':'native_selection_token',
+                            'canonical':package+'::'+module+'::<native_selection>::'+token,
+                            'declaration_structure':'not_parsed_by_grammar','basis':'rust_analyzer_selection_and_external_source_token'}
+            except (OSError,UnicodeError,IndexError,KeyError):pass
         uid='rust:external:'+quote(json.dumps([package,version,module,*point],separators=(',',':')),safe='')
         if uid not in self.x.nodes:
             origin=self.x.nodes[source]
