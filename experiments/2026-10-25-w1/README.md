@@ -2,6 +2,8 @@
 
 2026-10-25，**W1/W2 执行中，G02/G03 尚未通过**。JavaScript、Python 和 Rust 均已接入生产图、自动刷新与独立安装查询，并在规则 5f8079d 完成[同一默认全仓快照复验](repository-recheck.md)。[CMake 生产接入](cmake-native.md)在规则 07dcab6 的 C++/CMake 控制范围通过 32 项检查。继续补全路径/进程对端及各模块机制，随后复验当前规则全仓；skill 整理与打包留到最后。
 
+[Rust 边界参数模板](rust-arguments.md)已接入默认建图：按原生声明、绑定及调用/配置身份追踪字符串槽位和共同值来源，支持正反查；已发现的写入、动态格式及迭代等未知项保留必需缺口。真实源码共同端口控制、C++ 参数解码与监听端继续逐项验收。
+
 ## 原生组件基线
 
 [实测结果](evidence/native-summary.json)来自原版 CGC `0.6.13` / `93c9685bff9151f50a3121e9913e5ba2d27c1191`，源码为 Insight `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。全部目标语言文件从 Git blobs 导出到独立目录；上游实现和原始 checkout 均未修改，未重新核验文件哈希。

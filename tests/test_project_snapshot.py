@@ -32,7 +32,9 @@ class FullSnapshotTests(unittest.TestCase):
                 'src/launcher.rs':f'''fn main() {{
  let image=std::env::current_exe().unwrap();
  let child=image.parent().unwrap().join("assets").join("service").join("worker{suffix}");
- let _child=std::process::Command::new(child).spawn();
+ let chosen=std::env::var("CHANNEL").unwrap().parse::<u16>().unwrap();
+ let _child=std::process::Command::new(child).arg(format!("--channel={{chosen}}")).spawn();
+ let _client=std::net::TcpStream::connect(format!("127.0.0.1:{{chosen}}"));
 }}
 ''', 'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Worker LANGUAGES CXX)\nadd_executable(worker_engine ../server/main.cpp)\nset_target_properties(worker_engine PROPERTIES OUTPUT_NAME "worker" RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../native")\n',
                 'server/main.cpp':'int main(){return 0;}\n', 'view.ts':'export function show(){return 1;}\n',
@@ -67,6 +69,20 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
             self.assertTrue(all(e['runtime_execution']=='not_observed' for e in matched))
             self.assertIn('target_os_loader_accepts_provider_image',{c['kind'] for c in matched[0]['conditions']})
             self.assertEqual(workspace.query('source',start=cpp['id'])['path'],'server/main.cpp')
+            self.assertIn('rust_argument_templates',graph)
+            templates=[n for n in graph['nodes'] if n['kind']=='boundary_argument_template']
+            self.assertTrue(templates);self.assertTrue(all(t['complete'] for t in templates))
+            contextual_slots=[]
+            for context in {t['analysis_context'] for t in templates}:
+                group=[t for t in templates if t['analysis_context']==context];self.assertEqual(len(group),2)
+                slots=[next(p['slot'] for p in t['parts'] if 'slot' in p) for t in group]
+                self.assertEqual(slots[0],slots[1]);contextual_slots.append(slots[0])
+                for template in group:
+                    for direction,start,end in [('out',template['consumer'],slots[0]),('in',slots[0],template['consumer'])]:
+                        route=workspace.query('path',start=start,target=end,direction=direction,
+                            kinds=['BOUNDARY_ARGUMENT_TEMPLATE','TEMPLATE_VALUE_SLOT'],depth=3,nodes=30,edges=30)
+                        self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+            self.assertEqual(len(contextual_slots),len(set(contextual_slots)))
             self.assertEqual(git('status','--porcelain'),'')
 
     def test_native_cmake_target_and_entry_survive_workspace_build_and_bidirectional_query(self):

@@ -51,6 +51,8 @@ Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验�
 
 `rust_boundary` 保留进程、网络、WebView 的声明身份、参数及待匹配状态；`analysis_contexts` 指出适用的 Cargo 清单、目标和 feature/debug 条件。唯一推断、条件候选和运行证据分别保留。跨配置路径需要核对上下文相容性，完整部署/实例配对继续按 W2 验证。
 
+[Rust 参数模板](../experiments/2026-10-25-w1/rust-arguments.md)通过 `BOUNDARY_ARGUMENT_TEMPLATE` 连接边界，通过 `TEMPLATE_VALUE_SLOT` 连接有调用/配置身份的值来源。可查询 `boundary_argument_template` 和 `source_scalar_value`，先正查到值，再反查其他消费者；`complete`、`gaps` 和 `conditions` 分别说明展开状态、具体缺口和适用条件。
+
 Rust 的 `path_value` 可从程序或文件参数展开，保留相对基址、路径片段、调用上下文、分支和未解析原因。使用 `query search --kind path_value` 查找，再通过 PATH_VALUE_CANDIDATE、PATH_COMPONENT_SOURCE、PATH_CALL_CONTEXT 检查消费点与来源。常量/符号路径是源码候选，实际产物放置和进程实例由打包及运行证据连接；详情见[路径适配范围](../experiments/2026-10-25-w1/path-values.md)。
 
 `executable_deployment` 保存 Cargo 程序的构建/发行位置；`deployed_path_candidate` 保存与之相符的 Rust current_exe 路径计算。沿 PATH_DEPLOYMENT_BINDING、MATCHES_DEPLOYED_ARTIFACT_CANDIDATE 和 RESOLVES_EXECUTABLE_TARGET_CANDIDATE 可查到完整文件位置、生产目标及其入口。`match_status` 区分单个条件生产方、多个条件生产方和未匹配，源码归属、配置、物化及 OS loader 条件分别保留。详见[可执行文件与后端产物](../experiments/2026-10-25-w1/executable-deployment.md)。

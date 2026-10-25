@@ -84,9 +84,11 @@ def build(source, request, output, log, *, typescript):
         from adapters.rust_semantics import analyze as rust_facts
         from adapters.rust_boundaries import augment as rust_boundaries
         from adapters.rust_path_values import augment as rust_path_values
+        from adapters.rust_argument_templates import augment as rust_argument_templates,ADAPTER_VERSION as rust_argument_version
         rust=rust_boundaries(rust_facts(source,paths,pack.get_parser('rust'),output=output/'rust-native',
             emit=lambda row:print('Rust '+json.dumps(row),file=log,flush=True)))
         rust=rust_path_values(source,rust,pack.get_parser('rust'))
+        rust=rust_argument_templates(source,rust,pack.get_parser('rust'))
         write_json(output/'rust-facts.json',rust)
     covered = {r['path'] for g in (facts, ts, python,rust) for r in g['coverage']}
     graph = {'schema_version': 1, 'snapshot': revision + ':protocol', 'source_commit': revision,
@@ -102,7 +104,8 @@ def build(source, request, output, log, *, typescript):
     if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components'],
         'path_values':python_path_version}
     if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components'],
-        'path_values':'native_bound_positioned_paths/0.1.0'}
+        'path_values':'native_bound_positioned_paths/0.1.0','argument_templates':rust_argument_version}
+    if rust_paths:graph['rust_argument_templates']=rust['rust_argument_templates']
     from adapters.cmake_project import extract as cmake_facts, roots as cmake_roots
     if cmake_roots(paths):
         print('Extract native CMake targets, artifacts and selected-source membership', file=log, flush=True)
