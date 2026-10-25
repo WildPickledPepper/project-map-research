@@ -116,13 +116,18 @@ class DataExtractor:
                     for tid in group:
                         f=self.x.functions_by_id[tid]
                         if self.x.nodes[tid]['definition'] and accepts(f):result.append(tid)
-                if result:return sorted(set(result))
+                if result:return self.prefer_visible_definitions(result,info['path'])
             for length in range(len(info['scope']),-1,-1):
                 q=canonical('::'.join(info['scope'][:length]+[name]));found=[]
                 for tid,f in self.functions.get(q,[]):
                     if accepts(f):found.append(tid)
                 if found:result.extend(found);break
-        return sorted(set(result))
+        return self.prefer_visible_definitions(result,info['path'])
+
+    def prefer_visible_definitions(self,targets,path):
+        visible=self.x.visibility.get(path,{path})
+        signatures={self.x.functions_by_id[t]['signature'] for t in targets if self.x.functions_by_id[t]['path'] in visible}
+        return sorted({t for t in targets if self.x.functions_by_id[t]['path'] in visible or self.x.functions_by_id[t]['signature'] not in signatures})
 
     def targets(self,call,uid,info):return self.types.call(call,uid,info)['targets']
 

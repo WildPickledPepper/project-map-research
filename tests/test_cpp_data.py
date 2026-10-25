@@ -8,6 +8,21 @@ if os.environ.get('PROJECT_MAP_PARSER_CACHE'):
 
 
 class CppDataTests(unittest.TestCase):
+    def test_visible_function_definition_does_not_borrow_an_equivalent_foreign_unit_body(self):
+        g=self.data(files={'one.cpp':'int helper(int x){return x;}int first(){return helper(1);}',
+            'two.cpp':'int helper(int x){return x+1;}int second(){return helper(2);}'})
+        nodes={n['id']:n for n in g['facts']['nodes']}
+        for summary in g['data']['summaries']:
+            if summary['name'] not in {'first','second'}:continue
+            self.assertEqual({nodes[t]['path'] for c in summary['calls'] for t in c['targets']},{summary['path']})
+
+    def test_declaration_without_a_visible_definition_retains_alternative_link_bodies(self):
+        g=self.data(files={'api.h':'int helper(int);','entry.cpp':'#include "api.h"\nint entry(){return helper(1);}',
+            'one.cpp':'#include "api.h"\nint helper(int x){return x;}',
+            'two.cpp':'#include "api.h"\nint helper(int x){return x+1;}'})
+        nodes={n['id']:n for n in g['facts']['nodes']};summary=next(s for s in g['data']['summaries'] if s['name']=='entry')
+        self.assertEqual({nodes[t]['path'] for c in summary['calls'] for t in c['targets']},{'one.cpp','two.cpp'})
+
     def test_inherited_unqualified_call_and_visible_default_argument_declaration(self):
         g=self.data(files={'ops.h':'namespace N{void post(int& x,bool ok=true);struct Base{static void init(int& x);};}',
             'ops.cpp':'#include "ops.h"\nnamespace N{void post(int& x,bool ok){x=2;}void Base::init(int& x){x=1;}}',

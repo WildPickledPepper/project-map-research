@@ -9,7 +9,7 @@ from adapters.cpp_value_types import split_template
 
 class LibraryTypes:
     JSON={'rapidjson::Value','rapidjson::Document','rapidjson::GenericValue','rapidjson::GenericDocument'}
-    EXTERNAL=JSON|{'std::string','std::string_view','rapidjson::StringBuffer','rapidjson::GenericStringBuffer',
+    EXTERNAL=JSON|{'std::string','std::string_view','std::vector','rapidjson::StringBuffer','rapidjson::GenericStringBuffer',
                   'rapidjson::Writer','rapidjson::PrettyWriter','uWS::WebSocket','uWS::Loop',
                   'uWS::App','uWS::SSLApp','uWS::TemplatedApp','uWS::App::WebSocketBehavior','uWS::SSLApp::WebSocketBehavior'}
 

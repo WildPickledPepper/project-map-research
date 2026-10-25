@@ -98,7 +98,7 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
 const std::string key="--socket-renamed=";
 bool receive(const std::string& value){return true;}
 bool decode(const std::string& word){auto position=word.find(key);if(position!=std::string::npos){return receive(word.substr(position+key.length()));}return false;}
-int main(){return 0;}
+int main(int count,char **incoming){decode(std::string(incoming[1]));return 0;}
 ''', 'client/view.ts':'export function show(){return 1;}\n',
                 'assemble.py':'''import os,shutil
 ROOT=os.path.dirname(os.path.realpath(__file__))
@@ -134,6 +134,13 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
                 self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
             graph=json.loads(Path(workspace.config['active']['graph']).read_text(encoding='utf-8'))
             self.assertEqual(graph['cpp_string_decoders']['counts'],{'decoders':1})
+            self.assertEqual(graph['cpp_argv_origins']['counts'],{'bindings':1,'complete_origins':1})
+            binding=next(n for n in graph['nodes'] if n['kind']=='cpp_argv_decoder_binding')
+            self.assertTrue(binding['origin_complete']);self.assertEqual(binding['entry'],entries[0]['id'])
+            kinds=['CPP_ENTRY_ARGV','ARGV_FLOW_CANDIDATE','BINDS_ARGV_DECODER_CANDIDATE','DECODED_VALUE_TARGET_CANDIDATE']
+            for direction,start,end in [('out',entries[0]['id'],receiver['id']),('in',receiver['id'],entries[0]['id'])]:
+                route=workspace.query('path',start=start,target=end,direction=direction,kinds=kinds,depth=5,nodes=30,edges=40)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
             self.assertEqual(graph['native_build']['contexts'][0]['status'],'configured')
             self.assertEqual(graph['native_build']['contexts'][0]['target_system']['status'],'available')
             self.assertIn('cmake',graph['extractors'])

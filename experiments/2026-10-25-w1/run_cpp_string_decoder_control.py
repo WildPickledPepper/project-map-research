@@ -18,7 +18,8 @@ from projectmap.workspace import Workspace
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     for name in ('source','parser-cache','output'):ap.add_argument('--'+name,type=Path,required=True)
-    ap.add_argument('--revision',required=True);args=ap.parse_args();rules=rules_version(require_clean=True)
+    ap.add_argument('--revision',required=True);ap.add_argument('--argv-origins',action='store_true')
+    args=ap.parse_args();rules=rules_version(require_clean=True)
     if args.output.exists() or args.output.resolve().is_relative_to(args.source.resolve()):ap.error('Choose a new output outside source')
     config={'version':1,'scope':{'discovery':{},'include':['*.h','*.hpp','*.cpp','*.cc','*.cxx']},'deployment':{},'storage':'json'}
     selection=select_inputs(args.source,args.revision,config);paths=[r['path'] for r in selection['files']]
@@ -34,7 +35,11 @@ def main():
     graph['version']={'source_commit':graph['source_commit'],'snapshot':graph['snapshot'],'config':selection['config'],'build_version':version}
     graph['provenance']={'input_kind':'git_committed_blob_export','working_tree_included':False,'reference_used_for_extraction':False,
         'update_mode':'cpp_source_facts_and_string_decoder_control','file_hash_verification':'not_run_per_user_preference'}
-    graph=augment(graph,data,protocol);validate_graph(graph)
+    graph=augment(graph,data,protocol)
+    if args.argv_origins:
+        from adapters.cpp_argv_origins import augment as argv_origins
+        graph=argv_origins(graph,data,protocol)
+    validate_graph(graph)
     with (args.output/'graph.json').open('w',encoding='utf-8') as stream:json.dump(graph,stream)
     workspace=Workspace.create(args.output/'workspace',args.source,revision=selection['source_commit'],analysis=selection['config'])
     indexed=workspace.attach(args.output/'graph.json')
@@ -45,6 +50,10 @@ def main():
         'installed_tool_tested':False,'runtime_execution':False,'argv_origin_connected':False,'rust_argument_paired':False,
         'backend_listener_connected':False,'whole_G03_accepted':False,'original_checkout_modified':git(args.source,'status','--porcelain')!=before,
         'file_hash_verification':'not_run_per_user_preference'}
+    if args.argv_origins:
+        trial.update(schema='cpp-argv-origin-control/1',origin='current_cpp_source_facts_string_decoding_and_argv_origins',
+            argv_origin_connected=bool(graph['cpp_argv_origins']['counts'].get('complete_origins')),
+            argv_summary=graph['cpp_argv_origins'])
     if rules_version(require_clean=True)!=rules:raise ValueError('Rules changed during control')
     for name,value in [('trial.json',trial),('selection.json',selection)]:
         (args.output/name).write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')

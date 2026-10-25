@@ -55,6 +55,8 @@ Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验�
 
 [C++ 字符串解码](../experiments/2026-10-25-w1/cpp-string-decoders.md)可按 `string_key_decoder` 搜索，沿 `DECODED_VALUE_TARGET_CANDIDATE` 查询接收截取值的函数，或反查解码位置。`argv_origin` 表示是否已确认命令行来源，键、参数序号及适用条件在节点详情中保留。
 
+[argv 来源图](../experiments/2026-10-25-w1/cpp-argv.md)通过 `CPP_ENTRY_ARGV`、`ARGV_FLOW_CANDIDATE` 和 `BINDS_ARGV_DECODER_CANDIDATE` 连接入口与解码。`cpp_argv_decoder_binding` 的 `origin_complete`、value.steps、value.origins 和 value.gaps 保存来源展开状态、准备操作、选择表达式和缺口；运行实例与准备后数值继续独立核对。
+
 Rust 的 `path_value` 可从程序或文件参数展开，保留相对基址、路径片段、调用上下文、分支和未解析原因。使用 `query search --kind path_value` 查找，再通过 PATH_VALUE_CANDIDATE、PATH_COMPONENT_SOURCE、PATH_CALL_CONTEXT 检查消费点与来源。常量/符号路径是源码候选，实际产物放置和进程实例由打包及运行证据连接；详情见[路径适配范围](../experiments/2026-10-25-w1/path-values.md)。
 
 `executable_deployment` 保存 Cargo 程序的构建/发行位置；`deployed_path_candidate` 保存与之相符的 Rust current_exe 路径计算。沿 PATH_DEPLOYMENT_BINDING、MATCHES_DEPLOYED_ARTIFACT_CANDIDATE 和 RESOLVES_EXECUTABLE_TARGET_CANDIDATE 可查到完整文件位置、生产目标及其入口。`match_status` 区分单个条件生产方、多个条件生产方和未匹配，源码归属、配置、物化及 OS loader 条件分别保留。详见[可执行文件与后端产物](../experiments/2026-10-25-w1/executable-deployment.md)。
