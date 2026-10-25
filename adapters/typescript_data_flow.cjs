@@ -6,9 +6,10 @@ const fs=require('node:fs'),path=require('node:path');
 const {analyze}=require('./typescript_facts.cjs');
 
 function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=64,responseRegistries=false,socketOnly=false,
-    returnOnly=false,boundarySymbols=[],apiEntries=[],handoffSymbols=[]}={}) {
+    returnOnly=false,boundarySymbols=[],apiEntries=[],handoffSymbols=[],maxLoopIterations=3,maxDeferredCallbacks=64}={}) {
   const {ts,checker,loc,id,callableOwner,qualified}=ctx,apis=new Set(apiSymbols);
   if(!Number.isInteger(maxAlternatives)||maxAlternatives<1)throw new Error('maxAlternatives must be a positive integer');
+  for(const [name,value] of Object.entries({maxLoopIterations,maxDeferredCallbacks}))if(!Number.isInteger(value)||value<1)throw new Error(name+' must be a positive integer');
   const sourceNodes=new Map(ctx.facts.nodes.map(n=>[n.id,n])),widened=new Set();
   const sourceFiles=new Set(ctx.relativeFiles);
   const bindingsByCall=new Map();for(const edge of ctx.facts.edges)if(edge.kind==='USES_BINDING'){
@@ -16,6 +17,9 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
   }
   const src=n=>({...loc(n),expression:n.getText().slice(0,500)});
   const unknown=reason=>({tag:'unknown',reason}),literal=value=>({tag:'literal',value});
+  function truth(value){if(value.tag==='literal')return !!value.value;
+    if(['object','instance','map','function','promise','timer'].includes(value.tag))return true;
+    if(value.tag==='union'){const values=value.values.map(truth);return values.every(v=>v===values[0])?values[0]:null;}return null;}
   const entries=new Map(),writes=[],reads=[],calls=[],consumptions=[],diagnostics=[];let steps=0,currentEntry=null;
   const promiseEntries=new Map(),lookupEntries=new Map(),registrations=[],lookups=[],settlements=[],promises=[],deletions=[],callbackBindings=[];
   const transmissions=[],counterUpdates=[];
@@ -52,6 +56,14 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     return found;
   }
   for(const call of ctx.calls){if(apiTarget(call)){const owner=callableOwner(call);if(owner?.body)entries.set(id(owner,'callable'),owner);}}
+  if(!responseRegistries){
+    const reverse=new Map();for(const call of ctx.calls){const callee=target(call),owner=callableOwner(call);if(!callee||!owner?.body)continue;
+      if(!reverse.has(callee))reverse.set(callee,new Set());reverse.get(callee).add(owner);}
+    const reached=new Set(entries.values()),todo=[...reached];while(todo.length)for(const owner of reverse.get(todo.pop())||[])if(!reached.has(owner)){reached.add(owner);todo.push(owner);}
+    function exported(n){for(let p=n;p&&!ts.isSourceFile(p);p=p.parent){if(p.modifiers?.some(m=>m.kind===ts.SyntaxKind.ExportKeyword))return true;
+      if(p!==n&&ts.isFunctionLike(p))return false;}return false;}
+    for(const owner of reached)if(exported(owner))entries.set(id(owner,'callable'),owner);
+  }
   if(responseRegistries)for(const call of ctx.calls){
     const owner=callableOwner(call);if(!owner?.body)continue;
     if(ts.isNewExpression(call)&&standard(call.expression,'Promise'))promiseEntries.set(id(owner,'callable'),owner);
@@ -80,12 +92,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     if(v.tag==='response')return [{api:v.api,request_context:v.request_context,api_call:v.api_call,path:v.path,evidence:v.evidence,
       conditions:v.conditions||[],gaps:v.gaps||[],call_chain:v.call_chain||[]}];
     if(v.tag==='union')return uniq(v.values.flatMap(x=>dependencies(x,seen)));
-    return uniq([...(v.dependencies||[]),...Object.values(v.props||{}).flatMap(x=>dependencies(x,seen))]);
+    const spread=v.spreadSources?.flatMap(x=>dependencies(x,seen).map(d=>({...d,
+      excluded_paths:uniq([...(d.excluded_paths||[]),...Object.keys(v.props||{}).map(k=>[...d.path,k])])})))||[];
+    return uniq([...(v.dependencies||[]),...spread,...Object.values(v.props||{}).flatMap(x=>dependencies(x,seen))]);
   }
   function clone(v,memo=new Map()) {
-    if(!v||typeof v!=='object'||v.tag==='function')return v;
+    if(!v||typeof v!=='object')return v;
     if(memo.has(v))return memo.get(v);const out={...v};memo.set(v,out);
     if(v.props)out.props=Object.fromEntries(Object.entries(v.props).map(([k,x])=>[k,clone(x,memo)]));
+    if(v.entries)out.entries=new Map([...v.entries].map(([k,x])=>[typeof k==='string'?k:clone(k,memo),clone(x,memo)]));
+    if(v.spreadSources)out.spreadSources=v.spreadSources.map(x=>clone(x,memo));
     if(v.tag==='json')out.value=clone(v.value,memo);
     if(v.values)out.values=v.values.map(x=>clone(x,memo));return out;
   }
@@ -135,7 +151,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     if(v.tag==='registry_lookup')return {kind:'registry_lookup',lookup:v.lookup,selectors:v.selectors};
     if(v.tag==='json')return {kind:'json_string',value:describe(v.value,depth+1,new Set(seen),budget,compact),evidence:v.evidence};
     if(v.tag==='native_socket')return {kind:'native_socket',allocation:v.allocation,evidence:v.evidence};
-    if(returnOnly&&v.tag==='promise')return describe(v.value,depth+1,new Set(seen),budget,compact);
+    if(returnOnly&&v.tag==='promise')return describe(promiseValue(v),depth+1,new Set(seen),budget,compact);
     if(returnOnly&&v.tag==='instance')return {kind:'source_instance',receiver_type:id(v.classNode,'type'),allocation:v.allocation||null};
     if((socketOnly||returnOnly)&&v.tag==='computed'&&v.inputs)return {kind:'source_expression',operation:v.operation,
       inputs:v.inputs.map(x=>describe(x,depth+1,new Set(seen),budget,compact)),evidence:compact?[]:v.evidence||[]};
@@ -143,9 +159,25 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     return {kind:'unknown',reason:v.reason||v.tag};
   }
   function settle(resolver,args,c,n){
-    settlements.push({id:id(n,'promise_settlement'),promise:resolver.promise,mode:resolver.mode,entry:currentEntry,
+    const cell=returnOnly&&resolver.cell,prior=cell?.settledPaths?.some(path=>path.every(condition=>c.conditions.some(x=>JSON.stringify(x)===JSON.stringify(condition))));
+    const record={id:id(n,'promise_settlement'),promise:resolver.promise,mode:resolver.mode,entry:currentEntry,
       source_symbol:id(c.current,'callable'),value:describe(args[0]),registry_context:c.registryContext||null,
-      conditions:c.conditions,evidence:[src(n)],call_chain:c.chain});return literal(undefined);
+      conditions:c.conditions,evidence:[src(n)],call_chain:c.chain,...(cell?{ignored_after_prior_settlement:!!prior}:{})};settlements.push(record);
+    if(cell&&!prior){cell.settledPaths=[...(cell.settledPaths||[]),c.conditions];}
+    if(cell&&!prior&&resolver.mode==='resolve'){
+      const value=guarded(args[0]||literal(undefined),c.conditions);
+      resolver.cell.value=resolver.cell.resolved?merge(resolver.cell.value,value):value;resolver.cell.resolved=true;
+    }
+    return literal(undefined);
+  }
+  const promiseValue=v=>v.cell?.value||v.value;
+  function drainDeferred(c){
+    const queue=c.scheduler;if(!queue||queue.draining||queue.executorDepth>0)return;queue.draining=true;
+    try{while(queue.jobs.length&&queue.executed<maxDeferredCallbacks){const job=queue.jobs.shift();if(job.canceled)continue;queue.executed++;
+      invoke(job.callback,job.args,{...job.context,conditions:[...job.context.conditions,{kind:'scheduled_callback_candidate',
+        ...src(job.node),requires:'callback_fires_without_cancel_or_replacement; modeled_source_completions_precede_this_callback'}]},job.node);
+    }if(queue.jobs.length)note(c.current,'deferred_callback_budget_exceeded',c,{limit:maxDeferredCallbacks});}
+    finally{queue.draining=false;}
   }
   function invokeLookup(value,args,c,n){
     const lookup=lookups.find(r=>r.id===value.lookup);if(!lookup)return unknown('lookup_not_recorded');
@@ -172,6 +204,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
   function get(v,key,n,c) {
     if(v?.tag==='union')return v.values.map(x=>get(x,key,n,c)).reduce(merge);
     if(v?.props&&Object.hasOwn(v.props,key))return v.props[key];
+    if(v?.array&&key==='length')return Object.hasOwn(v.props,'*')?unknown('symbolic_array_length'):literal(Object.keys(v.props).filter(k=>/^\d+$/.test(k)).length);
     if(returnOnly&&v?.tag==='super'){
       const m=member(v.classNode,key);return m&&ts.isFunctionLike(m)?{...fn(m,c),receiver:v.receiver}:unknown('base_member_unresolved');
     }
@@ -201,7 +234,10 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       v.props[key]=out;return out;
     }
     if(v?.tag==='input'){const out={...v,path:[...v.path,key],props:{},...(responseRegistries?{assigned:[],evidence:[...(v.evidence||[]),src(n)]}:{})};v.props[key]=out;return out;}
-    if(v?.tag==='object')return key==='*'&&v.array?Object.values(v.props).reduce(merge,literal(undefined)):v.props['*']||literal(undefined);
+    if(v?.tag==='object'){
+      if(v.spreadSources?.length)return v.spreadSources.map(x=>get(x,key,n,c)).reduce(merge);
+      return key==='*'&&v.array?Object.entries(v.props).filter(([k])=>k!=='length').map(([,x])=>x).reduce(merge,literal(undefined)):v.props['*']||literal(undefined);
+    }
     return unknown('property_source_unresolved');
   }
   function bind(name,value,c) {
@@ -210,7 +246,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       if(returnOnly&&v.tag==='literal'&&v.value===undefined&&e.initializer)v=ev(e.initializer,c);bind(e.name,v,c);}
     if(ts.isArrayBindingPattern(name))name.elements.forEach((e,i)=>{if(ts.isBindingElement(e))bind(e.name,get(value,String(i),e,c),c);});
   }
-  function fn(n,c){return {tag:'function',node:n,env:c.env,receiver:c.receiver};}
+  function fn(n,c){return {tag:'function',node:n,env:c.env,receiver:c.receiver,props:{}};}
   function symbol(n,c) {
     const d=decl(n);if(c.env.has(d))return c.env.get(d);
     if(!d)return unknown('symbol_unresolved');
@@ -281,8 +317,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     put(receiver);
   }
   function invoke(callable,args,c,at) {
-    if(callable?.tag!=='function'||!callable.node.body)return unknown('callee_body_unresolved');
+    if(callable?.tag==='union')return callable.values.map(x=>invoke(x,args,c,at)).reduce(merge);
+    if(returnOnly&&callable?.tag==='resolver')return settle(callable,args,c,at||c.current);
+    if(callable?.tag!=='function')return unknown('callee_body_unresolved');
     const n=callable.node;if(c.depth>=maxDepth){note(at||n,'call_depth_limit',c);return unknown('call_depth_limit');}
+    c={...c,conditions:uniq([...c.conditions,...(callable.conditions||[])])};
+    if(!responseRegistries&&apis.has(id(n,'callable'))){
+      const api=id(n,'callable'),api_call=id(at||n,'call_site'),request_context=[currentEntry,...c.chain.map(s=>s.call_site),api_call,api].join('/');
+      const record={api,api_call,request_context,entry:currentEntry,evidence:[src(at||n)]};calls.push(record);
+      return {tag:'promise',value:{tag:'response',...record,path:[],props:{},conditions:c.conditions}};
+    }
     if(returnOnly&&c.windowReplay&&handoffSet.has(id(n,'callable'))){
       handoffs.push({id:contextualId(at||n,'window_handoff',c)+':'+handoffs.length,listener:c.windowReplay,target:id(n,'callable'),
         target_parameters:n.parameters.map(p=>id(p,'input_binding')),
@@ -297,10 +341,16 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       returnBoundaries.push(record);
       return {tag:'promise',value:{tag:'input',root:uid,path:[],props:{},evidence:record.evidence,conditions:c.conditions},awaited:[]};
     }
+    if(!n.body)return unknown('callee_body_unresolved');
+    if(!responseRegistries&&at&&args.some(a=>dependencies(a).length))consumptions.push({id:contextualId(at,'source_argument_handoff',c),
+      entry:currentEntry,source_symbol:id(c.current,'callable'),mode:'source_argument_handoff',callee:at.expression?.getText(),target:id(n,'callable'),
+      value_dependencies:uniq(args.flatMap(a=>dependencies(a))),conditions:c.conditions,evidence:[src(at)],call_chain:c.chain,
+      usage_status:'source_parameter_receives_value; downstream_usage_separately_analyzed'});
     const isAsync=n.modifiers?.some(m=>m.kind===ts.SyntaxKind.AsyncKeyword);
     const sub={...c,env:new Map(callable.env),awaited:isAsync?new Set(c.awaited):c.awaited,receiver:callable.receiver||c.receiver,depth:c.depth+1,current:n,
       chain:at?[...c.chain,{call_site:id(at,'call_site'),target:id(n,'callable'),evidence:[src(at),src(n)]}]:c.chain};
-    n.parameters.forEach((p,i)=>bind(p.name,args[i]??(p.initializer?ev(p.initializer,sub):literal(undefined)),sub));
+    n.parameters.forEach((p,i)=>bind(p.name,p.dotDotDotToken?{tag:'object',array:true,props:Object.fromEntries(args.slice(i).map((x,j)=>[String(j),x]))}:
+      args[i]??(p.initializer?ev(p.initializer,sub):literal(undefined)),sub));
     const value=ts.isBlock(n.body)?block(n.body.statements,sub)||literal(undefined):ev(n.body,sub);
     if(returnOnly)returnValues.push({id:contextualId(at||n,'source_return',sub)+':'+returnValues.length,entry:currentEntry,
       source_symbol:id(n,'callable'),value:describe(value),conditions:sub.conditions,evidence:[src(n)],call_chain:sub.chain});
@@ -316,16 +366,21 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
         if(!responseRegistries&&dependencies(value).length)consumptions.push({id:contextualId(s,'result_return',c),entry:currentEntry,source_symbol:id(c.current,'callable'),
           mode:'helper_return',value_dependencies:dependencies(value),conditions:c.conditions,evidence:[src(s)],call_chain:c.chain});break;}
       else if(ts.isThrowStatement(s)){note(s,'throw_path',c);returned.push({tag:'throw'});break;}
+      else if((ts.isBreakStatement(s)||ts.isContinueStatement(s))&&c.loopState){
+        const mode=ts.isBreakStatement(s)?'break':'continue';
+        if(s.label){note(s,'labeled_loop_control_not_expanded',c);return {tag:'throw'};}
+        c.loopState[mode].push(copyContext(c));return {tag:'loop_control',mode};
+      }
       else if(ts.isBlock(s)){const r=block(s.statements,c);if(r){returned.push(r);break;}}
       else if(ts.isIfStatement(s)){
         const condition=ev(s.expression,c),run=(branch,cc)=>branch?block(ts.isBlock(branch)?branch.statements:[branch],cc):null;
         if(returnOnly)guardTests.push({source_symbol:id(c.current,'callable'),entry:currentEntry,...src(s.expression),test:describe(condition,0,new Set(),{remaining:2048},true)});
-        if(condition.tag==='literal'){const r=run(condition.value?s.thenStatement:s.elseStatement,c);if(r){returned.push(r);break;}}
+        if(truth(condition)!==null){const r=run(truth(condition)?s.thenStatement:s.elseStatement,c);if(r){returned.push(r);break;}}
         else {
           const branches=[s.thenStatement,s.elseStatement].map((branch,i)=>{const memo=new Map(),cc={...c,env:new Map([...c.env].map(([k,v])=>[k,clone(v,memo)])),receiver:clone(c.receiver,memo),awaited:new Set(c.awaited),
             conditions:[...c.conditions,{...src(s.expression),when:i===0,...(returnOnly?{test:describe(condition,0,new Set(),{remaining:2048},true)}:{})}]};return {ctx:cc,result:run(branch,cc)};});
-          returned.push(...branches.filter(b=>b.result).map(b=>guarded(b.result,b.ctx.conditions)));
-          const live=branches.filter(b=>!b.result);if(!live.length)break;
+          returned.push(...branches.filter(b=>b.result&&!['loop_control','throw'].includes(b.result.tag)).map(b=>guarded(b.result,b.ctx.conditions)));
+          const live=branches.filter(b=>!b.result);if(!live.length){if(!returned.length)return branches.every(b=>b.result.tag==='throw')?{tag:'throw'}:{tag:'loop_control'};break;}
           if(live.length===1){c.env=live[0].ctx.env;c.receiver=live[0].ctx.receiver;c.conditions=live[0].ctx.conditions;c.awaited=live[0].ctx.awaited;}
           else {for(const k of new Set([...live[0].ctx.env.keys(),...live[1].ctx.env.keys()]))c.env.set(k,merge(guarded(live[0].ctx.env.get(k),live[0].ctx.conditions),guarded(live[1].ctx.env.get(k),live[1].ctx.conditions)));c.awaited=new Set([...live[0].ctx.awaited,...live[1].ctx.awaited]);}
         }
@@ -339,9 +394,39 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       } else if(ts.isTryStatement(s)) {
         note(s,'exception_paths_not_expanded',c);const r=block(s.tryBlock.statements,{...c,conditions:[...c.conditions,{...src(s),kind:'try_completes_without_exception'}]});
         if(s.finallyBlock)block(s.finallyBlock.statements,c);if(r){returned.push(r);break;}
-      } else if(ts.isForStatement(s)||ts.isWhileStatement(s)||ts.isSwitchStatement(s))note(s,'control_flow_not_expanded',c);
+      } else if((ts.isForStatement(s)||ts.isWhileStatement(s)||ts.isDoStatement(s))&&(!responseRegistries||returnOnly)){
+        const result=runLoop(s,c);if(result){returned.push(result);break;}
+      } else if(ts.isForStatement(s)||ts.isWhileStatement(s)||ts.isSwitchStatement(s)||ts.isDoStatement(s))note(s,'control_flow_not_expanded',c);
     }
     return returned.length?returned.reduce(merge):null;
+  }
+  function copyContext(c){const memo=new Map();return {...c,env:new Map([...c.env].map(([k,v])=>[k,clone(v,memo)])),receiver:clone(c.receiver,memo),awaited:new Set(c.awaited)};}
+  function runLoop(s,c){
+    if(ts.isForStatement(s)&&s.initializer){if(ts.isVariableDeclarationList(s.initializer))for(const d of s.initializer.declarations)bind(d.name,d.initializer?ev(d.initializer,c):literal(undefined),c);else ev(s.initializer,c);}
+    const loopState={break:[],continue:[]},exits=[],returns=[];let active=c,exhausted=true;
+    for(let iteration=0;iteration<maxLoopIterations;iteration++){
+      const expression=ts.isForStatement(s)?s.condition:s.expression;
+      const condition=ts.isDoStatement(s)&&iteration===0?literal(true):expression?ev(expression,active):literal(true);
+      if(truth(condition)===false){exits.push(copyContext(active));exhausted=false;break;}
+      if(truth(condition)===null)exits.push({...copyContext(active),conditions:[...active.conditions,{kind:'loop_condition',...src(expression),when:false}]});
+      active={...active,loopState,conditions:uniq([...active.conditions,{kind:'bounded_loop_iteration',...src(s),iteration,
+        requires:'loop_condition_true_and_body_reached',cardinality:'runtime_unknown'}])};
+      const beforeContinue=loopState.continue.length;
+      const result=block(ts.isBlock(s.statement)?s.statement.statements:[s.statement],active);
+      if(result&&result.tag!=='loop_control'){if(result.tag!=='throw')returns.push(result);exhausted=false;break;}
+      if(result?.tag==='loop_control'){
+        if(loopState.continue.length>beforeContinue)active=loopState.continue.at(-1);
+        else {exhausted=false;break;}
+      }
+      if(ts.isForStatement(s)&&s.incrementor)ev(s.incrementor,active);
+      // Branch-local breaks were saved before the continuing branch advanced.
+      if(steps>maxSteps){exhausted=false;break;}
+    }
+    exits.push(...loopState.break);
+    if(exhausted)note(s,'loop_iteration_budget_exceeded',c,{limit:maxLoopIterations,effect:'only_observed_symbolic_exit_paths_continue; later_iterations_unknown'});
+    if(exits.length){for(const k of new Set(exits.flatMap(e=>[...e.env.keys()])))c.env.set(k,exits.map(e=>guarded(e.env.get(k)||unknown('loop_binding_missing'),e.conditions)).reduce(merge));
+      c.awaited=new Set([...c.awaited,...exits.flatMap(e=>[...e.awaited])]);return null;}
+    return returns.length?returns.reduce(merge):{tag:'throw',reason:'loop_has_no_proven_exit_within_budget'};
   }
   function ev(raw,c) {
     const n=unwrap(raw);if(!n)return literal(undefined);if(++steps>maxSteps)return unknown('step_limit');
@@ -359,7 +444,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
     if(ts.isAwaitExpression(n)){
       if(socketOnly)socketEpoch++;
       function fulfilled(value){
-        if(value.tag==='promise'){for(const uid of value.awaited||[])c.awaited.add(uid);return fulfilled(value.value);}
+        if(value.tag==='promise'){if(returnOnly)drainDeferred(c);for(const uid of value.awaited||[])c.awaited.add(uid);return fulfilled(promiseValue(value));}
         if(value.tag==='union')return value.values.map(fulfilled).reduce(merge);
         for(const d of dependencies(value))c.awaited.add(d.request_context);return value;
       }
@@ -373,12 +458,14 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
         if(returnOnly&&v.tag!=='object'){
           for(const k of Object.keys(value.props))value.props[k]=unknown('unresolved_spread_may_overwrite_field');
           note(p,'spread_source_not_expanded',c);
-        }else Object.assign(value.props,v.props||{});
-        value.dependencies.push(...dependencies(v));continue;}
+        }else if(!responseRegistries){if(v.tag==='object')Object.assign(value.props,v.props);else value.spreadSources=[...(value.spreadSources||[]),v];}
+        else Object.assign(value.props,v.props||{});
+        if(responseRegistries)value.dependencies.push(...dependencies(v));continue;}
         const key=p.name?.getText().replace(/^['"]|['"]$/g,'');if(ts.isPropertyAssignment(p))value.props[key]=ev(p.initializer,c);else if(ts.isShorthandPropertyAssignment(p))value.props[key]=symbol(p.name,c);}
       return value;
     }
-    if(ts.isArrayLiteralExpression(n))return {tag:'object',array:true,props:Object.fromEntries(n.elements.map((v,i)=>[String(i),ev(v,c)])),dependencies:[]};
+    if(ts.isArrayLiteralExpression(n)){const values=[];for(const e of n.elements){if(ts.isSpreadElement(e)){const v=ev(e.expression,c);values.push(get(v,'*',e,c));}else values.push(ev(e,c));}
+      return {tag:'object',array:true,props:Object.fromEntries(values.map((v,i)=>[String(i),v])),dependencies:[]};}
     if(ts.isPropertyAccessExpression(n)||ts.isElementAccessExpression(n)){
       const key=ts.isPropertyAccessExpression(n)?literal(n.name.text):ev(n.argumentExpression,c),receiver=ev(n.expression,c);
       const result=get(receiver,key.tag==='literal'?String(key.value):'*',n,c);
@@ -387,7 +474,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       return result;
     }
     if(ts.isPrefixUnaryExpression(n)){
-      const value=ev(n.operand,c);if(n.operator===ts.SyntaxKind.ExclamationToken&&value.tag==='literal')return literal(!value.value);
+      const value=ev(n.operand,c);if(n.operator===ts.SyntaxKind.ExclamationToken&&truth(value)!==null)return literal(!truth(value));
       if(responseRegistries&&n.operator===ts.SyntaxKind.MinusToken&&value.tag==='literal')return literal(-value.value);
       return {tag:'computed',dependencies:dependencies(value)};
     }
@@ -406,22 +493,34 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       if(op>=ts.SyntaxKind.FirstCompoundAssignment&&op<=ts.SyntaxKind.LastCompoundAssignment){const value={tag:'computed',dependencies:uniq([...dependencies(ev(n.left,c)),...dependencies(ev(n.right,c))])};assign(n.left,value,c,n,n.operatorToken.getText());return value;}
       const a=ev(n.left,c);
       if(op===ts.SyntaxKind.QuestionQuestionToken){if(a.tag==='literal')return a.value==null?ev(n.right,c):a;return merge(a,ev(n.right,{...c,conditions:[...c.conditions,{...src(n.left),kind:'nullish'}]}));}
-      if(op===ts.SyntaxKind.AmpersandAmpersandToken&&a.tag==='literal'&&!a.value)return a;
-      if(op===ts.SyntaxKind.BarBarToken&&a.tag==='literal'&&a.value)return a;
+      if(op===ts.SyntaxKind.AmpersandAmpersandToken&&truth(a)===false)return a;
+      if(op===ts.SyntaxKind.BarBarToken&&truth(a)===true)return a;
       const shortCircuit=op===ts.SyntaxKind.AmpersandAmpersandToken||op===ts.SyntaxKind.BarBarToken;
       const b=ev(n.right,shortCircuit&&a.tag!=='literal'?{...c,conditions:[...c.conditions,{...src(n.left),when:op===ts.SyntaxKind.AmpersandAmpersandToken}]}:c);
-      if(shortCircuit)return a.tag==='literal'?b:merge(a,b);
+      if(shortCircuit)return truth(a)!==null?b:merge(a,b);
       if(a.tag==='literal'&&b.tag==='literal'){
         if(op===ts.SyntaxKind.EqualsEqualsEqualsToken)return literal(a.value===b.value);
         if(op===ts.SyntaxKind.ExclamationEqualsEqualsToken)return literal(a.value!==b.value);
+        if(op===ts.SyntaxKind.GreaterThanToken)return literal(a.value>b.value);
+        if(op===ts.SyntaxKind.LessThanToken)return literal(a.value<b.value);
       }
+      if(returnOnly&&a===b&&['object','instance','map','function','input'].includes(a.tag)&&[ts.SyntaxKind.EqualsEqualsEqualsToken,ts.SyntaxKind.ExclamationEqualsEqualsToken].includes(op))return literal(op===ts.SyntaxKind.EqualsEqualsEqualsToken);
       return {tag:'computed',dependencies:uniq([...dependencies(a),...dependencies(b)]),
         ...((socketOnly||returnOnly)?{operation:ts.tokenToString(op),inputs:[a,b],evidence:[src(n)]}:{})};
     }
-    if(ts.isConditionalExpression(n)){const v=ev(n.condition,c);if(v.tag==='literal')return ev(v.value?n.whenTrue:n.whenFalse,c);
+    if(ts.isConditionalExpression(n)){const v=ev(n.condition,c);if(truth(v)!==null)return ev(truth(v)?n.whenTrue:n.whenFalse,c);
       const branches=[n.whenTrue,n.whenFalse].map((b,i)=>{const conditions=[...c.conditions,{...src(n.condition),when:i===0}];return guarded(ev(b,{...c,conditions}),conditions);});return branches.reduce(merge);}
     if(ts.isCallExpression(n)) {
-      const callee=target(n),args=n.arguments.map(a=>ev(a,c)),callId=id(n,'call_site');
+      if(n.questionDotToken){const value=ev(n.expression,c);if(value.tag==='literal'&&value.value==null)return literal(undefined);}
+      const callee=target(n),args=[],callId=id(n,'call_site');
+      for(const a of n.arguments){if(ts.isSpreadElement(a)){const v=ev(a.expression,c);
+        if(v.array&&!Object.hasOwn(v.props,'*'))args.push(...Object.entries(v.props).filter(([k])=>/^\d+$/.test(k)).sort((a,b)=>Number(a[0])-Number(b[0])).map(([,x])=>x));
+        else {args.push(unknown('spread_arguments_unknown'));note(a,'spread_arguments_unknown',c);}
+      }else args.push(ev(a,c));}
+      if(returnOnly&&ts.isIdentifier(n.expression)&&['setTimeout','queueMicrotask'].some(name=>standard(n.expression,name))&&args[0]?.tag==='function'){
+        const job={callback:args[0],args:args.slice(n.expression.text==='setTimeout'?2:1),context:c,node:n};c.scheduler.jobs.push(job);return {tag:'timer',job};
+      }
+      if(returnOnly&&standard(n.expression,'clearTimeout')){if(args[0]?.tag==='timer')args[0].job.canceled=true;return literal(undefined);}
       if(!responseRegistries&&importedReactHook(n.expression,'useState')){
         const declaration=n.parent;
         if(ts.isVariableDeclaration(declaration)&&ts.isArrayBindingPattern(declaration.name)){
@@ -448,12 +547,31 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       }
       const api=apiTarget(n);
       if(api){
+        const binding=decl(n.expression);
+        if(binding&&ts.isVariableDeclaration(binding)&&binding.initializer&&ts.isConditionalExpression(unwrap(binding.initializer)))
+          return invoke(ev(n.expression,c),args,c,n);
         const request_context=[currentEntry,...c.chain.map(s=>s.call_site),callId].join('/');
         const record={api,api_call:callId,request_context,entry:currentEntry,evidence:[src(n)]};calls.push(record);
         return {tag:'promise',value:{tag:'response',...record,path:[],props:{},conditions:c.conditions}};
       }
       if(ts.isPropertyAccessExpression(n.expression)) {
         const receiver=ev(n.expression.expression,c),name=n.expression.name.text;
+        if(returnOnly&&receiver.tag==='map'){
+          const key=args[0]?.tag==='literal'?'literal:'+JSON.stringify(args[0].value):args[0];
+          if(name==='set'){receiver.entries.set(key,args[1]);return receiver;}
+          if(name==='get')return receiver.entries.has(key)?receiver.entries.get(key):receiver.closed&&receiver.entries.size===0?literal(undefined):unknown('map_key_or_prior_population_unknown');
+          if(name==='delete'){receiver.entries.delete(key);return unknown('map_delete_result');}
+        }
+        if((!responseRegistries||returnOnly)&&!callee?.body&&(receiver.array||platform(n.expression.expression,'Array'))){
+          if(name==='concat'){
+            const items=[];for(const value of [receiver,...args]){if(value.array)items.push(...Object.entries(value.props).filter(([k])=>k!=='length').map(([,x])=>x));
+              else if(['response','input'].includes(value.tag))items.push(get(value,'*',n,c));else items.push(value);}
+            return {tag:'object',array:true,props:Object.fromEntries(items.map((v,i)=>[String(i),v])),dependencies:[]};
+          }
+          if(name==='sort'||name==='toSorted'||name==='reverse')return clone(receiver);
+          if(name==='shift'&&receiver.array){const keys=Object.keys(receiver.props).filter(k=>k!=='length'),value=receiver.props[keys[0]]||literal(undefined);
+            receiver.props=Object.fromEntries(keys.slice(1).map((k,i)=>[String(i),receiver.props[k]]));return value;}
+        }
         if(!responseRegistries&&['map','filter','flatMap','forEach'].includes(name)&&args[0]?.tag==='function'&&!callee?.body&&
             (platform(n.expression.expression,'Array')||['response','input','union'].includes(receiver.tag)||receiver.array)){
           function projectArray(value){
@@ -468,14 +586,14 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
           }
           return projectArray(receiver);
         }
-        if(!responseRegistries&&receiver.tag==='promise'&&['then','catch','finally'].includes(name)){
+        if((!responseRegistries||returnOnly)&&receiver.tag==='promise'&&['then','catch','finally'].includes(name)){
           if(name==='catch')return receiver;
           const callback=args[0];
-          if(callback?.tag!=='function')return receiver;
+          if(!['function',...(returnOnly?['resolver']:[])].includes(callback?.tag))return receiver;
           const awaited=new Set(c.awaited);
-          for(const dependency of dependencies(receiver.value))awaited.add(dependency.request_context);
+          for(const dependency of dependencies(promiseValue(receiver)))awaited.add(dependency.request_context);
           const continuation={...c,awaited,conditions:[...c.conditions,{kind:name==='then'?'promise_fulfilled':'promise_settled',...src(n.expression)}]};
-          const result=invoke(callback,name==='then'?[receiver.value]:[],continuation,n);
+          const result=invoke(callback,name==='then'?[promiseValue(receiver)]:[],continuation,n);
           return name==='finally'?receiver:{tag:'promise',value:result,awaited:[...awaited]};
         }
         if(socketOnly&&name==='replace'){
@@ -495,7 +613,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
         if(responseRegistries&&name==='forEach'&&platform(n.expression.expression,'Array')&&args[0]?.tag==='function'){
           function iterate(collection){
             if(collection.tag==='union'){collection.values.forEach(iterate);return;}
-            if(collection.tag==='object'&&collection.array){for(const item of Object.values(collection.props))invoke(args[0],[item],{...c,conditions:[...c.conditions,{kind:'array_iteration',...src(n)}]},n);}
+            if(collection.tag==='object'&&collection.array){for(const [key,item] of Object.entries(collection.props))if(key!=='length')invoke(args[0],[item],{...c,conditions:[...c.conditions,{kind:'array_iteration',...src(n)}]},n);}
             else {note(n,'array_elements_unresolved',c);invoke(args[0],[unknown('runtime_array_element')],{...c,conditions:[...c.conditions,{kind:'array_nonempty_and_callback_invoked',...src(n)}]},n);}
           }
           iterate(receiver);return literal(undefined);
@@ -539,7 +657,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       }
       if(responseRegistries&&callable.tag==='resolver')return settle(callable,args,c,n);
       if(responseRegistries&&callable.tag==='registry_lookup'&&phase==='lookup')return invokeLookup(callable,args,c,n);
-      if(callable.tag==='function'&&callable.node.body)return invoke(callable,args,c,n);
+      if(callable.tag==='function'&&(callable.node.body||returnOnly&&boundarySet.has(id(callable.node,'callable'))))return invoke(callable,args,c,n);
       if(callee?.body)return invoke(fn(callee,c),args,c,n);
       // A passed closure has a conditional execution edge, not an assumed library
       // implementation. Known local callees are interpreted before this fallback.
@@ -586,9 +704,15 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       if(responseRegistries&&standard(n.expression,'Promise')){
         const uid=contextualId(n,'promise',c),args=(n.arguments||[]).map(a=>ev(a,c));
         promises.push({id:uid,entry:currentEntry,source_symbol:id(c.current,'callable'),conditions:c.conditions,evidence:[src(n)]});
-        if(args[0]?.tag==='function')invoke(args[0],[{tag:'resolver',promise:uid,mode:'resolve'},{tag:'resolver',promise:uid,mode:'reject'}],{...c,promiseContext:uid},n);
-        return {tag:'promise',value:unknown('settlement_deferred'),awaited:[]};
+        const cell=returnOnly?{value:unknown('settlement_deferred'),resolved:false}:null;
+        if(returnOnly)c.scheduler.executorDepth=(c.scheduler.executorDepth||0)+1;
+        try{if(args[0]?.tag==='function')invoke(args[0],[{tag:'resolver',promise:uid,mode:'resolve',...(cell?{cell}:{})},
+          {tag:'resolver',promise:uid,mode:'reject',...(cell?{cell}:{})}],{...c,promiseContext:uid},n);}
+        finally{if(returnOnly)c.scheduler.executorDepth--;}
+        if(returnOnly)drainDeferred(c);
+        return {tag:'promise',value:unknown('settlement_deferred'),awaited:[],...(cell?{cell}:{})};
       }
+      if(returnOnly&&standard(n.expression,'Map'))return {tag:'map',entries:new Map(),closed:callableOwner(n)===c.current&&c.current!==null};
       if(responseRegistries&&standard(n.expression,'Map'))return {tag:'registry',registry:id(n,'map_binding'),receiver_type:'local:'+currentEntry,evidence:[src(n)]};
       return {tag:'object',root:id(n,'allocation'),props:{},dependencies:[]};
     }
@@ -597,7 +721,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
   const analyzed=[];
   function analyzeEntry(uid,entry){
     currentEntry=uid;steps=0;socketEpoch=0;const cls=responseRegistries&&ownerClass(entry);
-    const c={env:new Map(),receiver:cls?{tag:'instance',classNode:cls,props:{}}:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0};
+    const c={env:new Map(),receiver:cls?{tag:'instance',classNode:cls,props:{}}:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0,scheduler:{jobs:[],executed:0}};
     entry.parameters.forEach(p=>bind(p.name,{tag:'input',root:id(p,'input_binding'),path:[],props:{},...(responseRegistries?{evidence:[src(p)]}:{})},c));
     if(ts.isBlock(entry.body))block(entry.body.statements,c);else ev(entry.body,c);
     analyzed.push({source_symbol:uid,name:qualified(entry),...loc(entry),steps,truncated:steps>maxSteps,...(responseRegistries?{phase}:{})});
@@ -614,7 +738,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       const rule=setters.get(target(call)),arg=rule&&call.arguments[rule.index];
       if(arg&&(ts.isArrowFunction(arg)||ts.isFunctionExpression(arg)))registrations.push({call,rule,arg,cls:ownerClass(target(call))});
     }
-    function context(entry){currentEntry=id(entry,'callable');steps=0;return {env:new Map(),receiver:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0};}
+    function context(entry){currentEntry=id(entry,'callable');steps=0;return {env:new Map(),receiver:null,resolving:new Set(),current:entry,conditions:[],awaited:new Set(),chain:[],depth:0,scheduler:{jobs:[],executed:0}};}
     function inputs(entry){return entry.parameters.map(p=>({tag:'input',root:id(p,'input_binding'),path:[],props:{},evidence:[src(p)]}));}
     for(const registration of registrations){
       const {call,rule,arg,cls}=registration;if(!cls)continue;
@@ -644,10 +768,10 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       analyzed.push({source_symbol:currentEntry,name:qualified(callback.node),...loc(callback.node),steps,truncated:steps>maxSteps,phase:'window_receiver'});
     }
     return {version:'0.1.0',entries:analyzed,boundaries:uniq(returnBoundaries),returns:uniq(returnValues),callback_bindings:uniq(returnBindings),
-      transmissions:uniq(transmissions),window_listeners:windowListeners.map(r=>r.record),handoffs:uniq(handoffs),guard_tests:uniq(guardTests),diagnostics:uniq(diagnostics),
+      transmissions:uniq(transmissions),window_listeners:windowListeners.map(r=>r.record),handoffs:uniq(handoffs),guard_tests:uniq(guardTests),promise_settlements:uniq(settlements),diagnostics:uniq(diagnostics),
       limits:['fulfilled_boundary_values_are_source_inputs','window_destination_and_origin_require_matching_deployment',
         'registered_callback_requires_same_receiver_and_lifetime','exceptions_and_unresolved_mutations_keep_gaps','runtime_delivery_not_observed'],
-      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048}};
+      budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048,max_loop_iterations:maxLoopIterations,max_deferred_callbacks:maxDeferredCallbacks}};
   }
   if(socketOnly){phase='socket';for(const [uid,entry] of socketEntries)analyzeEntry(uid,entry);
     return {version:'0.1.0',entries:analyzed,creations:uniq(socketCreations),channel_bindings:uniq(channelBindings),listener_bindings:uniq(listenerBindings),
@@ -671,7 +795,7 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
       'range_iterations_symbolic','external_callbacks_require_callee_invocation','unresolved_call_results_keep_unknown',
       'exceptions_and_some_control_flow_not_expanded','state_roots_are_entry_parameters',
       'conditional_alias_and_callback_effects_are_candidates','branch_caller_alias_effects_not_composed',
-      'opaque_mutations_keep_candidate_with_gap'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048}};
+      'opaque_mutations_keep_candidate_with_gap'],budgets:{max_steps:maxSteps,max_depth:maxDepth,max_alternatives:maxAlternatives,max_description_nodes:2048,max_loop_iterations:maxLoopIterations}};
 }
 
 function analyzeData(ts,root,files,apis,options){return analyze(ts,root,files,{pathsFromConfigs:true,outputKey:'data_flow',run:ctx=>extractData(ctx,apis,options)});}
@@ -679,8 +803,7 @@ module.exports={analyzeData,extractData};
 if(require.main===module){const [root,manifest,base,tsModule,output]=process.argv.slice(2),ts=require(path.resolve(tsModule));
   if(ts.version!=='5.9.3')throw new Error('Expected TypeScript 5.9.3');if(fs.existsSync(output))throw new Error('Use a new output file');
   const g=JSON.parse(fs.readFileSync(base,'utf8'));
-  const matched=new Set((g.protocol?.results||[]).filter(r=>r.matches?.length).map(r=>r.message));
-  const apis=g.project_map_phase==='frontend'?g.api_symbols:[...new Set(g.edges.filter(e=>e.kind==='EMITS_MESSAGE'&&matched.has(e.target)).map(e=>e.source))];
+  const apis=g.project_map_phase==='frontend'?g.api_symbols:[...new Set(g.edges.filter(e=>e.kind==='EMITS_MESSAGE').map(e=>e.source))];
   const result=analyzeData(ts,root,JSON.parse(fs.readFileSync(manifest,'utf8')).files.map(f=>f.path),apis);
   fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');process.stdout.write(JSON.stringify({entries:result.data_flow.entries.length,reads:result.data_flow.field_reads.length,writes:result.data_flow.state_writes.length})+'\n');
 }

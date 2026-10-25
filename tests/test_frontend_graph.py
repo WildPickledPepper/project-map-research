@@ -71,5 +71,18 @@ class FrontendGraphTests(unittest.TestCase):
         flow['state_writes'][0]['value_dependencies'][0]['api'] = 'api2'
         with self.assertRaises(ValueError): augment_frontend(g, {'nodes': [], 'data_flow': flow})
 
+    def test_spread_field_overrides_exclude_only_the_replaced_subtree(self):
+        g = self.graph()
+        dependency = g['frontend']['state_writes'][0]['value_dependencies'][0]
+        dependency.update(path=[], excluded_paths=[['rows']])
+        self.assertFalse(explain_frontend(g, api='api1', field_path=['rows', '*', 'name'])['writes'])
+        self.assertTrue(explain_frontend(g, api='api1', field_path=['total'])['writes'])
+        self.assertTrue(explain_frontend(g, api='api1')['writes'])
+
+    def test_loop_budget_remains_visible_on_field_queries(self):
+        g = self.graph()
+        g['frontend']['diagnostics'].append({'kind': 'loop_iteration_budget_exceeded', 'entry': 'entry1'})
+        self.assertTrue(explain_frontend(g, api='api1', field_path=['rows'])['extraction_truncated'])
+
 
 if __name__ == '__main__': unittest.main()

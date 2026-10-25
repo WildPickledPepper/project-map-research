@@ -10,6 +10,19 @@ if os.environ.get('PROJECT_MAP_PARSER_CACHE'):
 
 
 class CppFactsTests(unittest.TestCase):
+    def test_transitive_namespace_imports_cross_headers_without_leaking_other_namespaces(self):
+        g=self.graph({'a.h':'namespace implementation { struct Worker { void act(); }; } '
+            'namespace facade {using namespace implementation;} namespace gateway {using namespace facade;}',
+            'a.cpp':'#include "a.h"\nusing namespace gateway; void run(Worker& value){value.act();}',
+            'unrelated.cpp':'namespace unrelated {struct Worker {void act();};}'})
+        self.assertEqual([b['name'] for _,b in self.relations(g,'MEMBER_TARGET_CANDIDATE')],['implementation::Worker::act'])
+
+    def test_transitive_namespace_cycles_preserve_multiple_type_candidates(self):
+        g=self.graph({'a.h':'namespace left {struct Worker {void act();};} namespace right {struct Worker {void act();};} '
+            'namespace gateway {} namespace facade {using namespace left;using namespace right;using namespace gateway;} '
+            'namespace gateway {using namespace facade;} using namespace gateway;void run(Worker& value){value.act();}'})
+        self.assertEqual({b['name'] for _,b in self.relations(g,'MEMBER_TARGET_CANDIDATE')},{'left::Worker::act','right::Worker::act'})
+
     def test_relative_using_namespace_resolves_from_declaration_scope(self):
         g=self.graph({'a.h':'namespace world { namespace implementation { struct Worker { void act(); }; } using namespace implementation; void run(Worker& value) { value.act(); } }'})
         pairs=self.relations(g,'MEMBER_TARGET_CANDIDATE')

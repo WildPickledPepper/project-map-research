@@ -87,9 +87,8 @@ def build(source, request, output, log, *, typescript):
     print('Extract C++ data, objects and fields', file=log, flush=True)
     graph = data_graph(graph, extractor.build(), paths)
     # Node phases consume boundary identities, never the multi-hundred-MB graph.
-    matched = {r['message'] for r in graph['protocol']['results'] if r.get('matches')}
     write_json(checkpoint, {'project_map_phase': 'frontend', 'api_symbols': sorted({
-        e['source'] for e in graph['edges'] if e['kind'] == 'EMITS_MESSAGE' and e['target'] in matched})})
+        e['source'] for e in graph['edges'] if e['kind'] == 'EMITS_MESSAGE'})})
     graph = augment_frontend(graph, ts_phase('typescript_data_flow.cjs', checkpoint))
     graph = augment_callbacks(graph, ts_phase('typescript_response_flow.cjs'))
     transmission = Transmission(extractor).build()

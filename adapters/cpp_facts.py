@@ -142,6 +142,8 @@ class Extractor:
                                              'include':inc,'candidates':candidates})
         self.visibility = {p:self.include_closure(p,set()) for p in self.units}
         self._type_cache = {}
+        self._using_graph_cache = {}
+        self._using_namespaces_cache = {}
         self._functions_by_name = defaultdict(list)
         for signature, group in self.functions.items():
             self._functions_by_name[signature[0]].append(group)
@@ -198,24 +200,42 @@ class Extractor:
                 q = '::'.join(scope[:length]+[atom])
                 if exists(q):names=[q];break
             if not names:
-                for p in visible:
-                    for prefix,namespace in self.units[p]['using']:
-                        # A using directive applies within its namespace and children.
-                        joined = '::'.join(prefix)
-                        if joined and not '::'.join(scope).startswith(joined+'::') and '::'.join(scope)!=joined:continue
-                        # Relative namespace names are resolved where the using
-                        # directive is declared. The nearest namespace may hide
-                        # an outer namespace even when it lacks the requested type.
-                        resolved = namespace[2:] if namespace.startswith('::') else None
-                        if resolved is None:
-                            for length in range(len(prefix), -1, -1):
-                                candidate = '::'.join(prefix[:length]+[namespace])
-                                if self.namespaces.get(candidate, set()) & visible:
-                                    resolved = candidate; break
-                        if resolved is None: continue
-                        q = resolved+'::'+atom
-                        if exists(q):names.append(q)
+                for namespace in self.using_namespaces(path, scope):
+                    q=namespace+'::'+atom
+                    if exists(q):names.append(q)
         return {'names':sorted(set(names)),'wrapper':wrapper,'evidence':[]}
+
+    def using_namespaces(self, path, scope):
+        """Visible namespace directives, including transitive imports and cycles.
+
+        These are source candidates. Multiple same-named types remain ambiguous;
+        local block directives and declaration-order lookup remain outside scope.
+        """
+        key=(path,tuple(scope))
+        if key in self._using_namespaces_cache:return self._using_namespaces_cache[key]
+        if path not in self._using_graph_cache:
+            visible=self.visibility.get(path,{path});graph=defaultdict(set)
+            for p in sorted(visible):
+                for prefix,namespace in self.units[p]['using']:
+                    # Resolve relative namespace names at the declaration, retaining
+                    # nearest-namespace hiding even if it lacks the desired type.
+                    resolved=namespace[2:] if namespace.startswith('::') else None
+                    if resolved is None:
+                        for length in range(len(prefix),-1,-1):
+                            candidate='::'.join(prefix[:length]+[namespace])
+                            if self.namespaces.get(candidate,set()) & visible:
+                                resolved=candidate;break
+                    if resolved is not None:graph['::'.join(prefix)].add(resolved)
+            self._using_graph_cache[path]=graph
+        graph=self._using_graph_cache[path];joined='::'.join(scope)
+        todo=[target for prefix,targets in graph.items() if not prefix or joined==prefix or joined.startswith(prefix+'::') for target in targets]
+        found=set()
+        while todo:
+            namespace=todo.pop()
+            if namespace in found:continue
+            found.add(namespace);todo.extend(graph.get(namespace,set())-found)
+        result=tuple(sorted(found));self._using_namespaces_cache[key]=result
+        return result
 
     def members(self,owner,name,seen=None):
         seen = set() if seen is None else seen
