@@ -130,5 +130,38 @@ class ProjectInventoryTests(unittest.TestCase):
         self.assertTrue(m['docker']['required_support_review'])
         self.assertTrue(any(row['module']=='build' and row['mechanism']=='files_external_process' and row['required_review'] for row in result['mechanism-matrix']['items']))
 
+    def test_test_worker_does_not_become_a_required_product_module(self):
+        self.save({'tests/background/index.ts':'self.onmessage = () => self.postMessage("test only");'})
+        rows={m['id']:m for m in self.build()['module-inventory']['modules']}
+        self.assertFalse(rows['tests/background']['required_runtime_review'])
+        self.assertEqual(rows['tests/background']['kind'],'test_or_external')
+
+    def test_build_script_references_preserve_runtime_start_and_roles(self):
+        self.save({'package.json':'{"name":"fixture","scripts":{"build":"node pack.mjs","start":"node serve.mjs"}}',
+            'pack.mjs':'console.log("assemble");','serve.mjs':'new WebSocket("ws://example");',
+            'native/build_fuzz/runner.sh':'#!/bin/sh\necho "test only"'})
+        files={f['path']:f for f in self.build()['module-inventory']['files']}
+        self.assertEqual(files['pack.mjs']['scope_role'],'build_support')
+        self.assertEqual(files['serve.mjs']['scope_role'],'first_party')
+        self.assertEqual(files['native/build_fuzz/runner.sh']['scope_role'],'test')
+        self.assertEqual(files['pack.mjs']['scope_role_evidence'][0]['script'],'build')
+
+    def test_program_and_configuration_declarations_are_source_based(self):
+        self.save({'strange/tool/run.py':'import argparse\np = argparse.ArgumentParser()\np.add_argument("--mode", choices=["a", "b"], default="a")\np.add_argument("--dynamic", choices=load_choices())\nif "__main__" == __name__:\n    run()\n',
+            'strange/library/impl.py':'if __name__ != "__main__":\n    value = 1\n'})
+        result=self.build();mods={m['id']:m for m in result['module-inventory']['modules']}
+        tool=mods['strange/tool'];self.assertEqual(len(tool['declared_program_entries']),1)
+        opts={r['names'][0]:r for r in tool['configuration_declarations']}
+        self.assertEqual(opts['--mode']['declarations']['choices']['literal'],['a','b'])
+        self.assertEqual(opts['--dynamic']['declarations']['choices']['resolution'],'not_evaluated')
+        self.assertFalse(any(e['path']=='strange/library/impl.py' for m in mods.values() for e in m['declared_program_entries']))
+        self.assertTrue(any(m['declared_program_entries'] for m in result['runtime-modes']['families'] if m['module']=='strange/tool'))
+
+    def test_aiohttp_source_candidates_are_recorded_without_inventing_connections(self):
+        self.save({'plugins/tunnel/relay.py':'async def forward(client, session, uri):\n    async with session.ws_connect(uri) as target:\n        async for item in client:\n            await target.send_str(item.data)\napp.router.add_route("*", "/{tail:.*}", dispatch)\nsite = web.TCPSite(runner, host, port)\n'})
+        rows=[b for b in self.build()['boundary-inventory']['boundaries'] if b['evidence']['path']=='plugins/tunnel/relay.py']
+        self.assertTrue({'network_client','network_server','network_send','network_receive','registration'} <= {b['family'] for b in rows})
+        self.assertTrue(all(b['resolution']=='not_semantically_extracted' and b['counterpart'] is None for b in rows))
+
 
 if __name__=='__main__':unittest.main()

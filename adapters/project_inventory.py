@@ -1,7 +1,6 @@
 """Build version-pinned module and boundary scope ledgers; no inferred semantic edges."""
 from collections import Counter,defaultdict
 from contextlib import contextmanager
-import ast
 import json
 from pathlib import Path,PurePosixPath
 import re
@@ -12,6 +11,7 @@ from adapters.mechanism_inventory import MECHANISMS, signals
 from adapters.repository_discovery import discover
 from adapters.snapshot_inputs import commit
 from adapters.snapshot_refresh import atomic_json
+from adapters.source_scope import script_role_evidence, source_scope
 
 SCHEMA='project-scope/1'
 CONTAINERS={'modules','plugins','packages','services','apps','scripts'}
@@ -29,6 +29,7 @@ def underneath(path,root):return root=='.' or path==root or path.startswith(root
 def source_role(path,old_role):
     parts=PurePosixPath(path).parts
     if old_role in {'third_party','generated','test'}:return old_role
+    if any('fuzz' in re.split(r'[-_.]',part.lower()) for part in parts[:-1]):return 'test'
     if parts[0] in {'docs','assets'}:return 'documentation_or_resource'
     if parts[0] in {'build','pre-commit','.github','.gitcode'} or 'build' in parts[:-1]:return 'build_support'
     if parts[0]=='docker':return 'deployment_support'
@@ -37,11 +38,7 @@ def source_role(path,old_role):
 
 def has_program_entry(text,language):
     if language=='python':
-        try:
-            tree=ast.parse(text)
-            return any(isinstance(node,ast.If) and any(isinstance(child,ast.Name) and child.id=='__name__' for child in ast.walk(node.test))
-                and any(isinstance(child,ast.Constant) and child.value=='__main__' for child in ast.walk(node.test)) for node in ast.walk(tree))
-        except SyntaxError:return bool(re.search(r'(?m)^\s*if\s+__name__\s*==\s*[\'"]__main__[\'"]',text))
+        return bool(source_scope(text,'<entry-review>',language)[0])
     if language=='rust':return bool(re.search(r'(?m)^\s*(?:pub\s+)?fn\s+main\s*\(',text))
     if language in {'cpp','c'}:return bool(re.search(r'(?m)^\s*(?:int|void)\s+main\s*\(',text))
     if language=='javascript':return bool(re.search(r'require\.main\s*===?\s*module|import\.meta\.main',text))
@@ -90,6 +87,9 @@ def build_inventory(source,revision='HEAD',*,rules_version='unversioned',max_fil
 
 def _inventory(revision,files,texts,states,rules_version):
     by_path={row['path']:row for row in files};paths=set(by_path);anchors=defaultdict(list);metadata=defaultdict(list);diagnostics=[]
+    for path,evidence in script_role_evidence(texts).items():
+        if by_path[path]['scope_role']=='first_party':
+            by_path[path].update(scope_role='build_support',scope_role_evidence=evidence)
     def anchor(root,kind,path,line=1):
         evidence={'kind':kind,'path':path,'line':line}
         if evidence not in anchors[root]:anchors[root].append(evidence)
@@ -153,12 +153,14 @@ def _inventory(revision,files,texts,states,rules_version):
         support_required=any(r['scope_role'] in {'build_support','deployment_support'} and r['language'] in CODE.values() for r in own)
         kind='runtime_or_library_component' if required else 'support_or_resource'
         if all(r['scope_role'] in {'test','third_party','generated'} for r in own) and own:kind='test_or_external'
-        if any(e['kind']=='worker_entry_scope' for e in anchors[root]):kind='background_worker';required=True
-        entries=[];mechanisms={key:[] for key in MECHANISMS};module_boundaries=[]
+        if required and any(e['kind']=='worker_entry_scope' for e in anchors[root]):kind='background_worker'
+        entries=[];programs=[];options=[];mechanisms={key:[] for key in MECHANISMS};module_boundaries=[]
         for row in own:
             path=row['path'];text=texts.get(path)
             if text is None or row['language'] not in CODE.values() and PurePosixPath(path).suffix.lower() not in {'.sql','.css','.scss','.html','.cmake','.json','.toml'} and PurePosixPath(path).name not in MANIFESTS:continue
             found,hits,points,selectors=signals(text,path)
+            declared,cli,issues=source_scope(text,path,row['language'])
+            programs.extend(declared);options.extend(cli);diagnostics.extend(issues)
             for key,locations in found.items():mechanisms[key].extend(locations)
             for hit in hits:hit.update(module=root,scope_role=row['scope_role']);module_boundaries.append(hit['id'])
             boundaries.extend(hits);entries.extend(points)
@@ -179,6 +181,10 @@ def _inventory(revision,files,texts,states,rules_version):
             'role_counts':dict(sorted(roles.items())),'discovery_evidence':anchors[root],
             'responsibility':{'origin':'source_metadata_and_anchor_evidence','declared_metadata':metadata[root],
                 'semantic_summary':'not_inferred'},'entry_candidates':entries,'boundary_candidates':module_boundaries,
+            'declared_program_entries':programs,'configuration_declarations':options,
+            'resource_scope':{'origin':'tracked_ownership_and_source_signals','semantic_ownership':'pending_W3',
+                'tracked_non_code_files':[r['path'] for r in own if r['language'] not in CODE.values()],
+                'declaration_sources':{key:mechanisms[key] for key in ('database_sql','cache_shared_state','files_external_process','frontend_state','configuration_build')}},
             'semantic_support':support,'upstream_downstream_status':'pending_semantic_boundary_analysis',
             'resource_ownership_status':'pending_W3','mode_applicability':'pending_mode_review',
             'gate_status':{f'G{i:02}':'not_executed' for i in range(2,9)}})
@@ -187,8 +193,9 @@ def _inventory(revision,files,texts,states,rules_version):
     manifests=[{'module':m['id'],**item} for m in modules for item in m['responsibility']['declared_metadata']]
     mode_families=[]
     for m in modules:
-        if m['entry_candidates'] or m['responsibility']['declared_metadata']:
+        if m['entry_candidates'] or m['declared_program_entries'] or m['responsibility']['declared_metadata']:
             mode_families.append({'module':m['id'],'entry_candidates':m['entry_candidates'],
+                'declared_program_entries':m['declared_program_entries'],'configuration_declarations':m['configuration_declarations'],
                 'manifest_declarations':[x for x in manifests if x['module']==m['id']],
                 'conditions':[x for x in conditions if x['module']==m['id']],
                 'status':'requires_independent_source_review','runtime_executed':False})
