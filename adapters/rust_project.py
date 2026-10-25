@@ -61,6 +61,7 @@ def discover(root,paths,*,cargo=None):
             covered.add(workspace)
             for package in metadata['packages']:
                 item={k:package.get(k) for k in ('name','version','edition','features')}
+                item['workspace']=workspace
                 item['manifest']=relative(package['manifest_path'],root)
                 if item['manifest'] not in paths:raise ValueError('Cargo package manifest was not selected')
                 item['targets']=[];item['dependencies']=[]

@@ -70,6 +70,15 @@ class RustProjectTests(unittest.TestCase):
         result=discover(self.root,paths)
         self.assertTrue(result['diagnostics']);self.assertTrue(all(d['required'] for d in result['diagnostics']))
 
+    def test_independent_manifests_with_same_name_and_shared_source_keep_context_identity(self):
+        package='[package]\nname="shared_name"\nversion="0.1.0"\nedition="2021"\n[[bin]]\nname="launch"\npath="../common/start.rs"\n'
+        paths=self.files({'desktop/Cargo.toml':package,'remote/Cargo.toml':package,'common/start.rs':'fn main(){}'})
+        metadata=discover(self.root,paths)
+        self.assertFalse(metadata['diagnostics'])
+        self.assertEqual({p['workspace'] for p in metadata['packages']},{'desktop/Cargo.toml','remote/Cargo.toml'})
+        self.assertEqual(len(metadata['packages']),2)
+        self.assertTrue(all(p['targets'][0]['path']=='common/start.rs' for p in metadata['packages']))
+
     def test_missing_compiler_is_a_required_context_gap(self):
         from unittest.mock import patch
         with patch('adapters.rust_project.binary',return_value=None):
