@@ -1,0 +1,415 @@
+{
+  "schema": "cmake-native-component-probe/1",
+  "cmake": "cmake version 3.31.6",
+  "official_documentation": "https://cmake.org/cmake/help/v3.31/manual/cmake-file-api.7.html",
+  "origin": "executed_independent_fixtures_unmodified_native_cmake",
+  "records": [
+    {
+      "id": "nested.base",
+      "configuration": "Release",
+      "feature": false,
+      "native_target_id": "launch_unit::@4afe2705df7e8f43d56b",
+      "target_name": "launch_unit",
+      "artifacts": [
+        "artifacts/service/worker.exe",
+        "artifacts/service/worker.pdb"
+      ],
+      "sources": [
+        "products/agent/startup.cpp"
+      ],
+      "dependencies": [
+        "utility_core::@4afe2705df7e8f43d56b"
+      ],
+      "declaration": [
+        {
+          "path": "products/agent/CMakeLists.txt",
+          "line": 3,
+          "command": "add_executable"
+        },
+        {
+          "path": "products/agent/CMakeLists.txt",
+          "line": 6,
+          "command": "register_program"
+        },
+        {
+          "path": "products/agent/CMakeLists.txt"
+        }
+      ],
+      "native_version": "3.31.6",
+      "codemodel_version": {
+        "major": 2,
+        "minor": 7
+      }
+    },
+    {
+      "id": "nested.extra",
+      "configuration": "Release",
+      "feature": true,
+      "native_target_id": "launch_unit::@4afe2705df7e8f43d56b",
+      "target_name": "launch_unit",
+      "artifacts": [
+        "artifacts/service/worker.exe",
+        "artifacts/service/worker.pdb"
+      ],
+      "sources": [
+        "products/agent/startup.cpp",
+        "products/agent/extra.cpp"
+      ],
+      "dependencies": [
+        "utility_core::@4afe2705df7e8f43d56b"
+      ],
+      "declaration": [
+        {
+          "path": "products/agent/CMakeLists.txt",
+          "line": 3,
+          "command": "add_executable"
+        },
+        {
+          "path": "products/agent/CMakeLists.txt",
+          "line": 6,
+          "command": "register_program"
+        },
+        {
+          "path": "products/agent/CMakeLists.txt"
+        }
+      ],
+      "native_version": "3.31.6",
+      "codemodel_version": {
+        "major": 2,
+        "minor": 7
+      }
+    },
+    {
+      "id": "renamed.base",
+      "configuration": "Release",
+      "feature": false,
+      "native_target_id": "backend_alpha::@ba0f38ef328965ec78ec",
+      "target_name": "backend_alpha",
+      "artifacts": [
+        "artifacts/service/worker.exe",
+        "artifacts/service/worker.pdb"
+      ],
+      "sources": [
+        "other/deep/runtime/startup.cpp"
+      ],
+      "dependencies": [
+        "helper_beta::@ba0f38ef328965ec78ec"
+      ],
+      "declaration": [
+        {
+          "path": "other/deep/runtime/CMakeLists.txt",
+          "line": 3,
+          "command": "add_executable"
+        },
+        {
+          "path": "other/deep/runtime/CMakeLists.txt",
+          "line": 6,
+          "command": "register_program"
+        },
+        {
+          "path": "other/deep/runtime/CMakeLists.txt"
+        }
+      ],
+      "native_version": "3.31.6",
+      "codemodel_version": {
+        "major": 2,
+        "minor": 7
+      }
+    },
+    {
+      "id": "renamed.extra",
+      "configuration": "Release",
+      "feature": true,
+      "native_target_id": "backend_alpha::@ba0f38ef328965ec78ec",
+      "target_name": "backend_alpha",
+      "artifacts": [
+        "artifacts/service/worker.exe",
+        "artifacts/service/worker.pdb"
+      ],
+      "sources": [
+        "other/deep/runtime/startup.cpp",
+        "other/deep/runtime/extra.cpp"
+      ],
+      "dependencies": [
+        "helper_beta::@ba0f38ef328965ec78ec"
+      ],
+      "declaration": [
+        {
+          "path": "other/deep/runtime/CMakeLists.txt",
+          "line": 3,
+          "command": "add_executable"
+        },
+        {
+          "path": "other/deep/runtime/CMakeLists.txt",
+          "line": 6,
+          "command": "register_program"
+        },
+        {
+          "path": "other/deep/runtime/CMakeLists.txt"
+        }
+      ],
+      "native_version": "3.31.6",
+      "codemodel_version": {
+        "major": 2,
+        "minor": 7
+      }
+    }
+  ],
+  "checks": [
+    {
+      "id": "nested.base.native_objects",
+      "passed": true
+    },
+    {
+      "id": "nested.base.codemodel_v2",
+      "passed": true
+    },
+    {
+      "id": "nested.base.release_context",
+      "passed": true
+    },
+    {
+      "id": "nested.base.targets_distinct",
+      "passed": true
+    },
+    {
+      "id": "nested.base.executable_type",
+      "passed": true
+    },
+    {
+      "id": "nested.base.same_basename_separate_paths",
+      "passed": true
+    },
+    {
+      "id": "nested.base.artifact_not_target_name",
+      "passed": true
+    },
+    {
+      "id": "nested.base.own_entry_source",
+      "passed": true
+    },
+    {
+      "id": "nested.base.conditional_source",
+      "passed": true
+    },
+    {
+      "id": "nested.base.conditional_define",
+      "passed": true
+    },
+    {
+      "id": "nested.base.dependency_identity",
+      "passed": true
+    },
+    {
+      "id": "nested.base.declaration_and_function_backtrace",
+      "passed": true
+    },
+    {
+      "id": "nested.base.source_backtrace",
+      "passed": true
+    },
+    {
+      "id": "nested.base.install_destination",
+      "passed": true
+    },
+    {
+      "id": "nested.base.cache_configuration",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.native_objects",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.codemodel_v2",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.release_context",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.targets_distinct",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.executable_type",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.same_basename_separate_paths",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.artifact_not_target_name",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.own_entry_source",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.conditional_source",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.conditional_define",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.dependency_identity",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.declaration_and_function_backtrace",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.source_backtrace",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.install_destination",
+      "passed": true
+    },
+    {
+      "id": "nested.extra.cache_configuration",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.native_objects",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.codemodel_v2",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.release_context",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.targets_distinct",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.executable_type",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.same_basename_separate_paths",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.artifact_not_target_name",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.own_entry_source",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.conditional_source",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.conditional_define",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.dependency_identity",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.declaration_and_function_backtrace",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.source_backtrace",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.install_destination",
+      "passed": true
+    },
+    {
+      "id": "renamed.base.cache_configuration",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.native_objects",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.codemodel_v2",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.release_context",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.targets_distinct",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.executable_type",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.same_basename_separate_paths",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.artifact_not_target_name",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.own_entry_source",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.conditional_source",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.conditional_define",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.dependency_identity",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.declaration_and_function_backtrace",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.source_backtrace",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.install_destination",
+      "passed": true
+    },
+    {
+      "id": "renamed.extra.cache_configuration",
+      "passed": true
+    },
+    {
+      "id": "missing_dependency.configure_failed",
+      "passed": true
+    },
+    {
+      "id": "missing_dependency.no_success_reply",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "product_repository_configured": false,
+  "product_built": false,
+  "production_graph_generated": false,
+  "process_counterpart_connected": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false
+}
