@@ -34,3 +34,21 @@ python experiments/2026-10-25-w1/score_cpp_argv_control.py --trial NEW_OUTSIDE_D
 ```
 
 下一项沿已确认的构建/部署程序身份连接 Rust 启动词与 C++ argv 解码，继续核对准备分支对该词的影响；随后展开数字转换、选项对象/字段与监听接收对象。来源关系与数值相等分别验证。
+
+## Insight 全 C++ 输入控制
+
+规则 edd48dc 在源码 d4e8d1c 的 1,323 个 C++/头文件输入上通过 [63 项后置检查](evidence/cpp-argv-control.json)。提取重新执行，新增索引含 93,647 节点、115,599 边。七个解码操作各恢复一条来源绑定，均来自 `server/src/entry/server/bin/main.cpp` 的 main/argv，argv 来源阶段没有必需缺口。
+
+工具恢复的来源路径为：
+
+```text
+main 的 argv[i]
+  → std::string → args.emplace_back
+  → ParamsParser::Parse(args) → args.at(i)
+  → 条件性的 data.append("=").append(args.at(++i))
+  → ParamsParser::ParseField(data) → 对应键的截取与解析函数
+```
+
+每条绑定保留两个源调用帧、argv 装入数组和取数组元素的两层选择，以及两次 append 的操作数和分支条件。原始词和可能追加的下一词分别保留来源；实际 i 与 ++i 的运行数值仍是选择表达式。main→端口解码节点为 3 条边，main→ParseWsPort 为 4 条边，四个正反查及四处同版本源码导航通过。
+
+原有另一模块的一项 strlen 长度缺口保留。该控制确认 argv 来源与准备操作，后续用构建/部署身份把 Rust 的具体启动词接到相应绑定，并核对准备分支和数值转换。运行 PID、端口和监听实例在相应场景中采集；原始 checkout 未修改，未重新核验文件哈希，G03 保持未通过。

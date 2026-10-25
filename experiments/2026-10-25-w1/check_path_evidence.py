@@ -255,3 +255,23 @@ assert not any(decoders[k] for k in ('cmake_configure_executed_again','default_w
     'argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
 assert decoders['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 39 all-C++ string-decoding checks; seven source targets and two paths; one other decoder gap retained, argv/instance binding pending.')
+
+argv=json.loads((Path(__file__).parent/'evidence/cpp-argv-control.json').read_text(encoding='utf-8'))
+assert argv['schema']=='cpp-argv-origin-control-score/1' and argv['passed']
+assert len(argv['checks'])==63 and all(c['passed'] for c in argv['checks'])
+assert argv['source_commit']==decoders['source_commit'] and argv['input_count']==1323
+assert argv['build_version']['rules_commit']=='edd48dc86ad474c53837f8457e82627d0faf8a0d'
+assert argv['index_counts']['nodes']==93647 and argv['index_counts']['edges']==115599
+assert argv['argv_summary']['entry_candidates']==1 and argv['argv_summary']['counts']=={'bindings':7,'complete_origins':7}
+assert argv['argv_summary']['required_gaps']==0 and argv['required_origin_gaps']==[]
+assert argv['decoder_summary']['required_gaps']==1
+assert len(argv['selected_bindings'])==7 and {b['key'] for b in argv['selected_bindings']}=={d['key'] for d in decoders['selected_decoders']}
+assert all(b['entry']=={'path':'server/src/entry/server/bin/main.cpp','name':'main'} and b['call_count']==2 and b['origin_complete'] and
+    b['origin_count']==2 and b['conditional_append_count']==2 for b in argv['selected_bindings'])
+assert len(argv['navigation'])==4 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in argv['navigation'])
+assert {n['id']:n['witness_edges'] for n in argv['navigation']}=={'entry_decoder_out':3,'entry_decoder_in':3,'entry_parse_value_out':4,'entry_parse_value_in':4}
+assert argv['cpp_source_extraction_executed_again'] and argv['argv_origin_connected']
+assert not any(argv[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert argv['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 63 all-C++ argv/preparation/decoder checks; seven source bindings, four paths; Rust word pairing and listener identities pending.')

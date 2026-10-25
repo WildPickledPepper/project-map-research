@@ -1,0 +1,511 @@
+{
+  "schema": "cpp-argv-origin-control-score/1",
+  "origin": "current_cpp_source_facts_string_decoding_and_argv_origins",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:cpp-string-decoder:111764a2321e4e2bac13ede4a83e465b",
+  "build_version": {
+    "rules_commit": "edd48dc86ad474c53837f8457e82627d0faf8a0d",
+    "python": "3.11.9",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0"
+    }
+  },
+  "scope": "all_selected_cpp_source_no_cmake_context",
+  "input_count": 1323,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1323,
+    "modules": 29,
+    "nodes": 93647,
+    "edges": 115599,
+    "entries": 0,
+    "diagnostic_records": 282,
+    "providers": 0,
+    "module_relation_groups": 15
+  },
+  "decoder_summary": {
+    "adapter": "cpp_typed_string_key_slice_dispatch/0.1.0",
+    "counts": {
+      "decoders": 7
+    },
+    "required_gaps": 1
+  },
+  "cpp_source_extraction_executed_again": true,
+  "cmake_configure_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "argv_origin_connected": true,
+  "rust_argument_paired": false,
+  "backend_listener_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "argv_summary": {
+    "adapter": "cpp_contextual_entry_argv_provenance/0.1.0",
+    "entry_candidates": 1,
+    "counts": {
+      "bindings": 7,
+      "complete_origins": 7
+    },
+    "required_gaps": 0,
+    "runtime_execution": "not_observed"
+  },
+  "passed": true,
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "all_cpp_inputs",
+      "passed": true
+    },
+    {
+      "id": "seven_decoders_and_seven_bindings",
+      "passed": true
+    },
+    {
+      "id": "all_seven_origins_complete",
+      "passed": true
+    },
+    {
+      "id": "one_shared_argv_source",
+      "passed": true
+    },
+    {
+      "id": "backend_entry_path",
+      "passed": true
+    },
+    {
+      "id": "narrow_main_argv_parameter",
+      "passed": true
+    },
+    {
+      "id": "argv_entry_not_runtime_identity",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_two_source_calls",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_same_entry_origin",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_preparation_and_formal_sources",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_conditional_append_operands",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_runtime_indices_not_invented",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_source_candidate_conditions",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_two_source_calls",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_same_entry_origin",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_preparation_and_formal_sources",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_conditional_append_operands",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_runtime_indices_not_invented",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_source_candidate_conditions",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_two_source_calls",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_same_entry_origin",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_preparation_and_formal_sources",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_conditional_append_operands",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_runtime_indices_not_invented",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_source_candidate_conditions",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_two_source_calls",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_same_entry_origin",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_preparation_and_formal_sources",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_conditional_append_operands",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_runtime_indices_not_invented",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_source_candidate_conditions",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_two_source_calls",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_same_entry_origin",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_preparation_and_formal_sources",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_conditional_append_operands",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_runtime_indices_not_invented",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_source_candidate_conditions",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_two_source_calls",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_same_entry_origin",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_preparation_and_formal_sources",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_conditional_append_operands",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_runtime_indices_not_invented",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_source_candidate_conditions",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_two_source_calls",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_same_entry_origin",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_preparation_and_formal_sources",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_conditional_append_operands",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_runtime_indices_not_invented",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_source_candidate_conditions",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_decoder_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_decoder_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_parse_value_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_parse_value_in",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_entry",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_argv",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_binding",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_target",
+      "passed": true
+    },
+    {
+      "id": "no_required_argv_gaps",
+      "passed": true
+    },
+    {
+      "id": "one_prior_string_length_gap_retained",
+      "passed": true
+    },
+    {
+      "id": "argv_source_connected",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_or_rust_value_equality_claim",
+      "passed": true
+    },
+    {
+      "id": "source_extraction_and_no_hash_verification",
+      "passed": true
+    }
+  ],
+  "selected_bindings": [
+    {
+      "key": "--wsPort=",
+      "entry": {
+        "path": "server/src/entry/server/bin/main.cpp",
+        "name": "main"
+      },
+      "decoder": {
+        "path": "server/msinsight/src/base/ParamsParser.cpp",
+        "line": 38
+      },
+      "call_count": 2,
+      "origin_complete": true,
+      "origin_count": 2,
+      "conditional_append_count": 2,
+      "step_kinds": [
+        "argv_index",
+        "collection_at",
+        "formal_argument_source",
+        "local_initializer_or_reaching_assignment",
+        "standard_string_append",
+        "standard_string_from_argv_word",
+        "standard_vector_append_word"
+      ]
+    },
+    {
+      "key": "--wsHost=",
+      "entry": {
+        "path": "server/src/entry/server/bin/main.cpp",
+        "name": "main"
+      },
+      "decoder": {
+        "path": "server/msinsight/src/base/ParamsParser.cpp",
+        "line": 42
+      },
+      "call_count": 2,
+      "origin_complete": true,
+      "origin_count": 2,
+      "conditional_append_count": 2,
+      "step_kinds": [
+        "argv_index",
+        "collection_at",
+        "formal_argument_source",
+        "local_initializer_or_reaching_assignment",
+        "standard_string_append",
+        "standard_string_from_argv_word",
+        "standard_vector_append_word"
+      ]
+    },
+    {
+      "key": "--logPath=",
+      "entry": {
+        "path": "server/src/entry/server/bin/main.cpp",
+        "name": "main"
+      },
+      "decoder": {
+        "path": "server/msinsight/src/base/ParamsParser.cpp",
+        "line": 46
+      },
+      "call_count": 2,
+      "origin_complete": true,
+      "origin_count": 2,
+      "conditional_append_count": 2,
+      "step_kinds": [
+        "argv_index",
+        "collection_at",
+        "formal_argument_source",
+        "local_initializer_or_reaching_assignment",
+        "standard_string_append",
+        "standard_string_from_argv_word",
+        "standard_vector_append_word"
+      ]
+    },
+    {
+      "key": "--logLevel=",
+      "entry": {
+        "path": "server/src/entry/server/bin/main.cpp",
+        "name": "main"
+      },
+      "decoder": {
+        "path": "server/msinsight/src/base/ParamsParser.cpp",
+        "line": 50
+      },
+      "call_count": 2,
+      "origin_complete": true,
+      "origin_count": 2,
+      "conditional_append_count": 2,
+      "step_kinds": [
+        "argv_index",
+        "collection_at",
+        "formal_argument_source",
+        "local_initializer_or_reaching_assignment",
+        "standard_string_append",
+        "standard_string_from_argv_word",
+        "standard_vector_append_word"
+      ]
+    },
+    {
+      "key": "--logSize=",
+      "entry": {
+        "path": "server/src/entry/server/bin/main.cpp",
+        "name": "main"
+      },
+      "decoder": {
+        "path": "server/msinsight/src/base/ParamsParser.cpp",
+        "line": 54
+      },
+      "call_count": 2,
+      "origin_complete": true,
+      "origin_count": 2,
+      "conditional_append_count": 2,
+      "step_kinds": [
+        "argv_index",
+        "collection_at",
+        "formal_argument_source",
+        "local_initializer_or_reaching_assignment",
+        "standard_string_append",
+        "standard_string_from_argv_word",
+        "standard_vector_append_word"
+      ]
+    },
+    {
+      "key": "--eventDir=",
+      "entry": {
+        "path": "server/src/entry/server/bin/main.cpp",
+        "name": "main"
+      },
+      "decoder": {
+        "path": "server/msinsight/src/base/ParamsParser.cpp",
+        "line": 59
+      },
+      "call_count": 2,
+      "origin_complete": true,
+      "origin_count": 2,
+      "conditional_append_count": 2,
+      "step_kinds": [
+        "argv_index",
+        "collection_at",
+        "formal_argument_source",
+        "local_initializer_or_reaching_assignment",
+        "standard_string_append",
+        "standard_string_from_argv_word",
+        "standard_vector_append_word"
+      ]
+    },
+    {
+      "key": "--scanPort=",
+      "entry": {
+        "path": "server/src/entry/server/bin/main.cpp",
+        "name": "main"
+      },
+      "decoder": {
+        "path": "server/msinsight/src/base/ParamsParser.cpp",
+        "line": 63
+      },
+      "call_count": 2,
+      "origin_complete": true,
+      "origin_count": 2,
+      "conditional_append_count": 2,
+      "step_kinds": [
+        "argv_index",
+        "collection_at",
+        "formal_argument_source",
+        "local_initializer_or_reaching_assignment",
+        "standard_string_append",
+        "standard_string_from_argv_word",
+        "standard_vector_append_word"
+      ]
+    }
+  ],
+  "navigation": [
+    {
+      "id": "entry_decoder_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 3
+    },
+    {
+      "id": "entry_decoder_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 3
+    },
+    {
+      "id": "entry_parse_value_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 4
+    },
+    {
+      "id": "entry_parse_value_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 4
+    }
+  ],
+  "required_origin_gaps": []
+}
