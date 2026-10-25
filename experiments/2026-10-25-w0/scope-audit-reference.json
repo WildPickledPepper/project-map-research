@@ -1,0 +1,49 @@
+{
+  "schema":"independent-scope-audit/1",
+  "origin":"manual_source_scope_audit_reference_not_extractor_input",
+  "source_commit":"d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "profiles":[
+    {"prefix":"build","role":"build_and_packaging_support","responsibility":"Build, assemble, sign and package product artifacts; retain deployment and environment inputs","resources":["build outputs","packaged frontend/backend paths","process arguments","environment"],"evidence":{"path":"build/build.py","contains":"def assemble_profiler_runtime"}},
+    {"prefix":"docker","role":"deployment_support","responsibility":"Container services, frontend reverse proxy and TLS selection","resources":["image artifacts","listener configuration","certificates","volumes"],"evidence":{"path":"docker/supervisord.conf","contains":"[program:profiler-server]"}},
+    {"prefix":"modules","exact":true,"role":"frontend_build_and_workspace_support","responsibility":"Frontend workspace and shared build/lint configuration; individual runtime packages are reviewed separately","resources":["workspace package declarations","build configuration","frontend artifacts"],"evidence":{"path":"modules/package.json","contains":"build:release"}},
+    {"prefix":"modules/build","role":"build_support","responsibility":"Frontend build orchestration","resources":["package inputs","frontend build outputs"],"evidence":{"path":"modules/build/build.py","contains":"__main__"}},
+    {"prefix":"modules","role":"frontend_runtime_or_shared_library","responsibility":"Workspace package, exported library or nested component; expand its own source/exports and actual consumers","resources":["UI state","network request/response","shared events","styles and assets"],"evidence":{"path":"modules/pnpm-workspace.yaml","contains":"packages:"}},
+    {"prefix":"modules/leaks/src/leaksWorker","role":"background_worker_and_client","responsibility":"Worker creation, dispatch, generation identity, state/geometry production and cleanup","resources":["transferred data","worker-held state","canvas","generation and selection identity"],"evidence":{"path":"modules/leaks/src/leaksWorker/stateWorker/worker.ts","contains":"new Worker(new URL"}},
+    {"prefix":"platform","role":"platform_launcher_and_webview","responsibility":"OS/feature-selected launch, backend process/port, resource loading and shutdown; Cargo variants share source","resources":["child process","port","WebView","packaged resources","configuration"],"evidence":{"path":"platform/src/main.rs","contains":"fn main()"}},
+    {"prefix":"plugins/ProfilerServerProxy","role":"proxy_runtime_and_libraries","responsibility":"Proxy listeners, selected backend instances, HTTP/WebSocket pairs and process lifetime","resources":["client/backend sockets","server pool","observer subscriptions","child processes"],"evidence":{"path":"plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py","contains":"app.router.add_route"}},
+    {"prefix":"plugins/jupyterlab","role":"host_plugin_and_server_extension","responsibility":"TS activation, Python extension/route registration, packaged frontend and backend process management","resources":["host plugin","web_app routes","backend ports/processes","static resources","sessions"],"evidence":{"path":"plugins/jupyterlab/mindstudio_insight_jupyterlab/handlers.py","contains":"web_app.add_handlers"}},
+    {"prefix":"scripts/MemSnapDump","role":"data_tool_and_libraries","responsibility":"Snapshot ingestion, event/block modeling, cache and database conversion","resources":["pickle input","snapshot cache","database path","device-specific tables"],"evidence":{"path":"scripts/MemSnapDump/tools/adaptors/snapshot2db.py","contains":"def main()"}},
+    {"prefix":"scripts/cpu_binding_tools","role":"data_tool_and_libraries","responsibility":"Collect, associate and visualize CPU/NPU/NUMA topology and affinity","resources":["proc/device inputs","process/thread identities","CSV and visualization outputs"],"evidence":{"path":"scripts/cpu_binding_tools/cpu_affinity_data_collection.py","contains":"def main()"}},
+    {"prefix":"scripts/flame_graph","role":"data_tool","responsibility":"Convert profiling input to flame graph output","resources":["profiling input","rendered output"],"evidence":{"path":"scripts/flame_graph/flamegraph.py","contains":"def main()"}},
+    {"prefix":"scripts/ftrace_tools","role":"data_tool_and_examples","responsibility":"Trace recording, conversion, analysis and explicitly isolated host-bound experiment examples","resources":["kernel trace sources","trace/SQLite output","report output","example workload processes"],"evidence":{"path":"scripts/ftrace_tools/trace_analyze.py","contains":"def main()"}},
+    {"prefix":"scripts/memscope_adaptors","role":"data_tool_and_libraries","responsibility":"Convert profiler input to MemScope-compatible database data","resources":["profiler inputs","output database","schema and records"],"evidence":{"path":"scripts/memscope_adaptors/prof2memscope/dump.py","contains":"dump_profiler_data_to_memscope"}},
+    {"prefix":"server","exact":true,"role":"backend_build_and_configuration_support","responsibility":"Backend build/download/preprocessing and toolchain configuration; product runtime scopes are separate","resources":["third-party versions","build inputs","backend artifact","toolchain"],"evidence":{"path":"server/CMakeLists.txt","contains":"cmake_minimum_required"}},
+    {"prefix":"server/msinsight","role":"backend_shared_runtime_library","responsibility":"Native shared data/core utilities consumed by the backend","resources":["native data objects","shared utilities","runtime library interfaces"],"evidence":{"path":"server/msinsight/CMakeLists.txt","contains":"add_library"}},
+    {"prefix":"server/src","role":"backend_core_runtime","responsibility":"Server entry, protocol, dispatch, definitions and shared utilities; expand each component's actual source","resources":["listener and sessions","protocol payloads","request identities","configuration"],"evidence":{"path":"server/src/CMakeLists.txt","contains":"# src protocol"}},
+    {"prefix":"server/src/modules","role":"backend_business_runtime_or_shared_library","responsibility":"Registered handlers, implementations, data parsing/queries and response production by source component","resources":["databases and files","tables/fields","cache and shared state","tasks","response objects"],"evidence":{"path":"server/src/CMakeLists.txt","contains":"# src modules"}},
+    {"prefix":"streamer","role":"container_launcher_and_lifecycle","responsibility":"Select image/TLS/host ports/volumes, launch containers and stop by explicit selection","resources":["Docker image/container identity","host ports","certificates","mounts"],"evidence":{"path":"streamer/run_insight_streamer.py","contains":"def run_docker_container"}}
+  ],
+  "mode_axes":{
+    "desktop":{"target_os":["windows","linux","macos"],"debug_assertions":[false,true],"feature_default":[false,true],"feature_http":[false,true],"manifest_by_os":{"windows":"platform/Cargo.toml","macos":"platform/Cargo.toml","linux":"platform/linux/Cargo.toml"}},
+    "docker":{"distribution":["ubuntu","openEuler"],"tls":["http","https_mtls"],"host_port":["explicit","allocated"]},
+    "streamer_start":{"mode":["http","mtls","auto"],"certificate_input":["absent","valid_triplet","partial_or_invalid"],"host_port":["explicit","allocated"]},
+    "streamer_stop":{"selection":["name","port","image"]}
+  },
+  "additional_source_checks":[
+    {"id":"linux_manifest_selection","path":"build/build.py","contains":"os.path.join(Const.PLATFORM_DIR, 'linux', 'Cargo.toml')"},
+    {"id":"release_build","path":"build/build.py","contains":"cmd_list = [Const.CARGO, 'build', '--release']"},
+    {"id":"mac_bundle","path":"build/build.py","contains":"cmd_list = [Const.CARGO, 'bundle', '--release']"},
+    {"id":"default_dispatch","path":"platform/src/main.rs","contains":"#[cfg(feature = \"default\")]"},
+    {"id":"headless_dispatch","path":"platform/src/main.rs","contains":"#[cfg(not(feature = \"default\"))]"},
+    {"id":"linux_root_condition","path":"platform/src/main.rs","contains":"if getuid() == 0 && !allow_root()"},
+    {"id":"http_feature_declaration","path":"platform/Cargo.toml","contains":"http = []"},
+    {"id":"docker_ubuntu","path":"docker/Dockerfile.ubuntu","contains":"FROM ubuntu:22.04"},
+    {"id":"docker_openeuler","path":"docker/Dockerfile.openEuler","contains":"FROM openeuler/openeuler:24.03-lts"},
+    {"id":"auto_tls","path":"streamer/run_insight_streamer.py","contains":"mtls_enabled = args.mode == \"mtls\" or (args.mode == \"auto\" and args.cert_dir)"}
+  ],
+  "unresolved_dependencies":[
+    {"id":"headless_start_script","path":"platform/src/http.rs","contains":".join(\"start_script.py\")","missing_path":"platform/resources/profiler/start_script.py","handling":"Keep headless modes required; establish artifact/generation provenance in W2 and execute or report missing dependency in W4"},
+    {"id":"jupyter_console_entry","path":"plugins/jupyterlab/setup.py","contains":"mindstudio_insight_jupyterlab.application:main","missing_path":"plugins/jupyterlab/mindstudio_insight_jupyterlab/application.py","handling":"Keep declared console entry as unresolved launch dependency; actual server-extension registration is independently required"}
+  ],
+  "freeze_policy":{"new_modules":"Regenerate from source and add required modules/modes without business-name rules","new_mechanisms":"Add a versioned family/reference and adapter; existing absence is not N/A","revision_changes":"Record old/new identifiers, source reason and impacted assertions; preserve first results","runtime_equivalence":"No mode combinations merged for G06 before equivalence evidence","resource_scope":"Profile resources are review obligations, not proven runtime ownership"}
+}
