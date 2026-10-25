@@ -64,6 +64,11 @@ def main():
     for label,node in [('template',template),('binding',port),('target',target)]:
         proof=workspace.query('source',start=node['id'])
         check('versioned_source_'+label,proof['source_commit']==trial['source_commit'] and proof['path']==node['path'] and not proof['working_tree_read'])
+    proof=workspace.query('path',start=template['id'],target=target['id'],kinds=kinds,depth=8)
+    default_navigation={'found':proof['found'],'stop_reason':proof.get('stop_reason'),'witness_edges':len(proof['items']),
+        'output_bytes':len(json.dumps(proof,ensure_ascii=False).encode('utf-8')),'snapshot_matches':proof['snapshot']==graph['snapshot']}
+    check('selected_path_with_default_query_budget',default_navigation['found'] and default_navigation['stop_reason'] is None and
+        default_navigation['witness_edges']==4 and default_navigation['snapshot_matches'] and default_navigation['output_bytes']<=131072)
     check('current_projection_cached_native_facts',trial['current_argument_binding_executed_again'] and not trial['language_semantics_executed_again'])
     check('no_runtime_or_whole_gate_claim',not any(trial[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested',
         'product_compiled','runtime_execution','payload_value_equivalence_established','backend_listener_connected','whole_G03_accepted','original_checkout_modified')))
@@ -72,7 +77,8 @@ def main():
         'selected_chain':{'template':{'path':template['path'],'line':template['line']},'decoder':{'path':decoder['path'],'line':decoder['line']},
             'target':target['name'],'provider':provider['name'],'backend_path':path['location']['path'],'source_scope':port['source_scope'],
             'word_relation':port['prepared_value_relation'],'payload_equivalence':port['payload_equivalence']},
-        'required_binding_gaps':[{k:v for k,v in gap.items() if k not in {'source','argv_binding'}} for gap in gaps],'navigation':navigation}
+        'required_binding_gaps':[{k:v for k,v in gap.items() if k not in {'source','argv_binding'}} for gap in gaps],'navigation':navigation,
+        'default_navigation':default_navigation}
     args.output.write_text(json.dumps(score,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'passed':score['passed'],'checks':len(checks),'matches':len(matches),'required_binding_gaps':score['required_binding_gaps'],'navigation':navigation}))
     if not score['passed']:raise SystemExit('Process argument control failed; inspect saved score')

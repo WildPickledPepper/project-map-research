@@ -33,3 +33,24 @@ python experiments/2026-10-25-w1/score_process_argument_control.py --trial NEW_O
 ```
 
 下一项核对具体启动词的准备分支、数字转换及选项/监听对象身份，并继续其余冻结边界和模式。G03/G04 按完整账本验收。
+
+## Insight Windows release/default 控制
+
+规则 b41c5b7 在源码 d4e8d1c 的 1,471 输入启动控制上通过 [41 项后置检查](evidence/process-argument-control.json)。启动图沿用规则 91f16b8，Rust 参数沿用 2390be1，C++ argv 沿用 edd48dc；当前配对及索引重新执行，复用范围和规则版本分别保存。
+
+所选后端的三个启动词中，wsPort 和 logPath 各得到一条条件候选。端口关系为：
+
+```text
+default.rs:176 的 --wsPort=参数模板
+  → 同一 Command / 调用帧 / 配置下的部署程序
+  → profiler_server 的原生目标、入口及链接库范围
+  → main/argv 的准备和 ParseField 输入
+  → ParamsParser.cpp:38 的 --wsPort=检索/截取
+  → ParseWsPort
+```
+
+匹配同时核对入口和 ParamsParser.cpp 属于该原生目标的代码范围，保留 CMake 配置、源码归属、部署/物化、OS loader、字面编码及源分支条件。端口仍由 Rust default.rs:393 的动态模式投影提供。
+
+索引有 300,492 节点和 467,344 边。模板→ParseWsPort 为 4 条边，spawn→ParseWsPort 为 5 条边，绑定→原生目标为 1 条边，六个正反查全部通过。模板路径在默认查询预算下也通过，结果约 28 KB；三处固定版本源码导航通过。
+
+当前配对保留两项必需缺口：default.rs:177 的 logPath payload 来源尚未展开；:178 的 --notStrict 是字面开关，尚缺对应解码规则。其余七个词保留为本图中未绑定程序的记录。C++ 准备后的 payload 是否等于 Rust 值、数值转换、选项对象和监听端继续验证。原始 checkout 未修改，未重新核验文件哈希；G03 保持未通过。

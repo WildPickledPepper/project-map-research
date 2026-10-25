@@ -1,0 +1,355 @@
+{
+  "schema": "process-argument-control-score/1",
+  "origin": "current_argument_binding_on_versioned_startup_and_argument_facts",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:process-argument-control:840f784d8d114d2582823833b39d5380",
+  "build_version": {
+    "rules_commit": "b41c5b7cc679790d1cab058f08164998903a2519",
+    "python": "3.11.9",
+    "cached_build_versions": {
+      "startup": {
+        "rules_commit": "91f16b8169e46baabb878a5dc890802039757d7c",
+        "python": "3.11.9",
+        "cached_rule_versions": {
+          "cpp": "45a9fdca0bfe98c562d43532e07ec3b6bd8b41ac",
+          "python": "a487ce3c8af7eec95d4dc43274cbdbab34f47aa0",
+          "rust": "6038f946134f23a4a52828a1fdf9cf8a653f073c"
+        }
+      },
+      "rust_arguments": {
+        "rules_commit": "2390be16d4be33664355933fa95a4f2a24e2b3d2",
+        "python": "3.11.9",
+        "base_facts": {
+          "rules_commit": "6038f946134f23a4a52828a1fdf9cf8a653f073c",
+          "rust_tools": {
+            "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+            "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+            "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+          },
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0"
+          }
+        }
+      },
+      "cpp_argv": {
+        "rules_commit": "edd48dc86ad474c53837f8457e82627d0faf8a0d",
+        "python": "3.11.9",
+        "packages": {
+          "tree-sitter": "0.25.2",
+          "tree-sitter-language-pack": "1.20.0"
+        }
+      }
+    }
+  },
+  "scope": "cpp_cmake_python_rust_startup_argument_control",
+  "input_count": 1471,
+  "cached_argument_input_counts": {
+    "rust_arguments": 16,
+    "cpp_argv": 1323
+  },
+  "imported_argument_facts": {
+    "rust_arguments": {
+      "nodes": 32,
+      "edges": 56
+    },
+    "cpp_argv": {
+      "nodes": 15,
+      "edges": 50
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1471,
+    "modules": 29,
+    "nodes": 300492,
+    "edges": 467344,
+    "entries": 0,
+    "diagnostic_records": 16076,
+    "providers": 125,
+    "module_relation_groups": 60
+  },
+  "argument_binding_summary": {
+    "adapter": "deployed_target_command_word_argv_binding/0.1.0",
+    "counts": {
+      "words_without_bound_program": 7,
+      "words_with_bound_program": 3,
+      "matches": 2,
+      "unmatched_words": 1
+    },
+    "required_gaps": 2,
+    "runtime_execution": "not_observed",
+    "payload_equivalence": "not_established",
+    "scope": "bound_command_deployment_target_entry_and_native_source_dependencies"
+  },
+  "current_argument_binding_executed_again": true,
+  "language_semantics_executed_again": false,
+  "cmake_configure_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "product_compiled": false,
+  "runtime_execution": false,
+  "payload_value_equivalence_established": false,
+  "backend_listener_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "passed": true,
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "startup_input_scope",
+      "passed": true
+    },
+    {
+      "id": "two_sourced_word_candidates",
+      "passed": true
+    },
+    {
+      "id": "provider_native_target",
+      "passed": true
+    },
+    {
+      "id": "full_deployed_backend_path",
+      "passed": true
+    },
+    {
+      "id": "source_template_location",
+      "passed": true
+    },
+    {
+      "id": "source_command_and_context",
+      "passed": true
+    },
+    {
+      "id": "same_rust_call_context",
+      "passed": true
+    },
+    {
+      "id": "source_decoder_location",
+      "passed": true
+    },
+    {
+      "id": "argv_entry_matches_native_provider",
+      "passed": true
+    },
+    {
+      "id": "argv_origin_stays_complete",
+      "passed": true
+    },
+    {
+      "id": "parse_value_target",
+      "passed": true
+    },
+    {
+      "id": "native_file_scope",
+      "passed": true
+    },
+    {
+      "id": "native_context_carried",
+      "passed": true
+    },
+    {
+      "id": "port_payload_source_complete",
+      "passed": true
+    },
+    {
+      "id": "log_payload_unknown_preserved",
+      "passed": true
+    },
+    {
+      "id": "static_word_contribution_not_payload_equality",
+      "passed": true
+    },
+    {
+      "id": "condition_running_process_image_matches_deployment",
+      "passed": true
+    },
+    {
+      "id": "condition_deployment_artifact_lineage_matches_recorded_producer",
+      "passed": true
+    },
+    {
+      "id": "condition_target_os_loader_accepts_provider_image",
+      "passed": true
+    },
+    {
+      "id": "condition_selected_cpp_argv_occurrence_supplied_by_command_template",
+      "passed": true
+    },
+    {
+      "id": "condition_os_argv_encoding_preserves_sourced_literal_key",
+      "passed": true
+    },
+    {
+      "id": "condition_configured_cpp_preprocessor_and_source_type_context_applies",
+      "passed": true
+    },
+    {
+      "id": "condition_recorded_native_link_dependencies_supply_decoder_code",
+      "passed": true
+    },
+    {
+      "id": "condition_decoder_branch_reached_for_selected_prepared_word",
+      "passed": true
+    },
+    {
+      "id": "port_scalar_stays_symbolic",
+      "passed": true
+    },
+    {
+      "id": "two_known_required_gaps",
+      "passed": true
+    },
+    {
+      "id": "literal_switch_missing_decoder_recorded",
+      "passed": true
+    },
+    {
+      "id": "navigation_template_parse_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_template_parse_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_spawn_parse_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_spawn_parse_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_binding_native_target_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_binding_native_target_in",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_template",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_binding",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_target",
+      "passed": true
+    },
+    {
+      "id": "selected_path_with_default_query_budget",
+      "passed": true
+    },
+    {
+      "id": "current_projection_cached_native_facts",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_or_whole_gate_claim",
+      "passed": true
+    },
+    {
+      "id": "no_hash_verification",
+      "passed": true
+    }
+  ],
+  "selected_chain": {
+    "template": {
+      "path": "platform/src/default.rs",
+      "line": 176
+    },
+    "decoder": {
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 38
+    },
+    "target": "Dic::Server::ParamsParser::ParseWsPort",
+    "provider": "profiler_server",
+    "backend_path": "platform/preview/resources/profiler/server/profiler_server.exe",
+    "source_scope": {
+      "server/msinsight/src/base/ParamsParser.cpp": [
+        "server/msinsight/src/base/ParamsParser.cpp"
+      ],
+      "server/src/entry/server/bin/main.cpp": [
+        "server/src/entry/server/bin/main.cpp"
+      ]
+    },
+    "word_relation": "argument_word_may_contribute_to_decoded_input",
+    "payload_equivalence": "not_established"
+  },
+  "required_binding_gaps": [
+    {
+      "kind": "process_argument_binding_unresolved",
+      "reason": "argument_payload_source_unresolved",
+      "path": "platform/src/default.rs",
+      "line": 177,
+      "required": true
+    },
+    {
+      "kind": "process_argument_binding_unresolved",
+      "reason": "no_decoder_for_sourced_word_in_bound_program",
+      "path": "platform/src/default.rs",
+      "line": 178,
+      "required": true,
+      "literal_prefix": "--notStrict"
+    }
+  ],
+  "navigation": [
+    {
+      "id": "template_parse_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 4
+    },
+    {
+      "id": "template_parse_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 4
+    },
+    {
+      "id": "spawn_parse_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "spawn_parse_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "binding_native_target_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 1
+    },
+    {
+      "id": "binding_native_target_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 1
+    }
+  ],
+  "default_navigation": {
+    "found": true,
+    "stop_reason": null,
+    "witness_edges": 4,
+    "output_bytes": 28073,
+    "snapshot_matches": true
+  }
+}

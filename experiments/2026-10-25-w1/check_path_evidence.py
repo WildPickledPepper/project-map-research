@@ -275,3 +275,31 @@ assert not any(argv[k] for k in ('cmake_configure_executed_again','default_works
     'rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
 assert argv['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 63 all-C++ argv/preparation/decoder checks; seven source bindings, four paths; Rust word pairing and listener identities pending.')
+
+process=json.loads((Path(__file__).parent/'evidence/process-argument-control.json').read_text(encoding='utf-8'))
+assert process['schema']=='process-argument-control-score/1' and process['passed']
+assert len(process['checks'])==41 and all(c['passed'] for c in process['checks'])
+assert process['source_commit']==argv['source_commit'] and process['input_count']==1471
+assert process['build_version']['rules_commit']=='b41c5b7cc679790d1cab058f08164998903a2519'
+assert {k:v['rules_commit'] for k,v in process['build_version']['cached_build_versions'].items()}=={
+    'startup':'91f16b8169e46baabb878a5dc890802039757d7c','rust_arguments':'2390be16d4be33664355933fa95a4f2a24e2b3d2','cpp_argv':'edd48dc86ad474c53837f8457e82627d0faf8a0d'}
+assert process['cached_argument_input_counts']=={'rust_arguments':16,'cpp_argv':1323}
+assert process['index_counts']['nodes']==300492 and process['index_counts']['edges']==467344
+assert process['argument_binding_summary']['counts']=={'words_without_bound_program':7,'words_with_bound_program':3,'matches':2,'unmatched_words':1}
+assert process['argument_binding_summary']['required_gaps']==2 and process['argument_binding_summary']['payload_equivalence']=='not_established'
+assert process['selected_chain']['template']=={'path':'platform/src/default.rs','line':176}
+assert process['selected_chain']['decoder']=={'path':'server/msinsight/src/base/ParamsParser.cpp','line':38}
+assert process['selected_chain']['target']=='Dic::Server::ParamsParser::ParseWsPort' and process['selected_chain']['provider']=='profiler_server'
+assert process['selected_chain']['backend_path']=='platform/preview/resources/profiler/server/profiler_server.exe'
+assert {g['reason'] for g in process['required_binding_gaps']}=={'argument_payload_source_unresolved','no_decoder_for_sourced_word_in_bound_program'}
+assert next(g for g in process['required_binding_gaps'] if g['reason']=='no_decoder_for_sourced_word_in_bound_program')['literal_prefix']=='--notStrict'
+assert len(process['navigation'])==6 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in process['navigation'])
+assert {n['id']:n['witness_edges'] for n in process['navigation']}=={'template_parse_out':4,'template_parse_in':4,
+    'spawn_parse_out':5,'spawn_parse_in':5,'binding_native_target_out':1,'binding_native_target_in':1}
+assert process['default_navigation']['found'] and process['default_navigation']['snapshot_matches'] and process['default_navigation']['stop_reason'] is None
+assert process['default_navigation']['witness_edges']==4 and process['default_navigation']['output_bytes']<=131072
+assert process['current_argument_binding_executed_again'] and not process['language_semantics_executed_again']
+assert not any(process[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested','product_compiled','runtime_execution',
+    'payload_value_equivalence_established','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert process['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 41 deployed-program/word/argv checks; six paths and default-budget query; payload, literal-switch and listener work retained.')
