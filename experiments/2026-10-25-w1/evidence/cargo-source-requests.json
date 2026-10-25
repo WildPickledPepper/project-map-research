@@ -1,0 +1,485 @@
+{
+  "schema": "cargo-source-request-score/1",
+  "origin": "cached_source_process_facts_current_cargo_interpretation",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "build_version": {
+    "rules_commit": "b8a4779b6ee1c35f01d53f5b773e410f628f8f55",
+    "python": "3.11.9"
+  },
+  "adapter": "source_cargo_native_context_binding/0.1.0",
+  "base_process_version": {
+    "rules_commit": "a487ce3c8af7eec95d4dc43274cbdbab34f47aa0",
+    "python_components": {
+      "jedi": "0.19.2",
+      "parso": "0.8.5",
+      "python": "3.11.9"
+    },
+    "base_facts": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-control:25616103484f48dea770a5dc25e65264:before-path-projection",
+      "rules_commit": "9806c76b26190ad849e5f3d5bab82e2a106f5b78",
+      "components": [
+        "adapters/python_facts.py",
+        "adapters/python_contexts.py",
+        "adapters/python_boundaries.py"
+      ],
+      "adapter_history_unchanged": true,
+      "component_versions_unchanged": true,
+      "input_context_unchanged": true,
+      "counts": {
+        "nodes": 76402,
+        "edges": 105988
+      }
+    }
+  },
+  "base_snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-recheck:e61b7d0b9d644a37929acb3d754b5f2b",
+  "host_selection": {
+    "host_system": {
+      "name": "Windows",
+      "path_style": "windows"
+    },
+    "basis": "explicit_source_predicate_control_not_native_host_measurement"
+  },
+  "input_count": 2498,
+  "python_input_count": 119,
+  "discovered_manifests": [
+    "platform/Cargo.toml",
+    "platform/linux/Cargo.toml"
+  ],
+  "source_request_records": 2,
+  "resolved_source_requests": 1,
+  "cargo_interpreter_executed_again": true,
+  "native_semantic_stage_executed_again": false,
+  "default_workspace_rebuild": false,
+  "native_cargo_build_executed": false,
+  "product_executable_run": false,
+  "native_cargo_target_connected": false,
+  "process_counterpart_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "all_original_python_inputs",
+      "passed": true
+    },
+    {
+      "id": "two_manifests_discovered_without_business_list",
+      "passed": true
+    },
+    {
+      "id": "two_cargo_records_one_build_request",
+      "passed": true
+    },
+    {
+      "id": "one_source_resolved_request",
+      "passed": true
+    },
+    {
+      "id": "process_location",
+      "passed": true
+    },
+    {
+      "id": "caller_location",
+      "passed": true
+    },
+    {
+      "id": "exact_build_argv",
+      "passed": true
+    },
+    {
+      "id": "working_directory_from_source_root",
+      "passed": true
+    },
+    {
+      "id": "nearest_manifest_from_source_cwd",
+      "passed": true
+    },
+    {
+      "id": "release_profile_option",
+      "passed": true
+    },
+    {
+      "id": "no_explicit_features_defaults_remain_enabled",
+      "passed": true
+    },
+    {
+      "id": "target_directory_from_source_environment",
+      "passed": true
+    },
+    {
+      "id": "environment_writer_location",
+      "passed": true
+    },
+    {
+      "id": "source_environment_value_is_symbolic_root",
+      "passed": true
+    },
+    {
+      "id": "environment_source_layout_conditions_retained",
+      "passed": true
+    },
+    {
+      "id": "environment_source_conditions_enter_request",
+      "passed": true
+    },
+    {
+      "id": "unsupplied_target_environment_not_invented",
+      "passed": true
+    },
+    {
+      "id": "condition_source_process_invocation_reached_and_succeeds",
+      "passed": true
+    },
+    {
+      "id": "condition_source_executable_resolves_to_recorded_cargo",
+      "passed": true
+    },
+    {
+      "id": "condition_source_environment_operation_succeeds",
+      "passed": true
+    },
+    {
+      "id": "condition_no_unmodeled_environment_write_before_child_start",
+      "passed": true
+    },
+    {
+      "id": "condition_source_build_target_environment_and_config_equal_native_capture",
+      "passed": true
+    },
+    {
+      "id": "condition_source_cargo_configuration_toolchain_and_build_inputs_equal_native_capture",
+      "passed": true
+    },
+    {
+      "id": "fetch_does_not_become_an_executable_build",
+      "passed": true
+    },
+    {
+      "id": "source_host_selection_remains_explicit",
+      "passed": true
+    },
+    {
+      "id": "base_process_facts_version_retained",
+      "passed": true
+    },
+    {
+      "id": "interpreter_executed_again_only",
+      "passed": true
+    },
+    {
+      "id": "source_unchanged_and_no_file_hash_verification",
+      "passed": true
+    },
+    {
+      "id": "no_native_full_or_runtime_claim",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "selected_request": {
+    "path": "build/build.py",
+    "line": 644,
+    "source_caller_line": 404,
+    "argv": [
+      "cargo.exe",
+      "build",
+      "--release"
+    ],
+    "cwd": "platform",
+    "manifest": "platform/Cargo.toml",
+    "profile": "release",
+    "target_directory": "platform/target",
+    "target_directory_basis": "source_environment",
+    "target": null,
+    "target_basis": "native_context_required",
+    "features": [],
+    "no_default_features": false,
+    "environment_writer": {
+      "path": "build/build.py",
+      "line": 373,
+      "api": "os.putenv",
+      "effect": "set"
+    },
+    "conditions": [
+      {
+        "kind": "source_call_context",
+        "call": "py:build/build.py:call_site:404:14:404:71",
+        "target": "py:build/build.py:callable:642:1:650:30"
+      },
+      {
+        "kind": "native_call_argument_binding",
+        "parameter": "py:build/build.py:parameter:642:18:642:25",
+        "call": "py:build/build.py:call_site:404:14:404:71",
+        "source": "py:build/build.py:value:404:27:404:35"
+      },
+      {
+        "kind": "enclosing_source_branch",
+        "path": "build/build.py",
+        "test": "py:build/build.py:value:392:10:392:45",
+        "line": 392,
+        "polarity": false,
+        "evaluation_context": "py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A366%3A1%3A407%3A77%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A366%3A1%3A407%3A77%22%2C%5B%5D%2C%5B%5D%5D",
+        "predicate_expressions": [
+          {
+            "source": "py:build/build.py:value:392:10:392:45",
+            "polarity": false,
+            "expression": {
+              "schema": "path-expression-dag/1",
+              "root": {
+                "ref": 0
+              },
+              "terms": [
+                {
+                  "op": "compare",
+                  "operators": [
+                    "Eq"
+                  ],
+                  "source": "py:build/build.py:value:392:10:392:45",
+                  "args": [
+                    {
+                      "ref": 1
+                    },
+                    {
+                      "ref": 2
+                    }
+                  ]
+                },
+                {
+                  "op": "host_system",
+                  "source": "py:build/build.py:call_site:392:10:392:27"
+                },
+                {
+                  "op": "choice",
+                  "source": "py:build/build.py:value:392:31:392:45",
+                  "choices": [
+                    {
+                      "value": {
+                        "ref": 3
+                      },
+                      "conditions": []
+                    }
+                  ]
+                },
+                {
+                  "op": "choice",
+                  "source": "py:build/build.py:binding:50:5:50:13",
+                  "choices": [
+                    {
+                      "value": {
+                        "ref": 4
+                      },
+                      "conditions": []
+                    }
+                  ]
+                },
+                {
+                  "op": "literal",
+                  "value": "Linux",
+                  "source": "py:build/build.py:value:50:16:50:23"
+                }
+              ]
+            }
+          }
+        ],
+        "predicate_complete": true
+      },
+      {
+        "kind": "enclosing_source_branch",
+        "path": "build/build.py",
+        "test": "py:build/build.py:value:389:8:389:41",
+        "line": 389,
+        "polarity": false,
+        "evaluation_context": "py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A366%3A1%3A407%3A77%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A366%3A1%3A407%3A77%22%2C%5B%5D%2C%5B%5D%5D",
+        "predicate_expressions": [
+          {
+            "source": "py:build/build.py:value:389:8:389:41",
+            "polarity": false,
+            "expression": {
+              "schema": "path-expression-dag/1",
+              "root": {
+                "ref": 0
+              },
+              "terms": [
+                {
+                  "op": "compare",
+                  "operators": [
+                    "Eq"
+                  ],
+                  "source": "py:build/build.py:value:389:8:389:41",
+                  "args": [
+                    {
+                      "ref": 1
+                    },
+                    {
+                      "ref": 2
+                    }
+                  ]
+                },
+                {
+                  "op": "host_system",
+                  "source": "py:build/build.py:call_site:389:8:389:25"
+                },
+                {
+                  "op": "choice",
+                  "source": "py:build/build.py:value:389:29:389:41",
+                  "choices": [
+                    {
+                      "value": {
+                        "ref": 3
+                      },
+                      "conditions": []
+                    }
+                  ]
+                },
+                {
+                  "op": "choice",
+                  "source": "py:build/build.py:binding:49:5:49:11",
+                  "choices": [
+                    {
+                      "value": {
+                        "ref": 4
+                      },
+                      "conditions": []
+                    }
+                  ]
+                },
+                {
+                  "op": "literal",
+                  "value": "Darwin",
+                  "source": "py:build/build.py:value:49:14:49:22"
+                }
+              ]
+            }
+          }
+        ],
+        "predicate_complete": true
+      },
+      {
+        "kind": "If",
+        "expression": "platform.system() == Const.LINUX_OS",
+        "branch": "else",
+        "path": "build/build.py",
+        "line": 392,
+        "column": 5
+      },
+      {
+        "kind": "If",
+        "expression": "platform.system() == Const.MAC_OS",
+        "branch": "else",
+        "path": "build/build.py",
+        "line": 389,
+        "column": 5
+      },
+      {
+        "kind": "source_process_invocation_reached_and_succeeds"
+      },
+      {
+        "kind": "source_executable_resolves_to_recorded_cargo"
+      },
+      {
+        "kind": "python_conditional_expression",
+        "source": "py:build/build.py:value:81:13:81:72",
+        "branch": "body"
+      },
+      {
+        "kind": "enclosing_source_branch",
+        "path": "build/build.py",
+        "test": "py:build/build.py:value:81:28:81:59",
+        "line": 81,
+        "polarity": true,
+        "evaluation_context": "py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Atype%3A46%3A1%3A88%3A39%22%2C%22py%3Abuild%2Fbuild.py%3Atype%3A46%3A1%3A88%3A39%22%2C%5B%5D%2C%5B%5D%5D",
+        "predicate_expressions": [
+          {
+            "source": "py:build/build.py:value:81:28:81:59",
+            "polarity": true,
+            "expression": {
+              "schema": "path-expression-dag/1",
+              "root": {
+                "ref": 0
+              },
+              "terms": [
+                {
+                  "op": "compare",
+                  "operators": [
+                    "Eq"
+                  ],
+                  "source": "py:build/build.py:value:81:28:81:59",
+                  "args": [
+                    {
+                      "ref": 1
+                    },
+                    {
+                      "ref": 2
+                    }
+                  ]
+                },
+                {
+                  "op": "host_system",
+                  "source": "py:build/build.py:call_site:81:28:81:45"
+                },
+                {
+                  "op": "choice",
+                  "source": "py:build/build.py:value:81:49:81:59",
+                  "choices": [
+                    {
+                      "value": {
+                        "ref": 3
+                      },
+                      "conditions": []
+                    }
+                  ]
+                },
+                {
+                  "op": "choice",
+                  "source": "py:build/build.py:binding:48:5:48:15",
+                  "choices": [
+                    {
+                      "value": {
+                        "ref": 4
+                      },
+                      "conditions": []
+                    }
+                  ]
+                },
+                {
+                  "op": "literal",
+                  "value": "Windows",
+                  "source": "py:build/build.py:value:48:18:48:27"
+                }
+              ]
+            }
+          }
+        ],
+        "predicate_complete": true
+      },
+      {
+        "kind": "canonical_source_layout_required",
+        "source": "py:build/build.py:call_site:43:48:43:74"
+      },
+      {
+        "kind": "native_call_argument_binding",
+        "parameter": "py:build/build.py:parameter:642:27:642:31",
+        "call": "py:build/build.py:call_site:404:14:404:71",
+        "source": "py:build/build.py:value:404:37:404:55"
+      },
+      {
+        "kind": "source_environment_operation_succeeds",
+        "variable": "CARGO_TARGET_DIR"
+      },
+      {
+        "kind": "no_unmodeled_environment_write_before_child_start",
+        "variable": "CARGO_TARGET_DIR"
+      },
+      {
+        "kind": "source_build_target_environment_and_config_equal_native_capture"
+      },
+      {
+        "kind": "source_cargo_configuration_toolchain_and_build_inputs_equal_native_capture"
+      }
+    ]
+  }
+}

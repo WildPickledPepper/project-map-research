@@ -84,3 +84,29 @@ python_process_invocation
 生产混合夹具已验证源码进程调用到改名发行文件的完整正反向查询，并保留原生编译报告和源码条件。机制检查另覆盖两种布局、Windows 路径/环境键、CLI 输出目录优先、profile/manifest/target 不匹配、未知选项及多个配置。Insight 的固定版本源码配置控制随后保存独立评分。
 
 9 项新增配置/配对检查通过；完整回归运行 619 项，通过，1 项按平台跳过。随后显式加入调用到达/成功条件，47 项原生接口、源码配对、进程及生产查询相关检查通过。
+
+### Insight 源码配置控制
+
+规则 b8a4779 对源码 d4e8d1c 的已保存 Python 进程事实重跑 Cargo 配置解释，[30 项独立参考检查通过](evidence/cargo-source-requests.json)。输入按当前通用发现策略核对，119 个 Python 输入与已存事实范围一致，两个 Cargo 清单从选定输入自动取得。Python 原生语义及进程事实沿用规则 a487ce3 的版本，不重新执行。
+
+显式 Windows 源码条件下，两条 Cargo 记录中有一条可解析的 build 请求：
+
+| 字段 | 自动解释结果 |
+|---|---|
+| argv | `cargo.exe build --release` |
+| cwd | `platform`，相对于源码根 |
+| manifest | `platform/Cargo.toml`，由 cwd 向上查找 |
+| profile | `release` |
+| target-dir | `platform/target`，来自 build/build.py:373 的 os.putenv |
+| features | 未显式请求，默认 feature 保持启用 |
+| target | 未提供；保留源码环境/配置与原生上下文一致的条件 |
+
+请求来自 build/build.py:404，经包装函数到 :644 的进程 API。源码环境值中的 canonical layout 条件进入配置请求；调用到达/成功、命令身份、环境写入及外部配置条件保留。另一条 `cargo fetch` 保留为未支持的命令，未生成可执行程序构建请求。
+
+本次是当前解释器作用于旧版本事实的源码控制，没有新建生产 Workspace、重新运行语义提取、Cargo 原生构建或产品程序，也未接通 Insight 实际产物/进程对端。原始 checkout 未修改，未重新核验文件哈希。
+
+```text
+python experiments/2026-10-25-w1/run_cargo_source_requests.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --process-trial PREVIOUS_PROCESS_TRIAL --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_cargo_source_requests.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE.json
+python experiments/2026-10-25-w1/check_path_evidence.py
+```

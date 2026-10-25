@@ -48,6 +48,8 @@
 
 [源码 Cargo 请求配对](cargo-native.md#源码构建调用与原生配置配对)已接入捕获导入后的生产图：源码进程调用到原生配置、产物及改名发行文件的正反查通过，保留参数、环境来源和外部配置条件。619 项完整回归（1 项跳过）及最后 47 项相关检查通过。继续保存 Insight 固定源码配置控制并展开实际目标与 current_exe 基址连接。
 
+[Insight 源码配置控制](cargo-native.md#insight-源码配置控制)30 项独立检查通过：Windows 条件下自动得到 cwd、最近 Cargo 清单、release、输出目录及默认 feature 请求，未给定 target 的环境/配置条件保留。当前解释器复用版本固定的 Python 事实，实际 Cargo 目标/产物和 current_exe 基址连接继续实施。
+
 复现使用既有 CGC 环境，以下路径均由调用方提供，输出需为仓库外新目录：
 
 ```text

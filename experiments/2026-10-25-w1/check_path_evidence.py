@@ -146,3 +146,25 @@ assert not any(process[k] for k in ('default_workspace_rebuild','installed_tool_
     'cargo_native_target_connected','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
 assert process['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 32 real process argv/cwd/environment and index checks; Cargo native artifacts and runtime pairing remain separate.')
+
+cargo=json.loads((Path(__file__).parent/'evidence/cargo-source-requests.json').read_text(encoding='utf-8'))
+assert cargo['schema']=='cargo-source-request-score/1' and cargo['passed']
+assert len(cargo['checks'])==30 and all(c['passed'] for c in cargo['checks'])
+assert cargo['source_commit']==process['source_commit']
+assert cargo['build_version']['rules_commit']=='b8a4779b6ee1c35f01d53f5b773e410f628f8f55'
+assert cargo['base_process_version']==process['build_version']
+assert cargo['python_input_count']==119 and cargo['source_request_records']==2 and cargo['resolved_source_requests']==1
+assert set(cargo['discovered_manifests'])=={'platform/Cargo.toml','platform/linux/Cargo.toml'}
+request=cargo['selected_request']
+assert request['argv']==['cargo.exe','build','--release'] and request['profile']=='release'
+assert request['cwd']=='platform' and request['manifest']=='platform/Cargo.toml'
+assert request['target_directory']=='platform/target' and request['target_directory_basis']=='source_environment'
+assert request['target'] is None and request['target_basis']=='native_context_required'
+assert request['features']==[] and request['no_default_features'] is False
+assert request['environment_writer']=={'path':'build/build.py','line':373,'api':'os.putenv','effect':'set'}
+assert any(c['kind']=='canonical_source_layout_required' for c in request['conditions'])
+assert cargo['cargo_interpreter_executed_again'] and not cargo['native_semantic_stage_executed_again']
+assert not any(cargo[k] for k in ('default_workspace_rebuild','native_cargo_build_executed','product_executable_run',
+    'native_cargo_target_connected','process_counterpart_connected','whole_G03_accepted','original_checkout_modified'))
+assert cargo['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 30 current Cargo source-request checks on pinned process facts; actual product target/artifact binding remains pending.')
