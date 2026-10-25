@@ -115,8 +115,10 @@ class Extractor:
                     simple_name=label,definition=node.type!='function_signature_item',
                     resolution='requires_native_context' if kind=='module_reference' else 'source_declaration')
                 if node.type!='source_file':self.edge(self.owner(path,node),uid,'CONTAINS_SYMBOL',node,path)
+                if kind=='module_reference' and name is not None:self.references[uid]=(path,name)
                 if node.type in CALLABLES:
                     self.nodes[uid]['trait_signature']=node.type=='function_signature_item'
+                    self.nodes[uid]['trait_member']=any(a.type=='trait_item' for a in parents(node))
                     params=node.child_by_field_name('parameters')
                     for i,param in enumerate(params.named_children if params else []):
                         pattern=param.child_by_field_name('pattern') or (param if param.type in {'identifier','self_parameter'} else None)
