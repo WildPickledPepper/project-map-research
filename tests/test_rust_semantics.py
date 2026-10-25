@@ -43,6 +43,17 @@ class RustSemanticsTests(unittest.TestCase):
         self.assertEqual({(a['name'],b['path'],b['name']) for a,b,e in pairs},{('api::invoke','src/left.rs','run')})
         self.assertTrue(any(b['path']=='src/left.rs' for a,b,e in self.pairs(g,'IMPORTS_MODULE')))
 
+    def test_native_for_binding_does_not_leak_to_outer_or_adjacent_loop(self):
+        g=self.graph({'src/lib.rs':'fn take(_: &str){} fn entry(){let piece="outer";for piece in ["a"]{take(piece);}for piece in ["b"]{take(piece);}take(piece);}'})
+        arguments=[(a,b,e) for a,b,e in self.pairs(g,'READS_BINDING') if a.get('expression')=='piece']
+        self.assertEqual(len(arguments),3)
+        self.assertEqual(len({b['id'] for a,b,e in arguments}),3)
+        for source,binding,edge in arguments:
+            if binding.get('binding_kind')=='for_pattern':
+                self.assertLess(binding['scope_range']['start_byte'],source['start_byte'])
+                self.assertGreater(binding['scope_range']['end_byte'],source['end_byte'])
+            else:self.assertEqual(binding['binding_kind'],'let_declaration')
+
     def test_receiver_impl_self_parameter_and_call_arguments(self):
         g=self.graph({'src/lib.rs':'struct A;struct B;impl A{fn run(&self,value:u8){}}impl B{fn run(&self,value:u8){}}fn entry(){let a=A;a.run(3);}'})
         self.assertEqual({b['name'] for a,b,e in self.pairs(g,'STATIC_CALL_TARGET')},{'A::run'})

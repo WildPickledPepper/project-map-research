@@ -50,6 +50,30 @@ class RustSyntaxFactsTests(unittest.TestCase):
         self.assertTrue(self.pairs(g,'PATTERN_VALUE_SOURCE'));self.assertTrue(self.pairs(g,'VALUE_SOURCE'))
         self.assertTrue(self.pairs(g,'WRITES_VALUE'))
 
+    def test_for_patterns_have_distinct_scopes_and_iterated_source(self):
+        code='fn entry(){let piece="outer";for piece in ["a","b"] {use_it(piece);}for (piece,index) in pairs(){use_it(piece);}use_it(piece);}'
+        _,g=self.graph({'source.rs':code})
+        loops=[n for n in g['nodes'] if n['kind']=='iteration']
+        self.assertEqual(len(loops),2)
+        bindings=[n for n in g['nodes'] if n.get('binding_kind')=='for_pattern']
+        self.assertEqual(len(bindings),3)
+        self.assertEqual(len({n['id'] for n in g['nodes'] if n['kind']=='binding' and n['name']=='piece'}),3)
+        self.assertTrue(all(b['scope_range']['start_byte']>b['end_byte'] for b in bindings))
+        projected=self.pairs(g,'ITERATES_VALUE')
+        self.assertEqual(len(projected),3)
+        self.assertTrue(any(b.get('collection_kind')=='array' and not e['projection'] for a,b,e in projected))
+        self.assertEqual(sum(e['projection'] for a,b,e in projected),2)
+
+    def test_array_order_and_repeat_length_have_separate_roles(self):
+        _,g=self.graph({'x.rs':'const PARTS:[&str;3]=["assets","server","worker"];fn go(){for item in PARTS {}for item in ["x";2] {}}'})
+        components=self.pairs(g,'VALUE_COMPONENT')
+        arrays={n['id']:n for n in g['nodes'] if n.get('collection_kind') in {'array','array_repeat'}}
+        normal=next(n for n in arrays.values() if n['collection_kind']=='array')
+        self.assertEqual([(e['index'],b['expression']) for a,b,e in components if a['id']==normal['id']],[(0,'"assets"'),(1,'"server"'),(2,'"worker"')])
+        repeated=next(n for n in arrays.values() if n['collection_kind']=='array_repeat')
+        self.assertEqual([(b['expression'],e['collection_role']) for a,b,e in components if a['id']==repeated['id']],
+                         [('"x"','element'),('2','repeat_count')])
+
     def test_call_argument_and_builder_receiver_structure(self):
         x,g=self.graph({'x.rs':'fn entry(){Command::new("tool").arg("--port").spawn();}'})
         receivers=self.pairs(g,'CALL_RECEIVER')

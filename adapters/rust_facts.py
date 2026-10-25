@@ -134,6 +134,17 @@ class Extractor:
                         declared_type=text(node.child_by_field_name('type')),binding_kind=node.type,
                         pattern=text(pattern),pattern_projection=pattern is not None and pattern.type!='identifier')
                     self.edge(self.owner(path,node),uid,'DECLARES_BINDING',named,path)
+            elif node.type=='for_expression':
+                pattern=node.child_by_field_name('pattern');body=node.child_by_field_name('body')
+                loop=self.add(path,node,'iteration',text(pattern),iteration_kind='for',
+                    body_range={'start_byte':body.start_byte,'end_byte':body.end_byte} if body else None)
+                self.edge(self.owner(path,node),loop,'OBSERVES_ITERATION',node,path)
+                for index,named in enumerate(pattern_names(pattern)):
+                    binding=self.add(path,named,'binding',text(named),declaration=named,
+                        declared_type='',binding_kind='for_pattern',iteration=loop,pattern=text(pattern),
+                        pattern_projection=pattern is not None and pattern.type!='identifier',pattern_index=index,
+                        scope_range={'start_byte':body.start_byte,'end_byte':body.end_byte} if body else None)
+                    self.edge(loop,binding,'ITERATION_BINDING',named,path,index=index)
             elif node.type=='use_declaration':
                 self.imports(path,node,node.child_by_field_name('argument'),'')
 
@@ -186,6 +197,8 @@ class Extractor:
                 if child.type in {'identifier','string_literal','raw_string_literal'} and child.id!=(macro.id if macro else None):
                     self.edge(uid,self.value(path,child),'MACRO_TOKEN',child,path,status='requires_macro_semantics')
         else:
+            if node.type in {'array_expression','tuple_expression'}:
+                self.nodes[uid]['collection_kind']='array_repeat' if node.child_by_field_name('length') else 'array' if node.type=='array_expression' else 'tuple'
             if node.type in {'identifier','self','field_expression','scoped_identifier'}:
                 token=callee_token(node)
                 if token is not None:self.references[uid]=(path,token)
@@ -193,9 +206,12 @@ class Extractor:
                 receiver=node.child_by_field_name('value')
                 if receiver is not None:self.edge(uid,self.value(path,receiver),'VALUE_COMPONENT',receiver,path,component=text(node.child_by_field_name('field')))
             elif node.type not in {'identifier','scoped_identifier','self','string_literal','raw_string_literal','type_identifier'}:
-                for child in node.named_children:
+                for index,child in enumerate(node.named_children):
                     if child.type in {'type_arguments','primitive_type','type_identifier'}:continue
-                    self.edge(uid,self.value(path,child),'VALUE_COMPONENT',child,path,component=child.type)
+                    extra={}
+                    if node.type in {'array_expression','tuple_expression'}:
+                        extra={'index':index,'collection_role':'repeat_count' if child==node.child_by_field_name('length') else 'element'}
+                    self.edge(uid,self.value(path,child),'VALUE_COMPONENT',child,path,component=child.type,**extra)
         return uid
 
     def relations(self,path,root):
@@ -220,6 +236,15 @@ class Extractor:
                     self.edge(uid,self.value(path,tail),'RETURNS_VALUE',tail,path,return_kind='tail_expression')
             elif node.type=='return_expression' and node.named_children:
                 self.edge(self.owner(path,node,callable_only=True),self.value(path,node.named_children[-1]),'RETURNS_VALUE',node,path,return_kind='return_expression')
+            elif node.type=='for_expression':
+                loop=self.ids[(path,node.id)];value=node.child_by_field_name('value')
+                if value is not None:
+                    origin=self.value(path,value)
+                    self.edge(loop,origin,'ITERATION_SOURCE',node,path)
+                    for named in pattern_names(node.child_by_field_name('pattern')):
+                        binding=self.ids[(path,named.id)]
+                        self.edge(binding,origin,'ITERATES_VALUE',node,path,status='element_projection',iteration=loop,
+                                  pattern=self.nodes[binding]['pattern'],projection=self.nodes[binding]['pattern_projection'])
             elif node.type=='impl_item':
                 for field,kind in [('trait','IMPLEMENTS_TRAIT'),('type','IMPLEMENTS_TYPE')]:
                     target=node.child_by_field_name(field)

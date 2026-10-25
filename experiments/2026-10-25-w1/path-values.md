@@ -1,10 +1,12 @@
 # 启动路径值传播：已验证的基础与待补关系
 
-2026-10-25，已执行 Windows/std-only 独立 Rust 探针，[5 项检查通过](evidence/native-path-primitives.json)。该结果固定当前原生能力和缺口，尚未交付路径传播或进程对端配对。
+2026-10-25，已执行 Windows/std-only 独立 Rust 探针，[5 项检查通过](evidence/native-path-primitives.json)。该记录固定规则 07dcab6 的原生能力和缺口。循环基础事实现已补齐，完整路径传播及进程对端配对继续实施。
 
 原生 rust-analyzer 已将 to_path_buf、push、set_extension 绑定到标准库 Path/PathBuf 声明；同名本地 PathBuf.push 没有被归为标准库。真实平台代码中这些 API 也已有原生声明身份。路径适配可以复用这些身份，避免按调用拼写识别库语义。
 
-当前统一语法事实尚未为 for 循环的 piece 建立 binding。探针保留常量数组、循环、调用及 cfg(windows)，但没有把数组元素依次追加到路径的结果。待补关系是变量绑定、循环元素来源及按接收者/位置保存的路径变更。
+原探针的统一语法事实没有为 for 循环的 piece 建立 binding。它保留常量数组、循环、调用及 cfg(windows)，尚未表示依次追加后的路径结果。
+
+循环基础事实已实现：每个 for 有独立 iteration，绑定记录有效范围和模式投影；ITERATION_SOURCE / ITERATES_VALUE 保存元素来源，数组/元组成员保存顺序，重复数组的长度单列 repeat_count。原生定义导航将两个相邻循环的同名变量及外层同名变量分别绑定。新增 2 项语法、1 项原生语义检查，与既有 Rust 检查共 25 项通过；首轮数组元数据分支位置错误已由测试发现并修正。路径变更后的值由下一步适配计算。
 
 接下来按三段连接：
 
