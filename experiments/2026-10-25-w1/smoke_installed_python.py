@@ -43,6 +43,10 @@ def main():
         'odd_workspace/pkg/logic.py':'from .store import read_value\nclass Engine:\n def fetch(self): return read_value()\n',
         'odd_workspace/pkg/store.py':'def read_value(): return 7\n',
         'elsewhere/pkg/__init__.py':'','elsewhere/pkg/store.py':'def read_value(): return -99\n',
+        'namespace_case/start.py':'from support.worker import perform\nif __name__ == "__main__": perform()\n',
+        'namespace_case/common.py':'def provide(): return 1\n',
+        'namespace_case/support/worker.py':'import common\ndef perform(): return common.provide()\n',
+        'namespace_case/support/common.py':'def provide(): return -1\n',
         'view/start.ts':"import {paint} from './helper.js';export function render(){return paint();}",
         'view/helper.js':'export function paint(){return 1;}',
         'native/main.cpp':'int query_value(){return 1;}\nint enter(){return query_value();}'})
@@ -59,6 +63,11 @@ def main():
     check('same_version_python_source',cli('query','source','--start',target['id'])['source_commit']==first)
     check('cpp_symbols_retained',bool(symbol('query_value')))
     check('mixed_ts_js_path_retained',has_path(symbol('render')[0]['id'],symbol('paint')[0]['id']))
+    namespace_start=symbol('perform')[0];providers=symbol('provide')
+    actual=next(n for n in providers if n['path']=='namespace_case/common.py')
+    near_decoy=next(n for n in providers if n['path']=='namespace_case/support/common.py')
+    check('namespace_uses_importing_entry_root',has_path(namespace_start['id'],actual['id']))
+    check('nearby_namespace_decoy_not_connected',not has_path(namespace_start['id'],near_decoy['id']))
     check('unchanged_snapshot_reused',cli('update')['status']=='unchanged')
     save({'odd_workspace/pkg/extra.py':'def extend(value): return value*2\n',
         'odd_workspace/pkg/store.py':'from .extra import extend\ndef read_value(): return extend(7)\n'})

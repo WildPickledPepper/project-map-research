@@ -1,0 +1,117 @@
+{
+  "schema": "installed-python-smoke/1",
+  "source_commits": [
+    "c1061b08a8ebe439cc38478389c956d464a4ac80",
+    "aeb9c4754baa52b09fe922244eb112679becd4ee"
+  ],
+  "installed_rules_commit": "81e97f21d37b0fe70a0a3739859c0bea68590ccf",
+  "checks": [
+    {
+      "id": "installed_package_isolated",
+      "passed": true
+    },
+    {
+      "id": "real_default_build_ready",
+      "passed": true
+    },
+    {
+      "id": "package_reexport_class_method_and_relative_call",
+      "passed": true
+    },
+    {
+      "id": "reverse_python_path",
+      "passed": true
+    },
+    {
+      "id": "same_name_other_package_not_connected",
+      "passed": true
+    },
+    {
+      "id": "same_version_python_source",
+      "passed": true
+    },
+    {
+      "id": "cpp_symbols_retained",
+      "passed": true
+    },
+    {
+      "id": "mixed_ts_js_path_retained",
+      "passed": true
+    },
+    {
+      "id": "namespace_uses_importing_entry_root",
+      "passed": true
+    },
+    {
+      "id": "nearby_namespace_decoy_not_connected",
+      "passed": true
+    },
+    {
+      "id": "unchanged_snapshot_reused",
+      "passed": true
+    },
+    {
+      "id": "new_revision_rejects_stale_map",
+      "passed": true
+    },
+    {
+      "id": "new_module_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "new_module_connected",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_identity",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_connected",
+      "passed": true
+    },
+    {
+      "id": "deleted_provider_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "deleted_definition_removed",
+      "passed": true
+    },
+    {
+      "id": "missing_import_remains_queryable",
+      "passed": true
+    },
+    {
+      "id": "tool_did_not_mutate_source",
+      "passed": true
+    },
+    {
+      "id": "runtime_evidence_not_fabricated",
+      "passed": true
+    },
+    {
+      "id": "historical_assets_disabled",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "build_counts": {
+    "tracked_files": 13,
+    "input_files": 13,
+    "modules": 5,
+    "nodes": 53,
+    "edges": 64,
+    "entries": 0,
+    "diagnostic_records": 108,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "source_modified_by_tool": false,
+  "historical_assets_enabled": false,
+  "execution": "installed CLI in isolated Python mode; production builder and navigation; analyzed source was not executed"
+}

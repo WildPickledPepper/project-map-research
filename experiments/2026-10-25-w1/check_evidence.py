@@ -39,4 +39,11 @@ assert installed['passed'] and len(installed['checks'])==22 and all(c['passed'] 
 assert installed['installed_rules_commit']==rules and not installed['source_modified_by_tool'] and not installed['historical_assets_enabled']
 assert {'added_module_connected','renamed_module_connected','deleted_definition_removed','same_name_decoy_not_connected'}<={c['id'] for c in installed['checks']}
 assert not scope['whole_G02_accepted'] and not scope['runtime_execution']
-print('OK: native 185-file baseline; JS 53-file coverage, two 14-check chains and 22 installed CLI checks; G02 remains pending.')
+python_installed=json.loads((ROOT/'evidence/python-installed.json').read_text(encoding='utf-8'))
+assert python_installed['passed'] and len(python_installed['checks'])==23 and all(c['passed'] for c in python_installed['checks'])
+assert python_installed['installed_rules_commit']=='81e97f21d37b0fe70a0a3739859c0bea68590ccf'
+assert not python_installed['source_modified_by_tool'] and not python_installed['historical_assets_enabled']
+assert {'namespace_uses_importing_entry_root','nearby_namespace_decoy_not_connected',
+    'new_module_connected','renamed_module_connected','deleted_definition_removed',
+    'missing_import_remains_queryable','runtime_evidence_not_fabricated'}<={c['id'] for c in python_installed['checks']}
+print('OK: native 185-file baseline; JS 53-file coverage, two 14-check chains and 22 installed CLI checks; Python 23 installed CLI checks; G02 remains pending.')
