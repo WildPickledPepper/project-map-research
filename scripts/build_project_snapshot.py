@@ -72,8 +72,10 @@ def build(source, request, output, log, *, typescript):
         print('Extract Python declarations, values and Jedi references', file=log, flush=True)
         from adapters.python_facts import analyze as python_facts
         from adapters.python_boundaries import augment as python_boundaries
+        from adapters.python_path_values import augment as python_path_values
         python=python_facts(source,paths,emit=lambda row:print('Python '+json.dumps(row),file=log,flush=True))
         python=python_boundaries(python)
+        python=python_path_values(source,python)
         write_json(output/'python-facts.json',python)
     rust={'nodes':[],'edges':[],'diagnostics':[],'coverage':[],'limits':[]}
     rust_paths=[p for p in paths if Path(p).suffix=='.rs']
@@ -97,7 +99,8 @@ def build(source, request, output, log, *, typescript):
         'provenance': {'reference_used_for_extraction': False, 'file_hash_verification': 'not_run_per_user_preference',
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
-    if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components']}
+    if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components'],
+        'path_values':'import_bound_paths_and_file_operations/0.1.0'}
     if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components'],
         'path_values':'native_bound_positioned_paths/0.1.0'}
     from adapters.cmake_project import extract as cmake_facts, roots as cmake_roots

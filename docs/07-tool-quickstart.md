@@ -33,6 +33,8 @@ project-map --workspace WORKSPACE query source --start NODE_ID
 
 `python_boundary` 保留监听、路由、连接和进程接口的 API、参数来源、应用归属及待匹配状态。`entries` / `providers` 当前展示已有协议适配结果；Python 边界通过 `search` / `detail` 查询。JS/TS 的模块导入使用 `module_reference`、`CONTAINS_IMPORT` 和 `IMPORTS_MODULE`；Python 参数与值来源使用 `CALL_ARGUMENT`、`BINDS_ARGUMENT`、`READS_BINDING`、`VALUE_SOURCE` 等边。可用 `--kinds TYPE1,TYPE2` 限定遍历关系。
 
+Python 的 `python_file_operation` 表示经导入绑定确认的 shutil 复制/移动或 os 改名操作；FILE_SOURCE、FILE_DESTINATION 连接两端参数，PATH_VALUE_CANDIDATE、PATH_COMPONENT_SOURCE 展开路径及常量来源。文件精确目标、目录复制根、可能已存在的目标目录分别记录，复制选项保留原参数。每个候选标明 Windows/Posix 路径解释及源码条件。跨函数参数和目录枚举继续展开，当前映射状态见 [Python 打包适配](../experiments/2026-10-25-w1/python-packaging.md)。
+
 查询结果带版本、预算和停止原因。静态候选与源码依赖用于查找可能的关系；实际执行由相同版本与场景的运行记录验证。未解析的调用和导入保留在节点的 `resolution` / `reason` 中，可用 `status` / `detail` 检查；`diagnostics` 汇总解析与其他诊断。源码工作区的未提交修改需要另读 diff。
 
 Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验证组合为 Rust 1.94.0 与 rust-analyzer 2026-10-19 发布版。可通过 PATH 或 `PROJECT_MAP_CARGO`、`PROJECT_MAP_RUSTC`、`PROJECT_MAP_RUST_ANALYZER` 指定可执行文件。`doctor` 单列这些检查。分析器使用导出副本与离线 Cargo metadata，禁用构建脚本和 proc-macro；外部依赖须已存在于调用方的 Cargo 缓存。缺少工具或上下文时保留语法事实及必需缺项，不记为完整 Rust 语义覆盖。

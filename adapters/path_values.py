@@ -4,6 +4,8 @@ No filesystem access, symlink resolution or analyzed-code execution occurs here.
 Native-language adapters must establish library API identity before using terms.
 """
 from pathlib import PurePosixPath, PureWindowsPath
+import ntpath
+import posixpath
 
 
 def literal(value): return {'op':'literal','value':value}
@@ -47,6 +49,13 @@ def normalize(term, style, *, max_candidates=32):
     def scalar_uncached(current):
         if current['op']=='literal' and isinstance(current.get('value'),str):return [(current['value'],[])]
         if current['op']=='choice':return [(value,conditions+choice.get('conditions',[])) for choice in current['choices'] for value,conditions in scalar(choice['value'])]
+        if current['op']=='python_join':
+            rows=[('',[])]
+            for argument in current['args']:
+                rows=[((ntpath if style=='windows' else posixpath).join(left,right) if left is not None and right is not None else None,a+b)
+                      for left,a in rows for right,b in scalar(argument)]
+                if len(rows)>max_candidates:return [(None,[{'kind':'path_scalar_candidate_budget'}])]
+            return rows
         if current['op'] in {'some','unwrap','borrow','clone','to_path_buf','as_path'}:return scalar(current['args'][0])
         return [(None,[])]
     def evaluate_uncached(current):
@@ -55,6 +64,9 @@ def normalize(term, style, *, max_candidates=32):
             if not isinstance(current['value'],str):return [incomplete(blank(),'non_string_path_literal')]
             return [text_path(current['value'])]
         if op=='symbol':return [{**blank(),'base':{'kind':current['kind'],'source':current['source']}}]
+        if op=='source_file':
+            return [{**blank(),'base':{'kind':'source_root','source':current['source']},
+                     'segments':list(PurePosixPath(current['path']).parts)}]
         if op=='current_executable':
             return [{**blank(),'base':{'kind':'current_executable','source':current['source'],
                                       'workspace':current.get('workspace'),'call_stack':current.get('call_stack',[])}}]
@@ -67,6 +79,36 @@ def normalize(term, style, *, max_candidates=32):
             return bounded(rows)
         if op=='none':return []
         args=current.get('args',[])
+        if op=='python_join':
+            texts=scalar(current)
+            if all(text is not None for text,_ in texts):
+                return [{**text_path(text),'conditions':conditions} for text,conditions in texts]
+            combined=args[0]
+            for argument in args[1:]:combined=operation('join',combined,argument)
+            return evaluate(combined)
+        if op=='python_realpath':
+            rows=[]
+            for value in evaluate(args[0]):
+                if value['base'] and value['base']['kind']=='source_root' and not value['unresolved']:
+                    rows.append({**value,'base':{**value['base'],'kind':'canonical_source_root'},
+                        'conditions':value['conditions']+[{'kind':'canonical_source_layout_required','source':current.get('source')}]})
+                else:rows.append(incomplete(value,'realpath_requires_filesystem_context',current.get('source')))
+            return rows
+        if op in {'python_dirname','python_parent'}:
+            if op=='python_dirname':
+                texts=scalar(args[0])
+                if all(text is not None for text,_ in texts):
+                    return [{**text_path((ntpath if style=='windows' else posixpath).dirname(text)),'conditions':conditions} for text,conditions in texts]
+                if args[0]['op'] not in {'source_file','python_realpath','python_dirname'}:
+                    return [incomplete(v,'python_dirname_requires_lexical_source_spelling',current.get('source')) for v in evaluate(args[0])]
+            rows=[]
+            for value in evaluate(args[0]):
+                if value['unresolved']:rows.append(incomplete(value,'parent_after_unresolved_path'));continue
+                if value['segments']:rows.append({**value,'segments':value['segments'][:-1]})
+                elif value['base'] and value['base']['kind']!='literal_anchor':
+                    rows.append({**value,'base':{'kind':'parent_of','base':value['base']}})
+                else:rows.append(value)
+            return rows
         if op in {'some','clone','as_path','to_path_buf','borrow'}:
             return evaluate(args[0])
         if op in {'unwrap','assume_pattern'}:

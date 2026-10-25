@@ -82,6 +82,8 @@ class FullSnapshotTests(unittest.TestCase):
             root=Path(tmp);source=root/'source';source.mkdir();output=root/'output';output.mkdir()
             files={'start.py':'''from aiohttp import web
 from handlers import serve
+import os,shutil
+shutil.copytree(os.path.join('native','payload'),os.path.join('package','resources'))
 app=web.Application()
 app.router.add_get('/source',serve)
 runner=web.AppRunner(app)
@@ -101,6 +103,9 @@ site=web.TCPSite(runner,'127.0.0.1',9100)
             self.assertEqual({r['path']:r['status'] for r in graph['coverage'] if r['path'].endswith('.py')},
                              {'start.py':'parsed','handlers.py':'parsed'})
             self.assertEqual(graph['extractors']['python']['components']['jedi'],'0.19.2')
+            self.assertTrue(any(n['kind']=='python_file_operation' and n['destination_semantics']==['directory_root'] for n in graph['nodes']))
+            self.assertTrue(any(n['kind']=='path_value' and n.get('language')=='python' and n['value']['relative_path']=='native/payload' for n in graph['nodes']))
+            self.assertTrue(any(e['kind']=='FILE_SOURCE' for e in graph['edges']))
 
     def test_complete_rebuild_recomputes_cross_file_protocol_matching(self):
         with tempfile.TemporaryDirectory() as tmp:
