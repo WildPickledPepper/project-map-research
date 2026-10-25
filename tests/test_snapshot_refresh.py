@@ -1,5 +1,6 @@
 from copy import deepcopy
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
@@ -193,6 +194,16 @@ class RefreshTests(unittest.TestCase):
             with self.assertRaises(refresh.RefreshBusy): self.runner().run()
             self.write_commit({'a.ts': 'target committed before recovery'})
             proc.kill(); proc.wait(timeout=10)
+            # Keep the live-worker exclusion assertion above. After termination,
+            # Windows cleanup may briefly outlive the process wait notification.
+            deadline=time.monotonic()+2
+            while True:
+                try:
+                    with refresh.writer_lock(self.store):pass
+                    break
+                except refresh.RefreshBusy:
+                    if os.name!='nt' or time.monotonic()>=deadline:raise
+                    time.sleep(0.01)
             after = self.runner().run(); self.assertEqual(after['status'], 'up_to_date')
             self.assertEqual(self.graph()['nodes'][0]['content'], 'target committed before recovery')
             failure = json.loads((self.store/'attempts'/(during['current_attempt']['id']+'.json')).read_text(encoding='utf-8'))
