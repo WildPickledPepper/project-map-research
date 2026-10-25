@@ -64,7 +64,8 @@ def build(source, request, output, log, *, typescript):
     print('Extract C++ declarations and protocol', file=log, flush=True)
     inputs = {p: (source/p).read_bytes() for p in paths if Path(p).suffix in {'.h', '.hpp', '.cpp', '.cc', '.cxx'}}
     extractor = DataExtractor(inputs, pack.get_parser('cpp'))
-    cpp = ProtocolExtractor({}, None, extractor=extractor.x, facts=extractor.facts, value_types=extractor.types).build()
+    protocol_engine = ProtocolExtractor({}, None, extractor=extractor.x, facts=extractor.facts, value_types=extractor.types)
+    cpp = protocol_engine.build()
     ts = ts_phase('typescript_protocol_flow.cjs'); facts = cpp['facts']
     python={'nodes':[],'edges':[],'diagnostics':[],'coverage':[],'limits':[]}
     python_paths=[p for p in paths if Path(p).suffix in {'.py','.pyi'}]
@@ -140,6 +141,9 @@ def build(source, request, output, log, *, typescript):
     print('Protocol joins ' + json.dumps(dict(Counter(r['status'] for r in graph['protocol']['results']))), file=log, flush=True)
     print('Extract C++ data, objects and fields', file=log, flush=True)
     graph = data_graph(graph, extractor.build(), paths)
+    from adapters.cpp_string_decoders import augment as string_decoders
+    graph = string_decoders(graph,extractor,protocol_engine)
+    graph['extractors']['cpp_string_decoders']=graph['cpp_string_decoders']['adapter']
     # Node phases consume boundary identities, never the multi-hundred-MB graph.
     write_json(checkpoint, {'project_map_phase': 'frontend', 'api_symbols': sorted({
         e['source'] for e in graph['edges'] if e['kind'] == 'EMITS_MESSAGE'})})

@@ -6,6 +6,8 @@
 
 [真实共同端口控制](rust-arguments.md#insight-windows-releasedefault-控制)已通过 45 项检查和六项正反查：Windows release/default 的后端 `--wsPort=` 参数与 WebView `?port=` 连接到同一个动态 Some(port) 来源。其他模板中的六项具体缺口继续保留；下一段连接 C++ 参数解码和监听端。
 
+[C++ 字符串解码](cpp-string-decoders.md)已接入默认建图：从类型、常量键、检索/截取及分支恢复转交到目标函数的候选，11 项独立机制和六项完整 builder 检查通过。继续绑定 argv、可执行文件及选项/监听实例。
+
 ## 原生组件基线
 
 [实测结果](evidence/native-summary.json)来自原版 CGC `0.6.13` / `93c9685bff9151f50a3121e9913e5ba2d27c1191`，源码为 Insight `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。全部目标语言文件从 Git blobs 导出到独立目录；上游实现和原始 checkout 均未修改，未重新核验文件哈希。

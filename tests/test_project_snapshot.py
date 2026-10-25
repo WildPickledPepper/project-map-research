@@ -94,7 +94,12 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
             files={'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Neutral LANGUAGES CXX)\nadd_subdirectory(third_party)\nadd_executable(service_app ../src/entry.cpp)\ntarget_link_libraries(service_app PRIVATE helper)\nset_target_properties(service_app PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../native-output")\n',
                 'compile/third_party/CMakeLists.txt':'add_library(helper STATIC ../../src/helper.cpp)\n',
                 'src/helper.cpp':'int helper(){return 2;}\n',
-                'src/entry.cpp':'int main(){return 0;}\n', 'client/view.ts':'export function show(){return 1;}\n',
+                'src/entry.cpp':'''#include <string>
+const std::string key="--socket-renamed=";
+bool receive(const std::string& value){return true;}
+bool decode(const std::string& word){auto position=word.find(key);if(position!=std::string::npos){return receive(word.substr(position+key.length()));}return false;}
+int main(){return 0;}
+''', 'client/view.ts':'export function show(){return 1;}\n',
                 'assemble.py':'''import os,shutil
 ROOT=os.path.dirname(os.path.realpath(__file__))
 for item in os.listdir(os.path.join(ROOT,'native-output')):
@@ -121,7 +126,14 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
                 self.assertEqual(path['items'][0]['status'],'candidate')
             src=workspace.query('source',start=entries[0]['id'])
             self.assertEqual(src['source_commit'],revision);self.assertEqual(src['path'],'src/entry.cpp')
+            decoders=workspace.query('search',text='--socket-renamed=',kind='string_key_decoder')['items']
+            self.assertEqual(len(decoders),1)
+            receiver=next(n for n in workspace.query('search',text='receive',kind='callable')['items'] if n['name']=='receive')
+            for direction,start,end in [('out',decoders[0]['id'],receiver['id']),('in',receiver['id'],decoders[0]['id'])]:
+                route=workspace.query('path',start=start,target=end,direction=direction,kinds=['DECODED_VALUE_TARGET_CANDIDATE'],depth=2,nodes=20,edges=20)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
             graph=json.loads(Path(workspace.config['active']['graph']).read_text(encoding='utf-8'))
+            self.assertEqual(graph['cpp_string_decoders']['counts'],{'decoders':1})
             self.assertEqual(graph['native_build']['contexts'][0]['status'],'configured')
             self.assertEqual(graph['native_build']['contexts'][0]['target_system']['status'],'available')
             self.assertIn('cmake',graph['extractors'])
