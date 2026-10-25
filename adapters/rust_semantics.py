@@ -124,7 +124,11 @@ class Linker:
                     target_path=self.x.nodes[target]['path']
                     module=next((n['id'] for n in self.x.nodes.values() if n['kind']=='code_module' and n['path']==target_path),None)
                     if module and kind!='external_symbol':self.edge(uid,module,'IMPORTS_MODULE',context)
-                elif record['kind']=='macro_site':self.edge(uid,target,'MACRO_DEFINITION_ORIGIN',context)
+                elif record['kind']=='macro_site':
+                    self.edge(uid,target,'MACRO_DEFINITION_ORIGIN',context)
+                    declaration=self.x.nodes[target].get('external_declaration',{})
+                    if declaration.get('package') in {'alloc','std','core'} and declaration.get('name') in {'format','format_args'}:
+                        self.format_arguments(client,uid,context)
                 else:
                     self.bindings[(context,uid)].add(target);self.edge(uid,target,'READS_BINDING',context)
         # Writes are potential source values, not an assumed last assignment.
@@ -156,6 +160,30 @@ class Linker:
                 for target in self.origins(argument,context):
                     if self.x.nodes[target]['kind']=='callable':self.edge(uid,target,'PASSES_CALLBACK',context,status='source_callback_reference',argument=argument)
 
+    def format_arguments(self,client,uid,context):
+        """Only native-bound standard format macros give tokens value semantics."""
+        for edge in list(self.x.edges):
+            if edge['source']!=uid or edge['kind']!='MACRO_TOKEN':continue
+            value=edge['target'];node=self.x.nodes[value]
+            self.edge(uid,value,'FORMAT_ARGUMENT',context,status='verified_standard_format_reference')
+            if node['syntax'] not in {'string_literal','raw_string_literal'}:continue
+            path,literal=self.x.syntax[value];source=text(literal)
+            for match in re.finditer(r'\{([A-Za-z_][A-Za-z_0-9]*)(?:[^{}]*)\}',source):
+                if match.start()>0 and source[match.start()-1]=='{' or match.end()<len(source) and source[match.end()]=='}':continue
+                offset=literal.start_byte+len(source[:match.start(1)].encode('utf-8'));raw=self.x.units[path]['raw']
+                line=raw[:offset].count(b'\n');prefix=raw[raw.rfind(b'\n',0,offset)+1:offset].decode('utf-8')
+                position={'line':line,'character':len(prefix.encode('utf-16-le'))//2}
+                capture=uid+':capture:'+str(offset)
+                if capture not in self.x.nodes:
+                    self.x.nodes[capture]={'id':capture,'kind':'value','name':match[1],'expression':match[1],
+                        'path':path,'line':line+1,'column':len(prefix)+1,'language':'rust','syntax':'format_capture',
+                        'runtime_execution':'not_observed','resolution':'native_standard_format_capture'}
+                    self.x.syntax[capture]=(path,literal)
+                self.edge(uid,capture,'FORMAT_ARGUMENT',context,status='verified_standard_format_reference')
+                targets=self.targets(client.at('textDocument/definition',path,position),capture)
+                for target in targets:
+                    self.bindings[(context,capture)].add(target);self.edge(capture,target,'READS_BINDING',context)
+
     def finalize_calls(self):
         for uid,node in list(self.x.nodes.items()):
             if node['kind']!='call_site':continue
@@ -181,6 +209,8 @@ class Linker:
 
     def run(self,emit=None,contexts=None):
         metadata=discover(self.root,self.paths);self.x.diagnostics.extend(metadata['diagnostics'])
+        if not metadata['workspaces']:
+            self.x.diagnostics.append({'kind':'rust_crate_context_missing','paths':sorted(self.x.units),'required':True})
         components={name:tool_output([binary(name),'--version'],self.root).strip() for name in ('cargo','rustc','rust-analyzer') if available(name)}
         if contexts is None:
             contexts=[]
