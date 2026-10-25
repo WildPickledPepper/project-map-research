@@ -4,11 +4,23 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from adapters.rust_project import binary,cargo_options,configuration_matrix,discover
+from adapters.rust_project import available,binary,cargo_options,configuration_matrix,discover,tool_output
 from adapters.rust_analyzer import Client
 
 
-@unittest.skipUnless(binary('cargo') and binary('rustc'),'Rust Cargo metadata tools are required')
+class RustToolInvocationTests(unittest.TestCase):
+    @unittest.skipIf(os.name=='nt','POSIX multicall executable symlinks')
+    def test_multicall_executable_symlink_keeps_its_launch_name(self):
+        from unittest.mock import patch
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);tool=root/'multicall'
+            tool.write_text('#!/bin/sh\nbasename "$0"\n',encoding='utf-8');tool.chmod(0o755)
+            (root/'cargo').symlink_to(tool)
+            with patch('adapters.rust_project.shutil.which',return_value=str(root/'cargo')):
+                self.assertEqual(tool_output([binary('cargo')],root).strip(),'cargo')
+
+
+@unittest.skipUnless(available('cargo') and available('rustc'),'Rust Cargo metadata tools are required')
 class RustProjectTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory(prefix='rust project ')
@@ -74,7 +86,7 @@ class RustProjectTests(unittest.TestCase):
         self.assertTrue(any(d['kind']=='rust_manifest_features_not_individually_varied' and 'sample/extra' in d['features'] for d in diagnostics))
         json.dumps(contexts,allow_nan=False)
 
-    @unittest.skipUnless(binary('rust-analyzer'),'rust-analyzer is required for Cargo/LSP integration')
+    @unittest.skipUnless(available('rust-analyzer'),'rust-analyzer is required for Cargo/LSP integration')
     def test_native_cargo_loader_connects_renamed_workspace_dependency_without_running_build(self):
         paths=self.workspace();discover(self.root,paths)
         context={'target':'x86_64-pc-windows-msvc' if os.name=='nt' else 'x86_64-unknown-linux-gnu',
@@ -86,7 +98,7 @@ class RustProjectTests(unittest.TestCase):
             self.assertTrue(any('worker/code/engine.rs' in r.get('targetUri',r.get('uri','')) for r in result))
         self.assertFalse(list(self.root.rglob('EXECUTED')))
 
-    @unittest.skipUnless(binary('rust-analyzer'),'rust-analyzer is required for Cargo/LSP integration')
+    @unittest.skipUnless(available('rust-analyzer'),'rust-analyzer is required for Cargo/LSP integration')
     def test_native_cargo_feature_and_debug_choices_keep_alternatives_separate(self):
         self.files({'Cargo.toml':'[package]\nname="sample"\nversion="0.1.0"\nedition="2021"\n[features]\nui=[]\n',
             'src/lib.rs':'#[cfg(feature="ui")] #[path="gui.rs"] mod selected;\n'

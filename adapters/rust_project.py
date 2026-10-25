@@ -16,7 +16,16 @@ import subprocess
 
 def binary(name, explicit=None):
     value=explicit or os.environ.get('PROJECT_MAP_'+name.upper().replace('-','_')) or shutil.which(name)
-    return str(Path(value).resolve()) if value else None
+    # rustup dispatches by argv[0]. Resolving cargo/rustc symlinks to rustup
+    # changes the invoked program, even though the underlying file is valid.
+    return os.path.abspath(os.path.expanduser(value)) if value else None
+
+
+def available(name):
+    executable=binary(name)
+    if not executable:return False
+    try:return tool_output([executable,'--version'],Path.cwd(),timeout=10).startswith(name+' ')
+    except (ValueError,OSError,subprocess.TimeoutExpired):return False
 
 
 def tool_output(command,root,timeout=45):
@@ -90,7 +99,9 @@ def configuration_matrix(root,paths,metadata,*,rustc=None,max_feature_sets=32,ma
     root=Path(root).resolve();rustc=binary('rustc',rustc);diagnostics=[]
     if not rustc:return [],[{'kind':'rust_compiler_context_missing','required':True}]
     version=tool_output([rustc,'-vV'],root)
-    host=re.search(r'(?m)^host: (.+)$',version)[1];arch=host.split('-')[0]
+    host_match=re.search(r'(?m)^host: (.+)$',version)
+    if not host_match:return [],[{'kind':'rust_compiler_host_context_missing','required':True}]
+    host=host_match[1];arch=host.split('-')[0]
     texts='\n'.join((root/p).read_text(encoding='utf-8') for p in paths if p.endswith('.rs') or Path(p).name=='Cargo.toml')
     mentioned=set(re.findall(r'target_os\s*=\s*["\']([^"\']+)',texts))
     triples=tool_output([rustc,'--print','target-list'],root).splitlines()
