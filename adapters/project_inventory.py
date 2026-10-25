@@ -150,6 +150,7 @@ def _inventory(revision,files,texts,states,rules_version):
         own=owned[root];all_children=[r for r in files if underneath(r['path'],root)]
         counts=Counter(r['language'] for r in own if r['language']);roles=Counter(r['scope_role'] for r in own)
         required=any(r['scope_role']=='first_party' and r['language'] in CODE.values() for r in own)
+        support_required=any(r['scope_role'] in {'build_support','deployment_support'} and r['language'] in CODE.values() for r in own)
         kind='runtime_or_library_component' if required else 'support_or_resource'
         if all(r['scope_role'] in {'test','third_party','generated'} for r in own) and own:kind='test_or_external'
         if any(e['kind']=='worker_entry_scope' for e in anchors[root]):kind='background_worker';required=True
@@ -169,9 +170,10 @@ def _inventory(revision,files,texts,states,rules_version):
         parent_root=max(parent_roots,key=len) if parent_roots else None
         for key,evidence in mechanisms.items():
             matrix.append({'module':root,'mechanism':key,'applicability':'source_candidate_present' if evidence else 'unknown_no_signal',
-                'signal_count':len(evidence),'evidence':evidence,'status':'not_accepted','required_review':required,
+                'signal_count':len(evidence),'evidence':evidence,'status':'not_accepted','required_review':required or support_required,
                 'no_signal_meaning':'unknown_not_absent','required_gate':'G05'})
         modules.append({'id':root,'parent':parent_root,'kind':kind,'required_runtime_review':required,
+            'required_support_review':support_required,
             'contains_first_party_code':any(r['scope_role']=='first_party' and r['language'] in CODE.values() for r in all_children),
             'file_count':len(own),'subtree_files':len(all_children),'language_counts':dict(sorted(counts.items())),
             'role_counts':dict(sorted(roles.items())),'discovery_evidence':anchors[root],
@@ -191,6 +193,7 @@ def _inventory(revision,files,texts,states,rules_version):
                 'conditions':[x for x in conditions if x['module']==m['id']],
                 'status':'requires_independent_source_review','runtime_executed':False})
     scope={'tracked_files':len(files),'logical_components':len(modules),'required_runtime_components':sum(m['required_runtime_review'] for m in modules),
+        'required_support_components':sum(m['required_support_review'] for m in modules),
         'language_counts':dict(sorted(Counter(r['language'] or 'other' for r in files).items())),
         'scan_statuses':dict(sorted(Counter(states.values()).items())),'boundary_candidates':len(boundaries),
         'mechanism_families':len(MECHANISMS),'unclassified_files':0}
@@ -201,7 +204,7 @@ def _inventory(revision,files,texts,states,rules_version):
         'runtime-modes':{**base,'families':mode_families,'required_modes':[],
             'freeze_status':'pending_independent_review','limits':['declarations_are_not_proof_of_supported_combinations']},
         'coverage-baseline':{**base,'summary':scope,'G01':'not_executed','overall_technical_acceptance':'not_passed',
-            'whole_project_languages_missing':sorted({lang for m in modules if m['required_runtime_review'] for lang,state in m['semantic_support'].items() if state=='not_implemented'}),
+            'whole_project_languages_missing':sorted({lang for m in modules if m['required_runtime_review'] or m['required_support_review'] for lang,state in m['semantic_support'].items() if state=='not_implemented'}),
             'independent_reference_used_for_generation':False,'historical_assets_enabled':False,
             'file_hash_reverification':'not_run_per_user_preference'}}
 

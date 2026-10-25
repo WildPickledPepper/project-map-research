@@ -122,5 +122,13 @@ class ProjectInventoryTests(unittest.TestCase):
         self.assertNotIn('apps/dashboard/src/shaders',modules)
         self.assertFalse(any(e['kind']=='declared_program_entry' for m in rows if m['id']=='odd_shape' for e in m['discovery_evidence']))
 
+    def test_build_and_deployment_scripts_keep_required_review(self):
+        self.save({'build/compile.py':'import subprocess\nsubprocess.run(["compiler"])',
+            'docker/entrypoint.sh':'#!/bin/sh\nexec "$@"'})
+        result=self.build();m={row['id']:row for row in result['module-inventory']['modules']}
+        self.assertTrue(m['build']['required_support_review']);self.assertFalse(m['build']['required_runtime_review'])
+        self.assertTrue(m['docker']['required_support_review'])
+        self.assertTrue(any(row['module']=='build' and row['mechanism']=='files_external_process' and row['required_review'] for row in result['mechanism-matrix']['items']))
+
 
 if __name__=='__main__':unittest.main()

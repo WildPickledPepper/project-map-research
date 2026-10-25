@@ -1,0 +1,56 @@
+{
+  "schema": "independent-scope-reference/1",
+  "origin": "manual_source_scope_audit_reference_not_extractor_input",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "scope": "module families, source entry/configuration anchors and runtime mode obligations; no issue root-cause answers",
+  "group_checks": [
+    {"id":"frontends","path":"modules","selector":"direct_child_workspace_packages","evidence":{"path":"modules/pnpm-workspace.yaml","contains":"packages:"}},
+    {"id":"backend_modules","path":"server/src/modules","selector":"direct_child_source_directories","evidence":{"path":"server/src/CMakeLists.txt","contains":"# src modules"}},
+    {"id":"data_tools","path":"scripts","selector":"direct_child_source_directories","evidence":{"path":"scripts/memscope_adaptors/memscope","kind":"directory"}},
+    {"id":"plugins","path":"plugins","selector":"direct_child_source_directories","evidence":{"path":"plugins/jupyterlab/package.json","contains":"A JupyterLab extension"}}
+  ],
+  "required_scopes": [
+    "platform", "platform/linux", "plugins/ProfilerServerProxy", "plugins/jupyterlab", "streamer", "docker", "build", "modules/build",
+    "server/msinsight", "server/src/entry/server/bin", "server/src/defs", "server/src/protocol", "server/src/server", "server/src/utils",
+    "modules/leaks/src/leaksWorker/blockWorker", "modules/leaks/src/leaksWorker/stateWorker"
+  ],
+  "source_anchors": [
+    {"id":"platform_entry","path":"platform/src/main.rs","contains":"fn main()"},
+    {"id":"desktop_process","path":"platform/src/default.rs","contains":"Command::new(path)"},
+    {"id":"desktop_view","path":"platform/src/webview.rs","contains":"wry://localhost/resources/profiler/frontend/index.html?port="},
+    {"id":"legacy_view","path":"platform/src/main.rs","contains":"webview_legacy.rs"},
+    {"id":"developer_view","path":"platform/src/dev.rs","contains":"http://localhost:5174?port=9000"},
+    {"id":"headless_python","path":"platform/src/http.rs","contains":"Command::new(\"python3\")"},
+    {"id":"proxy_entry","path":"plugins/ProfilerServerProxy/run.py","contains":"asyncio.run(start_proxy())"},
+    {"id":"proxy_pair","path":"plugins/ProfilerServerProxy/simple_profiler_server_proxy.py","contains":"on_pair_established"},
+    {"id":"jupyter_entry","path":"plugins/jupyterlab/mindstudio_insight_jupyterlab/__init__.py","contains":"_load_jupyter_server_extension"},
+    {"id":"jupyter_client","path":"plugins/jupyterlab/src/index.ts","contains":"JupyterFrontEndPlugin"},
+    {"id":"worker_blocks","path":"modules/leaks/src/leaksWorker/blockWorker/index.ts","contains":"self.onmessage"},
+    {"id":"worker_state","path":"modules/leaks/src/leaksWorker/stateWorker/index.ts","contains":"self.onmessage"},
+    {"id":"docker_tls","path":"docker/entrypoint.sh","contains":"TLS mode: HTTPS + mTLS"},
+    {"id":"docker_plain","path":"docker/entrypoint.sh","contains":"TLS mode: HTTP"},
+    {"id":"container_services","path":"docker/supervisord.conf","contains":"profiler_server"},
+    {"id":"container_launcher","path":"streamer/run_insight_streamer.py","contains":"--mode"},
+    {"id":"container_stop","path":"streamer/stop_insight_streamer.py","contains":"__main__"},
+    {"id":"install_modes","path":"README.md","contains":"Windows、Linux和macOS"}
+  ],
+  "runtime_mode_obligations": [
+    {"id":"desktop.windows.release","module":"platform","conditions":{"target_os":"windows","feature_default":true,"debug_assertions":false},"anchors":["platform_entry","desktop_process","desktop_view","install_modes"]},
+    {"id":"desktop.linux.release","module":"platform","conditions":{"target_os":"linux","feature_default":true,"debug_assertions":false},"anchors":["platform_entry","desktop_process","legacy_view","install_modes"]},
+    {"id":"desktop.macos.release","module":"platform","conditions":{"target_os":"macos","feature_default":true,"debug_assertions":false},"anchors":["platform_entry","desktop_process","desktop_view","install_modes"]},
+    {"id":"desktop.windows.development","module":"platform","conditions":{"target_os":"windows","feature_default":true,"debug_assertions":true},"anchors":["platform_entry","developer_view"]},
+    {"id":"desktop.linux.development","module":"platform","conditions":{"target_os":"linux","feature_default":true,"debug_assertions":true},"anchors":["platform_entry","legacy_view"]},
+    {"id":"desktop.macos.development","module":"platform","conditions":{"target_os":"macos","feature_default":true,"debug_assertions":true},"anchors":["platform_entry","developer_view"]},
+    {"id":"platform.no_default.http","module":"platform","conditions":{"feature_default":false,"platform_combinations":"must_be_resolved_with_build_context_in_W2"},"anchors":["platform_entry","headless_python"]},
+    {"id":"proxy.websocket","module":"plugins/ProfilerServerProxy","conditions":{"proxy_entry_enabled":true},"anchors":["proxy_entry","proxy_pair"]},
+    {"id":"jupyterlab.extension","module":"plugins/jupyterlab","conditions":{"jupyterlab_extension_enabled":true},"anchors":["jupyter_entry","jupyter_client"]},
+    {"id":"docker.http","module":"docker","conditions":{"certificate_triplet_present":false},"anchors":["docker_plain","container_services"]},
+    {"id":"docker.https_mtls","module":"docker","conditions":{"certificate_triplet_present":true},"anchors":["docker_tls","container_services"]},
+    {"id":"streamer.container_start","module":"streamer","conditions":{"docker_available":true,"mode":"http_or_mtls","image_and_port_selection":"requires_runtime_matrix_expansion"},"anchors":["container_launcher","docker_plain","docker_tls"]},
+    {"id":"streamer.container_stop","module":"streamer","conditions":{"docker_available":true,"selection":"name_or_port_or_image"},"anchors":["container_stop"]}
+  ],
+  "mandatory_language_gaps": ["javascript", "python", "rust", "shell"],
+  "runtime_executed": false,
+  "all_connection_targets_resolved": false,
+  "remaining_reference_work": ["W1 independent language/call references", "W2 precise mode combinations and semantic boundary identities", "W3 independent resource/state expectations", "W4 actual execution inputs and assertions"]
+}
