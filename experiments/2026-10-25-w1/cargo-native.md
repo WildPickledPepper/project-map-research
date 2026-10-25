@@ -110,3 +110,17 @@ python experiments/2026-10-25-w1/run_cargo_source_requests.py --source SOURCE --
 python experiments/2026-10-25-w1/score_cargo_source_requests.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE.json
 python experiments/2026-10-25-w1/check_path_evidence.py
 ```
+
+## 默认源码建图的 Cargo 输出计划
+
+[声明产物适配](../../adapters/cargo_declared_artifacts.py)已接入默认生产建图。它从源码中的 Cargo build 请求选择 cwd、清单、profile 和输出目录，调用离线 metadata 确认 workspace 默认成员、包、目标名和根文件；再用 rustc 的 `--print file-names` 查询目标平台的可执行文件前后缀，组合 Cargo 的公开 profile/target 目录布局。二进制名称来自 metadata，包含连字符的名称保留 Cargo 的输出命名规则。依据见 [Cargo target 名称](https://doc.rust-lang.org/cargo/reference/cargo-targets.html#the-name-field)、[输出目录](https://doc.rust-lang.org/cargo/reference/build-cache.html)及 [rustc print](https://doc.rust-lang.org/rustc/command-line-arguments.html#print-print-compiler-information)。
+
+原生查询在选定输入的独立副本中执行，不编译产品、执行 build.rs 或加载 proc macros。生成的配置状态为 `declared_output_plan`，主要可执行文件标记 `expected_output_not_built`。默认分析可以沿构建请求、目标、预期文件及 Python 复制/改名展开；显式成功编译流仍提供 `native_build_succeeded` 和实际输出报告。存在匹配的编译记录时优先使用该记录，避免重复产物。
+
+本地 Cargo 配置按 cwd 的祖先目录读取，保留配置路径、extensionless 文件优先及数组合并规则。未显式选择 target 时，生成带“源码 target 选择与此计划一致”条件的宿主默认候选；当前分析机的环境变量不会填充源码的未知环境。profile 的 debug assertions 保留声明/默认继承含义，以及环境、编译参数和构建脚本配置条件。
+
+构建成功、目录布局、目标选择、feature 要求及编译参数保持输出规则等条件随原生产物进入复制图。未知源码参数、未支持配置 include/目标规格、包级 profile 选择、缺失工具及未选择构建上下文的 Cargo 清单均保留必需缺项。该适配当前投影默认构建选择中的主要二进制输出；库产物和 build-script 生成物另有必需诊断，例子/测试/bench 未被默认 build 选择时不投影。
+
+独立控制使用两种目录布局、重命名 bin、嵌套清单、跨清单路径、自定义 profile、features 和显式 target。未编译的预期主要输出逐项对照真实 Cargo 编译报告；还检查 workspace 默认成员、模块新增/改名/删除、配置文件优先/数组合并及已存在原生报告的去重。混合 Workspace 同时验证显式编译记录和默认源码计划的进程调用到改名发行文件正反查。
+
+7 项新增声明产物检查、原生接口/配对及生产建图回归通过；完整回归运行 626 项，通过，1 项按平台跳过。Insight 的固定版本声明产物与发行改名证据单独保存。

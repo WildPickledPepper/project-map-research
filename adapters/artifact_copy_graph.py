@@ -64,7 +64,7 @@ def augment(graph,*,max_steps=8,max_derived=256,max_attempts=100000):
         if loc['root']!='source':gap('native_artifact_root_not_bound_to_source_layout',origin['id']);continue
         value=normalize({'op':'source_file','source':origin['id'],'path':loc['path']},style)[0]
         queue.append({'id':origin['id'],'origin':origin,'value':value,'host':{'name':system['host_name'],'path_style':style},
-            'target_system':system,'steps':[],'visited_paths':{path_key(value)},'conditions':[
+            'target_system':system,'steps':[],'visited_paths':{path_key(value)},'conditions':context.get('conditions',[])+origin.get('conditions',[])+[
                 {'kind':'native_artifact_successfully_materialized_as_regular_file','artifact':origin['id'],'build_context':origin['build_context']}]})
         stats['native_seeds']+=1
     stopped=False

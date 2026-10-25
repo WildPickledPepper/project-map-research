@@ -156,6 +156,21 @@ shutil.copyfile(os.path.join(ROOT,'objects','release','{name}{suffix}'),os.path.
             self.assertEqual(binding['status'],'conditional_candidate')
             self.assertTrue(any(c['kind']=='canonical_source_layout_required' for c in binding['conditions']))
             self.assertFalse(receipt['product_executable_run']);self.assertEqual(git('status','--porcelain'),'')
+            # The same source builds a navigable output plan without any Cargo capture input.
+            default_analysis=copy.deepcopy(analysis);del default_analysis['build']
+            planned=Workspace.create(root/'declared-workspace',source,typescript=self.ts,analysis=default_analysis)
+            built=planned.update(builder=partial(build,typescript=self.ts),version={'rules':'authored-cargo-declared-fixture'})
+            self.assertEqual(built['status'],'ready',built)
+            declared=json.loads(Path(planned.config['active']['graph']).read_text(encoding='utf-8'))
+            product=next(n for n in declared['nodes'] if n['kind']=='copied_artifact')
+            request=next(n for n in declared['nodes'] if n['kind']=='cargo_build_request')
+            for direction,start,end in [('out',request['source_invocation'],product['id']),('in',product['id'],request['source_invocation'])]:
+                route=planned.query('path',start=start,target=end,direction=direction,kinds=['SOURCE_BUILD_REQUEST',
+                    'REQUESTS_BUILD_CONTEXT_CANDIDATE','CONFIGURES_BUILD_TARGET','PRODUCES_ARTIFACT','COPIES_ARTIFACT_TO'],depth=6,nodes=60,edges=60)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+            self.assertEqual(next(n for n in declared['nodes'] if n['kind']=='build_artifact')['materialization'],'expected_output_not_built')
+            self.assertFalse(declared['cargo_declared_artifacts']['product_compiled'])
+            self.assertEqual(git('status','--porcelain'),'')
             # A later source commit cannot reuse old native products. Keep the prior active graph queryable.
             active=copy.deepcopy(workspace.config['active']);(source/'new.py').write_text('value=1\n')
             git('add','.');git('commit','-qm','advance beyond native capture')

@@ -86,6 +86,8 @@ project-map --workspace WORKSPACE query search --kind build_source
 
 ### Cargo 原生构建记录
 
+默认建图会从源码 Cargo build 调用、离线 metadata 和 rustc 文件名查询生成主要可执行文件的输出计划，并连接已有 Python 打包操作。该阶段只运行原生查询；`build_configuration.state=declared_output_plan`、`build_artifact.materialization=expected_output_not_built`，条件随复制路径保留。可直接搜索 `cargo_build_request`、`build_target`、`build_artifact`、`copied_artifact` 查询。未支持的上下文与产物类型在 diagnostics 中列出，见[默认输出计划](../experiments/2026-10-25-w1/cargo-native.md#默认源码建图的-cargo-输出计划)。
+
 可选的 `build.cargo.captures` 将成功 Cargo 编译流接入同一图，查询构建目标、实际产物、Rust 根文件及后续 Python 复制关系。默认源码分析保留原有模式；原生捕获通过 Python 接口显式执行，构建脚本/proc macros 会运行，产品可执行文件不启动。详见[捕获接口及验证范围](../experiments/2026-10-25-w1/cargo-native.md)。
 
 从选定 Git 提交导出输入，再捕获到仓库外的新目录：
@@ -128,7 +130,7 @@ facts, receipt = capture(
 
 使用 `init --analysis ANALYSIS.json` 后运行 `build`。捕获必须对应本次选定源码版本，捕获输入必须包含在分析输入范围内；旧版本、失败或损坏记录使本次构建失败，上一份成功地图继续保留。捕获目录作为不可变输入管理，变更后创建新目录并更新配置。用 `build_target`、`build_artifact`、`copied_artifact` 搜索及 PRODUCES_ARTIFACT、CARGO_TARGET_SOURCE、COPIES_ARTIFACT_TO 遍历；图中分别保留原生构建报告、源码候选和运行状态。
 
-同时存在 Python Cargo build 调用时，建图会从已提取参数、cwd 和环境效果生成 `cargo_build_request`，核对相应捕获的构建请求，沿 SOURCE_BUILD_REQUEST、REQUESTS_BUILD_CONTEXT_CANDIDATE 接入上述产物链。搜索该节点后可检查 `request` 中的源码值、条件和缺项。继承 cwd、未知选项及不相符配置会保留具体原因；候选边保留环境、工具链和外部配置与捕获一致的前提。该连接当前随显式 Cargo 捕获导入执行。
+同时存在 Python Cargo build 调用时，建图会从已提取参数、cwd 和环境效果生成 `cargo_build_request`，核对原生捕获或默认输出计划，沿 SOURCE_BUILD_REQUEST、REQUESTS_BUILD_CONTEXT_CANDIDATE 接入上述产物链。搜索该节点后可检查 `request` 中的源码值、条件和缺项。继承 cwd、未知选项及不相符配置会保留具体原因；候选边保留环境、工具链和外部配置与所选上下文一致的前提。
 
 ## skill 入口
 

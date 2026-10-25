@@ -122,6 +122,15 @@ def interpret(invocation,effects,*,host_system,input_paths):
     spec['gaps']=sorted(set(spec['gaps']));return spec
 
 
+def mismatches(spec,config):
+    request=config['source_request'];system=config['target_system']
+    fields=[key for key in ('cwd','manifest','profile','features','no_default_features') if spec[key]!=request.get(key)]
+    target=system.get('host_target') if spec['target']=='host-tuple' else spec['target']
+    if target is not None and (target!=system['target'] or request.get('target_mode')!='explicit'):fields.append('target')
+    if spec['target_directory'] is not None and config['target_directory']!={'root':'source','path':spec['target_directory']}:fields.append('target_directory')
+    return fields
+
+
 def augment(graph):
     if 'cargo_source_bindings' in graph:raise ValueError('Cargo source bindings already present')
     configs=[n for n in graph['nodes'] if n['kind']=='build_configuration' and n.get('language')=='cargo']
@@ -146,14 +155,12 @@ def augment(graph):
             if spec['gaps']:
                 gaps.append({'kind':'cargo_source_request_unresolved','source':uid,'reasons':spec['gaps'],'required':True});continue
             requests[key]=uid
-            mismatch=[key for key in ('cwd','manifest','profile','features','no_default_features') if spec[key]!=request.get(key)]
-            if spec['target'] is not None and (spec['target']!=system['target'] or request.get('target_mode')!='explicit'):mismatch.append('target')
-            if spec['target_directory'] is not None and config['target_directory']!={'root':'source','path':spec['target_directory']}:mismatch.append('target_directory')
+            mismatch=mismatches(spec,config)
             if mismatch:
                 gaps.append({'kind':'cargo_source_native_context_mismatch','source':uid,'fields':mismatch,'required':False});continue
             matched.add(key)
             edges.append({'source':uid,'target':config['id'],'kind':'REQUESTS_BUILD_CONTEXT_CANDIDATE','status':'conditional_candidate',
-                'evidence':evidence,'conditions':spec['conditions'],'runtime_execution':'not_observed'})
+                'evidence':evidence,'conditions':spec['conditions']+config.get('conditions',[]),'runtime_execution':'not_observed'})
     for key in requests.keys()-matched:gaps.append({'kind':'cargo_source_context_not_matched','source':requests[key],'required':True})
     graph['nodes'].extend(added);graph['edges'].extend(edges);graph['diagnostics'].extend(gaps)
     graph['cargo_source_bindings']={'adapter':ADAPTER_VERSION,'native_contexts':len(configs),'source_request_records':len(added),
