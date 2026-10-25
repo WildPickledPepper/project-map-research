@@ -1,0 +1,305 @@
+{
+  "schema": "rust-argument-control-score/1",
+  "origin": "current_argument_projection_on_versioned_native_rust_facts",
+  "scope": "single_windows_release_default_rust_context",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:rust-argument-control:6e5264ffa49149c2b18a17602ac48938",
+  "build_version": {
+    "rules_commit": "2390be16d4be33664355933fa95a4f2a24e2b3d2",
+    "python": "3.11.9",
+    "base_facts": {
+      "rules_commit": "6038f946134f23a4a52828a1fdf9cf8a653f073c",
+      "rust_tools": {
+        "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+        "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+        "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+      },
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0"
+      }
+    }
+  },
+  "input_count": 16,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 16,
+    "modules": 29,
+    "nodes": 5611,
+    "edges": 8124,
+    "entries": 0,
+    "diagnostic_records": 15,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "template_summary": {
+    "adapter": "rust_native_boundary_argument_templates/0.1.0",
+    "counts": {
+      "templates": 15,
+      "complete_source_templates": 9
+    },
+    "runtime_execution": "not_observed"
+  },
+  "argument_projection_executed_again": true,
+  "native_semantic_stage_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "cpp_argument_decode_connected": false,
+  "backend_listener_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "passed": true,
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "same_native_input_scope",
+      "passed": true
+    },
+    {
+      "id": "single_native_context",
+      "passed": true
+    },
+    {
+      "id": "one_command_and_one_active_url_template",
+      "passed": true
+    },
+    {
+      "id": "windows_release_default",
+      "passed": true
+    },
+    {
+      "id": "same_analysis_context",
+      "passed": true
+    },
+    {
+      "id": "source_templates_complete",
+      "passed": true
+    },
+    {
+      "id": "command_word_prefix_from_source",
+      "passed": true
+    },
+    {
+      "id": "url_prefix_from_source",
+      "passed": true
+    },
+    {
+      "id": "one_slot_each",
+      "passed": true
+    },
+    {
+      "id": "shared_contextual_value_identity",
+      "passed": true
+    },
+    {
+      "id": "pattern_value_without_guessed_port",
+      "passed": true
+    },
+    {
+      "id": "root_some_binding",
+      "passed": true
+    },
+    {
+      "id": "pattern_has_one_origin",
+      "passed": true
+    },
+    {
+      "id": "source_selector_call",
+      "passed": true
+    },
+    {
+      "id": "both_call_frames_rooted_at_rust_main",
+      "passed": true
+    },
+    {
+      "id": "distinct_call_routes_to_consumers",
+      "passed": true
+    },
+    {
+      "id": "value_scope_stops_at_shared_caller",
+      "passed": true
+    },
+    {
+      "id": "one_scalar_origin_edge",
+      "passed": true
+    },
+    {
+      "id": "command_correct_boundary",
+      "passed": true
+    },
+    {
+      "id": "command_condition_rust_pattern_projection_selected",
+      "passed": true
+    },
+    {
+      "id": "command_condition_boundary_operation_reached_with_recorded_call_and_capture_context",
+      "passed": true
+    },
+    {
+      "id": "command_condition_no_unmodeled_operand_mutation_before_evaluation",
+      "passed": true
+    },
+    {
+      "id": "command_condition_no_unmodeled_command_builder_mutation_before_start",
+      "passed": true
+    },
+    {
+      "id": "url_correct_boundary",
+      "passed": true
+    },
+    {
+      "id": "url_condition_rust_pattern_projection_selected",
+      "passed": true
+    },
+    {
+      "id": "url_condition_boundary_operation_reached_with_recorded_call_and_capture_context",
+      "passed": true
+    },
+    {
+      "id": "url_condition_no_unmodeled_operand_mutation_before_evaluation",
+      "passed": true
+    },
+    {
+      "id": "url_condition_no_unmodeled_command_builder_mutation_before_start",
+      "passed": true
+    },
+    {
+      "id": "closure_capture_contexts_remain_conditional",
+      "passed": true
+    },
+    {
+      "id": "log_path_unsupported_expression_retained",
+      "passed": true
+    },
+    {
+      "id": "literal_flag_is_its_own_word",
+      "passed": true
+    },
+    {
+      "id": "all_new_nodes_static",
+      "passed": true
+    },
+    {
+      "id": "navigation_command_value_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_command_value_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_url_value_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_url_value_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_value_selector_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_value_selector_in",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_command",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_url",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_shared_binding",
+      "passed": true
+    },
+    {
+      "id": "current_templates_cached_native_facts",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_or_whole_chain_claim",
+      "passed": true
+    },
+    {
+      "id": "no_hash_verification",
+      "passed": true
+    }
+  ],
+  "selected_chain": {
+    "command": {
+      "path": "platform/src/default.rs",
+      "line": 176
+    },
+    "url": {
+      "path": "platform/src/webview.rs",
+      "line": 115
+    },
+    "shared_binding": {
+      "path": "platform/src/default.rs",
+      "line": 393
+    },
+    "selector": {
+      "path": "platform/src/default.rs",
+      "line": 393
+    },
+    "value_kind": "binding_projection",
+    "command_prefix": "--wsPort=",
+    "url_prefix": "wry://localhost/resources/profiler/frontend/index.html?port="
+  },
+  "required_template_gap_counts": {
+    "scalar_expression_not_expanded": 4,
+    "scalar_iteration_instance_not_bound": 2
+  },
+  "navigation": [
+    {
+      "id": "command_value_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "command_value_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "url_value_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "url_value_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "value_selector_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "value_selector_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    }
+  ]
+}

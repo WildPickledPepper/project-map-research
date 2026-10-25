@@ -33,3 +33,22 @@ python -m unittest discover -s tests -v
 python experiments/2026-10-25-w1/run_rust_argument_control.py --source SOURCE --revision REVISION --base-trial NATIVE_RUST_TRIAL --parser-cache CACHE --output NEW_OUTSIDE_DIRECTORY
 python experiments/2026-10-25-w1/score_rust_argument_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE.json
 ```
+
+## Insight Windows release/default 控制
+
+规则 2390be1 在源码 d4e8d1c 的 16 个 Rust/Cargo 输入上通过 [45 项后置检查](evidence/rust-argument-control.json)及六项正反向查询。原生语义事实沿用规则 6038f94 的 Rust 1.94/rust-analyzer 捕获，当前模板投影与索引重新执行。
+
+工具从 `platform/src/default.rs:393` 的 Some(port) 绑定恢复端口选择结果，沿两个调用路径分别查到：
+
+```text
+find_first_available_port(...) → Some(port)
+  ├─ run_server(port) → Command.arg("--wsPort=" + 共同值)   default.rs:176
+  └─ run_script(port) → create_webview(port)
+       → WebView URL 的 ?port=共同值                     webview.rs:115
+```
+
+两处槽位具有同一来源、main 调用帧和分析上下文。端口保留为带模式选择条件的符号值，未赋予具体运行数值。Windows 控制仅留下一个适用 URL 模板；未启用的 Linux 调用分支退出。单独的 `--notStrict` 文字参数也正确保留。
+
+索引有 5,611 节点和 8,124 边，15 个模板中 9 个完成当前来源展开；其余 6 个明确记录为必需缺口：4 个表达式、2 个迭代实例未展开，其中包含 logPath 的 display 操作。此计数描述当前控制范围，保留其他未解析关系。六项查询分别验证命令→共同值、URL→共同值、共同值→选择调用及各自反向路径；命令、URL 和绑定的源码导航均指向同一提交。
+
+控制保留静态求值和调用条件。C++ CLI 解码、选项字段、最终监听端及 WebView 资源/前端消费继续连接，实际端口和服务实例由运行场景采集。原始 checkout 未修改，未重新核验文件哈希；G03 保持未通过。

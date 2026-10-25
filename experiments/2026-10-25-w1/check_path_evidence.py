@@ -213,3 +213,23 @@ assert not any(deployment[k] for k in ('cmake_configure_executed_again','default
     'product_compiled','product_executable_run','runtime_process_identity_observed','whole_G03_accepted','original_checkout_modified'))
 assert deployment['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 46 selected Windows release/default startup checks; 12 bidirectional paths join Rust spawn and C++ entry conditionally; runtime identity pending.')
+
+arguments=json.loads((Path(__file__).parent/'evidence/rust-argument-control.json').read_text(encoding='utf-8'))
+assert arguments['schema']=='rust-argument-control-score/1' and arguments['passed']
+assert len(arguments['checks'])==45 and all(c['passed'] for c in arguments['checks'])
+assert arguments['source_commit']==deployment['source_commit'] and arguments['input_count']==16
+assert arguments['build_version']['rules_commit']=='2390be16d4be33664355933fa95a4f2a24e2b3d2'
+assert arguments['build_version']['base_facts']['rules_commit']=='6038f946134f23a4a52828a1fdf9cf8a653f073c'
+assert arguments['index_counts']['nodes']==5611 and arguments['index_counts']['edges']==8124
+assert arguments['template_summary']['counts']=={'templates':15,'complete_source_templates':9}
+assert arguments['selected_chain']=={'command':{'path':'platform/src/default.rs','line':176},
+    'url':{'path':'platform/src/webview.rs','line':115},'shared_binding':{'path':'platform/src/default.rs','line':393},
+    'selector':{'path':'platform/src/default.rs','line':393},'value_kind':'binding_projection',
+    'command_prefix':'--wsPort=','url_prefix':'wry://localhost/resources/profiler/frontend/index.html?port='}
+assert arguments['required_template_gap_counts']=={'scalar_expression_not_expanded':4,'scalar_iteration_instance_not_bound':2}
+assert len(arguments['navigation'])==6 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None and n['witness_edges']==2 for n in arguments['navigation'])
+assert arguments['argument_projection_executed_again'] and not arguments['native_semantic_stage_executed_again']
+assert not any(arguments[k] for k in ('default_workspace_rebuild','installed_tool_tested','runtime_execution','cpp_argument_decode_connected',
+    'backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert arguments['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 45 selected Rust CLI/WebView shared-value checks; six bidirectional paths; C++ decoding and listener pairing pending.')
