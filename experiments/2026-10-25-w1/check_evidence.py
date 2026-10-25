@@ -91,4 +91,10 @@ assert not rust_native['tracked_lockfiles'] and rust_native['lockfile_inventory_
 assert set(rust_native['generated_analysis_lockfiles'])=={'platform/Cargo.lock','platform/linux/Cargo.lock'}
 assert all(d['required'] for d in rust_native['context_diagnostics'])
 assert not any(rust_native[k] for k in ('product_code_executed','build_scripts_executed','production_graph_generated','whole_G02_accepted','supported_product_builds_established'))
-print('OK: native 185-file baseline; JS evidence; Python 7/41/137/23 checks; Rust 12 component, 7 initial Cargo context and 80 native entry checks; G02 remains pending.')
+rust_installed=json.loads((ROOT/'evidence/rust-installed.json').read_text(encoding='utf-8'))
+assert rust_installed['passed'] and len(rust_installed['checks'])==22 and all(c['passed'] for c in rust_installed['checks'])
+assert rust_installed['installed_rules_commit']=='5f8079dba2a733e40bef6cae4eb35075b3e39cf1'
+assert not rust_installed['source_modified_by_tool'] and not rust_installed['historical_assets_enabled']
+assert {'cargo_custom_root_and_path_module_connected','same_name_module_not_connected','new_module_connected',
+    'renamed_module_connected','deleted_definition_removed','unresolved_call_remains_queryable'}<={c['id'] for c in rust_installed['checks']}
+print('OK: native/JS/Python evidence; Rust components, native entries and 22 installed CLI checks; G02 remains pending.')

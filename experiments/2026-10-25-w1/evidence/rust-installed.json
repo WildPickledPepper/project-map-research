@@ -1,0 +1,113 @@
+{
+  "schema": "installed-rust-smoke/1",
+  "source_commits": [
+    "99c35be48e4596a070340ffaf91283e229cee8dc",
+    "6e65c97af08e24ab84e6d590cb9b4441097a2481"
+  ],
+  "installed_rules_commit": "5f8079dba2a733e40bef6cae4eb35075b3e39cf1",
+  "checks": [
+    {
+      "id": "installed_package_isolated",
+      "passed": true
+    },
+    {
+      "id": "real_default_mixed_build_ready",
+      "passed": true
+    },
+    {
+      "id": "cargo_custom_root_and_path_module_connected",
+      "passed": true
+    },
+    {
+      "id": "reverse_rust_path",
+      "passed": true
+    },
+    {
+      "id": "same_name_module_not_connected",
+      "passed": true
+    },
+    {
+      "id": "same_version_rust_source",
+      "passed": true
+    },
+    {
+      "id": "python_retained",
+      "passed": true
+    },
+    {
+      "id": "cpp_retained",
+      "passed": true
+    },
+    {
+      "id": "mixed_ts_js_retained",
+      "passed": true
+    },
+    {
+      "id": "unchanged_snapshot_reused",
+      "passed": true
+    },
+    {
+      "id": "new_revision_rejects_stale_map",
+      "passed": true
+    },
+    {
+      "id": "new_module_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "new_module_connected",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_identity",
+      "passed": true
+    },
+    {
+      "id": "renamed_module_connected",
+      "passed": true
+    },
+    {
+      "id": "deleted_provider_refresh_ready",
+      "passed": true
+    },
+    {
+      "id": "deleted_definition_removed",
+      "passed": true
+    },
+    {
+      "id": "unresolved_call_remains_queryable",
+      "passed": true
+    },
+    {
+      "id": "tool_did_not_mutate_source",
+      "passed": true
+    },
+    {
+      "id": "runtime_evidence_not_fabricated",
+      "passed": true
+    },
+    {
+      "id": "historical_assets_disabled",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "build_counts": {
+    "tracked_files": 8,
+    "input_files": 8,
+    "modules": 1,
+    "nodes": 31,
+    "edges": 33,
+    "entries": 0,
+    "diagnostic_records": 114,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "source_modified_by_tool": false,
+  "historical_assets_enabled": false,
+  "execution": "isolated installed CLI; native Rust tools; analyzed source not executed; Cargo module add/rename/delete"
+}
