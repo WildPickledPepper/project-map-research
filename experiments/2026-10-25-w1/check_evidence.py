@@ -46,4 +46,26 @@ assert not python_installed['source_modified_by_tool'] and not python_installed[
 assert {'namespace_uses_importing_entry_root','nearby_namespace_decoy_not_connected',
     'new_module_connected','renamed_module_connected','deleted_definition_removed',
     'missing_import_remains_queryable','runtime_evidence_not_fabricated'}<={c['id'] for c in python_installed['checks']}
-print('OK: native 185-file baseline; JS 53-file coverage, two 14-check chains and 22 installed CLI checks; Python 23 installed CLI checks; G02 remains pending.')
+python_rules=python_installed['installed_rules_commit']
+probe=json.loads((ROOT/'evidence/python-resolver-probe.json').read_text(encoding='utf-8'))
+assert probe['passed'] and len(probe['checks'])==7 and all(c['passed'] for c in probe['checks'])
+assert probe['jedi']=='0.19.2' and probe['parso']=='0.8.5' and probe['cgc']==data['upstream']['commit']
+assert not probe['product_code_executed'] and not probe['graph_generated']
+expected_python={r['path'] for r in data['files'] if r['language']=='python'}
+for name,file_count,check_count in [('python-proxy.json',23,41),('python-repository.json',119,137)]:
+    score=json.loads((ROOT/'evidence'/name).read_text(encoding='utf-8'))
+    assert score['passed'] and len(score['checks'])==check_count and all(c['passed'] for c in score['checks'])
+    assert score['source_commit']==data['source_commit'] and score['build_version']['rules_commit']==python_rules
+    assert len(score['files'])==file_count and score['python_node_counts']['code_module']==file_count
+    assert all(r['graph_input'] and r['graph_coverage']['status']=='parsed' for r in score['files'])
+    expected=expected_python if file_count==119 else {p for p in expected_python if p.startswith('plugins/ProfilerServerProxy/')}
+    assert {r['path'] for r in score['files']}==expected
+    assert sum(score['call_resolutions'].values())==score['python_node_counts']['call_site']
+    assert sum(score['unresolved_call_reasons'].values())==score['call_resolutions']['unresolved']
+    assert {'network_listener','route_registration','network_client','process_start','process_stop'}<=set(score['boundary_families'])
+    assert not score['whole_G02_accepted'] and not score['runtime_execution']
+    assert score['backend_counterpart_status']=='pending_artifact_and_instance_identity'
+    for check in score['checks']:
+        if check['id'].startswith('navigation.'):
+            assert check['evidence']['found'] and check['evidence']['stop_reason'] is None
+print('OK: native 185-file baseline; JS coverage/chains/installed evidence; Python 7 component, 41 proxy, 137 repository and 23 installed checks; G02 remains pending.')

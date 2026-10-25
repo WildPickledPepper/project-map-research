@@ -1,0 +1,218 @@
+{
+  "schema": "python-resolver-component-probe/1",
+  "jedi": "0.19.2",
+  "parso": "0.8.5",
+  "cgc": "93c9685bff9151f50a3121e9913e5ba2d27c1191",
+  "checks": [
+    {
+      "id": "relative_alias",
+      "expected": [
+        "pkg/impl.py:run"
+      ],
+      "jedi_targets": [
+        "pkg/impl.py:run"
+      ],
+      "passed": true,
+      "cgc_calls": [
+        {
+          "name": "expose",
+          "full_name": "expose",
+          "line_number": 2,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            2
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false,
+      "ast_call_count": 1
+    },
+    {
+      "id": "instance_inheritance",
+      "expected": [
+        "pkg/base.py:run"
+      ],
+      "jedi_targets": [
+        "pkg/base.py:run"
+      ],
+      "passed": true,
+      "cgc_calls": [
+        {
+          "name": "Child",
+          "full_name": "Child",
+          "line_number": 2,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "<module>",
+            "module",
+            1
+          ]
+        },
+        {
+          "name": "run",
+          "full_name": "obj.run",
+          "line_number": 3,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            3
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false,
+      "ast_call_count": 2
+    },
+    {
+      "id": "same_name_decoy",
+      "expected": [
+        "left.py:execute"
+      ],
+      "jedi_targets": [
+        "left.py:execute"
+      ],
+      "passed": true,
+      "cgc_calls": [
+        {
+          "name": "execute",
+          "full_name": "execute",
+          "line_number": 2,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            2
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false,
+      "ast_call_count": 1
+    },
+    {
+      "id": "branch_union",
+      "expected": [
+        "client.py:left",
+        "client.py:right"
+      ],
+      "jedi_targets": [
+        "client.py:left",
+        "client.py:right"
+      ],
+      "passed": true,
+      "cgc_calls": [
+        {
+          "name": "target",
+          "full_name": "target",
+          "line_number": 5,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            3
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false,
+      "ast_call_count": 1
+    },
+    {
+      "id": "same_line",
+      "expected": [
+        "client.py:hit"
+      ],
+      "jedi_targets": [
+        "client.py:hit"
+      ],
+      "passed": true,
+      "cgc_calls": [
+        {
+          "name": "hit",
+          "full_name": "hit",
+          "line_number": 2,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            2
+          ]
+        },
+        {
+          "name": "hit",
+          "full_name": "hit",
+          "line_number": 2,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            2
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false,
+      "ast_call_count": 2
+    },
+    {
+      "id": "callback_argument",
+      "expected": [
+        "worker.py:action"
+      ],
+      "jedi_targets": [
+        "worker.py:action"
+      ],
+      "passed": true,
+      "cgc_calls": [
+        {
+          "name": "register",
+          "full_name": "register",
+          "line_number": 3,
+          "args": [
+            "action"
+          ],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            3
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false,
+      "ast_call_count": 1
+    },
+    {
+      "id": "parameter_shadow",
+      "expected": [],
+      "jedi_targets": [],
+      "passed": true,
+      "cgc_calls": [
+        {
+          "name": "execute",
+          "full_name": "execute",
+          "line_number": 2,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_definition",
+            2
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false,
+      "ast_call_count": 1
+    }
+  ],
+  "passed": true,
+  "product_code_executed": false,
+  "graph_generated": false,
+  "scope": "independent fixtures; unchanged public Jedi infer and CGC parser APIs"
+}

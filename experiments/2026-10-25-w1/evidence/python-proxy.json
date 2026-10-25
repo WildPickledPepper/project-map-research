@@ -1,0 +1,1029 @@
+{
+  "schema": "python-production-trial-score/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:250f060b68c44423874e5ed09d6f055a",
+  "build_version": {
+    "rules_commit": "81e97f21d37b0fe70a0a3739859c0bea68590ccf",
+    "python": "3.11.9",
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "scope": "proxy",
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 23,
+    "modules": 29,
+    "nodes": 4025,
+    "edges": 5945,
+    "entries": 0,
+    "diagnostic_records": 105,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "files": [
+    {
+      "path": "plugins/ProfilerServerProxy/common.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/common.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/__init__.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/core/__init__.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/proxy/__init__.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/core/proxy/__init__.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/server/__init__.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/core/server/__init__.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/run.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/run.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/__init__.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/__init__.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/proxytest/__init__.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/proxytest/__init__.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/proxytest/proxy_server_test.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/proxytest/proxy_server_test.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/run_test.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/run_test.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/servertest/__init__.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/servertest/__init__.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/__init__.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/utiltest/__init__.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/stringutil_test.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/utiltest/stringutil_test.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/sysutil_test.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/utiltest/sysutil_test.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/timeutil_test.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/test/utiltest/timeutil_test.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/decorators.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/utils/decorators.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/logutil.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/utils/logutil.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/pattern.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/utils/pattern.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/string_util.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/utils/string_util.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/sys_util.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/utils/sys_util.py",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/time_util.py",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "plugins/ProfilerServerProxy/utils/time_util.py",
+        "status": "parsed"
+      }
+    }
+  ],
+  "python_node_counts": {
+    "binding": 247,
+    "call_site": 456,
+    "callable": 151,
+    "code_module": 23,
+    "module_reference": 107,
+    "parameter": 283,
+    "python_boundary": 12,
+    "type": 23,
+    "value": 2723
+  },
+  "call_resolutions": {
+    "unresolved": 280,
+    "inferred_unique": 176
+  },
+  "unresolved_call_reasons": {
+    "external_or_builtin_callable": 236,
+    "no_input_callable_or_dynamic_binding": 44
+  },
+  "boundary_families": {
+    "network_listener": 2,
+    "route_registration": 1,
+    "network_client": 3,
+    "process_start": 2,
+    "process_stop": 4
+  },
+  "checks": [
+    {
+      "id": "file.plugins/ProfilerServerProxy/common.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/core/__init__.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/core/proxy/__init__.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/core/server/__init__.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/core/server/profiler_server.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/run.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/__init__.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/proxytest/__init__.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/proxytest/proxy_server_test.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/run_test.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/servertest/__init__.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/utiltest/__init__.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/utiltest/stringutil_test.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/utiltest/sysutil_test.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/test/utiltest/timeutil_test.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/utils/decorators.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/utils/logutil.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/utils/pattern.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/utils/string_util.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/utils/sys_util.py",
+      "passed": true
+    },
+    {
+      "id": "file.plugins/ProfilerServerProxy/utils/time_util.py",
+      "passed": true
+    },
+    {
+      "id": "expected_python_file_scope",
+      "passed": true,
+      "count": 23
+    },
+    {
+      "id": "call.0",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/run.py:call_site:61:17:61:30",
+          "target": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:callable:59:1:62:53",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "inferred",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/run.py",
+              "line": 61,
+              "column": 17
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "basis": "jedi_infer",
+          "target_kind": "callable"
+        }
+      ]
+    },
+    {
+      "id": "call.1",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:62:11:62:53",
+          "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:134:5:151:38",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "inferred",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+              "line": 62,
+              "column": 11
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "basis": "jedi_infer",
+          "target_kind": "callable"
+        }
+      ]
+    },
+    {
+      "id": "call.2",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:61:11:61:47",
+          "target": "py:plugins/ProfilerServerProxy/utils/pattern.py:callable:35:5:38:49",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "inferred",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+              "line": 61,
+              "column": 11
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "basis": "jedi_infer",
+          "target_kind": "callable"
+        }
+      ]
+    },
+    {
+      "id": "call.3",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:60:11:60:42",
+          "target": "py:plugins/ProfilerServerProxy/core/server/__init__.py:callable:257:5:267:107",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "inferred",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+              "line": 60,
+              "column": 11
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "basis": "jedi_infer",
+          "target_kind": "callable"
+        }
+      ]
+    },
+    {
+      "id": "call.4",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:56:18:56:75",
+          "target": "py:plugins/ProfilerServerProxy/core/server/__init__.py:callable:297:5:305:70",
+          "kind": "STATIC_CALL_TARGET",
+          "status": "inferred",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+              "line": 56,
+              "column": 18
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "basis": "jedi_infer",
+          "target_kind": "callable"
+        }
+      ]
+    },
+    {
+      "id": "boundary.network_listener",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:145:16:145:97:boundary:network_listener",
+          "kind": "python_boundary",
+          "family": "network_listener",
+          "name": "web.TCPSite",
+          "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+          "line": 145,
+          "column": 16,
+          "language": "python",
+          "conditions": [],
+          "call": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:145:16:145:97",
+          "api_candidates": [
+            "aiohttp.web.TCPSite"
+          ],
+          "evidence_kind": "import_binding_and_ast_value_flow",
+          "resolution": "source_api_reference",
+          "runtime_execution": "not_observed",
+          "counterpart_status": "pending_identity_and_context",
+          "arguments": [
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:145:28:145:34",
+              "index": 0,
+              "keyword": null,
+              "spread": false
+            },
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:145:36:145:65",
+              "index": 1,
+              "keyword": null,
+              "spread": false
+            },
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:145:67:145:96",
+              "index": 2,
+              "keyword": null,
+              "spread": false
+            }
+          ],
+          "host_values": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:145:36:145:65"
+          ],
+          "port_values": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:145:67:145:96"
+          ],
+          "applications": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:138:15:138:32"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary.route_registration",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71:boundary:route_registration",
+          "kind": "python_boundary",
+          "family": "route_registration",
+          "name": "app.router.add_route",
+          "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+          "line": 139,
+          "column": 9,
+          "language": "python",
+          "conditions": [],
+          "call": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71",
+          "api_candidates": [
+            "aiohttp.web.Application.router.add_route"
+          ],
+          "evidence_kind": "import_binding_and_ast_value_flow",
+          "resolution": "source_api_reference",
+          "runtime_execution": "not_observed",
+          "counterpart_status": "pending_identity_and_context",
+          "arguments": [
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:139:30:139:33",
+              "index": 0,
+              "keyword": null,
+              "spread": false
+            },
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:139:35:139:47",
+              "index": 1,
+              "keyword": null,
+              "spread": false
+            },
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:140:30:140:70",
+              "index": 2,
+              "keyword": null,
+              "spread": false
+            }
+          ],
+          "applications": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:138:15:138:32"
+          ],
+          "route_values": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:139:35:139:47"
+          ],
+          "handler_values": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:140:30:140:70"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary.network_client",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58:boundary:network_client",
+          "kind": "python_boundary",
+          "family": "network_client",
+          "name": "session.ws_connect",
+          "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+          "line": 85,
+          "column": 24,
+          "language": "python",
+          "conditions": [],
+          "call": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58",
+          "api_candidates": [
+            "aiohttp.ClientSession.ws_connect"
+          ],
+          "evidence_kind": "import_binding_and_ast_value_flow",
+          "resolution": "source_api_reference",
+          "runtime_execution": "not_observed",
+          "counterpart_status": "pending_identity_and_context",
+          "arguments": [
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:85:43:85:57",
+              "index": 0,
+              "keyword": null,
+              "spread": false
+            }
+          ],
+          "address_values": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:85:43:85:57"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary.process_start",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:121:29:124:60:boundary:process_start",
+          "kind": "python_boundary",
+          "family": "process_start",
+          "name": "subprocess.Popen",
+          "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+          "line": 121,
+          "column": 29,
+          "language": "python",
+          "conditions": [],
+          "call": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:121:29:124:60",
+          "api_candidates": [
+            "subprocess.Popen"
+          ],
+          "evidence_kind": "import_binding_and_ast_value_flow",
+          "resolution": "source_api_reference",
+          "runtime_execution": "not_observed",
+          "counterpart_status": "pending_identity_and_context",
+          "arguments": [
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:121:46:121:66",
+              "index": 0,
+              "keyword": null,
+              "spread": false
+            },
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:122:53:122:71",
+              "keyword": "stdout",
+              "spread": false
+            },
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:123:53:123:68",
+              "keyword": "stderr",
+              "spread": false
+            },
+            {
+              "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:124:50:124:59",
+              "keyword": "env",
+              "spread": false
+            }
+          ],
+          "command_values": [
+            "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:121:46:121:66"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "same_application_listener_route",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:145:16:145:97:boundary:network_listener",
+          "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71:boundary:route_registration",
+          "kind": "EXPOSES_ROUTE",
+          "status": "conditional_source",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+              "line": 145,
+              "column": 16
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "application_sources": [
+            "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:138:15:138:32"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "registered_request_handler",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71:boundary:route_registration",
+          "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:111:5:132:116",
+          "kind": "CAN_DISPATCH_TO",
+          "status": "conditional_source",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+              "line": 139,
+              "column": 9
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "basis": "framework_callback_argument",
+          "condition": "owning_listener_route_and_runtime_request_must_match"
+        }
+      ]
+    },
+    {
+      "id": "owned_process_teardown",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:110:13:110:42:boundary:process_stop",
+          "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:121:29:124:60:boundary:process_start",
+          "kind": "USES_PROCESS_HANDLE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+              "line": 110,
+              "column": 13
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "receiver_value": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:110:13:110:30",
+          "identity_basis": "source_handle_flow_requires_runtime_instance_context"
+        },
+        {
+          "source": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:112:13:112:46:boundary:process_stop",
+          "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:121:29:124:60:boundary:process_start",
+          "kind": "USES_PROCESS_HANDLE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+              "line": 112,
+              "column": 13
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "receiver_value": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:112:13:112:30",
+          "identity_basis": "source_handle_flow_requires_runtime_instance_context"
+        },
+        {
+          "source": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:115:13:115:37:boundary:process_stop",
+          "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:121:29:124:60:boundary:process_start",
+          "kind": "USES_PROCESS_HANDLE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+              "line": 115,
+              "column": 13
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "receiver_value": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:115:13:115:30",
+          "identity_basis": "source_handle_flow_requires_runtime_instance_context"
+        },
+        {
+          "source": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:116:13:116:37:boundary:process_stop",
+          "target": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:call_site:121:29:124:60:boundary:process_start",
+          "kind": "USES_PROCESS_HANDLE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+              "line": 116,
+              "column": 13
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "receiver_value": "py:plugins/ProfilerServerProxy/core/server/profiler_server.py:value:116:13:116:30",
+          "identity_basis": "source_handle_flow_requires_runtime_instance_context"
+        }
+      ]
+    },
+    {
+      "id": "selected_backend_address_origin",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:value:129:59:129:112",
+          "kind": "value",
+          "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+          "line": 129,
+          "column": 59,
+          "end_line": 129,
+          "end_column": 112,
+          "name": "f\"ws://{selected_server.host}:{selected_server.port}\"",
+          "language": "python",
+          "evidence_kind": "python_ast",
+          "expression_kind": "JoinedStr",
+          "expression_truncated": false,
+          "conditions": [
+            {
+              "kind": "If",
+              "expression": "request.headers.get('Upgrade', '').lower() == 'websocket'",
+              "branch": "body",
+              "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+              "line": 123,
+              "column": 9
+            }
+          ],
+          "literal": ":",
+          "literal_type": "str"
+        }
+      ]
+    },
+    {
+      "id": "navigation.out",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "direction": "out",
+        "items": [
+          {
+            "ordinal": 4175,
+            "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:callable:59:1:62:53",
+            "target": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:62:11:62:53",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 4175
+            }
+          },
+          {
+            "ordinal": 4180,
+            "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:62:11:62:53",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:134:5:151:38",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "inferred",
+            "detail": {
+              "entity": "edge",
+              "id": 4180
+            }
+          },
+          {
+            "ordinal": 1203,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:134:5:151:38",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 1203
+            }
+          },
+          {
+            "ordinal": 5927,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71:boundary:route_registration",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "conditional_source",
+            "detail": {
+              "entity": "edge",
+              "id": 5927
+            }
+          },
+          {
+            "ordinal": 5928,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71:boundary:route_registration",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:111:5:132:116",
+            "kind": "CAN_DISPATCH_TO",
+            "status": "conditional_source",
+            "detail": {
+              "entity": "edge",
+              "id": 5928
+            }
+          },
+          {
+            "ordinal": 1159,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:111:5:132:116",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:128:26:129:113",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 1159
+            }
+          },
+          {
+            "ordinal": 1164,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:128:26:129:113",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:78:5:96:18",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "inferred",
+            "detail": {
+              "entity": "edge",
+              "id": 1164
+            }
+          },
+          {
+            "ordinal": 1305,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:78:5:96:18",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 1305
+            }
+          },
+          {
+            "ordinal": 5929,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58:boundary:network_client",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "conditional_source",
+            "detail": {
+              "entity": "edge",
+              "id": 5929
+            }
+          }
+        ],
+        "visited_nodes": 82,
+        "examined_edges": 82,
+        "stop_reason": null
+      }
+    },
+    {
+      "id": "navigation.in",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "direction": "in",
+        "items": [
+          {
+            "ordinal": 5929,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58:boundary:network_client",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "conditional_source",
+            "detail": {
+              "entity": "edge",
+              "id": 5929
+            }
+          },
+          {
+            "ordinal": 1305,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:78:5:96:18",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:85:24:85:58",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 1305
+            }
+          },
+          {
+            "ordinal": 1164,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:128:26:129:113",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:78:5:96:18",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "inferred",
+            "detail": {
+              "entity": "edge",
+              "id": 1164
+            }
+          },
+          {
+            "ordinal": 1159,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:111:5:132:116",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:128:26:129:113",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 1159
+            }
+          },
+          {
+            "ordinal": 5928,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71:boundary:route_registration",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:111:5:132:116",
+            "kind": "CAN_DISPATCH_TO",
+            "status": "conditional_source",
+            "detail": {
+              "entity": "edge",
+              "id": 5928
+            }
+          },
+          {
+            "ordinal": 5927,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71:boundary:route_registration",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "conditional_source",
+            "detail": {
+              "entity": "edge",
+              "id": 5927
+            }
+          },
+          {
+            "ordinal": 1203,
+            "source": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:134:5:151:38",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:call_site:139:9:140:71",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 1203
+            }
+          },
+          {
+            "ordinal": 4180,
+            "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:62:11:62:53",
+            "target": "py:plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py:callable:134:5:151:38",
+            "kind": "STATIC_CALL_TARGET",
+            "status": "inferred",
+            "detail": {
+              "entity": "edge",
+              "id": 4180
+            }
+          },
+          {
+            "ordinal": 4175,
+            "source": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:callable:59:1:62:53",
+            "target": "py:plugins/ProfilerServerProxy/simple_profiler_server_proxy.py:call_site:62:11:62:53",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 4175
+            }
+          }
+        ],
+        "visited_nodes": 13,
+        "examined_edges": 13,
+        "stop_reason": null
+      }
+    },
+    {
+      "id": "same_version_source_navigation",
+      "passed": true
+    },
+    {
+      "id": "unresolved_calls_have_reasons",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "runtime_execution": false,
+  "whole_G02_accepted": false,
+  "backend_counterpart_status": "pending_artifact_and_instance_identity"
+}
