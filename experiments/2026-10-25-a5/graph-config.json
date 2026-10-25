@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "scope": {
+    "include": ["*"],
+    "exclude": [],
+    "discovery": {"version": 1, "roles": ["build_tool", "product", "test"], "exclude": [], "max_file_bytes": 2097152}
+  },
+  "deployment": {
+    "version": 1,
+    "evidence_kind": "configured_analysis_scope",
+    "description": "Framework transport and server in the isolated Insight runtime deployment; actual endpoints recorded per run.",
+    "services": [{"id": "insight-backend", "consumer_paths": ["modules/framework"], "provider_paths": ["server"]}]
+  },
+  "storage": "json"
+}

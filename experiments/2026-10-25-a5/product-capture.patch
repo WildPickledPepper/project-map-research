@@ -1,0 +1,486 @@
+diff --git a/modules/cluster/src/components/communication/Filter.tsx b/modules/cluster/src/components/communication/Filter.tsx
+index 9e997e061..e37ce423d 100644
+--- a/modules/cluster/src/components/communication/Filter.tsx
++++ b/modules/cluster/src/components/communication/Filter.tsx
+@@ -205,6 +205,7 @@ const getiterationOptions = async(isCompare: boolean): Promise<CompareData<optio
+     const { compare = [], baseline = [] } = res?.iterationOrRankId ?? {};
+     const compareOptions: optionDataType[] = compare.map(item => ({ value: item, label: item }));
+     const baselineOptions = baseline.map(item => ({ value: item, label: item }));
++    (globalThis as any).__a5?.event('consumer.iterations', { compareOptions, baselineOptions, trace_id: (globalThis as any).__a5?.trace(res) });
+     return { compare: compareOptions, baseline: baselineOptions, diff: [] };
+ };
+ 
+@@ -279,6 +280,7 @@ const getStageOptions = async (condition: {iterationId: string;baselineIteration
+             // 其他情况保持原有顺序
+             return 0;
+         });
++    (globalThis as any).__a5?.event('consumer.groups', { options, trace_id: (globalThis as any).__a5?.trace(res) });
+     return options;
+ };
+ const getOperatorOptions = async ({ iterationId, stage, type, pgName, groupIdHash }: {iterationId: string;
+diff --git a/modules/cluster/src/store/session.ts b/modules/cluster/src/store/session.ts
+index 934e02c9c..932f8afa5 100644
+--- a/modules/cluster/src/store/session.ts
++++ b/modules/cluster/src/store/session.ts
+@@ -24,6 +24,7 @@ export class SessionStore {
+ 
+     constructor() {
+         makeAutoObservable(this);
++        (globalThis as any).__a5Session = () => this._activeSession;
+         this._activeSession = new Session();
+     }
+ 
+diff --git a/modules/cluster/src/utils/RequestUtils.ts b/modules/cluster/src/utils/RequestUtils.ts
+index 79cb2cd32..64c69503e 100644
+--- a/modules/cluster/src/utils/RequestUtils.ts
++++ b/modules/cluster/src/utils/RequestUtils.ts
+@@ -441,3 +441,5 @@ export async function queryTimelineUnitKernelDetail(params: {
+ export const getSlowRankList = async(params: GetSlowRankListParams): Promise<GetSlowRankListResult> => {
+     return await window.requestDataDebounced('communication/duration/slow-rank/list', withClusterPath(params));
+ };
++
++(globalThis as any).__a5Queries = { queryIterations, queryStages };
+diff --git a/modules/framework/src/centralServer/websocket/connection.ts b/modules/framework/src/centralServer/websocket/connection.ts
+index 4980e7065..623b16f10 100644
+--- a/modules/framework/src/centralServer/websocket/connection.ts
++++ b/modules/framework/src/centralServer/websocket/connection.ts
+@@ -251,7 +251,10 @@ export class Connection {
+         const currentProjectName = store.sessionStore.activeSession?.activeDataSource?.projectName ?? '';
+         const isImport = requestMsg?.command === 'import/action';
+         const isOldRequest = requestMsg?.projectName !== undefined && requestMsg.projectName !== currentProjectName;
++        (globalThis as any).__projectMapProbe?.event('response.classified', { requestId: reqId, command: msg.command,
++            requestProject: requestMsg?.projectName, currentProject: currentProjectName, isOldRequest });
+         if (!isImport && isOldRequest) {
++            (globalThis as any).__projectMapProbe?.event('response.discarded', { requestId: reqId, command: msg.command });
+             console.warn(`request #${reqId} has been abandoned`);
+             this._requestMsg.delete(reqId);
+             this._responseHandlers.delete(reqId);
+@@ -268,6 +271,7 @@ export class Connection {
+         }
+         this._requestMsg.delete(reqId);
+         this._responseHandlers.delete(reqId);
++        (globalThis as any).__projectMapProbe?.event('response.delivered', { requestId: reqId, command: msg.command });
+         callback(msg);
+     };
+ 
+diff --git a/modules/framework/src/store/session.ts b/modules/framework/src/store/session.ts
+index ded1047b2..a4f7b3cf4 100644
+--- a/modules/framework/src/store/session.ts
++++ b/modules/framework/src/store/session.ts
+@@ -22,6 +22,7 @@ export class SessionStore {
+     private _activeSession: Session;
+     constructor() {
+         makeAutoObservable(this);
++        (globalThis as any).__projectMapReadSession = () => this._activeSession;
+         this._activeSession = new Session();
+     }
+ 
+diff --git a/modules/leaks/src/components/dataHandler.ts b/modules/leaks/src/components/dataHandler.ts
+index 4cdb95c3f..a13acbf64 100644
+--- a/modules/leaks/src/components/dataHandler.ts
++++ b/modules/leaks/src/components/dataHandler.ts
+@@ -192,7 +192,7 @@ export const getFuncNewData = async (
+     }
+ };
+ // 1000 起步、2 倍翻倍；blocks 单项比 events 更宽，上限 32000，为代理 10 MiB 限制保留余量
+-const BLOCKS_MIN_PAGE_SIZE = 1000;
++const BLOCKS_MIN_PAGE_SIZE = (globalThis as any).__a5PageSize ?? 1000;
+ const BLOCKS_MAX_PAGE_SIZE = 32000;
+ 
+ // blocks 分片拉取中途被新请求取代时抛出的哨兵：catch 中按对象身份识别（throw 与 catch 之间无包装），
+@@ -212,7 +212,7 @@ const fetchSnapshotViewBlocksPaginated = async (
+ ): Promise<RenderData> => {
+     let currentDataCount = 0;
+     let currentPage = 1;
+-    let pageSize = BLOCKS_MIN_PAGE_SIZE;
++    let pageSize = (globalThis as any).__a5PageSize ?? BLOCKS_MIN_PAGE_SIZE;
+     let merged: SnapshotBlocksPage | null = null;
+     let expectedTotal: number | undefined;
+     for (;;) {
+@@ -230,6 +230,7 @@ const fetchSnapshotViewBlocksPaginated = async (
+         } else if (res.total !== expectedTotal) {
+             throw new Error('Blocks pagination total changed while loading');
+         }
++        (globalThis as any).__a5?.event('pagination.page', { baseParam, currentPage, pageSize, blocks: res.blocks, total: res.total, trace_id: (globalThis as any).__a5?.trace(res) });
+         merged.blocks = merged.blocks.concat(res.blocks);
+         currentDataCount += res.blocks.length;
+         // 旧后端若不返回 total，则将首页视为原全量响应并保持兼容。
+@@ -258,6 +259,7 @@ const fetchSnapshotViewBlocksPaginated = async (
+             currentPage++;
+         }
+     }
++    (globalThis as any).__a5?.event('pagination.merged', { baseParam, result: merged });
+     return merged as RenderData;
+ };
+ 
+@@ -368,6 +370,7 @@ const fetchSnapshotAllocationLinesPaginated = async (
+ export const getBarNewData = async (session: any): Promise<void> => {
+     const requestSeq = (barDataRequestSeqMap.get(session) ?? 0) + 1;
+     barDataRequestSeqMap.set(session, requestSeq);
++    (globalThis as any).__a5?.event('load.begin', { requestSeq, deviceId: session.deviceId, sliceIndex: session.selectedSliceIndex });
+     blockTableRequestSeqMap.set(session, (blockTableRequestSeqMap.get(session) ?? 0) + 1);
+     eventTableRequestSeqMap.set(session, (eventTableRequestSeqMap.get(session) ?? 0) + 1);
+     if (session.deviceId === '') return;
+@@ -504,6 +507,7 @@ export const getBarNewData = async (session: any): Promise<void> => {
+         if (!isLatestRequest()) {
+             return;
+         }
++        (globalThis as any).__a5?.event('cache.result', { requestSeq, cacheStatus, cacheFileHash, blockContextKey });
+         if (cacheStatus === 'unavailable') {
+             await ensureOpfsFallbackApproval();
+             if (!isLatestRequest()) {
+@@ -511,6 +515,7 @@ export const getBarNewData = async (session: any): Promise<void> => {
+             }
+         }
+         if (cacheStatus === 'hit') {
++            (globalThis as any).__a5?.event('cache.adopted', { requestSeq, blockContextKey });
+             runInAction(() => {
+                 session.loadingBlocks = false;
+                 session.loadedMemoryBlockContextKey = blockContextKey;
+@@ -527,6 +532,8 @@ export const getBarNewData = async (session: any): Promise<void> => {
+         if (!isLatestRequest()) {
+             return;
+         }
++        if ((globalThis as any).__a5FaultDropBlock) { blockData.blocks = blockData.blocks.slice(1); }
++        (globalThis as any).__a5?.event('worker.handoff', { requestSeq, blockContextKey, data: blockData });
+         const blockRenderTask = workerSetMemoryBlockData({ data: blockData, fileHash: cacheFileHash });
+         publishAllocationLines(await allocationTask);
+         await blockRenderTask;
+@@ -537,9 +544,11 @@ export const getBarNewData = async (session: any): Promise<void> => {
+             session.loadingBlocks = false;
+             session.loadedMemoryBlockContextKey = blockContextKey;
+         });
++        (globalThis as any).__a5?.event('load.adopted', { requestSeq, blockContextKey, deviceId: session.deviceId, sliceIndex: session.selectedSliceIndex });
+         preloadRemainingOverviews();
+     } catch (error: any) {
+         // 分片拉取被新请求取代：静默作废，loading 等状态由新请求管理
++        (globalThis as any).__a5?.event('load.error', { requestSeq, superseded: error === SNAPSHOT_PAGINATION_SUPERSEDED, message: error?.message });
+         if (error === SNAPSHOT_PAGINATION_SUPERSEDED) {
+             return;
+         }
+@@ -827,3 +836,5 @@ export const getEventTableData = async (session: any): Promise<void> => {
+         if (isLatestRequest()) message.error(error.message);
+     }
+ };
++
++(globalThis as any).__a5ReloadBlocks = getBarNewData;
+diff --git a/modules/leaks/src/leaksWorker/blockWorker/worker.ts b/modules/leaks/src/leaksWorker/blockWorker/worker.ts
+index a454084aa..ee61ddd5e 100644
+--- a/modules/leaks/src/leaksWorker/blockWorker/worker.ts
++++ b/modules/leaks/src/leaksWorker/blockWorker/worker.ts
+@@ -325,3 +325,5 @@ export const workerClickItem = backend.clickItem;
+ export const workerSelectItem = backend.selectItem;
+ export const workerSelectBlockById = backend.selectBlockById;
+ export const workerDestroy = backend.destroy;
++
++(globalThis as any).__a5RemoveCache = WorkerBackend.removeMemoryBlockCaches;
+diff --git a/modules/leaks/src/store/session.ts b/modules/leaks/src/store/session.ts
+index 8ed44bda9..4bdf10d7e 100644
+--- a/modules/leaks/src/store/session.ts
++++ b/modules/leaks/src/store/session.ts
+@@ -24,6 +24,7 @@ export class SessionStore {
+ 
+     constructor() {
+         makeAutoObservable(this);
++        (globalThis as any).__a5Session = () => this._activeSession;
+         this._activeSession = new Session();
+     }
+ 
+diff --git a/modules/lib/src/connection/index.ts b/modules/lib/src/connection/index.ts
+index 8ab1d9109..19c383bab 100644
+--- a/modules/lib/src/connection/index.ts
++++ b/modules/lib/src/connection/index.ts
+@@ -182,6 +182,12 @@ export class ClientConnector extends BaseConnector {
+ 
+     async fetch(params: FetchParams): Promise<unknown> {
+         return new Promise((resolve, reject) => {
++            const probe = (globalThis as any).__a5;
++            const args = (params as any).args;
++            if (probe && args?.params && /^(communication\/|Memory\/(snapshot|leaks)\/)/.test(args.command)) {
++                const traceId = probe.begin(args.command, args.params, this._curFetchSequenceID);
++                args.params = { ...args.params, __projectMapTrace: traceId };
++            }
+             params.id = this._curFetchSequenceID;
+             (params as Record<string, unknown>).event = 'request';
+             const body = params as unknown as SendParams<string>;
+@@ -191,6 +197,7 @@ export class ClientConnector extends BaseConnector {
+     };
+ 
+     protected awaitFetch(res: MessageEvent<FetchRequest>): void {
++        (globalThis as any).__a5?.event('connector.response', { id: res.data.id, response: res.data });
+         const result = this._msgSequence.get(res.data.id);
+         if (result !== undefined) {
+             const { resolve, reject } = result;
+diff --git a/modules/timeline/src/api/request.ts b/modules/timeline/src/api/request.ts
+index 57b239864..1e4e6e08f 100644
+--- a/modules/timeline/src/api/request.ts
++++ b/modules/timeline/src/api/request.ts
+@@ -172,7 +172,12 @@ export async function createCurve(params: CreateCurveParams): Promise<CreateCurv
+ }
+ 
+ export async function getUnitFlows(params: GetUnitFlowsParams): Promise<GetUnitFlowsResult> {
+-    return window.requestData('unit/flows', params, 'timeline');
++    const probe = (globalThis as any).__projectMapProbe;
++    const traceId = probe?.begin(params);
++    const sentParams = traceId ? { ...params, __projectMapTrace: traceId } : params;
++    const result = await window.requestData('unit/flows', sentParams, 'timeline');
++    probe?.resolved(traceId, result);
++    return result;
+ }
+ 
+ export async function queryTimelineOffset(params: QueryTimelineOffsetParams): Promise<QueryTimelineOffsetResult> {
+diff --git a/modules/timeline/src/components/FilterLinkLine.tsx b/modules/timeline/src/components/FilterLinkLine.tsx
+index 1f9a39c6f..c226353ba 100644
+--- a/modules/timeline/src/components/FilterLinkLine.tsx
++++ b/modules/timeline/src/components/FilterLinkLine.tsx
+@@ -448,6 +448,7 @@ const getSingleFlow = async (session: Session): Promise<void> => {
+             session.singleLinkLine = newLines;
+             session.renderTrigger = !session.renderTrigger;
+         });
++        (globalThis as any).__projectMapProbe?.stateApplied(raw, session, 'FilterLinkLine.getSingleFlow');
+     }
+ };
+ 
+diff --git a/modules/timeline/src/insight/units/AscendUnit.tsx b/modules/timeline/src/insight/units/AscendUnit.tsx
+index c0eea1d47..c7b91b551 100644
+--- a/modules/timeline/src/insight/units/AscendUnit.tsx
++++ b/modules/timeline/src/insight/units/AscendUnit.tsx
+@@ -802,6 +802,7 @@ export const ThreadUnit = unit<ThreadMetaData>({
+                 session.singleLinkLine = newLines;
+                 session.renderTrigger = !session.renderTrigger;
+             });
++            (globalThis as any).__projectMapProbe?.stateApplied(raw, session, 'AscendUnit.onClick');
+         },
+         onHover: (data, session: Session): void => {
+             runInAction(() => {
+diff --git a/modules/timeline/src/store/session.ts b/modules/timeline/src/store/session.ts
+index b23a1f4ae..3409da726 100644
+--- a/modules/timeline/src/store/session.ts
++++ b/modules/timeline/src/store/session.ts
+@@ -23,6 +23,7 @@ export class SessionStore {
+ 
+     constructor() {
+         makeAutoObservable(this);
++        (globalThis as any).__projectMapReadSession = () => this._activeSession;
+         this._activeSession = new Session({
+             id: 'entry',
+             name: 'entry',
+diff --git a/server/msinsight/include/base/ProjectMapProbe.h b/server/msinsight/include/base/ProjectMapProbe.h
+new file mode 100644
+index 000000000..f5e47661c
+--- /dev/null
++++ b/server/msinsight/include/base/ProjectMapProbe.h
+@@ -0,0 +1,59 @@
++#pragma once
++// Experimental capture helper, copied only into the isolated P5 product checkout.
++#include <sstream>
++#include <thread>
++#include <typeinfo>
++#ifdef _WIN32
++#include <windows.h>
++#endif
++#include "ProtocolUtil.h"
++#include "ServerLog.h"
++#include "stringbuffer.h"
++#include "writer.h"
++
++namespace ProjectMapProbe {
++struct Identity {
++    unsigned int requestId;
++    std::string module;
++    std::string command;
++    std::string project;
++};
++inline Identity Capture(const Dic::Protocol::Request &request) {
++    return {request.id, request.moduleName, request.command, request.projectName};
++}
++inline void Emit(const char *stage, const Identity &request, const char *implementation = "",
++                 int count = -1, const char *traceId = "") {
++    rapidjson::StringBuffer buffer;
++    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
++    std::ostringstream thread;
++#ifdef _WIN32
++    thread << GetCurrentThreadId();
++#else
++    thread << std::this_thread::get_id();
++#endif
++    writer.StartObject();
++    writer.Key("stage"); writer.String(stage);
++    writer.Key("request_id"); writer.Uint(request.requestId);
++    writer.Key("module"); writer.String(request.module.c_str());
++    writer.Key("command"); writer.String(request.command.c_str());
++    writer.Key("project"); writer.String(request.project.c_str());
++    writer.Key("implementation"); writer.String(implementation);
++    writer.Key("thread"); writer.String(thread.str().c_str());
++#ifdef _WIN32
++    writer.Key("thread_source"); writer.String("Windows GetCurrentThreadId");
++    writer.Key("process_id"); writer.Uint(GetCurrentProcessId());
++#else
++    writer.Key("thread_source"); writer.String("std::thread::id");
++#endif
++    writer.Key("count"); writer.Int(count);
++    writer.Key("trace_id"); writer.String(traceId);
++    writer.EndObject();
++    Dic::Server::ServerLog::Info("PROJECT_MAP_EVENT ", buffer.GetString());
++}
++inline std::string TraceId(const Dic::document_t &document) {
++    if (!document.IsObject() || !document.HasMember("params") || !document["params"].IsObject()) return "";
++    const auto &params = document["params"];
++    if (!params.HasMember("__projectMapTrace") || !params["__projectMapTrace"].IsString()) return "";
++    return params["__projectMapTrace"].GetString();
++}
++}
+diff --git a/server/msinsight/src/base/ModuleRequestHandler.cpp b/server/msinsight/src/base/ModuleRequestHandler.cpp
+index 5823eabf7..976291313 100644
+--- a/server/msinsight/src/base/ModuleRequestHandler.cpp
++++ b/server/msinsight/src/base/ModuleRequestHandler.cpp
+@@ -22,6 +22,7 @@
+ #include "../utils/IdBuilder.h"
+ #include "RequestContext.h"
+ #include "RequestFilter.h"
++#include "ProjectMapProbe.h"
+ 
+ namespace Dic {
+ namespace Module {
+@@ -50,7 +51,10 @@ bool ModuleRequestHandler::HandleRequestEntrance(std::unique_ptr<Request> reques
+         return false;
+     }
+     ServerLog::Info("Start handle request, module = ", moduleName, ", command = ", command, ", id = ", id);
++    const auto probeIdentity = ProjectMapProbe::Capture(*requestPtr);
++    ProjectMapProbe::Emit("handler.invoke", probeIdentity, typeid(*this).name());
+     bool res = HandleRequest(std::move(requestPtr));
++    ProjectMapProbe::Emit("handler.complete", probeIdentity, typeid(*this).name(), res ? 1 : 0);
+     ServerLog::Info("End handle request, module = ", moduleName, ", command = ", command, ", id = ", id);
+     requestFilter.ClearKey(key, id);
+     return res;
+diff --git a/server/src/modules/ProtocolManager.cpp b/server/src/modules/ProtocolManager.cpp
+index 1c445ba43..38abd113b 100644
+--- a/server/src/modules/ProtocolManager.cpp
++++ b/server/src/modules/ProtocolManager.cpp
+@@ -18,6 +18,7 @@
+ #include "pch.h"
+ #include "PluginsManager.h"
+ #include "ProtocolManager.h"
++#include "ProjectMapProbe.h"
+ 
+ namespace Dic {
+ namespace Protocol {
+@@ -69,7 +70,12 @@ std::unique_ptr<Request> ProtocolManager::FromJson(const std::string &requestStr
+         ServerLog::Warn("Failed to get request module protocol. module type:", moduleName);
+         return nullptr;
+     }
+-    return protocolMap.at(moduleName)->FromJson(requestJson.value(), error);
++    auto parsed = protocolMap.at(moduleName)->FromJson(requestJson.value(), error);
++    if (parsed) {
++        auto traceId = ProjectMapProbe::TraceId(requestJson.value());
++        ProjectMapProbe::Emit("request.decoded", ProjectMapProbe::Capture(*parsed), "", -1, traceId.c_str());
++    }
++    return parsed;
+ }
+ 
+ std::optional<document_t> ProtocolManager::ToJson(const Response &response, std::string &error) {
+diff --git a/server/src/modules/communication/core/ClusterService.cpp b/server/src/modules/communication/core/ClusterService.cpp
+index 8f20271b9..542307952 100644
+--- a/server/src/modules/communication/core/ClusterService.cpp
++++ b/server/src/modules/communication/core/ClusterService.cpp
+@@ -1,3 +1,4 @@
++#include "ProjectMapProbe.h"
+ /*
+  * -------------------------------------------------------------------------
+  * This file is part of the MindStudio project.
+@@ -199,10 +200,12 @@ bool IsLastPage(uint64_t total, int64_t currentPage, int64_t pageSize) {
+ void ClusterService::QueryIterations(
+     const Protocol::IterationsRequest &request, Protocol::IterationsOrRanksResponse &response) {
+     auto database = Timeline::DataBaseManager::Instance().GetClusterDatabase(request.params.clusterPath);
++    if (database) ProjectMapProbe::Emit("database.call", ProjectMapProbe::Capture(request), typeid(*database).name());
+     if (database == nullptr || !database->QueryIterations(response.body.compare)) {
+         ServerLog::Warn("Fail to query compare iterations info.");
+     }
+ 
++    ProjectMapProbe::Emit("database.return", ProjectMapProbe::Capture(request), database ? typeid(*database).name() : "null", static_cast<int>(response.body.compare.size()));
+     if (!request.params.isCompare) {
+         return;
+     }
+@@ -217,6 +220,7 @@ void ClusterService::QueryIterations(
+ void ClusterService::QueryGroupInfo(
+     const Protocol::MatrixGroupRequest &request, Protocol::MatrixGroupResponse &response) {
+     auto database = Timeline::DataBaseManager::Instance().GetClusterDatabase(request.params.clusterPath);
++    if (database) ProjectMapProbe::Emit("database.call", ProjectMapProbe::Capture(request), typeid(*database).name());
+     std::vector<GroupInfoDo> compareGroupList;
+     if (database == nullptr || !database->GetGroups(compareGroupList)) {
+         ServerLog::Warn("Fail to query compare group info.");
+@@ -232,6 +236,7 @@ void ClusterService::QueryGroupInfo(
+     }
+     // 合并通信域列表
+     response.body.groupList = MergeGroupInfo(request, compareGroupList, baselineGroupList);
++    ProjectMapProbe::Emit("database.return", ProjectMapProbe::Capture(request), database ? typeid(*database).name() : "null", static_cast<int>(response.body.groupList.size()));
+ }
+ 
+ std::vector<OpTypeStatistics> ClusterService::GetOpTypeStatByStepId(
+diff --git a/server/src/modules/memscope/handler/QueryMemScopeBlockHandler.cpp b/server/src/modules/memscope/handler/QueryMemScopeBlockHandler.cpp
+index 6c4c9978e..c841104bb 100644
+--- a/server/src/modules/memscope/handler/QueryMemScopeBlockHandler.cpp
++++ b/server/src/modules/memscope/handler/QueryMemScopeBlockHandler.cpp
+@@ -1,3 +1,4 @@
++#include "ProjectMapProbe.h"
+ /*
+  * -------------------------------------------------------------------------
+  * This file is part of the MindStudio project.
+@@ -36,7 +37,9 @@ bool QueryMemScopeBlockHandler::HandleRequest(std::unique_ptr<Protocol::Request>
+         SendResponse(std::move(responsePtr), false, REQUEST_ERROR_UNKNOWN);
+         return false;
+     }
++    ProjectMapProbe::Emit("database.call", ProjectMapProbe::Capture(request), typeid(*memoryDatabase).name());
+     const int64_t total = memoryDatabase->QueryMemoryBlocks(request.params, request.isTable, response.blocks);
++    ProjectMapProbe::Emit("database.return", ProjectMapProbe::Capture(request), typeid(*memoryDatabase).name(), static_cast<int>(total));
+     if (total < 0) {
+         Server::ServerLog::Error("[MemScope] Failed to query memory blocks: query db failed.");
+         SendResponse(std::move(responsePtr), false, REQUEST_ERROR_UNKNOWN);
+diff --git a/server/src/modules/memsnapshot/handler/QueryMemSnapshotBlockHandler.cpp b/server/src/modules/memsnapshot/handler/QueryMemSnapshotBlockHandler.cpp
+index 2ec63ead2..e5d50701d 100644
+--- a/server/src/modules/memsnapshot/handler/QueryMemSnapshotBlockHandler.cpp
++++ b/server/src/modules/memsnapshot/handler/QueryMemSnapshotBlockHandler.cpp
+@@ -1,3 +1,4 @@
++#include "ProjectMapProbe.h"
+ /*
+  * -------------------------------------------------------------------------
+  * This file is part of the MindStudio project.
+@@ -43,6 +44,7 @@ bool QueryMemSnapshotBlockHandler::HandleRequest(std::unique_ptr<Protocol::Reque
+         SendResponse(std::move(responsePtr), false, errMsg);
+         return false;
+     }
++    ProjectMapProbe::Emit("database.call", ProjectMapProbe::Capture(request), typeid(*database).name());
+     const auto slice = resolved.slice;
+     if (request.isTable) {
+         const int64_t total = database->QueryBlocksTable(request.params, response.tableBlocks);
+@@ -80,6 +82,7 @@ bool QueryMemSnapshotBlockHandler::HandleRequest(std::unique_ptr<Protocol::Reque
+         response.maxTimestamp = slice->endEventId > slice->startEventId ? static_cast<uint64_t>(slice->endEventId)
+                                                                         : static_cast<uint64_t>(slice->endEventId) + 1;
+     }
++    ProjectMapProbe::Emit("database.return", ProjectMapProbe::Capture(request), typeid(*database).name(), static_cast<int>(response.isTable ? response.tableBlocks.size() : response.viewBlocks.size()));
+     SendResponse(std::move(responsePtr), true);
+     return true;
+ }
+diff --git a/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp b/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp
+index d478942fd..484ee8a91 100644
+--- a/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp
++++ b/server/src/modules/timeline/handler/QueryFlowsBySliceInfoHandler.cpp
+@@ -21,6 +21,7 @@
+ #include "TrackInfoManager.h"
+ #include "TraceTime.h"
+ #include "QueryFlowsBySliceInfoHandler.h"
++#include "ProjectMapProbe.h"
+ namespace Dic {
+ namespace Module {
+ namespace Timeline {
+@@ -54,7 +55,10 @@ bool QueryFlowsBySliceInfoHandler::HandleRequest(std::unique_ptr<Protocol::Reque
+         ", tid: ", queryParams.tid, ", sliceId: ", queryParams.id, ", trackId: ", trackId,
+         ", isPythonStack: ", queryParams.isPythonStack);
+     try {
++        ProjectMapProbe::Emit("database.call", ProjectMapProbe::Capture(request), typeid(*database).name());
+         database->QueryUnitFlows(queryParams, response.body, minTimestamp, trackId);
++        ProjectMapProbe::Emit("database.return", ProjectMapProbe::Capture(request), typeid(*database).name(),
++            static_cast<int>(response.body.unitAllFlows.size()));
+     } catch (DatabaseException &e) {
+         e.Log("Query flows by slice info Fail, ");
+         SetTimelineError(ErrorCode::QUERY_UNIT_FLOWS_FAILED);

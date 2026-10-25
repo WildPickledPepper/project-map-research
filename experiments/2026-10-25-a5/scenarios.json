@@ -1,0 +1,19 @@
+{
+  "schema": 1,
+  "frozen_before_product_runs": true,
+  "source_baseline": "ccd0d88080861b0c7185bcca70a85bd61f823168",
+  "inputs": "public repository fixtures only; copied outside the research and product repositories",
+  "assertions": {
+    "communication": "Iteration options equal the numeric step suffixes independently read from cluster_communication.json; request identity connects transport, decoded request, concrete handler, database, response and options consumer.",
+    "snapshot": "Merged graph blocks equal independently reconstructed allocation lifetimes from the primitive snapshot trace, for the selected device and slice; every page belongs to its request; Worker receives the same block count and reports completion for the adopted generation.",
+    "pagination": "Default page size control and an explicitly versioned smaller-page experiment return the same block identities; page concatenation has no omission or duplicate.",
+    "replacement": "After a newer context starts, an old held response must not be adopted into the current context; held, released, discarded and still pending requests remain distinguishable.",
+    "failure": "A controlled failed response cannot become a successful completed graph; failed loading clears or is explicitly classified pending.",
+    "cache": "First eligible context misses and builds; repeated eligible context hits without blocks network fetch; explicit removal causes miss and rebuild. Observe completion before classifying persistence.",
+    "fault": "Dropping one merged block before Worker transfer must violate the predeclared independent block-set assertion; identical control and restored runs must pass.",
+    "mapping": "Only committed matching source/build/config snapshots can be overlaid; changed source or config rejects reuse; unmapped observations remain visible."
+  },
+  "resources": ["OPFS file entries and physical file bytes", "Worker reported logical and buffer metrics", "browser JS heap", "backend and browser process working set where available"],
+  "coverage_unit": "named executed scenarios, not exhaustive runtime paths",
+  "historical_validation_samples": "not used to develop these mechanisms"
+}
