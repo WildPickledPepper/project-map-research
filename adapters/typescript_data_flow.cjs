@@ -194,9 +194,14 @@ function extractData(ctx,apiSymbols,{maxSteps=20000,maxDepth=12,maxAlternatives=
         receiver:'same_runtime_instance',key:'registration_key_equals_lookup_key',lifetime:'registration_reaches_lookup_without_replacement_or_deletion',
         callback_value:'captured_callback_fields_not_modified_before_invocation'};
       const cc={...c,conditions:[...c.conditions,...r.conditions,condition],registryContext:{registration:r.id,lookup:lookup.id,selectors:value.selectors}};
-      if(callback.tag==='resolver')selected.push(settle(callback,args,cc,n));
-      else if(callback.tag==='function')selected.push(invoke(callback,args,cc,n));
-      else note(n,'registered_value_not_callable',cc);
+      function visit(value){
+        if(value.tag==='union'){value.values.forEach(visit);return;}
+        const branch={...cc,conditions:uniq([...cc.conditions,...(value.conditions||[])])};
+        if(value.tag==='resolver')selected.push(settle(value,args,branch,n));
+        else if(value.tag==='function')selected.push(invoke(value,args,branch,n));
+        else note(n,'registered_value_not_callable',branch);
+      }
+      visit(callback);
     }
     if(!selected.length)note(n,'registry_callback_unresolved',c,{lookup:lookup.id,selectors:value.selectors});
     return selected.length?selected.reduce(merge):unknown('registry_callback_unresolved');

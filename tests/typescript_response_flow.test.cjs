@@ -34,6 +34,14 @@ test('a stored source closure projects a decoded response into its captured reso
   assert(body.conditions.some(c=>c.kind==='registered_value_selected'));
   assert(g.deletions.length);assert(body.call_chain.length);
 });
+test('branch-copied registered closures retain fulfillment after cache eviction guards',()=>{
+  const code=wrapper.replace('this.pending.set(key,this.wrap(resolve));',
+    'const callback=this.wrap(resolve);if(this.pending.size>7){this.pending.delete(0);}this.pending.set(key,callback);');
+  const g=graph(code);
+  assert(g.registrations.some(r=>r.value.kind==='alternatives'));
+  assert(g.settlements.some(s=>s.registry_context&&s.value.kind==='input_path'&&s.value.path.at(-1)==='payload'));
+  assert(!g.diagnostics.some(d=>d.kind==='registry_callback_unresolved'));
+});
 
 test('resolver objects preserve separate success and failure paths',()=>{
   const g=graph(`class Link {q=new Map<number,any>();send(k:number){return new Promise((ok,bad)=>this.q.set(k,{ok,bad}));}
