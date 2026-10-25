@@ -1,6 +1,6 @@
 # CMake 原生构建产物接口实测
 
-日期：2026-10-25。性质：W2 产物连接的组件预备实验；[62 项检查通过](evidence/cmake-native-probe.json)。使用未修改的 CMake `3.31.6`，尚未配置 Insight，也未生成生产图的进程对端连接。
+日期：2026-10-25。性质：W2 产物连接的组件预备实验；[独立夹具 62 项](evidence/cmake-native-probe.json)及 [Insight 实际配置 24 项](evidence/cmake-native-repository.json)检查通过。使用未修改的 CMake `3.31.6`，后端构建目标和入口来源已取得原生结果，待导入生产图并连接进程对端。
 
 ## 已执行的检查
 
@@ -22,10 +22,33 @@
 
 优先导入 File API 的目标、产物、源文件、配置和回溯，无需自行解释完整 CMake 语言。配置收据必须绑定源码、工具和参数；未配置成功的仓库保留具体依赖缺口。
 
-Insight 的源码检查显示三段来源：CMake 定义后端产物，Python 构建脚本先统一输出目录再复制到发行目录，Rust 用路径片段拼接子进程程序。后续要连接这些来源，并核查平台和实例条件，才能形成进程到后端入口的关系。该检查属于源码阅读，尚非自动提取结果。
+Insight 的源码检查显示三段来源：CMake 定义后端产物，Python 构建脚本先统一输出目录再复制到发行目录，Rust 用路径片段拼接子进程程序。后续要连接这些来源，并核查平台和实例条件，形成进程到后端入口的关系。Python/Rust 这部分仍为源码阅读，CMake 部分已有下述原生配置证据。
+
+## Insight 真实源码配置
+
+从固定提交 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688` 导出 server 完整子树，共 1,417 个跟踪文件。第一次未补依赖，原生 CMake 在 third_party/CMakeLists.txt:9 报缺 libuv，随后报告 uv 目标缺失，没有成功回复。该失败保留在独立 build 目录。
+
+第二次在同一独立源码副本中准备真实依赖，再使用新 build 目录执行 Windows/Release/Ninja 配置。libuv `v1.44.2`、uSockets `v0.8.6`、uWebSockets `v20.48.0` 及 rapidjson 都从已有 Git 缓存的固定提交导出；SQLite 使用已有 `3.46.1` 源码缓存，按上游预处理脚本的目录放入四个实际源码/头文件。没有伪造依赖或替换 CMakeLists。
+
+| 原生结果 | 实际内容 |
+|---|---|
+| 目标 | 1 个可执行、3 个共享库、1 个静态库；另有 28 个 CTest 工具目标 |
+| 后端产物 | profiler_server → server/output/win_mingw64/bin/profiler_server.exe，另列调试符号产物 |
+| 源码 | 后端目标包含 408 个源文件，含 server/src/entry/server/bin/main.cpp |
+| 声明回溯 | server/src/entry/server/bin/CMakeLists.txt:13，add_executable |
+| 依赖 | 原生 ID 连接 uv_a、sqlite、msinsight |
+| 编译上下文 | C/CXX、Release、LIBUS_NO_SSL、LIBUS_USE_LIBUV、UWS_NO_ZLIB；DATABASE_VERSION 为配置时间生成值 |
+| 可复用上下文 | File API 四类对象及 compile_commands.json 均实际生成 |
+
+工具实际报告为 CMake 3.31.6、Ninja `1.11.1.git.kitware.jobserver-1`、MinGW g++ 11.5.0。Ninja 来自 Python 分发包 `1.11.1.4`，保留原生报告版本。上游构建命令传入的 CMAKE_POLICY_VERSION_MINIMUM=3.5 在当前 CMake 下报告未使用，其日志保留。
+
+后置评分器单独保存目标/产物/入口的源码参考；配置器只接受仓库、版本、子树、工具与依赖路径，不含这些产品名称。24 项检查通过。只执行 CMake 配置/生成及编译器探测，产品编译和实际启动由后续构建/运行义务验收。原始源码、回复、编译命令和日志保存在仓库外。
 
 ```text
 python experiments/2026-10-25-w1/run_cmake_probe.py --cmake CMAKE --make MINGW_MAKE --cxx CXX --output NEW_OUTPUT
+python experiments/2026-10-25-w1/run_cmake_repository.py --help
+python experiments/2026-10-25-w1/score_cmake_repository.py --trial PRODUCT_TRIAL --output NEW_SCORE.json
+python experiments/2026-10-25-w1/check_cmake_evidence.py
 ```
 
-本实验采用 MinGW Makefiles 及已安装的 MinGW 编译器。输出必须是仓库外新目录，夹具由脚本独立创建；原始 Insight checkout 未修改。G02/G03 保持未通过。
+独立夹具采用 MinGW Makefiles，真实源码配置采用上游使用的 Ninja 生成器。输出必须是仓库外新目录；原始 Insight checkout 未修改，未重新核验文件哈希。G02/G03 保持未通过。

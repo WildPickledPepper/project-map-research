@@ -1,0 +1,252 @@
+{
+  "schema": "cmake-repository-native-score/1",
+  "origin": "executed_native_configuration_separate_source_audit",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "source_export_files": 1417,
+  "tools": {
+    "cmake": "cmake version 3.31.6",
+    "make": "1.11.1.git.kitware.jobserver-1",
+    "cxx": "g++.exe (MinGW-W64 x86_64-msvcrt-posix-seh, built by Brecht Sanders) 11.5.0"
+  },
+  "configuration": "Release",
+  "generator": "Ninja",
+  "dependencies": [
+    {
+      "destination": "server/third_party/libuv",
+      "kind": "git_committed_blob_export",
+      "revision": "0c1fa696aa502eb749c2c4735005f41ba00a27b8",
+      "files": 459
+    },
+    {
+      "destination": "server/third_party/uSockets",
+      "kind": "git_committed_blob_export",
+      "revision": "8cd4cb66eb061b2594ca114b9ea1ead64613ad4b",
+      "files": 48
+    },
+    {
+      "destination": "server/third_party/uWebSockets",
+      "kind": "git_committed_blob_export",
+      "revision": "bc2815d95b6ff4cad0973226d0058eadaaec99ad",
+      "files": 122
+    },
+    {
+      "destination": "server/third_party/rapidjson",
+      "kind": "git_committed_blob_export",
+      "revision": "d621dc9e9c77f81e5c8a35b8dcc16dcd63351321",
+      "files": 313
+    },
+    {
+      "destination": "server/third_party/sqlite/src/sqlite3.c",
+      "kind": "prepared_source_file",
+      "origin": "caller_provided_source_cache_not_rehashed"
+    },
+    {
+      "destination": "server/third_party/sqlite/src/shell.c",
+      "kind": "prepared_source_file",
+      "origin": "caller_provided_source_cache_not_rehashed"
+    },
+    {
+      "destination": "server/third_party/sqlite/include/sqlite3.h",
+      "kind": "prepared_source_file",
+      "origin": "caller_provided_source_cache_not_rehashed"
+    },
+    {
+      "destination": "server/third_party/sqlite/include/sqlite3ext.h",
+      "kind": "prepared_source_file",
+      "origin": "caller_provided_source_cache_not_rehashed"
+    }
+  ],
+  "target_type_counts": {
+    "UTILITY": 28,
+    "SHARED_LIBRARY": 3,
+    "EXECUTABLE": 1,
+    "STATIC_LIBRARY": 1
+  },
+  "selected_target": {
+    "id": "profiler_server::@7ff4e870b0d7d54ebf1b",
+    "name": "profiler_server",
+    "type": "EXECUTABLE",
+    "configuration": "Release",
+    "artifacts": [
+      {
+        "root": "source",
+        "path": "server/output/win_mingw64/bin/profiler_server.exe"
+      },
+      {
+        "root": "source",
+        "path": "server/output/win_mingw64/bin/profiler_server.pdb"
+      }
+    ],
+    "dependencies": [
+      "uv_a::@1ecdf77a6fe0f835c35f",
+      "sqlite::@404bef308afbc8f16dd1",
+      "msinsight::@ff5777af10d1c143f197"
+    ],
+    "declaration": [
+      {
+        "path": {
+          "root": "source",
+          "path": "server/src/entry/server/bin/CMakeLists.txt"
+        },
+        "line": 13,
+        "command": "add_executable"
+      },
+      {
+        "path": {
+          "root": "source",
+          "path": "server/src/entry/server/bin/CMakeLists.txt"
+        }
+      }
+    ]
+  },
+  "selected_target_source_count": 408,
+  "entry": [
+    {
+      "root": "source",
+      "path": "server/src/entry/server/bin/main.cpp",
+      "generated": false,
+      "backtrace": [
+        {
+          "path": {
+            "root": "source",
+            "path": "server/src/entry/server/bin/CMakeLists.txt"
+          },
+          "line": 13,
+          "command": "add_executable"
+        },
+        {
+          "path": {
+            "root": "source",
+            "path": "server/src/entry/server/bin/CMakeLists.txt"
+          }
+        }
+      ]
+    }
+  ],
+  "linked_targets": [
+    "msinsight",
+    "sqlite",
+    "uv_a"
+  ],
+  "compile_definitions": [
+    "DATABASE_VERSION=2026102521",
+    "LIBUS_NO_SSL",
+    "LIBUS_USE_LIBUV",
+    "UWS_NO_ZLIB"
+  ],
+  "first_failure": {
+    "id": "without-dependencies",
+    "returncode": 1,
+    "configured": false,
+    "diagnostics": [
+      "CMake Error at third_party/CMakeLists.txt:9 (add_subdirectory):",
+      "CMake Error at src/entry/server/bin/CMakeLists.txt:15 (set_target_properties):"
+    ],
+    "successful_reply_available": false
+  },
+  "checks": [
+    {
+      "id": "pinned_source",
+      "passed": true
+    },
+    {
+      "id": "complete_server_committed_subtree_exported",
+      "passed": true
+    },
+    {
+      "id": "native_cmake_version",
+      "passed": true
+    },
+    {
+      "id": "native_context_release_ninja",
+      "passed": true
+    },
+    {
+      "id": "missing_dependencies_fail_configuration",
+      "passed": true
+    },
+    {
+      "id": "failed_configuration_has_no_success_index",
+      "passed": true
+    },
+    {
+      "id": "required_dependency_diagnostic_retained",
+      "passed": true
+    },
+    {
+      "id": "prepared_configuration_succeeds",
+      "passed": true
+    },
+    {
+      "id": "four_native_objects",
+      "passed": true
+    },
+    {
+      "id": "compile_commands_emitted",
+      "passed": true
+    },
+    {
+      "id": "native_target_ids_unique",
+      "passed": true
+    },
+    {
+      "id": "product_target_is_executable",
+      "passed": true
+    },
+    {
+      "id": "complete_artifact_path",
+      "passed": true
+    },
+    {
+      "id": "target_declaration_source",
+      "passed": true
+    },
+    {
+      "id": "entry_is_owned_source",
+      "passed": true
+    },
+    {
+      "id": "entry_source_has_native_backtrace",
+      "passed": true
+    },
+    {
+      "id": "linked_target_identity",
+      "passed": true
+    },
+    {
+      "id": "sources_retained",
+      "passed": true
+    },
+    {
+      "id": "native_compile_configuration",
+      "passed": true
+    },
+    {
+      "id": "native_compile_languages",
+      "passed": true
+    },
+    {
+      "id": "pinned_libuv_dependency",
+      "passed": true
+    },
+    {
+      "id": "pinned_usockets_dependency",
+      "passed": true
+    },
+    {
+      "id": "no_product_execution_or_build_claim",
+      "passed": true
+    },
+    {
+      "id": "original_checkout_and_hash_preference",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "product_source_compiled": false,
+  "product_executed": false,
+  "production_graph_generated": false,
+  "process_counterpart_connected": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false
+}

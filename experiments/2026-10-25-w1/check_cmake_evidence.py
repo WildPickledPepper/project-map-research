@@ -18,4 +18,15 @@ for row in data['records']:
     assert {'add_executable', 'register_program'} <= {r.get('command') for r in row['declaration']}
 assert not any(data[k] for k in ('product_repository_configured', 'product_built', 'production_graph_generated',
                                'process_counterpart_connected', 'whole_G02_accepted', 'whole_G03_accepted'))
-print('OK: 62 native CMake checks; product graph and boundary acceptance remain pending.')
+product = json.loads((Path(__file__).parent / 'evidence/cmake-native-repository.json').read_text(encoding='utf-8'))
+assert product['passed'] and len(product['checks']) == 24 and all(r['passed'] for r in product['checks'])
+assert product['source_commit'] == 'd4e8d1cf9f90208bcbe5371c127088f6fd66c688' and product['source_export_files'] == 1417
+assert product['tools']['cmake'] == 'cmake version 3.31.6' and product['configuration'] == 'Release' and product['generator'] == 'Ninja'
+assert product['target_type_counts'] == {'UTILITY': 28, 'SHARED_LIBRARY': 3, 'EXECUTABLE': 1, 'STATIC_LIBRARY': 1}
+assert product['selected_target_source_count'] == 408 and product['selected_target']['type'] == 'EXECUTABLE'
+assert product['entry'][0]['path'] == 'server/src/entry/server/bin/main.cpp'
+assert product['linked_targets'] == ['msinsight', 'sqlite', 'uv_a']
+assert product['first_failure']['returncode'] != 0 and not product['first_failure']['successful_reply_available']
+assert not any(product[k] for k in ('product_source_compiled', 'product_executed', 'production_graph_generated',
+                                  'process_counterpart_connected', 'whole_G02_accepted', 'whole_G03_accepted'))
+print('OK: 62 independent and 24 real-source native CMake checks; product graph and boundary acceptance remain pending.')
