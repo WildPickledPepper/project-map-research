@@ -56,6 +56,8 @@
 
 [程序身份与 current_exe 配对](executable-deployment.md)已接入默认生产建图：8 项机制、新增跨语言生产夹具和 636 项完整回归通过（1 项跳过）。Rust main 经 Command 参数、部署路径及 CMake 后端目标到 C++ main 的正反查通过。继续保存 Insight 的同版本实际文件/入口配对证据，并展开其余边界/模式及运行身份。
 
+[Insight Windows release/default 启动控制](executable-deployment.md#insight-windows-releasedefault-控制)46 项检查通过，十二个正反查连接 Rust main/spawn、部署文件、CMake 生产目标与 C++ main；源码构建调用到后端入口可查到 15 条边。1,471 输入复用已版本化的语言/CMake 事实，当前 Cargo、复制和部署配对重跑。未编译/运行产品；其余边界/模式及运行身份继续展开。
+
 复现使用既有 CGC 环境，以下路径均由调用方提供，输出需为仓库外新目录：
 
 ```text

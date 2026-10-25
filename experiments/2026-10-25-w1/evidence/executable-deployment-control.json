@@ -1,0 +1,368 @@
+{
+  "schema": "executable-deployment-control-score/1",
+  "origin": "current_deployment_projection_on_versioned_cpp_cmake_python_rust_facts",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:executable-deployment:cb6345ac63ea4856bebdc93be243a89a",
+  "scope": "cpp_cmake_python_rust_startup_control",
+  "build_version": {
+    "rules_commit": "91f16b8169e46baabb878a5dc890802039757d7c",
+    "python": "3.11.9",
+    "cached_rule_versions": {
+      "cpp": "45a9fdca0bfe98c562d43532e07ec3b6bd8b41ac",
+      "python": "a487ce3c8af7eec95d4dc43274cbdbab34f47aa0",
+      "rust": "6038f946134f23a4a52828a1fdf9cf8a653f073c"
+    }
+  },
+  "input_count": 1471,
+  "cached_input_counts": {
+    "cpp": 1336,
+    "python": 119,
+    "rust": 16
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1471,
+    "modules": 29,
+    "nodes": 300443,
+    "edges": 467230,
+    "entries": 0,
+    "diagnostic_records": 16060,
+    "providers": 125,
+    "module_relation_groups": 57
+  },
+  "cargo_version": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+  "rustc_version": "rustc 1.94.0 (4a4ef493e 2026-03-02)\nbinary: rustc\ncommit-hash: 4a4ef493e3a1488c6e321570238084b38948f6db\ncommit-date: 2026-03-02\nhost: x86_64-pc-windows-msvc\nrelease: 1.94.0\nLLVM version: 21.1.8",
+  "native_query_labels": [
+    "cargo-version",
+    "rustc-version",
+    "host-cfg",
+    "metadata-0",
+    "target-cfg-0",
+    "binary-template-0"
+  ],
+  "native_query_returncodes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "current_cargo_copy_deployment_executed_again": true,
+  "language_semantics_executed_again": false,
+  "cmake_configure_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "product_compiled": false,
+  "product_executable_run": false,
+  "runtime_process_identity_observed": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "exact_control_input_union",
+      "passed": true
+    },
+    {
+      "id": "one_conditional_backend_target",
+      "passed": true
+    },
+    {
+      "id": "process_start_uses_the_same_command_instance",
+      "passed": true
+    },
+    {
+      "id": "cargo_target_and_rust_entry",
+      "passed": true
+    },
+    {
+      "id": "renamed_launcher_image",
+      "passed": true
+    },
+    {
+      "id": "original_launcher_lineage",
+      "passed": true
+    },
+    {
+      "id": "rust_program_source_location",
+      "passed": true
+    },
+    {
+      "id": "symbolic_directory_and_full_suffix",
+      "passed": true
+    },
+    {
+      "id": "cargo_main_owns_program_path",
+      "passed": true
+    },
+    {
+      "id": "release_default_windows_context",
+      "passed": true
+    },
+    {
+      "id": "computed_full_runtime_layout_path",
+      "passed": true
+    },
+    {
+      "id": "matched_full_packaging_path",
+      "passed": true
+    },
+    {
+      "id": "backend_origin_from_native_target",
+      "passed": true
+    },
+    {
+      "id": "cpp_target_identity",
+      "passed": true
+    },
+    {
+      "id": "cpp_entry_from_target_membership",
+      "passed": true
+    },
+    {
+      "id": "single_conditional_producer_status",
+      "passed": true
+    },
+    {
+      "id": "no_execution_upgrade",
+      "passed": true
+    },
+    {
+      "id": "condition_running_process_image_matches_deployment",
+      "passed": true
+    },
+    {
+      "id": "condition_deployed_layout_matches_recorded_relative_files",
+      "passed": true
+    },
+    {
+      "id": "condition_consumer_path_reached_in_running_binary",
+      "passed": true
+    },
+    {
+      "id": "condition_native_rust_cfg_and_features_equal_analysis_context",
+      "passed": true
+    },
+    {
+      "id": "condition_deployed_path_resolution_has_no_symlink_or_mount_redirection",
+      "passed": true
+    },
+    {
+      "id": "condition_deployment_artifact_lineage_matches_recorded_producer",
+      "passed": true
+    },
+    {
+      "id": "condition_target_os_loader_accepts_provider_image",
+      "passed": true
+    },
+    {
+      "id": "cpp_processor_declaration_not_verified_architecture",
+      "passed": true
+    },
+    {
+      "id": "two_images_two_bound_paths_one_match",
+      "passed": true
+    },
+    {
+      "id": "unpackaged_build_image_remains_unmatched",
+      "passed": true
+    },
+    {
+      "id": "navigation_rust_main_cpp_main_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_rust_main_cpp_main_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_build_request_cpp_main_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_build_request_cpp_main_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_process_start_cpp_main_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_process_start_cpp_main_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_rust_path_backend_file_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_rust_path_backend_file_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_image_backend_target_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_image_backend_target_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_file_origin_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_file_origin_in",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_rust",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_cpp",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_packaging",
+      "passed": true
+    },
+    {
+      "id": "current_projection_with_versioned_semantic_reuse",
+      "passed": true
+    },
+    {
+      "id": "no_full_build_runtime_or_whole_gate_claim",
+      "passed": true
+    },
+    {
+      "id": "no_file_hash_verification",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "navigation": [
+    {
+      "id": "rust_main_cpp_main_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 11
+    },
+    {
+      "id": "rust_main_cpp_main_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 11
+    },
+    {
+      "id": "build_request_cpp_main_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 15
+    },
+    {
+      "id": "build_request_cpp_main_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 15
+    },
+    {
+      "id": "process_start_cpp_main_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 6
+    },
+    {
+      "id": "process_start_cpp_main_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 6
+    },
+    {
+      "id": "rust_path_backend_file_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "rust_path_backend_file_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "image_backend_target_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "image_backend_target_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "backend_file_origin_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "backend_file_origin_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    }
+  ],
+  "selected_chain": {
+    "launcher": "platform/preview/MindStudio-Insight.exe",
+    "rust_program": {
+      "path": "platform/src/default.rs",
+      "line": 164
+    },
+    "process_start": {
+      "path": "platform/src/default.rs",
+      "line": 175
+    },
+    "backend": "platform/preview/resources/profiler/server/profiler_server.exe",
+    "native_backend_origin": "server/output/win_mingw64/bin/profiler_server.exe",
+    "target": "profiler_server",
+    "cpp_entry": {
+      "path": "server/src/entry/server/bin/main.cpp",
+      "line": 92
+    }
+  },
+  "deployment_counts": {
+    "adapter": "cargo_image_current_exe_artifact_binding/0.1.0",
+    "deployment_images": 2,
+    "current_exe_source_paths": 1,
+    "counts": {
+      "bindings": 2,
+      "artifact_matches": 1
+    },
+    "required_gaps": 0,
+    "runtime_execution": "not_observed",
+    "budget": {
+      "bindings": 2048,
+      "module_membership_nodes": 20000
+    }
+  }
+}

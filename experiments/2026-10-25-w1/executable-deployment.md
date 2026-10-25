@@ -35,4 +35,32 @@ python -m unittest tests.test_executable_deployment_graph tests.test_project_sna
 python -m unittest discover -s tests -v
 ```
 
-Insight 的 C++/CMake、Python、Rust 同版本事实控制将另外保存当前配对和索引查询证据。其他启动模式、代理/插件和冻结边界继续按[全项目计划](../../plans/project-wide-completion-plan.md)展开。
+Insight 的 C++/CMake、Python、Rust 同版本配对和索引查询证据见下节。其他启动模式、代理/插件和冻结边界继续按[全项目计划](../../plans/project-wide-completion-plan.md)展开。
+
+## Insight Windows release/default 控制
+
+规则 91f16b8 在源码 d4e8d1c 的 1,471 输入控制中，通过[46 项独立检查](evidence/executable-deployment-control.json)。C++/CMake 事实沿用 45a9fdc（1,336 输入），Python 沿用 a487ce3（119 输入），Rust 单 Windows release/default 上下文沿用 6038f94（16 输入）。当前 Cargo 查询、复制和程序身份/路径配对重新执行，语言语义和 CMake 配置未重跑。
+
+工具自动连接：
+
+```text
+构建调用 → Cargo 目标 / Rust main
+  → platform/preview/MindStudio-Insight.exe 的程序身份候选
+  → platform/src/default.rs:164 的 Command 程序路径
+  → :175 的 spawn 使用同一 Command
+  → platform/preview/resources/profiler/server/profiler_server.exe
+  → CMake profiler_server 目标
+  → server/src/entry/server/bin/main.cpp 的 main 候选
+```
+
+程序名和目录来自 metadata、源值及完整复制映射。后端文件可反查到 `server/output/win_mingw64/bin/profiler_server.exe` 的原生产物和中间归一化复制。原始构建目录中的启动器也生成独立部署候选；该目录下没有所需后端文件，继续保留未匹配记录。
+
+新索引含 300,443 个节点、467,230 条关系。十二个正反向查询均通过，其中 Rust main→C++ main 为 11 条边，源码构建调用→C++ main 为 15 条边，spawn→C++ main 为 6 条边。消费路径、C++ 入口和打包操作的源码导航均绑定同一提交。
+
+当前连接是选定模式下的静态候选，保留 cfg/features、程序身份、复制/物化、文件系统布局和 OS loader 条件。CMake AMD64 字段继续表示声明，不升级为实际编译器架构验证。没有重新构建或运行产品、观察 PID/实际启动，也不是默认全仓重建；原始 checkout 未修改，未重新核验文件哈希。其余边界/启动模式及运行身份继续验收，G03/G04 保持未通过。
+
+```text
+python experiments/2026-10-25-w1/run_executable_deployment_control.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --cpp-trial CPP_CMAKE_TRIAL --python-trial PYTHON_TRIAL --rust-trial RUST_TRIAL --parser-cache CACHE --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_executable_deployment_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE.json
+python experiments/2026-10-25-w1/check_path_evidence.py
+```

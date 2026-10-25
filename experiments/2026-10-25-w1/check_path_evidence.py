@@ -188,3 +188,28 @@ assert not any(declared[k] for k in ('default_workspace_rebuild','installed_tool
     'product_executable_run','process_counterpart_connected','whole_G03_accepted','original_checkout_modified'))
 assert declared['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 39 current Cargo metadata/filename/packaging/index checks; expected launcher connected, current_exe binding pending.')
+
+deployment=json.loads((Path(__file__).parent/'evidence/executable-deployment-control.json').read_text(encoding='utf-8'))
+assert deployment['schema']=='executable-deployment-control-score/1' and deployment['passed']
+assert len(deployment['checks'])==46 and all(c['passed'] for c in deployment['checks'])
+assert deployment['source_commit']==declared['source_commit'] and deployment['input_count']==1471
+assert deployment['cached_input_counts']=={'cpp':1336,'python':119,'rust':16}
+assert deployment['build_version']['rules_commit']=='91f16b8169e46baabb878a5dc890802039757d7c'
+assert deployment['build_version']['cached_rule_versions']=={'cpp':'45a9fdca0bfe98c562d43532e07ec3b6bd8b41ac',
+    'python':'a487ce3c8af7eec95d4dc43274cbdbab34f47aa0','rust':'6038f946134f23a4a52828a1fdf9cf8a653f073c'}
+assert deployment['index_counts']['nodes']==300443 and deployment['index_counts']['edges']==467230
+assert deployment['selected_chain']['launcher']=='platform/preview/MindStudio-Insight.exe'
+assert deployment['selected_chain']['backend']=='platform/preview/resources/profiler/server/profiler_server.exe'
+assert deployment['selected_chain']['target']=='profiler_server'
+assert deployment['selected_chain']['cpp_entry']['path']=='server/src/entry/server/bin/main.cpp'
+assert deployment['selected_chain']['process_start']=={'path':'platform/src/default.rs','line':175}
+assert deployment['deployment_counts']['counts']=={'bindings':2,'artifact_matches':1} and deployment['deployment_counts']['required_gaps']==0
+assert len(deployment['navigation'])==12 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in deployment['navigation'])
+assert next(n['witness_edges'] for n in deployment['navigation'] if n['id']=='rust_main_cpp_main_out')==11
+assert next(n['witness_edges'] for n in deployment['navigation'] if n['id']=='build_request_cpp_main_out')==15
+assert next(n['witness_edges'] for n in deployment['navigation'] if n['id']=='process_start_cpp_main_out')==6
+assert deployment['current_cargo_copy_deployment_executed_again'] and not deployment['language_semantics_executed_again']
+assert not any(deployment[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested',
+    'product_compiled','product_executable_run','runtime_process_identity_observed','whole_G03_accepted','original_checkout_modified'))
+assert deployment['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 46 selected Windows release/default startup checks; 12 bidirectional paths join Rust spawn and C++ entry conditionally; runtime identity pending.')
