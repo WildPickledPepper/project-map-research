@@ -1,6 +1,6 @@
 # 启动路径值传播：已验证的基础与待补关系
 
-2026-10-25，已执行 Windows/std-only 独立 Rust 探针，[5 项检查通过](evidence/native-path-primitives.json)。该记录固定规则 07dcab6 的原生能力和缺口。循环事实与第一版 Rust 路径传播已接入生产图；真实源码复验、Python 打包及进程对端配对继续实施。
+2026-10-25，已执行 Windows/std-only 独立 Rust 探针，[5 项检查通过](evidence/native-path-primitives.json)。该记录固定规则 07dcab6 的原生能力和缺口。循环事实与第一版 Rust 路径传播已接入生产图；规则 6038f94 的真实 Windows 单配置控制检查 [33 项通过](evidence/rust-path-control.json)。继续补 Python 打包及进程对端配对。
 
 原生 rust-analyzer 已将 to_path_buf、push、set_extension 绑定到标准库 Path/PathBuf 声明；同名本地 PathBuf.push 没有被归为标准库。真实平台代码中这些 API 也已有原生声明身份。路径适配可以复用这些身份，避免按调用拼写识别库语义。
 
@@ -16,13 +16,38 @@
 
 路径结果分为常量、相对符号基址、未解析。分支保留条件，Some 模式及 unwrap 保留成功采用条件；绝对片段替换基址，盘符相对路径、动态片段等保留具体缺项。表达式使用 DAG 保存共享前缀，并设调用、迭代和候选预算。`path_value` 通过 PATH_VALUE_CANDIDATE、PATH_COMPONENT_SOURCE、PATH_CALL_CONTEXT 连接消费点、原始常量/参数/操作与调用上下文，可由统一查询展开。
 
-控制范围检查覆盖不同名称、两个路径对象、克隆快照、构造时捕获、可变参数、调用上下文、同名自定义 PathBuf 以及未知修改负例。路径与生产混合建图 24 项检查通过；完整 Windows 回归 478 项通过，1 项按平台跳过。随后新增经可变参数传递到 std::mem::swap 的负例，与公共路径检查共 12 项复验通过。正式提交前，采用条件的追加记录另做定向复验。
+控制范围检查覆盖不同名称、两个路径对象、克隆快照、构造时捕获、可变参数、调用上下文、同名自定义 PathBuf 以及未知修改负例。路径与生产混合建图 24 项检查通过；完整 Windows 回归 478 项通过，1 项按平台跳过。随后新增经可变参数传递到 std::mem::swap 的负例，与公共路径检查共 12 项复验通过。正式提交前，最终路径与公共模型定向复验 24 项通过。
 
 路径重赋值、动态/非直接数组迭代、未展开宏、引用逃逸、隐式捕获及未知可变调用暂保留必需缺项，不能沿用修改前的路径作为精确结果。第一轮测试发现可变引用包装和跨函数参数效果遗漏；修正后测试通过。真实源码、安装、全量更新及与构建产物的连接分别验收，G02/G03 保持未通过。
 
-接下来按三段连接：
+## Insight 真实 Windows 路径控制
 
-1. Rust：补循环绑定和常量数组元素来源；在已确认的标准 Path/PathBuf API 上传播路径，保存顺序、接收者及目标平台条件。动态片段保留其来源和剩余表达式。
+源码固定 d4e8d1c，提取规则固定 6038f94。执行生产 Rust 原生语义、边界和路径适配器，再通过 Workspace.attach 建立统一查询索引。选择 platform/Cargo.toml、x86_64-pc-windows-msvc、Release、default feature；13 个 Rust 文件及 3 个 Cargo/配置输入进入记录。产物有 5,579 个节点、8,068 条关系和 12 个路径候选。
+
+`platform/src/default.rs:164` 的 Command::new(path) 得到：
+
+```text
+current_executable_directory
+  / resources / profiler / server / profiler_server.exe
+```
+
+路径来源包括第 42 行的四个常量、第 80 行的扩展名、标准库 current_exe/parent/to_path_buf，以及 main → default::main → run_server 调用位置。Some(path)、两次成功 unwrap 和源函数返回条件保留。进程启动到路径、路径到基址、常量及调用来源共 8 个正反向查询通过，同版本源码导航通过。另一处 WebView 文件读取的复杂表达式仍有必需缺项。
+
+首轮控制运行遗漏了 3 个已选清单的 coverage 行，导致导航投影未标为输入；控制脚本已采用生产混合建图相同的补齐方法，第二次从新目录重跑通过。首份原始图保留。独立评分首轮误读 external_symbol 的声明字段层级，修正评分器后 33 项通过；提取规则未变，评分参考没有传入提取器。
+
+本项覆盖一个显式配置的生产适配器与索引。默认全仓 24 配置刷新、独立安装、打包来源、C++ 对端和实际启动分别继续验收；本记录保持 G02/G03 未通过。原始源码、图、native 日志均在仓库外，原 checkout 状态未变，未重新核验文件哈希。
+
+```text
+python experiments/2026-10-25-w1/run_rust_path_control.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --manifest platform/Cargo.toml --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_rust_path_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_path_evidence.py
+```
+
+## 后续连接
+
+按三段推进：
+
+1. Rust：循环绑定、常量数组及标准 Path/PathBuf 的 Windows 控制已通过；扩展其他配置及剩余动态表达式，保持顺序、接收者和目标平台条件。
 2. Python：复用现有导入、参数和值关系，提取 os.path/pathlib 路径及 shutil 复制；展开已知目录与文件模式，保留循环、过滤和调用位置条件。输出构建产物到发行路径的关系。
 3. 跨语言：按原生构建上下文、完整路径、复制来源及平台入口来源配对；增加相异名称/布局、同名不同目录及增删改名负例，然后验证真实启动到 C++ 入口的正反向查询。
 
