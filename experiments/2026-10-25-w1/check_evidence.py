@@ -68,4 +68,10 @@ for name,file_count,check_count in [('python-proxy.json',23,41),('python-reposit
     for check in score['checks']:
         if check['id'].startswith('navigation.'):
             assert check['evidence']['found'] and check['evidence']['stop_reason'] is None
-print('OK: native 185-file baseline; JS coverage/chains/installed evidence; Python 7 component, 41 proxy, 137 repository and 23 installed checks; G02 remains pending.')
+rust_probe=json.loads((ROOT/'evidence/rust-resolver-probe.json').read_text(encoding='utf-8'))
+assert rust_probe['passed'] and len(rust_probe['checks'])==12 and all(c['passed'] for c in rust_probe['checks'])
+assert rust_probe['cgc']==data['upstream']['commit']
+assert rust_probe['rust_analyzer']=='rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)'
+assert all(c['server_health']=='ok' for c in rust_probe['checks'])
+assert not any(rust_probe[k] for k in ('product_code_executed','graph_generated','cargo_invoked','build_scripts_enabled','proc_macros_enabled'))
+print('OK: native 185-file baseline; JS evidence; Python 7/41/137/23 checks; Rust 12 component checks; G02 remains pending.')

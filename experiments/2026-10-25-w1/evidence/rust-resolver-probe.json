@@ -1,0 +1,458 @@
+{
+  "schema": "rust-resolver-component-probe/1",
+  "cgc": "93c9685bff9151f50a3121e9913e5ba2d27c1191",
+  "rust_analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)",
+  "checks": [
+    {
+      "id": "alias_reexport",
+      "cfg": [],
+      "expected": [
+        "src/left.rs:run"
+      ],
+      "definitions": [
+        {
+          "path": "src/left.rs",
+          "name": "run",
+          "line": 1,
+          "column": 8
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 1,
+      "cgc_calls": [
+        {
+          "name": "invoke",
+          "full_name": "api::invoke()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": "api",
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "super_inline",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:run"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "run",
+          "line": 1,
+          "column": 4
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 2,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "super::run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": "super",
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "impl_receiver",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:run@1:32"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "run",
+          "line": 1,
+          "column": 32
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 3,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "a.run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "trait_object",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:run@1:16"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "run",
+          "line": 1,
+          "column": 16
+        }
+      ],
+      "implementations": [
+        {
+          "path": "src/lib.rs",
+          "name": "run",
+          "line": 1,
+          "column": 69
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "run",
+          "line": 1,
+          "column": 103
+        }
+      ],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 3,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "w.run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "closure_binding",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:callback"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "callback",
+          "line": 1,
+          "column": 30
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 2,
+      "cgc_calls": [
+        {
+          "name": "action",
+          "full_name": "action()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        },
+        {
+          "name": "callback",
+          "full_name": "callback()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "glob_import",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:run"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "run",
+          "line": 1,
+          "column": 21
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 2,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "cfg_windows",
+      "cfg": [
+        "windows"
+      ],
+      "expected": [
+        "src/win.rs:run"
+      ],
+      "definitions": [
+        {
+          "path": "src/win.rs",
+          "name": "run",
+          "line": 1,
+          "column": 8
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 1,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "selected::run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": "selected",
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "cfg_unix",
+      "cfg": [
+        "unix"
+      ],
+      "expected": [
+        "src/unix.rs:run"
+      ],
+      "definitions": [
+        {
+          "path": "src/unix.rs",
+          "name": "run",
+          "line": 1,
+          "column": 8
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 1,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "selected::run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": "selected",
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "shadowed_function",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:action@1:24"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "action",
+          "line": 1,
+          "column": 24
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 2,
+      "cgc_calls": [
+        {
+          "name": "action",
+          "full_name": "action()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "macro_expansion",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:generated",
+        "src/lib.rs:make!"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "generated",
+          "line": 1,
+          "column": 28
+        },
+        {
+          "path": "src/lib.rs",
+          "name": "make!",
+          "line": 1,
+          "column": 44
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 1,
+      "cgc_calls": [
+        {
+          "name": "generated",
+          "full_name": "generated()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "path_override",
+      "cfg": [],
+      "expected": [
+        "src/adapter/core.rs:run"
+      ],
+      "definitions": [
+        {
+          "path": "src/adapter/core.rs",
+          "name": "run",
+          "line": 1,
+          "column": 8
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 1,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "worker::run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": "worker",
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    },
+    {
+      "id": "unicode_position",
+      "cfg": [],
+      "expected": [
+        "src/lib.rs:run"
+      ],
+      "definitions": [
+        {
+          "path": "src/lib.rs",
+          "name": "run",
+          "line": 1,
+          "column": 4
+        }
+      ],
+      "implementations": [],
+      "passed": true,
+      "server_health": "ok",
+      "cgc_function_count": 2,
+      "cgc_calls": [
+        {
+          "name": "run",
+          "full_name": "run()",
+          "line_number": 1,
+          "args": [],
+          "inferred_obj_type": null,
+          "context": [
+            "entry",
+            "function_item",
+            1
+          ]
+        }
+      ],
+      "native_call_coordinates_have_column": false
+    }
+  ],
+  "passed": true,
+  "product_code_executed": false,
+  "graph_generated": false,
+  "cargo_invoked": false,
+  "build_scripts_enabled": false,
+  "proc_macros_enabled": false,
+  "scope": "explicit independent rust-project contexts; unchanged CGC parser and rust-analyzer definition APIs"
+}
