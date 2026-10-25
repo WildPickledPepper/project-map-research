@@ -92,6 +92,20 @@ python -m unittest tests.test_file_predicates tests.test_python_path_iterations 
 python -m unittest tests.test_file_copy_contracts tests.test_file_predicates tests.test_python_path_iterations tests.test_python_path_contexts tests.test_python_path_values tests.test_path_values tests.test_path_patterns -v
 ```
 
+## 原生产物的生产图传播
+
+默认建图在合并原生 CMake 与 Python 路径事实后运行 `artifact_copy_graph`。它从每个 build_artifact 的构建上下文读取宿主系统，将源码布局内的产物路径交给复制契约逐段匹配。模块名、产物名和打包目录均来自输入；宿主路径风格用于打包计算，目标系统元数据保留给后续运行配对。
+
+`copied_artifact` 保存计算出的目的路径、原生产物、构建上下文和复制步骤。COPIES_ARTIFACT_TO 串联各级文件映射；COPY_OPERATION、COPY_SOURCE_PATH、COPY_DESTINATION_PATH 指向调用帧和两端路径。节点及关系保留完整源/目标条件、过滤证明/残留条件、操作成功、文件物化及内容未被中途替换的前提。所有结果标为 `conditional_candidate` / `not_observed`。
+
+路径适配 0.5.0 还记录执行地址及循环作用域。相同根调用的确定前后位置用于排除逆序内容传播；已展开字面量循环保留下标，区分同一次和后一次迭代。未知目录枚举顺序保留顺序条件。遇到路径循环、重复操作或预算耗尽时报告必需缺项；move/rename 等未展开移动效果可能影响源生命周期时，中止该段派生并给出具体位置。原生 build/external 根目录在尚未绑定部署布局时保持缺项。
+
+8 项图传播检查和原生 CMake/Python 混合 Workspace 检查通过。后者从构建目标正查两次复制后的产物，再反查构建目标，并核对复制位置的同版本源码。两个不同布局夹具验证新增/改名规则，另检验同名异根、后缀、宿主/目标不同、顺序、字面量迭代、移动屏障、环和预算。
+
+完整 Windows 回归 562 项通过，1 项按平台跳过。随后收紧谓词/选项的库身份检查，条件重绑定到自定义复制函数时保持缺项；最终 90 项相关检查通过。真实控制使用 `run_artifact_copy_control.py`：核对记录阶段的组件 Git 变更、依赖版本和输入选择后，复用原生及语言事实，从重新导出的源码运行当前 Python 路径及产物传播，再建统一索引。
+
+真实 Insight 控制快照、默认多语言全仓更新、独立安装、Rust 进程配对及运行采用分别验收；G02/G03 保持执行中。
+
 ## 目录项模式与完整路径匹配
 
 当前路径适配按原生绑定身份识别 for 目标，并核对 os.listdir 的实际导入与调用参数。`path_iteration` 保存循环绑定、目录、调用上下文和路径风格；ITERATION_BINDING、ITERATION_SOURCE、ITERATION_DIRECTORY、ITERATION_CALL_CONTEXT 及 PATH_ITERATION_SOURCE 可展开来源。

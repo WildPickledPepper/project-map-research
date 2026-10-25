@@ -26,10 +26,16 @@ class FullSnapshotTests(unittest.TestCase):
         from projectmap.workspace import Workspace
         with tempfile.TemporaryDirectory(prefix='native build workspace ') as directory:
             root=Path(directory);source=root/'repository';source.mkdir()
-            files={'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Neutral LANGUAGES CXX)\nadd_subdirectory(third_party)\nadd_executable(service_app ../src/entry.cpp)\ntarget_link_libraries(service_app PRIVATE helper)\n',
+            files={'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Neutral LANGUAGES CXX)\nadd_subdirectory(third_party)\nadd_executable(service_app ../src/entry.cpp)\ntarget_link_libraries(service_app PRIVATE helper)\nset_target_properties(service_app PROPERTIES RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../native-output")\n',
                 'compile/third_party/CMakeLists.txt':'add_library(helper STATIC ../../src/helper.cpp)\n',
                 'src/helper.cpp':'int helper(){return 2;}\n',
-                'src/entry.cpp':'int main(){return 0;}\n', 'client/view.ts':'export function show(){return 1;}\n'}
+                'src/entry.cpp':'int main(){return 0;}\n', 'client/view.ts':'export function show(){return 1;}\n',
+                'assemble.py':'''import os,shutil
+ROOT=os.path.dirname(os.path.realpath(__file__))
+for item in os.listdir(os.path.join(ROOT,'native-output')):
+ shutil.copyfile(os.path.join(ROOT,'native-output',item),os.path.join(ROOT,'stage',item))
+shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
+'''}
             for path,body in files.items():
                 target=source/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(body,encoding='utf-8')
             def git(*args):return subprocess.check_output(['git','-C',str(source),*args],stderr=subprocess.PIPE).decode().strip()
@@ -54,6 +60,15 @@ class FullSnapshotTests(unittest.TestCase):
             self.assertEqual(graph['native_build']['contexts'][0]['status'],'configured')
             self.assertEqual(graph['native_build']['contexts'][0]['target_system']['status'],'available')
             self.assertIn('cmake',graph['extractors'])
+            shipped=next(n for n in graph['nodes'] if n['kind']=='copied_artifact' and n['value']['segments'][0]=='ship')
+            for direction,start,target in [('out',targets[0]['id'],shipped['id']),('in',shipped['id'],targets[0]['id'])]:
+                route=workspace.query('path',start=start,target=target,direction=direction,
+                    kinds=['PRODUCES_ARTIFACT','COPIES_ARTIFACT_TO'],depth=4,nodes=40,edges=40)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+                self.assertEqual(route['snapshot'],graph['snapshot'])
+            proof=workspace.query('source',start=shipped['id'])
+            self.assertEqual(proof['path'],'assemble.py');self.assertEqual(proof['source_commit'],revision)
+            self.assertIn('artifact_copy_flow',graph['extractors'])
             self.assertEqual(git('status','--porcelain'),'')
 
     def test_rust_fact_and_process_boundary_survive_the_mixed_production_builder(self):

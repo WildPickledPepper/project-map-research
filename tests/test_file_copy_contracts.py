@@ -62,6 +62,15 @@ class FileCopyContractTests(unittest.TestCase):
                 results=self.mappings('def callback(*args): pass\nshutil.copytree(\'raw\',\'ship\','+option+')\n','raw/worker')
                 self.assertEqual(results[0]['status'],'gap');self.assertEqual(self.destinations(results),[])
 
+    def test_conditional_rebinding_cannot_turn_custom_copier_into_standard_copy(self):
+        body="""def custom(*args): pass
+copier=shutil.copy2
+if os.getenv('CUSTOM_COPY'): copier=custom
+shutil.copytree('raw','ship',copy_function=copier)
+"""
+        results=self.mappings(body,'raw/worker')
+        self.assertEqual(results[0]['status'],'gap');self.assertFalse(self.destinations(results))
+
     def test_copy_and_copy2_keep_both_destination_state_conditions(self):
         results=self.mappings("shutil.copy2('raw/worker','ship')\n",'raw/worker')
         self.assertEqual(self.destinations(results),['ship','ship/worker'])

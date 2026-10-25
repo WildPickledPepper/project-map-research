@@ -101,5 +101,6 @@ def map_member(context,source,destination,artifact,*,host_system,artifact_kind='
         dest=candidate['destination']
         if root_identity(dest)==root_identity(artifact) and dest['segments']==artifact['segments']:continue
         mappings.append({**candidate,'membership_conditions':matched['membership_conditions'],'bindings':matched['bindings'],
+            'path_conditions':src['conditions']+dst['conditions'],
             'guards':guards,'options':options,'api':api,'status':'conditional_candidate','runtime_execution':'not_observed'})
     return {'status':'mapped' if mappings else 'excluded','reason':'copy_content_contract' if mappings else 'same_lexical_file', 'mappings':mappings}

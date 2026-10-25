@@ -100,7 +100,7 @@ def build(source, request, output, log, *, typescript):
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
     if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components'],
-        'path_values':'import_bound_paths_contexts_patterns_and_predicates/0.4.0'}
+        'path_values':'import_bound_paths_predicates_and_execution_positions/0.5.0'}
     if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components'],
         'path_values':'native_bound_positioned_paths/0.1.0'}
     from adapters.cmake_project import extract as cmake_facts, roots as cmake_roots
@@ -112,6 +112,9 @@ def build(source, request, output, log, *, typescript):
         for key in ('nodes','edges','diagnostics','limits'):graph[key].extend(native[key])
         graph['native_build']={'projects':native['projects'],'contexts':native['contexts'],'source_coverage':'native_compilation_input_not_execution'}
         graph['extractors']['cmake']=native['components']
+    from adapters.artifact_copy_graph import augment as artifact_copies
+    graph=artifact_copies(graph)
+    graph['extractors']['artifact_copy_flow']=graph['artifact_copy_flow']['adapter']
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     write_json(output/'protocol-checkpoint.json', {'stage': 'protocol_only_not_complete_graph',
         'source_commit': revision, 'build_version': request['build_version'],

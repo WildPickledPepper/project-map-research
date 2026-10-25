@@ -39,6 +39,8 @@ Python 的 `python_file_operation` 表示经导入绑定确认的 shutil 复制/
 
 Python 路径条件中的 `predicate_expressions` 保存可计算谓词及源码依据，`predicate_complete` 表示求值上下文是否齐全；复制选项在 `option_expressions` 中保存。谓词需要显式的宿主、目录变量和文件事实，求值结果分别列出排除、已知条件与残留条件。详见[文件过滤谓词](../experiments/2026-10-25-w1/python-packaging.md#2026-10-26文件过滤谓词)。
 
+可用 `query search --kind copied_artifact` 查复制后的产物，沿 COPIES_ARTIFACT_TO 正向查看后续打包，或反向追溯原生构建产物。COPY_OPERATION、COPY_SOURCE_PATH、COPY_DESTINATION_PATH 提供复制位置及两端路径依据。候选保留构建、调用、过滤、操作顺序和物化条件，执行状态单列；当前范围见[原生产物传播](../experiments/2026-10-25-w1/python-packaging.md#原生产物的生产图传播)。
+
 查询结果带版本、预算和停止原因。静态候选与源码依赖用于查找可能的关系；实际执行由相同版本与场景的运行记录验证。未解析的调用和导入保留在节点的 `resolution` / `reason` 中，可用 `status` / `detail` 检查；`diagnostics` 汇总解析与其他诊断。源码工作区的未提交修改需要另读 diff。
 
 Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验证组合为 Rust 1.94.0 与 rust-analyzer 2026-10-19 发布版。可通过 PATH 或 `PROJECT_MAP_CARGO`、`PROJECT_MAP_RUSTC`、`PROJECT_MAP_RUST_ANALYZER` 指定可执行文件。`doctor` 单列这些检查。分析器使用导出副本与离线 Cargo metadata，禁用构建脚本和 proc-macro；外部依赖须已存在于调用方的 Cargo 缓存。缺少工具或上下文时保留语法事实及必需缺项，不记为完整 Rust 语义覆盖。

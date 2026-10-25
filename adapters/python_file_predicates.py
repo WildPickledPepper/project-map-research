@@ -15,6 +15,26 @@ def string_term(term):
 class Predicates:
     def __init__(self,paths):self.paths=paths;self.memo={}
 
+    def exact_api(self,uid,frame,seen=()):
+        """Require all reaching origins to identify the same library member."""
+        p=self.paths;key=(uid,frame['key'])
+        if key in seen or len(seen)>=48:return set()
+        seen=seen+(key,);node=p.nodes[uid]
+        if node['kind']=='module_reference' and not node['resolution'].startswith('source_') and not node.get('level'):
+            return p.context_api(uid,frame)
+        if node['kind']=='parameter':
+            ref=p.calls.parameter(uid,frame)
+            return self.exact_api(ref['uid'],ref['frame'],seen) if 'uid' in ref else set()
+        receivers=p.children(uid,'value') if node.get('member') else []
+        if len(receivers)==1:return {name+'.'+node['member'] for name in self.exact_api(receivers[0],frame,seen)}
+        results=[]
+        for ref in p.storage.sources(uid,frame):
+            if 'reason' in ref or ref.get('conditions'):return set()
+            scope=p.calls.scope(p.nodes[ref['uid']].get('enclosing_symbol'),frame) if p.nodes[ref['uid']]['kind']=='binding' else frame
+            if p.nodes[ref['uid']]['kind']=='binding' and p.guard_conditions(ref['uid'],scope):return set()
+            results.append(self.exact_api(ref['uid'],scope,seen))
+        return results[0] if results and all(r==results[0] for r in results) else set()
+
     def serialized(self,uid,frame):
         try:return expression_dag(self.expression(uid,frame))
         except (ValueError,RecursionError):return expression_dag(unknown(uid,'predicate_expression_budget'))
@@ -41,7 +61,7 @@ class Predicates:
         elif node['kind']=='call_site':result=self.call(uid,frame,ev)
         elif node.get('identifier')=='__file__':result=p.evaluate(uid,frame)
         else:
-            apis=p.context_api(uid,frame)
+            apis=self.exact_api(uid,frame)
             if 'os.name' in apis:result={'op':'host_os_name','source':uid}
             elif 'sys.platform' in apis:result={'op':'host_sys_platform','source':uid}
             elif apis&{'shutil.copyfile','shutil.copy','shutil.copy2'}:
@@ -67,7 +87,7 @@ class Predicates:
         self.memo[key]=result;return result
 
     def call(self,uid,frame,ev):
-        p=self.paths;apis=set().union(*(p.context_api(t,frame) for t in p.targets(uid,{'CALLS_EXPRESSION'})))
+        p=self.paths;apis=set().union(*(self.exact_api(t,frame) for t in p.targets(uid,{'CALLS_EXPRESSION'})))
         def arg(index,keys=(),default=None):
             rows=p.argument(uid,index,keys)
             return p.choice([ev(v) for v in rows],uid) if rows else literal(default)

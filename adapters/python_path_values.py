@@ -56,6 +56,19 @@ class Paths(Boundaries):
     def guard_conditions(self,uid,frame):
         return [{**c,'evaluation_context':self.calls.identity(frame)} for c in self.guards.at(uid)]
 
+    def execution_address(self,call,frame):
+        rows=[]
+        for uid in frame['calls']+[call]:
+            node=self.nodes[uid];child=self.ast.get(uid);loops=[]
+            while child is not None:
+                parent=self.parents.get(id(child))
+                if isinstance(parent,(ast.For,ast.AsyncFor,ast.While)):
+                    loops.append({'kind':type(parent).__name__,'path':node['path'],'line':parent.lineno})
+                if isinstance(parent,(ast.FunctionDef,ast.AsyncFunctionDef,ast.Lambda)):break
+                child=parent
+            rows.append({'source':uid,'path':node['path'],'line':node['line'],'column':node.get('column',0),'loop_scopes':loops})
+        return rows
+
     def api(self,uid,seen=None):
         if seen and uid in seen:return set()
         result=super().api(uid,seen)
@@ -264,6 +277,7 @@ class Paths(Boundaries):
                 context={'id':bid+':'+self.calls.identity(frame),'kind':'file_operation_context',
                     **{k:node[k] for k in ('path','line','column','name','language')},'operation':bid,
                     'call_stack':frame['calls'],'root_function':frame['root_function'],'api_candidates':sorted(apis),
+                    'execution_address':self.execution_address(call['id'],frame),
                     'root_basis':frame['root_basis'],'conditions':frame['conditions']+node['conditions']+self.guard_conditions(call['id'],frame),
                     'gaps':frame['gaps'],'runtime_execution':'not_observed'}
                 self.added.append(context);self.nodes[context['id']]=context;self.link(bid,context['id'],'FILE_OPERATION_CONTEXT')

@@ -32,7 +32,8 @@ class Iterations:
             if len(items)>32:return unknown(binding,'python_literal_iteration_budget')
             variable=binding+':'+paths.calls.identity(frame)
             return {'op':'choice','source':binding,'choices':[{'value':paths.evaluate(item,frame,seen),
-                'conditions':[{'kind':'literal_iteration_item','variable':variable,'index':index,'source':item}]} for index,item in enumerate(items)]}
+                'conditions':[{'kind':'literal_iteration_item','variable':variable,'index':index,'source':item,
+                    'loop':{'path':paths.nodes[binding]['path'],'line':loop.lineno},'count':len(items)}]} for index,item in enumerate(items)]}
         apis=set().union(*(paths.context_api(t,frame) for t in paths.targets(iterator,{'CALLS_EXPRESSION'})))
         if 'os.listdir' not in apis:return unknown(binding,'python_iteration_source_not_modeled')
         args=paths.argument(iterator,0,('path',))
