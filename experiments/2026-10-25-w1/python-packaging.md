@@ -1,6 +1,6 @@
 # Python 打包路径与文件操作
 
-2026-10-25，基础适配已接入默认生产建图流程。它将 Python 导入、常量和路径计算连接到复制、移动和改名操作，为构建产物到发行目录的传播提供来源。下一步展开跨函数参数、目录枚举及过滤，再进行真实打包链和产物配对验收。
+2026-10-25 开始接入，10-26 发布真实控制结果。基础适配已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入控制检查](evidence/python-path-control.json)34 项通过。它将 Python 导入、常量和路径计算连接到复制、移动和改名操作，为构建产物到发行目录的传播提供来源。下一步展开跨函数参数、目录枚举及过滤，再进行完整打包链和产物配对验收。
 
 ## 自动提取的内容
 
@@ -28,8 +28,32 @@ Python 路径保留 Windows 与 Posix 两种显式运行候选，分析机器的
 
 当前文件操作的 `mapping_status` 为 `requires_control_flow_options_and_destination_context`：已保留路径和操作事实，调用参数上下文、目录项、循环过滤、提前 continue/return、复制选项与目录状态由下一步传播处理。参数保持各函数自身身份，避免将不同调用者的参数合并。动态 realpath 与缺少原始拼写的 dirname 表达式保留缺项。
 
-本项已接入生产构图及统一索引可接受的 schema。真实 Insight 打包路径、当前规则全仓、安装更新和 CMake/Rust 进程配对分别继续验收；G02/G03 保持未通过。skill 统一整理安排在工具能力稳定后。
+本项已接入生产构图及统一索引可接受的 schema。完整 Insight 打包链、当前规则全仓、安装更新和 CMake/Rust 进程配对分别继续验收；G02/G03 保持未通过。skill 统一整理安排在工具能力稳定后。
 
 ```text
 python -m unittest tests.test_python_path_values tests.test_python_boundaries tests.test_python_facts tests.test_path_values tests.test_project_snapshot.FullSnapshotTests.test_python_sources_and_owned_interface_join_enter_the_production_snapshot -v
+```
+
+## Insight 真实源码控制
+
+源码固定 d4e8d1c，规则固定 9806c76；Jedi 0.19.2、Parso 0.8.5、Python 3.11.9。119 个 Python 输入从提交导出，执行生产 Python 语义、接口和路径适配，再经 Workspace.attach 建统一索引。得到 76,544 个节点、107,728 条关系；其中 28 个文件操作，114 个按参数角色和路径风格分别保留的路径候选。
+
+独立源码参考验证了以下路径，图中的源码根保留 realpath 的布局采用条件：
+
+| 消费位置 | 源路径 | 目标路径 |
+|---|---|---|
+| build/build.py:344 | 源码根 / server/output/build/server | 函数参数 profiler_path / server |
+| build/build.py:384 | 源码根 / platform/resources | 源码根 / platform/preview/resources |
+| build/build.py:347 | 源码根 / build/plugin_install.py | 函数参数 profiler_path / plugin_install.py |
+
+路径和来源的 8 个正反向查询、同版本源码导航、119 输入导航投影及路径/操作索引保留通过。评分同时确认两个资源目标来自同一辅助函数参数。34 项检查的参考只供独立评分，未传入提取器。原 checkout 状态未变，未重新核验文件哈希。
+
+48 个候选为符号基址路径，66 个保留未解析项；这是本次输出的状态分布。build_server 的目录项复制、启动器文件名的字典/平台选择和辅助函数参数调用上下文继续展开。文件操作保存目标语义和显式选项，完整发行映射与运行采用仍待验收。
+
+本次为全部 Python 输入的生产适配器/索引控制；当前规则默认多语言全仓刷新和独立安装另行验证。原始源码、完整图和日志保存在仓库外，公开证据记录版本、路径、检查与缺项。G02/G03 保持未通过。
+
+```text
+python experiments/2026-10-25-w1/run_python_path_control.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_python_path_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_path_evidence.py
 ```

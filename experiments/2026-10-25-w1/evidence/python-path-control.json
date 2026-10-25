@@ -1,0 +1,300 @@
+{
+  "schema": "python-path-control-score/1",
+  "origin": "executed_production_adapters_separate_source_audit_and_index_queries",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-control:25616103484f48dea770a5dc25e65264",
+  "scope": "python_control_all_selected_python_inputs",
+  "mode": "production_adapter_control_and_workspace_attach",
+  "build_version": {
+    "rules_commit": "9806c76b26190ad849e5f3d5bab82e2a106f5b78",
+    "python_components": {
+      "jedi": "0.19.2",
+      "parso": "0.8.5",
+      "python": "3.11.9"
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 119,
+    "modules": 29,
+    "nodes": 76544,
+    "edges": 107728,
+    "entries": 0,
+    "diagnostic_records": 75,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "operation_counts": {
+    "shutil.copytree": 14,
+    "shutil.copyfile": 9,
+    "shutil.move": 3,
+    "shutil.copy": 1,
+    "os.replace": 1
+  },
+  "path_resolution_counts": {
+    "symbolic_base": 48,
+    "unresolved": 66
+  },
+  "selected_paths": [
+    {
+      "path": "build/build.py",
+      "line": 344,
+      "role": "source",
+      "path_style": "windows",
+      "base_kind": "canonical_source_root",
+      "relative_path": "server/output/build/server",
+      "resolution": "symbolic_base"
+    },
+    {
+      "path": "build/build.py",
+      "line": 344,
+      "role": "destination",
+      "path_style": "windows",
+      "base_kind": "parameter",
+      "relative_path": "server",
+      "resolution": "symbolic_base"
+    },
+    {
+      "path": "build/build.py",
+      "line": 384,
+      "role": "source",
+      "path_style": "windows",
+      "base_kind": "canonical_source_root",
+      "relative_path": "platform/resources",
+      "resolution": "symbolic_base"
+    },
+    {
+      "path": "build/build.py",
+      "line": 384,
+      "role": "destination",
+      "path_style": "windows",
+      "base_kind": "canonical_source_root",
+      "relative_path": "platform/preview/resources",
+      "resolution": "symbolic_base"
+    },
+    {
+      "path": "build/build.py",
+      "line": 347,
+      "role": "source",
+      "path_style": "windows",
+      "base_kind": "canonical_source_root",
+      "relative_path": "build/plugin_install.py",
+      "resolution": "symbolic_base"
+    },
+    {
+      "path": "build/build.py",
+      "line": 347,
+      "role": "destination",
+      "path_style": "windows",
+      "base_kind": "parameter",
+      "relative_path": "plugin_install.py",
+      "resolution": "symbolic_base"
+    }
+  ],
+  "required_gap_counts": {
+    "dynamic_path_component": 56,
+    "python_dirname_requires_lexical_source_spelling": 72,
+    "python_path_call_not_modeled": 36,
+    "unproven_path_division_receiver": 2,
+    "parent_after_unresolved_path": 4
+  },
+  "navigation": [
+    {
+      "id": "backend_source_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "backend_source_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "backend_destination_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "backend_destination_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "resource_destination_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "resource_destination_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "backend_literal_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "backend_literal_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "all_committed_python_inputs_selected",
+      "passed": true
+    },
+    {
+      "id": "coverage_matches_selected_inputs",
+      "passed": true
+    },
+    {
+      "id": "versioned_production_adapters_and_source_export",
+      "passed": true
+    },
+    {
+      "id": "actual_python_components",
+      "passed": true
+    },
+    {
+      "id": "unchanged_original_and_hash_preference",
+      "passed": true
+    },
+    {
+      "id": "backend_source_full_path",
+      "passed": true
+    },
+    {
+      "id": "resource_source_full_path",
+      "passed": true
+    },
+    {
+      "id": "resource_destination_full_path",
+      "passed": true
+    },
+    {
+      "id": "plugin_source_full_path",
+      "passed": true
+    },
+    {
+      "id": "backend_destination_keeps_helper_parameter_identity",
+      "passed": true
+    },
+    {
+      "id": "helper_destinations_share_parameter_identity",
+      "passed": true
+    },
+    {
+      "id": "copy_tree_directory_root_semantics",
+      "passed": true
+    },
+    {
+      "id": "copy_file_exact_destination_semantics",
+      "passed": true
+    },
+    {
+      "id": "directory_entry_copy_remains_unresolved",
+      "passed": true
+    },
+    {
+      "id": "dynamic_launcher_filename_remains_unresolved",
+      "passed": true
+    },
+    {
+      "id": "mapping_status_preserves_pending_obligations",
+      "passed": true
+    },
+    {
+      "id": "both_runtime_path_styles_retained",
+      "passed": true
+    },
+    {
+      "id": "backend_path_literals_have_source_positions",
+      "passed": true
+    },
+    {
+      "id": "source_file_origin_retained",
+      "passed": true
+    },
+    {
+      "id": "directory_loop_and_launcher_have_required_path_gaps",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_source_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_source_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_destination_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_destination_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_resource_destination_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_resource_destination_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_literal_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_backend_literal_in",
+      "passed": true
+    },
+    {
+      "id": "same_commit_source_navigation",
+      "passed": true
+    },
+    {
+      "id": "navigation_input_projection",
+      "passed": true
+    },
+    {
+      "id": "file_operations_and_paths_survive_indexing",
+      "passed": true
+    },
+    {
+      "id": "same_index_snapshot_and_rule_version",
+      "passed": true
+    },
+    {
+      "id": "no_execution_or_process_pairing_claim",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "directory_enumeration_expanded": false,
+  "caller_path_contexts_expanded": false,
+  "process_counterpart_connected": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false
+}

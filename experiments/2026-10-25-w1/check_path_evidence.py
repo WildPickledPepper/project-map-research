@@ -33,3 +33,21 @@ assert not any(control[k] for k in ('original_checkout_modified','default_worksp
                                   'process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
 assert control['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 33 Rust single-context production-adapter/index checks; packaging and counterpart pairing pending.')
+
+python=json.loads((Path(__file__).parent/'evidence/python-path-control.json').read_text(encoding='utf-8'))
+assert python['schema']=='python-path-control-score/1' and python['passed']
+assert len(python['checks'])==34 and all(c['passed'] for c in python['checks'])
+assert python['source_commit']==control['source_commit']
+assert python['build_version']['rules_commit']=='9806c76b26190ad849e5f3d5bab82e2a106f5b78'
+assert python['scope']=='python_control_all_selected_python_inputs'
+assert python['index_counts']['input_files']==119 and python['index_counts']['nodes']==76544 and python['index_counts']['edges']==107728
+assert {v['path_style'] for v in python['selected_paths']}=={'windows'}
+assert python['selected_paths'][0]['relative_path']=='server/output/build/server'
+assert python['selected_paths'][1]['base_kind']=='parameter' and python['selected_paths'][1]['relative_path']=='server'
+assert python['selected_paths'][3]['relative_path']=='platform/preview/resources'
+assert len(python['navigation'])==8 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in python['navigation'])
+assert python['required_gap_counts']
+assert not any(python[k] for k in ('original_checkout_modified','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'directory_enumeration_expanded','caller_path_contexts_expanded','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
+assert python['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 34 Python repository-control/index checks; directory entries, caller contexts and process pairing pending.')
