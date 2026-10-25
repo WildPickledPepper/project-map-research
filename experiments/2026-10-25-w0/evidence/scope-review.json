@@ -1,0 +1,1226 @@
+{
+  "schema": "independent-scope-review/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "rules_version": "011164d0a2edc8caa90bee6edb26c490e94e172e",
+  "reference_origin": "manual_source_scope_audit_reference_not_extractor_input",
+  "checks": [
+    {
+      "id": "all_committed_paths_exactly_once",
+      "passed": true,
+      "detail": {
+        "expected": 4855,
+        "actual": 4855,
+        "missing": [],
+        "extra": []
+      }
+    },
+    {
+      "id": "all_documents_same_source_and_rules",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_files_have_owner_and_scan_state",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_working_tree_or_semantic_completion_claim",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_required_scopes_discovered",
+      "passed": true,
+      "detail": {
+        "missing": []
+      }
+    },
+    {
+      "id": "source_group.frontends",
+      "passed": true,
+      "detail": {
+        "members": [
+          "modules/lib",
+          "modules/compute",
+          "modules/cluster",
+          "modules/framework",
+          "modules/leaks",
+          "modules/memory",
+          "modules/operator",
+          "modules/statistic",
+          "modules/timeline",
+          "modules/reinforcement-learning",
+          "modules/memory-on-chip",
+          "modules/numa"
+        ],
+        "missing": [],
+        "evidence": {
+          "path": "modules/pnpm-workspace.yaml",
+          "contains": "packages:",
+          "lines": [
+            1
+          ],
+          "present": true
+        }
+      }
+    },
+    {
+      "id": "source_group.backend_modules",
+      "passed": true,
+      "detail": {
+        "members": [
+          "server/src/modules/advisor",
+          "server/src/modules/base",
+          "server/src/modules/communication",
+          "server/src/modules/defs",
+          "server/src/modules/full_db",
+          "server/src/modules/global",
+          "server/src/modules/memory",
+          "server/src/modules/memscope",
+          "server/src/modules/memsnapshot",
+          "server/src/modules/numa",
+          "server/src/modules/operator",
+          "server/src/modules/rl",
+          "server/src/modules/servitization",
+          "server/src/modules/source",
+          "server/src/modules/summary",
+          "server/src/modules/timeline",
+          "server/src/modules/triton"
+        ],
+        "missing": [],
+        "evidence": {
+          "path": "server/src/CMakeLists.txt",
+          "contains": "# src modules",
+          "lines": [
+            31
+          ],
+          "present": true
+        }
+      }
+    },
+    {
+      "id": "source_group.data_tools",
+      "passed": true,
+      "detail": {
+        "members": [
+          "scripts/MemSnapDump",
+          "scripts/cpu_binding_tools",
+          "scripts/flame_graph",
+          "scripts/ftrace_tools",
+          "scripts/memscope_adaptors"
+        ],
+        "missing": [],
+        "evidence": {
+          "path": "scripts/memscope_adaptors/memscope",
+          "tracked_descendants": 4,
+          "present": true
+        }
+      }
+    },
+    {
+      "id": "source_group.plugins",
+      "passed": true,
+      "detail": {
+        "members": [
+          "plugins/ProfilerServerProxy",
+          "plugins/jupyterlab"
+        ],
+        "missing": [],
+        "evidence": {
+          "path": "plugins/jupyterlab/package.json",
+          "contains": "A JupyterLab extension",
+          "lines": [
+            4
+          ],
+          "present": true
+        }
+      }
+    },
+    {
+      "id": "source_anchor.platform_entry",
+      "passed": true,
+      "detail": {
+        "path": "platform/src/main.rs",
+        "contains": "fn main()",
+        "lines": [
+          46
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.desktop_process",
+      "passed": true,
+      "detail": {
+        "path": "platform/src/default.rs",
+        "contains": "Command::new(path)",
+        "lines": [
+          164
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.desktop_view",
+      "passed": true,
+      "detail": {
+        "path": "platform/src/webview.rs",
+        "contains": "wry://localhost/resources/profiler/frontend/index.html?port=",
+        "lines": [
+          115
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.legacy_view",
+      "passed": true,
+      "detail": {
+        "path": "platform/src/main.rs",
+        "contains": "webview_legacy.rs",
+        "lines": [
+          34
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.developer_view",
+      "passed": true,
+      "detail": {
+        "path": "platform/src/dev.rs",
+        "contains": "http://localhost:5174?port=9000",
+        "lines": [
+          34
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.headless_python",
+      "passed": true,
+      "detail": {
+        "path": "platform/src/http.rs",
+        "contains": "Command::new(\"python3\")",
+        "lines": [
+          38
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.proxy_entry",
+      "passed": true,
+      "detail": {
+        "path": "plugins/ProfilerServerProxy/run.py",
+        "contains": "asyncio.run(start_proxy())",
+        "lines": [
+          61
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.proxy_pair",
+      "passed": true,
+      "detail": {
+        "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+        "contains": "on_pair_established",
+        "lines": [
+          39
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.jupyter_entry",
+      "passed": true,
+      "detail": {
+        "path": "plugins/jupyterlab/mindstudio_insight_jupyterlab/__init__.py",
+        "contains": "_load_jupyter_server_extension",
+        "lines": [
+          33,
+          40
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.jupyter_client",
+      "passed": true,
+      "detail": {
+        "path": "plugins/jupyterlab/src/index.ts",
+        "contains": "JupyterFrontEndPlugin",
+        "lines": [
+          21,
+          49
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.worker_blocks",
+      "passed": true,
+      "detail": {
+        "path": "modules/leaks/src/leaksWorker/blockWorker/index.ts",
+        "contains": "self.onmessage",
+        "lines": [
+          706
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.worker_state",
+      "passed": true,
+      "detail": {
+        "path": "modules/leaks/src/leaksWorker/stateWorker/index.ts",
+        "contains": "self.onmessage",
+        "lines": [
+          140
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.docker_tls",
+      "passed": true,
+      "detail": {
+        "path": "docker/entrypoint.sh",
+        "contains": "TLS mode: HTTPS + mTLS",
+        "lines": [
+          24
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.docker_plain",
+      "passed": true,
+      "detail": {
+        "path": "docker/entrypoint.sh",
+        "contains": "TLS mode: HTTP",
+        "lines": [
+          24,
+          27
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.container_services",
+      "passed": true,
+      "detail": {
+        "path": "docker/supervisord.conf",
+        "contains": "profiler_server",
+        "lines": [
+          17
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.container_launcher",
+      "passed": true,
+      "detail": {
+        "path": "streamer/run_insight_streamer.py",
+        "contains": "--mode",
+        "lines": [
+          205,
+          313
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.container_stop",
+      "passed": true,
+      "detail": {
+        "path": "streamer/stop_insight_streamer.py",
+        "contains": "__main__",
+        "lines": [
+          173
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "source_anchor.install_modes",
+      "passed": true,
+      "detail": {
+        "path": "README.md",
+        "contains": "Windows、Linux和macOS",
+        "lines": [
+          65
+        ],
+        "present": true
+      }
+    },
+    {
+      "id": "mode_reference.desktop.windows.release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.desktop.linux.release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.desktop.macos.release",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.desktop.windows.development",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.desktop.linux.development",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.desktop.macos.development",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.platform.no_default.http",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.proxy.websocket",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.jupyterlab.extension",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.docker.http",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.docker.https_mtls",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.streamer.container_start",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "mode_reference.streamer.container_stop",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_modules_eighteen_mechanisms",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_signal_remains_unknown",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "required_language_gaps_remain_visible",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "signals_are_candidates_with_unresolved_counterparts",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "candidate_ids_unique",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "no_historical_asset_input_or_overall_pass",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "scope_checks_passed": true,
+  "groups": [
+    {
+      "id": "frontends",
+      "members": [
+        "modules/lib",
+        "modules/compute",
+        "modules/cluster",
+        "modules/framework",
+        "modules/leaks",
+        "modules/memory",
+        "modules/operator",
+        "modules/statistic",
+        "modules/timeline",
+        "modules/reinforcement-learning",
+        "modules/memory-on-chip",
+        "modules/numa"
+      ]
+    },
+    {
+      "id": "backend_modules",
+      "members": [
+        "server/src/modules/advisor",
+        "server/src/modules/base",
+        "server/src/modules/communication",
+        "server/src/modules/defs",
+        "server/src/modules/full_db",
+        "server/src/modules/global",
+        "server/src/modules/memory",
+        "server/src/modules/memscope",
+        "server/src/modules/memsnapshot",
+        "server/src/modules/numa",
+        "server/src/modules/operator",
+        "server/src/modules/rl",
+        "server/src/modules/servitization",
+        "server/src/modules/source",
+        "server/src/modules/summary",
+        "server/src/modules/timeline",
+        "server/src/modules/triton"
+      ]
+    },
+    {
+      "id": "data_tools",
+      "members": [
+        "scripts/MemSnapDump",
+        "scripts/cpu_binding_tools",
+        "scripts/flame_graph",
+        "scripts/ftrace_tools",
+        "scripts/memscope_adaptors"
+      ]
+    },
+    {
+      "id": "plugins",
+      "members": [
+        "plugins/ProfilerServerProxy",
+        "plugins/jupyterlab"
+      ]
+    }
+  ],
+  "source_anchors": {
+    "platform_entry": {
+      "path": "platform/src/main.rs",
+      "contains": "fn main()",
+      "lines": [
+        46
+      ],
+      "present": true
+    },
+    "desktop_process": {
+      "path": "platform/src/default.rs",
+      "contains": "Command::new(path)",
+      "lines": [
+        164
+      ],
+      "present": true
+    },
+    "desktop_view": {
+      "path": "platform/src/webview.rs",
+      "contains": "wry://localhost/resources/profiler/frontend/index.html?port=",
+      "lines": [
+        115
+      ],
+      "present": true
+    },
+    "legacy_view": {
+      "path": "platform/src/main.rs",
+      "contains": "webview_legacy.rs",
+      "lines": [
+        34
+      ],
+      "present": true
+    },
+    "developer_view": {
+      "path": "platform/src/dev.rs",
+      "contains": "http://localhost:5174?port=9000",
+      "lines": [
+        34
+      ],
+      "present": true
+    },
+    "headless_python": {
+      "path": "platform/src/http.rs",
+      "contains": "Command::new(\"python3\")",
+      "lines": [
+        38
+      ],
+      "present": true
+    },
+    "proxy_entry": {
+      "path": "plugins/ProfilerServerProxy/run.py",
+      "contains": "asyncio.run(start_proxy())",
+      "lines": [
+        61
+      ],
+      "present": true
+    },
+    "proxy_pair": {
+      "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+      "contains": "on_pair_established",
+      "lines": [
+        39
+      ],
+      "present": true
+    },
+    "jupyter_entry": {
+      "path": "plugins/jupyterlab/mindstudio_insight_jupyterlab/__init__.py",
+      "contains": "_load_jupyter_server_extension",
+      "lines": [
+        33,
+        40
+      ],
+      "present": true
+    },
+    "jupyter_client": {
+      "path": "plugins/jupyterlab/src/index.ts",
+      "contains": "JupyterFrontEndPlugin",
+      "lines": [
+        21,
+        49
+      ],
+      "present": true
+    },
+    "worker_blocks": {
+      "path": "modules/leaks/src/leaksWorker/blockWorker/index.ts",
+      "contains": "self.onmessage",
+      "lines": [
+        706
+      ],
+      "present": true
+    },
+    "worker_state": {
+      "path": "modules/leaks/src/leaksWorker/stateWorker/index.ts",
+      "contains": "self.onmessage",
+      "lines": [
+        140
+      ],
+      "present": true
+    },
+    "docker_tls": {
+      "path": "docker/entrypoint.sh",
+      "contains": "TLS mode: HTTPS + mTLS",
+      "lines": [
+        24
+      ],
+      "present": true
+    },
+    "docker_plain": {
+      "path": "docker/entrypoint.sh",
+      "contains": "TLS mode: HTTP",
+      "lines": [
+        24,
+        27
+      ],
+      "present": true
+    },
+    "container_services": {
+      "path": "docker/supervisord.conf",
+      "contains": "profiler_server",
+      "lines": [
+        17
+      ],
+      "present": true
+    },
+    "container_launcher": {
+      "path": "streamer/run_insight_streamer.py",
+      "contains": "--mode",
+      "lines": [
+        205,
+        313
+      ],
+      "present": true
+    },
+    "container_stop": {
+      "path": "streamer/stop_insight_streamer.py",
+      "contains": "__main__",
+      "lines": [
+        173
+      ],
+      "present": true
+    },
+    "install_modes": {
+      "path": "README.md",
+      "contains": "Windows、Linux和macOS",
+      "lines": [
+        65
+      ],
+      "present": true
+    }
+  },
+  "required_modes": [
+    {
+      "id": "desktop.windows.release",
+      "module": "platform",
+      "conditions": {
+        "target_os": "windows",
+        "feature_default": true,
+        "debug_assertions": false
+      },
+      "anchors": [
+        "platform_entry",
+        "desktop_process",
+        "desktop_view",
+        "install_modes"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "platform/src/main.rs",
+          "contains": "fn main()",
+          "lines": [
+            46
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/default.rs",
+          "contains": "Command::new(path)",
+          "lines": [
+            164
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/webview.rs",
+          "contains": "wry://localhost/resources/profiler/frontend/index.html?port=",
+          "lines": [
+            115
+          ],
+          "present": true
+        },
+        {
+          "path": "README.md",
+          "contains": "Windows、Linux和macOS",
+          "lines": [
+            65
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "desktop.linux.release",
+      "module": "platform",
+      "conditions": {
+        "target_os": "linux",
+        "feature_default": true,
+        "debug_assertions": false
+      },
+      "anchors": [
+        "platform_entry",
+        "desktop_process",
+        "legacy_view",
+        "install_modes"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "platform/src/main.rs",
+          "contains": "fn main()",
+          "lines": [
+            46
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/default.rs",
+          "contains": "Command::new(path)",
+          "lines": [
+            164
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/main.rs",
+          "contains": "webview_legacy.rs",
+          "lines": [
+            34
+          ],
+          "present": true
+        },
+        {
+          "path": "README.md",
+          "contains": "Windows、Linux和macOS",
+          "lines": [
+            65
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "desktop.macos.release",
+      "module": "platform",
+      "conditions": {
+        "target_os": "macos",
+        "feature_default": true,
+        "debug_assertions": false
+      },
+      "anchors": [
+        "platform_entry",
+        "desktop_process",
+        "desktop_view",
+        "install_modes"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "platform/src/main.rs",
+          "contains": "fn main()",
+          "lines": [
+            46
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/default.rs",
+          "contains": "Command::new(path)",
+          "lines": [
+            164
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/webview.rs",
+          "contains": "wry://localhost/resources/profiler/frontend/index.html?port=",
+          "lines": [
+            115
+          ],
+          "present": true
+        },
+        {
+          "path": "README.md",
+          "contains": "Windows、Linux和macOS",
+          "lines": [
+            65
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "desktop.windows.development",
+      "module": "platform",
+      "conditions": {
+        "target_os": "windows",
+        "feature_default": true,
+        "debug_assertions": true
+      },
+      "anchors": [
+        "platform_entry",
+        "developer_view"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "platform/src/main.rs",
+          "contains": "fn main()",
+          "lines": [
+            46
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/dev.rs",
+          "contains": "http://localhost:5174?port=9000",
+          "lines": [
+            34
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "desktop.linux.development",
+      "module": "platform",
+      "conditions": {
+        "target_os": "linux",
+        "feature_default": true,
+        "debug_assertions": true
+      },
+      "anchors": [
+        "platform_entry",
+        "legacy_view"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "platform/src/main.rs",
+          "contains": "fn main()",
+          "lines": [
+            46
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/main.rs",
+          "contains": "webview_legacy.rs",
+          "lines": [
+            34
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "desktop.macos.development",
+      "module": "platform",
+      "conditions": {
+        "target_os": "macos",
+        "feature_default": true,
+        "debug_assertions": true
+      },
+      "anchors": [
+        "platform_entry",
+        "developer_view"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "platform/src/main.rs",
+          "contains": "fn main()",
+          "lines": [
+            46
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/dev.rs",
+          "contains": "http://localhost:5174?port=9000",
+          "lines": [
+            34
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "platform.no_default.http",
+      "module": "platform",
+      "conditions": {
+        "feature_default": false,
+        "platform_combinations": "must_be_resolved_with_build_context_in_W2"
+      },
+      "anchors": [
+        "platform_entry",
+        "headless_python"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "platform/src/main.rs",
+          "contains": "fn main()",
+          "lines": [
+            46
+          ],
+          "present": true
+        },
+        {
+          "path": "platform/src/http.rs",
+          "contains": "Command::new(\"python3\")",
+          "lines": [
+            38
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "proxy.websocket",
+      "module": "plugins/ProfilerServerProxy",
+      "conditions": {
+        "proxy_entry_enabled": true
+      },
+      "anchors": [
+        "proxy_entry",
+        "proxy_pair"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "plugins/ProfilerServerProxy/run.py",
+          "contains": "asyncio.run(start_proxy())",
+          "lines": [
+            61
+          ],
+          "present": true
+        },
+        {
+          "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+          "contains": "on_pair_established",
+          "lines": [
+            39
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "jupyterlab.extension",
+      "module": "plugins/jupyterlab",
+      "conditions": {
+        "jupyterlab_extension_enabled": true
+      },
+      "anchors": [
+        "jupyter_entry",
+        "jupyter_client"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "plugins/jupyterlab/mindstudio_insight_jupyterlab/__init__.py",
+          "contains": "_load_jupyter_server_extension",
+          "lines": [
+            33,
+            40
+          ],
+          "present": true
+        },
+        {
+          "path": "plugins/jupyterlab/src/index.ts",
+          "contains": "JupyterFrontEndPlugin",
+          "lines": [
+            21,
+            49
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "docker.http",
+      "module": "docker",
+      "conditions": {
+        "certificate_triplet_present": false
+      },
+      "anchors": [
+        "docker_plain",
+        "container_services"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "docker/entrypoint.sh",
+          "contains": "TLS mode: HTTP",
+          "lines": [
+            24,
+            27
+          ],
+          "present": true
+        },
+        {
+          "path": "docker/supervisord.conf",
+          "contains": "profiler_server",
+          "lines": [
+            17
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "docker.https_mtls",
+      "module": "docker",
+      "conditions": {
+        "certificate_triplet_present": true
+      },
+      "anchors": [
+        "docker_tls",
+        "container_services"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "docker/entrypoint.sh",
+          "contains": "TLS mode: HTTPS + mTLS",
+          "lines": [
+            24
+          ],
+          "present": true
+        },
+        {
+          "path": "docker/supervisord.conf",
+          "contains": "profiler_server",
+          "lines": [
+            17
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "streamer.container_start",
+      "module": "streamer",
+      "conditions": {
+        "docker_available": true,
+        "mode": "http_or_mtls",
+        "image_and_port_selection": "requires_runtime_matrix_expansion"
+      },
+      "anchors": [
+        "container_launcher",
+        "docker_plain",
+        "docker_tls"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "streamer/run_insight_streamer.py",
+          "contains": "--mode",
+          "lines": [
+            205,
+            313
+          ],
+          "present": true
+        },
+        {
+          "path": "docker/entrypoint.sh",
+          "contains": "TLS mode: HTTP",
+          "lines": [
+            24,
+            27
+          ],
+          "present": true
+        },
+        {
+          "path": "docker/entrypoint.sh",
+          "contains": "TLS mode: HTTPS + mTLS",
+          "lines": [
+            24
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    },
+    {
+      "id": "streamer.container_stop",
+      "module": "streamer",
+      "conditions": {
+        "docker_available": true,
+        "selection": "name_or_port_or_image"
+      },
+      "anchors": [
+        "container_stop"
+      ],
+      "origin": "manual_independent_source_review",
+      "evidence": [
+        {
+          "path": "streamer/stop_insight_streamer.py",
+          "contains": "__main__",
+          "lines": [
+            173
+          ],
+          "present": true
+        }
+      ],
+      "execution_status": "not_executed",
+      "acceptance_gate": "G06"
+    }
+  ],
+  "summary": {
+    "tracked_files": 4855,
+    "logical_components": 166,
+    "required_runtime_components": 126,
+    "required_support_components": 4,
+    "language_counts": {
+      "cmake": 13,
+      "cpp": 1323,
+      "javascript": 53,
+      "other": 2393,
+      "python": 119,
+      "rust": 13,
+      "shell": 8,
+      "tsx": 384,
+      "typescript": 549
+    },
+    "scan_statuses": {
+      "external_or_generated_inventory": 4,
+      "resource_inventory": 2148,
+      "size_budget": 8,
+      "text_scanned": 2695
+    },
+    "boundary_candidates": 8136,
+    "mechanism_families": 18,
+    "unclassified_files": 0
+  },
+  "G01": "in_progress",
+  "G01_remaining": [
+    "module role/responsibility and resource ownership review is incomplete",
+    "independent interface references and negative cases for every boundary family are incomplete",
+    "build-context mode combinations and data-tool scenarios require source review",
+    "semantic boundary identities are not frozen by lexical candidate counts"
+  ],
+  "overall_technical_acceptance": "not_passed",
+  "runtime_executed": false,
+  "hash_reverification": "not_run_per_user_preference",
+  "module_obligations": {
+    "count": 903,
+    "gates": [
+      "G02",
+      "G03",
+      "G04",
+      "G05",
+      "G06",
+      "G07",
+      "G08"
+    ],
+    "status": "not_executed",
+    "full_listing": "generated_outside_git"
+  },
+  "regression": {
+    "python": {
+      "run": 370,
+      "passed": 370,
+      "skipped": 0
+    },
+    "typescript": {
+      "run": 110,
+      "passed": 110
+    },
+    "first_typescript_attempt": {
+      "status": "dependency_environment_error",
+      "reason": "typescript module not found",
+      "resolution": "rerun with existing pinned NODE_PATH dependency environment"
+    }
+  },
+  "artifact_origin": "compact_projection_of_executed_scope_review",
+  "full_inventory": "generated_outside_git"
+}

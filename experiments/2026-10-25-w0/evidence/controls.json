@@ -1,0 +1,70 @@
+{
+  "schema": "scope-review-controls/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "mutation_target": "temporary_inventory_outputs_only",
+  "source_modified": false,
+  "controls": [
+    {
+      "id": "missing_file",
+      "expected_failure": "all_committed_paths_exactly_once",
+      "actual_failures": [
+        "all_committed_paths_exactly_once"
+      ],
+      "passed": true
+    },
+    {
+      "id": "missing_proxy_module",
+      "expected_failure": "all_required_scopes_discovered",
+      "actual_failures": [
+        "all_files_have_owner_and_scan_state",
+        "all_required_scopes_discovered",
+        "source_group.plugins",
+        "mode_reference.proxy.websocket",
+        "all_modules_eighteen_mechanisms",
+        "signals_are_candidates_with_unresolved_counterparts"
+      ],
+      "passed": true
+    },
+    {
+      "id": "invented_edge",
+      "expected_failure": "signals_are_candidates_with_unresolved_counterparts",
+      "actual_failures": [
+        "signals_are_candidates_with_unresolved_counterparts"
+      ],
+      "passed": true
+    },
+    {
+      "id": "hidden_rust_gap",
+      "expected_failure": "required_language_gaps_remain_visible",
+      "actual_failures": [
+        "required_language_gaps_remain_visible"
+      ],
+      "passed": true
+    },
+    {
+      "id": "empty_mechanism_marked_inapplicable",
+      "expected_failure": "no_signal_remains_unknown",
+      "actual_failures": [
+        "no_signal_remains_unknown"
+      ],
+      "passed": true
+    },
+    {
+      "id": "wrong_source_revision",
+      "expected_failure": "all_documents_same_source_and_rules",
+      "actual_failures": [
+        "all_documents_same_source_and_rules"
+      ],
+      "passed": true
+    },
+    {
+      "id": "overall_pass_with_missing_semantics",
+      "expected_failure": "no_historical_asset_input_or_overall_pass",
+      "actual_failures": [
+        "no_historical_asset_input_or_overall_pass"
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true
+}

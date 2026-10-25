@@ -2,7 +2,9 @@
 
 研究如何为 AI 协作开发自动维护一份可查询、可追溯、与代码版本对应的项目模型。
 
-**整体状态：Insight 全项目关系覆盖尚未通过验收。** 当前按[全项目实施计划](plans/project-wide-completion-plan.md)补齐全部自有运行模块、Python/JavaScript/Rust、跨模块边界、数据/状态与运行证据；完成条件见[整体验收矩阵](plans/project-wide-acceptance.md)。W0–W7 待实施，G01–G09 未执行。
+**整体状态：Insight 全项目关系覆盖尚未通过验收。** 当前按[全项目实施计划](plans/project-wide-completion-plan.md)补齐全部自有运行模块、Python/JavaScript/Rust、跨模块边界、数据/状态与运行证据；完成条件见[整体验收矩阵](plans/project-wide-acceptance.md)。[W0 执行中](experiments/2026-10-25-w0/README.md)，已实现项目无关发现、生成范围账本并通过 46 项独立范围检查；G01 尚未通过，W1–W7 待实施。
+
+工具按语言和技术机制工作；新增业务模块应自动发现、连接和更新。模块/接口名称由源码提取，Insight 是当前验收对象。见[项目扩展与自动发现](docs/08-project-independent-discovery.md)。
 
 **已有底座：[project-map-assistant skill](skills/project-map-assistant/SKILL.md) 与可独立安装的工具。** 已验证 TS/C++ 的部分关系、自动更新、查询和限定运行场景；见 [使用说明](docs/07-tool-quickstart.md)。先完成全项目技术验收，再比较源码组与源码＋工具组；历史资产第三组独立安排，当前不接入。
 
