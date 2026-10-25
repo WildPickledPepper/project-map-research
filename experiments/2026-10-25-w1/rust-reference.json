@@ -1,0 +1,20 @@
+{
+  "origin": "manual_source_audit_not_extraction_input",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "start": {"path":"platform/src/main.rs","name":"main"},
+  "boundaries": [
+    {"id":"backend","path":"platform/src/default.rs","family":"process_start","line":175},
+    {"id":"windows_view","path":"platform/src/webview.rs","family":"frontend_loader"},
+    {"id":"linux_view","path":"platform/src/webview_legacy.rs","family":"frontend_loader"},
+    {"id":"windows_resource","path":"platform/src/webview.rs","family":"resource_protocol_registration"},
+    {"id":"linux_resource","path":"platform/src/webview_legacy.rs","family":"resource_protocol_registration"}
+  ],
+  "views": [
+    {"id":"windows_view","resource":"windows_resource","workspace":"platform/Cargo.toml","os":"windows"},
+    {"id":"linux_view","resource":"linux_resource","workspace":"platform/linux/Cargo.toml","os":"linux"}
+  ],
+  "default_feature":"MindStudioInsight/default",
+  "path_kinds":["OBSERVES_CALL","STATIC_CALL_TARGET","STATIC_CALL_CANDIDATE","DECLARES_BOUNDARY"],
+  "runtime_execution":false,
+  "backend_counterpart":"requires executable artifact and selected deployment/instance identity in W2"
+}

@@ -97,4 +97,14 @@ assert rust_installed['installed_rules_commit']=='5f8079dba2a733e40bef6cae4eb350
 assert not rust_installed['source_modified_by_tool'] and not rust_installed['historical_assets_enabled']
 assert {'cargo_custom_root_and_path_module_connected','same_name_module_not_connected','new_module_connected',
     'renamed_module_connected','deleted_definition_removed','unresolved_call_remains_queryable'}<={c['id'] for c in rust_installed['checks']}
-print('OK: native/JS/Python evidence; Rust components, native entries and 22 installed CLI checks; G02 remains pending.')
+rust_production=json.loads((ROOT/'evidence/rust-production.json').read_text(encoding='utf-8'))
+assert rust_production['passed'] and len(rust_production['checks'])==41 and all(c['passed'] for c in rust_production['checks'])
+assert rust_production['source_commit']==data['source_commit']
+assert rust_production['build_version']['rules_commit']==rust_installed['installed_rules_commit']
+assert {r['path'] for r in rust_production['files']}=={r['path'] for r in data['files'] if r['language']=='rust'}
+assert rust_production['rust_node_counts']['code_module']==13 and rust_production['rust_node_counts']['analysis_context']==24
+assert sum(rust_production['call_resolutions'].values())==873
+assert all(not c['evidence']['stop_reason'] and c['common_context_count']>0 for c in rust_production['checks'] if c['id'].startswith('navigation.'))
+assert not rust_production['runtime_execution'] and not rust_production['whole_G02_accepted']
+assert rust_production['backend_counterpart_status']=='pending_executable_artifact_and_deployment_instance_identity'
+print('OK: native/JS/Python evidence; Rust components, native entries, 41 production and 22 installed CLI checks; G02 remains pending.')
