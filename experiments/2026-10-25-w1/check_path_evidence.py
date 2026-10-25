@@ -51,3 +51,21 @@ assert not any(python[k] for k in ('original_checkout_modified','default_workspa
     'directory_enumeration_expanded','caller_path_contexts_expanded','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
 assert python['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 34 Python repository-control/index checks; directory entries, caller contexts and process pairing pending.')
+
+contexts=json.loads((Path(__file__).parent/'evidence/python-path-contexts.json').read_text(encoding='utf-8'))
+assert contexts['schema']=='python-path-context-score/1' and contexts['passed']
+assert len(contexts['checks'])==28 and all(c['passed'] for c in contexts['checks'])
+assert contexts['source_commit']==python['source_commit']
+assert contexts['build_version']['rules_commit']=='de7bc1d730e19be9270d8a7fafe1fcab6c50ef1e'
+assert contexts['build_version']['base_facts']['rules_commit']==python['build_version']['rules_commit']
+assert contexts['build_version']['base_facts']['counts']=={'nodes':76402,'edges':105988}
+assert contexts['index_counts']['input_files']==119 and contexts['index_counts']['nodes']==76626 and contexts['index_counts']['edges']==110680
+assert {d['relative_path']:d['caller_count'] for d in contexts['backend_destinations']}=={
+    'platform/preview/resources/profiler/server':1,
+    'plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server':2}
+assert len(contexts['navigation'])==6 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in contexts['navigation'])
+assert contexts['path_adapter_executed_again'] and not contexts['native_semantic_stage_executed_again']
+assert not any(contexts[k] for k in ('original_checkout_modified','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'directory_enumeration_expanded','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
+assert contexts['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 28 recomputed-path/cached-native checks; desktop/JupyterLab contexts separate; directory entries and process pairing pending.')

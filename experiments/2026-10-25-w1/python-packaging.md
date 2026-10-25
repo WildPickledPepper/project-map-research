@@ -1,6 +1,6 @@
 # Python 打包路径与文件操作
 
-2026-10-25 开始接入，10-26 发布真实控制结果。基础适配及按调用位置区分的参数传播已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项通过。接下来展开目录项、过滤及动态文件名，连接完整打包链和构建产物。
+2026-10-25 开始接入，10-26 发布真实控制结果。基础适配及按调用位置区分的参数传播已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项通过，规则 de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项通过。接下来展开目录项、过滤及动态文件名，连接完整打包链和构建产物。
 
 ## 自动提取的内容
 
@@ -71,3 +71,24 @@ python experiments/2026-10-25-w1/check_path_evidence.py
 接入后的完整 Windows 回归运行 507 项，结果通过，1 项按平台跳过；包括原生 Rust/CMake、统一图和已有接口检查。
 
 调用深度上限为 12，调用上下文上限为 32，剩余部分产生必需缺项。非字面量默认值的定义时刻、多返回函数的控制选择、目录枚举、复杂对象/别名写入以及异常/上下文管理器的控制效果继续展开。当前文件映射状态仍要求控制条件、复制选项和目标目录上下文；G02/G03 保持未通过。
+
+### Insight 调用上下文复验
+
+提取规则 de7bc1d，在相同 d4e8d1c 和 119 个 Python 输入上重新执行路径适配及统一索引。原生语言/接口事实复用自 9806c76：执行前核对三项语义/接口组件的 Git 变更、Jedi/Parso/Python 版本及输入配置，均未变。重新导出提交源码供 AST 和路径计算使用。本次没有重跑 Jedi 原生阶段，也没有重新核验文件哈希；这些口径在证据中单列。
+
+后端 copytree 的相同源目录 `server/output/build/server` 已分别连接到：
+
+| 调用上下文 | 目标（相对源码根） | 已解析调用位置数 |
+|---|---|---|
+| 桌面发行 | platform/preview/resources/profiler/server | 1 |
+| JupyterLab 插件 | plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server | 2 |
+
+源和目标按同一个 file_operation_context 配对。JupyterLab 目标还连到 BUILD_JUPYTERLAB 谓词及前序返回守卫。6 个正反向查询、同版本源码导航、复用条件和必需缺项检查共 28 项通过。当前快照有 76,626 个节点、110,680 条关系；该统计保留本次控制输入的含义。
+
+目录项复制仍有源码定位的必需缺项，当前记录不含完整文件成员映射、CMake/Rust 产物配对、默认多语言全仓刷新或新版本安装验收。旧 9806c76 的参数基址记录原样保留，本记录证明后续已展开的调用关系。
+
+```text
+python experiments/2026-10-25-w1/recheck_python_paths.py --source SOURCE --base-trial PREVIOUS_PYTHON_CONTROL --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_python_contexts.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_path_evidence.py
+```

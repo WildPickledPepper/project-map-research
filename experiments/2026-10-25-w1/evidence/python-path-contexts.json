@@ -1,0 +1,250 @@
+{
+  "schema": "python-path-context-score/1",
+  "origin": "recomputed_production_path_adapter_cached_unchanged_native_facts_separate_source_audit",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-recheck:8f9880f3794449d58fdf810416332b1e",
+  "scope": "python_paths_recomputed_all_selected_python_inputs",
+  "build_version": {
+    "rules_commit": "de7bc1d730e19be9270d8a7fafe1fcab6c50ef1e",
+    "python_components": {
+      "jedi": "0.19.2",
+      "parso": "0.8.5",
+      "python": "3.11.9"
+    },
+    "base_facts": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-control:25616103484f48dea770a5dc25e65264:before-path-projection",
+      "rules_commit": "9806c76b26190ad849e5f3d5bab82e2a106f5b78",
+      "components": [
+        "adapters/python_facts.py",
+        "adapters/python_contexts.py",
+        "adapters/python_boundaries.py"
+      ],
+      "adapter_history_unchanged": true,
+      "component_versions_unchanged": true,
+      "input_context_unchanged": true,
+      "counts": {
+        "nodes": 76402,
+        "edges": 105988
+      }
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 119,
+    "modules": 29,
+    "nodes": 76626,
+    "edges": 110680,
+    "entries": 0,
+    "diagnostic_records": 113,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "path_resolution_counts": {
+    "symbolic_base": 58,
+    "unresolved": 104
+  },
+  "operation_context_count": 34,
+  "backend_destinations": [
+    {
+      "relative_path": "platform/preview/resources/profiler/server",
+      "base_kind": "canonical_source_root",
+      "caller_count": 1,
+      "callers": [
+        {
+          "path": "build/build.py",
+          "line": 387,
+          "name": "assemble_profiler_runtime"
+        }
+      ]
+    },
+    {
+      "relative_path": "plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server",
+      "base_kind": "canonical_source_root",
+      "caller_count": 2,
+      "callers": [
+        {
+          "path": "build/build.py",
+          "line": 297,
+          "name": "copy_resource_in_jupyterlab"
+        },
+        {
+          "path": "build/build.py",
+          "line": 363,
+          "name": "assemble_profiler_runtime"
+        }
+      ]
+    }
+  ],
+  "required_gap_counts": {
+    "dynamic_path_component": 62,
+    "python_dirname_requires_lexical_source_spelling": 120,
+    "python_binding_without_path_source": 4,
+    "python_path_call_not_modeled": 68,
+    "parent_after_unresolved_path": 8,
+    "unproven_path_division_receiver": 6
+  },
+  "navigation": [
+    {
+      "id": "paired_desktop_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "paired_desktop_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "desktop_caller_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "desktop_caller_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "jupyterlab_guard_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "jupyterlab_guard_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "pinned_source",
+      "passed": true
+    },
+    {
+      "id": "complete_python_input_scope",
+      "passed": true
+    },
+    {
+      "id": "unchanged_versioned_language_interface_fact_reuse",
+      "passed": true
+    },
+    {
+      "id": "path_stage_recomputed_not_fresh_native_rebuild",
+      "passed": true
+    },
+    {
+      "id": "two_backend_destination_contexts",
+      "passed": true
+    },
+    {
+      "id": "backend_source_paired_with_each_own_destination",
+      "passed": true
+    },
+    {
+      "id": "desktop_full_symbolic_path",
+      "passed": true
+    },
+    {
+      "id": "desktop_native_call_stack",
+      "passed": true
+    },
+    {
+      "id": "desktop_source_conditions_preserved",
+      "passed": true
+    },
+    {
+      "id": "desktop_context_node_is_scoped",
+      "passed": true
+    },
+    {
+      "id": "jupyterlab_full_symbolic_path",
+      "passed": true
+    },
+    {
+      "id": "jupyterlab_native_call_stack",
+      "passed": true
+    },
+    {
+      "id": "jupyterlab_source_conditions_preserved",
+      "passed": true
+    },
+    {
+      "id": "jupyterlab_context_node_is_scoped",
+      "passed": true
+    },
+    {
+      "id": "jupyterlab_build_flag_and_prior_return_guard",
+      "passed": true
+    },
+    {
+      "id": "guard_sources_connected",
+      "passed": true
+    },
+    {
+      "id": "all_path_values_have_real_operation_context",
+      "passed": true
+    },
+    {
+      "id": "directory_entry_copy_still_required_gap",
+      "passed": true
+    },
+    {
+      "id": "navigation_paired_desktop_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_paired_desktop_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_desktop_caller_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_desktop_caller_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_jupyterlab_guard_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_jupyterlab_guard_in",
+      "passed": true
+    },
+    {
+      "id": "same_commit_source_navigation",
+      "passed": true
+    },
+    {
+      "id": "same_index_version",
+      "passed": true
+    },
+    {
+      "id": "original_unchanged_no_hash_verification",
+      "passed": true
+    },
+    {
+      "id": "no_reference_given_to_extractor_or_runtime_claim",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "native_semantic_stage_executed_again": false,
+  "path_adapter_executed_again": true,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "runtime_execution": false,
+  "directory_enumeration_expanded": false,
+  "process_counterpart_connected": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false
+}
