@@ -53,7 +53,7 @@ def _reply_file(reply, name):
     return _read(path)
 
 
-def _load(build, index_name=None):
+def _load(build, index_name=None,recorded_build=None):
     reply = (build / '.cmake/api/v1/reply').resolve()
     indexes = sorted(reply.glob('index-*.json'))
     if index_name is None:
@@ -67,7 +67,7 @@ def _load(build, index_name=None):
     model = objects.get('codemodel')
     if not model or model.get('version', {}).get('major') != 2:
         raise NativeContextError('Native codemodel version 2 required')
-    if Path(model['paths']['build']).resolve() != build:
+    if Path(model['paths']['build']).resolve() != (recorded_build or build):
         raise NativeContextError('Native build directory differs from context')
     configurations = []
     for configuration in model['configurations']:
@@ -79,13 +79,16 @@ def _load(build, index_name=None):
 
 
 def analyze(build, repository, *, context_key, source_commit, expected_commit,
-            selected_paths, configure_returncode, index_name=None, dependency_prefixes=()):
+            selected_paths, configure_returncode, index_name=None, dependency_prefixes=(),
+            recorded_build_root=None,recorded_repository_root=None):
     """Return native build facts; unusable contexts yield an explicit required gap.
 
     ``selected_paths`` comes from committed discovery, not a target whitelist.
     Sources outside that set remain visible without claiming symbol coverage.
     """
     build = Path(build).resolve(); repository = Path(repository).resolve()
+    logical_build=Path(recorded_build_root).resolve() if recorded_build_root else build
+    logical_repository=Path(recorded_repository_root).resolve() if recorded_repository_root else repository
     selected = set(selected_paths); nodes = {}; edges = []; diagnostics = []
     result = {'nodes': [], 'edges': edges, 'diagnostics': diagnostics, 'coverage': [],
               'limits': ['configured_native_context_not_a_compiled_or_executed_product'],
@@ -100,10 +103,11 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
         return fail('Native context source revision does not match graph source revision')
     if type(configure_returncode) is not int or configure_returncode != 0:
         return fail('Native configuration did not succeed; previous replies are not applicable')
+    if bool(recorded_build_root)!=bool(recorded_repository_root):return fail('Recorded build and source roots must be supplied together')
     try:
-        index_name, index, objects, configurations = _load(build, index_name)
+        index_name, index, objects, configurations = _load(build,index_name,logical_build)
         source_root = Path(objects['codemodel']['paths']['source']).resolve()
-        if not source_root.is_relative_to(repository):
+        if not source_root.is_relative_to(logical_repository):
             return fail('Native project source directory is outside the committed export')
         for _, targets in configurations:
             ids = {t['id'] for t in targets}
@@ -112,12 +116,16 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
     except (OSError, ValueError, KeyError, TypeError) as error:
         return fail(str(error))
 
+    location_cache={};trace_cache={}
     def location(path):
+        key=str(path)
+        if key in location_cache:return dict(location_cache[key])
         path = Path(path).resolve()
         # Build paths may be inside the export; their identity stays a build path.
-        for root, base in [('build', build), ('source', repository)]:
-            if path.is_relative_to(base): return {'root': root, 'path': path.relative_to(base).as_posix()}
-        return {'root': 'external', 'path': str(path)}
+        for root, base in [('build',logical_build),('source',logical_repository)]:
+            if path.is_relative_to(base):
+                result={'root':root,'path':path.relative_to(base).as_posix()};location_cache[key]=result;return dict(result)
+        result={'root':'external','path':str(path)};location_cache[key]=result;return dict(result)
 
     def identity(*parts): return 'cmake:' + ':'.join(quote(str(p), safe='') for p in parts)
     def node(uid, kind, name, loc, **extra):
@@ -144,6 +152,8 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
         system={'status':'unavailable','reason':str(error),'target_path_style':None,'host_path_style':None}
         diagnostics.append({'kind':'cmake_target_system_unavailable','context_key':context_key,'reason':str(error),'required':True})
     def trace(target, offset):
+        key=(id(target),offset)
+        if key in trace_cache:return [{**r,'location':dict(r['location'])} for r in trace_cache[key]]
         graph = target.get('backtraceGraph', {}); records = []; seen = set()
         while offset is not None:
             if offset in seen: raise NativeContextError('Cyclic native backtrace')
@@ -153,7 +163,8 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
                             'line': row.get('line', 0),
                             **({'command': graph['commands'][row['command']]} if 'command' in row else {})})
             offset = row.get('parent')
-        return records
+        trace_cache[key]=records
+        return [{**r,'location':dict(r['location'])} for r in records]
 
     try:
         for configuration, targets in configurations:
@@ -181,7 +192,7 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
                     edge(uid, target_ids[dependency['id']], 'LINKS_BUILD_TARGET',
                          trace(target, dependency.get('backtrace')), build_context=context)
                 for artifact in target.get('artifacts', []):
-                    artifact_loc = location(build / artifact['path'])
+                    artifact_loc = location(logical_build / artifact['path'])
                     primary = bool(target.get('nameOnDisk') and Path(artifact_loc['path']).name == target['nameOnDisk'])
                     artifact_id = node(identity(context_key, configuration, 'artifact', artifact_loc['root'], artifact_loc['path']),
                         'build_artifact', Path(artifact_loc['path']).name, artifact_loc,
@@ -223,6 +234,9 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
     result['nodes'] = list(nodes.values())
     result['native_context'].update(status='configured', reply_index=index_name,
         cmake_version=index['cmake']['version']['string'], configurations=[c for c, _ in configurations],target_system=system)
+    if recorded_build_root:
+        result['native_context']['relocation']={'build_root_relocated':logical_build!=build,'source_root_relocated':logical_repository!=repository,
+            'basis':'caller_recorded_configure_roots_native_reply_checked'}
     return result
 
 

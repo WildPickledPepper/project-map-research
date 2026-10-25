@@ -184,6 +184,25 @@ add_library(external_library STATIC "''' + cls.outside.as_posix() + '''")
             self.assertEqual(graph['native_context']['status'], 'unavailable')
             self.assertTrue(graph['diagnostics'][0]['required'])
 
+    def test_published_directory_copy_requires_matching_recorded_roots(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);copied_build=root/'build';copied_source=root/'repository'
+            shutil.copytree(self.builds['release'],copied_build);shutil.copytree(self.repository,copied_source)
+            args={'context_key':'relocated/release','source_commit':'fixture-revision','expected_commit':'fixture-revision',
+                  'selected_paths':list(self.code),'configure_returncode':0}
+            rejected=analyze(copied_build,copied_source,**args)
+            self.assertEqual(rejected['native_context']['status'],'unavailable')
+            graph=analyze(copied_build,copied_source,recorded_build_root=self.builds['release'],recorded_repository_root=self.repository,**args)
+            validate_graph({'snapshot':'relocated-native',**graph})
+            self.assertEqual(graph['native_context']['status'],'configured')
+            self.assertTrue(graph['native_context']['relocation']['build_root_relocated'])
+            self.assertEqual(graph['native_context']['target_system']['status'],'available')
+            self.assertEqual({n['location']['path'] for n in graph['nodes'] if n['kind']=='build_artifact'},
+                             {n['location']['path'] for n in self.graph()['nodes'] if n['kind']=='build_artifact'})
+            for patch in ({'recorded_build_root':self.base/'wrong','recorded_repository_root':self.repository},
+                          {'recorded_build_root':self.builds['release']}):
+                self.assertEqual(analyze(copied_build,copied_source,**patch,**args)['native_context']['status'],'unavailable')
+
     def test_wrong_export_missing_index_and_reply_escape_are_required_gaps(self):
         for directory, index_name in [(self.base / 'missing', None), (self.builds['release'], '../../outside.json')]:
             graph = analyze(directory, self.repository, context_key='unavailable', source_commit='revision',

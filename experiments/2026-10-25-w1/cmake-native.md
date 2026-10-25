@@ -105,3 +105,7 @@ python experiments/2026-10-25-w1/check_cmake_evidence.py
 Python 打包操作使用宿主文件系统，程序运行路径使用目标系统；两者在交叉编译时分别匹配。系统处理器字段保留 CMake 声明含义，编译器实际架构另需证据。该区别与 CMake 的 [SYSTEM_NAME](https://cmake.org/cmake/help/v3.31/variable/CMAKE_SYSTEM_NAME.html) 和 [SYSTEM_PROCESSOR](https://cmake.org/cmake/help/v3.31/variable/CMAKE_SYSTEM_PROCESSOR.html) 定义一致。
 
 新增字段与现有原生配置、项目刷新和 Workspace 混合建图共 21 项检查通过。独立记录负例覆盖目标 Linux/宿主 Windows、未知系统、缺失/重复/动态字段和版本路径；实际 CMake/Ninja 配置验证系统字段与配置共同进入统一图。检查使用 CMake 3.31.6，产品编译/执行及后续产物传播另行验收。
+
+原生回复重放还支持已发布快照的目录重定位：调用方从成功配置收据提供原构建根和原源码根，适配器核对 File API 中的根目录，再从当前保存位置读取回复及系统文件。两类记录根必须成对提供；缺少、错配或配置失败继续拒绝旧回复。默认原生配置流程直接使用当前根，无需重定位参数。
+
+复制原生构建目录的独立检查先验证未绑定记录根时拒绝，再验证成对绑定后产物完整路径和系统字段保留。连同原生/项目及 Workspace 检查共 22 项通过。重复路径和声明回溯按上下文缓存计算，返回独立记录，减少同一编译组在大量源文件上的重复路径解析。
