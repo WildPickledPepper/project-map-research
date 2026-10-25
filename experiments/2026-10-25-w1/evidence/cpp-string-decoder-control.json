@@ -1,0 +1,281 @@
+{
+  "schema": "cpp-string-decoder-control-score/1",
+  "origin": "current_cpp_source_facts_and_string_decoder_extraction",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:cpp-string-decoder:4487baa69c214b3a96b76898bbdceeaf",
+  "build_version": {
+    "rules_commit": "0f386bf9d64f648ec1dbba71091c1b5d137edb84",
+    "python": "3.11.9",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0"
+    }
+  },
+  "scope": "all_selected_cpp_source_no_cmake_context",
+  "input_count": 1323,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1323,
+    "modules": 29,
+    "nodes": 93639,
+    "edges": 115584,
+    "entries": 0,
+    "diagnostic_records": 282,
+    "providers": 0,
+    "module_relation_groups": 14
+  },
+  "decoder_summary": {
+    "adapter": "cpp_typed_string_key_slice_dispatch/0.1.0",
+    "counts": {
+      "decoders": 7
+    },
+    "required_gaps": 1
+  },
+  "cpp_source_extraction_executed_again": true,
+  "cmake_configure_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "argv_origin_connected": false,
+  "rust_argument_paired": false,
+  "backend_listener_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "passed": true,
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "same_cpp_selected_input_count",
+      "passed": true
+    },
+    {
+      "id": "no_named_input_list",
+      "passed": true
+    },
+    {
+      "id": "seven_reference_keys",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_source_owner_and_slice",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_one_typed_target",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_first_parameter",
+      "passed": true
+    },
+    {
+      "id": "--wsPort=_conditional_source_decode",
+      "passed": true
+    },
+    {
+      "id": "navigation_decoder_target_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_decoder_target_in",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_decoder",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_target",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_source_owner_and_slice",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_one_typed_target",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_first_parameter",
+      "passed": true
+    },
+    {
+      "id": "--wsHost=_conditional_source_decode",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_source_owner_and_slice",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_one_typed_target",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_first_parameter",
+      "passed": true
+    },
+    {
+      "id": "--logPath=_conditional_source_decode",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_source_owner_and_slice",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_one_typed_target",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_first_parameter",
+      "passed": true
+    },
+    {
+      "id": "--logLevel=_conditional_source_decode",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_source_owner_and_slice",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_one_typed_target",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_first_parameter",
+      "passed": true
+    },
+    {
+      "id": "--logSize=_conditional_source_decode",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_source_owner_and_slice",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_one_typed_target",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_first_parameter",
+      "passed": true
+    },
+    {
+      "id": "--eventDir=_conditional_source_decode",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_source_owner_and_slice",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_one_typed_target",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_first_parameter",
+      "passed": true
+    },
+    {
+      "id": "--scanPort=_conditional_source_decode",
+      "passed": true
+    },
+    {
+      "id": "all_new_decoders_static",
+      "passed": true
+    },
+    {
+      "id": "no_full_chain_or_runtime_claim",
+      "passed": true
+    },
+    {
+      "id": "current_extraction_and_no_hash_verification",
+      "passed": true
+    }
+  ],
+  "selected_decoders": [
+    {
+      "key": "--wsPort=",
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 38,
+      "target": "ParseWsPort",
+      "parameter_index": 0
+    },
+    {
+      "key": "--wsHost=",
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 42,
+      "target": "ParseWsHost",
+      "parameter_index": 0
+    },
+    {
+      "key": "--logPath=",
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 46,
+      "target": "ParseLogPath",
+      "parameter_index": 0
+    },
+    {
+      "key": "--logLevel=",
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 50,
+      "target": "ParseLogLevel",
+      "parameter_index": 0
+    },
+    {
+      "key": "--logSize=",
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 54,
+      "target": "ParseLogSize",
+      "parameter_index": 0
+    },
+    {
+      "key": "--eventDir=",
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 59,
+      "target": "ParseEventDir",
+      "parameter_index": 0
+    },
+    {
+      "key": "--scanPort=",
+      "path": "server/msinsight/src/base/ParamsParser.cpp",
+      "line": 63,
+      "target": "ParseScan",
+      "parameter_index": 0
+    }
+  ],
+  "navigation": [
+    {
+      "id": "decoder_target_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 1
+    },
+    {
+      "id": "decoder_target_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 1
+    }
+  ],
+  "required_decoder_gaps": [
+    {
+      "kind": "cpp_string_decoder_unresolved",
+      "reason": "slice_offset_not_proven_as_find_plus_key_length",
+      "required": true,
+      "path": "server/src/modules/timeline/core/database/DataBaseManager.cpp",
+      "line": 876,
+      "expression": "rankId.substr(pos + strlen(\"Baseline_\"))"
+    }
+  ]
+}

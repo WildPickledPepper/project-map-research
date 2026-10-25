@@ -233,3 +233,25 @@ assert not any(arguments[k] for k in ('default_workspace_rebuild','installed_too
     'backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
 assert arguments['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 45 selected Rust CLI/WebView shared-value checks; six bidirectional paths; C++ decoding and listener pairing pending.')
+
+decoders=json.loads((Path(__file__).parent/'evidence/cpp-string-decoder-control.json').read_text(encoding='utf-8'))
+assert decoders['schema']=='cpp-string-decoder-control-score/1' and decoders['passed']
+assert len(decoders['checks'])==39 and all(c['passed'] for c in decoders['checks'])
+assert decoders['source_commit']==arguments['source_commit'] and decoders['input_count']==1323
+assert decoders['build_version']['rules_commit']=='0f386bf9d64f648ec1dbba71091c1b5d137edb84'
+assert decoders['index_counts']['nodes']==93639 and decoders['index_counts']['edges']==115584
+assert decoders['decoder_summary']['counts']=={'decoders':7} and decoders['decoder_summary']['required_gaps']==1
+assert len(decoders['selected_decoders'])==7 and all(d['path']=='server/msinsight/src/base/ParamsParser.cpp' and d['parameter_index']==0 for d in decoders['selected_decoders'])
+assert {d['key']:(d['target'],d['line']) for d in decoders['selected_decoders']}=={
+    '--wsPort=':('ParseWsPort',38),'--wsHost=':('ParseWsHost',42),'--logPath=':('ParseLogPath',46),
+    '--logLevel=':('ParseLogLevel',50),'--logSize=':('ParseLogSize',54),'--eventDir=':('ParseEventDir',59),'--scanPort=':('ParseScan',63)}
+assert len(decoders['required_decoder_gaps'])==1
+gap=decoders['required_decoder_gaps'][0]
+assert gap['path']=='server/src/modules/timeline/core/database/DataBaseManager.cpp' and gap['line']==876
+assert gap['reason']=='slice_offset_not_proven_as_find_plus_key_length' and gap['required']
+assert len(decoders['navigation'])==2 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None and n['witness_edges']==1 for n in decoders['navigation'])
+assert decoders['cpp_source_extraction_executed_again']
+assert not any(decoders[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert decoders['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 39 all-C++ string-decoding checks; seven source targets and two paths; one other decoder gap retained, argv/instance binding pending.')

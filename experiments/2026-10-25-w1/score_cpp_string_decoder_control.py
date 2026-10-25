@@ -46,7 +46,8 @@ def main():
         'runtime_execution','argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified')))
     check('current_extraction_and_no_hash_verification',trial['cpp_source_extraction_executed_again'] and trial['file_hash_verification']=='not_run_per_user_preference')
     score={**trial,'schema':'cpp-string-decoder-control-score/1','passed':all(c['passed'] for c in checks),'checks':checks,
-        'selected_decoders':selected,'navigation':navigation}
+        'selected_decoders':selected,'navigation':navigation,
+        'required_decoder_gaps':[d for d in graph['diagnostics'] if d['kind']=='cpp_string_decoder_unresolved' and d['required']]}
     args.output.write_text(json.dumps(score,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'passed':score['passed'],'checks':len(checks),'selected_decoders':len(selected),'navigation':navigation}))
     if not score['passed']:raise SystemExit('C++ string decoder control failed; inspect saved score')

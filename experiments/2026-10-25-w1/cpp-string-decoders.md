@@ -31,3 +31,25 @@ python experiments/2026-10-25-w1/score_cpp_string_decoder_control.py --trial NEW
 ```
 
 该步骤覆盖标准字符串检索/截取这一种解码机制；字面量相等开关、argv 集合与循环、数字转换、选项实例和监听接收对象沿后续规则及值/对象关系展开。
+
+## Insight 全 C++ 输入控制
+
+规则 0f386bf 在源码 d4e8d1c 的 1,323 个 C++/头文件输入上，通过 [39 项后置检查](evidence/cpp-string-decoder-control.json)。输入由通用文件策略取得，重新执行全部选中 C++ 的语法/类型候选与本次解码提取。索引含 93,639 节点、115,584 边。
+
+工具自动找到 `server/msinsight/src/base/ParamsParser.cpp` 中七个带常量键的检索/截取/转交操作：
+
+| 源码键 | 接收函数 | 截取行 |
+|---|---|---:|
+| --wsPort= | ParseWsPort | 38 |
+| --wsHost= | ParseWsHost | 42 |
+| --logPath= | ParseLogPath | 46 |
+| --logLevel= | ParseLogLevel | 50 |
+| --logSize= | ParseLogSize | 54 |
+| --eventDir= | ParseEventDir | 59 |
+| --scanPort= | ParseScan | 63 |
+
+每个接收函数的第 0 个参数对应截取结果；其完整限定名、定义文件、源解析函数及分支条件分别核对。端口解码节点→ParseWsPort 的正向和反向索引查询、两端的固定版本源码导航均通过。
+
+全输入提取还报告一项必需缺口：`server/src/modules/timeline/core/database/DataBaseManager.cpp:876` 使用 `strlen` 计算截取长度，超出当前 length/size 规则。位置、表达式和原因均已保存，后续按字符串操作机制继续处理。
+
+本控制重跑 C++ 源码事实，保留语法/类型候选含义；CMake 配置、默认全语言重建、运行端口及服务实例在各自控制中验证。七个操作的 `argv_origin` 仍为 `not_bound`，下一段将 argv 来源、已确认的后端目标、选项实例及监听端连在同一图中。原始 checkout 未修改，未重新核验文件哈希；G03 保持未通过。
