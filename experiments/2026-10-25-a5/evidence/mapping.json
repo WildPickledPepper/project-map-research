@@ -1,0 +1,368 @@
+{
+  "passed": true,
+  "graph": {
+    "nodes": 282132,
+    "edges": 412929,
+    "inputs": 2311,
+    "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+    "snapshot_id": "4170fbe0002842ef98eb4ecd8e358174",
+    "builder": {
+      "rules_commit": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+      "python": "3.11.9",
+      "node": "v22.23.3",
+      "typescript": "5.9.3",
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0",
+        "kuzu": "0.11.3"
+      }
+    }
+  },
+  "build_receipt": {
+    "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+    "components": [
+      {
+        "name": "backend",
+        "source_commit": "4df6d68c9f4223327b909600faeaeb93aa7c276d",
+        "log_ref": "a5-backend-build-01.log",
+        "source_equivalence": {
+          "against_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+          "scope": [
+            "server"
+          ],
+          "changed_paths": [],
+          "method": "git_diff_name_only"
+        }
+      },
+      {
+        "name": "cluster",
+        "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+        "log_ref": "a5-frontend-build-02/cluster.log"
+      },
+      {
+        "name": "leaks",
+        "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+        "log_ref": "a5-frontend-build-02/leaks.log"
+      },
+      {
+        "name": "framework",
+        "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+        "log_ref": "a5-frontend-build-02/framework.log"
+      },
+      {
+        "name": "timeline",
+        "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+        "log_ref": "a5-frontend-build-03/timeline.log"
+      }
+    ],
+    "python_importer": {
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scope": "scripts/MemSnapDump",
+      "python": "3.11.9",
+      "packaging": "copied committed scripts; existing Python installation mounted into experimental runtime bin"
+    },
+    "native_build": {
+      "database_version": "2026102400",
+      "source_date_epoch": "1792773720",
+      "target": "profiler_server"
+    },
+    "file_hash_verification": "not_run_per_user_preference"
+  },
+  "compatibility_controls": {
+    "tested_record_id": "009266fe8a8448f1bdd2d400fc2dc5ee",
+    "changed_config_overlay": false,
+    "changed_source_overlay": false,
+    "changed_fault_overlay": false,
+    "changed_source_admission_rejected": true
+  },
+  "runs": [
+    {
+      "run": "a5-final-communication-01",
+      "record_id": "009266fe8a8448f1bdd2d400fc2dc5ee",
+      "anchors": {
+        "mapped": 58,
+        "unmapped": 59
+      },
+      "mapped_stages": [
+        "consumer.groups",
+        "consumer.iterations",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "request.begin",
+        "request.decoded"
+      ],
+      "mapped_targets": [
+        "Dic::Module::Communication::GroupHandler::HandleRequest",
+        "Dic::Module::Communication::IterationsHandler::HandleRequest",
+        "Dic::Module::TextClusterDatabase::GetGroups",
+        "Dic::Module::TextClusterDatabase::QueryIterations"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": true,
+      "unmapped_stages": [
+        "driver.action",
+        "response.classified",
+        "response.delivered",
+        "response.discarded"
+      ]
+    },
+    {
+      "run": "a5-final-cache-01",
+      "record_id": "4ca8f5f0010f411691adea8dee14690e",
+      "anchors": {
+        "mapped": 88,
+        "unmapped": 204
+      },
+      "mapped_stages": [
+        "cache.adopted",
+        "cache.result",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "load.adopted",
+        "pagination.merged",
+        "pagination.page",
+        "request.begin",
+        "request.decoded",
+        "worker.handoff"
+      ],
+      "mapped_targets": [
+        "Dic::Module::FullDb::MemSnapshotDatabase::QueryBlocksByPage",
+        "Dic::Module::MemSnapshot::QueryMemSnapshotBlockHandler::HandleRequest"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": true,
+      "unmapped_stages": [
+        "driver.action",
+        "load.begin",
+        "response.classified",
+        "response.delivered",
+        "response.discarded",
+        "worker.received",
+        "worker.sent",
+        "worker.transferred"
+      ]
+    },
+    {
+      "run": "a5-final-replacement-01",
+      "record_id": "1e5e9d5364c2406581a990d6c89db34c",
+      "anchors": {
+        "mapped": 121,
+        "unmapped": 250
+      },
+      "mapped_stages": [
+        "cache.result",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "load.adopted",
+        "load.error",
+        "pagination.merged",
+        "pagination.page",
+        "request.begin",
+        "request.decoded",
+        "worker.handoff"
+      ],
+      "mapped_targets": [
+        "Dic::Module::FullDb::MemSnapshotDatabase::QueryBlocksByPage",
+        "Dic::Module::MemSnapshot::QueryMemSnapshotBlockHandler::HandleRequest"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": true,
+      "unmapped_stages": [
+        "driver.action",
+        "load.begin",
+        "response.classified",
+        "response.delivered",
+        "response.discarded",
+        "worker.received",
+        "worker.sent",
+        "worker.transferred"
+      ]
+    },
+    {
+      "run": "a5-final-failure-01",
+      "record_id": "90dea682eba34706bb0339bb94e929e8",
+      "anchors": {
+        "mapped": 55,
+        "unmapped": 156
+      },
+      "mapped_stages": [
+        "cache.result",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "load.adopted",
+        "load.error",
+        "pagination.merged",
+        "pagination.page",
+        "request.begin",
+        "request.decoded",
+        "worker.handoff"
+      ],
+      "mapped_targets": [
+        "Dic::Module::FullDb::MemSnapshotDatabase::QueryBlocksByPage",
+        "Dic::Module::MemSnapshot::QueryMemSnapshotBlockHandler::HandleRequest"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": true,
+      "unmapped_stages": [
+        "driver.action",
+        "load.begin",
+        "response.classified",
+        "response.delivered",
+        "response.discarded",
+        "worker.received",
+        "worker.sent",
+        "worker.transferred"
+      ]
+    },
+    {
+      "run": "a5-final-memscope-01",
+      "record_id": "a6a00b70a3f64e63a5ecde25ca6f0c5e",
+      "anchors": {
+        "mapped": 25,
+        "unmapped": 115
+      },
+      "mapped_stages": [
+        "cache.result",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "load.adopted",
+        "request.begin",
+        "request.decoded",
+        "worker.handoff"
+      ],
+      "mapped_targets": [
+        "Dic::Module::FullDb::MemScopeDatabase::QueryMemoryBlocks",
+        "Dic::Module::MemScope::QueryMemScopeBlockHandler::HandleRequest"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": true,
+      "unmapped_stages": [
+        "load.begin",
+        "response.classified",
+        "response.delivered",
+        "response.discarded",
+        "worker.received",
+        "worker.sent",
+        "worker.transferred"
+      ]
+    },
+    {
+      "run": "a5-final-small-control-01",
+      "record_id": "e05f462070214192b85136dcc9aa7ae2",
+      "anchors": {
+        "mapped": 73,
+        "unmapped": 146
+      },
+      "mapped_stages": [
+        "cache.result",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "load.adopted",
+        "pagination.merged",
+        "pagination.page",
+        "request.begin",
+        "request.decoded",
+        "worker.handoff"
+      ],
+      "mapped_targets": [
+        "Dic::Module::FullDb::MemSnapshotDatabase::QueryBlocksByPage",
+        "Dic::Module::MemSnapshot::QueryMemSnapshotBlockHandler::HandleRequest"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": true,
+      "unmapped_stages": [
+        "load.begin",
+        "response.classified",
+        "response.delivered",
+        "response.discarded",
+        "worker.received",
+        "worker.sent",
+        "worker.transferred"
+      ]
+    },
+    {
+      "run": "a5-final-small-fault-01",
+      "record_id": "54b0dba4a13e42ceba85a233a12a37b2",
+      "anchors": {
+        "mapped": 73,
+        "unmapped": 146
+      },
+      "mapped_stages": [
+        "cache.result",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "load.adopted",
+        "pagination.merged",
+        "pagination.page",
+        "request.begin",
+        "request.decoded",
+        "worker.handoff"
+      ],
+      "mapped_targets": [
+        "Dic::Module::FullDb::MemSnapshotDatabase::QueryBlocksByPage",
+        "Dic::Module::MemSnapshot::QueryMemSnapshotBlockHandler::HandleRequest"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": false,
+      "unmapped_stages": [
+        "load.begin",
+        "response.classified",
+        "response.delivered",
+        "response.discarded",
+        "worker.received",
+        "worker.sent",
+        "worker.transferred"
+      ]
+    },
+    {
+      "run": "a5-final-small-restored-01",
+      "record_id": "74e613da420440cb9aea7bb724e540d3",
+      "anchors": {
+        "mapped": 73,
+        "unmapped": 146
+      },
+      "mapped_stages": [
+        "cache.result",
+        "database.call",
+        "database.return",
+        "handler.complete",
+        "handler.invoke",
+        "load.adopted",
+        "pagination.merged",
+        "pagination.page",
+        "request.begin",
+        "request.decoded",
+        "worker.handoff"
+      ],
+      "mapped_targets": [
+        "Dic::Module::FullDb::MemSnapshotDatabase::QueryBlocksByPage",
+        "Dic::Module::MemSnapshot::QueryMemSnapshotBlockHandler::HandleRequest"
+      ],
+      "same_context_overlay": true,
+      "scenario_passed": true,
+      "unmapped_stages": [
+        "load.begin",
+        "response.classified",
+        "response.delivered",
+        "response.discarded",
+        "worker.received",
+        "worker.sent",
+        "worker.transferred"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # A5 真实运行验证
 
-日期：2026-10-25。运行场景已执行，正在完成同版本静态映射与交付检查。研究对象为 MindStudio Insight，公开基准 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`；运行采集只进入禁用推送的独立副本。
+日期：2026-10-25。**A5 规定场景验收完成。** 八个场景、45 个指定请求、24 个采集负例及同版本映射通过；缺块故障按预期触发独立断言失败。见 [完成报告](completion.md)和[验收结果](evidence/validation.json)。研究对象为 MindStudio Insight，公开基准 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`；运行采集只进入禁用推送的独立副本。
 
 本阶段复用 P5 的真实后端、Playwright 交付控制、运行记录及版本检查，扩展到通信防抖、snapshot 分页、MemScope、Worker 和 OPFS 缓存。静态事实仍由全仓提取器自动生成；本目录的源码钩子和选择器是明确声明的采集适配。
 
@@ -26,7 +26,7 @@
 | `4df6d68c9f4223327b909600faeaeb93aa7c276d` | A5 原生与前端采集、默认关闭的缺块故障开关 |
 | `b7a30457ce32e06172fc1dfb33e0dab75f1bfcce` | 显式结果身份和标注为直接驱动的场景入口 |
 
-这些提交只存在于本地实验副本。采集脚本 [instrument.py](instrument.py)、[refine_capture.py](refine_capture.py)记录变更；应用后先提交该副本，再构建。新环境产生自己的实验提交，运行记录填写实际提交。
+这些提交只存在于本地实验副本。采集脚本 [instrument.py](instrument.py)、[refine_capture.py](refine_capture.py)记录变更；应用后先提交该副本，再构建。新环境可在禁用推送的 `d4e8d1c` 副本上应用 [完整采集补丁](product-capture.patch)，提交后按实际版本重建、执行和建图。新环境产生自己的实验提交，运行记录填写实际提交。
 
 后端构建沿用 P5 固定时间与参数。Release 导入器还需要在后端 bin 下放置 `mem_snap_dump/`（来自该提交的 `scripts/MemSnapDump/`）及可用的 `python/python.exe` 与标准库。本轮使用现有 Python 3.11.9 安装的目录联接。
 
@@ -46,11 +46,13 @@ python experiments/2026-10-25-a5/run_suite.py --source EXPERIMENTAL_CHECKOUT --r
 [graph-config.json](graph-config.json)自动发现整个运行提交的输入。先生成该提交的全仓静态快照，再运行：
 
 ```sh
-python experiments/2026-10-25-a5/map_runtime.py --source EXPERIMENTAL_CHECKOUT --archive EXTRACTED_BUILD --store EXTERNAL_STORE --results EXTERNAL_RESULTS --output EXTERNAL_MAPPING
+python experiments/2026-10-25-a5/map_runtime.py --source EXPERIMENTAL_CHECKOUT --archive EXTRACTED_BUILD --store EXTERNAL_STORE --results EXTERNAL_RESULTS --output EXTERNAL_MAPPING --build-receipt EXTERNAL_BUILD_RECEIPT.json
 python experiments/2026-10-24-p5/query_runtime.py --store EXTERNAL_STORE --id RECORD_ID --snapshot SNAPSHOT_ID --context EXTERNAL_MAPPING/cache-context.json
 ```
 
 映射复用现有 Refresher 和 P5 运行记录。Refresher 比较源码、配置、提取器和输入路径后发布已完成提取产物，并验证完整图结构；不重算文件哈希。映射适配把观测点指向提取图中的节点，静态邻边保留静态含义。跨源码、运行配置和故障开关不继承原运行结论。
+
+新环境通过 `--build-receipt` 提供自己的构建收据，避免依赖本轮只存在于本地的产品提交。收据使用 P5 格式：`evidence_kind=reconstructed_from_executed_build_logs_and_commits`、实际 `source_commit`，以及各 component 的 `name`、`source_commit`、相对 `log_ref`、`success_marker`；跨组件提交还需 `source_equivalence` 的范围与 Git 路径差异。省略此参数时读取本轮外部构建档案。校验复用 P5 的日志成功标记与 Git 提交/范围检查。
 
 ## 资源观测口径
 
@@ -59,3 +61,5 @@ OPFS 文件数/文件字节、Worker 逻辑指标/转交缓冲区、浏览器 JS
 本轮 heap 包含采集器保存的页面事件和响应副本；Windows 工作集采样可能重复计算共享页。资源结果解释所选场景，生产版本的内存基准另行设计。Python 导入成功有进程输出和生成结果证据，尚未采集逐函数 Python trace；Worker 内部通过消息和自身指标观察。
 
 原始日志、数据库、截图、源码导出及完整图保存在 Git 外。仓库交付紧凑结果、可执行脚本与明确的未映射项；历史样本划分和 P6 外部契约资产保持原归属。
+
+交付证据：[运行与断言](evidence/runtime.json)、[资源与容量口径](evidence/resources.json)、[映射与版本拒绝](evidence/mapping.json)、[全仓构建](evidence/static-build.json)、[全部尝试](evidence/attempts.json)。[check_completion.py](check_completion.py)只检查可移植证据；[package_evidence.py](package_evidence.py)从外部原始产物生成该交付包。

@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "gates": {
+    "eight_scenarios_accepted": true,
+    "seven_pass_one_expected_failure": true,
+    "request_capture_complete": true,
+    "capture_corruptions_rejected": true,
+    "independent_oracles": true,
+    "worker_generations_complete": true,
+    "cache_miss_hit_rebuild": true,
+    "cache_hit_avoids_network": true,
+    "old_page_discarded_after_device_switch": true,
+    "default_and_small_pages_executed": true,
+    "fresh_matching_full_graph": true,
+    "same_context_overlays": true,
+    "source_and_config_rejected": true,
+    "unmapped_retained": true,
+    "critical_source_targets_mapped": true,
+    "build_logs_and_committed_scopes_valid": true
+  },
+  "research_driver_commit": "95fcc0f8ef9c78fa6e2d2cdf0af0c6c8a3b8369d",
+  "scope": "eight frozen scenario families; historical asset integration remains P6"
+}

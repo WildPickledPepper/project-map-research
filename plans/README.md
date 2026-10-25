@@ -4,7 +4,7 @@
 
 [P5 真实运行验证已完成](../experiments/2026-10-24-p5/completion.md)，R01–R06 通过。P4 的 U01–U04、U06 通过，U05 不适用，见 [完成报告](../experiments/2026-10-23-p4/completion.md)。P7 提前交付不依赖外部资产的地图与查询，M3 联合验收仍等待 P6。
 
-**A1–A4 已完成规定验收；A5 环境准备完成，场景待执行**：[全仓自动发现与覆盖扩展](full-repository-plan.md)。[A1](../experiments/2026-10-24-a1/completion.md)和 [A2](../experiments/2026-10-24-a2/completion.md)完成自动输入、基础提取及关系构建，[A3](../experiments/2026-10-24-a3/completion.md)交付地图与查询。[A4 修复复验](../experiments/2026-10-24-a4-repair/completion.md)通过六条请求/字段、两个指定状态、更新、导航及重建门槛，[首轮失败](../experiments/2026-10-24-a4/report.md)保留。[本轮静态扩展](../experiments/2026-10-25-static-async/completion.md)贯通防抖返回、分页累积和 Worker 参数转交五项指定连接，下一步按 [A5 运行计划](a5-runtime-validation.md)采集实际执行与状态证据。P6 真实资产接入可独立并行。
+**A1–A5 已完成规定验收**：[全仓自动发现与覆盖扩展](full-repository-plan.md)。[A1](../experiments/2026-10-24-a1/completion.md)和 [A2](../experiments/2026-10-24-a2/completion.md)完成自动输入、基础提取及关系构建，[A3](../experiments/2026-10-24-a3/completion.md)交付地图与查询。[A4 修复复验](../experiments/2026-10-24-a4-repair/completion.md)通过六条请求/字段、两个指定状态、更新、导航及重建门槛，[首轮失败](../experiments/2026-10-24-a4/report.md)保留。[静态扩展](../experiments/2026-10-25-static-async/completion.md)贯通五项指定连接；[A5](../experiments/2026-10-25-a5/completion.md)完成八个场景、45 个指定请求、24 个采集负例及同版本映射，缺块故障按预期触发独立断言失败。P6 真实资产接入继续独立推进。
 
 ## 要交付什么
 

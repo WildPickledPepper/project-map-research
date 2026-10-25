@@ -1,0 +1,374 @@
+{
+  "evidence_kind": "measured_instrumented_scenarios",
+  "runs": [
+    {
+      "run": "a5-final-communication-01",
+      "phases": [],
+      "worker_metrics": [],
+      "peak_backend_working_set": 52072448,
+      "peak_browser_process_tree_working_set": 725573632,
+      "working_set_samples": 27
+    },
+    {
+      "run": "a5-final-cache-01",
+      "phases": [
+        {
+          "label": "initial build complete",
+          "entry_count": 3,
+          "file_bytes": 2403066,
+          "js_heap": {
+            "used": 60976607,
+            "total": 126918551
+          },
+          "persistent_cache_directories": 1
+        },
+        {
+          "label": "cache hit complete",
+          "entry_count": 3,
+          "file_bytes": 2403066,
+          "js_heap": {
+            "used": 60574056,
+            "total": 126593560
+          },
+          "persistent_cache_directories": 1
+        },
+        {
+          "label": "cache removal complete",
+          "entry_count": 0,
+          "file_bytes": 0,
+          "js_heap": {
+            "used": 86286368,
+            "total": 132453440
+          },
+          "persistent_cache_directories": 0
+        },
+        {
+          "label": "cache rebuild complete",
+          "entry_count": 3,
+          "file_bytes": 2403065,
+          "js_heap": {
+            "used": 73210867,
+            "total": 138670267
+          },
+          "persistent_cache_directories": 1
+        }
+      ],
+      "worker_metrics": [
+        {
+          "message_generation": 3,
+          "metrics": {
+            "generation": 3,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 1037.22,
+            "lodApplied": false
+          }
+        },
+        {
+          "message_generation": 4,
+          "metrics": {
+            "generation": 3,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 1037.22,
+            "lodApplied": false
+          }
+        },
+        {
+          "message_generation": 6,
+          "metrics": {
+            "generation": 6,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 957.76,
+            "lodApplied": false
+          }
+        }
+      ],
+      "peak_backend_working_set": 50339840,
+      "peak_browser_process_tree_working_set": 1029967872,
+      "working_set_samples": 31
+    },
+    {
+      "run": "a5-final-replacement-01",
+      "phases": [
+        {
+          "label": "initial build complete",
+          "entry_count": 3,
+          "file_bytes": 2403066,
+          "js_heap": {
+            "used": 65767831,
+            "total": 139060883
+          },
+          "persistent_cache_directories": 1
+        }
+      ],
+      "worker_metrics": [
+        {
+          "message_generation": 6,
+          "metrics": {
+            "generation": 6,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 1036.42,
+            "lodApplied": false
+          }
+        },
+        {
+          "message_generation": 9,
+          "metrics": {
+            "generation": 9,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 917.85,
+            "lodApplied": false
+          }
+        }
+      ],
+      "peak_backend_working_set": 52391936,
+      "peak_browser_process_tree_working_set": 1138438144,
+      "working_set_samples": 29
+    },
+    {
+      "run": "a5-final-failure-01",
+      "phases": [
+        {
+          "label": "initial build complete",
+          "entry_count": 3,
+          "file_bytes": 2403065,
+          "js_heap": {
+            "used": 72812811,
+            "total": 128415091
+          },
+          "persistent_cache_directories": 1
+        }
+      ],
+      "worker_metrics": [
+        {
+          "message_generation": 3,
+          "metrics": {
+            "generation": 3,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 961.49,
+            "lodApplied": false
+          }
+        }
+      ],
+      "peak_backend_working_set": 51404800,
+      "peak_browser_process_tree_working_set": 977723392,
+      "working_set_samples": 24
+    },
+    {
+      "run": "a5-final-memscope-01",
+      "phases": [
+        {
+          "label": "initial build complete",
+          "entry_count": 1,
+          "file_bytes": 3894432,
+          "js_heap": {
+            "used": 182743945,
+            "total": 236858089
+          },
+          "persistent_cache_directories": 0
+        }
+      ],
+      "worker_metrics": [
+        {
+          "message_generation": 2,
+          "metrics": {
+            "generation": 2,
+            "blockCount": 3267,
+            "eventCount": 6533,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 235222,
+            "pathPoints": 486804,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 3894432,
+            "transferBytes": 117612,
+            "buildDurationMs": 253.91,
+            "lodApplied": false
+          }
+        }
+      ],
+      "peak_backend_working_set": 56569856,
+      "peak_browser_process_tree_working_set": 1177186304,
+      "working_set_samples": 20
+    },
+    {
+      "run": "a5-final-small-control-01",
+      "phases": [
+        {
+          "label": "initial build complete",
+          "entry_count": 3,
+          "file_bytes": 2403065,
+          "js_heap": {
+            "used": 64839546,
+            "total": 123054298
+          },
+          "persistent_cache_directories": 1
+        }
+      ],
+      "worker_metrics": [
+        {
+          "message_generation": 3,
+          "metrics": {
+            "generation": 3,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 951.55,
+            "lodApplied": false
+          }
+        }
+      ],
+      "peak_backend_working_set": 51503104,
+      "peak_browser_process_tree_working_set": 944644096,
+      "working_set_samples": 22
+    },
+    {
+      "run": "a5-final-small-fault-01",
+      "phases": [
+        {
+          "label": "initial build complete",
+          "entry_count": 3,
+          "file_bytes": 2402878,
+          "js_heap": {
+            "used": 75333544,
+            "total": 128090812
+          },
+          "persistent_cache_directories": 1
+        }
+      ],
+      "worker_metrics": [
+        {
+          "message_generation": 3,
+          "metrics": {
+            "generation": 3,
+            "blockCount": 3218,
+            "eventCount": 5791,
+            "maxActiveBlocks": 970,
+            "peakActivePathPoints": 143471,
+            "pathPoints": 229454,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835632,
+            "transferBytes": 115848,
+            "buildDurationMs": 967.88,
+            "lodApplied": false
+          }
+        }
+      ],
+      "peak_backend_working_set": 51486720,
+      "peak_browser_process_tree_working_set": 991940608,
+      "working_set_samples": 22
+    },
+    {
+      "run": "a5-final-small-restored-01",
+      "phases": [
+        {
+          "label": "initial build complete",
+          "entry_count": 3,
+          "file_bytes": 2403065,
+          "js_heap": {
+            "used": 89481315,
+            "total": 133850267
+          },
+          "persistent_cache_directories": 1
+        }
+      ],
+      "worker_metrics": [
+        {
+          "message_generation": 3,
+          "metrics": {
+            "generation": 3,
+            "blockCount": 3219,
+            "eventCount": 5792,
+            "maxActiveBlocks": 971,
+            "peakActivePathPoints": 143472,
+            "pathPoints": 229456,
+            "droppedPathPoints": 0,
+            "batchCount": 5,
+            "opfsPathBytes": 1835648,
+            "transferBytes": 115884,
+            "buildDurationMs": 986.46,
+            "lodApplied": false
+          }
+        }
+      ],
+      "peak_backend_working_set": 51515392,
+      "peak_browser_process_tree_working_set": 941555712,
+      "working_set_samples": 22
+    }
+  ],
+  "configured_capacity": {
+    "evidence_kind": "source_inspection",
+    "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+    "path": "modules/leaks/src/leaksWorker/tools/BlockDataOPFS.ts",
+    "expressions": {
+      "MAX_PERSISTENT_CACHE_COUNT": "10",
+      "MAX_HIT_TEST_CACHE_BYTES": "8 * 1024 * 1024",
+      "maxParsedManifestCount": "2",
+      "maxBatchPathPoints": "300000"
+    },
+    "stress_or_eviction_validation": false
+  },
+  "method": {
+    "disk": "OPFS file handles enumerated after each completed phase",
+    "worker": "reported logical metrics and actual transfer boundary; use message_generation for live adoption",
+    "heap": "performance.memory with precise-memory-info; includes capture copies",
+    "working_set": "sampled Windows working sets; browser tree includes Node driver and can double-count shared pages",
+    "capacity": "default source limits separate from observed logical counts; live hit-test cache usage not collected",
+    "gpu_memory": "not collected",
+    "exhaustive_runtime_coverage": false
+  }
+}

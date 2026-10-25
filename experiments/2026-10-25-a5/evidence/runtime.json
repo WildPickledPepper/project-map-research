@@ -1,0 +1,1944 @@
+{
+  "evidence_kind": "executed_real_Insight_scenarios",
+  "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+  "accepted_scenarios": 8,
+  "normal_or_restored_passes": 7,
+  "controlled_product_failures": 1,
+  "selected_requests": 45,
+  "capture_corruption_controls": 24,
+  "capture_corruption_rejected": 24,
+  "runs": [
+    {
+      "label": "communication",
+      "run": "a5-final-communication-01",
+      "fault": false,
+      "exit_code": 0,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 22,
+          "trace_id": "a5-final-communication-01:Communication:request:2",
+          "connection": "socket:0",
+          "command": "communication/duration/iterations",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module13Communication17IterationsHandlerE",
+          "database": "N3Dic6Module19TextClusterDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 1,
+          "disposition": "consumer_resolved"
+        },
+        {
+          "request_id": 23,
+          "trace_id": "a5-final-communication-01:Communication:request:7",
+          "connection": "socket:0",
+          "command": "communication/matrix/group",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module13Communication12GroupHandlerE",
+          "database": "N3Dic6Module19TextClusterDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 1,
+          "disposition": "consumer_resolved"
+        },
+        {
+          "request_id": 25,
+          "trace_id": "a5-final-communication-01:Communication:request:17",
+          "connection": "socket:0",
+          "command": "communication/duration/iterations",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module13Communication17IterationsHandlerE",
+          "database": "N3Dic6Module19TextClusterDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        },
+        {
+          "request_id": 27,
+          "trace_id": "a5-final-communication-01:Communication:request:27",
+          "connection": "socket:0",
+          "command": "communication/matrix/group",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module13Communication12GroupHandlerE",
+          "database": "N3Dic6Module19TextClusterDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        },
+        {
+          "request_id": 28,
+          "trace_id": "a5-final-communication-01:Communication:request:32",
+          "connection": "socket:0",
+          "command": "communication/matrix/group",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module13Communication12GroupHandlerE",
+          "database": "N3Dic6Module19TextClusterDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        },
+        {
+          "request_id": 29,
+          "trace_id": "a5-final-communication-01:Communication:request:36",
+          "connection": "socket:0",
+          "command": "communication/duration/iterations",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module13Communication17IterationsHandlerE",
+          "database": "N3Dic6Module19TextClusterDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        }
+      ],
+      "independent_blocks_passed": true,
+      "blocks": [],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [],
+      "worker_generations": [],
+      "cache_statuses": null,
+      "cache_hit_avoids_blocks_fetch": null,
+      "stale_discard": null,
+      "input_assertions": {
+        "independent_iterations": true,
+        "blocks": [],
+        "worker_generations": []
+      },
+      "scheduling": {
+        "iterations": [
+          {
+            "name": "trailing-0",
+            "status": "pending"
+          },
+          {
+            "name": "trailing-1",
+            "status": "pending"
+          },
+          {
+            "name": "trailing-2",
+            "status": "resolved",
+            "value": {
+              "iterationOrRankId": {
+                "compare": [
+                  "2"
+                ],
+                "baseline": []
+              }
+            }
+          }
+        ],
+        "tasks": [
+          {
+            "name": "trailing-0",
+            "status": "pending"
+          },
+          {
+            "name": "trailing-1",
+            "status": "pending"
+          },
+          {
+            "name": "trailing-2",
+            "status": "resolved",
+            "value": {
+              "iterationOrRankId": {
+                "compare": [
+                  "2"
+                ],
+                "baseline": []
+              }
+            }
+          },
+          {
+            "name": "leading-0",
+            "status": "resolved",
+            "value": {
+              "data": [
+                {
+                  "group": "(0, 1, 2, 3, 4, 5, 6, 7)",
+                  "parallelStrategy": "",
+                  "type": "",
+                  "groupIdHash": {
+                    "compare": "9350434047717501483",
+                    "baseline": ""
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "leading-1",
+            "status": "resolved",
+            "value": {
+              "data": [
+                {
+                  "group": "(0, 1, 2, 3, 4, 5, 6, 7)",
+                  "parallelStrategy": "",
+                  "type": "",
+                  "groupIdHash": {
+                    "compare": "9350434047717501483",
+                    "baseline": ""
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "leading-2",
+            "status": "resolved",
+            "value": {
+              "data": [
+                {
+                  "group": "(0, 1, 2, 3, 4, 5, 6, 7)",
+                  "parallelStrategy": "",
+                  "type": "",
+                  "groupIdHash": {
+                    "compare": "9350434047717501483",
+                    "baseline": ""
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "cancel-trailing",
+            "status": "pending"
+          },
+          {
+            "name": "cancel-leading-0",
+            "status": "rejected",
+            "error": "Error: Cancelled"
+          },
+          {
+            "name": "cancel-leading-1",
+            "status": "rejected",
+            "error": "Error: Cancelled"
+          },
+          {
+            "name": "flush-trailing",
+            "status": "resolved",
+            "value": {
+              "iterationOrRankId": {
+                "compare": [
+                  "2"
+                ],
+                "baseline": []
+              }
+            }
+          }
+        ],
+        "cancelledTrailingSent": 0,
+        "pendingKeys": []
+      },
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    },
+    {
+      "label": "cache",
+      "run": "a5-final-cache-01",
+      "fault": false,
+      "exit_code": 0,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 22,
+          "trace_id": "a5-final-cache-01:MemScope:request:62",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 24,
+          "trace_id": "a5-final-cache-01:MemScope:request:72",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 25,
+          "trace_id": "a5-final-cache-01:MemScope:request:76",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 35,
+          "trace_id": "a5-final-cache-01:MemScope:request:142",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 36,
+          "trace_id": "a5-final-cache-01:MemScope:request:146",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 37,
+          "trace_id": "a5-final-cache-01:MemScope:request:149",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        }
+      ],
+      "independent_blocks_passed": true,
+      "blocks": [
+        {
+          "device": "0",
+          "request_seq": 2,
+          "expected": 3219,
+          "actual": 3219,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        },
+        {
+          "device": "0",
+          "request_seq": 4,
+          "expected": 3219,
+          "actual": 3219,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        }
+      ],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [
+        {
+          "trace_id": "a5-final-cache-01:MemScope:request:62",
+          "currentPage": 1,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-cache-01:MemScope:request:72",
+          "currentPage": 2,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-cache-01:MemScope:request:76",
+          "currentPage": 2,
+          "pageSize": 2000,
+          "total": 3219,
+          "block_count": 1219,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-cache-01:MemScope:request:142",
+          "currentPage": 1,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-cache-01:MemScope:request:146",
+          "currentPage": 2,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-cache-01:MemScope:request:149",
+          "currentPage": 2,
+          "pageSize": 2000,
+          "total": 3219,
+          "block_count": 1219,
+          "device": "0"
+        }
+      ],
+      "worker_generations": [
+        {
+          "worker_id": 0,
+          "generation": 3,
+          "transfer_bytes": 115884,
+          "completed": true
+        },
+        {
+          "worker_id": 0,
+          "generation": 6,
+          "transfer_bytes": 115884,
+          "completed": true
+        }
+      ],
+      "cache_statuses": [
+        "miss",
+        "hit",
+        "miss"
+      ],
+      "cache_hit_avoids_blocks_fetch": true,
+      "stale_discard": null,
+      "input_assertions": {
+        "blocks": [
+          {
+            "device": "0",
+            "request_seq": 2,
+            "expected": 3219,
+            "actual": 3219,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          },
+          {
+            "device": "0",
+            "request_seq": 4,
+            "expected": 3219,
+            "actual": 3219,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          }
+        ],
+        "worker_generations": [
+          {
+            "worker_id": 0,
+            "generation": 3,
+            "transfer_bytes": 115884,
+            "completed": true
+          },
+          {
+            "worker_id": 0,
+            "generation": 6,
+            "transfer_bytes": 115884,
+            "completed": true
+          }
+        ]
+      },
+      "scheduling": null,
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    },
+    {
+      "label": "replacement",
+      "run": "a5-final-replacement-01",
+      "fault": false,
+      "exit_code": 0,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 22,
+          "trace_id": "a5-final-replacement-01:MemScope:request:78",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        },
+        {
+          "request_id": 25,
+          "trace_id": "a5-final-replacement-01:MemScope:request:90",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 27,
+          "trace_id": "a5-final-replacement-01:MemScope:request:102",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 28,
+          "trace_id": "a5-final-replacement-01:MemScope:request:106",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 36,
+          "trace_id": "a5-final-replacement-01:MemScope:request:154",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 37,
+          "trace_id": "a5-final-replacement-01:MemScope:request:158",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        },
+        {
+          "request_id": 41,
+          "trace_id": "a5-final-replacement-01:MemScope:request:182",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 42,
+          "trace_id": "a5-final-replacement-01:MemScope:request:193",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 43,
+          "trace_id": "a5-final-replacement-01:MemScope:request:196",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        }
+      ],
+      "independent_blocks_passed": true,
+      "blocks": [
+        {
+          "device": "1",
+          "request_seq": 4,
+          "expected": 3219,
+          "actual": 3219,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        },
+        {
+          "device": "0",
+          "request_seq": 6,
+          "expected": 3219,
+          "actual": 3219,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        }
+      ],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [
+        {
+          "trace_id": "a5-final-replacement-01:MemScope:request:90",
+          "currentPage": 1,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "1"
+        },
+        {
+          "trace_id": "a5-final-replacement-01:MemScope:request:102",
+          "currentPage": 2,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "1"
+        },
+        {
+          "trace_id": "a5-final-replacement-01:MemScope:request:106",
+          "currentPage": 2,
+          "pageSize": 2000,
+          "total": 3219,
+          "block_count": 1219,
+          "device": "1"
+        },
+        {
+          "trace_id": "a5-final-replacement-01:MemScope:request:154",
+          "currentPage": 1,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "1"
+        },
+        {
+          "trace_id": "a5-final-replacement-01:MemScope:request:182",
+          "currentPage": 1,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-replacement-01:MemScope:request:193",
+          "currentPage": 2,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-replacement-01:MemScope:request:196",
+          "currentPage": 2,
+          "pageSize": 2000,
+          "total": 3219,
+          "block_count": 1219,
+          "device": "0"
+        }
+      ],
+      "worker_generations": [
+        {
+          "worker_id": 0,
+          "generation": 6,
+          "transfer_bytes": 115884,
+          "completed": true
+        },
+        {
+          "worker_id": 0,
+          "generation": 9,
+          "transfer_bytes": 115884,
+          "completed": true
+        }
+      ],
+      "cache_statuses": null,
+      "cache_hit_avoids_blocks_fetch": null,
+      "stale_discard": true,
+      "input_assertions": {
+        "blocks": [
+          {
+            "device": "1",
+            "request_seq": 4,
+            "expected": 3219,
+            "actual": 3219,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          },
+          {
+            "device": "0",
+            "request_seq": 6,
+            "expected": 3219,
+            "actual": 3219,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          }
+        ],
+        "worker_generations": [
+          {
+            "worker_id": 0,
+            "generation": 6,
+            "transfer_bytes": 115884,
+            "completed": true
+          },
+          {
+            "worker_id": 0,
+            "generation": 9,
+            "transfer_bytes": 115884,
+            "completed": true
+          }
+        ]
+      },
+      "scheduling": null,
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    },
+    {
+      "label": "failure",
+      "run": "a5-final-failure-01",
+      "fault": false,
+      "exit_code": 0,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 22,
+          "trace_id": "a5-final-failure-01:MemScope:request:62",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 24,
+          "trace_id": "a5-final-failure-01:MemScope:request:72",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 25,
+          "trace_id": "a5-final-failure-01:MemScope:request:76",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 33,
+          "trace_id": "a5-final-failure-01:MemScope:request:124",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": false,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "failed_at_delivery"
+        }
+      ],
+      "independent_blocks_passed": true,
+      "blocks": [
+        {
+          "device": "0",
+          "request_seq": 2,
+          "expected": 3219,
+          "actual": 3219,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        }
+      ],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [
+        {
+          "trace_id": "a5-final-failure-01:MemScope:request:62",
+          "currentPage": 1,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-failure-01:MemScope:request:72",
+          "currentPage": 2,
+          "pageSize": 1000,
+          "total": 3219,
+          "block_count": 1000,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-failure-01:MemScope:request:76",
+          "currentPage": 2,
+          "pageSize": 2000,
+          "total": 3219,
+          "block_count": 1219,
+          "device": "0"
+        }
+      ],
+      "worker_generations": [
+        {
+          "worker_id": 0,
+          "generation": 3,
+          "transfer_bytes": 115884,
+          "completed": true
+        }
+      ],
+      "cache_statuses": null,
+      "cache_hit_avoids_blocks_fetch": null,
+      "stale_discard": null,
+      "input_assertions": {
+        "blocks": [
+          {
+            "device": "0",
+            "request_seq": 2,
+            "expected": 3219,
+            "actual": 3219,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          }
+        ],
+        "worker_generations": [
+          {
+            "worker_id": 0,
+            "generation": 3,
+            "transfer_bytes": 115884,
+            "completed": true
+          }
+        ]
+      },
+      "scheduling": null,
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    },
+    {
+      "label": "memscope",
+      "run": "a5-final-memscope-01",
+      "fault": false,
+      "exit_code": 0,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 21,
+          "trace_id": "a5-final-memscope-01:MemScope:request:31",
+          "connection": "socket:0",
+          "command": "Memory/leaks/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module8MemScope25QueryMemScopeBlockHandlerE",
+          "database": "N3Dic6Module6FullDb16MemScopeDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        },
+        {
+          "request_id": 24,
+          "trace_id": "a5-final-memscope-01:MemScope:request:45",
+          "connection": "socket:0",
+          "command": "Memory/leaks/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module8MemScope25QueryMemScopeBlockHandlerE",
+          "database": "N3Dic6Module6FullDb16MemScopeDatabaseE",
+          "delivered_result": true,
+          "page_consumed": false,
+          "consumer_events": 0,
+          "disposition": "delivered_to_connector_no_selected_consumer"
+        }
+      ],
+      "independent_blocks_passed": true,
+      "blocks": [
+        {
+          "device": "1",
+          "request_seq": 2,
+          "expected": 3267,
+          "actual": 3267,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        }
+      ],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [],
+      "worker_generations": [
+        {
+          "worker_id": 0,
+          "generation": 2,
+          "transfer_bytes": 117612,
+          "completed": true
+        }
+      ],
+      "cache_statuses": null,
+      "cache_hit_avoids_blocks_fetch": null,
+      "stale_discard": null,
+      "input_assertions": {
+        "blocks": [
+          {
+            "device": "1",
+            "request_seq": 2,
+            "expected": 3267,
+            "actual": 3267,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          }
+        ],
+        "worker_generations": [
+          {
+            "worker_id": 0,
+            "generation": 2,
+            "transfer_bytes": 117612,
+            "completed": true
+          }
+        ]
+      },
+      "scheduling": null,
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    },
+    {
+      "label": "small-control",
+      "run": "a5-final-small-control-01",
+      "fault": false,
+      "exit_code": 0,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 22,
+          "trace_id": "a5-final-small-control-01:MemScope:request:62",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 24,
+          "trace_id": "a5-final-small-control-01:MemScope:request:72",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 25,
+          "trace_id": "a5-final-small-control-01:MemScope:request:76",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 26,
+          "trace_id": "a5-final-small-control-01:MemScope:request:79",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 27,
+          "trace_id": "a5-final-small-control-01:MemScope:request:82",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 28,
+          "trace_id": "a5-final-small-control-01:MemScope:request:85",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        }
+      ],
+      "independent_blocks_passed": true,
+      "blocks": [
+        {
+          "device": "0",
+          "request_seq": 2,
+          "expected": 3219,
+          "actual": 3219,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        }
+      ],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [
+        {
+          "trace_id": "a5-final-small-control-01:MemScope:request:62",
+          "currentPage": 1,
+          "pageSize": 128,
+          "total": 3219,
+          "block_count": 128,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-control-01:MemScope:request:72",
+          "currentPage": 2,
+          "pageSize": 128,
+          "total": 3219,
+          "block_count": 128,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-control-01:MemScope:request:76",
+          "currentPage": 2,
+          "pageSize": 256,
+          "total": 3219,
+          "block_count": 256,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-control-01:MemScope:request:79",
+          "currentPage": 2,
+          "pageSize": 512,
+          "total": 3219,
+          "block_count": 512,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-control-01:MemScope:request:82",
+          "currentPage": 2,
+          "pageSize": 1024,
+          "total": 3219,
+          "block_count": 1024,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-control-01:MemScope:request:85",
+          "currentPage": 2,
+          "pageSize": 2048,
+          "total": 3219,
+          "block_count": 1171,
+          "device": "0"
+        }
+      ],
+      "worker_generations": [
+        {
+          "worker_id": 0,
+          "generation": 3,
+          "transfer_bytes": 115884,
+          "completed": true
+        }
+      ],
+      "cache_statuses": null,
+      "cache_hit_avoids_blocks_fetch": null,
+      "stale_discard": null,
+      "input_assertions": {
+        "blocks": [
+          {
+            "device": "0",
+            "request_seq": 2,
+            "expected": 3219,
+            "actual": 3219,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          }
+        ],
+        "worker_generations": [
+          {
+            "worker_id": 0,
+            "generation": 3,
+            "transfer_bytes": 115884,
+            "completed": true
+          }
+        ]
+      },
+      "scheduling": null,
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    },
+    {
+      "label": "small-fault",
+      "run": "a5-final-small-fault-01",
+      "fault": true,
+      "exit_code": 1,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": false,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 22,
+          "trace_id": "a5-final-small-fault-01:MemScope:request:62",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 24,
+          "trace_id": "a5-final-small-fault-01:MemScope:request:72",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 25,
+          "trace_id": "a5-final-small-fault-01:MemScope:request:76",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 26,
+          "trace_id": "a5-final-small-fault-01:MemScope:request:79",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 27,
+          "trace_id": "a5-final-small-fault-01:MemScope:request:82",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 28,
+          "trace_id": "a5-final-small-fault-01:MemScope:request:85",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        }
+      ],
+      "independent_blocks_passed": false,
+      "blocks": [
+        {
+          "device": "0",
+          "request_seq": 2,
+          "expected": 3219,
+          "actual": 3218,
+          "independent_multiset_equal": false,
+          "missing": 1,
+          "extra": 0
+        }
+      ],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [
+        {
+          "trace_id": "a5-final-small-fault-01:MemScope:request:62",
+          "currentPage": 1,
+          "pageSize": 128,
+          "total": 3219,
+          "block_count": 128,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-fault-01:MemScope:request:72",
+          "currentPage": 2,
+          "pageSize": 128,
+          "total": 3219,
+          "block_count": 128,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-fault-01:MemScope:request:76",
+          "currentPage": 2,
+          "pageSize": 256,
+          "total": 3219,
+          "block_count": 256,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-fault-01:MemScope:request:79",
+          "currentPage": 2,
+          "pageSize": 512,
+          "total": 3219,
+          "block_count": 512,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-fault-01:MemScope:request:82",
+          "currentPage": 2,
+          "pageSize": 1024,
+          "total": 3219,
+          "block_count": 1024,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-fault-01:MemScope:request:85",
+          "currentPage": 2,
+          "pageSize": 2048,
+          "total": 3219,
+          "block_count": 1171,
+          "device": "0"
+        }
+      ],
+      "worker_generations": [
+        {
+          "worker_id": 0,
+          "generation": 3,
+          "transfer_bytes": 115848,
+          "completed": true
+        }
+      ],
+      "cache_statuses": null,
+      "cache_hit_avoids_blocks_fetch": null,
+      "stale_discard": null,
+      "input_assertions": {
+        "blocks": [
+          {
+            "device": "0",
+            "request_seq": 2,
+            "expected": 3219,
+            "actual": 3218,
+            "independent_multiset_equal": false,
+            "missing": 1,
+            "extra": 0
+          }
+        ],
+        "worker_generations": [
+          {
+            "worker_id": 0,
+            "generation": 3,
+            "transfer_bytes": 115848,
+            "completed": true
+          }
+        ]
+      },
+      "scheduling": null,
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    },
+    {
+      "label": "small-restored",
+      "run": "a5-final-small-restored-01",
+      "fault": false,
+      "exit_code": 0,
+      "accepted": true,
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario_passed": true,
+      "capture_complete": true,
+      "requests": [
+        {
+          "request_id": 22,
+          "trace_id": "a5-final-small-restored-01:MemScope:request:62",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 24,
+          "trace_id": "a5-final-small-restored-01:MemScope:request:72",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 25,
+          "trace_id": "a5-final-small-restored-01:MemScope:request:76",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 26,
+          "trace_id": "a5-final-small-restored-01:MemScope:request:79",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 27,
+          "trace_id": "a5-final-small-restored-01:MemScope:request:82",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        },
+        {
+          "request_id": 28,
+          "trace_id": "a5-final-small-restored-01:MemScope:request:85",
+          "connection": "socket:0",
+          "command": "Memory/snapshot/blocks",
+          "native_stages": {
+            "request.decoded": 1,
+            "handler.invoke": 1,
+            "database.call": 1,
+            "database.return": 1,
+            "handler.complete": 1
+          },
+          "handler": "N3Dic6Module11MemSnapshot28QueryMemSnapshotBlockHandlerE",
+          "database": "N3Dic6Module6FullDb19MemSnapshotDatabaseE",
+          "delivered_result": true,
+          "page_consumed": true,
+          "consumer_events": 0,
+          "disposition": "page_consumed"
+        }
+      ],
+      "independent_blocks_passed": true,
+      "blocks": [
+        {
+          "device": "0",
+          "request_seq": 2,
+          "expected": 3219,
+          "actual": 3219,
+          "independent_multiset_equal": true,
+          "missing": 0,
+          "extra": 0
+        }
+      ],
+      "capture_negative_controls": [
+        {
+          "name": "missing_database_return",
+          "rejected": true,
+          "reason": "Missing or duplicated native stage: database.return"
+        },
+        {
+          "name": "wrong_decoded_identity",
+          "rejected": true,
+          "reason": "Trace identity differs after native decoding"
+        },
+        {
+          "name": "duplicate_request",
+          "rejected": true,
+          "reason": "Duplicate request identity"
+        }
+      ],
+      "pages": [
+        {
+          "trace_id": "a5-final-small-restored-01:MemScope:request:62",
+          "currentPage": 1,
+          "pageSize": 128,
+          "total": 3219,
+          "block_count": 128,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-restored-01:MemScope:request:72",
+          "currentPage": 2,
+          "pageSize": 128,
+          "total": 3219,
+          "block_count": 128,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-restored-01:MemScope:request:76",
+          "currentPage": 2,
+          "pageSize": 256,
+          "total": 3219,
+          "block_count": 256,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-restored-01:MemScope:request:79",
+          "currentPage": 2,
+          "pageSize": 512,
+          "total": 3219,
+          "block_count": 512,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-restored-01:MemScope:request:82",
+          "currentPage": 2,
+          "pageSize": 1024,
+          "total": 3219,
+          "block_count": 1024,
+          "device": "0"
+        },
+        {
+          "trace_id": "a5-final-small-restored-01:MemScope:request:85",
+          "currentPage": 2,
+          "pageSize": 2048,
+          "total": 3219,
+          "block_count": 1171,
+          "device": "0"
+        }
+      ],
+      "worker_generations": [
+        {
+          "worker_id": 0,
+          "generation": 3,
+          "transfer_bytes": 115884,
+          "completed": true
+        }
+      ],
+      "cache_statuses": null,
+      "cache_hit_avoids_blocks_fetch": null,
+      "stale_discard": null,
+      "input_assertions": {
+        "blocks": [
+          {
+            "device": "0",
+            "request_seq": 2,
+            "expected": 3219,
+            "actual": 3219,
+            "independent_multiset_equal": true,
+            "missing": 0,
+            "extra": 0
+          }
+        ],
+        "worker_generations": [
+          {
+            "worker_id": 0,
+            "generation": 3,
+            "transfer_bytes": 115884,
+            "completed": true
+          }
+        ]
+      },
+      "scheduling": null,
+      "known_gaps": [
+        "Python subprocess has import output evidence; per-function Python runtime tracing is not collected",
+        "Worker internals are observed at messages and reported metrics; all internal calls are not traced"
+      ],
+      "page_errors": 0
+    }
+  ],
+  "original_checkout_modified": false,
+  "upstream_push": "disabled",
+  "historical_validation_used_for_rule_development": false,
+  "file_hash_verification": "not_run_per_user_preference"
+}

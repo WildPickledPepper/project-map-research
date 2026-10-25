@@ -14,6 +14,7 @@ sys.path.insert(0,str(ROOT));sys.path.insert(0,str(HERE.parent/'2026-10-24-p5'))
 from adapters.snapshot_refresh import Refresher,read_snapshot
 from adapters.snapshot_records import snapshot_basis
 from runtime_records import append_runtime,query_runtime,validate_context
+from link_runtime import validate_receipt
 from verify import read
 
 
@@ -45,7 +46,7 @@ def build_receipt(source,results):
     if timeline['source_commit']!=final or timeline['modules']['timeline']['exit_code']!=0:raise ValueError('Timeline final build missing')
     modules=read(results/'a5-frontend-build-02/result.json')['modules']
     if not all(v['exit_code']==0 for v in modules.values()):raise ValueError('Incomplete frontend build')
-    return {'source_commit':final,'components':[
+    receipt={'source_commit':final,'components':[
         {'name':'backend','source_commit':native,'log_ref':'a5-backend-build-01.log','source_equivalence':{
             'against_commit':final,'scope':['server'],'changed_paths':changed,'method':'git_diff_name_only'}},
         *[{'name':module,'source_commit':final,'log_ref':'a5-frontend-build-02/'+module+'.log'} for module in modules],
@@ -53,6 +54,12 @@ def build_receipt(source,results):
         'python_importer':{'source_commit':final,'scope':'scripts/MemSnapDump','python':'3.11.9','packaging':'copied committed scripts; existing Python installation mounted into experimental runtime bin'},
         'native_build':{'database_version':'2026102400','source_date_epoch':'1792773720','target':'profiler_server'},
         'file_hash_verification':'not_run_per_user_preference'}
+    verification=deepcopy(receipt)
+    verification['evidence_kind']='reconstructed_from_executed_build_logs_and_commits'
+    for component in verification['components']:
+        component['success_marker']='Linking CXX executable' if component['name']=='backend' else 'Compiled successfully.'
+    validate_receipt(source,verification,results)
+    return receipt
 
 
 def rules(events):
@@ -107,7 +114,8 @@ def rules(events):
 def main(a):
     a.output.mkdir(parents=True,exist_ok=False)
     snapshot=publish(a.source,a.archive,a.store)
-    basis=snapshot_basis(a.store,snapshot);receipt=build_receipt(a.source,a.results)
+    basis=snapshot_basis(a.store,snapshot)
+    receipt=validate_receipt(a.source,read(a.build_receipt),a.results) if a.build_receipt else build_receipt(a.source,a.results)
     # Resolve suffix selectors once against the same extracted graph; P5's mapper accepts exact selectors.
     graph=read(Path(read_snapshot(a.store,snapshot)['directory'])/'graph.json')
     proposed=rules([]);resolved=[]
@@ -181,4 +189,5 @@ def main(a):
 if __name__=='__main__':
     p=argparse.ArgumentParser()
     for name in ('source','archive','store','results','output'):p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--build-receipt',type=Path,help='For a fresh reproduction, provide its actual component commits, build logs and success markers instead of the archived local receipt')
     main(p.parse_args())

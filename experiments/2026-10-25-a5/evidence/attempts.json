@@ -1,0 +1,241 @@
+{
+  "runtime_attempts": [
+    {
+      "run": "a5-communication-01",
+      "source_commit": "4df6d68c9f4223327b909600faeaeb93aa7c276d",
+      "scenario": "communication-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-communication-scheduling-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "communication-scheduling",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-final-cache-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-cache",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-final-communication-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "communication-scheduling",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-final-failure-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-failure",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-final-memscope-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "memscope-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-final-replacement-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-replacement",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-final-small-control-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-final-small-fault-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-normal",
+      "browser_passed": false,
+      "failure_class": "independent_input_assertion_failed",
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-final-small-restored-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": true,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-memscope-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "memscope-normal",
+      "browser_passed": false,
+      "failure_class": "driver_wait_timeout",
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-memscope-02",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "memscope-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-small-page-control-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-small-page-fault-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-normal",
+      "browser_passed": false,
+      "failure_class": "independent_input_assertion_failed",
+      "final_acceptance_run": false,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-small-page-restored-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-snapshot-cache-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-cache",
+      "browser_passed": false,
+      "failure_class": "startup_frame_not_ready",
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-snapshot-cache-02",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-cache",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-snapshot-default-01",
+      "source_commit": "4df6d68c9f4223327b909600faeaeb93aa7c276d",
+      "scenario": "snapshot-normal",
+      "browser_passed": false,
+      "failure_class": "driver_wait_timeout",
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-snapshot-default-02",
+      "source_commit": "4df6d68c9f4223327b909600faeaeb93aa7c276d",
+      "scenario": "snapshot-normal",
+      "browser_passed": false,
+      "failure_class": "driver_wait_timeout",
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-snapshot-default-03",
+      "source_commit": "4df6d68c9f4223327b909600faeaeb93aa7c276d",
+      "scenario": "snapshot-normal",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-snapshot-failure-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-failure",
+      "browser_passed": false,
+      "failure_class": "active_cache_removal_rejected",
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-snapshot-failure-02",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-failure",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": true
+    },
+    {
+      "run": "a5-snapshot-replacement-01",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-replacement",
+      "browser_passed": false,
+      "failure_class": "startup_frame_not_ready",
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-snapshot-replacement-02",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-replacement",
+      "browser_passed": false,
+      "failure_class": "independent_input_assertion_failed",
+      "final_acceptance_run": false,
+      "capture_complete": "not_accepted_as_complete"
+    },
+    {
+      "run": "a5-snapshot-replacement-03",
+      "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+      "scenario": "snapshot-replacement",
+      "browser_passed": true,
+      "failure_class": null,
+      "final_acceptance_run": false,
+      "capture_complete": true
+    }
+  ],
+  "mapping_attempts": [
+    {
+      "name": "a5-mapping-01",
+      "status": "stopped_before_acceptance",
+      "reason": "capture adapter needed communication namespace and actual TextClusterDatabase override; source graph retained"
+    },
+    {
+      "name": "a5-mapping-02",
+      "status": "passed",
+      "source_graph_reextracted": false
+    }
+  ]
+}

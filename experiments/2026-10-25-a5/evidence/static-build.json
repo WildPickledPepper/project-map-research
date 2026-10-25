@@ -1,0 +1,17 @@
+{
+  "evidence_kind": "executed_full_scope_versioned_builder",
+  "source_commit": "b7a30457c",
+  "exit_code": 0,
+  "status": "passed",
+  "stop_reason": null,
+  "elapsed_seconds": 1079.719,
+  "budgets": {
+    "wall_seconds": 1800.0,
+    "process_tree_working_set_bytes": 6442450944,
+    "node_heap_mib": 3072
+  },
+  "peak_tree_working_set_bytes_observed": 5592481792,
+  "memory_measurement": "sum of sampled Windows working sets for root, redirectors and descendants; shared pages may be counted more than once",
+  "raw_artifacts": "process.log and build/ retained outside research Git",
+  "file_hash_verification": "not_run_per_user_preference"
+}
