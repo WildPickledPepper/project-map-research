@@ -6,12 +6,12 @@ from pathlib import PurePosixPath
 
 from adapters.snapshot_inputs import commit, git, validate_path
 
-VERSION = 'repository-discovery/1'
+VERSION = 'repository-discovery/2'
 LANGUAGES = {'.ts': 'typescript', '.mts': 'typescript', '.cts': 'typescript', '.tsx': 'tsx', '.cpp': 'cpp', '.cc': 'cpp', '.cxx': 'cpp',
     '.h': 'cpp', '.hpp': 'cpp', '.hh': 'cpp', '.hxx': 'cpp', '.c': 'c',
     '.js': 'javascript', '.jsx': 'javascript', '.mjs': 'javascript', '.cjs': 'javascript',
     '.py': 'python', '.rs': 'rust', '.sh': 'shell', '.ps1': 'powershell', '.cmake': 'cmake'}
-SUPPORTED = {'cpp', 'typescript', 'tsx'}
+SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript'}
 DEFAULT_POLICY = {'version': 1, 'roles': ['product', 'test', 'build_tool'],
                   'exclude': [], 'max_file_bytes': 2 * 1024 * 1024}
 

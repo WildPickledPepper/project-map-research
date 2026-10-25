@@ -2,10 +2,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const readline = require('node:readline');
+const {scriptKind}=require('./ecmascript_sources.cjs');
 
 function analyze(ts, name, source) {
   const sf = ts.createSourceFile(name, source, ts.ScriptTarget.Latest, true,
-    name.endsWith('.tsx') ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
+    scriptKind(ts,name));
   const out = {path:name, evidence_kind:'typescript_compiler_ast', compiler_version:ts.version,
     symbols:[], types:[], interfaces:[], imports:[], calls:[], registrations:[], resources:[], entries:[], diagnostics:[],
     limits:['file_local_syntax_only','types_not_checked','call_targets_not_resolved',

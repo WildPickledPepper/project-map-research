@@ -43,7 +43,8 @@ class DiscoveryTests(FixtureCase):
         self.assertEqual(rows['backend/a.h']['module'],'backend')
         self.assertEqual(rows['tests/a.test.ts']['role'],'test')
         self.assertEqual(rows['scripts/codegen.ts']['role'],'build_tool')
-        for name in ('vendor/lib.cpp','generated/a.ts','tools/check.py','platform/main.rs','src/legacy.js','docs/readme.md'):
+        self.assertTrue(rows['src/legacy.js']['eligible'])
+        for name in ('vendor/lib.cpp','generated/a.ts','tools/check.py','platform/main.rs','docs/readme.md'):
             self.assertEqual(rows[name]['status'],'excluded')
             self.assertTrue(rows[name]['reason'])
         config = normalize_config(generated_config(d))
@@ -128,6 +129,18 @@ class ExtractionTests(FixtureCase):
         self.assertTrue(self.facts('native/main.cpp')[1]['entries'])
         cmake=self.facts('native/CMakeLists.txt')[1]
         self.assertTrue(any(c['command']=='file' for c in cmake['commands']))
+
+    def test_javascript_variants_are_exported_and_parsed_with_correct_grammar(self):
+        self.save({'package.json':'{"name":"mixed-fixture"}',
+            'src/entry.jsx':'export function View(){return <section/>;}',
+            'src/worker.mjs':'export async function load(){return import("./lib.cjs");}',
+            'src/lib.cjs':'exports.run = function run(){return 1;};'})
+        result=self.execute();self.assertEqual(result['status'],'complete_with_diagnostics')
+        for name in ('src/entry.jsx','src/worker.mjs','src/lib.cjs'):
+            row,facts=self.facts(name)
+            self.assertEqual(row['language'],'javascript');self.assertEqual(row['status'],'parsed')
+            self.assertTrue(facts['symbols']);self.assertFalse(facts['diagnostics'])
+            self.assertTrue((self.base/'out/source'/name).is_file())
 
     def test_budget_resume_preserves_facts_and_rejects_changed_input(self):
         self.fixture(); first=self.execute(max_files=2)

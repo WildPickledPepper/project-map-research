@@ -1,0 +1,22 @@
+{
+  "schema":"independent-javascript-reference/1",
+  "origin":"manual_source_audit_not_extractor_input",
+  "source_commit":"d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "required_calls":[
+    {"id":"ui_constructor","caller_path":"modules/compute/src/components/hotMethod/CodeTextSearch.tsx","callee":"Mark","target_path":"modules/compute/src/utils/DomSearch/mark.js"},
+    {"id":"ui_mark","caller_path":"modules/compute/src/components/hotMethod/CodeTextSearch.tsx","callee":"instance.mark","target_path":"modules/compute/src/utils/DomSearch/mark.js","target_name":"Mark.mark"},
+    {"id":"ui_unmark","caller_path":"modules/compute/src/components/hotMethod/CodeTextSearch.tsx","callee":"instance.unmark","target_path":"modules/compute/src/utils/DomSearch/mark.js","target_name":"Mark.unmark"},
+    {"id":"iterator_constructor","caller_path":"modules/compute/src/utils/DomSearch/mark.js","callee":"DOMIterator","target_path":"modules/compute/src/utils/DomSearch/domiterator.js"},
+    {"id":"iterator_method","caller_path":"modules/compute/src/utils/DomSearch/mark.js","callee":"this.iterator.forEachNode","target_path":"modules/compute/src/utils/DomSearch/domiterator.js","target_name":"DOMIterator.forEachNode"},
+    {"id":"regexp_constructor","caller_path":"modules/compute/src/utils/DomSearch/mark.js","callee":"RegExpTool","target_path":"modules/compute/src/utils/DomSearch/RegExpTool.js"},
+    {"id":"regexp_method","caller_path":"modules/compute/src/utils/DomSearch/mark.js","callee":"new RegExpTool(config).createRegExp","target_path":"modules/compute/src/utils/DomSearch/RegExpTool.js","target_name":"RegExpTool.createRegExp"}
+  ],
+  "required_imports":[
+    ["modules/compute/src/components/hotMethod/CodeTextSearch.tsx","modules/compute/src/utils/DomSearch/mark.js"],
+    ["modules/compute/src/utils/DomSearch/mark.js","modules/compute/src/utils/DomSearch/domiterator.js"],
+    ["modules/compute/src/utils/DomSearch/mark.js","modules/compute/src/utils/DomSearch/RegExpTool.js"]
+  ],
+  "dynamic_method":{"path":"modules/compute/src/utils/DomSearch/mark.js","callee":"this[searchFunctionName]","target_names":["Mark.wrapMatches","Mark.wrapMatchesAcrossElements"],"certain_target_forbidden":true},
+  "required_path":{"start_name":"serachInCode","target_name":"RegExpTool.createRegExp","max_depth":16},
+  "runtime_execution":"not_requested_by_this_static_component_trial"
+}

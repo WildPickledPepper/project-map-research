@@ -91,8 +91,10 @@ def verify(source, inventory, reference):
           all(n == 1 for n in pairs.values()))
     check('no_signal_remains_unknown', all(r['applicability'] != 'not_applicable' and
           r['status'] == 'not_accepted' for r in matrix['items']))
-    check('required_language_gaps_remain_visible', set(reference['mandatory_language_gaps']) <=
-          set(documents['coverage-baseline']['whole_project_languages_missing']))
+    missing=set(documents['coverage-baseline']['whole_project_languages_missing'])
+    partial={lang for m in modules.values() for lang,state in m['semantic_support'].items()
+             if state=='preexisting_partial_not_accepted_for_module' and m['gate_status']['G02']=='not_executed'}
+    check('required_language_gaps_remain_visible', set(reference['mandatory_language_gaps']) <= missing|partial)
     boundaries = documents['boundary-inventory']['boundaries']
     check('signals_are_candidates_with_unresolved_counterparts', all(b['module'] in modules and
           b['counterpart'] is None and b['resolution'] == 'not_semantically_extracted' for b in boundaries))

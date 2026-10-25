@@ -166,7 +166,7 @@ def _inventory(revision,files,texts,states,rules_version):
             boundaries.extend(hits);entries.extend(points)
             conditions.extend(dict(e,module=root) for e in selectors)
         entry_records.extend(dict(e,module=root) for e in entries)
-        support={lang:('preexisting_partial_not_accepted_for_module' if lang in {'typescript','tsx','cpp'} else 'not_implemented')
+        support={lang:('preexisting_partial_not_accepted_for_module' if lang in {'typescript','tsx','javascript','cpp'} else 'not_implemented')
             for lang in counts if lang in CODE.values()}
         parent_roots=[p for p in anchors if p!=root and underneath(root,p)]
         parent_root=max(parent_roots,key=len) if parent_roots else None

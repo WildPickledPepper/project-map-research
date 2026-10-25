@@ -1,6 +1,7 @@
 /* Automatic compiler root partitions. All supplied files remain available as
  * import dependencies; unrelated packages and test mocks are not global roots. */
 const path=require('node:path');
+const {sourceFile}=require('./ecmascript_sources.cjs');
 
 function role(file){
   const parts=new Set(file.toLowerCase().split('/').slice(0,-1)),name=path.posix.basename(file).toLowerCase();
@@ -12,7 +13,7 @@ function role(file){
 function partition(files){
   const packages=files.filter(f=>path.posix.basename(f)==='package.json').map(f=>path.posix.dirname(f)).sort((a,b)=>b.length-a.length||a.localeCompare(b));
   const units=new Map();
-  for(const file of [...files].sort())if(/\.tsx?$/.test(file)){
+  for(const file of [...files].sort())if(sourceFile(file)){
     const owner=packages.find(p=>p==='.'||file.startsWith(p+'/'))||'.',category=role(file),key=owner+':'+category;
     if(!units.has(key))units.set(key,{id:key,package_root:owner,role:category,root_files:[]});
     units.get(key).root_files.push(file);
