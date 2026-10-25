@@ -26,7 +26,9 @@ class FullSnapshotTests(unittest.TestCase):
         from projectmap.workspace import Workspace
         with tempfile.TemporaryDirectory(prefix='native build workspace ') as directory:
             root=Path(directory);source=root/'repository';source.mkdir()
-            files={'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Neutral LANGUAGES CXX)\nadd_executable(service_app ../src/entry.cpp)\n',
+            files={'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Neutral LANGUAGES CXX)\nadd_subdirectory(third_party)\nadd_executable(service_app ../src/entry.cpp)\ntarget_link_libraries(service_app PRIVATE helper)\n',
+                'compile/third_party/CMakeLists.txt':'add_library(helper STATIC ../../src/helper.cpp)\n',
+                'src/helper.cpp':'int helper(){return 2;}\n',
                 'src/entry.cpp':'int main(){return 0;}\n', 'client/view.ts':'export function show(){return 1;}\n'}
             for path,body in files.items():
                 target=source/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(body,encoding='utf-8')

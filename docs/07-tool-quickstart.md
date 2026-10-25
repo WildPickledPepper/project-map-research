@@ -41,6 +41,8 @@ Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验�
 
 CMake 项目自动按顶层 CMakeLists.txt 发现根目录。具备 CMake/Ninja 时，工具在独立配置副本执行配置与编译器探测，导入原生目标、产物、编译输入和库依赖；未编译或启动产品。当前验证版本为 CMake 3.31.6、Ninja Python 分发包 1.11.1.4。通过 PATH 或 `PROJECT_MAP_CMAKE`、`PROJECT_MAP_NINJA` 指定工具，`doctor` 单列检查。缺工具、依赖或配置失败保留具体必需缺口。
 
+默认 build_tool 范围包含 vendor/third_party 目录内跟踪的 CMake 构建清单，记录其构建依赖用途；目录角色与第三方源码范围分别保留。显式 exclude 仍会排除相应清单，并在配置失败时报告缺口。
+
 ```text
 project-map --workspace WORKSPACE query search --kind build_configuration
 project-map --workspace WORKSPACE query search --kind build_target

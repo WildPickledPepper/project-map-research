@@ -31,6 +31,22 @@ class FixtureCase(unittest.TestCase):
         return self.git('rev-parse', 'HEAD').decode().strip()
 
 class DiscoveryTests(FixtureCase):
+    def test_tracked_cmake_dependency_manifests_survive_third_party_directory_policy(self):
+        self.save({'native/CMakeLists.txt':'project(Neutral)\nadd_subdirectory(vendor)\n',
+            'native/vendor/CMakeLists.txt':'add_subdirectory(component)\n',
+            'native/vendor/component/CMakeLists.txt':'add_library(component component.cpp)\n',
+            'native/vendor/component/flags.cmake':'set(FLAG ON)\n',
+            'native/vendor/component/component.cpp':'int external(){return 1;}\n'})
+        rows={r['path']:r for r in discover(self.repo)['files']}
+        for path in ('native/vendor/CMakeLists.txt','native/vendor/component/CMakeLists.txt','native/vendor/component/flags.cmake'):
+            self.assertTrue(rows[path]['eligible']);self.assertEqual(rows[path]['role'],'third_party')
+            self.assertEqual(rows[path]['inclusion_basis'],'tracked_cmake_build_dependency')
+        self.assertFalse(rows['native/vendor/component/component.cpp']['eligible'])
+        restricted={r['path']:r for r in discover(self.repo,configuration={'roles':['product']})['files']}
+        self.assertEqual(restricted['native/vendor/CMakeLists.txt']['reason'],'excluded_role:third_party')
+        excluded={r['path']:r for r in discover(self.repo,configuration={'exclude':['native/vendor/*']})['files']}
+        self.assertEqual(excluded['native/vendor/CMakeLists.txt']['reason'],'excluded_by_policy')
+
     def test_scope_roles_modules_and_unsupported_files_are_accounted_for(self):
         revision = self.save({'package.json':'{}','src/a.ts':'export function entry(){}',
             'backend/CMakeLists.txt':'project(service)', 'backend/a.h':'struct Q {};',

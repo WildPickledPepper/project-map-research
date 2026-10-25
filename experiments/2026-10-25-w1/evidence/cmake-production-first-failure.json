@@ -1,0 +1,210 @@
+{
+  "schema": "cmake-production-trial-score/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:96f05db183e245dcb826382ef699396c",
+  "build_version": {
+    "rules_commit": "868799c62a920164aa0d6fb11333bf841d276739",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "native_build_tools": {
+      "cmake": "cmake version 3.31.6",
+      "ninja": "1.11.1.git.kitware.jobserver-1"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "scope": "cmake_cpp_control",
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1334,
+    "modules": 29,
+    "nodes": 217241,
+    "edges": 337586,
+    "entries": 0,
+    "diagnostic_records": 15300,
+    "providers": 125,
+    "module_relation_groups": 47
+  },
+  "selected_languages": {
+    "cmake": 11,
+    "cpp": 1323
+  },
+  "native_node_counts": {},
+  "target_types": {},
+  "selected_target": null,
+  "primary_artifact": null,
+  "entry": null,
+  "selected_target_sources": {
+    "total": 0,
+    "selected_source": 0,
+    "dependency_source": 0
+  },
+  "navigation": [
+    {
+      "id": "target_entry.out"
+    },
+    {
+      "id": "target_entry.in"
+    },
+    {
+      "id": "input_entry.out"
+    },
+    {
+      "id": "input_entry.in"
+    },
+    {
+      "id": "configuration_artifact.out"
+    },
+    {
+      "id": "configuration_artifact.in"
+    }
+  ],
+  "checks": [
+    {
+      "id": "pinned_source",
+      "passed": true
+    },
+    {
+      "id": "published_snapshot",
+      "passed": true
+    },
+    {
+      "id": "controlled_build_scope_declared",
+      "passed": true
+    },
+    {
+      "id": "complete_cpp_cmake_control_scope",
+      "passed": false,
+      "languages": {
+        "cmake": 11,
+        "cpp": 1323
+      }
+    },
+    {
+      "id": "one_real_native_configuration",
+      "passed": false
+    },
+    {
+      "id": "native_configuration_state",
+      "passed": false
+    },
+    {
+      "id": "native_project_source",
+      "passed": false
+    },
+    {
+      "id": "release_ninja_native_context",
+      "passed": false
+    },
+    {
+      "id": "native_component_version",
+      "passed": false
+    },
+    {
+      "id": "native_target_count",
+      "passed": false
+    },
+    {
+      "id": "one_executable_target",
+      "passed": false
+    },
+    {
+      "id": "declaration_location",
+      "passed": false
+    },
+    {
+      "id": "declaration_backtrace",
+      "passed": false
+    },
+    {
+      "id": "unique_primary_executable_artifact",
+      "passed": false
+    },
+    {
+      "id": "auxiliary_not_process_primary",
+      "passed": false
+    },
+    {
+      "id": "linked_libraries_have_native_identity",
+      "passed": false,
+      "targets": []
+    },
+    {
+      "id": "native_408_source_membership",
+      "passed": false
+    },
+    {
+      "id": "entry_compilation_unit_selected",
+      "passed": false
+    },
+    {
+      "id": "compile_definitions_retained",
+      "passed": false
+    },
+    {
+      "id": "one_entry_candidate",
+      "passed": false
+    },
+    {
+      "id": "actual_global_main",
+      "passed": false
+    },
+    {
+      "id": "entry_not_execution_claim",
+      "passed": false
+    },
+    {
+      "id": "source_to_declared_entry",
+      "passed": false
+    },
+    {
+      "id": "navigation.target_entry.out",
+      "passed": false
+    },
+    {
+      "id": "navigation.target_entry.in",
+      "passed": false
+    },
+    {
+      "id": "navigation.input_entry.out",
+      "passed": false
+    },
+    {
+      "id": "navigation.input_entry.in",
+      "passed": false
+    },
+    {
+      "id": "navigation.configuration_artifact.out",
+      "passed": false
+    },
+    {
+      "id": "navigation.configuration_artifact.in",
+      "passed": false
+    },
+    {
+      "id": "source_checkout_remains_clean",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_evidence_created",
+      "passed": true
+    }
+  ],
+  "passed": false,
+  "runtime_execution": false,
+  "product_compiled": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false,
+  "process_counterpart_status": "pending_packaging_path_and_runtime_program_identity"
+}

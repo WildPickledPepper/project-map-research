@@ -7,7 +7,7 @@ from pathlib import PurePosixPath
 from adapters.snapshot_inputs import commit, git, validate_path
 from adapters.source_languages import SOURCE_LANGUAGES
 
-VERSION = 'repository-discovery/4'
+VERSION = 'repository-discovery/5'
 LANGUAGES=SOURCE_LANGUAGES
 SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript', 'python','rust'}
 DEFAULT_POLICY = {'version': 1, 'roles': ['product', 'test', 'build_tool'],
@@ -65,11 +65,13 @@ def discover(source, revision='HEAD', configuration=None):
         language = 'cmake' if PurePosixPath(path).name == 'CMakeLists.txt' else LANGUAGES.get(suffix)
         row = {'path': path, 'object': oid, 'mode': mode, 'bytes': int(size) if size != '-' else None,
                'language': language, 'role': category, 'classification_rule': rule, 'manifest_kind': manifest}
+        build_dependency = category == 'third_party' and manifest == 'cmake' and 'build_tool' in config['roles']
+        if build_dependency: row['inclusion_basis'] = 'tracked_cmake_build_dependency'
         reason = None
         try: validate_path(path)
         except ValueError: reason = 'unsafe_path'
         if not reason and (kind != 'blob' or mode not in {'100644', '100755'}): reason = 'unsupported_git_mode'
-        if not reason and category not in config['roles']: reason = 'excluded_role:' + category
+        if not reason and category not in config['roles'] and not build_dependency: reason = 'excluded_role:' + category
         if not reason and any(fnmatchcase(path, p) for p in config['exclude']): reason = 'excluded_by_policy'
         if not reason and row['bytes'] > config['max_file_bytes']: reason = 'file_size_budget'
         if not reason and language not in SUPPORTED and not manifest:
