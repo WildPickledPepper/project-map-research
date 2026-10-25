@@ -1,4 +1,6 @@
-# 项目地图 skill 交付
+# 项目地图 skill 分发及限定范围验收记录
+
+**整体状态更正：全项目关系覆盖尚未通过。** 本记录验证分发、安装及已有事实查询，保留原始检查结果；359 项 Python 实现测试不表示 Python 产品源码已有语义提取。当前补齐范围和整体判定见[全项目实施计划](../../plans/project-wide-completion-plan.md)及[整体验收矩阵](../../plans/project-wide-acceptance.md)。
 
 日期：2026-10-25。证据类型：执行工具安装、提取与查询检查；研究登记。当前交付为 `project-map-assistant` skill 和 `project-map-tool 0.2.1`，历史资产接入暂缓，AI 正确率实验待冻结协议后开展。
 
@@ -41,4 +43,4 @@ unit/flows 到处理器的路径包含 EMITS_MESSAGE、MATCHES_REGISTERED_PROTOC
 
 用户提到的新增材料对应 [7 条历史改动回归候选](../../datasets/msinsight-regressions/historical-change-regressions.md)，引入提交为 `a1371ec`。本轮阅读登记及已有核对结论，未扩充训练输入或逐条复现，集合仍未分配；原 [24 条划分](../../datasets/msinsight-regressions/split.md)保持不变。
 
-下一步按[对照计划](../../plans/tool-and-skill.md)冻结源码组与源码＋skill/工具组的任务、版本、输入、预算和评分，测量修复正确性与新增回归。历史资产作为第三阶段新增输入单独评价。
+下一步先按全项目计划完成 W0–W6 与 G01–G08，再冻结 W7/G09 的 issue 定位对照；需要修复的任务另报修复正确性与新增回归。历史资产作为第三阶段新增输入单独评价。

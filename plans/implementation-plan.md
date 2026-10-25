@@ -1,5 +1,7 @@
 # 项目模型与历史问题资产协作：详细计划书 v0.1
 
+**当前实施依据已更新为[全项目关系覆盖计划](project-wide-completion-plan.md)及[整体验收矩阵](project-wide-acceptance.md)。** 本文保留原型阶段约定和历史范围；其中局部验收通过及“扩展项”分类不作为当前全项目范围的完成依据。整体技术验收尚未通过，历史资产接入暂缓。
+
 日期：2026-10-24。状态：**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 组件选择见 [P1 报告](../experiments/2026-10-23-p1-completion/README.md)，当前范围见 [P7 报告](../experiments/2026-10-24-p7/completion.md)。设计依据为[设计基线](../docs/05-design-baseline.md)及[能力覆盖矩阵](../docs/06-capability-coverage.md)，阶段与检查见[总计划](README.md)和[验收矩阵](acceptance-matrix.md)。
 
 本文定义整体数据和查询约定。P1 已实现必要事实的 JSON 交换、CGC/Kuzu 与 CodeGraph/SQLite 存储；P2 起扩展协议、资源和运行实体。

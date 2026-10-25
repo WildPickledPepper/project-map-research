@@ -1,5 +1,7 @@
 # 使用项目地图 skill
 
+**当前 0.2.1 为工具底座，关系分析主要覆盖 TS/C++ 的已有机制，全项目验收尚未通过。** 完整实施范围与门槛见[全项目计划](../plans/project-wide-completion-plan.md)及[整体验收矩阵](../plans/project-wide-acceptance.md)。本页说明已有入口的使用方法。
+
 最终入口为 [project-map-assistant](../skills/project-map-assistant/SKILL.md)。它携带查询规则和执行脚本，工具生成的项目地图与研究材料分开保存。
 
 完整分发包解压后将 `project-map-assistant` 放到 AI 客户端的 skills 目录。按 skill 的 [安装说明](../skills/project-map-assistant/references/setup.md)执行 bootstrap、init、setup、doctor 和 build，然后可用：

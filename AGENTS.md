@@ -2,6 +2,7 @@
 
 - Read README.md and the relevant case before changing conclusions.
 - Keep the focus on automatically maintained, cross-language project understanding.
+- Use plans/project-wide-completion-plan.md and plans/project-wide-acceptance.md as the current implementation scope and completion authority. File inventory, parser support, node/test counts, limited-chain passes and skill packaging do not establish whole-project completion. Required runtime languages/modules/boundary families without semantic extraction or connections keep the overall gate unpassed. Preserve historical evidence within its original scope; historical asset integration remains deferred.
 - For historical regression samples, read and follow [the confirmed sample split](datasets/msinsight-regressions/split.md). Sample-driven development is limited to its eight development records. Do not investigate, prepare, execute, score, or tune rules against validation candidates until the user explicitly starts validation. Keep related regressions separate from independent validation; ordinary repository-wide discovery remains allowed as specified in the split.
 - Label evidence: executed experiment, source inspection, documentation claim, proposal, unknown.
 - Cite a source and pinned version for concrete tool behavior. Do not turn README claims into measured results.

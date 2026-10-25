@@ -1,6 +1,6 @@
 # 下一阶段：全仓自动发现与覆盖扩展
 
-**A1–A5 后的当前工作**：[工具与 skill 交付](tool-and-skill.md)。历史资产接入暂缓，优先形成可独立安装、供 AI 查询项目的 skill，并准备源码组与工具组对照。
+**本文为 A1–A5 历史计划，主要覆盖 TS/C++ 和规定场景。** 当前执行[全项目关系覆盖计划](project-wide-completion-plan.md)及[整体验收矩阵](project-wide-acceptance.md)。整体尚未通过；先补齐全部运行模块及连接，再开展 issue 对照，历史资产暂缓。
 
 日期：2026-10-25。状态：**A1–A5 已完成规定验收；静态连接扩展的五项指定目标已贯通**。本计划承接 [P7 验收](../experiments/2026-10-24-p7/completion.md)，按[能力架构与覆盖矩阵](../docs/06-capability-coverage.md)安排下一阶段工作。结果见 [A1 报告](../experiments/2026-10-24-a1/completion.md)、[A2 报告](../experiments/2026-10-24-a2/completion.md)、[A3 报告](../experiments/2026-10-24-a3/completion.md)、[A4 首轮报告](../experiments/2026-10-24-a4/report.md)、[A4 修复复验](../experiments/2026-10-24-a4-repair/completion.md)、[静态连接扩展](../experiments/2026-10-25-static-async/completion.md)及 [A5 运行报告](../experiments/2026-10-25-a5/completion.md)。
 

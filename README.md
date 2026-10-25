@@ -2,11 +2,15 @@
 
 研究如何为 AI 协作开发自动维护一份可查询、可追溯、与代码版本对应的项目模型。
 
-**当前交付：面向 AI 的 [project-map-assistant skill](skills/project-map-assistant/SKILL.md) 与可独立安装的查询工具。** 通过命令行完成建图、更新、模块导航、关系追踪、反向影响、固定版本源码和运行证据查询；MCP 可选。见 [使用说明](docs/07-tool-quickstart.md)和[交付及对照实验计划](plans/tool-and-skill.md)。按用户最新安排，历史资产接入暂缓；先比较源码组与源码＋工具组，再评估加入历史资产的增益，当前不报告正确率提升。
+**整体状态：Insight 全项目关系覆盖尚未通过验收。** 当前按[全项目实施计划](plans/project-wide-completion-plan.md)补齐全部自有运行模块、Python/JavaScript/Rust、跨模块边界、数据/状态与运行证据；完成条件见[整体验收矩阵](plans/project-wide-acceptance.md)。W0–W7 待实施，G01–G09 未执行。
 
-[skill 交付验收](experiments/2026-10-25-tool-skill/completion.md)：17 项独立仓库、20 项 Insight 安装后查询、359 项 Python 和 110 项 TypeScript 检查通过；完整分发包可由 GitHub Actions 构建并下载。
+**已有底座：[project-map-assistant skill](skills/project-map-assistant/SKILL.md) 与可独立安装的工具。** 已验证 TS/C++ 的部分关系、自动更新、查询和限定运行场景；见 [使用说明](docs/07-tool-quickstart.md)。先完成全项目技术验收，再比较源码组与源码＋工具组；历史资产第三组独立安排，当前不接入。
+
+[skill 分发及限定范围验收](experiments/2026-10-25-tool-skill/completion.md)：17 项独立仓库、20 项 Insight 安装后查询、359 项 Python 和 110 项 TypeScript 检查通过。这些是已有实现及分发的检查，不是全项目关系覆盖通过；“Python 测试”也不表示已支持 Python 源码分析。完整分发包可由 GitHub Actions 构建并下载。
 
 目标：让 AI 能从业务入口查到跨模块、跨语言、直到数据库及返回消费者的关系，并结合运行证据判断修改影响。首个研究对象是 [MindStudio Insight](https://gitcode.com/Ascend/msinsight)。
+
+以下 P/A 阶段按当时限定输入和场景保留原验收结论；全项目完成由 G01–G08 单独判定。
 
 **设计范围 v0.1**：项目地图、代码/接口/数据关系图、运行行为与证据，并关联团队维护的历史问题资产与契约库。三个视图共用版本、来源和覆盖缺口，详见 [设计基线](docs/05-design-baseline.md)。
 

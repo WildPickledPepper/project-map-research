@@ -1,6 +1,6 @@
 # 研究与实施计划 v0.1
 
-**2026-10-25 当前安排**：先完成[工具与 skill 交付](tool-and-skill.md)，P6 历史资产接入暂缓。随后先开展源码与源码＋工具的对照，历史资产作为第三阶段新增输入单独评价。下文保留原 P0–P7 的设计与执行记录。
+**2026-10-25 当前安排**：执行[全项目关系覆盖实施计划 W0–W7](project-wide-completion-plan.md)，按[整体验收矩阵 G01–G09](project-wide-acceptance.md)判定。当前整体技术验收未通过；先补齐全模块、多语言和跨边界覆盖，再开展 issue 对照。P6 历史资产暂缓，保留为后续第三组。下文是原 P/A 阶段设计及限定范围记录，不能替代当前整体验收。
 
 日期：2026-10-24。设计依据：[设计基线 v0.1](../docs/05-design-baseline.md)，基线提交 `547269e`。**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 当前范围见 [P7 报告](../experiments/2026-10-24-p7/completion.md)和[能力覆盖矩阵](../docs/06-capability-coverage.md)。主底座选用 CGC/Kuzu，见 [P1 完成证据与决策](../experiments/2026-10-23-p1-completion/README.md)。
 
