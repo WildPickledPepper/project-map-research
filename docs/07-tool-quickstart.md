@@ -39,6 +39,35 @@ Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验�
 
 `rust_boundary` 保留进程、网络、WebView 的声明身份、参数及待匹配状态；`analysis_contexts` 指出适用的 Cargo 清单、目标和 feature/debug 条件。唯一推断、条件候选和运行证据分别保留。跨配置路径需要核对上下文相容性，完整部署/实例配对继续按 W2 验证。
 
+CMake 项目自动按顶层 CMakeLists.txt 发现根目录。具备 CMake/Ninja 时，工具在独立配置副本执行配置与编译器探测，导入原生目标、产物、编译输入和库依赖；未编译或启动产品。当前验证版本为 CMake 3.31.6、Ninja Python 分发包 1.11.1.4。通过 PATH 或 `PROJECT_MAP_CMAKE`、`PROJECT_MAP_NINJA` 指定工具，`doctor` 单列检查。缺工具、依赖或配置失败保留具体必需缺口。
+
+```text
+project-map --workspace WORKSPACE query search --kind build_configuration
+project-map --workspace WORKSPACE query search --kind build_target
+project-map --workspace WORKSPACE query search --kind build_artifact
+project-map --workspace WORKSPACE query search --kind build_source
+```
+
+`PRODUCES_ARTIFACT` 区分主产物和附属产物，`COMPILES_SOURCE` 记录实际构建输入，`LINKS_BUILD_TARGET` 使用原生目标身份。全局 C++ main 的 `EXECUTABLE_ENTRY_CANDIDATE` 保留预处理和链接选择条件；它与进程实际启动的配对继续通过产物/打包/运行证据验证。
+
+构建环境可在 `init --analysis ANALYSIS.json` 中通过可选 `build` 字段配置；省略时默认启用发现、Ninja、Release。该字段与原有 version/scope/deployment/storage 并存，例如：
+
+```json
+{
+  "build": {
+    "version": 1,
+    "cmake": {
+      "configurations": ["Release"],
+      "generator": "Ninja",
+      "arguments": [],
+      "dependencies": []
+    }
+  }
+}
+```
+
+`arguments` 接受原生 `-DNAME=VALUE` 配置值。外部依赖可声明为 `kind: git`，提供 destination、repository、40 位固定 revision；准备好的生成源码可声明为 `kind: file`，提供 destination、path、version、origin。工具将依赖导出/复制到配置副本，保留版本来源，并拒绝覆盖选中源码。配置输入提供环境和依赖来源，目标、产物、入口及新增模块由原生分析发现。
+
 ## skill 入口
 
 skill 的统一整理与打包安排在工具能力和验收稳定之后；以下保留已有分发入口的用法。

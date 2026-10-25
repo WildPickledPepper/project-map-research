@@ -116,6 +116,12 @@ class Workspace:
                 if not rust_available(name):raise ValueError('Install the native Rust analysis tool and expose its executable: '+name)
                 return tool_output([rust_binary(name),'--version'],ROOT).strip()
             check('rust_'+name,rust_tool,False)
+        from adapters.cmake_project import tool_versions as cmake_tools
+        for name,value in cmake_tools().items():
+            def native_tool(name=name,value=value):
+                if value is None:raise ValueError('Native build analysis tool unavailable: '+name)
+                return value
+            check('native_build_'+name,native_tool,False)
         if probe_parser:
             def parser():
                 with self.engine_environment():

@@ -85,6 +85,7 @@ add_library(external_library STATIC "''' + cls.outside.as_posix() + '''")
         self.assertEqual(len({b['name'] for _, b in primary}), 1)
         self.assertEqual(len({b['id'] for _, b in primary}), 2)
         self.assertEqual({Path(b['location']['path']).parent.as_posix() for _, b in primary}, {'service', 'decoy'})
+        self.assertTrue(all(b['path'] == '@build/' + b['location']['path'] for _, b in primary))
         self.assertTrue(all(a['name'] not in b['name'] for a, b in primary))
 
     def test_source_and_dependency_membership_use_native_target_ids(self):

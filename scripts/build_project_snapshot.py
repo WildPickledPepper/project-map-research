@@ -97,6 +97,15 @@ def build(source, request, output, log, *, typescript):
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
     if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components']}
     if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components']}
+    from adapters.cmake_project import extract as cmake_facts, roots as cmake_roots
+    if cmake_roots(paths):
+        print('Extract native CMake targets, artifacts and selected-source membership', file=log, flush=True)
+        native=cmake_facts(source,paths,source_commit=revision,output=output/'cmake-native',
+            config=request['config'].get('build'),source_facts=facts,
+            emit=lambda row:print('CMake '+json.dumps(row),file=log,flush=True))
+        for key in ('nodes','edges','diagnostics','limits'):graph[key].extend(native[key])
+        graph['native_build']={'projects':native['projects'],'contexts':native['contexts'],'source_coverage':'native_compilation_input_not_execution'}
+        graph['extractors']['cmake']=native['components']
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     write_json(output/'protocol-checkpoint.json', {'stage': 'protocol_only_not_complete_graph',
         'source_commit': revision, 'build_version': request['build_version'],
@@ -156,7 +165,8 @@ def build_version(typescript):
     rules = rules_version(require_clean=True)
     from adapters.rust_project import available,binary,tool_output
     rust_tools={name:tool_output([binary(name),'--version'],ROOT).strip() if available(name) else None for name in ('cargo','rustc','rust-analyzer')}
-    return {'rules_commit': rules, 'python': platform.python_version(),'rust_tools':rust_tools,
+    from adapters.cmake_project import tool_versions as cmake_tools
+    return {'rules_commit': rules, 'python': platform.python_version(),'rust_tools':rust_tools,'native_build_tools':cmake_tools(),
             'node': subprocess.check_output(['node', '--version'], text=True).strip(), 'typescript': ts,
             'packages': {name: importlib.metadata.version(name) for name in ['tree-sitter', 'tree-sitter-language-pack', 'kuzu', 'jedi', 'parso']}}
 

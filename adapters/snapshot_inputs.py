@@ -32,7 +32,7 @@ def normalize_config(config):
     config = json.loads(json.dumps(config, allow_nan=False))
     if not isinstance(config, dict) or config.get('version') != 1:
         raise ValueError('Expected configuration version 1')
-    if set(config) - {'version', 'scope', 'deployment', 'storage'}:
+    if set(config) - {'version', 'scope', 'deployment', 'storage', 'build'}:
         raise ValueError('Unknown configuration field')
     scope = config.get('scope')
     if not isinstance(scope, dict) or set(scope) - {'include', 'exclude', 'discovery'}:
@@ -47,6 +47,9 @@ def normalize_config(config):
         scope[key] = sorted(set(values))
     if not scope['include']: raise ValueError('At least one include pattern is required')
     if not isinstance(config.get('deployment'), dict): raise ValueError('Expected deployment configuration')
+    if 'build' in config:
+        from adapters.cmake_project import configuration as build_configuration
+        config['build'] = build_configuration(config['build'])
     if config.setdefault('storage', 'kuzu') not in {'json', 'kuzu'}: raise ValueError('Unknown storage')
     return config
 

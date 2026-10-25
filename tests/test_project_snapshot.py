@@ -1,5 +1,6 @@
 """Exercise all extraction phases together on an authored cross-language fixture."""
 import json
+from functools import partial
 from pathlib import Path
 import subprocess
 import tempfile
@@ -18,6 +19,39 @@ class FullSnapshotTests(unittest.TestCase):
                                                   stderr=subprocess.PIPE, text=True).strip())
         except (OSError, subprocess.CalledProcessError):
             raise unittest.SkipTest('Install the pinned TypeScript dependency before the full builder test')
+
+    def test_native_cmake_target_and_entry_survive_workspace_build_and_bidirectional_query(self):
+        from tests.test_cmake_file_api import CMAKE, NINJA
+        if not (CMAKE and NINJA): self.skipTest('Native CMake and Ninja required')
+        from projectmap.workspace import Workspace
+        with tempfile.TemporaryDirectory(prefix='native build workspace ') as directory:
+            root=Path(directory);source=root/'repository';source.mkdir()
+            files={'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Neutral LANGUAGES CXX)\nadd_executable(service_app ../src/entry.cpp)\n',
+                'src/entry.cpp':'int main(){return 0;}\n', 'client/view.ts':'export function show(){return 1;}\n'}
+            for path,body in files.items():
+                target=source/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(body,encoding='utf-8')
+            def git(*args):return subprocess.check_output(['git','-C',str(source),*args],stderr=subprocess.PIPE).decode().strip()
+            git('init','-q');git('config','user.name','fixture');git('config','user.email','fixture@example.invalid')
+            git('add','.');git('commit','-qm','authored mixed native build');revision=git('rev-parse','HEAD')
+            from projectmap.workspace import default_analysis
+            analysis=default_analysis();analysis['build']={'version':1,'cmake':{'configurations':['Release']}}
+            workspace=Workspace.create(root/'workspace',source,revision=revision,typescript=self.ts,analysis=analysis)
+            built=workspace.update(builder=partial(build,typescript=self.ts),version={'rules':'authored-native-fixture'})
+            self.assertEqual(built['status'],'ready')
+            targets=workspace.query('search',text='service_app',kind='build_target')['items']
+            entries=workspace.query('search',text='main',kind='callable')['items']
+            self.assertEqual(len(targets),1);self.assertEqual(len(entries),1)
+            for direction,start,target in [('out',targets[0],entries[0]),('in',entries[0],targets[0])]:
+                path=workspace.query('path',start=start['id'],target=target['id'],direction=direction,
+                    kinds=['EXECUTABLE_ENTRY_CANDIDATE'],depth=3,nodes=30,edges=30)
+                self.assertTrue(path['found']);self.assertIsNone(path['stop_reason'])
+                self.assertEqual(path['items'][0]['status'],'candidate')
+            src=workspace.query('source',start=entries[0]['id'])
+            self.assertEqual(src['source_commit'],revision);self.assertEqual(src['path'],'src/entry.cpp')
+            graph=json.loads(Path(workspace.config['active']['graph']).read_text(encoding='utf-8'))
+            self.assertEqual(graph['native_build']['contexts'][0]['status'],'configured')
+            self.assertIn('cmake',graph['extractors'])
+            self.assertEqual(git('status','--porcelain'),'')
 
     def test_rust_fact_and_process_boundary_survive_the_mixed_production_builder(self):
         from adapters.rust_project import available

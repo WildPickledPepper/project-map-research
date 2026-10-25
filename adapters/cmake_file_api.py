@@ -94,7 +94,8 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
     def node(uid, kind, name, loc, **extra):
         if uid not in nodes:
             nodes[uid] = {'id': uid, 'kind': kind, 'name': name,
-                'path': loc['path'] if loc['root'] == 'source' else '@' + loc['root'] + '/' + Path(loc['path']).name,
+                'path': loc['path'] if loc['root'] == 'source' else '@' + loc['root'] + '/' +
+                    (loc['path'] if loc['root'] == 'build' else Path(loc['path']).name),
                 'line': 0, 'language': 'cmake', 'location': loc, 'source_commit': source_commit,
                 'runtime_execution': 'not_observed', **extra}
         return uid
