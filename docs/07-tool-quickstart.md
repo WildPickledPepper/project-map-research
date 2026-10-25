@@ -39,6 +39,8 @@ Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验�
 
 `rust_boundary` 保留进程、网络、WebView 的声明身份、参数及待匹配状态；`analysis_contexts` 指出适用的 Cargo 清单、目标和 feature/debug 条件。唯一推断、条件候选和运行证据分别保留。跨配置路径需要核对上下文相容性，完整部署/实例配对继续按 W2 验证。
 
+Rust 的 `path_value` 可从程序或文件参数展开，保留相对基址、路径片段、调用上下文、分支和未解析原因。使用 `query search --kind path_value` 查找，再通过 PATH_VALUE_CANDIDATE、PATH_COMPONENT_SOURCE、PATH_CALL_CONTEXT 检查消费点与来源。常量/符号路径是源码候选，实际产物放置和进程实例由打包及运行证据连接；详情见[路径适配范围](../experiments/2026-10-25-w1/path-values.md)。
+
 CMake 项目自动按顶层 CMakeLists.txt 发现根目录。具备 CMake/Ninja 时，工具在独立配置副本执行配置与编译器探测，导入原生目标、产物、编译输入和库依赖；未编译或启动产品。当前验证版本为 CMake 3.31.6、Ninja Python 分发包 1.11.1.4。通过 PATH 或 `PROJECT_MAP_CMAKE`、`PROJECT_MAP_NINJA` 指定工具，`doctor` 单列检查。缺工具、依赖或配置失败保留具体必需缺口。
 
 默认 build_tool 范围包含 vendor/third_party 目录内跟踪的 CMake 构建清单，记录其构建依赖用途；目录角色与第三方源码范围分别保留。显式 exclude 仍会排除相应清单，并在配置失败时报告缺口。

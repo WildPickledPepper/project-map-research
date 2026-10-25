@@ -61,7 +61,7 @@ class FullSnapshotTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory);source=root/'source';source.mkdir();output=root/'output';output.mkdir()
             files={'Cargo.toml':'[package]\nname="fixture"\nversion="0.1.0"\nedition="2021"\n',
-                'src/lib.rs':'use std::process::Command;pub fn entry(){let _=Command::new("never-executed").arg("--port=1").spawn();}',
+                'src/lib.rs':'use std::{path::PathBuf,process::Command};pub fn entry(){let mut p=PathBuf::from("assets");for part in ["server","worker"]{p.push(part);}let _=Command::new(p).arg("--port=1").spawn();}',
                 'view.ts':'export function render(){return 1;}', 'service.cpp':'int handle(){return 1;}'}
             for path,body in files.items():
                 target=source/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(body,encoding='utf-8')
@@ -74,6 +74,8 @@ class FullSnapshotTests(unittest.TestCase):
             self.assertTrue(any(e['kind']=='USES_COMMAND' for e in graph['edges']))
             self.assertEqual(next(r for r in graph['coverage'] if r['path']=='src/lib.rs')['status'],'parsed')
             self.assertIn('rust-analyzer',graph['extractors']['rust']['components'])
+            self.assertTrue(any(n['kind']=='path_value' and n['value']['relative_path']=='assets/server/worker' for n in graph['nodes']))
+            self.assertTrue(any(e['kind']=='PATH_COMPONENT_SOURCE' for e in graph['edges']))
 
     def test_python_sources_and_owned_interface_join_enter_the_production_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
