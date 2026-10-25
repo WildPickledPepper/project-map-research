@@ -74,7 +74,7 @@ def rules(events):
                 result.append({'stage':stage,'role':'capture_hook','when':{'command':command},
                     'selector':{'kind':'call_site','path':path,'name':'ProjectMapProbe::Emit'},'first_argument':json.dumps(stage)})
     methods={'communication/duration/iterations':('IterationsHandler','TextClusterDatabase','QueryIterations'),
-        'communication/matrix/group':('GroupHandler','VirtualClusterDatabase','GetGroups'),
+        'communication/matrix/group':('Communication::GroupHandler','TextClusterDatabase','GetGroups'),
         'Memory/snapshot/blocks':('QueryMemSnapshotBlockHandler','MemSnapshotDatabase','QueryBlocksByPage'),
         'Memory/leaks/blocks':('QueryMemScopeBlockHandler','MemScopeDatabase','QueryMemoryBlocks')}
     for command,(handler,database,method) in methods.items():
