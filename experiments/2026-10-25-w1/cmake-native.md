@@ -97,3 +97,11 @@ python experiments/2026-10-25-w1/check_cmake_evidence.py
 ```
 
 独立夹具采用 MinGW Makefiles，真实源码配置采用上游使用的 Ninja 生成器。输出必须是仓库外新目录；原始 Insight checkout 未修改，未重新核验文件哈希。G02/G03 保持未通过。
+
+## 目标系统与宿主文件系统
+
+原生适配 `/0.2.0` 将已生成的 CMakeSystem.cmake 中的字面量系统记录并入 build_configuration 和 native_context：目标系统、声明的处理器、宿主系统/处理器、CMake 交叉编译状态，以及目标/宿主各自的路径风格。解析器只读取固定字段，不执行文件里的 CMake 语句。缺失、重复、非字面量字段和未知路径风格分别保留必需诊断。
+
+Python 打包操作使用宿主文件系统，程序运行路径使用目标系统；两者在交叉编译时分别匹配。系统处理器字段保留 CMake 声明含义，编译器实际架构另需证据。该区别与 CMake 的 [SYSTEM_NAME](https://cmake.org/cmake/help/v3.31/variable/CMAKE_SYSTEM_NAME.html) 和 [SYSTEM_PROCESSOR](https://cmake.org/cmake/help/v3.31/variable/CMAKE_SYSTEM_PROCESSOR.html) 定义一致。
+
+新增字段与现有原生配置、项目刷新和 Workspace 混合建图共 21 项检查通过。独立记录负例覆盖目标 Linux/宿主 Windows、未知系统、缺失/重复/动态字段和版本路径；实际 CMake/Ninja 配置验证系统字段与配置共同进入统一图。检查使用 CMake 3.31.6，产品编译/执行及后续产物传播另行验收。

@@ -6,6 +6,7 @@ Configured sources/outputs are build facts, not evidence of compilation or use.
 from collections import defaultdict
 import json
 from pathlib import Path
+import re
 from urllib.parse import quote
 
 
@@ -15,6 +16,34 @@ class NativeContextError(ValueError):
 
 def _read(path):
     return json.loads(path.read_text(encoding='utf-8'))
+
+
+def target_system(build,version):
+    """Read literal fields from CMake's generated system record; execute none."""
+    if not re.fullmatch(r'[0-9]+(?:\.[0-9]+){1,3}(?:-[A-Za-z0-9.+-]+)?',version):
+        raise NativeContextError('Invalid native CMake version for system record')
+    build=Path(build).resolve();relative='CMakeFiles/'+version+'/CMakeSystem.cmake';path=(build/relative).resolve()
+    if not path.is_relative_to(build) or not path.is_file():raise NativeContextError('Generated CMake system record missing or outside build')
+    with path.open('r',encoding='utf-8-sig') as stream:
+        text=stream.read(65537)
+    if len(text)>65536:raise NativeContextError('Generated CMake system record exceeds limit')
+    values={}
+    for field in ('CMAKE_SYSTEM_NAME','CMAKE_SYSTEM_PROCESSOR','CMAKE_HOST_SYSTEM_NAME','CMAKE_HOST_SYSTEM_PROCESSOR','CMAKE_CROSSCOMPILING'):
+        rows=re.findall(r'^\s*set\(\s*'+field+r'\s+(?:"([^"\r\n]*)"|([^()\s]+))\s*\)\s*$',text,re.M)
+        if len(rows)!=1:raise NativeContextError('Missing or ambiguous generated system field: '+field)
+        value=rows[0][0] or rows[0][1]
+        if any(c in value for c in ('$','\\',';')):raise NativeContextError('Nonliteral generated system field: '+field)
+        values[field]=value
+    if values['CMAKE_CROSSCOMPILING'] not in {'TRUE','FALSE'}:raise NativeContextError('Unknown CMake cross-compiling state')
+    def path_style(name):
+        return 'windows' if name in {'Windows','WindowsStore','WindowsPhone','WindowsCE'} else 'posix' if name in {
+            'Linux','Darwin','Android','FreeBSD','OpenBSD','NetBSD','DragonFly','AIX','SunOS','GNU','CYGWIN','MSYS','iOS','tvOS','watchOS','visionOS'} else None
+    name=values['CMAKE_SYSTEM_NAME'];host=values['CMAKE_HOST_SYSTEM_NAME']
+    return {'status':'available','name':name,'declared_processor':values['CMAKE_SYSTEM_PROCESSOR'],
+        'host_name':values['CMAKE_HOST_SYSTEM_NAME'],'host_processor':values['CMAKE_HOST_SYSTEM_PROCESSOR'],
+        'cross_compiling':values['CMAKE_CROSSCOMPILING']=='TRUE','target_path_style':path_style(name),'host_path_style':path_style(host),
+        'processor_interpretation':'cmake_system_processor_not_verified_compiler_architecture',
+        'basis':'cmake_generated_system_literals','file':relative}
 
 
 def _reply_file(reply, name):
@@ -102,6 +131,18 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
     def edge(source, target, kind, evidence, **extra):
         edges.append({'source': source, 'target': target, 'kind': kind, 'status': 'static',
                       'evidence': evidence, 'basis': 'native_cmake_codemodel', **extra})
+
+    try:
+        system=target_system(build,index['cmake']['version']['string'])
+        if system['target_path_style'] is None:
+            diagnostics.append({'kind':'cmake_target_path_style_unavailable','context_key':context_key,
+                'system_name':system['name'],'required':True})
+        if system['host_path_style'] is None:
+            diagnostics.append({'kind':'cmake_host_path_style_unavailable','context_key':context_key,
+                'system_name':system['host_name'],'required':True})
+    except (OSError,ValueError,KeyError) as error:
+        system={'status':'unavailable','reason':str(error),'target_path_style':None,'host_path_style':None}
+        diagnostics.append({'kind':'cmake_target_system_unavailable','context_key':context_key,'reason':str(error),'required':True})
     def trace(target, offset):
         graph = target.get('backtraceGraph', {}); records = []; seen = set()
         while offset is not None:
@@ -121,6 +162,7 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
             node(context, 'build_configuration', configuration or 'default', root_loc,
                 context_key=context_key, configuration=configuration, reply_index=index_name,
                 cmake_version=index['cmake']['version']['string'], generator=index['cmake']['generator'],
+                target_system=system,
                 project_source=location(source_root), native_codemodel_version=objects['codemodel']['version'],
                 cache_options=[{k: r[k] for k in ('name', 'type', 'value')}
                                for r in objects.get('cache', {}).get('entries', []) if r['type'] == 'BOOL'],
@@ -180,7 +222,7 @@ def analyze(build, repository, *, context_key, source_commit, expected_commit,
         return fail('Invalid native codemodel: ' + str(error))
     result['nodes'] = list(nodes.values())
     result['native_context'].update(status='configured', reply_index=index_name,
-        cmake_version=index['cmake']['version']['string'], configurations=[c for c, _ in configurations])
+        cmake_version=index['cmake']['version']['string'], configurations=[c for c, _ in configurations],target_system=system)
     return result
 
 

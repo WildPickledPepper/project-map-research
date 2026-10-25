@@ -52,6 +52,7 @@ class FullSnapshotTests(unittest.TestCase):
             self.assertEqual(src['source_commit'],revision);self.assertEqual(src['path'],'src/entry.cpp')
             graph=json.loads(Path(workspace.config['active']['graph']).read_text(encoding='utf-8'))
             self.assertEqual(graph['native_build']['contexts'][0]['status'],'configured')
+            self.assertEqual(graph['native_build']['contexts'][0]['target_system']['status'],'available')
             self.assertIn('cmake',graph['extractors'])
             self.assertEqual(git('status','--porcelain'),'')
 

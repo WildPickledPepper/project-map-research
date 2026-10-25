@@ -5,13 +5,48 @@ import subprocess
 import tempfile
 import unittest
 
-from adapters.cmake_file_api import analyze, link_source_symbols
+from adapters.cmake_file_api import analyze, link_source_symbols,target_system,NativeContextError
 from adapters.cpp_facts import analyze as cpp_facts
 from adapters.sqlite_fact_graph import validate_graph
 
 
 CMAKE = os.environ.get('PROJECT_MAP_CMAKE') or shutil.which('cmake')
 NINJA = os.environ.get('PROJECT_MAP_NINJA') or shutil.which('ninja')
+
+
+class NativeSystemRecordTests(unittest.TestCase):
+    def record(self,body):
+        directory=tempfile.TemporaryDirectory();self.addCleanup(directory.cleanup)
+        root=Path(directory.name);path=root/'CMakeFiles/3.31.6/CMakeSystem.cmake';path.parent.mkdir(parents=True);path.write_text(body)
+        return root
+
+    def body(self,name='Windows',processor='AMD64',host='Windows',cross='FALSE'):
+        return f'''set(CMAKE_SYSTEM_NAME "{name}")
+set(CMAKE_SYSTEM_PROCESSOR "{processor}")
+set(CMAKE_HOST_SYSTEM_NAME "{host}")
+set(CMAKE_HOST_SYSTEM_PROCESSOR "host-processor")
+set(CMAKE_CROSSCOMPILING "{cross}")
+'''
+
+    def test_target_host_and_declared_processor_remain_distinct(self):
+        row=target_system(self.record(self.body('Linux','aarch64','Windows','TRUE')),'3.31.6')
+        self.assertEqual((row['name'],row['host_name'],row['declared_processor']),('Linux','Windows','aarch64'))
+        self.assertEqual(row['target_path_style'],'posix');self.assertEqual(row['host_path_style'],'windows');self.assertTrue(row['cross_compiling'])
+        self.assertEqual(row['processor_interpretation'],'cmake_system_processor_not_verified_compiler_architecture')
+
+    def test_missing_ambiguous_dynamic_and_unknown_boolean_are_rejected(self):
+        for body in (self.body().replace('set(CMAKE_SYSTEM_NAME "Windows")',''),self.body()+'set(CMAKE_SYSTEM_NAME "Linux")\n',
+                     self.body('${runtime}'),self.body(cross='MAYBE')):
+            with self.subTest(body=body),self.assertRaises(NativeContextError):target_system(self.record(body),'3.31.6')
+
+    def test_unknown_system_name_is_recorded_without_inventing_path_style(self):
+        row=target_system(self.record(self.body('Generic','riscv64','Linux','TRUE')),'3.31.6')
+        self.assertEqual(row['name'],'Generic');self.assertIsNone(row['target_path_style'])
+
+    def test_version_path_and_missing_file_are_rejected(self):
+        root=self.record(self.body())
+        for version in ('../../outside','9.9.9'):
+            with self.subTest(version=version),self.assertRaises(NativeContextError):target_system(root,version)
 
 
 @unittest.skipUnless(CMAKE and NINJA, 'Native CMake and Ninja required')
@@ -87,6 +122,14 @@ add_library(external_library STATIC "''' + cls.outside.as_posix() + '''")
         self.assertEqual({Path(b['location']['path']).parent.as_posix() for _, b in primary}, {'service', 'decoy'})
         self.assertTrue(all(b['path'] == '@build/' + b['location']['path'] for _, b in primary))
         self.assertTrue(all(a['name'] not in b['name'] for a, b in primary))
+
+    def test_live_native_system_is_bound_to_configuration_not_artifact_filename(self):
+        graph=self.graph();context=next(n for n in graph['nodes'] if n['kind']=='build_configuration')
+        system=context['target_system']
+        self.assertEqual(system['status'],'available');self.assertEqual(system,graph['native_context']['target_system'])
+        self.assertEqual(system['host_path_style'],'windows' if os.name=='nt' else 'posix')
+        self.assertEqual(system['target_path_style'],system['host_path_style'])
+        self.assertEqual(system['file'],'CMakeFiles/'+context['cmake_version']+'/CMakeSystem.cmake')
 
     def test_source_and_dependency_membership_use_native_target_ids(self):
         graph = self.graph()

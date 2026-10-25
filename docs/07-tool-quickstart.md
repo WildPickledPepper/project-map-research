@@ -47,6 +47,8 @@ Rust 的 `path_value` 可从程序或文件参数展开，保留相对基址、�
 
 CMake 项目自动按顶层 CMakeLists.txt 发现根目录。具备 CMake/Ninja 时，工具在独立配置副本执行配置与编译器探测，导入原生目标、产物、编译输入和库依赖；未编译或启动产品。当前验证版本为 CMake 3.31.6、Ninja Python 分发包 1.11.1.4。通过 PATH 或 `PROJECT_MAP_CMAKE`、`PROJECT_MAP_NINJA` 指定工具，`doctor` 单列检查。缺工具、依赖或配置失败保留具体必需缺口。
 
+`build_configuration.target_system` 保存原生目标、宿主和交叉编译信息，`host_path_style` 与 `target_path_style` 分别用于构建/打包和目标运行的路径解释。`declared_processor` 保留 CMake 的声明值；实际编译器架构尚未由该字段证明。缺少生成的系统记录时，构建目标继续保留，平台连接有独立必需诊断。
+
 默认 build_tool 范围包含 vendor/third_party 目录内跟踪的 CMake 构建清单，记录其构建依赖用途；目录角色与第三方源码范围分别保留。显式 exclude 仍会排除相应清单，并在配置失败时报告缺口。
 
 ```text

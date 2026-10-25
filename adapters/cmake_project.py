@@ -91,7 +91,7 @@ def _dependencies(source, rows):
 def extract(source, paths, *, source_commit, output, config=None, source_facts=None, emit=None):
     source = Path(source).resolve(); output = Path(output).resolve(); options = configuration(config)['cmake']
     result = {'nodes': [], 'edges': [], 'diagnostics': [], 'coverage': [], 'limits': [], 'contexts': [],
-              'components': {'adapter': 'native_cmake_file_api/0.1.0', 'tools': tool_versions()}}
+              'components': {'adapter': 'native_cmake_file_api_system_context/0.2.0', 'tools': tool_versions()}}
     discovered = roots(paths); result['projects'] = discovered
     if not discovered: return result
     output.mkdir(parents=True, exist_ok=False)
