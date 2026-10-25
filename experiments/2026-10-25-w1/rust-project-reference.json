@@ -1,0 +1,19 @@
+{
+  "origin": "manual_source_audit_not_extraction_input",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "workspaces": ["platform/Cargo.toml", "platform/linux/Cargo.toml"],
+  "entry_source": "platform/src/main.rs",
+  "tracked_lockfiles": [],
+  "default_feature": "MindStudioInsight/default",
+  "operating_systems": ["windows", "linux", "macos"],
+  "calls": ["dev::main", "default::main", "http::main"],
+  "branches": [
+    {"feature_default": false, "call": "http::main", "target": "platform/src/http.rs", "line": 23},
+    {"feature_default": true, "debug_assertions": false, "call": "default::main", "target": "platform/src/default.rs", "line": 323},
+    {"feature_default": true, "debug_assertions": true, "os": ["linux"], "call": "dev::main", "target": "platform/src/dev_legacy.rs", "line": 78},
+    {"feature_default": true, "debug_assertions": true, "os": ["windows", "macos"], "call": "dev::main", "target": "platform/src/dev.rs", "line": 79}
+  ],
+  "runtime_execution": false,
+  "supported_product_builds_established": false,
+  "scope": "Cargo target entry dispatch definitions only; full Rust graph and process/WebView boundaries remain pending"
+}

@@ -1,0 +1,2096 @@
+{
+  "schema": "rust-native-project-score/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "tools": {
+    "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+    "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+    "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+  },
+  "rust_input_files": [
+    "platform/build.rs",
+    "platform/src/default.rs",
+    "platform/src/dev.rs",
+    "platform/src/dev_legacy.rs",
+    "platform/src/http.rs",
+    "platform/src/local_port.rs",
+    "platform/src/logging.rs",
+    "platform/src/main.rs",
+    "platform/src/webview.rs",
+    "platform/src/webview/cleanup.rs",
+    "platform/src/webview/resource.rs",
+    "platform/src/webview/webview2err.rs",
+    "platform/src/webview_legacy.rs"
+  ],
+  "metadata": {
+    "packages": [
+      {
+        "name": "MindStudioInsight",
+        "version": "0.1.0",
+        "edition": "2021",
+        "features": {
+          "default": [
+            "wry",
+            "tao",
+            "muda"
+          ],
+          "http": [],
+          "muda": [
+            "dep:muda"
+          ],
+          "tao": [
+            "dep:tao"
+          ],
+          "wry": [
+            "dep:wry"
+          ]
+        },
+        "workspace": "platform/Cargo.toml",
+        "manifest": "platform/Cargo.toml",
+        "targets": [
+          {
+            "name": "MindStudioInsight",
+            "path": "platform/src/main.rs",
+            "edition": "2021",
+            "kind": [
+              "bin"
+            ],
+            "required_features": [],
+            "input": true
+          },
+          {
+            "name": "build-script-build",
+            "path": "platform/build.rs",
+            "edition": "2021",
+            "kind": [
+              "custom-build"
+            ],
+            "required_features": [],
+            "input": true
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "tracing",
+            "rename": null,
+            "req": "^0.1",
+            "kind": null,
+            "optional": false,
+            "uses_default_features": true,
+            "features": [],
+            "target": null,
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          },
+          {
+            "name": "tracing-subscriber",
+            "rename": null,
+            "req": "^0.3",
+            "kind": null,
+            "optional": false,
+            "uses_default_features": false,
+            "features": [
+              "fmt"
+            ],
+            "target": null,
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          },
+          {
+            "name": "tao",
+            "rename": null,
+            "req": "^0.35",
+            "kind": null,
+            "optional": true,
+            "uses_default_features": true,
+            "features": [],
+            "target": "cfg(any(target_os = \"windows\", target_os = \"macos\"))",
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          },
+          {
+            "name": "wry",
+            "rename": null,
+            "req": "^0.36",
+            "kind": null,
+            "optional": true,
+            "uses_default_features": true,
+            "features": [
+              "file-drop"
+            ],
+            "target": "cfg(any(target_os = \"windows\", target_os = \"macos\"))",
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          },
+          {
+            "name": "muda",
+            "rename": null,
+            "req": "^0.17.1",
+            "kind": null,
+            "optional": true,
+            "uses_default_features": false,
+            "features": [],
+            "target": "cfg(target_os = \"macos\")",
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          }
+        ]
+      },
+      {
+        "name": "MindStudioInsight",
+        "version": "0.1.0",
+        "edition": "2021",
+        "features": {
+          "default": [
+            "wry024"
+          ],
+          "http": [],
+          "wry024": [
+            "dep:wry024"
+          ]
+        },
+        "workspace": "platform/linux/Cargo.toml",
+        "manifest": "platform/linux/Cargo.toml",
+        "targets": [
+          {
+            "name": "MindStudioInsight",
+            "path": "platform/src/main.rs",
+            "edition": "2021",
+            "kind": [
+              "bin"
+            ],
+            "required_features": [],
+            "input": true
+          }
+        ],
+        "dependencies": [
+          {
+            "name": "tracing",
+            "rename": null,
+            "req": "^0.1",
+            "kind": null,
+            "optional": false,
+            "uses_default_features": true,
+            "features": [],
+            "target": null,
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          },
+          {
+            "name": "tracing-subscriber",
+            "rename": null,
+            "req": "^0.3",
+            "kind": null,
+            "optional": false,
+            "uses_default_features": false,
+            "features": [
+              "fmt"
+            ],
+            "target": null,
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          },
+          {
+            "name": "wry",
+            "rename": "wry024",
+            "req": "^0.24.11",
+            "kind": null,
+            "optional": true,
+            "uses_default_features": true,
+            "features": [
+              "file-drop"
+            ],
+            "target": "cfg(target_os = \"linux\")",
+            "source": "registry+https://github.com/rust-lang/crates.io-index"
+          }
+        ]
+      }
+    ],
+    "diagnostics": [],
+    "metadata_mode": "offline_no_deps",
+    "external_dependency_graph_resolved": false,
+    "build_scripts_executed": false,
+    "workspaces": [
+      "platform/Cargo.toml",
+      "platform/linux/Cargo.toml"
+    ],
+    "cargo_version": "cargo 1.94.0 (85eff7c80 2026-01-15)"
+  },
+  "context_diagnostics": [
+    {
+      "kind": "rust_manifest_features_not_individually_varied",
+      "features": [
+        "MindStudioInsight/http",
+        "MindStudioInsight/muda",
+        "MindStudioInsight/tao",
+        "MindStudioInsight/wry",
+        "MindStudioInsight/http",
+        "MindStudioInsight/wry024"
+      ],
+      "required": true
+    },
+    {
+      "kind": "rust_build_script_outputs_not_replayed",
+      "path": "platform/build.rs",
+      "required": true
+    },
+    {
+      "kind": "rust_non_os_cfg_value_not_varied",
+      "path": "platform/src/main.rs",
+      "line": 89,
+      "predicate": "target_arch",
+      "value": "x86_64",
+      "required": true
+    },
+    {
+      "kind": "rust_non_os_cfg_value_not_varied",
+      "path": "platform/src/main.rs",
+      "line": 108,
+      "predicate": "target_arch",
+      "value": "aarch64",
+      "required": true
+    }
+  ],
+  "contexts": 24,
+  "native_queries": 552,
+  "checks": [
+    {
+      "id": "source_commit",
+      "passed": true
+    },
+    {
+      "id": "rust_source_input_scope",
+      "passed": true
+    },
+    {
+      "id": "pinned_tools",
+      "passed": true
+    },
+    {
+      "id": "cargo_workspace_identities",
+      "passed": true
+    },
+    {
+      "id": "shared_entry_target_retains_workspace",
+      "passed": true
+    },
+    {
+      "id": "context.0.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.0.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.0.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.1.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.1.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.1.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.2.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.2.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/default.rs",
+            "line": 323,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.2.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.3.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.3.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/default.rs",
+            "line": 323,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.3.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.4.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.4.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.4.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.5.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.5.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.5.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.6.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/dev.rs",
+            "line": 79,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.6.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.6.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.7.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/dev.rs",
+            "line": 79,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.7.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.7.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "windows",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.8.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.8.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.8.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.9.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.9.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.9.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.10.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.10.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/default.rs",
+            "line": 323,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.10.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.11.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.11.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/default.rs",
+            "line": 323,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.11.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.12.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.12.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.12.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.13.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.13.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.13.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.14.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/dev_legacy.rs",
+            "line": 78,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.14.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.14.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.15.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/dev_legacy.rs",
+            "line": 78,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.15.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.15.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "linux",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.16.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.16.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.16.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.17.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.17.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.17.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.18.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.18.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/default.rs",
+            "line": 323,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.18.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.19.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.19.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/default.rs",
+            "line": 323,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.19.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": false,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.20.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.20.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.20.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.21.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.21.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.21.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": false,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/http.rs",
+            "line": 23,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.22.dev::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/dev.rs",
+            "line": 79,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.22.default::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.22.http::main",
+      "passed": true,
+      "workspace": "platform/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.23.dev::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": true,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 61,
+        "callee": "dev::main",
+        "position": {
+          "line": 60,
+          "character": 14
+        },
+        "source_conditions": [
+          "#[cfg(debug_assertions)]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": [
+          {
+            "path": "platform/src/dev.rs",
+            "line": 79,
+            "utf16_column": 8,
+            "status": "input_source_navigation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "context.23.default::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 63,
+        "callee": "default::main",
+        "position": {
+          "line": 62,
+          "character": 18
+        },
+        "source_conditions": [
+          "#[cfg(not(debug_assertions))]",
+          "#[cfg(feature = \"default\")]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "context.23.http::main",
+      "passed": true,
+      "workspace": "platform/linux/Cargo.toml",
+      "os": "macos",
+      "debug_assertions": true,
+      "feature_default": true,
+      "active": false,
+      "query": {
+        "path": "platform/src/main.rs",
+        "line": 67,
+        "callee": "http::main",
+        "position": {
+          "line": 66,
+          "character": 11
+        },
+        "source_conditions": [
+          "#[cfg(not(feature = \"default\"))]"
+        ],
+        "definitions": []
+      }
+    },
+    {
+      "id": "complete_entry_context_matrix",
+      "passed": true,
+      "count": 24
+    },
+    {
+      "id": "native_server_health",
+      "passed": true
+    },
+    {
+      "id": "source_only_not_production_graph",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "product_code_executed": false,
+  "build_scripts_executed": false,
+  "production_graph_generated": false,
+  "whole_G02_accepted": false,
+  "supported_product_builds_established": false,
+  "tracked_lockfiles": [],
+  "lockfile_inventory_basis": "manual_source_audit_reference",
+  "generated_analysis_lockfiles": [
+    "platform/Cargo.lock",
+    "platform/linux/Cargo.lock"
+  ],
+  "scope": "native Cargo entry dispatch across source-derived contexts; full Rust semantic graph and boundaries pending"
+}

@@ -81,4 +81,14 @@ assert rust_context['tools']['cargo'].startswith('cargo 1.94.0 ') and rust_conte
 assert rust_context['native_loader_control']==[{'noDeps':True,'targets':[],'health':'ok'},
     {'noDeps':False,'targets':['worker/code/engine.rs'],'health':'ok'}]
 assert not any(rust_context[k] for k in ('product_code_executed','build_scripts_executed','production_graph_generated','whole_G02_accepted'))
-print('OK: native 185-file baseline; JS evidence; Python 7/41/137/23 checks; Rust 12 component and 7 Cargo context checks; G02 remains pending.')
+rust_native=json.loads((ROOT/'evidence/rust-native-project.json').read_text(encoding='utf-8'))
+assert rust_native['passed'] and len(rust_native['checks'])==80 and all(c['passed'] for c in rust_native['checks'])
+assert rust_native['source_commit']==data['source_commit'] and rust_native['tools']==rust_context['tools']
+assert set(rust_native['rust_input_files'])=={r['path'] for r in data['files'] if r['language']=='rust'}
+assert rust_native['contexts']==24 and rust_native['native_queries']==552
+assert {p['manifest'] for p in rust_native['metadata']['packages']}=={'platform/Cargo.toml','platform/linux/Cargo.toml'}
+assert not rust_native['tracked_lockfiles'] and rust_native['lockfile_inventory_basis']=='manual_source_audit_reference'
+assert set(rust_native['generated_analysis_lockfiles'])=={'platform/Cargo.lock','platform/linux/Cargo.lock'}
+assert all(d['required'] for d in rust_native['context_diagnostics'])
+assert not any(rust_native[k] for k in ('product_code_executed','build_scripts_executed','production_graph_generated','whole_G02_accepted','supported_product_builds_established'))
+print('OK: native 185-file baseline; JS evidence; Python 7/41/137/23 checks; Rust 12 component, 7 initial Cargo context and 80 native entry checks; G02 remains pending.')

@@ -1,6 +1,6 @@
 # W1：Rust 接入记录
 
-2026-10-25。当前完成组件对照，生产统一图与平台接口接入继续执行。W1/G02 尚未通过。源码范围沿用 W0 与 [119/53/13 文件基线](README.md)，未介入历史资产，skill 留到最后整理。
+2026-10-25。原版组件、Cargo 上下文和真实平台入口配置对照已完成，生产统一图与平台接口接入继续执行。W1/G02 尚未通过。源码范围沿用 W0 与 [119/53/13 文件基线](README.md)，未介入历史资产，skill 留到最后整理。
 
 ## 已执行：原版组件对照
 
@@ -42,14 +42,34 @@ CGC 原生记录保留了结构与调用拼写；本批调用记录没有列坐�
 
 真实仓库发现两个独立 Cargo 配置共享平台源码；适配输出增加 workspace 归属。新增同名 package、自定义相同目标名、共享外部源码路径的独立夹具，两个 manifest 的身份和上下文分开保留。Windows 当前 8 项通过，另 1 项 POSIX 调用测试交由 Linux CI 执行。文件路径相同不能替代 crate/构建上下文身份。
 
+[Linux CI 复验通过](https://github.com/WildPickledPepper/project-map-research/actions/runs/40187760036)：专门的 Rust 作业 9 项全部执行并通过；全量回归 410 项 Python 测试通过，其中 3 项按环境跳过，121 项 Node 检查通过。Rust 原生集成由专门作业实际执行，跳过项没有计成运行证明。
+
+## 已执行：真实平台入口配置对照
+
+Insight 原始提交通过自动发现选中 13 个 Rust 文件及 Cargo 清单/配置；由 Cargo 找到 `platform/Cargo.toml` 和 `platform/linux/Cargo.toml`，两者共享 `platform/src/main.rs`。Linux 清单使用改名的 wry 0.24.11，主清单使用 wry 0.36；这来自实际清单和 metadata。两个 Cargo 会话分别保留。
+
+配置适配规则对应 `11434368cdf5da62246ac311266bafcd4c55980f`。本次矩阵为 x86_64 下源码出现的 Windows/Linux/macOS、debug 开/关、default feature 开/关，两个 manifest 共 24 个原生分析会话。对各 manifest 的 Cargo target 根文件取调用点：主清单 37 个，Linux 清单 9 个，总计发出 552 次定义查询。生成器不读取[独立源码参考](rust-project-reference.json)，后置评分器据此核对入口选择。
+
+[80 项检查通过](evidence/rust-native-project.json)：24 项核对当前配置的入口目标，48 项核对未选分支没有得到目标定义，另 8 项核对源码版本、工具版本、范围、上下文和证据边界。default 关闭时定位到 `http::main`；default 开启、release 时到 `default::main`；debug 时 Windows/macOS 到 `dev.rs`，Linux 到 `dev_legacy.rs`。全部会话报告 health=ok。
+
+这里完成的是原生分析器的入口定义对照。13 个文件是输入范围，查询范围是 Cargo target 根文件；其他模块由分析器加载，尚未导入统一关系图。进程/WebView 参数和实际边界仍待接入。这批跨配置查询也没有证明这些配置全部是可构建、可运行的产品模式。
+
+分析显式保留了未逐一变化的 Cargo feature、未重放的 `build.rs` 输出和未变化的架构条件。原提交未跟踪 Cargo.lock，由独立源码审计登记；实验只在导出副本中解析/缓存公开依赖，生成两个分析用 lockfile，原始版本和系统环境未修改，没有执行构建脚本或产品程序。生成锁不作为原产品构建的重放证明。
+
 ## 下一项
 
-验证真实平台源码上的定义查询，把语法事实与语义导航接入统一图。缺失依赖、未选配置、宏展开来源和输入外目标应各自可查。平台启动后端及 WebView/资源加载至少打通第一条实际接口连接；完整跨进程配对继续按 W2 的产物和实例身份完成。
+把语法事实与已验证的语义导航接入统一图，保留 crate/配置身份和宏展开来源，继续连接闭包、参数、进程与 WebView 接口。缺失依赖、未选配置和输入外目标应各自可查。完整跨进程配对继续按 W2 的产物和实例身份完成。
 
 ## 复现
 
 ```text
 python experiments/2026-10-25-w1/probe_rust_resolvers.py --cgc CGC --parser-cache CACHE --dll-dir DLL --rust-analyzer RUST_ANALYZER --output NEW_OUTPUT
+python experiments/2026-10-25-w1/prepare_portable_rust.py --version 1.94.0 --target x86_64-pc-windows-msvc --output TOOLCHAIN
+python -m unittest tests.test_rust_project -v
+python experiments/2026-10-25-w1/run_rust_project_trial.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --output TRIAL --prepare-dependencies
+python experiments/2026-10-25-w1/score_rust_project_trial.py --trial TRIAL --output SCORE.json
 ```
 
 固定原版 CGC 提交和官方 rust-analyzer 版本，输出使用仓库外新目录。脚本复用现成解析器和 LSP API，实验过程不生成生产关系图。
+
+真实平台对照需要固定版本 Cargo/rustc/rust-src 与 rust-analyzer 可执行文件，并设置已有 parser 环境。`--prepare-dependencies` 只在导出副本中解析与下载依赖；以后可复用实验缓存，以离线模式重做原生查询。完整平台编译不属于这一步。
