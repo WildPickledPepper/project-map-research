@@ -1,0 +1,1569 @@
+{
+  "schema": "rust-production-trial-score/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:d8307de144c240ae8c7b3f820053f399",
+  "build_version": {
+    "rules_commit": "5f8079dba2a733e40bef6cae4eb35075b3e39cf1",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 2496,
+    "modules": 29,
+    "nodes": 371674,
+    "edges": 537678,
+    "entries": 269,
+    "diagnostic_records": 35415,
+    "providers": 125,
+    "module_relation_groups": 207
+  },
+  "files": [
+    {
+      "path": "platform/build.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/build.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/default.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/default.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/dev.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/dev.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/dev_legacy.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/dev_legacy.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/http.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/http.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/local_port.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/local_port.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/logging.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/logging.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/main.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/main.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/webview.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/webview.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/webview/cleanup.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/webview/cleanup.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/webview/resource.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/webview/resource.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/webview/webview2err.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/webview/webview2err.rs",
+        "status": "parsed"
+      }
+    },
+    {
+      "path": "platform/src/webview_legacy.rs",
+      "graph_input": true,
+      "graph_coverage": {
+        "path": "platform/src/webview_legacy.rs",
+        "status": "parsed"
+      }
+    }
+  ],
+  "rust_node_counts": {
+    "analysis_context": 24,
+    "binding": 252,
+    "call_site": 873,
+    "callable": 185,
+    "code_module": 13,
+    "definition_origin": 67,
+    "external_symbol": 370,
+    "implementation": 11,
+    "macro_site": 225,
+    "module": 6,
+    "module_reference": 182,
+    "parameter": 174,
+    "rust_boundary": 49,
+    "type": 9,
+    "value": 3328
+  },
+  "call_resolutions": {
+    "external_reference": 554,
+    "candidate": 117,
+    "unresolved": 202
+  },
+  "boundary_families": {
+    "command_constructor": 14,
+    "process_start": 12,
+    "process_stop": 1,
+    "process_wait": 3,
+    "network_listener": 3,
+    "webview_builder": 4,
+    "resource_protocol_registration": 2,
+    "frontend_loader": 4,
+    "ui_event_registration": 4,
+    "file_read": 2
+  },
+  "checks": [
+    {
+      "id": "source_version",
+      "passed": true
+    },
+    {
+      "id": "file.platform/build.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/default.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/dev.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/dev_legacy.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/http.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/local_port.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/logging.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/main.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/webview.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/webview/cleanup.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/webview/resource.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/webview/webview2err.rs",
+      "passed": true
+    },
+    {
+      "id": "file.platform/src/webview_legacy.rs",
+      "passed": true
+    },
+    {
+      "id": "rust_file_scope",
+      "passed": true
+    },
+    {
+      "id": "boundary.backend",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "rust:platform/src/default.rs:call_site:5034:5194:boundary:process_start",
+          "kind": "rust_boundary",
+          "name": "server_command\n        .arg(format!(\"--wsPort={port}\"))\n        .arg(format!(\"--logPath={}\", cache_path.display()))\n        .arg(\"--notStrict\")\n        .spawn",
+          "path": "platform/src/default.rs",
+          "line": 175,
+          "column": 23,
+          "language": "rust",
+          "family": "process_start",
+          "call": "rust:platform/src/default.rs:call_site:5034:5194",
+          "arguments": [],
+          "receiver": "rust:platform/src/default.rs:call_site:5034:5177",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "conditions": [],
+          "api_declarations": [
+            {
+              "package": "std",
+              "version": null,
+              "module": "src/process.rs",
+              "name": "spawn",
+              "container": "Command",
+              "declaration_kind": "function_item",
+              "canonical": "std::process::Command::spawn"
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "counterpart_status": "requires_artifact_instance_and_deployment_context"
+        }
+      ]
+    },
+    {
+      "id": "boundary.windows_view",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "rust:platform/src/webview.rs:call_site:2701:4460:boundary:frontend_loader",
+          "kind": "rust_boundary",
+          "name": "WebViewBuilder::new(&window)\n        .with_custom_protocol(\"wry\".into(), move |request| {\n            let path = request.uri().path();\n            let resource_name =\n                resource_name_for_log(path).unwrap_or(\"<redacted>\");\n            let resource = match resolve_resource_path(&resource_path, path) {\n                Ok(resource) => resource,\n                Err(_) => {\n                    tracing::warn!(\n                        target: \"msinsight_platform\",\n                        event = \"resource_read_failed\",\n                        resource_name,\n                        reason = \"invalid_path\"\n                    );\n                    return build_protocol_response(404, MIMETYPE_HTML, Cow::Borrowed(b\"Not Found\".as_slice()));\n                }\n            };\n            let content = match read(resource) {\n                Ok(content) => Cow::Owned(content),\n                Err(_) => {\n                    tracing::warn!(\n                        target: \"msinsight_platform\",\n                        event = \"resource_read_failed\",\n                        resource_name,\n                        reason = \"read_failed\"\n                    );\n                    return build_protocol_response(404, MIMETYPE_HTML, Cow::Borrowed(b\"Not Found\".as_slice()));\n                }\n            };\n\n            let mimetype = extract_mimetype(path);\n            tracing::debug!(\n                target: \"msinsight_platform\",\n                event = \"resource_read_succeeded\",\n                resource_name,\n                response_mime = mimetype\n            );\n\n            build_protocol_response(200, mimetype, content)\n        })\n        .with_url",
+          "path": "platform/src/webview.rs",
+          "line": 75,
+          "column": 19,
+          "language": "rust",
+          "family": "frontend_loader",
+          "call": "rust:platform/src/webview.rs:call_site:2701:4460",
+          "arguments": [
+            "rust:platform/src/webview.rs:call_site:4371:4459"
+          ],
+          "receiver": "rust:platform/src/webview.rs:call_site:2701:4352",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "conditions": [],
+          "api_declarations": [
+            {
+              "package": "wry",
+              "version": "0.36.0",
+              "module": "src/lib.rs",
+              "name": "with_url",
+              "container": "WebViewBuilder<'a>",
+              "declaration_kind": "function_item",
+              "canonical": "wry::WebViewBuilder<'a>::with_url"
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "counterpart_status": "requires_artifact_instance_and_deployment_context",
+          "builder_candidates": [
+            "rust:platform/src/webview.rs:call_site:2701:2729:boundary:webview_builder"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary.linux_view",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "rust:platform/src/webview_legacy.rs:call_site:2549:4357:boundary:frontend_loader",
+          "kind": "rust_boundary",
+          "name": "WebViewBuilder::new(window)?\n        .with_custom_protocol(\"wry\".into(), move |request| {\n            let path = request.uri().path();\n            let resource_name =\n                resource_name_for_log(path).unwrap_or(\"<redacted>\");\n            let resource = match resolve_resource_path(&resource_path, path) {\n                Ok(resource) => resource,\n                Err(e) => {\n                    tracing::warn!(\n                        target: \"msinsight_platform\",\n                        event = \"resource_read_failed\",\n                        resource_name,\n                        reason = \"invalid_path\"\n                    );\n                    return Err(wry024::Error::Io(e));\n                }\n            };\n            let content = match read(resource) {\n                Ok(content) => content.into(),\n                Err(e) => {\n                    tracing::warn!(\n                        target: \"msinsight_platform\",\n                        event = \"resource_read_failed\",\n                        resource_name,\n                        reason = \"read_failed\"\n                    );\n                    return Err(wry024::Error::Io(e));\n                }\n            };\n\n            let mimetype = extract_mimetype(path);\n            tracing::debug!(\n                target: \"msinsight_platform\",\n                event = \"resource_read_succeeded\",\n                resource_name,\n                response_mime = mimetype\n            );\n\n            Response::builder()\n                .header(CONTENT_TYPE, mimetype)\n                .body(content)\n                .map_err(Into::into)\n        })\n        .with_url",
+          "path": "platform/src/webview_legacy.rs",
+          "line": 73,
+          "column": 5,
+          "language": "rust",
+          "family": "frontend_loader",
+          "call": "rust:platform/src/webview_legacy.rs:call_site:2549:4357",
+          "arguments": [
+            "rust:platform/src/webview_legacy.rs:call_site:4199:4346"
+          ],
+          "receiver": "rust:platform/src/webview_legacy.rs:call_site:2549:4167",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D"
+          ],
+          "conditions": [],
+          "api_declarations": [
+            {
+              "package": "wry",
+              "version": "0.24.12",
+              "module": "src/webview/mod.rs",
+              "name": "with_url",
+              "container": "WebViewBuilder<'a>",
+              "declaration_kind": "function_item",
+              "canonical": "wry::webview::WebViewBuilder<'a>::with_url"
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "counterpart_status": "requires_artifact_instance_and_deployment_context",
+          "builder_candidates": [
+            "rust:platform/src/webview_legacy.rs:call_site:2549:2576:boundary:webview_builder"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary.windows_resource",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "rust:platform/src/webview.rs:call_site:2701:4352:boundary:resource_protocol_registration",
+          "kind": "rust_boundary",
+          "name": "WebViewBuilder::new(&window)\n        .with_custom_protocol",
+          "path": "platform/src/webview.rs",
+          "line": 75,
+          "column": 19,
+          "language": "rust",
+          "family": "resource_protocol_registration",
+          "call": "rust:platform/src/webview.rs:call_site:2701:4352",
+          "arguments": [
+            "rust:platform/src/webview.rs:call_site:2760:2772",
+            "rust:platform/src/webview.rs:callable:2774:4351"
+          ],
+          "receiver": "rust:platform/src/webview.rs:call_site:2701:2729",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "conditions": [],
+          "api_declarations": [
+            {
+              "package": "wry",
+              "version": "0.36.0",
+              "module": "src/lib.rs",
+              "name": "with_custom_protocol",
+              "container": "WebViewBuilder<'a>",
+              "declaration_kind": "function_item",
+              "canonical": "wry::WebViewBuilder<'a>::with_custom_protocol"
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "counterpart_status": "requires_artifact_instance_and_deployment_context",
+          "builder_candidates": [
+            "rust:platform/src/webview.rs:call_site:2701:2729:boundary:webview_builder"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "boundary.linux_resource",
+      "passed": true,
+      "evidence": [
+        {
+          "id": "rust:platform/src/webview_legacy.rs:call_site:2549:4167:boundary:resource_protocol_registration",
+          "kind": "rust_boundary",
+          "name": "WebViewBuilder::new(window)?\n        .with_custom_protocol",
+          "path": "platform/src/webview_legacy.rs",
+          "line": 73,
+          "column": 5,
+          "language": "rust",
+          "family": "resource_protocol_registration",
+          "call": "rust:platform/src/webview_legacy.rs:call_site:2549:4167",
+          "arguments": [
+            "rust:platform/src/webview_legacy.rs:call_site:2608:2620",
+            "rust:platform/src/webview_legacy.rs:callable:2622:4166"
+          ],
+          "receiver": "rust:platform/src/webview_legacy.rs:value:2549:2577",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D"
+          ],
+          "conditions": [],
+          "api_declarations": [
+            {
+              "package": "wry",
+              "version": "0.24.12",
+              "module": "src/webview/mod.rs",
+              "name": "with_custom_protocol",
+              "container": "WebViewBuilder<'a>",
+              "declaration_kind": "function_item",
+              "canonical": "wry::webview::WebViewBuilder<'a>::with_custom_protocol"
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "counterpart_status": "requires_artifact_instance_and_deployment_context",
+          "builder_candidates": [
+            "rust:platform/src/webview_legacy.rs:call_site:2549:2576:boundary:webview_builder"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context.windows_view",
+      "passed": true
+    },
+    {
+      "id": "context_path.windows_view.backend",
+      "passed": true,
+      "context": "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+      "evidence": [
+        {
+          "source": "rust:platform/src/main.rs:callable:1647:2160",
+          "target": "rust:platform/src/main.rs:call_site:2080:2095",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/main.rs:call_site:2080:2095",
+          "target": "rust:platform/src/default.rs:callable:9300:14313",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/default.rs:callable:9300:14313",
+          "target": "rust:platform/src/default.rs:call_site:12345:12386",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 413
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/default.rs:call_site:12345:12386",
+          "target": "rust:platform/src/default.rs:callable:4223:8407",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 413
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/default.rs:callable:4223:8407",
+          "target": "rust:platform/src/default.rs:call_site:5034:5194",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 175
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/default.rs:call_site:5034:5194",
+          "target": "rust:platform/src/default.rs:call_site:5034:5194:boundary:process_start",
+          "kind": "DECLARES_BOUNDARY",
+          "status": "source_candidate",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D"
+          ],
+          "runtime_execution": "not_observed",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 175
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context_path.windows_view.windows_view",
+      "passed": true,
+      "context": "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+      "evidence": [
+        {
+          "source": "rust:platform/src/main.rs:callable:1647:2160",
+          "target": "rust:platform/src/main.rs:call_site:2080:2095",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/main.rs:call_site:2080:2095",
+          "target": "rust:platform/src/default.rs:callable:9300:14313",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/default.rs:callable:9300:14313",
+          "target": "rust:platform/src/default.rs:call_site:12592:12720",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 421
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/default.rs:call_site:12592:12720",
+          "target": "rust:platform/src/webview.rs:callable:12318:13435",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 421
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/webview.rs:callable:12318:13435",
+          "target": "rust:platform/src/webview.rs:call_site:13257:13392",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/webview.rs",
+              "line": 376
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/webview.rs:call_site:13257:13392",
+          "target": "rust:platform/src/webview.rs:callable:2352:6981",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/webview.rs",
+              "line": 376
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/webview.rs:callable:2352:6981",
+          "target": "rust:platform/src/webview.rs:call_site:2701:4460",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/webview.rs",
+              "line": 75
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/webview.rs:call_site:2701:4460",
+          "target": "rust:platform/src/webview.rs:call_site:2701:4460:boundary:frontend_loader",
+          "kind": "DECLARES_BOUNDARY",
+          "status": "source_candidate",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D"
+          ],
+          "runtime_execution": "not_observed",
+          "evidence": [
+            {
+              "path": "platform/src/webview.rs",
+              "line": 75
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "same_builder.windows_view",
+      "passed": true
+    },
+    {
+      "id": "resource_callback.windows_view",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "rust:platform/src/webview.rs:call_site:2701:4352:boundary:resource_protocol_registration",
+          "target": "rust:platform/src/webview.rs:callable:2774:4351",
+          "kind": "CAN_DISPATCH_TO",
+          "status": "source_candidate",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D"
+          ],
+          "runtime_execution": "not_observed",
+          "evidence": [
+            {
+              "path": "platform/src/webview.rs",
+              "line": 75
+            }
+          ],
+          "condition": "registered_event_or_protocol_matches"
+        }
+      ]
+    },
+    {
+      "id": "context.linux_view",
+      "passed": true
+    },
+    {
+      "id": "context_path.linux_view.backend",
+      "passed": true,
+      "context": "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+      "evidence": [
+        {
+          "source": "rust:platform/src/main.rs:callable:1647:2160",
+          "target": "rust:platform/src/main.rs:call_site:2080:2095",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/main.rs:call_site:2080:2095",
+          "target": "rust:platform/src/default.rs:callable:9300:14313",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/default.rs:callable:9300:14313",
+          "target": "rust:platform/src/default.rs:call_site:12345:12386",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 413
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/default.rs:call_site:12345:12386",
+          "target": "rust:platform/src/default.rs:callable:4223:8407",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 413
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/default.rs:callable:4223:8407",
+          "target": "rust:platform/src/default.rs:call_site:5034:5194",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 175
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/default.rs:call_site:5034:5194",
+          "target": "rust:platform/src/default.rs:call_site:5034:5194:boundary:process_start",
+          "kind": "DECLARES_BOUNDARY",
+          "status": "source_candidate",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D"
+          ],
+          "runtime_execution": "not_observed",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 175
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context_path.linux_view.linux_view",
+      "passed": true,
+      "context": "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+      "evidence": [
+        {
+          "source": "rust:platform/src/main.rs:callable:1647:2160",
+          "target": "rust:platform/src/main.rs:call_site:2080:2095",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/main.rs:call_site:2080:2095",
+          "target": "rust:platform/src/default.rs:callable:9300:14313",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/main.rs",
+              "line": 63
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22msvc%5C%22%22%2C%22target_family%3D%5C%22windows%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22windows%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22pc%5C%22%22%2C%22windows%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-pc-windows-msvc%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22cmpxchg16b%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_feature%3D%5C%22sse3%5C%22%22%2C%22target_feature%3D%5C%22sse4.1%5C%22%22%2C%22target_feature%3D%5C%22ssse3%5C%22%22%2C%22target_has_atomic%3D%5C%22128%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22macos%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22apple%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-apple-darwin%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/default.rs:callable:9300:14313",
+          "target": "rust:platform/src/default.rs:call_site:12592:12720",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 421
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/default.rs:call_site:12592:12720",
+          "target": "rust:platform/src/webview_legacy.rs:callable:9692:10546",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/default.rs",
+              "line": 421
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/webview_legacy.rs:callable:9692:10546",
+          "target": "rust:platform/src/webview_legacy.rs:call_site:10377:10511",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/webview_legacy.rs",
+              "line": 301
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/webview_legacy.rs:call_site:10377:10511",
+          "target": "rust:platform/src/webview_legacy.rs:callable:2292:6724",
+          "kind": "STATIC_CALL_CANDIDATE",
+          "status": "candidate",
+          "evidence": [
+            {
+              "path": "platform/src/webview_legacy.rs",
+              "line": 301
+            }
+          ],
+          "runtime_execution": "not_observed",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D",
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D"
+          ],
+          "basis": "rust_analyzer_definition_and_bound_value"
+        },
+        {
+          "source": "rust:platform/src/webview_legacy.rs:callable:2292:6724",
+          "target": "rust:platform/src/webview_legacy.rs:call_site:2549:4357",
+          "kind": "OBSERVES_CALL",
+          "status": "source_relation",
+          "evidence": [
+            {
+              "path": "platform/src/webview_legacy.rs",
+              "line": 73
+            }
+          ],
+          "runtime_execution": "not_observed"
+        },
+        {
+          "source": "rust:platform/src/webview_legacy.rs:call_site:2549:4357",
+          "target": "rust:platform/src/webview_legacy.rs:call_site:2549:4357:boundary:frontend_loader",
+          "kind": "DECLARES_BOUNDARY",
+          "status": "source_candidate",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D"
+          ],
+          "runtime_execution": "not_observed",
+          "evidence": [
+            {
+              "path": "platform/src/webview_legacy.rs",
+              "line": 73
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "same_builder.linux_view",
+      "passed": true
+    },
+    {
+      "id": "resource_callback.linux_view",
+      "passed": true,
+      "evidence": [
+        {
+          "source": "rust:platform/src/webview_legacy.rs:call_site:2549:4167:boundary:resource_protocol_registration",
+          "target": "rust:platform/src/webview_legacy.rs:callable:2622:4166",
+          "kind": "CAN_DISPATCH_TO",
+          "status": "source_candidate",
+          "analysis_contexts": [
+            "rust:context:%5B%22platform%2Flinux%2FCargo.toml%22%2C%7B%22basis%22%3A%22rustc_target_cfg_and_enumerated_package_features%22%2C%22cfg%22%3A%5B%22panic%3D%5C%22unwind%5C%22%22%2C%22target_abi%3D%5C%22%5C%22%22%2C%22target_arch%3D%5C%22x86_64%5C%22%22%2C%22target_endian%3D%5C%22little%5C%22%22%2C%22target_env%3D%5C%22gnu%5C%22%22%2C%22target_family%3D%5C%22unix%5C%22%22%2C%22target_feature%3D%5C%22fxsr%5C%22%22%2C%22target_feature%3D%5C%22sse%5C%22%22%2C%22target_feature%3D%5C%22sse2%5C%22%22%2C%22target_has_atomic%3D%5C%2216%5C%22%22%2C%22target_has_atomic%3D%5C%2232%5C%22%22%2C%22target_has_atomic%3D%5C%2264%5C%22%22%2C%22target_has_atomic%3D%5C%228%5C%22%22%2C%22target_has_atomic%3D%5C%22ptr%5C%22%22%2C%22target_os%3D%5C%22linux%5C%22%22%2C%22target_pointer_width%3D%5C%2264%5C%22%22%2C%22target_vendor%3D%5C%22unknown%5C%22%22%2C%22unix%22%5D%2C%22debug_assertions%22%3Afalse%2C%22features%22%3A%5B%22MindStudioInsight%2Fdefault%22%5D%2C%22supported_product_mode%22%3A%22not_proven%22%2C%22target%22%3A%22x86_64-unknown-linux-gnu%22%7D%5D"
+          ],
+          "runtime_execution": "not_observed",
+          "evidence": [
+            {
+              "path": "platform/src/webview_legacy.rs",
+              "line": 73
+            }
+          ],
+          "condition": "registered_event_or_protocol_matches"
+        }
+      ]
+    },
+    {
+      "id": "navigation.backend.out",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "items": [
+          {
+            "ordinal": 170866,
+            "source": "rust:platform/src/main.rs:callable:1647:2160",
+            "target": "rust:platform/src/main.rs:call_site:2080:2095",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170866
+            }
+          },
+          {
+            "ordinal": 175602,
+            "source": "rust:platform/src/main.rs:call_site:2080:2095",
+            "target": "rust:platform/src/default.rs:callable:9300:14313",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175602
+            }
+          },
+          {
+            "ordinal": 168720,
+            "source": "rust:platform/src/default.rs:callable:9300:14313",
+            "target": "rust:platform/src/default.rs:call_site:12345:12386",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168720
+            }
+          },
+          {
+            "ordinal": 175420,
+            "source": "rust:platform/src/default.rs:call_site:12345:12386",
+            "target": "rust:platform/src/default.rs:callable:4223:8407",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175420
+            }
+          },
+          {
+            "ordinal": 168388,
+            "source": "rust:platform/src/default.rs:callable:4223:8407",
+            "target": "rust:platform/src/default.rs:call_site:5034:5194",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168388
+            }
+          },
+          {
+            "ordinal": 175850,
+            "source": "rust:platform/src/default.rs:call_site:5034:5194",
+            "target": "rust:platform/src/default.rs:call_site:5034:5194:boundary:process_start",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "source_candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175850
+            }
+          }
+        ],
+        "stop_reason": null,
+        "direction": "out"
+      },
+      "common_context_count": 1
+    },
+    {
+      "id": "navigation.backend.in",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "items": [
+          {
+            "ordinal": 175850,
+            "source": "rust:platform/src/default.rs:call_site:5034:5194",
+            "target": "rust:platform/src/default.rs:call_site:5034:5194:boundary:process_start",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "source_candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175850
+            }
+          },
+          {
+            "ordinal": 168388,
+            "source": "rust:platform/src/default.rs:callable:4223:8407",
+            "target": "rust:platform/src/default.rs:call_site:5034:5194",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168388
+            }
+          },
+          {
+            "ordinal": 175420,
+            "source": "rust:platform/src/default.rs:call_site:12345:12386",
+            "target": "rust:platform/src/default.rs:callable:4223:8407",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175420
+            }
+          },
+          {
+            "ordinal": 168720,
+            "source": "rust:platform/src/default.rs:callable:9300:14313",
+            "target": "rust:platform/src/default.rs:call_site:12345:12386",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168720
+            }
+          },
+          {
+            "ordinal": 175602,
+            "source": "rust:platform/src/main.rs:call_site:2080:2095",
+            "target": "rust:platform/src/default.rs:callable:9300:14313",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175602
+            }
+          },
+          {
+            "ordinal": 170866,
+            "source": "rust:platform/src/main.rs:callable:1647:2160",
+            "target": "rust:platform/src/main.rs:call_site:2080:2095",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170866
+            }
+          }
+        ],
+        "stop_reason": null,
+        "direction": "in"
+      },
+      "common_context_count": 1
+    },
+    {
+      "id": "navigation.windows_view.out",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "items": [
+          {
+            "ordinal": 170866,
+            "source": "rust:platform/src/main.rs:callable:1647:2160",
+            "target": "rust:platform/src/main.rs:call_site:2080:2095",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170866
+            }
+          },
+          {
+            "ordinal": 175602,
+            "source": "rust:platform/src/main.rs:call_site:2080:2095",
+            "target": "rust:platform/src/default.rs:callable:9300:14313",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175602
+            }
+          },
+          {
+            "ordinal": 168535,
+            "source": "rust:platform/src/default.rs:callable:9300:14313",
+            "target": "rust:platform/src/default.rs:call_site:13524:13652",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168535
+            }
+          },
+          {
+            "ordinal": 175383,
+            "source": "rust:platform/src/default.rs:call_site:13524:13652",
+            "target": "rust:platform/src/webview.rs:callable:12318:13435",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175383
+            }
+          },
+          {
+            "ordinal": 171662,
+            "source": "rust:platform/src/webview.rs:callable:12318:13435",
+            "target": "rust:platform/src/webview.rs:call_site:13257:13392",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 171662
+            }
+          },
+          {
+            "ordinal": 175669,
+            "source": "rust:platform/src/webview.rs:call_site:13257:13392",
+            "target": "rust:platform/src/webview.rs:callable:2352:6981",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175669
+            }
+          },
+          {
+            "ordinal": 170967,
+            "source": "rust:platform/src/webview.rs:callable:2352:6981",
+            "target": "rust:platform/src/webview.rs:call_site:2701:4460",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170967
+            }
+          },
+          {
+            "ordinal": 175878,
+            "source": "rust:platform/src/webview.rs:call_site:2701:4460",
+            "target": "rust:platform/src/webview.rs:call_site:2701:4460:boundary:frontend_loader",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "source_candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175878
+            }
+          }
+        ],
+        "stop_reason": null,
+        "direction": "out"
+      },
+      "common_context_count": 1
+    },
+    {
+      "id": "navigation.windows_view.in",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "items": [
+          {
+            "ordinal": 175878,
+            "source": "rust:platform/src/webview.rs:call_site:2701:4460",
+            "target": "rust:platform/src/webview.rs:call_site:2701:4460:boundary:frontend_loader",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "source_candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175878
+            }
+          },
+          {
+            "ordinal": 170967,
+            "source": "rust:platform/src/webview.rs:callable:2352:6981",
+            "target": "rust:platform/src/webview.rs:call_site:2701:4460",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170967
+            }
+          },
+          {
+            "ordinal": 175669,
+            "source": "rust:platform/src/webview.rs:call_site:13257:13392",
+            "target": "rust:platform/src/webview.rs:callable:2352:6981",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175669
+            }
+          },
+          {
+            "ordinal": 171662,
+            "source": "rust:platform/src/webview.rs:callable:12318:13435",
+            "target": "rust:platform/src/webview.rs:call_site:13257:13392",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 171662
+            }
+          },
+          {
+            "ordinal": 175383,
+            "source": "rust:platform/src/default.rs:call_site:13524:13652",
+            "target": "rust:platform/src/webview.rs:callable:12318:13435",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175383
+            }
+          },
+          {
+            "ordinal": 168535,
+            "source": "rust:platform/src/default.rs:callable:9300:14313",
+            "target": "rust:platform/src/default.rs:call_site:13524:13652",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168535
+            }
+          },
+          {
+            "ordinal": 175602,
+            "source": "rust:platform/src/main.rs:call_site:2080:2095",
+            "target": "rust:platform/src/default.rs:callable:9300:14313",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175602
+            }
+          },
+          {
+            "ordinal": 170866,
+            "source": "rust:platform/src/main.rs:callable:1647:2160",
+            "target": "rust:platform/src/main.rs:call_site:2080:2095",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170866
+            }
+          }
+        ],
+        "stop_reason": null,
+        "direction": "in"
+      },
+      "common_context_count": 1
+    },
+    {
+      "id": "navigation.linux_view.out",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "items": [
+          {
+            "ordinal": 170866,
+            "source": "rust:platform/src/main.rs:callable:1647:2160",
+            "target": "rust:platform/src/main.rs:call_site:2080:2095",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170866
+            }
+          },
+          {
+            "ordinal": 175602,
+            "source": "rust:platform/src/main.rs:call_site:2080:2095",
+            "target": "rust:platform/src/default.rs:callable:9300:14313",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175602
+            }
+          },
+          {
+            "ordinal": 168535,
+            "source": "rust:platform/src/default.rs:callable:9300:14313",
+            "target": "rust:platform/src/default.rs:call_site:13524:13652",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168535
+            }
+          },
+          {
+            "ordinal": 175389,
+            "source": "rust:platform/src/default.rs:call_site:13524:13652",
+            "target": "rust:platform/src/webview_legacy.rs:callable:9692:10546",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175389
+            }
+          },
+          {
+            "ordinal": 173157,
+            "source": "rust:platform/src/webview_legacy.rs:callable:9692:10546",
+            "target": "rust:platform/src/webview_legacy.rs:call_site:10377:10511",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 173157
+            }
+          },
+          {
+            "ordinal": 175784,
+            "source": "rust:platform/src/webview_legacy.rs:call_site:10377:10511",
+            "target": "rust:platform/src/webview_legacy.rs:callable:2292:6724",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175784
+            }
+          },
+          {
+            "ordinal": 172612,
+            "source": "rust:platform/src/webview_legacy.rs:callable:2292:6724",
+            "target": "rust:platform/src/webview_legacy.rs:call_site:2549:4357",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 172612
+            }
+          },
+          {
+            "ordinal": 175946,
+            "source": "rust:platform/src/webview_legacy.rs:call_site:2549:4357",
+            "target": "rust:platform/src/webview_legacy.rs:call_site:2549:4357:boundary:frontend_loader",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "source_candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175946
+            }
+          }
+        ],
+        "stop_reason": null,
+        "direction": "out"
+      },
+      "common_context_count": 1
+    },
+    {
+      "id": "navigation.linux_view.in",
+      "passed": true,
+      "evidence": {
+        "found": true,
+        "items": [
+          {
+            "ordinal": 175946,
+            "source": "rust:platform/src/webview_legacy.rs:call_site:2549:4357",
+            "target": "rust:platform/src/webview_legacy.rs:call_site:2549:4357:boundary:frontend_loader",
+            "kind": "DECLARES_BOUNDARY",
+            "status": "source_candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175946
+            }
+          },
+          {
+            "ordinal": 172612,
+            "source": "rust:platform/src/webview_legacy.rs:callable:2292:6724",
+            "target": "rust:platform/src/webview_legacy.rs:call_site:2549:4357",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 172612
+            }
+          },
+          {
+            "ordinal": 175784,
+            "source": "rust:platform/src/webview_legacy.rs:call_site:10377:10511",
+            "target": "rust:platform/src/webview_legacy.rs:callable:2292:6724",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175784
+            }
+          },
+          {
+            "ordinal": 173157,
+            "source": "rust:platform/src/webview_legacy.rs:callable:9692:10546",
+            "target": "rust:platform/src/webview_legacy.rs:call_site:10377:10511",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 173157
+            }
+          },
+          {
+            "ordinal": 175389,
+            "source": "rust:platform/src/default.rs:call_site:13524:13652",
+            "target": "rust:platform/src/webview_legacy.rs:callable:9692:10546",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175389
+            }
+          },
+          {
+            "ordinal": 168535,
+            "source": "rust:platform/src/default.rs:callable:9300:14313",
+            "target": "rust:platform/src/default.rs:call_site:13524:13652",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 168535
+            }
+          },
+          {
+            "ordinal": 175602,
+            "source": "rust:platform/src/main.rs:call_site:2080:2095",
+            "target": "rust:platform/src/default.rs:callable:9300:14313",
+            "kind": "STATIC_CALL_CANDIDATE",
+            "status": "candidate",
+            "detail": {
+              "entity": "edge",
+              "id": 175602
+            }
+          },
+          {
+            "ordinal": 170866,
+            "source": "rust:platform/src/main.rs:callable:1647:2160",
+            "target": "rust:platform/src/main.rs:call_site:2080:2095",
+            "kind": "OBSERVES_CALL",
+            "status": "source_relation",
+            "detail": {
+              "entity": "edge",
+              "id": 170866
+            }
+          }
+        ],
+        "stop_reason": null,
+        "direction": "in"
+      },
+      "common_context_count": 1
+    },
+    {
+      "id": "same_version_source",
+      "passed": true
+    },
+    {
+      "id": "backend_command_has_program_source",
+      "passed": true
+    },
+    {
+      "id": "backend_options_include_port_and_policy",
+      "passed": true
+    },
+    {
+      "id": "backend_format_capture_binds_parameter",
+      "passed": true
+    },
+    {
+      "id": "unresolved_calls_are_explicit",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "runtime_execution": false,
+  "whole_G02_accepted": false,
+  "backend_counterpart_status": "pending_executable_artifact_and_deployment_instance_identity"
+}

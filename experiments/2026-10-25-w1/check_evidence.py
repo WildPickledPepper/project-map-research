@@ -107,4 +107,23 @@ assert sum(rust_production['call_resolutions'].values())==873
 assert all(not c['evidence']['stop_reason'] and c['common_context_count']>0 for c in rust_production['checks'] if c['id'].startswith('navigation.'))
 assert not rust_production['runtime_execution'] and not rust_production['whole_G02_accepted']
 assert rust_production['backend_counterpart_status']=='pending_executable_artifact_and_deployment_instance_identity'
-print('OK: native/JS/Python evidence; Rust components, native entries, 41 production and 22 installed CLI checks; G02 remains pending.')
+shared={key:json.loads((ROOT/'evidence'/('multilang-repository-'+key+'.json')).read_text(encoding='utf-8'))
+        for key in ('rust','python','javascript','javascript-scope')}
+basis=shared['rust']
+assert basis['index_counts']['input_files']==2496 and basis['index_counts']['nodes']==371674 and basis['index_counts']['edges']==537678
+assert basis['build_version']['rules_commit']==rust_installed['installed_rules_commit']
+for key,row in shared.items():
+    assert row['passed'] and not row['runtime_execution'] and not row['whole_G02_accepted']
+    assert (row['source_commit'],row['snapshot'],row['build_version'])==(basis['source_commit'],basis['snapshot'],basis['build_version'])
+    if key!='javascript':assert row['index_counts']==basis['index_counts']
+for key,count in [('rust',41),('python',137),('javascript',14)]:
+    assert len(shared[key]['checks'])==count and all(r['passed'] for r in shared[key]['checks'])
+assert shared['javascript-scope']['checks']=={'total':1218,'passed':1218,'failed':[]}
+assert {r['path'] for r in basis['files']}=={r['path'] for r in rust_production['files']}
+assert shared['python']['scope']=='repository' and {r['path'] for r in shared['python']['files']}==expected_python
+assert {r['path'] for r in shared['javascript-scope']['files']}==expected_js
+assert shared['rust']['call_resolutions']==rust_production['call_resolutions']
+assert shared['javascript-scope']['call_resolutions']==scope['call_resolutions']
+assert all(r['common_context_count']>0 for r in basis['checks'] if r['id'].startswith('navigation.'))
+assert shared['javascript']['scoring_source']=='published_navigation_index_read_only'
+print('OK: native, installed and shared full-repository language evidence; G02 remains pending.')

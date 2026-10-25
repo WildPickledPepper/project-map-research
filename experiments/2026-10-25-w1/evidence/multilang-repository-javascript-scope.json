@@ -1,0 +1,1248 @@
+{
+  "schema": "javascript-repository-scope/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:d8307de144c240ae8c7b3f820053f399",
+  "build_version": {
+    "rules_commit": "5f8079dba2a733e40bef6cae4eb35075b3e39cf1",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 2496,
+    "modules": 29,
+    "nodes": 371674,
+    "edges": 537678,
+    "entries": 269,
+    "diagnostic_records": 35415,
+    "providers": 125,
+    "module_relation_groups": 207
+  },
+  "files": [
+    {
+      "path": "docs/_static/mermaid_init.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "docs/_static/mermaid_init.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 3,
+        "call_site": 8,
+        "callable": 2,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "docs/_static/public_operation.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "docs/_static/public_operation.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 4,
+        "callable": 2,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "docs/_static/repo_links.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "docs/_static/repo_links.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 5,
+        "call_site": 8,
+        "callable": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "docs/_static/right_toc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "docs/_static/right_toc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 12,
+        "call_site": 50,
+        "callable": 8,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "docs/_static/table_add_class_name.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "docs/_static/table_add_class_name.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 11,
+        "callable": 4,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "e2e/.eslintrc.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "e2e/.eslintrc.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/build-config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/build-config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 4,
+        "call_site": 20,
+        "callable": 5,
+        "code_module": 1,
+        "module_reference": 2
+      }
+    },
+    {
+      "path": "modules/build-vscode-config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/build-vscode-config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 7,
+        "call_site": 36,
+        "callable": 9,
+        "code_module": 1,
+        "module_reference": 5
+      }
+    },
+    {
+      "path": "modules/cluster/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/cluster/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/cluster/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/cluster/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 6,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/compute/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/compute/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/compute/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/compute/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 7,
+        "callable": 2,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/compute/src/utils/DomSearch/RegExpTool.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/compute/src/utils/DomSearch/RegExpTool.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 10,
+        "callable": 6,
+        "code_module": 1,
+        "type": 1
+      }
+    },
+    {
+      "path": "modules/compute/src/utils/DomSearch/domiterator.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/compute/src/utils/DomSearch/domiterator.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 29,
+        "callable": 15,
+        "code_module": 1,
+        "type": 1
+      }
+    },
+    {
+      "path": "modules/compute/src/utils/DomSearch/mark.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/compute/src/utils/DomSearch/mark.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 5,
+        "call_site": 86,
+        "callable": 49,
+        "code_module": 1,
+        "module_reference": 2,
+        "type": 1
+      }
+    },
+    {
+      "path": "modules/framework/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/framework/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/framework/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/framework/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 6,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/inline-build.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/inline-build.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 63,
+        "callable": 8,
+        "code_module": 1,
+        "module_reference": 2
+      }
+    },
+    {
+      "path": "modules/leaks/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/leaks/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/leaks/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/leaks/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 7,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 108,
+        "callable": 17,
+        "code_module": 1,
+        "module_reference": 6,
+        "promise_settlement": 6,
+        "source_counter_update": 1,
+        "source_promise": 7
+      }
+    },
+    {
+      "path": "modules/lib/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/lib/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/lib/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/lib/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "callable": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/memory-on-chip/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/memory-on-chip/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/memory-on-chip/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/memory-on-chip/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 5,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 2
+      }
+    },
+    {
+      "path": "modules/memory/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/memory/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/memory/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/memory/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 7,
+        "callable": 2,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/numa/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/numa/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/numa/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/numa/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 4,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 2
+      }
+    },
+    {
+      "path": "modules/operator/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/operator/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/operator/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/operator/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 6,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/reinforcement-learning/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/reinforcement-learning/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/reinforcement-learning/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/reinforcement-learning/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 6,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/statistic/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/statistic/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/statistic/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/statistic/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 6,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/sync.mjs",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/sync.mjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 13,
+        "callable": 1,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/testing/babel-transform.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/babel-transform.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 8,
+        "code_module": 1,
+        "module_reference": 2
+      }
+    },
+    {
+      "path": "modules/testing/coverage.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/coverage.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 13,
+        "callable": 5,
+        "code_module": 1,
+        "module_reference": 1
+      }
+    },
+    {
+      "path": "modules/testing/coverage.test.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/coverage.test.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 28,
+        "callable": 8,
+        "code_module": 1,
+        "module_reference": 4
+      }
+    },
+    {
+      "path": "modules/testing/import-meta-url.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/import-meta-url.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 6,
+        "callable": 2,
+        "code_module": 1,
+        "module_reference": 1
+      }
+    },
+    {
+      "path": "modules/testing/jest.config.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/jest.config.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 35,
+        "callable": 9,
+        "code_module": 1,
+        "module_reference": 4
+      }
+    },
+    {
+      "path": "modules/testing/run-infra.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/run-infra.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 2,
+        "call_site": 14,
+        "callable": 2,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/run-infra.test.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 43,
+        "callable": 6,
+        "code_module": 1,
+        "module_reference": 6
+      }
+    },
+    {
+      "path": "modules/testing/run-summary.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/run-summary.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 8,
+        "callable": 2,
+        "code_module": 1,
+        "module_reference": 2
+      }
+    },
+    {
+      "path": "modules/testing/run.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/run.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 56,
+        "callable": 15,
+        "code_module": 1,
+        "module_reference": 7
+      }
+    },
+    {
+      "path": "modules/testing/workspace.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/workspace.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 16,
+        "callable": 2,
+        "code_module": 1,
+        "module_reference": 4
+      }
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "source_role": "test",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/testing/workspace.test.cjs",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 116,
+        "callable": 26,
+        "callback_lookup": 1,
+        "callback_registry": 1,
+        "code_module": 1,
+        "module_reference": 13
+      }
+    },
+    {
+      "path": "modules/timeline/.eslintrc.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/timeline/.eslintrc.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "modules/timeline/craco.config.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "modules/timeline/craco.config.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 1,
+        "call_site": 7,
+        "callable": 2,
+        "code_module": 1,
+        "module_reference": 3
+      }
+    },
+    {
+      "path": "plugins/jupyterlab/style/index.js",
+      "source_role": "product",
+      "graph_input": true,
+      "coverage": {
+        "path": "plugins/jupyterlab/style/index.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "code_module": 1,
+        "module_reference": 1
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/topo_interactions.js",
+      "source_role": "build_tool",
+      "graph_input": true,
+      "coverage": {
+        "path": "scripts/cpu_binding_tools/topo_interactions.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "call_site": 48,
+        "callable": 15,
+        "code_module": 1
+      }
+    },
+    {
+      "path": "scripts/flame_graph/flamegraph.js",
+      "source_role": "build_tool",
+      "graph_input": true,
+      "coverage": {
+        "path": "scripts/flame_graph/flamegraph.js",
+        "status": "parsed"
+      },
+      "node_counts": {
+        "binding": 28,
+        "call_site": 159,
+        "callable": 46,
+        "code_module": 1
+      }
+    }
+  ],
+  "call_resolutions": {
+    "unresolved": 880,
+    "static_declaration": 182,
+    "ambiguous_callable_type": 1
+  },
+  "unresolved_call_reasons": {
+    "no_input_callable_or_runtime_binding": 880
+  },
+  "module_resolution_states": {
+    "module_target_outside_input_or_ambiguous": 66,
+    "static_source_module": 33
+  },
+  "unresolved_modules": [
+    {
+      "path": "modules/build-config.js",
+      "line": 18,
+      "name": "html-webpack-plugin",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/build-config.js",
+      "line": 20,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/build-vscode-config.js",
+      "line": 18,
+      "name": "html-webpack-plugin",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/build-vscode-config.js",
+      "line": 19,
+      "name": "mini-css-extract-plugin",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/build-vscode-config.js",
+      "line": 21,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/build-vscode-config.js",
+      "line": 125,
+      "name": "webpack",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/build-vscode-config.js",
+      "line": 139,
+      "name": "webpack",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/inline-build.js",
+      "line": 18,
+      "name": "fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/inline-build.js",
+      "line": 19,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/sync.mjs",
+      "line": 1,
+      "name": "node:fs/promises",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/sync.mjs",
+      "line": 2,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/sync.mjs",
+      "line": 3,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/cluster/craco.config.js",
+      "line": 23,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/compute/craco.config.js",
+      "line": 22,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/framework/craco.config.js",
+      "line": 23,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/leaks/craco.config.js",
+      "line": 23,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "line": 4,
+      "name": "node:assert/strict",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "line": 5,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "line": 6,
+      "name": "node:os",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "line": 7,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "line": 8,
+      "name": "node:http",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "line": 9,
+      "name": "node:module",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/memory-on-chip/craco.config.js",
+      "line": 19,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/memory/craco.config.js",
+      "line": 24,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/numa/craco.config.js",
+      "line": 20,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/operator/craco.config.js",
+      "line": 23,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/reinforcement-learning/craco.config.js",
+      "line": 22,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/statistic/craco.config.js",
+      "line": 23,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/babel-transform.cjs",
+      "line": 6,
+      "name": "node:module",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/babel-transform.cjs",
+      "line": 7,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/coverage.cjs",
+      "line": 6,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/coverage.test.cjs",
+      "line": 6,
+      "name": "node:assert/strict",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/coverage.test.cjs",
+      "line": 7,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/coverage.test.cjs",
+      "line": 8,
+      "name": "node:test",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/import-meta-url.cjs",
+      "line": 6,
+      "name": "node:url",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.cjs",
+      "line": 6,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.cjs",
+      "line": 7,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.cjs",
+      "line": 8,
+      "name": "fast-glob",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.cjs",
+      "line": 9,
+      "name": "yaml",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/jest.config.cjs",
+      "line": 6,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/jest.config.cjs",
+      "line": 7,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.cjs",
+      "line": 6,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.cjs",
+      "line": 7,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.cjs",
+      "line": 8,
+      "name": "node:child_process",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "line": 6,
+      "name": "node:assert/strict",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "line": 7,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "line": 8,
+      "name": "node:os",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "line": 9,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "line": 10,
+      "name": "node:child_process",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "line": 11,
+      "name": "node:test",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-summary.cjs",
+      "line": 6,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run-summary.cjs",
+      "line": 7,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run.cjs",
+      "line": 6,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run.cjs",
+      "line": 7,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run.cjs",
+      "line": 8,
+      "name": "fast-glob",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/run.cjs",
+      "line": 48,
+      "name": "jest",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 6,
+      "name": "node:assert/strict",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 7,
+      "name": "node:fs",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 8,
+      "name": "node:os",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 9,
+      "name": "node:path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 10,
+      "name": "node:test",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 11,
+      "name": "fast-glob",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 107,
+      "name": "node:module",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "line": 108,
+      "name": "node:url",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "modules/timeline/craco.config.js",
+      "line": 23,
+      "name": "path",
+      "reason": "module_target_outside_input_or_ambiguous"
+    },
+    {
+      "path": "plugins/jupyterlab/style/index.js",
+      "line": 19,
+      "name": "./base.css",
+      "reason": "module_target_outside_input_or_ambiguous"
+    }
+  ],
+  "cross_file_edges": {
+    "STATIC_CALL_TARGET": 34,
+    "STATIC_CALL_CANDIDATE": 0,
+    "IMPORTS_MODULE": 34
+  },
+  "checks": {
+    "total": 1218,
+    "passed": 1218,
+    "failed": []
+  },
+  "passed": true,
+  "whole_G02_accepted": false,
+  "runtime_execution": false
+}
