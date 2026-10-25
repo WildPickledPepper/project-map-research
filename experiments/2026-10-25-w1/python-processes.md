@@ -32,8 +32,34 @@ putenv/unsetenv 修改进程环境，environ 下标写入/删除同时修改 Pyt
 
 ## 检查与剩余连接
 
-21 项新检查覆盖调用配对、原文参数、平台数组、已知覆盖、数组修改/逃逸、直接和跨函数环境写入、覆盖顺序、同一调用条件、不同根隔离、循环顺序未知、Windows 键、显式 env、shell/override/preexec、asyncio、None cwd、空参数、展开及标准库成员改写。首次扩展负例发现成员改写仍被原生推断识别为标准库，现已增加源码写入检查；原始失败日志保留。首轮命令中误列一个不存在的测试模块，已更正为实际的调用上下文测试。
+21 项新检查覆盖调用配对、原文参数、平台数组、已知覆盖、数组修改/逃逸、直接和跨函数环境写入、覆盖顺序、同一调用条件、不同根隔离、循环顺序未知、Windows 键、显式 env、shell/override/preexec、asyncio、None cwd、空参数、展开及标准库成员改写。首次扩展负例发现成员改写仍被原生推断识别为标准库，现已增加源码写入检查；原始失败日志保留。
 
 生产混合快照检查保留进程事实、环境关系和原有进程边界；真实 Insight 调用、Cargo 原生目标/输出、复制后的启动器目录及 Rust current_exe 基址分别继续验收。G02/G03/G04 保持未通过。
 
 完整 Windows 回归 592 项通过，1 项按平台跳过。随后补充“已替换的环境 API 可能修改其他键”的负例，最终 121 项路径/调用/环境及混合建图检查通过。
+
+## Insight 真实源码控制
+
+源码 d4e8d1c，提取规则 a487ce3，[32 项独立检查通过](evidence/python-process-calls.json)。重新导出全部 119 个 Python 输入，运行生产路径及进程调用适配，再建立统一索引。原生 AST/Jedi/接口事实复用自 9806c76：执行前按组件 Git 变更、依赖版本和输入范围检查复用条件，源码语义阶段未重跑。
+
+`build/build.py:404` 经 `exec_command` 到第 644 行的 Popen，自动提取为：
+
+| 项目 | 源码提取结果 |
+|---|---|
+| 参数 | `cargo.exe`、`build`、`--release` |
+| 工作目录 | 源码规范根 / platform |
+| CARGO_TARGET_DIR | 源码规范根 / platform/target |
+| 环境值提供方 | build/build.py:373 的 os.putenv，属于同一根调用 |
+| 进程选项 | shell=False；env/executable/preexec_fn 均为 None |
+
+图有 76,990 个节点、115,954 条关系，包含 316 条进程调用记录和 26 条环境效果记录。它们按调用帧、路径风格及数组候选展开，数量对应源码候选记录。运行实例尚未采集。
+
+八项正反向索引查询验证参数来源、cwd 来源、环境提供方和环境键，同版本源码导航通过。LD_PRELOAD 的条件写入保持未知；未提供的入口环境也保持未知。Windows 是本次评分的显式宿主上下文，当前控制验证源码值关系，Cargo 原生目标/配置及实际编译另行验收。参考位置和预期值只在评分器中使用。
+
+当前仍有未展开的其他命令参数、环境映射方法、数组修改和上下文缺项，具体记录随图保存。原 checkout 状态未变，文件哈希未重新核验。完整多语言全仓、安装、Cargo 产物、Rust 基址和实际进程关系保持后续验收。
+
+```text
+python experiments/2026-10-25-w1/recheck_python_paths.py --source SOURCE --base-trial PYTHON_NATIVE_BASE_CONTROL --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_python_process_calls.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_path_evidence.py
+```

@@ -1,0 +1,264 @@
+{
+  "schema": "python-process-control-score/1",
+  "origin": "executed_production_process_values_cached_native_semantics_independent_cargo_call_reference",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-recheck:e61b7d0b9d644a37929acb3d754b5f2b",
+  "scope": "python_paths_recomputed_all_selected_python_inputs",
+  "build_version": {
+    "rules_commit": "a487ce3c8af7eec95d4dc43274cbdbab34f47aa0",
+    "python_components": {
+      "jedi": "0.19.2",
+      "parso": "0.8.5",
+      "python": "3.11.9"
+    },
+    "base_facts": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-control:25616103484f48dea770a5dc25e65264:before-path-projection",
+      "rules_commit": "9806c76b26190ad849e5f3d5bab82e2a106f5b78",
+      "components": [
+        "adapters/python_facts.py",
+        "adapters/python_contexts.py",
+        "adapters/python_boundaries.py"
+      ],
+      "adapter_history_unchanged": true,
+      "component_versions_unchanged": true,
+      "input_context_unchanged": true,
+      "counts": {
+        "nodes": 76402,
+        "edges": 105988
+      }
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 119,
+    "modules": 29,
+    "nodes": 76990,
+    "edges": 115954,
+    "entries": 0,
+    "diagnostic_records": 487,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "invocation_record_count": 316,
+  "environment_effect_record_count": 26,
+  "selected_process": {
+    "path": "build/build.py",
+    "line": 644,
+    "api": [
+      "subprocess.Popen"
+    ],
+    "argv": [
+      "cargo.exe",
+      "build",
+      "--release"
+    ],
+    "cwd": "platform",
+    "environment": {
+      "CARGO_TARGET_DIR": "platform/target"
+    },
+    "environment_writer_line": 373,
+    "also_updates_os_environ": false,
+    "value_binding_basis": "same_root_resolved_source_order_conditional_on_invocation",
+    "conditions": [
+      "source_environment_operation_succeeds",
+      "no_unmodeled_environment_write_before_child_start"
+    ]
+  },
+  "process_diagnostic_counts": {
+    "python_process_value_unresolved": 336,
+    "python_process_context_unresolved": 54
+  },
+  "navigation": [
+    {
+      "id": "argv_source_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "argv_source_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "cwd_source_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "cwd_source_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "environment_writer_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "environment_writer_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "environment_key_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "environment_key_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "all_python_inputs_retained",
+      "passed": true
+    },
+    {
+      "id": "production_adapter_version",
+      "passed": true
+    },
+    {
+      "id": "one_windows_cargo_build_invocation",
+      "passed": true
+    },
+    {
+      "id": "exact_command_argv",
+      "passed": true
+    },
+    {
+      "id": "native_library_process_identity",
+      "passed": true
+    },
+    {
+      "id": "source_root_working_directory",
+      "passed": true
+    },
+    {
+      "id": "target_directory_source_resolved",
+      "passed": true
+    },
+    {
+      "id": "source_environment_writer_location",
+      "passed": true
+    },
+    {
+      "id": "putenv_process_environment_mapping_distinction",
+      "passed": true
+    },
+    {
+      "id": "same_root_environment_context",
+      "passed": true
+    },
+    {
+      "id": "environment_binding_remains_conditional",
+      "passed": true
+    },
+    {
+      "id": "direct_process_settings",
+      "passed": true
+    },
+    {
+      "id": "no_resolver_static_gaps",
+      "passed": true
+    },
+    {
+      "id": "late_and_unbound_runtime_inputs_not_filled",
+      "passed": true
+    },
+    {
+      "id": "conditional_other_write_not_promoted",
+      "passed": true
+    },
+    {
+      "id": "existing_process_boundary_connected",
+      "passed": true
+    },
+    {
+      "id": "command_component_origins_connected",
+      "passed": true
+    },
+    {
+      "id": "navigation_argv_source_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_argv_source_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_cwd_source_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_cwd_source_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_environment_writer_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_environment_writer_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_environment_key_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_environment_key_in",
+      "passed": true
+    },
+    {
+      "id": "same_version_process_source",
+      "passed": true
+    },
+    {
+      "id": "same_index_rule_version",
+      "passed": true
+    },
+    {
+      "id": "native_facts_versioned_unchanged",
+      "passed": true
+    },
+    {
+      "id": "working_tree_and_reference_not_inputs",
+      "passed": true
+    },
+    {
+      "id": "no_file_hash_verification",
+      "passed": true
+    },
+    {
+      "id": "no_full_runtime_or_cargo_native_claim",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "host_selection": "explicit_windows_source_predicate_control_not_native_cargo_build",
+  "native_semantic_stage_executed_again": false,
+  "path_and_process_adapters_executed_again": true,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "cargo_native_target_connected": false,
+  "process_counterpart_connected": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference"
+}

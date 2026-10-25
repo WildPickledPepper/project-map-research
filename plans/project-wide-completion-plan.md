@@ -135,9 +135,9 @@ Rust 的[原版组件、Cargo 上下文、统一图及独立安装](../experimen
 
 ### W2：连接全部运行模块与跨模块边界
 
-当前已完成 [CMake 原生构建目标/产物/入口的生产接入](../experiments/2026-10-25-w1/cmake-native.md)：原 32 项控制检查及新增目标/宿主系统记录的 23 项重放检查通过，首次遗漏和目录根不匹配的拒绝记录保留。[Rust 程序路径](../experiments/2026-10-25-w1/path-values.md)在 Windows 单配置真实控制范围通过 33 项检查。[Python 路径和文件操作](../experiments/2026-10-25-w1/python-packaging.md)的基础、调用和目录模式检查已通过；原生宿主、过滤和复制契约已应用到生产产物传播，29 项真实图检查验证后端到桌面/JupyterLab 的文件链。平台字典取值及启动器改名路径另通过 23 项真实控制检查。下一段连接 Python 构建调用的 argv/cwd/环境、Cargo 原生目标及输出配置，再将已打包启动器的目录绑定到 Rust current_exe 基址；之后继续冻结边界及完整模块机制。G03/G04 保持未通过。
+当前已完成 [CMake 原生构建目标/产物/入口的生产接入](../experiments/2026-10-25-w1/cmake-native.md)：原 32 项控制检查及新增目标/宿主系统记录的 23 项重放检查通过，首次遗漏和目录根不匹配的拒绝记录保留。[Rust 程序路径](../experiments/2026-10-25-w1/path-values.md)在 Windows 单配置真实控制范围通过 33 项检查。[Python 路径和文件操作](../experiments/2026-10-25-w1/python-packaging.md)的基础、调用和目录模式检查已通过；原生宿主、过滤和复制契约已应用到生产产物传播，29 项真实图检查验证后端到桌面/JupyterLab 的文件链。平台字典取值及启动器改名路径另通过 23 项真实控制检查。逐调用构建参数、工作目录及环境来源也已提取；继续关联 Cargo 原生目标和输出配置，将已打包启动器的目录绑定到 Rust current_exe 基址，之后展开冻结边界及完整模块机制。G03/G04 保持未通过。
 
-进程配对的当前执行顺序：先提取逐调用的构建命令、工作目录与环境效果，确认 target-dir、manifest、profile、target 和 features 的来源；再关联 Cargo metadata 中的二进制目标与实际入口，按构建配置和已提取复制链得到启动器的发行位置。使用该位置计算 current_exe_directory 下的消费路径，核对 Cargo/CMake 目标上下文并连接相应后端产物与入口。以独立 Cargo 编译器产物输出及不同布局/改名夹具验证，保留环境/config 影响、未解析选项和运行实例条件；静态文件配对与实际进程启动分别验收。
+进程配对的当前执行顺序：逐调用构建命令、工作目录与环境效果已进入生产图，[119 个 Python 输入的 32 项控制检查](../experiments/2026-10-25-w1/python-processes.md#insight-真实源码控制)验证 Windows Cargo argv/cwd/CARGO_TARGET_DIR 来源及八项正反查。接下来将这些事实解释为 Cargo 的 target-dir、manifest、profile、target 和 features 配置，关联 metadata 中的二进制目标与实际入口，按构建配置和已提取复制链得到启动器的发行位置。使用该位置计算 current_exe_directory 下的消费路径，核对 Cargo/CMake 目标上下文并连接相应后端产物与入口。以独立 Cargo 编译器产物输出及不同布局/改名夹具验证，保留环境/config 影响、未解析选项和运行实例条件；静态文件配对与实际进程启动分别验收。
 
 1. 统一消费/提供端描述：协议/通道、服务/进程身份、命令或方法路径、方向、参数/返回形状、配置和构建条件。
 2. 扩展 Rust 平台入口到子进程、端口/地址和 WebView/资源加载；关联后端入口、参数解码和监听端。进程路径通过构建产物和配置追踪，不能按可执行文件名称全局匹配。

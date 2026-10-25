@@ -126,3 +126,23 @@ assert not any(mappings[k] for k in ('default_workspace_rebuild','installed_tool
     'cargo_build_context_connected','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
 assert mappings['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 23 guarded mapping/renaming/index checks; Cargo invocation and executable-root pairing remain separate.')
+
+process=json.loads((Path(__file__).parent/'evidence/python-process-calls.json').read_text(encoding='utf-8'))
+assert process['schema']=='python-process-control-score/1' and process['passed']
+assert len(process['checks'])==32 and all(c['passed'] for c in process['checks'])
+assert process['source_commit']==mappings['source_commit']
+assert process['build_version']['rules_commit']=='a487ce3c8af7eec95d4dc43274cbdbab34f47aa0'
+assert process['index_counts']['input_files']==119 and process['index_counts']['nodes']==76990 and process['index_counts']['edges']==115954
+assert process['invocation_record_count']==316 and process['environment_effect_record_count']==26
+assert process['selected_process']['argv']==['cargo.exe','build','--release']
+assert process['selected_process']['cwd']=='platform' and process['selected_process']['environment']=={'CARGO_TARGET_DIR':'platform/target'}
+assert process['selected_process']['environment_writer_line']==373 and not process['selected_process']['also_updates_os_environ']
+assert process['selected_process']['value_binding_basis']=='same_root_resolved_source_order_conditional_on_invocation'
+assert process['process_diagnostic_counts']=={'python_process_value_unresolved':336,'python_process_context_unresolved':54}
+assert len(process['navigation'])==8 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in process['navigation'])
+assert process['host_selection']=='explicit_windows_source_predicate_control_not_native_cargo_build'
+assert process['path_and_process_adapters_executed_again'] and not process['native_semantic_stage_executed_again']
+assert not any(process[k] for k in ('default_workspace_rebuild','installed_tool_tested','runtime_execution','original_checkout_modified',
+    'cargo_native_target_connected','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
+assert process['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 32 real process argv/cwd/environment and index checks; Cargo native artifacts and runtime pairing remain separate.')
