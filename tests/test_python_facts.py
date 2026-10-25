@@ -114,5 +114,32 @@ class PythonFactsTests(unittest.TestCase):
             (root/'moved.py').unlink();deleted=analyze(root,['start.py']);self.assertFalse(self.pairs(deleted,'STATIC_CALL_TARGET'))
             self.assertFalse(any(n['path']=='moved.py' for n in deleted['nodes']))
 
+    def test_namespace_module_uses_importing_entry_context(self):
+        g=self.graph({'service/start.py':'from tools.helper import execute\nif __name__ == "__main__": execute()\n',
+            'service/tools/helper.py':'import common\ndef execute(): return common.work()\n',
+            'service/common.py':'def work(): return 1\n',
+            'service/tools/common.py':'def work(): return 99\n'})
+        calls=[(a,b,e) for a,b,e in self.pairs(g,'STATIC_CALL_TARGET') if a['path']=='service/tools/helper.py']
+        self.assertEqual({b['path'] for a,b,e in calls},{'service/common.py'})
+
+    def test_two_entry_contexts_keep_both_module_targets_as_candidates(self):
+        g=self.graph({'one/start.py':'from shared.helper import execute\nif __name__ == "__main__": execute()\n',
+            'two/start.py':'from shared.helper import execute\nif __name__ == "__main__": execute()\n',
+            'shared/helper.py':'import common\ndef execute(): return common.work()\n',
+            'one/common.py':'def work(): return 1\n','two/common.py':'def work(): return 2\n'})
+        candidates=[(a,b,e) for a,b,e in self.pairs(g,'STATIC_CALL_CANDIDATE') if a['path']=='shared/helper.py']
+        self.assertEqual({b['path'] for a,b,e in candidates},{'one/common.py','two/common.py'})
+        self.assertFalse([(a,b,e) for a,b,e in self.pairs(g,'STATIC_CALL_TARGET') if a['path']=='shared/helper.py'])
+
+    def test_unresolved_entry_context_prevents_unique_target_claim(self):
+        g=self.graph({'one/start.py':'from shared.helper import execute\nif __name__ == "__main__": execute()\n',
+            'two/start.py':'from shared.helper import execute\nif __name__ == "__main__": execute()\n',
+            'shared/helper.py':'import common\ndef execute(): return common.work()\n',
+            'one/common.py':'def work(): return 1\n'})
+        candidates=[(a,b,e) for a,b,e in self.pairs(g,'STATIC_CALL_CANDIDATE') if a['path']=='shared/helper.py']
+        self.assertEqual({b['path'] for a,b,e in candidates},{'one/common.py'})
+        call=next(n for n in g['nodes'] if n['kind']=='call_site' and n['path']=='shared/helper.py')
+        self.assertEqual(call['reason'],'analysis_contexts_require_selection')
+
 
 if __name__=='__main__':unittest.main()

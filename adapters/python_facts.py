@@ -62,7 +62,7 @@ class Extractor:
         self.jedi=jedi;self.root=Path(root).resolve();self.paths=set(paths)
         self.units={};self.nodes={};self.edges=[];self.diagnostics=[];self.coverage=[]
         self.points=defaultdict(set);self.ast_ids={};self.owners={};self.parents={};self.inference={};self.parameters={}
-        self.script_path=None;self.script=None
+        self.script_context=None;self.script=None;self.merged_inference={}
         self.environment=jedi.create_environment(sys.executable,safe=True)
         for path in sorted(self.paths):
             if PurePosixPath(path).suffix not in {'.py','.pyi'}:continue
@@ -84,6 +84,16 @@ class Extractor:
             uid=self.add(path,tree,'code_module',path,analysis_roots=roots,root_basis='package_ancestors_and_repository',runtime_execution='not_observed')
             self.ast_ids[id(tree)]=uid;self.coverage.append({'path':path,'status':'parsed'})
             self.index(path,tree,uid,[])
+        from adapters.python_contexts import discover_contexts
+        self.contexts,errors=discover_contexts(self.root,self.units,self.environment)
+        self.diagnostics.extend(errors)
+        for path,contexts in self.contexts.items():
+            module=self.nodes[self.ast_ids[id(self.units[path]['tree'])]]
+            module['analysis_contexts']=contexts
+            if len(contexts)==1:module.update(analysis_roots=contexts[0]['roots'],root_basis=contexts[0]['basis'])
+            else:
+                module['fallback_analysis_roots']=module.pop('analysis_roots')
+                module['root_basis']='multiple_entry_import_contexts'
 
     def source_roots(self,path):
         parent=PurePosixPath(path).parent
@@ -178,14 +188,27 @@ class Extractor:
 
     def infer(self,path,node,method='infer'):
         pos=self.location(path,node,True);key=(path,pos['line'],pos['column'],method)
+        if key not in self.merged_inference:
+            records=[]
+            for context in self.contexts[path]:
+                values=self.infer_context(path,node,method,context['roots'])
+                if not values and len(self.contexts[path])>1:
+                    values=[{'path':None,'line':None,'column':None,'type':'unresolved_context','name':None,
+                        'qualified_name':None,'input':False,'origin_scope':'unresolved_context','analysis_roots':context['roots']}]
+                records.extend(values)
+            self.merged_inference[key]=records
+        return self.merged_inference[key]
+
+    def infer_context(self,path,node,method,roots):
+        pos=self.location(path,node,True);key=(path,pos['line'],pos['column'],method,tuple(roots))
         if key not in self.inference:
             try:
-                if self.script_path!=path:
+                if self.script_context!=(path,tuple(roots)):
                     unit=self.units[path]
-                    project=self.jedi.Project(self.root,sys_path=[str(self.root/r) for r in unit['roots']],
+                    project=self.jedi.Project(self.root,sys_path=[str(self.root/r) for r in roots],
                                               smart_sys_path=False,load_unsafe_extensions=False)
                     self.script=self.jedi.Script(unit['code'],path=unit['path'],project=project,environment=self.environment)
-                    self.script_path=path
+                    self.script_context=(path,tuple(roots))
                 script=self.script
                 values=getattr(script,method)(pos['line'],pos['column']-1)
                 records=[]
@@ -195,14 +218,15 @@ class Extractor:
                     record={'path':relative,'line':value.line,'column':value.column,'type':value.type,
                                     'name':value.name,'qualified_name':value.full_name,
                                     'input':bool(relative in self.units),
-                                    'origin_scope':'parsed_input' if relative in self.units else 'unparsed_or_unselected_export' if relative else 'external_or_builtin'}
+                                    'origin_scope':'parsed_input' if relative in self.units else 'unparsed_or_unselected_export' if relative else 'external_or_builtin',
+                                    'analysis_roots':roots}
                     if method=='infer' and record['input'] and value.type=='function':
                         record['signature_parameters']=[[p.name for p in s.params] for s in value.get_signatures()]
                     records.append(record)
                 self.inference[key]=records
             except Exception as error:
                 self.diagnostics.append({'kind':'python_inference_error',**self.location(path,node),
-                                         'operation':method,'error_type':type(error).__name__,'message':str(error)})
+                                         'operation':method,'analysis_roots':roots,'error_type':type(error).__name__,'message':str(error)})
                 self.inference[key]=[]
         return self.inference[key]
 
@@ -233,14 +257,17 @@ class Extractor:
             records=self.infer(path,node.func);targets=self.targets(records,{'callable','type'})
             self.nodes[uid]['inference']=records
             if targets:
-                self.nodes[uid]['resolution']='inferred_unique' if len(targets)==1 else 'candidate'
+                certain=len(targets)==1 and not any(r['type']=='unresolved_context' for r in records)
+                self.nodes[uid]['resolution']='inferred_unique' if certain else 'candidate'
                 self.nodes[uid].pop('reason',None)
+                if not certain and len(targets)==1:self.nodes[uid]['reason']='analysis_contexts_require_selection'
                 for target in targets:
-                    kind='STATIC_CALL_TARGET' if len(targets)==1 else 'STATIC_CALL_CANDIDATE'
-                    self.edge(uid,target,kind,node,path,status='inferred' if len(targets)==1 else 'candidate',basis='jedi_infer',
+                    kind='STATIC_CALL_TARGET' if certain else 'STATIC_CALL_CANDIDATE'
+                    self.edge(uid,target,kind,node,path,status='inferred' if certain else 'candidate',basis='jedi_infer',
                               target_kind=self.nodes[target]['kind'])
             else:
-                self.nodes[uid]['reason']=('external_or_builtin_callable' if records and all(r['origin_scope']=='external_or_builtin' for r in records) else
+                self.nodes[uid]['reason']=('no_input_callable_in_candidate_contexts' if any(r['type']=='unresolved_context' for r in records) else
+                    'external_or_builtin_callable' if records and all(r['origin_scope']=='external_or_builtin' for r in records) else
                     'input_declaration_not_indexed_or_parse_error' if any(r['origin_scope']!='external_or_builtin' for r in records) else 'no_input_callable_or_dynamic_binding')
             for index,arg in enumerate(node.args):
                 aid=self.value(path,arg);self.edge(uid,aid,'CALL_ARGUMENT',arg,path,index=index,keyword=None,spread=isinstance(arg,ast.Starred))
@@ -274,11 +301,11 @@ class Extractor:
         for index,arg in enumerate(node.args):
             if index>=len(positional):
                 self.nodes[uid]['argument_binding_status']='varargs_or_arity_requires_expansion';continue
-            self.edge(self.value(path,arg),parameters[positional[index]],'BINDS_ARGUMENT',arg,path,status='inferred',call=uid,index=index)
+            self.edge(self.value(path,arg),parameters[positional[index]],'BINDS_ARGUMENT',arg,path,status='inferred' if self.nodes[uid]['resolution']=='inferred_unique' else 'candidate',call=uid,index=index)
         for keyword in node.keywords:
             pid=parameters.get(keyword.arg)
             if pid and self.nodes[pid]['parameter_kind']!='positional_only':
-                self.edge(self.value(path,keyword.value),pid,'BINDS_ARGUMENT',keyword.value,path,status='inferred',call=uid,keyword=keyword.arg)
+                self.edge(self.value(path,keyword.value),pid,'BINDS_ARGUMENT',keyword.value,path,status='inferred' if self.nodes[uid]['resolution']=='inferred_unique' else 'candidate',call=uid,keyword=keyword.arg)
             else:self.nodes[uid]['argument_binding_status']='kwargs_or_invalid_keyword_requires_expansion'
 
     def callbacks(self,path,call,arg,**extra):
@@ -325,9 +352,13 @@ class Extractor:
                         results=self.infer(path,alias)
                         targets=self.targets(results)
                         module_targets={self.ast_ids[id(self.units[r['path']]['tree'])] for r in results if r['input']}
-                        for target in sorted(module_targets):self.edge(uid,target,'IMPORTS_MODULE',alias,path)
-                        for target in targets:self.edge(uid,target,'IMPORTS_SYMBOL',alias,path)
-                        if module_targets:record.update(resolution='source_module_or_symbol');record.pop('reason',None)
+                        ambiguous=len(module_targets)>1 or any(r['type']=='unresolved_context' for r in results)
+                        for target in sorted(module_targets):self.edge(uid,target,'IMPORTS_MODULE',alias,path,status='candidate' if ambiguous else 'source_relation')
+                        for target in targets:self.edge(uid,target,'IMPORTS_SYMBOL',alias,path,status='candidate' if ambiguous else 'source_relation')
+                        if module_targets:
+                            record.update(resolution='source_candidates' if ambiguous else 'source_module_or_symbol')
+                            if ambiguous:record['reason']='analysis_contexts_require_selection'
+                            else:record.pop('reason',None)
                         record['inference']=results
                 elif isinstance(node,(ast.FunctionDef,ast.AsyncFunctionDef,ast.ClassDef)):
                     uid=self.ast_ids[id(node)]
@@ -347,6 +378,7 @@ class Extractor:
             'components':{'jedi':self.jedi.__version__,'parso':importlib.metadata.version('parso'),'python':sys.version.split()[0]},
             'nodes':list(self.nodes.values()),'edges':self.edges,'diagnostics':self.diagnostics,'coverage':self.coverage,
             'limits':['inference_is_not_runtime_execution','explicit_derived_source_roots_not_product_environment',
+                      'entry_import_contexts_from_main_guards_other_launchers_require_context',
                       'dynamic_imports_and_runtime_monkey_patching_not_resolved','tuple_unpacking_and_star_argument_binding_not_expanded',
                       'missing_external_packages_remain_boundary_references']}
 

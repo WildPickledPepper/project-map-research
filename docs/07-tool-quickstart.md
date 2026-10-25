@@ -1,6 +1,42 @@
-# 使用项目地图 skill
+# 使用项目地图工具
 
-**当前 0.2.1 为工具底座，关系分析主要覆盖 TS/C++ 的已有机制，全项目验收尚未通过。** 完整实施范围与门槛见[全项目计划](../plans/project-wide-completion-plan.md)及[整体验收矩阵](../plans/project-wide-acceptance.md)。本页说明已有入口的使用方法。
+**当前 0.2.1 已有 TS/JS、C++、Python 的基础关系和部分接口适配，全项目验收继续按 W0–W7 推进。** 完整范围见[全项目计划](../plans/project-wide-completion-plan.md)及[整体验收矩阵](../plans/project-wide-acceptance.md)。安装包同时记录具体规则提交；可用 `status` 核对。
+
+## 直接使用 CLI
+
+需要 Git、Python 3.11 或更新版本、Node.js 22。安装已构建 wheel 的 `extract` 依赖，创建源码仓库之外的地图目录：
+
+```text
+python -m pip install "WHEEL[extract]"
+project-map --workspace WORKSPACE init --source SOURCE
+project-map --workspace WORKSPACE setup
+project-map --workspace WORKSPACE doctor --probe-parser
+project-map --workspace WORKSPACE build
+project-map --workspace WORKSPACE query overview
+```
+
+`setup` 将固定版本 TypeScript 安装到地图目录；已有安装可在 `init` 时传入 `--typescript TYPESCRIPT_MODULE`。语法包缓存和 Windows 原生依赖可在 `init` 时指定 `--parser-cache CACHE`、`--dll-dir DLL`。使用指定提交时加 `--revision COMMIT`；默认跟随 HEAD，提交新代码后执行 `update`。
+
+先搜索模块、函数或边界，再用节点 ID 展开，避免同名误选：
+
+```text
+project-map --workspace WORKSPACE query search --kind callable --text NAME
+project-map --workspace WORKSPACE query search --kind code_module --text PATH
+project-map --workspace WORKSPACE query search --kind python_boundary
+project-map --workspace WORKSPACE query path --start NODE_ID --target TARGET_ID --depth 16
+project-map --workspace WORKSPACE query impact --start NODE_ID --depth 8
+project-map --workspace WORKSPACE query status --start NODE_ID
+project-map --workspace WORKSPACE query detail --entity node --id NODE_ID
+project-map --workspace WORKSPACE query source --start NODE_ID
+```
+
+`python_boundary` 保留监听、路由、连接和进程接口的 API、参数来源、应用归属及待匹配状态。`entries` / `providers` 当前展示已有协议适配结果；Python 边界通过 `search` / `detail` 查询。JS/TS 的模块导入使用 `module_reference`、`CONTAINS_IMPORT` 和 `IMPORTS_MODULE`；Python 参数与值来源使用 `CALL_ARGUMENT`、`BINDS_ARGUMENT`、`READS_BINDING`、`VALUE_SOURCE` 等边。可用 `--kinds TYPE1,TYPE2` 限定遍历关系。
+
+查询结果带版本、预算和停止原因。静态候选与源码依赖用于查找可能的关系；实际执行由相同版本与场景的运行记录验证。未解析的调用和导入保留在节点的 `resolution` / `reason` 中，可用 `status` / `detail` 检查；`diagnostics` 汇总解析与其他诊断。源码工作区的未提交修改需要另读 diff。
+
+## skill 入口
+
+skill 的统一整理与打包安排在工具能力和验收稳定之后；以下保留已有分发入口的用法。
 
 最终入口为 [project-map-assistant](../skills/project-map-assistant/SKILL.md)。它携带查询规则和执行脚本，工具生成的项目地图与研究材料分开保存。
 
