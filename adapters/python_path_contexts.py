@@ -10,6 +10,7 @@ class CallContexts:
         self.max_depth=max_depth;self.max_contexts=max_contexts
         self.owners={};self.parameter_owners={};self.callers=defaultdict(list);self.bindings=defaultdict(list)
         self.modules={n['path']:n['id'] for n in self.nodes.values() if n['kind']=='code_module'}
+        self.registry={}
         for edge in paths.facts['edges']:
             if edge['kind']=='OBSERVES_CALL':self.owners[edge['target']]=edge['source']
             elif edge['kind']=='HAS_PARAMETER':self.parameter_owners[edge['target']]=edge['source']
@@ -17,8 +18,16 @@ class CallContexts:
             elif edge['kind']=='BINDS_ARGUMENT':self.bindings[edge['call']].append(edge)
 
     def root(self,function,reason=None):
-        return {'function':function,'root_function':function,'calls':[],'arguments':{},'parent':None,
+        frame={'function':function,'root_function':function,'calls':[],'arguments':{},'parent':None,
             'root_basis':'no_resolved_static_callers','conditions':[],'gaps':[reason] if reason else [],'key':(function,())}
+        self.registry[self.identity(frame)]=frame;return frame
+
+    def scope(self,owner,frame):
+        current=frame
+        while current:
+            if current['function']==owner:return current
+            current=current['parent']
+        return self.root(owner) if owner in self.nodes else frame
 
     def owner(self,uid):return self.owners.get(uid,self.modules.get(self.nodes[uid]['path']))
 
@@ -26,7 +35,7 @@ class CallContexts:
         return [e['target'] for e in self.out[function] if e['kind']=='HAS_PARAMETER']
 
     def descend(self,call,function,parent):
-        conditions=parent['conditions']+[{'kind':'source_call_context','call':call,'target':function}]+self.nodes[call].get('conditions',[])+self.paths.guards.at(call)
+        conditions=parent['conditions']+[{'kind':'source_call_context','call':call,'target':function}]+self.nodes[call].get('conditions',[])+self.paths.guard_conditions(call,parent)
         child={'function':function,'root_function':parent['root_function'],'calls':parent['calls']+[call],
             'arguments':{},'parent':parent,'root_basis':parent['root_basis'],'conditions':conditions,'gaps':list(parent['gaps'])}
         child['key']=(function,tuple(child['calls']))
@@ -59,7 +68,7 @@ class CallContexts:
             elif enclosing.get('kind')=='type' and parameter['parameter_index']==0:
                 child['arguments'][pid]={'reason':'python_implicit_receiver_identity_not_expanded'}
             else:child['gaps'].append('missing_python_path_call_argument')
-        return child
+        self.registry[self.identity(child)]=child;return child
 
     def frames(self,function,seen=()):
         if function is None:return []

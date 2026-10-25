@@ -218,3 +218,23 @@ def expression_dag(term, *, max_nodes=1024):
         return {'ref':index}
     root=visit(term)
     return {'schema':'path-expression-dag/1','root':root,'terms':terms}
+
+
+def expression_from_dag(data,*,max_nodes=1024):
+    """Restore bounded expression sharing; reject malformed or cyclic refs."""
+    if data.get('schema')!='path-expression-dag/1' or not isinstance(data.get('terms'),list) or len(data['terms'])>max_nodes:
+        raise ValueError('Invalid expression DAG')
+    rows=data['terms'];memo={};active=set()
+    def visit(ref):
+        if not isinstance(ref,dict) or set(ref)!={'ref'} or type(ref['ref']) is not int or not 0<=ref['ref']<len(rows):raise ValueError('Invalid expression reference')
+        index=ref['ref']
+        if index in active:raise ValueError('Cyclic expression DAG')
+        if index in memo:return memo[index]
+        row=rows[index]
+        if not isinstance(row,dict) or not isinstance(row.get('op'),str):raise ValueError('Invalid expression term')
+        active.add(index);result={k:v for k,v in row.items() if k not in {'args','choices','items'}}
+        for field in ('args','items'):
+            if field in row:result[field]=[visit(r) for r in row[field]]
+        if 'choices' in row:result['choices']=[{**c,'value':visit(c['value'])} for c in row['choices']]
+        active.remove(index);memo[index]=result;return result
+    return visit(data['root'])

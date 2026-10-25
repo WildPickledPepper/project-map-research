@@ -15,6 +15,7 @@ from adapters.python_path_contexts import CallContexts
 from adapters.python_path_guards import SourceGuards
 from adapters.python_path_storage import StorageVersions
 from adapters.python_path_iterations import Iterations
+from adapters.python_file_predicates import Predicates
 
 PATH_TYPES={'pathlib.Path','pathlib.PurePath','pathlib.PureWindowsPath','pathlib.PurePosixPath'}
 FILE_APIS={'shutil.copyfile':('copy_file','exact_path'),
@@ -50,6 +51,10 @@ class Paths(Boundaries):
         self.guards=SourceGuards(self)
         self.storage=StorageVersions(self)
         self.iterations=Iterations(self)
+        self.predicates=Predicates(self)
+
+    def guard_conditions(self,uid,frame):
+        return [{**c,'evaluation_context':self.calls.identity(frame)} for c in self.guards.at(uid)]
 
     def api(self,uid,seen=None):
         if seen and uid in seen:return set()
@@ -126,7 +131,7 @@ class Paths(Boundaries):
         elif node['kind']=='call_site':result=self.call(uid,ev,frame,seen)
         elif node.get('expression_kind')=='IfExp':
             result={'op':'choice','source':uid,'choices':[{'value':ev(t),
-                'conditions':[{'kind':'python_conditional_expression','source':uid,'branch':field}]} for field in ('body','orelse') for t in self.children(uid,field)]}
+                'conditions':[{'kind':'python_conditional_expression','source':uid,'branch':field}]+self.guard_conditions(t,frame)} for field in ('body','orelse') for t in self.children(uid,field)]}
         elif node.get('expression_kind')=='BinOp' and isinstance(getattr(self.ast.get(uid),'op',None),ast.Div):
             left=self.children(uid,'left');right=self.children(uid,'right')
             result=operation('join',ev(left[0]),ev(right[0]),source=uid) if left and right and self.context_api(left[0],frame)&PATH_TYPES else unknown(uid,'unproven_path_division_receiver')
@@ -139,9 +144,14 @@ class Paths(Boundaries):
                 if 'reason' in reference:value=unknown(reference['uid'],reference['reason'])
                 else:
                     value=self.iterations.value(reference['uid'],uid,frame,seen)
-                    if value is None:value=ev(reference['uid'])
+                    if value is None:
+                        target=self.nodes[reference['uid']]
+                        scope=self.calls.scope(target.get('enclosing_symbol'),frame) if target['kind']=='binding' else frame
+                        value=self.evaluate(reference['uid'],scope,seen)
                 choices.append({'value':value,'conditions':reference.get('conditions',[])})
             result=({'op':'choice','source':uid,'choices':choices} if choices else unknown(uid,'python_binding_without_path_source'))
+        if node['kind']=='binding':
+            result={'op':'choice','source':uid,'choices':[{'value':result,'conditions':self.guard_conditions(uid,frame)}]}
         self.memo[key]=result
         return result
 
@@ -187,7 +197,7 @@ class Paths(Boundaries):
                 if reason:choices.append({'value':unknown(uid,reason)});continue
                 result=self.evaluate(returns[0],child,seen)
                 choices.append({'value':result,'conditions':[{'kind':'source_return','call':uid,'target':target,'source':returns[0]}]+
-                    child['conditions']+self.nodes[returns[0]].get('conditions',[])+self.guards.at(returns[0])})
+                    child['conditions']+self.nodes[returns[0]].get('conditions',[])+self.guard_conditions(returns[0],child)})
             return {'op':'choice','source':uid,'choices':choices}
         return unknown(uid,'python_path_call_not_modeled')
 
@@ -202,13 +212,14 @@ class Paths(Boundaries):
             try:dag=expression_dag(term)
             except ValueError:term=unknown(argument,'python_path_expression_node_budget');dag=expression_dag(term)
             for value in normalize(term,style):
-                value={**value,'conditions':value['conditions']+frame['conditions']+operation_node['conditions']+self.guards.at(operation_node['call'])}
+                value={**value,'conditions':self.predicates.enrich(value['conditions']+frame['conditions']+operation_node['conditions']+self.guard_conditions(operation_node['call'],frame))}
                 self.serial+=1;uid=argument+':path:'+str(self.serial)
                 row={'id':uid,'kind':'path_value','name':value.get('relative_path') or value.get('path') or value.get('display_path') or 'unresolved path',
                     **{k:operation_node[k] for k in ('path','line','column','language','conditions')},
                     'origin':argument,'consumer':operation_node['id'],'role':role,'expression':dag,'value':value,
                     'operation_context':context['id'],'call_stack':frame['calls'],'root_function':frame['root_function'],
                     'path_context':{'style':style,'basis':'unselected_runtime_path_style_candidate'},'runtime_execution':'not_observed',
+                    'option_expressions':[{**o,'expression':self.predicates.serialized(o['target'],frame)} for o in operation_node['option_values']],
                     'control_flow_status':'source_call_binding_and_structured_reachability_guards_not_execution'}
                 self.added.append(row);self.nodes[uid]=row;self.link(argument,uid,'PATH_VALUE_CANDIDATE',path_style=style)
                 self.link(context['id'],uid,'CONTEXT_PATH_VALUE',role=role,path_style=style)
@@ -253,7 +264,7 @@ class Paths(Boundaries):
                 context={'id':bid+':'+self.calls.identity(frame),'kind':'file_operation_context',
                     **{k:node[k] for k in ('path','line','column','name','language')},'operation':bid,
                     'call_stack':frame['calls'],'root_function':frame['root_function'],'api_candidates':sorted(apis),
-                    'root_basis':frame['root_basis'],'conditions':frame['conditions']+node['conditions']+self.guards.at(call['id']),
+                    'root_basis':frame['root_basis'],'conditions':frame['conditions']+node['conditions']+self.guard_conditions(call['id'],frame),
                     'gaps':frame['gaps'],'runtime_execution':'not_observed'}
                 self.added.append(context);self.nodes[context['id']]=context;self.link(bid,context['id'],'FILE_OPERATION_CONTEXT')
                 for role,argument in roles:self.publish(node,argument,role,frame,context)

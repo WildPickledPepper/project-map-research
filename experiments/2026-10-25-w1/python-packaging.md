@@ -1,6 +1,6 @@
 # Python 打包路径与文件操作
 
-2026-10-25 开始接入，10-26 发布真实控制结果。基础适配、逐调用参数传播及目录项模式已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项、de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项、5dd130d 的[目录模式与路径对应检查](evidence/python-directory-patterns.json)31 项通过。继续应用过滤条件、复制契约及动态文件名，连接完整打包链和构建产物。
+2026-10-25 开始接入，10-26 发布真实控制结果。基础适配、逐调用参数传播及目录项模式已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项、de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项、5dd130d 的[目录模式与路径对应检查](evidence/python-directory-patterns.json)31 项通过。过滤谓词现已结构化提取并可计算；接下来应用复制契约，连接完整打包链和构建产物。
 
 ## 自动提取的内容
 
@@ -56,6 +56,24 @@ python -m unittest tests.test_python_path_values tests.test_python_boundaries te
 python experiments/2026-10-25-w1/run_python_path_control.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --output NEW_OUTSIDE_DIRECTORY
 python experiments/2026-10-25-w1/score_python_path_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
 python experiments/2026-10-25-w1/check_path_evidence.py
+```
+
+## 2026-10-26：文件过滤谓词
+
+生产路径适配版本 0.4.0 为外围分支和前序退出条件保存 `predicate_expressions`。每个表达式带源码节点、分支极性及实际求值调用帧；`predicate_complete` 区分完整表达式与尚缺上下文。复制选项的 `option_expressions` 使用相同的有界 DAG。条件表达式和赋值所在分支随路径候选保留。
+
+纯求值器 `file_predicate_values` 接收路径风格、匹配到的目录变量、显式宿主系统、产物路径/类型及可选环境值。它支持布尔操作、基本比较、已确认字符串的 startswith/endswith/lower/upper、platform.system/os.name/sys.platform、os.getenv 和 isdir/isfile/exists。`and/or` 保留 Python 的操作数返回语义。shutil.ignore_patterns 和标准复制函数身份作为选项描述符输出，供后续复制契约使用。
+
+求值器只使用传入事实。环境变量未提供、文件状态不在给定产物及其父目录范围、标量条件赋值尚缺到达定义证明时，返回具体未解析原因。`conditions` 对已证伪的分支给出排除依据，对其余条件分别保留证明和待运行核实项。产物类型由调用方说明其证据性质；预期构建文件与实际观测文件分别记录。
+
+16 项谓词检查与既有路径、目录项和调用上下文检查合计 68 项通过。覆盖后缀 continue、文件/目录分支、调用参数、宿主平台、显式环境、同名自定义方法、选项身份、DAG 共享/环拒绝、条件路径/赋值和未完整谓词。循环内部的目录变量可按匹配文件名计算过滤，条件覆盖前的旧路径则保留到达定义缺项。第一轮有一项测试依赖 AST 遍历顺序，改为按实际 API 选择操作后通过。
+
+完整 Windows 回归运行 540 项，通过，1 项按平台跳过；之后补充条件覆盖缺项的处理及两项负例，最终定向复验 68 项通过。
+
+本项交付结构化谓词及求值能力；复制成员契约、生产产物传播边和真实打包链在下一项验证。已有 31 项目录模式收据继续对应原提取版本，G02/G03 状态保持执行中。
+
+```text
+python -m unittest tests.test_file_predicates tests.test_python_path_iterations tests.test_python_path_contexts tests.test_python_path_values tests.test_path_values tests.test_path_patterns -v
 ```
 
 ## 目录项模式与完整路径匹配
