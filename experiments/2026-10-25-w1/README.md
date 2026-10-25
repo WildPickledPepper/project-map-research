@@ -18,7 +18,7 @@
 
 接下来对照 Rust 原生结构补充 module/use/impl、闭包和 cfg 条件，验证平台启动/加载接口。Python 到后端的实际对端继续按 W2 的产物和实例身份展开。三种语言均按 G02 和首条 G03 实际连接验收。
 
-[Rust 组件对照](rust.md)已完成：原版 CGC 与 rust-analyzer 在同输入独立 fixture 上保存输出，12 项检查通过。生产 crate 上下文、统一图和平台实际接口正在接入。
+[Rust 组件对照](rust.md)已完成：原版 CGC 与 rust-analyzer 在同输入独立 fixture 上保存输出，12 项检查通过；生产 crate 上下文适配的 7 项 Cargo/LSP 检查通过。真实平台源码、统一图和实际接口正在接入。
 
 复现使用既有 CGC 环境，以下路径均由调用方提供，输出需为仓库外新目录：
 

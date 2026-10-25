@@ -11,7 +11,9 @@ import sys
 from urllib.parse import unquote,urlparse
 from urllib.request import url2pathname
 
-from rust_lsp_probe import Client
+ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT))
+from adapters.rust_analyzer import Client
 
 CASES={
  'alias_reexport':({'src/lib.rs':'mod left; mod right; mod api {pub use crate::left::run as invoke;} pub fn entry(){api::invoke();}',

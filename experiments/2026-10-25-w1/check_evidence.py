@@ -74,4 +74,11 @@ assert rust_probe['cgc']==data['upstream']['commit']
 assert rust_probe['rust_analyzer']=='rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)'
 assert all(c['server_health']=='ok' for c in rust_probe['checks'])
 assert not any(rust_probe[k] for k in ('product_code_executed','graph_generated','cargo_invoked','build_scripts_enabled','proc_macros_enabled'))
-print('OK: native 185-file baseline; JS evidence; Python 7/41/137/23 checks; Rust 12 component checks; G02 remains pending.')
+rust_context=json.loads((ROOT/'evidence/rust-project-context.json').read_text(encoding='utf-8'))
+assert rust_context['passed'] and len(rust_context['checks'])==7 and all(c['passed'] for c in rust_context['checks'])
+assert rust_context['tools']['rust-analyzer']==rust_probe['rust_analyzer']
+assert rust_context['tools']['cargo'].startswith('cargo 1.94.0 ') and rust_context['tools']['rustc'].startswith('rustc 1.94.0 ')
+assert rust_context['native_loader_control']==[{'noDeps':True,'targets':[],'health':'ok'},
+    {'noDeps':False,'targets':['worker/code/engine.rs'],'health':'ok'}]
+assert not any(rust_context[k] for k in ('product_code_executed','build_scripts_executed','production_graph_generated','whole_G02_accepted'))
+print('OK: native 185-file baseline; JS evidence; Python 7/41/137/23 checks; Rust 12 component and 7 Cargo context checks; G02 remains pending.')

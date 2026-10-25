@@ -1,4 +1,4 @@
-"""Small source-only rust-analyzer LSP client for isolated component experiments."""
+"""Source-only rust-analyzer LSP transport; no build, edit or execution APIs."""
 from pathlib import Path
 import json
 import queue
@@ -8,18 +8,19 @@ import time
 
 
 class Client:
-    def __init__(self, executable, root, project, log, timeout=40):
+    def __init__(self, executable, root, project, log, timeout=40, *, cargo=None, environment=None, test=False):
         self.timeout=timeout;self.sequence=0;self.events=[];self.responses={};self.incoming=queue.Queue()
         self.root=Path(root).resolve();self.stderr=Path(log).open('wb')
         self.process=subprocess.Popen([str(executable)],cwd=self.root,stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,stderr=self.stderr)
+            stdout=subprocess.PIPE,stderr=self.stderr,env=environment)
         self.reader=threading.Thread(target=self._read,daemon=True);self.reader.start()
         try:
+            options=dict(cargo or {});options['buildScripts']={'enable':False}
             self.initialize=self.request('initialize',{'processId':None,'rootUri':self.root.as_uri(),
                 'capabilities':{'experimental':{'serverStatusNotification':True},
                     'general':{'positionEncodings':['utf-16']},'textDocument':{'definition':{'linkSupport':True}}},
                 'initializationOptions':{'linkedProjects':[project],'checkOnSave':False,
-                    'cargo':{'buildScripts':{'enable':False}},'procMacro':{'enable':False},
+                    'cargo':options,'procMacro':{'enable':False},'cfg':{'setTest':test},
                     'diagnostics':{'enable':False},'cachePriming':{'enable':False},'numThreads':2}})
             self.send({'method':'initialized','params':{}})
             deadline=time.monotonic()+timeout

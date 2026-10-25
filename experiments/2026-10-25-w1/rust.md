@@ -28,9 +28,19 @@ CGC 原生记录保留了结构与调用拼写；本批调用记录没有列坐�
 
 首轮探针有两个手写列位置错误；宏导航还返回两处来源，原参考只写了一处。核对 fixture 后修正参考，第二轮 12 项通过。原始失败保留在仓库外。这次验证支持优先复用 rust-analyzer 处理解析与定义导航；统一身份、闭包值来源、候选、配置条件和接口图仍由接入工作检验。
 
+## 已执行：Cargo 上下文与原生加载
+
+新增生产适配 `rust_project.py`，通过 `cargo metadata --offline --no-deps --format-version 1` 自动读取 workspace、package、非标准目标路径、改名依赖和 Cargo feature 定义。此步骤负责发现目标，依赖关系的语义解析继续交给 rust-analyzer 原生 Cargo loader；没有另写 Cargo 依赖求解器。配置矩阵由源码出现的 OS/feature 条件与 rustc 的目标 cfg 生成，每个会话保留目标、feature 和 debug 选择。未遍历的 feature、架构条件、构建脚本输出和预算缺项明确登记，矩阵不等同于受支持产品构建列表。
+
+[7 项独立检查通过](evidence/rust-project-context.json)：自动发现 workspace/自定义目标/改名依赖；新增、改名、删除目标；输入外依赖缺项；缺少编译器缺项；OS/feature/debug 矩阵；原生 Cargo 路径依赖查询；feature 与 debug 两组替代模块的实际定义导航。最后两项启动固定版本 rust-analyzer，其余项使用实际 Cargo/rustc。带写文件和 panic 的构建脚本哨兵未运行。
+
+原生加载对照确认 `cargo.noDeps=true` 会让本批改名路径依赖的定义导航返回空，关闭此选项后定位到 `worker/code/engine.rs`；两种会话都报告 health=ok，因此健康状态不能代替关系检查。发现阶段的 `--no-deps` 与语义加载阶段分别处理。Cargo 原生目标/依赖输出的能力依据见[官方 metadata 文档](https://doc.rust-lang.org/cargo/commands/cargo-metadata.html)，加载配置依据见[官方配置文档](https://rust-analyzer.github.io/book/configuration)。
+
+工具链使用官方归档解包到实验目录，未运行安装器或修改系统 PATH。初试 Rust 1.90.0 时，分析器报告最低支持 1.94.0；改用便携的 Cargo/rustc/rust-src 1.94.0 后执行上述最终检查。源码夹具中的一个 cfg 括号错误在首轮失败后修正。配置加载器已加入专门的 Linux CI 检查；截至本次本地提交，CI 结果待观察。
+
 ## 下一项
 
-先验证自动 crate/构建上下文和真实平台源码上的定义查询，再把语法事实与语义导航接入统一图。缺失依赖、未选配置、宏展开来源和输入外目标应各自可查。平台启动后端及 WebView/资源加载至少打通第一条实际接口连接；完整跨进程配对继续按 W2 的产物和实例身份完成。
+验证真实平台源码上的定义查询，把语法事实与语义导航接入统一图。缺失依赖、未选配置、宏展开来源和输入外目标应各自可查。平台启动后端及 WebView/资源加载至少打通第一条实际接口连接；完整跨进程配对继续按 W2 的产物和实例身份完成。
 
 ## 复现
 

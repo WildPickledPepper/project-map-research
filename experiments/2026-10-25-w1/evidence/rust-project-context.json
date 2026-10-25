@@ -1,0 +1,58 @@
+{
+  "schema": "rust-project-context-trial/1",
+  "checks": [
+    {
+      "id": "test_cargo_discovers_workspace_custom_targets_and_renamed_path_dependency",
+      "passed": true
+    },
+    {
+      "id": "test_missing_compiler_is_a_required_context_gap",
+      "passed": true
+    },
+    {
+      "id": "test_native_cargo_feature_and_debug_choices_keep_alternatives_separate",
+      "passed": true
+    },
+    {
+      "id": "test_native_cargo_loader_connects_renamed_workspace_dependency_without_running_build",
+      "passed": true
+    },
+    {
+      "id": "test_new_renamed_and_deleted_package_targets_are_rediscovered",
+      "passed": true
+    },
+    {
+      "id": "test_outside_export_dependency_is_a_required_gap",
+      "passed": true
+    },
+    {
+      "id": "test_source_conditions_generate_os_feature_and_debug_contexts",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "tools": {
+    "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+    "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+    "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+  },
+  "native_loader_control": [
+    {
+      "noDeps": true,
+      "targets": [],
+      "health": "ok"
+    },
+    {
+      "noDeps": false,
+      "targets": [
+        "worker/code/engine.rs"
+      ],
+      "health": "ok"
+    }
+  ],
+  "product_code_executed": false,
+  "build_scripts_executed": false,
+  "production_graph_generated": false,
+  "scope": "Cargo targets/workspace/configuration and two native LSP integrations; independent fixture",
+  "whole_G02_accepted": false
+}
