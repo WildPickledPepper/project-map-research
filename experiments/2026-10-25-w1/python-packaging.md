@@ -1,6 +1,6 @@
 # Python 打包路径与文件操作
 
-2026-10-25 开始接入，10-26 发布真实控制结果。基础适配、逐调用参数传播及目录项模式已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项通过，规则 de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项通过。继续应用过滤条件、复制契约及动态文件名，连接完整打包链和构建产物。
+2026-10-25 开始接入，10-26 发布真实控制结果。基础适配、逐调用参数传播及目录项模式已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项、de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项、5dd130d 的[目录模式与路径对应检查](evidence/python-directory-patterns.json)31 项通过。继续应用过滤条件、复制契约及动态文件名，连接完整打包链和构建产物。
 
 ## 自动提取的内容
 
@@ -71,6 +71,35 @@ python experiments/2026-10-25-w1/check_path_evidence.py
 接入后的完整 Windows 回归运行 520 项，结果通过，1 项按平台跳过；混合生产建图已验证模式、循环事实及既有语言关系共同保留。
 
 本项建立目录成员的路径表示和匹配基础。源码过滤谓词已保留在图中；将谓词、复制选项和目标目录状态应用到构建产物传播继续单独实施。G02/G03 保持未通过。
+
+### Insight 目录模式复验
+
+规则 5dd130d 在同一 d4e8d1c、119 个 Python 输入上重算路径和索引，原生语义/接口事实按前述不变条件复用。`build/build.py:189` 自动产生两个路径模式：
+
+```text
+server/output/{tmp}/bin/{file}
+  → server/output/build/server/{file}
+```
+
+两个变量保存独立循环身份及枚举目录；源和目标共用同一文件变量。6 个正反向查询可展开循环、目录和后缀谓词，同版本源码导航通过。目录基址已知的这次复制不再作为“未知文件名表达式”报告。
+
+独立评分读取此前已发布的 CMake 原生产物记录，显式选择 Windows 路径解释，使用完整产物路径核对这些模式。匹配器计算出归一化文件位置，并用随后目录复制的完整前缀算得桌面与插件包路径：
+
+```text
+server/output/build/server/profiler_server.exe
+platform/preview/resources/profiler/server/profiler_server.exe
+plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe
+```
+
+这项路径对应评价共 31 项通过，参考产物和预期仅供评分，未作为 Python 提取输入。改变文件名可复用相同规则，同名但目录不同、缺少目标变量及不相容根目录均拒绝补连。
+
+当前评分验证路径对应；CMake 平台自动绑定、过滤谓词和复制契约的应用、生产产物传播边以及实际文件复制由下一步分别验证。原始图/源码保持在仓库外，公开收据单列这些状态。整体验收继续按 G01–G08 判定。
+
+```text
+python experiments/2026-10-25-w1/recheck_python_paths.py --source SOURCE --base-trial PREVIOUS_PYTHON_CONTROL --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_python_patterns.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_path_evidence.py
+```
 
 ## 2026-10-26：调用上下文、路径返回与读取位置
 

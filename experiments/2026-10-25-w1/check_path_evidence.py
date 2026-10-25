@@ -69,3 +69,23 @@ assert not any(contexts[k] for k in ('original_checkout_modified','default_works
     'directory_enumeration_expanded','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
 assert contexts['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 28 recomputed-path/cached-native checks; desktop/JupyterLab contexts separate; directory entries and process pairing pending.')
+
+patterns=json.loads((Path(__file__).parent/'evidence/python-directory-patterns.json').read_text(encoding='utf-8'))
+assert patterns['schema']=='python-directory-pattern-score/1' and patterns['passed']
+assert len(patterns['checks'])==31 and all(c['passed'] for c in patterns['checks'])
+assert patterns['source_commit']==contexts['source_commit']
+assert patterns['build_version']['rules_commit']=='5dd130d6c95da8aab4d22e09e207e05f1cabca2d'
+assert patterns['index_counts']['input_files']==119 and patterns['index_counts']['nodes']==76636 and patterns['index_counts']['edges']==110788
+assert patterns['source_pattern']=='server/output/{tmp}/bin/{file}' and patterns['destination_pattern']=='server/output/build/server/{file}'
+assert patterns['computed_stage_path']=='server/output/build/server/profiler_server.exe'
+assert set(patterns['subsequent_directory_path_correspondences'])=={
+    'platform/preview/resources/profiler/server/profiler_server.exe',
+    'plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe'}
+assert len(patterns['navigation'])==6 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in patterns['navigation'])
+assert patterns['path_adapter_executed_again'] and patterns['directory_patterns_extracted']
+assert patterns['evaluation_path_style_selection']=='windows_explicit_reference_not_automatic_native_platform_binding'
+assert not any(patterns[k] for k in ('native_semantic_stage_executed_again','original_checkout_modified','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'filter_predicates_applied','copy_contracts_applied','native_platform_automatically_bound','production_artifact_edges_emitted',
+    'process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
+assert patterns['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 31 directory-pattern/path-correspondence checks; predicate and artifact propagation stages pending.')

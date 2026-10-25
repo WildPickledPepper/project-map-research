@@ -1,0 +1,244 @@
+{
+  "schema": "python-directory-pattern-score/1",
+  "origin": "recomputed_production_path_patterns_separate_native_artifact_reference_comparison",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-recheck:7ba49fa0883443e3a24f5ac0fe148e21",
+  "scope": "python_paths_recomputed_all_selected_python_inputs",
+  "build_version": {
+    "rules_commit": "5dd130d6c95da8aab4d22e09e207e05f1cabca2d",
+    "python_components": {
+      "jedi": "0.19.2",
+      "parso": "0.8.5",
+      "python": "3.11.9"
+    },
+    "base_facts": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-control:25616103484f48dea770a5dc25e65264:before-path-projection",
+      "rules_commit": "9806c76b26190ad849e5f3d5bab82e2a106f5b78",
+      "components": [
+        "adapters/python_facts.py",
+        "adapters/python_contexts.py",
+        "adapters/python_boundaries.py"
+      ],
+      "adapter_history_unchanged": true,
+      "component_versions_unchanged": true,
+      "input_context_unchanged": true,
+      "counts": {
+        "nodes": 76402,
+        "edges": 105988
+      }
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 119,
+    "modules": 29,
+    "nodes": 76636,
+    "edges": 110788,
+    "entries": 0,
+    "diagnostic_records": 101,
+    "providers": 0,
+    "module_relation_groups": 0
+  },
+  "path_resolution_counts": {
+    "symbolic_base": 58,
+    "pattern": 12,
+    "unresolved": 92
+  },
+  "iteration_count": 10,
+  "source_pattern": "server/output/{tmp}/bin/{file}",
+  "destination_pattern": "server/output/build/server/{file}",
+  "native_artifact_reference": {
+    "rules_commit": "07dcab66e14cdc5e94e4e7074320dbb7632388ee",
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:af5130b88f5d476c885b98d6ffb4495e",
+    "location": {
+      "root": "source",
+      "path": "server/output/win_mingw64/bin/profiler_server.exe"
+    }
+  },
+  "evaluation_path_style_selection": "windows_explicit_reference_not_automatic_native_platform_binding",
+  "computed_stage_path": "server/output/build/server/profiler_server.exe",
+  "subsequent_directory_path_correspondences": [
+    "platform/preview/resources/profiler/server/profiler_server.exe",
+    "plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe"
+  ],
+  "navigation": [
+    {
+      "id": "source_iteration_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "source_iteration_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "iteration_directory_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "iteration_directory_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "suffix_guard_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "suffix_guard_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "complete_python_control_input_scope",
+      "passed": true
+    },
+    {
+      "id": "one_source_destination_pair_per_context",
+      "passed": true
+    },
+    {
+      "id": "source_pattern_has_fixed_directories_and_two_variables",
+      "passed": true
+    },
+    {
+      "id": "destination_pattern_preserves_same_file_variable",
+      "passed": true
+    },
+    {
+      "id": "directory_domains_preserved",
+      "passed": true
+    },
+    {
+      "id": "native_iterator_api_and_bindings",
+      "passed": true
+    },
+    {
+      "id": "source_iteration_links_preserved",
+      "passed": true
+    },
+    {
+      "id": "pattern_is_not_a_concrete_path",
+      "passed": true
+    },
+    {
+      "id": "no_unresolved_directory_base_for_reference",
+      "passed": true
+    },
+    {
+      "id": "published_native_artifact_source_location",
+      "passed": true
+    },
+    {
+      "id": "native_artifact_full_path_matches_pattern",
+      "passed": true
+    },
+    {
+      "id": "both_directory_memberships_supported_by_artifact_prefix",
+      "passed": true
+    },
+    {
+      "id": "stage_destination_computed_from_bound_filename",
+      "passed": true
+    },
+    {
+      "id": "different_filename_uses_same_rules",
+      "passed": true
+    },
+    {
+      "id": "same_basename_wrong_directory_rejected",
+      "passed": true
+    },
+    {
+      "id": "unbound_build_root_not_equal_to_source_root",
+      "passed": true
+    },
+    {
+      "id": "missing_destination_variable_not_guessed",
+      "passed": true
+    },
+    {
+      "id": "desktop_and_plugin_directory_path_correspondence",
+      "passed": true
+    },
+    {
+      "id": "suffix_filter_source_retained_for_next_stage",
+      "passed": true
+    },
+    {
+      "id": "directory_path_no_longer_reports_unresolved_at_copy",
+      "passed": true
+    },
+    {
+      "id": "navigation_source_iteration_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_source_iteration_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_iteration_directory_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_iteration_directory_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_suffix_guard_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_suffix_guard_in",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_navigation",
+      "passed": true
+    },
+    {
+      "id": "reused_native_stage_versioned_unchanged",
+      "passed": true
+    },
+    {
+      "id": "original_unchanged_and_hash_preference",
+      "passed": true
+    },
+    {
+      "id": "extraction_not_given_artifact_or_source_answers",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "native_semantic_stage_executed_again": false,
+  "path_adapter_executed_again": true,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "runtime_execution": false,
+  "directory_patterns_extracted": true,
+  "filter_predicates_applied": false,
+  "copy_contracts_applied": false,
+  "native_platform_automatically_bound": false,
+  "production_artifact_edges_emitted": false,
+  "process_counterpart_connected": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false
+}
