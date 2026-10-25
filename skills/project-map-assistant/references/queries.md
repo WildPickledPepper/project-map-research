@@ -23,10 +23,14 @@
 
 `explain` 用重复 `--field` 表示字段路径，例如 `--field body --field items`。它复用既有组合查询器，单独进程加载原图；大图会消耗较多内存，时间预算到期返回截断状态。一般导航使用 SQLite 索引，不需要完整加载原图。
 
+字段账本按 `--offset`、`--limit` 分页；续页复用入口、字段路径、深度和 `--snapshot RETURNED_SNAPSHOT`。`total` 表示已经恢复的关系总数，`extraction_truncated` 表示提取/展开仍有缺口，两者单独判断。
+
 ## 分页和预算
 
 分页复用相同查询参数、`--cursor RETURNED_CURSOR` 和 `--snapshot RETURNED_SNAPSHOT`。游标绑定查询、快照及导航版本，刷新后的游标需要重新开始。跨多步分析固定返回的 snapshot；如被版本检查拒绝，先重新读取 status。
 
 普通查询默认时间 3 秒、节点 200、边 500、输出 128 KiB。按需设置 `--seconds`、`--nodes`、`--edges`、`--output-bytes`、`--limit`；当前最大值分别为 30 秒、5000、10000、1 MiB、200。trace/path/impact 的 `--kinds TYPE1,TYPE2` 可缩小遍历关系。
+
+全仓不筛关系的遍历容易先用尽节点预算。查协议到处理器时可用 `--kinds EMITS_MESSAGE,MATCHES_REGISTERED_PROTOCOL,DECODES_MESSAGE,DISPATCHES_REGISTERED_HANDLER,RESOLVES_HANDLER`；查数据库和状态时再根据相邻关系逐段展开。搜索返回类型、调用点和函数等不同节点，追函数调用时使用 `--kind callable` 并核对路径。
 
 `impact` 是静态关联的反向遍历，须结合边类型和条件判断影响。空结果、歧义、未知类型、动态 SQL、未配置的部署边界，以及遍历预算耗尽都需要明确处理；源码证据决定已知部分，运行场景补充实际发生的部分。

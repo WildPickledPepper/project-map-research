@@ -1,5 +1,6 @@
 """Read-only MCP access to the same CLI queries; no build or source-write tools."""
 from typing import Any
+from projectmap import __version__
 
 
 def create_server(workspace):
@@ -8,7 +9,7 @@ def create_server(workspace):
         from mcp.types import ToolAnnotations
     except ImportError as error:
         raise ImportError('Install the skill wheel with the mcp extra to use serve') from error
-    server=MCPServer('Project Map',version='0.2.0',instructions=(
+    server=MCPServer('Project Map',version=__version__,instructions=(
         'Use map_status first. Query overview/search, then trace/impact and detail/source. '
         'Results are source facts and conditional candidates. Missing relationships mean unknown. '
         'Runtime claims require matching execution context. Historical assets are disabled.'))
@@ -30,9 +31,9 @@ def create_server(workspace):
             direction=direction,kinds=kinds,depth=depth,limit=limit,cursor=cursor,line=line,context=context,snapshot=snapshot)
 
     @server.tool(annotations=readonly,structured_output=True)
-    def map_field_chain(start:str,field:list[str],limit:int=20,depth:int=16,seconds:float=30)->dict[str,Any]:
+    def map_field_chain(start:str,field:list[str],limit:int=20,offset:int=0,snapshot:str|None=None,depth:int=16,seconds:float=30)->dict[str,Any]:
         """Compose request, producer, response-field and consumer evidence. field is a field path. Expensive graph expansion runs separately with a time limit; truncation is unknown coverage."""
-        return workspace.explain(start,field,limit=limit,depth=depth,seconds=seconds)
+        return workspace.explain(start,field,limit=limit,offset=offset,snapshot=snapshot,depth=depth,seconds=seconds)
 
     @server.tool(annotations=readonly,structured_output=True)
     def map_runtime(scenario:str|None=None,record_id:str|None=None,execution_context:dict|None=None,

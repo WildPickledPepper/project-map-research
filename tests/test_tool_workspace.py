@@ -119,6 +119,12 @@ class ToolWorkspaceTests(unittest.TestCase):
             self.w.runtime(record_id='a'*32)
         with self.assertRaises(ValueError):self.w.runtime(record_id='../x',context={})
 
+    def test_field_pages_cannot_cross_snapshot_or_use_negative_offset(self):
+        self.attach_chain()
+        with self.assertRaisesRegex(ValueError,'snapshot differs'):
+            self.w.explain('fetch',['body'],snapshot='another')
+        with self.assertRaises(ValueError):self.w.explain('fetch',['body'],offset=-1)
+
     def test_cli_utf8_and_error_exit(self):
         self.attach_chain()
         base=[sys.executable,'-m','projectmap','--workspace',str(self.w.directory)]

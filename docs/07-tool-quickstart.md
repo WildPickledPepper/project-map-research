@@ -16,7 +16,7 @@ skill 使用 CLI 查询；支持 MCP 的客户端也可以选用四个只读工�
 
 ```text
 python -m pip wheel --no-deps --no-build-isolation --wheel-dir OUTSIDE_REPO/wheels .
-python scripts/package_skill.py --wheel OUTSIDE_REPO/wheels/project_map_tool-0.2.0-py3-none-any.whl --output OUTSIDE_REPO/project-map-assistant.zip
+python scripts/package_skill.py --wheel OUTSIDE_REPO/wheels/project_map_tool-0.2.1-py3-none-any.whl --output OUTSIDE_REPO/project-map-assistant.zip
 ```
 
 需要时增加 `--install-to NEW_SKILL_DIRECTORY`；目标必须不存在，脚本保留已有 skill。打包器检查 wheel 内容白名单及规则 Git 提交。二进制、依赖、图和原始日志不入研究仓库。

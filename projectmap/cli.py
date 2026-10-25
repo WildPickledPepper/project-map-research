@@ -40,6 +40,7 @@ def parser():
     explain=sub.add_parser('explain',help='Composed request/field/response evidence, in a bounded worker process')
     explain.add_argument('start');explain.add_argument('--field',action='append',required=True)
     explain.add_argument('--depth',type=int,default=16);explain.add_argument('--limit',type=int,default=20)
+    explain.add_argument('--offset',type=int,default=0);explain.add_argument('--snapshot')
     explain.add_argument('--seconds',type=float,default=30);explain.add_argument('--allow-stale',action='store_true')
     runtime=sub.add_parser('runtime',help='List runtime evidence or validate one explicit execution context')
     runtime.add_argument('--id',dest='record_id');runtime.add_argument('--context',type=Path);runtime.add_argument('--scenario')
@@ -70,7 +71,7 @@ def main(argv=None):
                 values={k:v for k,v in vars(args).items() if k not in {'workspace','command','pretty','view'}}
                 if values.get('kinds'):values['kinds']=values['kinds'].split(',')
                 result=w.query(args.view,**values)
-            elif args.command=='explain':result=w.explain(args.start,args.field,allow_stale=args.allow_stale,seconds=args.seconds,limit=args.limit,depth=args.depth)
+            elif args.command=='explain':result=w.explain(args.start,args.field,allow_stale=args.allow_stale,seconds=args.seconds,limit=args.limit,offset=args.offset,snapshot=args.snapshot,depth=args.depth)
             elif args.command=='runtime':result=w.runtime(record_id=args.record_id,context=read(args.context) if args.context else None,
                 scenario=args.scenario,limit=args.limit,offset=args.offset,allow_stale=args.allow_stale)
             elif args.command=='serve':

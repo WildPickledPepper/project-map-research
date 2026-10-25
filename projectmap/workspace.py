@@ -212,13 +212,14 @@ class Workspace:
         result['workspace']={'freshness':status['freshness'],'worktree_has_changes':status['worktree_has_changes'],'worktree_included':False,'historical_assets_enabled':False}
         return result
 
-    def explain(self,start,field,*,allow_stale=False,seconds=30,limit=20,depth=16):
-        if not 1<=seconds<=120 or not 1<=limit<=200 or not 0<=depth<=64:raise ValueError('Use seconds 1..120, limit 1..200 and depth 0..64')
+    def explain(self,start,field,*,allow_stale=False,seconds=30,limit=20,offset=0,snapshot=None,depth=16):
+        if not 1<=seconds<=120 or not 1<=limit<=200 or offset<0 or not 0<=depth<=64:raise ValueError('Use seconds 1..120, limit 1..200, offset >= 0 and depth 0..64')
         field=field if isinstance(field,list) else [field]
         if not field or any(not isinstance(part,str) or not part for part in field):raise ValueError('A nonempty field path is required')
         active,status=self._active(allow_stale)
+        if snapshot is not None and snapshot!=active['snapshot']:raise ValueError('Field query snapshot differs from active workspace')
         request={'graph':active['graph'],'source_commit':active['source_commit'],'snapshot':active['snapshot'],
-            'start':start,'field':field,'limit':limit,'depth':depth}
+            'start':start,'field':field,'limit':limit,'offset':offset,'depth':depth}
         jobs=self.directory/'queries';jobs.mkdir(exist_ok=True)
         request_path=jobs/(uuid.uuid4().hex+'.json');atomic_json(request_path,request)
         try:

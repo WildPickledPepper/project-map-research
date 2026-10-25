@@ -11,7 +11,7 @@ def main():
     graph=json.loads(Path(request['graph']).read_text(encoding='utf-8'))
     if graph['snapshot']!=request['snapshot'] or graph['source_commit']!=request['source_commit']:
         raise ValueError('Field query graph differs from active workspace version')
-    result=ProjectQuery(graph).trace(request['start'],field=request['field'],limit=request['limit'],depth=request['depth'])
+    result=ProjectQuery(graph).trace(request['start'],field=request['field'],limit=request['limit'],offset=request['offset'],depth=request['depth'])
     print(json.dumps(result,ensure_ascii=False,allow_nan=False))
 
 

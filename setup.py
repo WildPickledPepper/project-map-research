@@ -27,7 +27,7 @@ class VersionedBuild(build_py):
             rules=json.loads(info.read_text(encoding='utf-8'))['rules_commit']
         super().run()
         target=Path(self.build_lib)/'projectmap/_build_info.json'
-        target.write_text(json.dumps({'rules_commit':rules,'distribution':'project-map-tool','version':'0.2.0',
+        target.write_text(json.dumps({'rules_commit':rules,'distribution':'project-map-tool','version':'0.2.1',
             'benchmark_materials_included':False},indent=2)+'\n',encoding='utf-8')
 
 
