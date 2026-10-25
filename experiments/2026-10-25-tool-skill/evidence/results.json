@@ -1,0 +1,347 @@
+{
+  "date": "2026-10-25",
+  "evidence_kind": "executed_tool_delivery_checks",
+  "distribution": {
+    "rules_commit": "f794393f77d6f958d3f56cdc2a8fcc82a169c9bc",
+    "distribution": "project-map-tool",
+    "version": "0.2.1",
+    "benchmark_materials_included": false,
+    "wheel_entries": 76
+  },
+  "full_python_suite": {
+    "passed": 359,
+    "failed": 0
+  },
+  "typescript_suite": {
+    "passed": 110,
+    "failed": 0,
+    "typescript_sources_changed_after_run": false
+  },
+  "new_repository": {
+    "evidence_kind": "executed_installed_wheel",
+    "source_commits": [
+      "9b0df8eacc34b7ce84311e2bd84171141f1fd4e1",
+      "934f4e378a5358178cfd2b93c343578a5cd6b817"
+    ],
+    "snapshot": "934f4e378a5358178cfd2b93c343578a5cd6b817:full:2af0e727bb59478a820662686fccbde9",
+    "rules_commit": "f794393f77d6f958d3f56cdc2a8fcc82a169c9bc",
+    "build_counts": {
+      "tracked_files": 3,
+      "input_files": 3,
+      "modules": 2,
+      "nodes": 7,
+      "edges": 5,
+      "entries": 0,
+      "diagnostic_records": 100,
+      "providers": 0,
+      "module_relation_groups": 0
+    },
+    "checks": [
+      {
+        "name": "installed_package_not_research_checkout",
+        "passed": true
+      },
+      {
+        "name": "no_history_on_init",
+        "passed": true
+      },
+      {
+        "name": "doctor_with_real_cpp_parser",
+        "passed": true
+      },
+      {
+        "name": "real_build_ready",
+        "passed": true
+      },
+      {
+        "name": "repeat_update_reuses_snapshot",
+        "passed": true
+      },
+      {
+        "name": "automatic_module_discovery",
+        "passed": true
+      },
+      {
+        "name": "typescript_extracted",
+        "passed": true
+      },
+      {
+        "name": "cpp_extracted",
+        "passed": true
+      },
+      {
+        "name": "snapshot_source_navigation",
+        "passed": true
+      },
+      {
+        "name": "reverse_impact_available",
+        "passed": true
+      },
+      {
+        "name": "no_source_mutations",
+        "passed": true
+      },
+      {
+        "name": "stale_map_rejected",
+        "passed": true
+      },
+      {
+        "name": "new_snapshot_published",
+        "passed": true
+      },
+      {
+        "name": "name_change_discovered",
+        "passed": true
+      },
+      {
+        "name": "old_name_removed",
+        "passed": true
+      },
+      {
+        "name": "dirty_worktree_reported_and_excluded",
+        "passed": true
+      },
+      {
+        "name": "runtime_missing_is_empty",
+        "passed": true
+      }
+    ],
+    "historical_assets_enabled": false,
+    "accuracy_experiment": "not_run"
+  },
+  "insight_existing_graph": {
+    "evidence_kind": "executed_installed_wheel_on_existing_a5_extraction",
+    "source_commit": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce",
+    "snapshot": "b7a30457ce32e06172fc1dfb33e0dab75f1bfcce:full:4170fbe0002842ef98eb4ecd8e358174",
+    "extraction_rules": "b8eac24190eae0a36f2ff2f3f97954670bc25198",
+    "navigation_rules": "919132203f4dc7b513dee27dfaa87a71a3ae501e",
+    "installed_rules": "f794393f77d6f958d3f56cdc2a8fcc82a169c9bc",
+    "runtime_recaptured": false,
+    "accuracy_experiment": "not_run",
+    "checks": [
+      {
+        "name": "source_current_for_selected_commit",
+        "passed": true
+      },
+      {
+        "name": "historical_assets_disabled",
+        "passed": true
+      },
+      {
+        "name": "overview_same_snapshot",
+        "passed": true
+      },
+      {
+        "name": "links_same_snapshot",
+        "passed": true
+      },
+      {
+        "name": "entries_same_snapshot",
+        "passed": true
+      },
+      {
+        "name": "providers_same_snapshot",
+        "passed": true
+      },
+      {
+        "name": "diagnostics_same_snapshot",
+        "passed": true
+      },
+      {
+        "name": "entry_discovered",
+        "passed": true
+      },
+      {
+        "name": "source_pinned",
+        "passed": true
+      },
+      {
+        "name": "neighbors_have_evidence",
+        "passed": true
+      },
+      {
+        "name": "frontend_to_registered_handler_path",
+        "passed": true
+      },
+      {
+        "name": "reverse_impact_with_unknown_policy",
+        "passed": true
+      },
+      {
+        "name": "evidence_expandable",
+        "passed": true
+      },
+      {
+        "name": "field_chain_ledger",
+        "passed": true
+      },
+      {
+        "name": "field_chain_second_page_same_snapshot",
+        "passed": true
+      },
+      {
+        "name": "runtime_list_does_not_imply_overlay",
+        "passed": true
+      },
+      {
+        "name": "matching_record_context_accepted",
+        "passed": true
+      },
+      {
+        "name": "different_context_rejected",
+        "passed": true
+      },
+      {
+        "name": "mcp_four_readonly_tools",
+        "passed": true
+      },
+      {
+        "name": "installed_mcp_same_path",
+        "passed": true
+      }
+    ],
+    "timings": [
+      {
+        "label": "status",
+        "seconds": 0.531,
+        "bytes": 2015
+      },
+      {
+        "label": "overview",
+        "seconds": 0.61,
+        "bytes": 4867
+      },
+      {
+        "label": "links",
+        "seconds": 0.562,
+        "bytes": 2709
+      },
+      {
+        "label": "entries",
+        "seconds": 0.609,
+        "bytes": 2915
+      },
+      {
+        "label": "providers",
+        "seconds": 0.563,
+        "bytes": 1911
+      },
+      {
+        "label": "diagnostics",
+        "seconds": 0.562,
+        "bytes": 3343
+      },
+      {
+        "label": "search",
+        "seconds": 0.657,
+        "bytes": 2049
+      },
+      {
+        "label": "source",
+        "seconds": 0.75,
+        "bytes": 3248
+      },
+      {
+        "label": "neighbors",
+        "seconds": 0.64,
+        "bytes": 5225
+      },
+      {
+        "label": "target",
+        "seconds": 0.844,
+        "bytes": 2364
+      },
+      {
+        "label": "path",
+        "seconds": 0.563,
+        "bytes": 4004
+      },
+      {
+        "label": "impact",
+        "seconds": 0.562,
+        "bytes": 8579
+      },
+      {
+        "label": "detail",
+        "seconds": 0.734,
+        "bytes": 5298
+      },
+      {
+        "label": "field-chain",
+        "seconds": 24.86,
+        "bytes": 177241
+      },
+      {
+        "label": "field-page-two",
+        "seconds": 25.859,
+        "bytes": 175778
+      },
+      {
+        "label": "runtime-list",
+        "seconds": 0.797,
+        "bytes": 8731
+      },
+      {
+        "label": "runtime-match",
+        "seconds": 12.938,
+        "bytes": 1902
+      },
+      {
+        "label": "runtime-mismatch",
+        "seconds": 12.234,
+        "bytes": 1913
+      }
+    ],
+    "protocol_path_kinds": [
+      "EMITS_MESSAGE",
+      "MATCHES_REGISTERED_PROTOCOL",
+      "DECODES_MESSAGE",
+      "DISPATCHES_REGISTERED_HANDLER",
+      "RESOLVES_HANDLER"
+    ],
+    "field_chain_summary": {
+      "returned_relations": 5,
+      "total": 303,
+      "extraction_truncated": true
+    },
+    "runtime_records_listed": 9
+  },
+  "attached_graph_counts": {
+    "tracked_files": 4856,
+    "input_files": 2311,
+    "modules": 29,
+    "nodes": 282132,
+    "edges": 412929,
+    "entries": 269,
+    "diagnostic_records": 35539,
+    "providers": 125,
+    "module_relation_groups": 133
+  },
+  "retained_failures": [
+    {
+      "run": "initial_full_suite",
+      "tests": 356,
+      "errors": 2,
+      "causes": [
+        "test patch still targeted the promoted implementation old module",
+        "transient Windows sharing violation while reading state.json"
+      ]
+    },
+    {
+      "run": "insight-smoke",
+      "cause": "driver selected a type node from a substring search; function filter added"
+    },
+    {
+      "run": "insight-smoke-02",
+      "cause": "unfiltered path search reached 200-node budget; protocol relationship filter used"
+    },
+    {
+      "run": "insight-smoke-03",
+      "cause": "driver passed a relative context path after changing process directory; absolute path used"
+    }
+  ],
+  "accuracy_experiment": "not_run",
+  "historical_asset_integration": "deferred_by_user",
+  "new_historical_candidates": "7 still unassigned; registration reviewed only",
+  "file_hash_reverification": "not_run_per_user_preference"
+}

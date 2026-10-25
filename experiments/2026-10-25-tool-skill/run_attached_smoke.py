@@ -65,7 +65,8 @@ def main():
             check('installed_mcp_same_path',not response.is_error and response.structured_content['found'] and response.structured_content['snapshot']==snapshot)
     asyncio.run(mcp())
     summary={'evidence_kind':'executed_installed_wheel_on_existing_a5_extraction','source_commit':basis['source_commit'],
-        'snapshot':snapshot,'extraction_rules':basis['build_version']['rules_commit'],'navigation_rules':status['installed_rules_commit'],
+        'snapshot':snapshot,'extraction_rules':basis['build_version']['rules_commit'],
+        'navigation_rules':source['navigation_version']['rules_commit'],'installed_rules':status['installed_rules_commit'],
         'runtime_recaptured':False,'accuracy_experiment':'not_run','checks':checks,'timings':timings,
         'protocol_path_kinds':[edge['kind'] for edge in path['items']],
         'field_chain_summary':{'returned_relations':len(field['items']),'total':field.get('total'),'extraction_truncated':field.get('extraction_truncated')},
