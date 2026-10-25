@@ -60,7 +60,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       RUSTUP_TOOLCHAIN: '1.94.0'
-      PROJECT_MAP_RUST_ANALYZER: ${{ runner.temp }}/rust-analyzer
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -72,11 +71,13 @@ jobs:
           python - <<'PY'
           import gzip, os, pathlib, urllib.request
           url='https://github.com/rust-lang/rust-analyzer/releases/download/2026-10-19/rust-analyzer-x86_64-unknown-linux-gnu.gz'
-          path=pathlib.Path(os.environ['PROJECT_MAP_RUST_ANALYZER'])
+          path=pathlib.Path(os.environ['RUNNER_TEMP'])/'rust-analyzer'
           path.write_bytes(gzip.decompress(urllib.request.urlopen(url, timeout=60).read()))
           path.chmod(0o755)
           PY
       - run: python -m unittest tests.test_rust_project -v
+        env:
+          PROJECT_MAP_RUST_ANALYZER: ${{ runner.temp }}/rust-analyzer
   skill-distribution:
     runs-on: ubuntu-latest
     steps:
