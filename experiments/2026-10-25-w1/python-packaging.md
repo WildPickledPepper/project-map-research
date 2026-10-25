@@ -76,6 +76,22 @@ python experiments/2026-10-25-w1/check_path_evidence.py
 python -m unittest tests.test_file_predicates tests.test_python_path_iterations tests.test_python_path_contexts tests.test_python_path_values tests.test_path_values tests.test_path_patterns -v
 ```
 
+## 复制成员契约
+
+`file_copy_contracts.map_member` 将同一调用上下文、同一路径风格的源/目标与一个预期普通文件匹配。copyfile 映射精确目标；copytree 按完整目录前缀保留后代路径，并逐级应用标准 ignore_patterns，目录名被忽略时其后代也被排除。copy/copy2 保存“目标为已有目录”和“目标为文件”两个条件候选。字面量循环成员按变量身份和下标配对，各调用点独立。
+
+选项按 API 的实际位置/关键字签名解析，保留 dirs_exist_ok、符号链接参数和标准 copy_function 身份。自定义复制/忽略回调、未解析选项、上下文缺失和未展开的条件覆盖给出具体必需缺项。move/rename 的移动效果及后续顺序另行实现。
+
+每条结果保留操作成功、普通文件/目录布局、目录目标状态及“生产者—复制—消费者”顺序条件；其身份是 `conditional_candidate`，执行状态为 `not_observed`。本项提供契约计算，下一项在默认构图中将构建产物自动传播为统一图关系。
+
+契约依据 [CPython 3.11.9 shutil 实现](https://github.com/python/cpython/blob/v3.11.9/Lib/shutil.py)及 [fnmatch 实现](https://github.com/python/cpython/blob/v3.11.9/Lib/fnmatch.py)。ignore_patterns 使用宿主 normcase 后的文件名匹配，测试分别检查 Windows/Posix 行为。
+
+12 项复制契约及 68 项路径/谓词检查，共 80 项定向检查通过。涵盖源/目标名称变化、同名异根、后缀过滤、文件/目录分支、忽略目录及大小写、位置选项、自定义回调、两组调用/循环配对、目标目录状态和环境条件。
+
+```text
+python -m unittest tests.test_file_copy_contracts tests.test_file_predicates tests.test_python_path_iterations tests.test_python_path_contexts tests.test_python_path_values tests.test_path_values tests.test_path_patterns -v
+```
+
 ## 目录项模式与完整路径匹配
 
 当前路径适配按原生绑定身份识别 for 目标，并核对 os.listdir 的实际导入与调用参数。`path_iteration` 保存循环绑定、目录、调用上下文和路径风格；ITERATION_BINDING、ITERATION_SOURCE、ITERATION_DIRECTORY、ITERATION_CALL_CONTEXT 及 PATH_ITERATION_SOURCE 可展开来源。
