@@ -168,3 +168,23 @@ assert not any(cargo[k] for k in ('default_workspace_rebuild','native_cargo_buil
     'native_cargo_target_connected','process_counterpart_connected','whole_G03_accepted','original_checkout_modified'))
 assert cargo['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 30 current Cargo source-request checks on pinned process facts; actual product target/artifact binding remains pending.')
+
+declared=json.loads((Path(__file__).parent/'evidence/cargo-declared-control.json').read_text(encoding='utf-8'))
+assert declared['schema']=='cargo-declared-control-score/1' and declared['passed']
+assert len(declared['checks'])==39 and all(c['passed'] for c in declared['checks'])
+assert declared['source_commit']==cargo['source_commit'] and declared['input_count']==135
+assert declared['python_input_count']==119 and declared['rust_input_count']==16
+assert declared['build_version']['rules_commit']=='c141f19e470c807799f35360a84683458f59bce6'
+assert declared['build_version']['cached_python']==cargo['base_process_version']
+assert declared['build_version']['cached_rust']['rules_commit']=='6038f946134f23a4a52828a1fdf9cf8a653f073c'
+assert declared['index_counts']['nodes']==82575 and declared['index_counts']['edges']==124033
+assert declared['artifact']['location']=={'root':'source','path':'platform/target/release/MindStudioInsight.exe'}
+assert declared['artifact']['materialization']=='expected_output_not_built'
+assert declared['copied_path']=='platform/preview/MindStudio-Insight.exe'
+assert declared['target']['root_source']=={'root':'source','path':'platform/src/main.rs'}
+assert len(declared['navigation'])==8 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in declared['navigation'])
+assert declared['cargo_queries_and_copy_projection_executed_again'] and not declared['python_rust_semantics_executed_again']
+assert not any(declared[k] for k in ('default_workspace_rebuild','installed_tool_tested','product_compiled','build_scripts_executed',
+    'product_executable_run','process_counterpart_connected','whole_G03_accepted','original_checkout_modified'))
+assert declared['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 39 current Cargo metadata/filename/packaging/index checks; expected launcher connected, current_exe binding pending.')

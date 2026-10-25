@@ -1,0 +1,345 @@
+{
+  "schema": "cargo-declared-control-score/1",
+  "origin": "current_cargo_queries_and_projection_on_cached_source_facts",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:cargo-declared-control:dd7b7883337c4c08a96f0a9cf6025a73",
+  "scope": "python_rust_source_and_cargo_control",
+  "build_version": {
+    "rules_commit": "c141f19e470c807799f35360a84683458f59bce6",
+    "python": "3.11.9",
+    "cached_python": {
+      "rules_commit": "a487ce3c8af7eec95d4dc43274cbdbab34f47aa0",
+      "python_components": {
+        "jedi": "0.19.2",
+        "parso": "0.8.5",
+        "python": "3.11.9"
+      },
+      "base_facts": {
+        "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-control:25616103484f48dea770a5dc25e65264:before-path-projection",
+        "rules_commit": "9806c76b26190ad849e5f3d5bab82e2a106f5b78",
+        "components": [
+          "adapters/python_facts.py",
+          "adapters/python_contexts.py",
+          "adapters/python_boundaries.py"
+        ],
+        "adapter_history_unchanged": true,
+        "component_versions_unchanged": true,
+        "input_context_unchanged": true,
+        "counts": {
+          "nodes": 76402,
+          "edges": 105988
+        }
+      }
+    },
+    "cached_rust": {
+      "rules_commit": "6038f946134f23a4a52828a1fdf9cf8a653f073c",
+      "rust_tools": {
+        "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+        "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+        "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+      },
+      "packages": {
+        "tree-sitter": "0.25.2",
+        "tree-sitter-language-pack": "1.20.0"
+      }
+    }
+  },
+  "input_count": 135,
+  "python_input_count": 119,
+  "rust_input_count": 16,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 135,
+    "modules": 29,
+    "nodes": 82575,
+    "edges": 124033,
+    "entries": 0,
+    "diagnostic_records": 518,
+    "providers": 0,
+    "module_relation_groups": 1
+  },
+  "cargo_version": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+  "rustc_version": "rustc 1.94.0 (4a4ef493e 2026-03-02)\nbinary: rustc\ncommit-hash: 4a4ef493e3a1488c6e321570238084b38948f6db\ncommit-date: 2026-03-02\nhost: x86_64-pc-windows-msvc\nrelease: 1.94.0\nLLVM version: 21.1.8",
+  "native_query_labels": [
+    "cargo-version",
+    "rustc-version",
+    "host-cfg",
+    "metadata-0",
+    "target-cfg-0",
+    "binary-template-0"
+  ],
+  "native_query_returncodes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "cargo_queries_and_copy_projection_executed_again": true,
+  "python_rust_semantics_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "product_compiled": false,
+  "build_scripts_executed": false,
+  "product_executable_run": false,
+  "process_counterpart_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "checks": [
+    {
+      "id": "pinned_source",
+      "passed": true
+    },
+    {
+      "id": "complete_python_rust_control_union",
+      "passed": true
+    },
+    {
+      "id": "one_target_artifact_and_renamed_copy",
+      "passed": true
+    },
+    {
+      "id": "one_source_context_binding",
+      "passed": true
+    },
+    {
+      "id": "one_rust_main_candidate",
+      "passed": true
+    },
+    {
+      "id": "metadata_target_name_and_manifest",
+      "passed": true
+    },
+    {
+      "id": "metadata_root_source",
+      "passed": true
+    },
+    {
+      "id": "rust_main_source_and_kind",
+      "passed": true
+    },
+    {
+      "id": "exact_expected_primary_path",
+      "passed": true
+    },
+    {
+      "id": "artifact_not_claimed_compiled",
+      "passed": true
+    },
+    {
+      "id": "exact_renamed_distribution_path",
+      "passed": true
+    },
+    {
+      "id": "copy_operation_source_location",
+      "passed": true
+    },
+    {
+      "id": "same_target_copy_origin",
+      "passed": true
+    },
+    {
+      "id": "source_invocation_and_caller",
+      "passed": true
+    },
+    {
+      "id": "source_command_and_configuration",
+      "passed": true
+    },
+    {
+      "id": "default_feature_request_and_declared_release_cfg",
+      "passed": true
+    },
+    {
+      "id": "native_query_host_and_target",
+      "passed": true
+    },
+    {
+      "id": "source_target_mode_kept_conditional",
+      "passed": true
+    },
+    {
+      "id": "source_build_and_materialization_conditions_reach_copy",
+      "passed": true
+    },
+    {
+      "id": "conditional_binding_not_execution",
+      "passed": true
+    },
+    {
+      "id": "navigation_request_context_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_request_context_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_target_entry_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_target_entry_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_target_copy_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_target_copy_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_request_copy_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_request_copy_in",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_target",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_entry",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_copy",
+      "passed": true
+    },
+    {
+      "id": "build_script_output_gap_retained",
+      "passed": true
+    },
+    {
+      "id": "other_build_mode_manifest_gap_retained",
+      "passed": true
+    },
+    {
+      "id": "successful_native_query_commands",
+      "passed": true
+    },
+    {
+      "id": "fixed_native_versions",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_facts_explicitly_reused",
+      "passed": true
+    },
+    {
+      "id": "no_full_compile_runtime_or_whole_gate_claim",
+      "passed": true
+    },
+    {
+      "id": "source_and_reference_not_extraction_worktree",
+      "passed": true
+    },
+    {
+      "id": "no_file_hash_verification",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "navigation": [
+    {
+      "id": "request_context_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "request_context_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "target_entry_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "target_entry_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "target_copy_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "target_copy_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "request_copy_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "request_copy_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    }
+  ],
+  "target": {
+    "name": "MindStudioInsight",
+    "manifest": "platform/Cargo.toml",
+    "root_source": {
+      "root": "source",
+      "path": "platform/src/main.rs"
+    },
+    "profile": {
+      "name": "release",
+      "test": false,
+      "debug_assertions": false,
+      "basis": "declared_profile_conditional_on_configuration"
+    }
+  },
+  "artifact": {
+    "name": "MindStudioInsight.exe",
+    "location": {
+      "root": "source",
+      "path": "platform/target/release/MindStudioInsight.exe"
+    },
+    "materialization": "expected_output_not_built"
+  },
+  "copied_path": "platform/preview/MindStudio-Insight.exe",
+  "target_system": {
+    "status": "available",
+    "name": "Windows",
+    "host_name": "Windows",
+    "host_path_style": "windows",
+    "target_path_style": "windows",
+    "target_arch": "x86_64",
+    "host_arch": "x86_64",
+    "target": "x86_64-pc-windows-msvc",
+    "host_target": "x86_64-pc-windows-msvc",
+    "cross_compiling": false,
+    "basis": "native_rustc_query_with_source_configuration_conditions"
+  },
+  "gap_reasons": [
+    {
+      "reason": "build_script_outputs_require_native_build_evidence",
+      "path": "platform/build.rs"
+    },
+    {
+      "reason": "cargo_manifest_without_selected_build_context",
+      "path": "platform/linux/Cargo.toml"
+    }
+  ]
+}

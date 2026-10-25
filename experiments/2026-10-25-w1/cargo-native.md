@@ -124,3 +124,28 @@ python experiments/2026-10-25-w1/check_path_evidence.py
 独立控制使用两种目录布局、重命名 bin、嵌套清单、跨清单路径、自定义 profile、features 和显式 target。未编译的预期主要输出逐项对照真实 Cargo 编译报告；还检查 workspace 默认成员、模块新增/改名/删除、配置文件优先/数组合并及已存在原生报告的去重。混合 Workspace 同时验证显式编译记录和默认源码计划的进程调用到改名发行文件正反查。
 
 7 项新增声明产物检查、原生接口/配对及生产建图回归通过；完整回归运行 626 项，通过，1 项按平台跳过。Insight 的固定版本声明产物与发行改名证据单独保存。
+
+### Insight 声明产物与发行改名控制
+
+规则 c141f19 对源码 d4e8d1c 的 135 个 Python/Rust/Cargo 输入执行当前 Cargo 查询、源码请求连接和复制投影，[39 项检查通过](evidence/cargo-declared-control.json)。Python 事实沿用 a487ce3，Rust 单个 Windows release/default 上下文沿用 6038f94；记录各自版本，当前阶段不重跑语义提取。
+
+自动链条如下，产品和接口名称均由原生 metadata 与源码值取得：
+
+```text
+build/build.py:404 → 包装函数 → subprocess.Popen :644
+  → Cargo 配置（platform/Cargo.toml，release）
+  → MindStudioInsight 目标 → platform/src/main.rs 的 main 候选
+  → platform/target/release/MindStudioInsight.exe（预期文件）
+  → build/build.py:532 的复制
+  → platform/preview/MindStudio-Insight.exe（条件复制位置）
+```
+
+82,575 个节点、124,033 条关系进入新索引；构建调用→配置、目标→入口、目标→发行文件和构建调用→发行文件的八个正反向查询通过，清单/main/复制位置均读取同一提交源码。Windows 宿主/目标及文件名模板由 Rust 1.94.0 原生查询取得；target 未显式给出时的源码环境/配置条件，以及构建成功、文件物化、顺序和复制条件继续保留。
+
+platform/build.rs 的生成输出和 platform/linux/Cargo.toml 的另一构建上下文保留必需缺项。本次不是默认全仓重建，没有执行产品编译、build scripts、proc macros 或产品程序；原始 checkout 未修改，未重新核验文件哈希。Rust current_exe 基址和后端对端继续连接。
+
+```text
+python experiments/2026-10-25-w1/run_cargo_declared_control.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --python-trial PYTHON_TRIAL --rust-trial RUST_TRIAL --parser-cache CACHE --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_cargo_declared_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE.json
+python experiments/2026-10-25-w1/check_path_evidence.py
+```
