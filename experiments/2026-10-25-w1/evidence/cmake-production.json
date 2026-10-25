@@ -1,0 +1,417 @@
+{
+  "schema": "cmake-production-trial-score/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:af5130b88f5d476c885b98d6ffb4495e",
+  "build_version": {
+    "rules_commit": "07dcab66e14cdc5e94e4e7074320dbb7632388ee",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "native_build_tools": {
+      "cmake": "cmake version 3.31.6",
+      "ninja": "1.11.1.git.kitware.jobserver-1"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "scope": "cmake_cpp_control",
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1336,
+    "modules": 29,
+    "nodes": 217840,
+    "edges": 343093,
+    "entries": 0,
+    "diagnostic_records": 15385,
+    "providers": 125,
+    "module_relation_groups": 53
+  },
+  "selected_languages": {
+    "cmake": 13,
+    "cpp": 1323
+  },
+  "native_node_counts": {
+    "build_artifact": 12,
+    "build_configuration": 1,
+    "build_source": 553,
+    "build_target": 33
+  },
+  "target_types": {
+    "UTILITY": 28,
+    "SHARED_LIBRARY": 3,
+    "EXECUTABLE": 1,
+    "STATIC_LIBRARY": 1
+  },
+  "selected_target": {
+    "id": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+    "name": "profiler_server",
+    "path": "server/src/entry/server/bin/CMakeLists.txt",
+    "line": 13,
+    "native_id": "profiler_server::@7ff4e870b0d7d54ebf1b",
+    "target_type": "EXECUTABLE",
+    "configuration": "Release",
+    "build_context": "cmake:server%2FRelease:Release",
+    "declaration": [
+      {
+        "location": {
+          "root": "source",
+          "path": "server/src/entry/server/bin/CMakeLists.txt"
+        },
+        "path": "server/src/entry/server/bin/CMakeLists.txt",
+        "line": 13,
+        "command": "add_executable"
+      },
+      {
+        "location": {
+          "root": "source",
+          "path": "server/src/entry/server/bin/CMakeLists.txt"
+        },
+        "path": "server/src/entry/server/bin/CMakeLists.txt",
+        "line": 0
+      }
+    ]
+  },
+  "primary_artifact": {
+    "id": "cmake:server%2FRelease:Release:artifact:source:server%2Foutput%2Fwin_mingw64%2Fbin%2Fprofiler_server.exe",
+    "kind": "build_artifact",
+    "name": "profiler_server.exe",
+    "path": "server/output/win_mingw64/bin/profiler_server.exe",
+    "line": 0,
+    "language": "cmake",
+    "location": {
+      "root": "source",
+      "path": "server/output/win_mingw64/bin/profiler_server.exe"
+    },
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "runtime_execution": "not_observed",
+    "build_context": "cmake:server%2FRelease:Release",
+    "configuration": "Release",
+    "materialization": "not_verified"
+  },
+  "entry": {
+    "id": "cpp:f1ed53ddf0198b63cead1fa9",
+    "path": "server/src/entry/server/bin/main.cpp",
+    "line": 92,
+    "name": "main"
+  },
+  "selected_target_sources": {
+    "total": 408,
+    "selected_source": 396,
+    "dependency_source": 12
+  },
+  "navigation": [
+    {
+      "id": "target_entry.out",
+      "found": true,
+      "direction": "out",
+      "items": [
+        {
+          "ordinal": 764,
+          "source": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "target": "cpp:f1ed53ddf0198b63cead1fa9",
+          "kind": "EXECUTABLE_ENTRY_CANDIDATE",
+          "status": "candidate",
+          "detail": {
+            "entity": "edge",
+            "id": 764
+          }
+        }
+      ],
+      "stop_reason": null
+    },
+    {
+      "id": "target_entry.in",
+      "found": true,
+      "direction": "in",
+      "items": [
+        {
+          "ordinal": 764,
+          "source": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "target": "cpp:f1ed53ddf0198b63cead1fa9",
+          "kind": "EXECUTABLE_ENTRY_CANDIDATE",
+          "status": "candidate",
+          "detail": {
+            "entity": "edge",
+            "id": 764
+          }
+        }
+      ],
+      "stop_reason": null
+    },
+    {
+      "id": "input_entry.out",
+      "found": true,
+      "direction": "out",
+      "items": [
+        {
+          "ordinal": 109,
+          "source": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "target": "cmake:server%2FRelease:Release:source:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b:0",
+          "kind": "COMPILES_SOURCE",
+          "status": "static",
+          "detail": {
+            "entity": "edge",
+            "id": 109
+          }
+        },
+        {
+          "ordinal": 763,
+          "source": "cmake:server%2FRelease:Release:source:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b:0",
+          "target": "cpp:f1ed53ddf0198b63cead1fa9",
+          "kind": "INCLUDES_SOURCE_DECLARATION",
+          "status": "candidate",
+          "detail": {
+            "entity": "edge",
+            "id": 763
+          }
+        }
+      ],
+      "stop_reason": null
+    },
+    {
+      "id": "input_entry.in",
+      "found": true,
+      "direction": "in",
+      "items": [
+        {
+          "ordinal": 763,
+          "source": "cmake:server%2FRelease:Release:source:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b:0",
+          "target": "cpp:f1ed53ddf0198b63cead1fa9",
+          "kind": "INCLUDES_SOURCE_DECLARATION",
+          "status": "candidate",
+          "detail": {
+            "entity": "edge",
+            "id": 763
+          }
+        },
+        {
+          "ordinal": 109,
+          "source": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "target": "cmake:server%2FRelease:Release:source:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b:0",
+          "kind": "COMPILES_SOURCE",
+          "status": "static",
+          "detail": {
+            "entity": "edge",
+            "id": 109
+          }
+        }
+      ],
+      "stop_reason": null
+    },
+    {
+      "id": "configuration_artifact.out",
+      "found": true,
+      "direction": "out",
+      "items": [
+        {
+          "ordinal": 103,
+          "source": "cmake:server%2FRelease:Release",
+          "target": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "kind": "CONFIGURES_BUILD_TARGET",
+          "status": "static",
+          "detail": {
+            "entity": "edge",
+            "id": 103
+          }
+        },
+        {
+          "ordinal": 107,
+          "source": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "target": "cmake:server%2FRelease:Release:artifact:source:server%2Foutput%2Fwin_mingw64%2Fbin%2Fprofiler_server.exe",
+          "kind": "PRODUCES_ARTIFACT",
+          "status": "static",
+          "detail": {
+            "entity": "edge",
+            "id": 107
+          }
+        }
+      ],
+      "stop_reason": null
+    },
+    {
+      "id": "configuration_artifact.in",
+      "found": true,
+      "direction": "in",
+      "items": [
+        {
+          "ordinal": 107,
+          "source": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "target": "cmake:server%2FRelease:Release:artifact:source:server%2Foutput%2Fwin_mingw64%2Fbin%2Fprofiler_server.exe",
+          "kind": "PRODUCES_ARTIFACT",
+          "status": "static",
+          "detail": {
+            "entity": "edge",
+            "id": 107
+          }
+        },
+        {
+          "ordinal": 103,
+          "source": "cmake:server%2FRelease:Release",
+          "target": "cmake:server%2FRelease:Release:target:profiler_server%3A%3A%407ff4e870b0d7d54ebf1b",
+          "kind": "CONFIGURES_BUILD_TARGET",
+          "status": "static",
+          "detail": {
+            "entity": "edge",
+            "id": 103
+          }
+        }
+      ],
+      "stop_reason": null
+    }
+  ],
+  "checks": [
+    {
+      "id": "pinned_source",
+      "passed": true
+    },
+    {
+      "id": "published_snapshot",
+      "passed": true
+    },
+    {
+      "id": "controlled_build_scope_declared",
+      "passed": true
+    },
+    {
+      "id": "complete_cpp_cmake_control_scope",
+      "passed": true,
+      "languages": {
+        "cmake": 13,
+        "cpp": 1323
+      }
+    },
+    {
+      "id": "one_real_native_configuration",
+      "passed": true
+    },
+    {
+      "id": "native_configuration_state",
+      "passed": true
+    },
+    {
+      "id": "native_project_source",
+      "passed": true
+    },
+    {
+      "id": "release_ninja_native_context",
+      "passed": true
+    },
+    {
+      "id": "native_component_version",
+      "passed": true
+    },
+    {
+      "id": "native_target_count",
+      "passed": true
+    },
+    {
+      "id": "one_executable_target",
+      "passed": true
+    },
+    {
+      "id": "declaration_location",
+      "passed": true
+    },
+    {
+      "id": "declaration_backtrace",
+      "passed": true
+    },
+    {
+      "id": "unique_primary_executable_artifact",
+      "passed": true
+    },
+    {
+      "id": "auxiliary_not_process_primary",
+      "passed": true
+    },
+    {
+      "id": "linked_libraries_have_native_identity",
+      "passed": true,
+      "targets": [
+        "msinsight",
+        "sqlite",
+        "uv_a"
+      ]
+    },
+    {
+      "id": "native_408_source_membership",
+      "passed": true
+    },
+    {
+      "id": "entry_compilation_unit_selected",
+      "passed": true
+    },
+    {
+      "id": "compile_definitions_retained",
+      "passed": true
+    },
+    {
+      "id": "one_entry_candidate",
+      "passed": true
+    },
+    {
+      "id": "actual_global_main",
+      "passed": true
+    },
+    {
+      "id": "entry_not_execution_claim",
+      "passed": true
+    },
+    {
+      "id": "source_to_declared_entry",
+      "passed": true
+    },
+    {
+      "id": "navigation.target_entry.out",
+      "passed": true
+    },
+    {
+      "id": "navigation.target_entry.in",
+      "passed": true
+    },
+    {
+      "id": "navigation.input_entry.out",
+      "passed": true
+    },
+    {
+      "id": "navigation.input_entry.in",
+      "passed": true
+    },
+    {
+      "id": "navigation.configuration_artifact.out",
+      "passed": true
+    },
+    {
+      "id": "navigation.configuration_artifact.in",
+      "passed": true
+    },
+    {
+      "id": "same_version_source_navigation",
+      "passed": true
+    },
+    {
+      "id": "source_checkout_remains_clean",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_evidence_created",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "runtime_execution": false,
+  "product_compiled": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false,
+  "process_counterpart_status": "pending_packaging_path_and_runtime_program_identity"
+}

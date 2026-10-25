@@ -29,4 +29,20 @@ assert product['linked_targets'] == ['msinsight', 'sqlite', 'uv_a']
 assert product['first_failure']['returncode'] != 0 and not product['first_failure']['successful_reply_available']
 assert not any(product[k] for k in ('product_source_compiled', 'product_executed', 'production_graph_generated',
                                   'process_counterpart_connected', 'whole_G02_accepted', 'whole_G03_accepted'))
-print('OK: 62 independent and 24 real-source native CMake checks; product graph and boundary acceptance remain pending.')
+failed=json.loads((Path(__file__).parent/'evidence/cmake-production-first-failure.json').read_text(encoding='utf-8'))
+production=json.loads((Path(__file__).parent/'evidence/cmake-production.json').read_text(encoding='utf-8'))
+assert not failed['passed'] and failed['index_counts']['input_files']==1334 and not failed['native_node_counts']
+assert any(not c['passed'] and c['id']=='complete_cpp_cmake_control_scope' for c in failed['checks'])
+assert production['passed'] and len(production['checks'])==32 and all(c['passed'] for c in production['checks'])
+assert production['source_commit']==failed['source_commit']==product['source_commit']
+assert production['scope']==failed['scope']=='cmake_cpp_control'
+assert production['index_counts']['input_files']==1336 and production['index_counts']['nodes']==217840 and production['index_counts']['edges']==343093
+assert production['build_version']['rules_commit']=='07dcab66e14cdc5e94e4e7074320dbb7632388ee'
+assert production['native_node_counts']['build_configuration']==1 and production['native_node_counts']['build_target']==33
+assert production['selected_target_sources']['total']==408
+assert production['entry']['path']=='server/src/entry/server/bin/main.cpp'
+assert production['primary_artifact']['location']=={'root':'source','path':'server/output/win_mingw64/bin/profiler_server.exe'}
+assert len(production['navigation'])==6 and all(r['found'] and r['stop_reason'] is None for r in production['navigation'])
+assert production['process_counterpart_status']=='pending_packaging_path_and_runtime_program_identity'
+assert not any(production[k] for k in ('runtime_execution','product_compiled','whole_G02_accepted','whole_G03_accepted'))
+print('OK: 62 fixture, 24 native and 32 production CMake checks; first failure retained; process pairing pending.')

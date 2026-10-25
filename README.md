@@ -6,6 +6,8 @@
 
 工具按语言和技术机制工作；新增业务模块应自动发现、连接和更新。模块/接口名称由源码提取，Insight 是当前验收对象。见[项目扩展与自动发现](docs/08-project-independent-discovery.md)。
 
+[CMake 构建产物已接入统一查询](experiments/2026-10-25-w1/cmake-native.md)：真实 C++/CMake 控制快照 32 项检查通过，可查构建目标、完整产物路径、编译输入、依赖和 C++ 入口。继续连接 Python 打包与 Rust 启动路径；多语言全仓、逐模块机制和运行门槛分别验收。
+
 **已有底座：[project-map-assistant skill](skills/project-map-assistant/SKILL.md) 与可独立安装的工具。** 已验证 TS/C++ 的部分关系、自动更新、查询和限定运行场景；见 [使用说明](docs/07-tool-quickstart.md)。先完成全项目技术验收，再比较源码组与源码＋工具组；历史资产第三组独立安排，当前不接入。
 
 [skill 分发及限定范围验收](experiments/2026-10-25-tool-skill/completion.md)：17 项独立仓库、20 项 Insight 安装后查询、359 项 Python 和 110 项 TypeScript 检查通过。这些是已有实现及分发的检查，不是全项目关系覆盖通过；“Python 测试”也不表示已支持 Python 源码分析。完整分发包可由 GitHub Actions 构建并下载。

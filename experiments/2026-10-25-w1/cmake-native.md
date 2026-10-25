@@ -54,7 +54,7 @@ Insight 的源码检查显示三段来源：CMake 定义后端产物，Python �
 
 生产流水线已接入 `cmake_project`：按选中 CMakeLists.txt 的父子关系自动发现根目录，逐配置复制固定输入并执行原生配置，结果进入统一图、导航、刷新和版本记录。可选 build 配置提供工具链选项及固定依赖来源，不提供目标或入口答案；新增目标、改名和删除无需业务规则变更。配置缺失/失败保持必需诊断，disabled 也会保留未分析状态。
 
-新增 7 项配置/项目检查及真实 Workspace 混合建图、正反向入口查询通过；完整 Windows 回归 450 项通过，1 项按平台跳过。随后调整构建路径的搜索表示并补显式 build 配置测试，相关适配、配置、快照及工具检查单独复跑。配置过程的写文件负例确认原分析输入与原始仓库保持不变。Insight 真实生产快照继续单独评分。
+新增 7 项配置/项目检查及真实 Workspace 混合建图、正反向入口查询通过；完整 Windows 回归 450 项通过，1 项按平台跳过。随后调整构建路径的搜索表示并补显式 build 配置测试，相关适配、配置、快照及工具检查单独复跑。配置过程的写文件负例确认原分析输入与原始仓库保持不变。Insight 真实生产快照结果见后文。
 
 ## 首次生产快照的输入遗漏
 
@@ -62,7 +62,30 @@ Insight 的源码检查显示三段来源：CMake 定义后端产物，Python �
 
 原因是目录角色策略排除了两份跟踪的 CMake 清单。此前独立原生配置导出完整 server 子树，包含这两份清单，因此能够成功；初版混合 fixture 未覆盖嵌套 vendor 清单。新增不同布局的独立发现 fixture 和生产 Workspace fixture 均复现失败，原始日志保留。
 
-发现规则 `/5` 将跟踪的 CMake 构建依赖纳入选中输入，并记录 inclusion_basis=tracked_cmake_build_dependency。目录角色继续保留 third_party，第三方源代码的选择策略不变；只有允许 build_tool 时适用，显式 exclude 仍生效。修正后发现、输入、模块账本及生产混合快照 37 项检查通过。Insight 默认选择数为 2,498，C++/CMake 控制选择数为 1,336，新增项正是这两份清单；真实快照复验另行执行。
+发现规则 `/5` 将跟踪的 CMake 构建依赖纳入选中输入，并记录 inclusion_basis=tracked_cmake_build_dependency。目录角色继续保留 third_party，第三方源代码的选择策略不变；只有允许 build_tool 时适用，显式 exclude 仍生效。修正后发现、输入、模块账本及生产混合快照 37 项检查通过。Insight 默认选择数为 2,498，C++/CMake 控制选择数为 1,336，新增项正是这两份清单；真实快照复验结果见下节。
+
+## 修正后的真实生产快照
+
+[32 项后置检查通过](evidence/cmake-production.json)。源码仍为 d4e8d1cf9f90208bcbe5371c127088f6fd66c688，规则为 `07dcab66e14cdc5e94e4e7074320dbb7632388ee`，快照为 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:af5130b88f5d476c885b98d6ffb4495e`。使用生产 Workspace.update 建图和查询；独立参考仅由后置评分器读取。
+
+| 结果 | 已执行范围 |
+|---|---|
+| 控制输入 | 全部 1,323 个 C++/头文件及 13 份 CMake 清单；本次未纳入其他语言 |
+| 快照 | 217,840 节点、343,093 边；其中新增原生构建/声明连接 599 节点、5,507 边 |
+| 原生上下文 | 本机 Windows、Ninja、Release 配置成功；1 个 build_configuration、33 个目标 |
+| 目标类型 | 1 个可执行、3 个共享库、1 个静态库、28 个 CTest 工具目标 |
+| 后端输入 | profiler_server 的 408 个编译输入：396 个选中源码，12 个版本化依赖源码 |
+| 产物与入口 | 完整 exe 路径、独立附属产物、CMake 声明位置及全局 main 定义分别可查 |
+| 统一导航 | 目标→入口、目标→编译输入→声明、配置→产物，三类路径的正反向查询均通过；源码导航绑定原提交 |
+
+原始仓库保持干净，未编译/启动产品，未创建运行记录。[Linux CI](https://github.com/WildPickledPepper/project-map-research/actions/runs/40199978875)也已通过当前生产规则的回归。
+
+本次完成构建目标、产物和 C++ 入口这一段。Python 打包复制、Rust 路径值及平台/实例条件继续按[路径传播任务](path-values.md)展开，进程对端尚未配对；G02/G03 保持未通过。规则 5f8079d 的 2,496 输入多语言全仓记录保留原范围；当前规则的完整多语言重建在后续连接完成后再统一复验。
+
+```text
+python experiments/2026-10-25-w1/run_build_trial.py --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --typescript TYPESCRIPT --analysis ANALYSIS.json --scope cmake_cpp_control --output NEW_TRIAL
+python experiments/2026-10-25-w1/score_build_trial.py --trial NEW_TRIAL --output NEW_SCORE.json
+```
 
 首次测试有两处夹具/断言修正：原生宏定义附带声明回溯，不能按只有 define 键的字典比较；configure 时 file(WRITE) 创建的文件不会自动具有 GENERATED 属性，生成输入负例改为显式声明该属性。正式测试保留原生元数据。
 
