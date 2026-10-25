@@ -22,6 +22,8 @@ def augment(graph,*,root,captures,parser):
         native=normalize(json.loads((directory/'metadata.stdout').read_text(encoding='utf-8')),read_messages(directory/'build.stdout'),
             repository=root,recorded_repository=receipt['recorded_repository'],expected_commit=graph['source_commit'],**fields)
         if native['native_context']['status']!='built':raise ValueError('Cargo capture failed validation; source graph remains unchanged')
+        for node in native['nodes']:
+            if node['kind']=='build_configuration':node['source_request']=receipt.get('source_request')
         ids={n['id'] for n in native['nodes']}
         if ids&existing:raise ValueError('Cargo context is already present in the graph')
         joins,gaps=link_source_symbols(native,graph,root=root,parser=parser)

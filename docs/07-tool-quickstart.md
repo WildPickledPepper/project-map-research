@@ -128,6 +128,8 @@ facts, receipt = capture(
 
 使用 `init --analysis ANALYSIS.json` 后运行 `build`。捕获必须对应本次选定源码版本，捕获输入必须包含在分析输入范围内；旧版本、失败或损坏记录使本次构建失败，上一份成功地图继续保留。捕获目录作为不可变输入管理，变更后创建新目录并更新配置。用 `build_target`、`build_artifact`、`copied_artifact` 搜索及 PRODUCES_ARTIFACT、CARGO_TARGET_SOURCE、COPIES_ARTIFACT_TO 遍历；图中分别保留原生构建报告、源码候选和运行状态。
 
+同时存在 Python Cargo build 调用时，建图会从已提取参数、cwd 和环境效果生成 `cargo_build_request`，核对相应捕获的构建请求，沿 SOURCE_BUILD_REQUEST、REQUESTS_BUILD_CONTEXT_CANDIDATE 接入上述产物链。搜索该节点后可检查 `request` 中的源码值、条件和缺项。继承 cwd、未知选项及不相符配置会保留具体原因；候选边保留环境、工具链和外部配置与捕获一致的前提。该连接当前随显式 Cargo 捕获导入执行。
+
 ## skill 入口
 
 skill 的统一整理与打包安排在工具能力和验收稳定之后；以下保留已有分发入口的用法。

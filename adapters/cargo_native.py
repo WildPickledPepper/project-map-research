@@ -107,13 +107,19 @@ def capture(source,paths,*,output,source_commit,expected_commit,context_key,cwd=
     facts=normalize(metadata,read_messages(stream),repository=root,source_commit=source_commit,expected_commit=expected_commit,
         returncode=status,context_key=context_key,host_target=host,target=selected_target,host_cfg=host_cfg,target_cfg=target_cfg,
         cargo_version=cargo_version,rustc_version=rustc_version)
+    selected_manifest=manifest_path or next((p/'Cargo.toml' for p in [working,*working.parents]
+        if p.is_relative_to(root) and (p/'Cargo.toml').is_file()),None)
+    source_request={'cwd':working.relative_to(root).as_posix(),
+        'manifest':selected_manifest.relative_to(root).as_posix() if selected_manifest else None,
+        'profile':profile or 'dev','features':sorted(set(features)),'no_default_features':no_default_features,
+        'target_mode':'explicit' if target else 'default','target':target}
     receipt={'schema':'cargo-native-capture/1','source_commit':source_commit,'context_key':context_key,'command':command,
         'metadata_command':metadata_command,'selected_paths':paths,'recorded_repository':str(root),'target_directory':str(native_target_dir),
         'host_target':host,'target':selected_target,'host_cfg':host_cfg,'target_cfg':target_cfg,
         'cargo_version':cargo_version,'rustc_version':rustc_version,'returncode':status,'profile_requested':profile,
         'features_requested':list(features),'no_default_features':no_default_features,'environment':supplied,
         'target_mode':'explicit' if target else 'native_host_default_without_build_target_config_or_environment',
-        'status':facts['native_context']['status'],'toolchain_selector':toolchain_selector,
+        'status':facts['native_context']['status'],'toolchain_selector':toolchain_selector,'source_request':source_request,
         'product_executable_run':False,'file_hash_verification':'not_run_per_user_preference'}
     (output/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
     return facts,receipt

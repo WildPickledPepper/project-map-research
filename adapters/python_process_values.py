@@ -108,4 +108,5 @@ def environment_value(invocation,effects,key,host_system,*,initial_values=None):
         value={k:values[0][k] for k in ('text','path_value')}
     else:return {'known':False,'reason':'environment_mapping_effect_not_expanded','writer':effect['id']}
     return {'known':True,'value':value,'writer':effect['id'],'basis':'same_root_resolved_source_order_conditional_on_invocation',
+        'source_conditions':values[0]['conditions'] if effect['effect']=='set' else [],
         'conditions':['source_environment_operation_succeeds','no_unmodeled_environment_write_before_child_start'],'runtime_execution':'not_observed'}

@@ -60,4 +60,27 @@ python scripts/check_research.py
 
 `build.cargo.captures` 接受捕获目录、40 位固定源码提交和唯一 `context_key`，见[工具用法](../../docs/07-tool-quickstart.md#cargo-原生构建记录)。同一源码可导入不同平台/feature 的独立上下文；目录必须保持不可变，源码变更需要新捕获。
 
-本项验证的是通用原生接口和生产查询。在 Insight 上，已提取的 Python Cargo 调用还需自动解释为 manifest、profile、target-dir、target 和 features，并关联实际目标；随后把启动器发行位置绑定到 Rust `current_exe` 基址，核对后端产物的配置与路径。产品实际编译/启动、冻结边界的其余模块和运行模式继续按[全项目计划](../../plans/project-wide-completion-plan.md)验收。
+本项验证通用原生接口和生产查询。Insight 的实际目标/产物绑定及启动器发行位置到 Rust `current_exe` 基址继续展开；产品实际编译/启动、冻结边界的其余模块和运行模式继续按[全项目计划](../../plans/project-wide-completion-plan.md)验收。
+
+## 源码构建调用与原生配置配对
+
+[源码配置解释器](../../adapters/cargo_source_bindings.py)复用已提取的 Python 进程参数、cwd 和环境写入，解析 Cargo build 的 profile、manifest、target-dir、target、features 及 no-default-features。相对 manifest/输出目录按已绑定的进程 cwd 解释；默认清单从 cwd 向上在选定输入中查找。CLI target-dir 与源码环境分别记录，规则依据见 [cargo build](https://doc.rust-lang.org/cargo/commands/cargo-build.html) 和 [Cargo 配置](https://doc.rust-lang.org/cargo/reference/config.html)。
+
+生产建图导入捕获后，自动核对源码请求与原生配置的 cwd、manifest、profile、feature 请求、target 模式和输出根。生成 `cargo_build_request`，连接如下：
+
+```text
+python_process_invocation
+  → SOURCE_BUILD_REQUEST → cargo_build_request
+  → REQUESTS_BUILD_CONTEXT_CANDIDATE → build_configuration
+  → CONFIGURES_BUILD_TARGET → build_target
+  → PRODUCES_ARTIFACT → build_artifact
+  → COPIES_ARTIFACT_TO → copied_artifact
+```
+
+这条连接保留源码调用被执行、命令实际解析到相应 Cargo、环境写入成功、外部配置/工具链与捕获一致等条件。环境值的源码布局条件也进入连接；未给定的根环境、build.target 和外部配置保留待满足的原生上下文条件。捕获由显式构建接口取得，源码中的 subprocess 调用继续是静态候选。
+
+未知选项、配置覆盖、未展开的目标/包选择、继承或未绑定 cwd、shell/进程执行覆盖形成必需缺项并阻止配对。不同 profile/目标的捕获分别核对；某个组合被排除时，其他匹配组合可以保留。全部组合都不匹配时生成必需缺项。源码请求记录数按“调用位置 × 原生配置”统计。
+
+生产混合夹具已验证源码进程调用到改名发行文件的完整正反向查询，并保留原生编译报告和源码条件。机制检查另覆盖两种布局、Windows 路径/环境键、CLI 输出目录优先、profile/manifest/target 不匹配、未知选项及多个配置。Insight 的固定版本源码配置控制随后保存独立评分。
+
+9 项新增配置/配对检查通过；完整回归运行 619 项，通过，1 项按平台跳过。随后显式加入调用到达/成功条件，47 项原生接口、源码配对、进程及生产查询相关检查通过。

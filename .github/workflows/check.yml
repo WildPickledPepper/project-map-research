@@ -85,7 +85,7 @@ jobs:
           path.chmod(0o755)
           PY
       - run: python -m pip install -r requirements-store.txt
-      - run: python -m unittest tests.test_cargo_file_api tests.test_rust_project tests.test_rust_facts tests.test_rust_semantics tests.test_rust_boundaries tests.test_path_values tests.test_rust_path_values tests.test_project_snapshot.FullSnapshotTests.test_rust_fact_and_process_boundary_survive_the_mixed_production_builder tests.test_project_snapshot.FullSnapshotTests.test_native_cargo_artifact_to_renamed_distribution_survives_workspace_queries_and_failed_refresh -v
+      - run: python -m unittest tests.test_cargo_source_bindings tests.test_cargo_file_api tests.test_rust_project tests.test_rust_facts tests.test_rust_semantics tests.test_rust_boundaries tests.test_path_values tests.test_rust_path_values tests.test_project_snapshot.FullSnapshotTests.test_rust_fact_and_process_boundary_survive_the_mixed_production_builder tests.test_project_snapshot.FullSnapshotTests.test_native_cargo_artifact_to_renamed_distribution_survives_workspace_queries_and_failed_refresh -v
         env:
           PROJECT_MAP_RUST_ANALYZER: ${{ runner.temp }}/rust-analyzer
   skill-distribution:

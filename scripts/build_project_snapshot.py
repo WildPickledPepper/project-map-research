@@ -117,6 +117,8 @@ def build(source, request, output, log, *, typescript):
         print('Import revision-bound Cargo compiler artifacts',file=log,flush=True)
         from adapters.cargo_artifact_graph import augment as cargo_artifacts
         graph=cargo_artifacts(graph,root=source,captures=cargo_captures,parser=pack.get_parser('rust'))
+        from adapters.cargo_source_bindings import augment as cargo_sources
+        graph=cargo_sources(graph)
     from adapters.artifact_copy_graph import augment as artifact_copies
     graph=artifact_copies(graph)
     graph['extractors']['artifact_copy_flow']=graph['artifact_copy_flow']['adapter']

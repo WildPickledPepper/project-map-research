@@ -105,8 +105,10 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
         with tempfile.TemporaryDirectory(prefix='cargo production workspace ') as directory:
             root=Path(directory);source=root/'repository';source.mkdir()
             files,env,manifest,name=fixtures.fixture_files();suffix='.exe' if os.name=='nt' else ''
-            files['assemble.py']=f'''import os,shutil
+            files['assemble.py']=f'''import os,shutil,subprocess
 ROOT=os.path.dirname(os.path.realpath(__file__))
+os.putenv('CARGO_TARGET_DIR',os.path.join(ROOT,'objects'))
+subprocess.run(['cargo','build','--release'],cwd=ROOT)
 shutil.copyfile(os.path.join(ROOT,'objects','release','{name}{suffix}'),os.path.join(ROOT,'ship','renamed-launcher{suffix}'))
 '''
             files['view.ts']='export function show(){return 1;}\n'
@@ -143,6 +145,16 @@ shutil.copyfile(os.path.join(ROOT,'objects','release','{name}{suffix}'),os.path.
             module=next(n for n in graph['nodes'] if n.get('syntax')=='source_file' and n['path']=='code/start.rs')
             self.assertTrue(workspace.query('path',start=target['id'],target=module['id'],kinds=['CARGO_TARGET_SOURCE'])['found'])
             self.assertEqual(artifact['materialization'],'reported_by_successful_native_build')
+            binding=next(e for e in graph['edges'] if e['kind']=='REQUESTS_BUILD_CONTEXT_CANDIDATE')
+            request=next(n for n in graph['nodes'] if n['id']==binding['source'])
+            for direction,start,end in [('out',request['source_invocation'],shipped[0]['id']),('in',shipped[0]['id'],request['source_invocation'])]:
+                route=workspace.query('path',start=start,target=end,direction=direction,kinds=['SOURCE_BUILD_REQUEST',
+                    'REQUESTS_BUILD_CONTEXT_CANDIDATE','CONFIGURES_BUILD_TARGET','PRODUCES_ARTIFACT','COPIES_ARTIFACT_TO'],depth=6,nodes=60,edges=60)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+            self.assertEqual(request['request']['target_directory'],'objects')
+            self.assertEqual(request['request']['target_directory_basis'],'source_environment')
+            self.assertEqual(binding['status'],'conditional_candidate')
+            self.assertTrue(any(c['kind']=='canonical_source_layout_required' for c in binding['conditions']))
             self.assertFalse(receipt['product_executable_run']);self.assertEqual(git('status','--porcelain'),'')
             # A later source commit cannot reuse old native products. Keep the prior active graph queryable.
             active=copy.deepcopy(workspace.config['active']);(source/'new.py').write_text('value=1\n')
