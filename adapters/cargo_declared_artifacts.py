@@ -167,6 +167,7 @@ def augment(graph,*,root,paths,output,parser,cargo=None,rustc=None,timeout=45):
                 row={'id':context,'kind':'build_configuration','name':'Cargo source build '+spec['profile'],'language':'cargo',
                     'path':spec['manifest'],'line':1,'source_commit':graph['source_commit'],'target_system':system_info,
                     'target_directory':directory,'state':'declared_output_plan','conditions':constraints,
+                    'workspace':{'root':'source','path':workspace},
                     'cargo_version':cargo_version,'rustc_version':rustc_version,'runtime_execution':'not_observed',
                     'source_request':{k:spec[k] for k in ('cwd','manifest','profile','features','no_default_features')},'local_configurations':configs}
                 row['source_request'].update(target_mode=target_mode,target=target if target_mode=='explicit' else None)
@@ -193,6 +194,7 @@ def augment(graph,*,root,paths,output,parser,cargo=None,rustc=None,timeout=45):
                             'source_commit':graph['source_commit'],'build_context':context,'target_type':'EXECUTABLE','native_target_kind':native['kind'],
                             'root_source':source,'package':{'name':package['name'],'version':package['version'],'manifest':{'root':'source','path':manifest}},
                             'profile':profile,'features_requested':spec['features'],'default_features_requested':not spec['no_default_features'],
+                            'declared_features':sorted(package.get('features',{})),
                             'conditions':guards,'runtime_execution':'not_observed'})
                         graph['edges'].append({'source':context,'target':uid,'kind':'CONFIGURES_BUILD_TARGET','status':'declared_output_plan',
                             'evidence':evidence,'conditions':guards,'runtime_execution':'not_observed'})

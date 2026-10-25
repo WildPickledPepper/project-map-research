@@ -54,6 +54,8 @@
 
 [Insight 声明产物/发行改名](cargo-native.md#insight-声明产物与发行改名控制)39 项检查通过，八项正反查连接实际源码中的构建调用、metadata 目标、Rust 入口、预期 exe 和发行改名。135 个 Python/Rust/Cargo 输入沿用版本固定的语言事实，当前原生查询及复制投影重跑；未编译/运行产品。current_exe 基址与 C++ 后端产物继续连接。
 
+[程序身份与 current_exe 配对](executable-deployment.md)已接入默认生产建图：8 项机制、新增跨语言生产夹具和 636 项完整回归通过（1 项跳过）。Rust main 经 Command 参数、部署路径及 CMake 后端目标到 C++ main 的正反查通过。继续保存 Insight 的同版本实际文件/入口配对证据，并展开其余边界/模式及运行身份。
+
 复现使用既有 CGC 环境，以下路径均由调用方提供，输出需为仓库外新目录：
 
 ```text

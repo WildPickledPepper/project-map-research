@@ -53,6 +53,8 @@ Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验�
 
 Rust 的 `path_value` 可从程序或文件参数展开，保留相对基址、路径片段、调用上下文、分支和未解析原因。使用 `query search --kind path_value` 查找，再通过 PATH_VALUE_CANDIDATE、PATH_COMPONENT_SOURCE、PATH_CALL_CONTEXT 检查消费点与来源。常量/符号路径是源码候选，实际产物放置和进程实例由打包及运行证据连接；详情见[路径适配范围](../experiments/2026-10-25-w1/path-values.md)。
 
+`executable_deployment` 保存 Cargo 程序的构建/发行位置；`deployed_path_candidate` 保存与之相符的 Rust current_exe 路径计算。沿 PATH_DEPLOYMENT_BINDING、MATCHES_DEPLOYED_ARTIFACT_CANDIDATE 和 RESOLVES_EXECUTABLE_TARGET_CANDIDATE 可查到完整文件位置、生产目标及其入口。`match_status` 区分单个条件生产方、多个条件生产方和未匹配，源码归属、配置、物化及 OS loader 条件分别保留。详见[可执行文件与后端产物](../experiments/2026-10-25-w1/executable-deployment.md)。
+
 CMake 项目自动按顶层 CMakeLists.txt 发现根目录。具备 CMake/Ninja 时，工具在独立配置副本执行配置与编译器探测，导入原生目标、产物、编译输入和库依赖；未编译或启动产品。当前验证版本为 CMake 3.31.6、Ninja Python 分发包 1.11.1.4。通过 PATH 或 `PROJECT_MAP_CMAKE`、`PROJECT_MAP_NINJA` 指定工具，`doctor` 单列检查。缺工具、依赖或配置失败保留具体必需缺口。
 
 `build_configuration.target_system` 保存原生目标、宿主和交叉编译信息，`host_path_style` 与 `target_path_style` 分别用于构建/打包和目标运行的路径解释。`declared_processor` 保留 CMake 的声明值；实际编译器架构尚未由该字段证明。缺少生成的系统记录时，构建目标继续保留，平台连接有独立必需诊断。

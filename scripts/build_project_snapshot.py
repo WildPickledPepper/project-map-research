@@ -125,6 +125,9 @@ def build(source, request, output, log, *, typescript):
     from adapters.artifact_copy_graph import augment as artifact_copies
     graph=artifact_copies(graph)
     graph['extractors']['artifact_copy_flow']=graph['artifact_copy_flow']['adapter']
+    from adapters.executable_deployment_graph import augment as executable_deployments
+    graph=executable_deployments(graph)
+    graph['extractors']['executable_deployment']=graph['executable_deployment']['adapter']
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     write_json(output/'protocol-checkpoint.json', {'stage': 'protocol_only_not_complete_graph',
         'source_commit': revision, 'build_version': request['build_version'],

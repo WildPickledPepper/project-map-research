@@ -107,6 +107,7 @@ def normalize(metadata,messages,*,repository,source_commit,expected_commit,retur
                 'target_type':'EXECUTABLE' if executable is not None else 'CARGO_OUTPUT','native_target_kind':native['kind'],
                 'package':{'name':package['name'],'version':package['version'],'manifest':package_manifest},
                 'root_source':source,'profile':profile,'features':sorted(features),'fresh':record['fresh'],
+                'declared_features':sorted(package.get('features',{})),
                 'runtime_execution':'not_observed'})
             edge(context,uid,'CONFIGURES_BUILD_TARGET',evidence,build_context=context)
             if len(filenames)!=len(set(filenames)):raise ValueError('Duplicate native output filename')

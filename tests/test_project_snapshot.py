@@ -20,6 +20,55 @@ class FullSnapshotTests(unittest.TestCase):
         except (OSError, subprocess.CalledProcessError):
             raise unittest.SkipTest('Install the pinned TypeScript dependency before the full builder test')
 
+    def test_default_rust_current_exe_chain_reaches_cmake_backend_entry(self):
+        import os
+        from adapters.rust_project import available
+        from tests.test_cmake_file_api import CMAKE,NINJA
+        from projectmap.workspace import Workspace
+        if not (CMAKE and NINJA and all(available(n) for n in ('cargo','rustc','rust-analyzer'))):self.skipTest('Native Rust/CMake tools required')
+        with tempfile.TemporaryDirectory(prefix='cross language process deployment ') as directory:
+            root=Path(directory);source=root/'repository';source.mkdir();suffix='.exe' if os.name=='nt' else ''
+            files={'Cargo.toml':'[package]\nname="neutral_frontend"\nversion="0.1.0"\nedition="2021"\n[[bin]]\nname="viewer-renamed"\npath="src/launcher.rs"\n',
+                'src/launcher.rs':f'''fn main() {{
+ let image=std::env::current_exe().unwrap();
+ let child=image.parent().unwrap().join("assets").join("service").join("worker{suffix}");
+ let _child=std::process::Command::new(child).spawn();
+}}
+''', 'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Worker LANGUAGES CXX)\nadd_executable(worker_engine ../server/main.cpp)\nset_target_properties(worker_engine PROPERTIES OUTPUT_NAME "worker" RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../native")\n',
+                'server/main.cpp':'int main(){return 0;}\n', 'view.ts':'export function show(){return 1;}\n',
+                'assemble.py':f'''import os,subprocess,shutil
+ROOT=os.path.dirname(os.path.realpath(__file__))
+os.putenv('CARGO_TARGET_DIR',os.path.join(ROOT,'rust-objects'))
+subprocess.run(['cargo','build','--release'],cwd=ROOT)
+shutil.copyfile(os.path.join(ROOT,'rust-objects','release','viewer-renamed{suffix}'),os.path.join(ROOT,'ship','desktop-viewer{suffix}'))
+shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'ship','assets','service','worker{suffix}'))
+'''}
+            for path,body in files.items():
+                dest=source/path;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(body,encoding='utf-8')
+            def git(*args):return subprocess.check_output(['git','-C',str(source),*args],stderr=subprocess.PIPE).decode().strip()
+            git('init','-q');git('config','user.name','fixture');git('config','user.email','fixture@example.invalid')
+            git('add','.');git('commit','-qm','authored cross language deployment')
+            analysis=normalize_config({'version':1,'scope':{'include':['*']},'deployment':{},'storage':'json'})
+            workspace=Workspace.create(root/'workspace',source,typescript=self.ts,analysis=analysis)
+            result=workspace.update(builder=partial(build,typescript=self.ts),version={'rules':'authored-deployment-fixture'})
+            self.assertEqual(result['status'],'ready',result)
+            graph=json.loads(Path(workspace.config['active']['graph']).read_text(encoding='utf-8'))
+            cpp=next(n for n in graph['nodes'] if n['path']=='server/main.cpp' and n['kind']=='callable' and n['name']=='main')
+            rust=next(n for n in graph['nodes'] if n.get('language')=='rust' and n['kind']=='callable' and n['name']=='main')
+            matched=[e for e in graph['edges'] if e['kind']=='RESOLVES_EXECUTABLE_TARGET_CANDIDATE']
+            self.assertEqual(len(matched),1)
+            provider=next(n for n in graph['nodes'] if n['id']==matched[0]['target']);self.assertEqual(provider['name'],'worker_engine')
+            kinds=['OBSERVES_CALL','STATIC_CALL_TARGET','STATIC_CALL_CANDIDATE','DECLARES_BOUNDARY','COMMAND_PROGRAM',
+                'PATH_VALUE_CANDIDATE','PATH_DEPLOYMENT_BINDING','RESOLVES_EXECUTABLE_TARGET_CANDIDATE','EXECUTABLE_ENTRY_CANDIDATE']
+            for direction,start,end in [('out',rust['id'],cpp['id']),('in',cpp['id'],rust['id'])]:
+                route=workspace.query('path',start=start,target=end,direction=direction,kinds=kinds,depth=18,nodes=500,edges=1000)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+            self.assertEqual(graph['executable_deployment']['counts']['artifact_matches'],1)
+            self.assertTrue(all(e['runtime_execution']=='not_observed' for e in matched))
+            self.assertIn('target_os_loader_accepts_provider_image',{c['kind'] for c in matched[0]['conditions']})
+            self.assertEqual(workspace.query('source',start=cpp['id'])['path'],'server/main.cpp')
+            self.assertEqual(git('status','--porcelain'),'')
+
     def test_native_cmake_target_and_entry_survive_workspace_build_and_bidirectional_query(self):
         from tests.test_cmake_file_api import CMAKE, NINJA
         if not (CMAKE and NINJA): self.skipTest('Native CMake and Ninja required')
