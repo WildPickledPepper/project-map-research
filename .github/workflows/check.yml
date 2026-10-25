@@ -38,6 +38,7 @@ jobs:
       - run: python experiments/2026-10-25-static-async/check_completion.py
       - run: python experiments/2026-10-25-a5/check_completion.py
       - run: python experiments/2026-10-25-w0/check_evidence.py
+      - run: python experiments/2026-10-25-w1/check_evidence.py
   facts:
     runs-on: ubuntu-latest
     steps:

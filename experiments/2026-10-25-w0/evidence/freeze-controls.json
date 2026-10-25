@@ -1,0 +1,65 @@
+{
+  "schema": "scope-freeze-controls/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "source_modified": false,
+  "controls": [
+    {
+      "id": "missing_module_profile",
+      "expected_failure": "module_profile.scripts/ftrace_tools",
+      "actual_failures": [
+        "module_profile.scripts/ftrace_tools",
+        "module_profile.scripts/ftrace_tools/examples"
+      ],
+      "passed": true
+    },
+    {
+      "id": "missing_boundary_family",
+      "expected_failure": "all_boundary_family_references",
+      "actual_failures": [
+        "all_boundary_family_references"
+      ],
+      "passed": true
+    },
+    {
+      "id": "incorrect_boundary_source",
+      "expected_failure": "boundary_source.process_start",
+      "actual_failures": [
+        "boundary_source.process_start"
+      ],
+      "passed": true
+    },
+    {
+      "id": "missing_os_mode",
+      "expected_failure": "complete_platform_axes",
+      "actual_failures": [
+        "complete_platform_axes"
+      ],
+      "passed": true
+    },
+    {
+      "id": "hidden_dependency",
+      "expected_failure": "required_unresolved_dependencies_retained",
+      "actual_failures": [
+        "required_unresolved_dependencies_retained"
+      ],
+      "passed": true
+    },
+    {
+      "id": "invented_resource_ownership",
+      "expected_failure": "module_scope_record.platform",
+      "actual_failures": [
+        "module_scope_record.platform"
+      ],
+      "passed": true
+    },
+    {
+      "id": "borrowed_semantic_gate",
+      "expected_failure": "no_borrowed_gate_passes",
+      "actual_failures": [
+        "no_borrowed_gate_passes"
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true
+}

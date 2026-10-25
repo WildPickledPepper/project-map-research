@@ -1,0 +1,2529 @@
+{
+  "schema": "native-language-component-trial/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "upstream": {
+    "name": "CodeGraphContext",
+    "commit": "93c9685bff9151f50a3121e9913e5ba2d27c1191",
+    "version": "0.6.13",
+    "tracked_files_modified": false,
+    "component": "unmodified TreeSitterParser language implementations"
+  },
+  "files": [
+    {
+      "path": "docs/_static/mermaid_init.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 3,
+        "imports": 0,
+        "function_calls": 8,
+        "components": 0
+      }
+    },
+    {
+      "path": "docs/_static/public_operation.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 1,
+        "imports": 0,
+        "function_calls": 4,
+        "components": 0
+      }
+    },
+    {
+      "path": "docs/_static/repo_links.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 5,
+        "imports": 0,
+        "function_calls": 8,
+        "components": 0
+      }
+    },
+    {
+      "path": "docs/_static/right_toc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "variables": 19,
+        "imports": 0,
+        "function_calls": 50,
+        "components": 0
+      }
+    },
+    {
+      "path": "docs/_static/table_add_class_name.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 3,
+        "imports": 0,
+        "function_calls": 11,
+        "components": 0
+      }
+    },
+    {
+      "path": "e2e/.eslintrc.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/build-config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 6,
+        "imports": 2,
+        "function_calls": 20,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/build-vscode-config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 9,
+        "imports": 5,
+        "function_calls": 36,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/cluster/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/cluster/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 6,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/compute/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/compute/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 7,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/compute/src/utils/DomSearch/RegExpTool.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 1,
+        "variables": 3,
+        "imports": 0,
+        "function_calls": 10,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/compute/src/utils/DomSearch/domiterator.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 1,
+        "variables": 12,
+        "imports": 0,
+        "function_calls": 25,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/compute/src/utils/DomSearch/mark.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 33,
+        "classes": 1,
+        "variables": 47,
+        "imports": 2,
+        "function_calls": 85,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/framework/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/framework/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 6,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/inline-build.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 22,
+        "imports": 2,
+        "function_calls": 63,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/leaks/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/leaks/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 7,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/leaks/tests/tooltip-layout/run.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 7,
+        "classes": 0,
+        "variables": 28,
+        "imports": 6,
+        "function_calls": 108,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/lib/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/lib/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/memory-on-chip/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/memory-on-chip/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 3,
+        "imports": 2,
+        "function_calls": 5,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/memory/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/memory/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 7,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/numa/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/numa/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 1,
+        "imports": 2,
+        "function_calls": 4,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/operator/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/operator/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 6,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/reinforcement-learning/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/reinforcement-learning/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 6,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/statistic/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/statistic/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 6,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/sync.mjs",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 5,
+        "imports": 3,
+        "function_calls": 13,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/babel-transform.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 2,
+        "imports": 2,
+        "function_calls": 8,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/coverage.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 9,
+        "imports": 1,
+        "function_calls": 13,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/coverage.test.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 5,
+        "imports": 4,
+        "function_calls": 28,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/import-meta-url.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "variables": 0,
+        "imports": 1,
+        "function_calls": 6,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/jest.config.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "variables": 9,
+        "imports": 4,
+        "function_calls": 35,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/run-infra.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 14,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/run-infra.test.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 10,
+        "imports": 6,
+        "function_calls": 43,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/run-summary.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 1,
+        "variables": 3,
+        "imports": 2,
+        "function_calls": 8,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/run.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 17,
+        "imports": 7,
+        "function_calls": 56,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/workspace.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 9,
+        "imports": 4,
+        "function_calls": 16,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/testing/workspace.test.cjs",
+      "language": "javascript",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "variables": 28,
+        "imports": 13,
+        "function_calls": 116,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/timeline/.eslintrc.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "modules/timeline/craco.config.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 7,
+        "components": 0
+      }
+    },
+    {
+      "path": "plugins/jupyterlab/style/index.js",
+      "language": "javascript",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 0,
+        "classes": 0,
+        "variables": 0,
+        "imports": 1,
+        "function_calls": 0,
+        "components": 0
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/topo_interactions.js",
+      "language": "javascript",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 4,
+        "classes": 0,
+        "variables": 24,
+        "imports": 0,
+        "function_calls": 48,
+        "components": 0
+      }
+    },
+    {
+      "path": "scripts/flame_graph/flamegraph.js",
+      "language": "javascript",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 30,
+        "classes": 0,
+        "variables": 82,
+        "imports": 0,
+        "function_calls": 158,
+        "components": 0
+      }
+    },
+    {
+      "path": "build/build.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 49,
+        "classes": 2,
+        "variables": 165,
+        "imports": 18,
+        "function_calls": 391
+      }
+    },
+    {
+      "path": "build/build_mac_program.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 17,
+        "classes": 3,
+        "variables": 60,
+        "imports": 11,
+        "function_calls": 118
+      }
+    },
+    {
+      "path": "build/plugin_install.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 11,
+        "classes": 0,
+        "variables": 31,
+        "imports": 9,
+        "function_calls": 113
+      }
+    },
+    {
+      "path": "build/sign_windows.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 13,
+        "classes": 0,
+        "variables": 7,
+        "imports": 5,
+        "function_calls": 45
+      }
+    },
+    {
+      "path": "build/test_unite.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "variables": 9,
+        "imports": 3,
+        "function_calls": 20
+      }
+    },
+    {
+      "path": "build/tests/unit/ci_build_test_helpers.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 7
+      }
+    },
+    {
+      "path": "build/tests/unit/test_ci_build_common_smoke.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 1,
+        "variables": 4,
+        "imports": 5,
+        "function_calls": 18
+      }
+    },
+    {
+      "path": "build/tests/unit/test_download_third_party.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 7,
+        "imports": 8,
+        "function_calls": 18
+      }
+    },
+    {
+      "path": "docs/conf.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "variables": 25,
+        "imports": 2,
+        "function_calls": 9
+      }
+    },
+    {
+      "path": "docs/scripts/pre_build.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 10,
+        "classes": 0,
+        "variables": 28,
+        "imports": 1,
+        "function_calls": 43
+      }
+    },
+    {
+      "path": "modules/build/build.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 0,
+        "variables": 15,
+        "imports": 7,
+        "function_calls": 51
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/common.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 16,
+        "imports": 2,
+        "function_calls": 1
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/__init__.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/proxy/__init__.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 8,
+        "classes": 3,
+        "variables": 9,
+        "imports": 4,
+        "function_calls": 9
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 8,
+        "classes": 1,
+        "variables": 8,
+        "imports": 15,
+        "function_calls": 52
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/server/__init__.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 48,
+        "classes": 4,
+        "variables": 33,
+        "imports": 10,
+        "function_calls": 110
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/core/server/profiler_server.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 20,
+        "classes": 2,
+        "variables": 11,
+        "imports": 13,
+        "function_calls": 81
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/run.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "variables": 2,
+        "imports": 8,
+        "function_calls": 19
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/simple_profiler_server_proxy.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 1,
+        "variables": 4,
+        "imports": 6,
+        "function_calls": 11
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/__init__.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/proxytest/__init__.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/proxytest/proxy_server_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 10,
+        "classes": 2,
+        "variables": 3,
+        "imports": 9,
+        "function_calls": 21
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/run_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 3,
+        "imports": 3,
+        "function_calls": 5
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/servertest/__init__.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 14,
+        "classes": 2,
+        "variables": 1,
+        "imports": 9,
+        "function_calls": 28
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/__init__.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/stringutil_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 6,
+        "imports": 2,
+        "function_calls": 4
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/sysutil_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 4,
+        "classes": 1,
+        "variables": 7,
+        "imports": 4,
+        "function_calls": 14
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/test/utiltest/timeutil_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 8,
+        "classes": 1,
+        "variables": 9,
+        "imports": 4,
+        "function_calls": 27
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/decorators.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 0,
+        "variables": 4,
+        "imports": 2,
+        "function_calls": 9
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/logutil.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 10,
+        "imports": 4,
+        "function_calls": 13
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/pattern.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 2,
+        "variables": 0,
+        "imports": 1,
+        "function_calls": 4
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/string_util.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 2,
+        "classes": 0,
+        "variables": 1,
+        "imports": 1,
+        "function_calls": 1
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/sys_util.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 7,
+        "classes": 0,
+        "variables": 7,
+        "imports": 7,
+        "function_calls": 25
+      }
+    },
+    {
+      "path": "plugins/ProfilerServerProxy/utils/time_util.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 9,
+        "classes": 2,
+        "variables": 4,
+        "imports": 3,
+        "function_calls": 16
+      }
+    },
+    {
+      "path": "plugins/jupyterlab/mindstudio_insight_jupyterlab/__init__.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 4,
+        "classes": 0,
+        "variables": 2,
+        "imports": 1,
+        "function_calls": 2
+      }
+    },
+    {
+      "path": "plugins/jupyterlab/mindstudio_insight_jupyterlab/handlers.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 22,
+        "classes": 4,
+        "variables": 61,
+        "imports": 15,
+        "function_calls": 158
+      }
+    },
+    {
+      "path": "plugins/jupyterlab/setup.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 14,
+        "imports": 6,
+        "function_calls": 15
+      }
+    },
+    {
+      "path": "plugins/jupyterlab/tests/test_handlers_host_pattern.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 2,
+        "variables": 10,
+        "imports": 5,
+        "function_calls": 33
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/base/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 1,
+        "imports": 6,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/base/entities.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 22,
+        "classes": 6,
+        "variables": 75,
+        "imports": 8,
+        "function_calls": 73
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 1,
+        "imports": 4,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/allocator_context.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 0,
+        "imports": 2,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/allocator_hook_dispatcher.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 12,
+        "classes": 2,
+        "variables": 3,
+        "imports": 6,
+        "function_calls": 18
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/hooker_defs.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 11,
+        "classes": 2,
+        "variables": 0,
+        "imports": 6,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/replay_executor.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 2,
+        "imports": 6,
+        "function_calls": 10
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/simulate.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 8,
+        "classes": 1,
+        "variables": 19,
+        "imports": 14,
+        "function_calls": 43
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/simulated_caching_allocator.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 12,
+        "classes": 1,
+        "variables": 29,
+        "imports": 13,
+        "function_calls": 63
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/snapshot_lookup.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 0,
+        "variables": 14,
+        "imports": 6,
+        "function_calls": 7
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/simulate/snapshot_mutator.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 15,
+        "classes": 0,
+        "variables": 47,
+        "imports": 8,
+        "function_calls": 53
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/__init__.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/common.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "variables": 8,
+        "imports": 4,
+        "function_calls": 8
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/entities_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 25,
+        "classes": 5,
+        "variables": 52,
+        "imports": 7,
+        "function_calls": 184
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/logger_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 11,
+        "classes": 1,
+        "variables": 20,
+        "imports": 9,
+        "function_calls": 64
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/simulate_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 26,
+        "classes": 7,
+        "variables": 30,
+        "imports": 18,
+        "function_calls": 104
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/snapshot_db_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 7,
+        "classes": 2,
+        "variables": 5,
+        "imports": 6,
+        "function_calls": 36
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/tools_test/snapshot2db_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 36,
+        "classes": 2,
+        "variables": 83,
+        "imports": 22,
+        "function_calls": 293
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/tools_test/snapshot_cache_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 40,
+        "classes": 1,
+        "variables": 19,
+        "imports": 16,
+        "function_calls": 255
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/test/tools_test/snapshot_db_analyze.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 13,
+        "classes": 3,
+        "variables": 45,
+        "imports": 8,
+        "function_calls": 41
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/adaptors/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/adaptors/database/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 1,
+        "imports": 5,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/adaptors/database/defs.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 2,
+        "variables": 16,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/adaptors/database/entity2record.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 0,
+        "variables": 5,
+        "imports": 4,
+        "function_calls": 5
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/adaptors/database/snapshot_db.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 9,
+        "classes": 1,
+        "variables": 8,
+        "imports": 5,
+        "function_calls": 39
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/adaptors/snapshot2db.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 37,
+        "classes": 5,
+        "variables": 70,
+        "imports": 32,
+        "function_calls": 219
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/tools/dump2db.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 2,
+        "imports": 3,
+        "function_calls": 5
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/util/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 1,
+        "imports": 2,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/util/file_util.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 1,
+        "variables": 7,
+        "imports": 6,
+        "function_calls": 28
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/util/logger.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 0,
+        "variables": 15,
+        "imports": 5,
+        "function_calls": 35
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/util/snapshot_cache.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 15,
+        "classes": 2,
+        "variables": 45,
+        "imports": 11,
+        "function_calls": 200
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/util/sqlite_meta.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 22,
+        "classes": 3,
+        "variables": 39,
+        "imports": 12,
+        "function_calls": 94
+      }
+    },
+    {
+      "path": "scripts/MemSnapDump/util/timer.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 4,
+        "classes": 0,
+        "variables": 5,
+        "imports": 5,
+        "function_calls": 6
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_affinity_data_collection.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 15,
+        "classes": 1,
+        "variables": 56,
+        "imports": 8,
+        "function_calls": 125
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_affinity_data_visualizer.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 37,
+        "classes": 10,
+        "variables": 138,
+        "imports": 19,
+        "function_calls": 334
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_binding_suggestion.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 2,
+        "classes": 1,
+        "variables": 6,
+        "imports": 3,
+        "function_calls": 4
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_binding_utils/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 1,
+        "imports": 3,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_binding_utils/file_utils.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 0,
+        "imports": 3,
+        "function_calls": 6
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_binding_utils/input_validation_utils.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 4,
+        "classes": 1,
+        "variables": 6,
+        "imports": 4,
+        "function_calls": 15
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_binding_utils/logger_utils.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 4,
+        "imports": 2,
+        "function_calls": 16
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/cpu_pid_mapper.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 9,
+        "classes": 1,
+        "variables": 23,
+        "imports": 8,
+        "function_calls": 70
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/key_pstree_visualizer.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 14,
+        "classes": 2,
+        "variables": 39,
+        "imports": 9,
+        "function_calls": 81
+      }
+    },
+    {
+      "path": "scripts/cpu_binding_tools/topology_visualizer.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 11,
+        "classes": 1,
+        "variables": 54,
+        "imports": 10,
+        "function_calls": 114
+      }
+    },
+    {
+      "path": "scripts/flame_graph/flamegraph.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 19,
+        "classes": 2,
+        "variables": 68,
+        "imports": 15,
+        "function_calls": 143
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/examples/host_bound_fault_lab.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 23,
+        "classes": 0,
+        "variables": 84,
+        "imports": 13,
+        "function_calls": 266
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/examples/vllm_lock_fault_lab.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 39,
+        "classes": 2,
+        "variables": 60,
+        "imports": 19,
+        "function_calls": 355
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/examples/vllm_softirq_fault_lab.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 45,
+        "classes": 1,
+        "variables": 223,
+        "imports": 16,
+        "function_calls": 667
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/exporters.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 12,
+        "classes": 3,
+        "variables": 25,
+        "imports": 8,
+        "function_calls": 74
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_compute_irq_stats.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 18,
+        "classes": 2,
+        "variables": 29,
+        "imports": 11,
+        "function_calls": 136
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_excel_output.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 25,
+        "classes": 5,
+        "variables": 49,
+        "imports": 12,
+        "function_calls": 137
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_exporters.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 7,
+        "classes": 2,
+        "variables": 8,
+        "imports": 10,
+        "function_calls": 65
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_trace_analyze.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 44,
+        "classes": 7,
+        "variables": 49,
+        "imports": 15,
+        "function_calls": 218
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_trace_convert.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 105,
+        "classes": 15,
+        "variables": 114,
+        "imports": 11,
+        "function_calls": 523
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_trace_convert_robustness.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 15,
+        "classes": 1,
+        "variables": 3,
+        "imports": 5,
+        "function_calls": 81
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_trace_record.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 114,
+        "classes": 15,
+        "variables": 68,
+        "imports": 12,
+        "function_calls": 448
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/test/test_write_results.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 17,
+        "classes": 2,
+        "variables": 42,
+        "imports": 10,
+        "function_calls": 154
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/trace_analyze.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 28,
+        "classes": 2,
+        "variables": 112,
+        "imports": 15,
+        "function_calls": 207
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/trace_convert.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 80,
+        "classes": 11,
+        "variables": 127,
+        "imports": 21,
+        "function_calls": 352
+      }
+    },
+    {
+      "path": "scripts/ftrace_tools/trace_record.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 69,
+        "classes": 5,
+        "variables": 104,
+        "imports": 11,
+        "function_calls": 394
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/memscope/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 1,
+        "imports": 5,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/memscope/database.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 9,
+        "classes": 1,
+        "variables": 9,
+        "imports": 8,
+        "function_calls": 50
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/memscope/defs.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 6,
+        "variables": 38,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/memscope/entities.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 5,
+        "variables": 39,
+        "imports": 6,
+        "function_calls": 2
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/prof2memscope/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 0,
+        "imports": 0,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/prof2memscope/dump.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 8,
+        "classes": 2,
+        "variables": 24,
+        "imports": 14,
+        "function_calls": 58
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/prof2memscope/prof_adaptor.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 1,
+        "variables": 3,
+        "imports": 10,
+        "function_calls": 10
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/prof2memscope/profiler_event_analyze_patch.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 0,
+        "variables": 2,
+        "imports": 4,
+        "function_calls": 4
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/utils/__init__.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "classes": 0,
+        "variables": 1,
+        "imports": 3,
+        "function_calls": 0
+      }
+    },
+    {
+      "path": "scripts/memscope_adaptors/utils/sqlite_meta.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 19,
+        "classes": 3,
+        "variables": 38,
+        "imports": 12,
+        "function_calls": 81
+      }
+    },
+    {
+      "path": "server/build/build.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 14,
+        "classes": 0,
+        "variables": 80,
+        "imports": 9,
+        "function_calls": 138
+      }
+    },
+    {
+      "path": "server/build/download_third_party.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "classes": 0,
+        "variables": 7,
+        "imports": 4,
+        "function_calls": 13
+      }
+    },
+    {
+      "path": "server/build/patch_source_for_build.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 0,
+        "variables": 23,
+        "imports": 4,
+        "function_calls": 41
+      }
+    },
+    {
+      "path": "server/build/preprocess_third_party.py",
+      "language": "python",
+      "source_role": "build_tool",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 0,
+        "variables": 24,
+        "imports": 10,
+        "function_calls": 69
+      }
+    },
+    {
+      "path": "streamer/run_insight_streamer.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 19,
+        "classes": 0,
+        "variables": 39,
+        "imports": 9,
+        "function_calls": 118
+      }
+    },
+    {
+      "path": "streamer/stop_insight_streamer.py",
+      "language": "python",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 9,
+        "classes": 0,
+        "variables": 19,
+        "imports": 6,
+        "function_calls": 47
+      }
+    },
+    {
+      "path": "test/email_sender.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 2,
+        "variables": 11,
+        "imports": 9,
+        "function_calls": 32
+      }
+    },
+    {
+      "path": "test/performance/email_sender.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "classes": 2,
+        "variables": 12,
+        "imports": 6,
+        "function_calls": 17
+      }
+    },
+    {
+      "path": "test/performance/run_server_perf_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 2,
+        "variables": 36,
+        "imports": 10,
+        "function_calls": 62
+      }
+    },
+    {
+      "path": "test/performance/server_perf_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 6,
+        "classes": 1,
+        "variables": 28,
+        "imports": 7,
+        "function_calls": 59
+      }
+    },
+    {
+      "path": "test/ut/server_ut_test.py",
+      "language": "python",
+      "source_role": "test",
+      "status": "parsed",
+      "counts": {
+        "functions": 4,
+        "classes": 1,
+        "variables": 28,
+        "imports": 10,
+        "function_calls": 54
+      }
+    },
+    {
+      "path": "platform/build.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 4,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 6,
+        "function_calls": 28
+      }
+    },
+    {
+      "path": "platform/src/default.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 18,
+        "structs": 1,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 21,
+        "function_calls": 108
+      }
+    },
+    {
+      "path": "platform/src/dev.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 15,
+        "function_calls": 29
+      }
+    },
+    {
+      "path": "platform/src/dev_legacy.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 5,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 14,
+        "function_calls": 27
+      }
+    },
+    {
+      "path": "platform/src/http.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 1,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 4,
+        "function_calls": 21
+      }
+    },
+    {
+      "path": "platform/src/local_port.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 18,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 10,
+        "function_calls": 53
+      }
+    },
+    {
+      "path": "platform/src/logging.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 40,
+        "structs": 3,
+        "enums": 3,
+        "traits": 0,
+        "variables": 0,
+        "imports": 24,
+        "function_calls": 199
+      }
+    },
+    {
+      "path": "platform/src/main.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 1,
+        "function_calls": 9
+      }
+    },
+    {
+      "path": "platform/src/webview.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 16,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 29,
+        "function_calls": 124
+      }
+    },
+    {
+      "path": "platform/src/webview/cleanup.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 7,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 10,
+        "function_calls": 83
+      }
+    },
+    {
+      "path": "platform/src/webview/resource.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 13,
+        "structs": 1,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 12,
+        "function_calls": 96
+      }
+    },
+    {
+      "path": "platform/src/webview/webview2err.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 3,
+        "structs": 0,
+        "enums": 1,
+        "traits": 0,
+        "variables": 0,
+        "imports": 2,
+        "function_calls": 12
+      }
+    },
+    {
+      "path": "platform/src/webview_legacy.rs",
+      "language": "rust",
+      "source_role": "product",
+      "status": "parsed",
+      "counts": {
+        "functions": 13,
+        "structs": 0,
+        "enums": 0,
+        "traits": 0,
+        "variables": 0,
+        "imports": 22,
+        "function_calls": 84
+      }
+    }
+  ],
+  "counts_by_language": {
+    "javascript": {
+      "functions": 102,
+      "classes": 4,
+      "variables": 405,
+      "imports": 99,
+      "function_calls": 1057,
+      "components": 0
+    },
+    "python": {
+      "functions": 1586,
+      "classes": 205,
+      "variables": 3201,
+      "imports": 884,
+      "function_calls": 9214
+    },
+    "rust": {
+      "functions": 146,
+      "structs": 5,
+      "enums": 4,
+      "traits": 0,
+      "variables": 0,
+      "imports": 170,
+      "function_calls": 873
+    }
+  },
+  "errors": 0,
+  "cross_file_resolution_executed": false,
+  "normalized_graph_produced": false,
+  "G02": "not_accepted",
+  "historical_assets_enabled": false,
+  "file_hash_reverification": "not_run_per_user_preference"
+}
