@@ -110,6 +110,12 @@ class Workspace:
         for name in ('tree-sitter','tree-sitter-language-pack','kuzu','jedi','parso','mcp'):
             check(name,lambda name=name:importlib.metadata.version(name),name!='mcp')
         check('engine_revision',lambda:rules_version())
+        from adapters.rust_project import binary as rust_binary,available as rust_available,tool_output
+        for name in ('cargo','rustc','rust-analyzer'):
+            def rust_tool(name=name):
+                if not rust_available(name):raise ValueError('Install the native Rust analysis tool and expose its executable: '+name)
+                return tool_output([rust_binary(name),'--version'],ROOT).strip()
+            check('rust_'+name,rust_tool,False)
         if probe_parser:
             def parser():
                 with self.engine_environment():

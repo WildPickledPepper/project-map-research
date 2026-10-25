@@ -19,6 +19,26 @@ class FullSnapshotTests(unittest.TestCase):
         except (OSError, subprocess.CalledProcessError):
             raise unittest.SkipTest('Install the pinned TypeScript dependency before the full builder test')
 
+    def test_rust_fact_and_process_boundary_survive_the_mixed_production_builder(self):
+        from adapters.rust_project import available
+        if not all(available(n) for n in ('cargo','rustc','rust-analyzer')):self.skipTest('Native Rust tools required')
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);source=root/'source';source.mkdir();output=root/'output';output.mkdir()
+            files={'Cargo.toml':'[package]\nname="fixture"\nversion="0.1.0"\nedition="2021"\n',
+                'src/lib.rs':'use std::process::Command;pub fn entry(){let _=Command::new("never-executed").arg("--port=1").spawn();}',
+                'view.ts':'export function render(){return 1;}', 'service.cpp':'int handle(){return 1;}'}
+            for path,body in files.items():
+                target=source/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(body,encoding='utf-8')
+            request={'source_commit':'authored-rust-mixed','snapshot':'authored-rust-mixed','input_paths':list(files),
+                'config':normalize_config({'version':1,'scope':{'include':['*']},'storage':'json','deployment':{'version':1,'services':[]}}),
+                'build_version':{'rules':'authored-fixture'}}
+            with (output/'build.log').open('w',encoding='utf-8') as log:build(source,request,output,log,typescript=self.ts)
+            graph=json.loads((output/'graph.json').read_text(encoding='utf-8'))
+            self.assertTrue(any(n['kind']=='rust_boundary' and n['family']=='process_start' for n in graph['nodes']))
+            self.assertTrue(any(e['kind']=='USES_COMMAND' for e in graph['edges']))
+            self.assertEqual(next(r for r in graph['coverage'] if r['path']=='src/lib.rs')['status'],'parsed')
+            self.assertIn('rust-analyzer',graph['extractors']['rust']['components'])
+
     def test_python_sources_and_owned_interface_join_enter_the_production_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);source=root/'source';source.mkdir();output=root/'output';output.mkdir()

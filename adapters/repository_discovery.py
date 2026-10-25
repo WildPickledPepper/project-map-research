@@ -5,13 +5,11 @@ import json
 from pathlib import PurePosixPath
 
 from adapters.snapshot_inputs import commit, git, validate_path
+from adapters.source_languages import SOURCE_LANGUAGES
 
-VERSION = 'repository-discovery/3'
-LANGUAGES = {'.ts': 'typescript', '.mts': 'typescript', '.cts': 'typescript', '.tsx': 'tsx', '.cpp': 'cpp', '.cc': 'cpp', '.cxx': 'cpp',
-    '.h': 'cpp', '.hpp': 'cpp', '.hh': 'cpp', '.hxx': 'cpp', '.c': 'c',
-    '.js': 'javascript', '.jsx': 'javascript', '.mjs': 'javascript', '.cjs': 'javascript',
-    '.py': 'python', '.pyi':'python', '.rs': 'rust', '.sh': 'shell', '.ps1': 'powershell', '.cmake': 'cmake'}
-SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript', 'python'}
+VERSION = 'repository-discovery/4'
+LANGUAGES=SOURCE_LANGUAGES
+SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript', 'python','rust'}
 DEFAULT_POLICY = {'version': 1, 'roles': ['product', 'test', 'build_tool'],
                   'exclude': [], 'max_file_bytes': 2 * 1024 * 1024}
 
@@ -36,7 +34,8 @@ def manifest_kind(path):
     if name.startswith('tsconfig') and name.endswith('.json'): return 'tsconfig'
     if name == 'CMakeLists.txt' or name.endswith('.cmake'): return 'cmake'
     if name == 'compile_commands.json': return 'compile_commands'
-    if name in {'Cargo.toml', 'pyproject.toml'}: return 'toml'
+    if name in {'Cargo.toml','Cargo.lock','rust-toolchain.toml','pyproject.toml'}: return 'toml'
+    if '.cargo' in PurePosixPath(path).parts and name in {'config','config.toml'}:return 'toml'
     if name.startswith('requirements') and name.endswith('.txt'): return 'requirements'
     return None
 
@@ -99,7 +98,8 @@ def discover(source, revision='HEAD', configuration=None):
             nearest = []
             for ancestor in ancestors:
                 nearest = [p for p in manifests if str(PurePosixPath(p).parent) == ancestor and
-                           (PurePosixPath(p).name=='pyproject.toml' if row['language']=='python' else
+                           (PurePosixPath(p).name=='Cargo.toml' if row['language']=='rust' else
+                            PurePosixPath(p).name=='pyproject.toml' if row['language']=='python' else
                             PurePosixPath(p).name == 'CMakeLists.txt' if row['language']=='cpp' else manifest_kind(p)=='tsconfig')]
                 if nearest: break
             row['build_context'] = {'manifests': nearest, 'status': 'recorded_not_applied' if nearest else 'missing',

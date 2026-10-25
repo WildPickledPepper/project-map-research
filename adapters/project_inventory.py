@@ -12,14 +12,11 @@ from adapters.repository_discovery import discover
 from adapters.snapshot_inputs import commit
 from adapters.snapshot_refresh import atomic_json
 from adapters.source_scope import script_role_evidence, source_scope
+from adapters.source_languages import SOURCE_LANGUAGES
 
 SCHEMA='project-scope/1'
 CONTAINERS={'modules','plugins','packages','services','apps','scripts'}
-CODE={'.ts':'typescript','.tsx':'tsx','.mts':'typescript','.cts':'typescript','.js':'javascript','.jsx':'javascript',
-    '.mjs':'javascript','.cjs':'javascript','.py':'python','.rs':'rust','.cpp':'cpp','.cc':'cpp','.cxx':'cpp',
-    '.h':'cpp','.hpp':'cpp','.hh':'cpp','.hxx':'cpp','.c':'c','.sh':'shell','.ps1':'powershell','.bat':'batch',
-    '.go':'go','.java':'java','.cs':'csharp','.kt':'kotlin','.kts':'kotlin','.swift':'swift',
-    '.rb':'ruby','.php':'php','.lua':'lua','.ex':'elixir','.exs':'elixir','.scala':'scala'}
+CODE={suffix:language for suffix,language in SOURCE_LANGUAGES.items() if language!='cmake'}
 TEXT={'.json','.toml','.yaml','.yml','.ini','.cfg','.conf','.config','.cmake','.sql','.css','.scss','.sass','.less','.html','.htm','.txt'}
 MANIFESTS={'package.json','Cargo.toml','pyproject.toml','setup.py','setup.cfg','CMakeLists.txt','Dockerfile'}
 
@@ -166,7 +163,7 @@ def _inventory(revision,files,texts,states,rules_version):
             boundaries.extend(hits);entries.extend(points)
             conditions.extend(dict(e,module=root) for e in selectors)
         entry_records.extend(dict(e,module=root) for e in entries)
-        support={lang:('preexisting_partial_not_accepted_for_module' if lang in {'typescript','tsx','javascript','cpp','python'} else 'not_implemented')
+        support={lang:('preexisting_partial_not_accepted_for_module' if lang in {'typescript','tsx','javascript','cpp','python','rust'} else 'not_implemented')
             for lang in counts if lang in CODE.values()}
         parent_roots=[p for p in anchors if p!=root and underneath(root,p)]
         parent_root=max(parent_roots,key=len) if parent_roots else None

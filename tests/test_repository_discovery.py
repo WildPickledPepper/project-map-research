@@ -45,7 +45,8 @@ class DiscoveryTests(FixtureCase):
         self.assertEqual(rows['scripts/codegen.ts']['role'],'build_tool')
         self.assertTrue(rows['src/legacy.js']['eligible'])
         self.assertTrue(rows['tools/check.py']['eligible'])
-        for name in ('vendor/lib.cpp','generated/a.ts','platform/main.rs','docs/readme.md'):
+        self.assertTrue(rows['platform/main.rs']['eligible'])
+        for name in ('vendor/lib.cpp','generated/a.ts','docs/readme.md'):
             self.assertEqual(rows[name]['status'],'excluded')
             self.assertTrue(rows[name]['reason'])
         config = normalize_config(generated_config(d))
@@ -208,6 +209,23 @@ class ExtractionTests(FixtureCase):
         self.assertIn('NewPayload',{i['name'] for i in facts['interfaces']})
         self.assertEqual(facts['registrations'][0]['callee'],'hub.subscribe')
         self.assertEqual(row['build_context']['build_membership'],'outside_or_unresolved_config_file_sets')
+
+    def test_rust_worker_and_cargo_configuration_are_in_the_automatic_plan(self):
+        self.save({'shell/Cargo.toml':'[package]\nname="discovered"\nversion="0.1.0"\nedition="2021"\n',
+            'shell/.cargo/config.toml':'[build]\ntarget="x86_64-unknown-linux-gnu"\n',
+            'shell/Cargo.lock':'version=4\n',
+            'shell/src/main.rs':'trait Go{fn run();}fn main(){let callback=||{};callback();}',
+            'fresh/main.go':'package main\nfunc main(){}'})
+        self.execute(output='rust-source')
+        row,facts=self.facts('shell/src/main.rs','rust-source')
+        self.assertEqual(row['status'],'parsed');self.assertEqual(facts['language'],'rust')
+        self.assertEqual(row['build_context']['manifests'],['shell/Cargo.toml'])
+        self.assertEqual(row['build_context']['build_membership'],'rust_source_context_not_build_proof')
+        self.assertTrue(any(s['name']=='Go::run' for s in facts['symbols']))
+        result=json.loads((self.base/'rust-source/discovery.json').read_text(encoding='utf-8'))
+        rows={r['path']:r for r in result['files']}
+        self.assertTrue(rows['shell/.cargo/config.toml']['eligible']);self.assertTrue(rows['shell/Cargo.lock']['eligible'])
+        self.assertEqual(rows['fresh/main.go']['reason'],'unsupported_language')
 
     def test_real_worker_deadline_kills_blocking_process(self):
         with (self.base/'errors.log').open('w') as errors:

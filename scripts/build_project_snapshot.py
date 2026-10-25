@@ -75,18 +75,28 @@ def build(source, request, output, log, *, typescript):
         python=python_facts(source,paths,emit=lambda row:print('Python '+json.dumps(row),file=log,flush=True))
         python=python_boundaries(python)
         write_json(output/'python-facts.json',python)
-    covered = {r['path'] for g in (facts, ts, python) for r in g['coverage']}
+    rust={'nodes':[],'edges':[],'diagnostics':[],'coverage':[],'limits':[]}
+    rust_paths=[p for p in paths if Path(p).suffix=='.rs']
+    if rust_paths:
+        print('Extract Rust declarations, values and native Cargo references',file=log,flush=True)
+        from adapters.rust_semantics import analyze as rust_facts
+        from adapters.rust_boundaries import augment as rust_boundaries
+        rust=rust_boundaries(rust_facts(source,paths,pack.get_parser('rust'),output=output/'rust-native',
+            emit=lambda row:print('Rust '+json.dumps(row),file=log,flush=True)))
+        write_json(output/'rust-facts.json',rust)
+    covered = {r['path'] for g in (facts, ts, python,rust) for r in g['coverage']}
     graph = {'schema_version': 1, 'snapshot': revision + ':protocol', 'source_commit': revision,
         'extractors': {'cpp': 'cpp_protocol/0.2.0', 'typescript': 'typescript_protocol_flow/0.2.0',
             'typescript_compiler': ts['compiler_version'], 'tree_sitter': importlib.metadata.version('tree-sitter'),
             'tree_sitter_language_pack': importlib.metadata.version('tree-sitter-language-pack')},
-        'input_paths': paths, 'coverage': facts['coverage'] + ts['coverage'] + python['coverage'] + remaining_coverage(paths, covered),
-        'nodes': facts['nodes'] + ts['nodes'] + python['nodes'], 'edges': facts['edges'] + ts['edges'] + python['edges'],
-        'diagnostics': facts['diagnostics'] + ts['diagnostics'] + python['diagnostics'], 'limits': facts['limits'] + ts['limits'] + python['limits'],
+        'input_paths': paths, 'coverage': facts['coverage'] + ts['coverage'] + python['coverage'] + rust['coverage'] + remaining_coverage(paths, covered),
+        'nodes': facts['nodes'] + ts['nodes'] + python['nodes'] + rust['nodes'], 'edges': facts['edges'] + ts['edges'] + python['edges'] + rust['edges'],
+        'diagnostics': facts['diagnostics'] + ts['diagnostics'] + python['diagnostics'] + rust['diagnostics'], 'limits': facts['limits'] + ts['limits'] + python['limits'] + rust['limits'],
         'provenance': {'reference_used_for_extraction': False, 'file_hash_verification': 'not_run_per_user_preference',
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
     if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components']}
+    if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components']}
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     write_json(output/'protocol-checkpoint.json', {'stage': 'protocol_only_not_complete_graph',
         'source_commit': revision, 'build_version': request['build_version'],
@@ -144,7 +154,9 @@ def build_version(typescript):
     from projectmap.version import rules_version
     ts = subprocess.check_output(['node', '-e', 'process.stdout.write(require(process.argv[1]).version)', str(typescript)], text=True)
     rules = rules_version(require_clean=True)
-    return {'rules_commit': rules, 'python': platform.python_version(),
+    from adapters.rust_project import available,binary,tool_output
+    rust_tools={name:tool_output([binary(name),'--version'],ROOT).strip() if available(name) else None for name in ('cargo','rustc','rust-analyzer')}
+    return {'rules_commit': rules, 'python': platform.python_version(),'rust_tools':rust_tools,
             'node': subprocess.check_output(['node', '--version'], text=True).strip(), 'typescript': ts,
             'packages': {name: importlib.metadata.version(name) for name in ['tree-sitter', 'tree-sitter-language-pack', 'kuzu', 'jedi', 'parso']}}
 

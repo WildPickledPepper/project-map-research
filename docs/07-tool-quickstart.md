@@ -1,6 +1,6 @@
 # 使用项目地图工具
 
-**当前 0.2.1 已有 TS/JS、C++、Python 的基础关系和部分接口适配，全项目验收继续按 W0–W7 推进。** 完整范围见[全项目计划](../plans/project-wide-completion-plan.md)及[整体验收矩阵](../plans/project-wide-acceptance.md)。安装包同时记录具体规则提交；可用 `status` 核对。
+**当前 0.2.1 已有 TS/JS、C++、Python 的基础关系和部分接口适配，Rust 已接入生产构图并通过独立混合夹具，真实全仓复验继续执行。** 完整范围见[全项目计划](../plans/project-wide-completion-plan.md)及[整体验收矩阵](../plans/project-wide-acceptance.md)。安装包同时记录具体规则提交；可用 `status` 核对。
 
 ## 直接使用 CLI
 
@@ -23,6 +23,7 @@ project-map --workspace WORKSPACE query overview
 project-map --workspace WORKSPACE query search --kind callable --text NAME
 project-map --workspace WORKSPACE query search --kind code_module --text PATH
 project-map --workspace WORKSPACE query search --kind python_boundary
+project-map --workspace WORKSPACE query search --kind rust_boundary
 project-map --workspace WORKSPACE query path --start NODE_ID --target TARGET_ID --depth 16
 project-map --workspace WORKSPACE query impact --start NODE_ID --depth 8
 project-map --workspace WORKSPACE query status --start NODE_ID
@@ -33,6 +34,10 @@ project-map --workspace WORKSPACE query source --start NODE_ID
 `python_boundary` 保留监听、路由、连接和进程接口的 API、参数来源、应用归属及待匹配状态。`entries` / `providers` 当前展示已有协议适配结果；Python 边界通过 `search` / `detail` 查询。JS/TS 的模块导入使用 `module_reference`、`CONTAINS_IMPORT` 和 `IMPORTS_MODULE`；Python 参数与值来源使用 `CALL_ARGUMENT`、`BINDS_ARGUMENT`、`READS_BINDING`、`VALUE_SOURCE` 等边。可用 `--kinds TYPE1,TYPE2` 限定遍历关系。
 
 查询结果带版本、预算和停止原因。静态候选与源码依赖用于查找可能的关系；实际执行由相同版本与场景的运行记录验证。未解析的调用和导入保留在节点的 `resolution` / `reason` 中，可用 `status` / `detail` 检查；`diagnostics` 汇总解析与其他诊断。源码工作区的未提交修改需要另读 diff。
+
+Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验证组合为 Rust 1.94.0 与 rust-analyzer 2026-10-19 发布版。可通过 PATH 或 `PROJECT_MAP_CARGO`、`PROJECT_MAP_RUSTC`、`PROJECT_MAP_RUST_ANALYZER` 指定可执行文件。`doctor` 单列这些检查。分析器使用导出副本与离线 Cargo metadata，禁用构建脚本和 proc-macro；外部依赖须已存在于调用方的 Cargo 缓存。缺少工具或上下文时保留语法事实及必需缺项，不记为完整 Rust 语义覆盖。
+
+`rust_boundary` 保留进程、网络、WebView 的声明身份、参数及待匹配状态；`analysis_contexts` 指出适用的 Cargo 清单、目标和 feature/debug 条件。唯一推断、条件候选和运行证据分别保留。跨配置路径需要核对上下文相容性，完整部署/实例配对继续按 W2 验证。
 
 ## skill 入口
 
