@@ -64,6 +64,16 @@ def normalize(term, style, *, max_candidates=32):
             if not isinstance(current['value'],str):return [incomplete(blank(),'non_string_path_literal')]
             return [text_path(current['value'])]
         if op=='symbol':return [{**blank(),'base':{'kind':current['kind'],'source':current['source']}}]
+        if op=='entry_name':
+            rows=[]
+            for directory in evaluate(current['args'][0]):
+                if directory['unresolved']:
+                    rows.append(incomplete(blank(),'directory_enumeration_base_unresolved',current['source']));continue
+                segment={k:current[k] for k in ('source','variable','iteration','name')}
+                segment.update(kind='directory_entry_name',directory={'base':directory['base'],'segments':directory['segments']})
+                rows.append({**blank(),'segments':[segment],'conditions':directory['conditions']+[
+                    {'kind':'directory_entry_present','source':current['source'],'variable':current['variable'],'iteration':current['iteration']}]})
+            return rows
         if op=='source_file':
             return [{**blank(),'base':{'kind':'source_root','source':current['source']},
                      'segments':list(PurePosixPath(current['path']).parts)}]
@@ -134,7 +144,7 @@ def normalize(term, style, *, max_candidates=32):
                     if piece['unresolved'] or piece['base'] and piece['base']['kind']!='literal_anchor':
                         rows.append(incomplete(current_value,'dynamic_path_component',args[1].get('source')));continue
                     anchor=piece['base']['value'] if piece['base'] else ''
-                    parsed=path_type(anchor,*piece['segments'])
+                    parsed=path_type(anchor)
                     if style=='windows' and (parsed.drive and not parsed.root or parsed.root and not parsed.drive):
                         rows.append(incomplete(current_value,'windows_drive_or_root_relative_component',args[1].get('source')));continue
                     if parsed.is_absolute():
@@ -167,6 +177,8 @@ def normalize(term, style, *, max_candidates=32):
                 if not value['segments']:
                     rows.append(value if value['base'] is None or value['base']['kind']=='literal_anchor' else incomplete(value,'extension_requires_known_file_name'));continue
                 name=value['segments'][-1]
+                if not isinstance(name,str):
+                    rows.append(incomplete(value,'extension_of_dynamic_filename_not_expanded'));continue
                 if name in {'.','..'}:rows.append(value);continue
                 dot=name.rfind('.');stem=name[:dot] if dot>0 else name
                 replacement=stem+('.'+text if text else '')
@@ -178,8 +190,10 @@ def normalize(term, style, *, max_candidates=32):
     rows=evaluate(term)
     for row in rows:
         row['style']=style
-        row['resolution']='unresolved' if row['unresolved'] else 'symbolic_base' if row['base'] and row['base']['kind']!='literal_anchor' else 'constant'
-        row['relative_path']='/'.join(row['segments']) if not row['unresolved'] else None
+        pattern=any(isinstance(s,dict) for s in row['segments'])
+        row['resolution']='unresolved' if row['unresolved'] else 'pattern' if pattern else 'symbolic_base' if row['base'] and row['base']['kind']!='literal_anchor' else 'constant'
+        row['relative_path']='/'.join(row['segments']) if not row['unresolved'] and not pattern else None
+        if pattern:row['display_path']='/'.join(s if isinstance(s,str) else '{'+s.get('name','entry')+'}' for s in row['segments'])
         row['path']=None
         if row['resolution']=='constant':
             anchor=row['base']['value'] if row['base'] else ''

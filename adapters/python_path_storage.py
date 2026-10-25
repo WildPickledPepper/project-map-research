@@ -45,6 +45,8 @@ class StorageVersions:
             for bid in sorted(bindings,key=lambda v:(paths.nodes[v]['line'],paths.nodes[v]['column'])):
                 values=[e for e in paths.out[bid] if e['kind']=='VALUE_SOURCE']
                 conditional=not values or any(e.get('conditions') for e in values)
+                loop=paths.iterations.loop(bid)
+                if loop is not None and point and paths.iterations.contains(paths.ast.get(point),loop.body):conditional=False
                 if not conditional:available=[]
                 else:
                     for prior in available:prior['conditions']=prior['conditions']+[{'kind':'later_storage_assignment_not_selected','binding':bid}]

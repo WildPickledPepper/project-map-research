@@ -1,6 +1,6 @@
 # Python 打包路径与文件操作
 
-2026-10-25 开始接入，10-26 发布真实控制结果。基础适配及按调用位置区分的参数传播已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项通过，规则 de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项通过。接下来展开目录项、过滤及动态文件名，连接完整打包链和构建产物。
+2026-10-25 开始接入，10-26 发布真实控制结果。基础适配、逐调用参数传播及目录项模式已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项通过，规则 de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项通过。继续应用过滤条件、复制契约及动态文件名，连接完整打包链和构建产物。
 
 ## 自动提取的内容
 
@@ -57,6 +57,20 @@ python experiments/2026-10-25-w1/run_python_path_control.py --source SOURCE --re
 python experiments/2026-10-25-w1/score_python_path_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
 python experiments/2026-10-25-w1/check_path_evidence.py
 ```
+
+## 目录项模式与完整路径匹配
+
+当前路径适配按原生绑定身份识别 for 目标，并核对 os.listdir 的实际导入与调用参数。`path_iteration` 保存循环绑定、目录、调用上下文和路径风格；ITERATION_BINDING、ITERATION_SOURCE、ITERATION_DIRECTORY、ITERATION_CALL_CONTEXT 及 PATH_ITERATION_SOURCE 可展开来源。
+
+目录项表示一个有来源约束的文件名变量，路径的 `resolution=pattern`。它保留固定片段、变量身份和枚举目录，`display_path` 供展示；完整具体路径在匹配时产生。嵌套目录、不同循环中的同名变量和外层调用分别保留。目录表达式按创建枚举时的位置计算，后来的赋值不回写该目录。
+
+`path_patterns` 按完整路径匹配，检查根目录、固定片段、重复变量、路径风格和目录成员约束，再代入目标路径。copytree 可保留成员后缀。另一目录出现同名文件不会建立同一文件身份；缺少变量或未知根目录也不会按文件名补齐。调用方可显式保留尚待运行/输入验证的目录成员条件，结果仍带条件。
+
+7 项 Python 循环与 6 项语言无关匹配检查加入既有路径检查，共 52 项定向检查通过。覆盖嵌套目录、两个相邻循环、创建时目录与后续改值、外层捕获、目录成员未验证、有限字面量项、同名自定义 listdir、循环外读取、隐式 cwd 和元组投影。字面量迭代保留项目索引，以供源/目标条件兼容性检查；动态非 listdir、未绑定 cwd 及未展开模式产生具体缺项。
+
+接入后的完整 Windows 回归运行 520 项，结果通过，1 项按平台跳过；混合生产建图已验证模式、循环事实及既有语言关系共同保留。
+
+本项建立目录成员的路径表示和匹配基础。源码过滤谓词已保留在图中；将谓词、复制选项和目标目录状态应用到构建产物传播继续单独实施。G02/G03 保持未通过。
 
 ## 2026-10-26：调用上下文、路径返回与读取位置
 

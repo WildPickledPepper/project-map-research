@@ -100,7 +100,7 @@ bundle('b','y')
                          {('a/payload','x/resources'),('b/payload','y/resources')})
         self.assertTrue(all(len(v['call_stack'])==1 for v in self.values(g)))
 
-    def test_directory_iteration_and_star_args_remain_gaps_while_simple_helper_resolves(self):
+    def test_directory_iteration_forms_patterns_and_star_args_remain_gaps(self):
         g=self.graph({'make.py':'''import os,shutil
 def custom(value): return os.path.join('native',value)
 for name in os.listdir('native'):
@@ -108,8 +108,7 @@ for name in os.listdir('native'):
 shutil.copyfile(custom('worker'),'ship/worker')
 shutil.copytree(*('native','ship'))
 '''})
-        self.assertTrue(any(n['value']['resolution']=='unresolved' for n in self.values(g)))
-        self.assertTrue(any(d['kind']=='python_path_value_unresolved' and d['required'] for d in g['diagnostics']))
+        self.assertTrue(any(n['value']['resolution']=='pattern' for n in self.values(g)))
         self.assertTrue(any(d['kind']=='python_file_operation_argument_expansion' and d['required'] for d in g['diagnostics']))
         self.assertTrue(any(v['value']['path']=='native/worker' for v in self.values(g)))
 

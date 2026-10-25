@@ -14,6 +14,7 @@ from adapters.path_values import expression_dag,literal,normalize,operation,symb
 from adapters.python_path_contexts import CallContexts
 from adapters.python_path_guards import SourceGuards
 from adapters.python_path_storage import StorageVersions
+from adapters.python_path_iterations import Iterations
 
 PATH_TYPES={'pathlib.Path','pathlib.PurePath','pathlib.PureWindowsPath','pathlib.PurePosixPath'}
 FILE_APIS={'shutil.copyfile':('copy_file','exact_path'),
@@ -48,6 +49,7 @@ class Paths(Boundaries):
         self.calls=CallContexts(self)
         self.guards=SourceGuards(self)
         self.storage=StorageVersions(self)
+        self.iterations=Iterations(self)
 
     def api(self,uid,seen=None):
         if seen and uid in seen:return set()
@@ -132,7 +134,13 @@ class Paths(Boundaries):
             result=operation('python_parent',ev(self.children(uid,'value')[0]),source=uid)
         else:
             sources=self.storage.sources(uid,frame)
-            choices=[{'value':unknown(e['uid'],e['reason']) if 'reason' in e else ev(e['uid']),'conditions':e.get('conditions',[])} for e in sources]
+            choices=[]
+            for reference in sources:
+                if 'reason' in reference:value=unknown(reference['uid'],reference['reason'])
+                else:
+                    value=self.iterations.value(reference['uid'],uid,frame,seen)
+                    if value is None:value=ev(reference['uid'])
+                choices.append({'value':value,'conditions':reference.get('conditions',[])})
             result=({'op':'choice','source':uid,'choices':choices} if choices else unknown(uid,'python_binding_without_path_source'))
         self.memo[key]=result
         return result
@@ -196,7 +204,7 @@ class Paths(Boundaries):
             for value in normalize(term,style):
                 value={**value,'conditions':value['conditions']+frame['conditions']+operation_node['conditions']+self.guards.at(operation_node['call'])}
                 self.serial+=1;uid=argument+':path:'+str(self.serial)
-                row={'id':uid,'kind':'path_value','name':value.get('relative_path') or value.get('path') or 'unresolved path',
+                row={'id':uid,'kind':'path_value','name':value.get('relative_path') or value.get('path') or value.get('display_path') or 'unresolved path',
                     **{k:operation_node[k] for k in ('path','line','column','language','conditions')},
                     'origin':argument,'consumer':operation_node['id'],'role':role,'expression':dag,'value':value,
                     'operation_context':context['id'],'call_stack':frame['calls'],'root_function':frame['root_function'],
@@ -206,6 +214,8 @@ class Paths(Boundaries):
                 self.link(context['id'],uid,'CONTEXT_PATH_VALUE',role=role,path_style=style)
                 for source in sorted({t['source'] for t in dag['terms'] if t.get('source') in self.nodes}):
                     self.link(uid,source,'PATH_COMPONENT_SOURCE',path_style=style)
+                for iteration in sorted({t['iteration'] for t in dag['terms'] if t.get('iteration') in self.nodes}):
+                    self.link(uid,iteration,'PATH_ITERATION_SOURCE',path_style=style)
                 for call in frame['calls']:self.link(uid,call,'PATH_CALL_CONTEXT',path_style=style)
                 predicates={c['test'] for c in value['conditions'] if c.get('test') in self.nodes}
                 predicates.update(p['test'] for c in value['conditions'] for p in c.get('when',[]) if p.get('test') in self.nodes)
@@ -250,7 +260,7 @@ class Paths(Boundaries):
         self.facts['nodes'].extend(self.added);self.facts['edges'].extend(self.links);self.facts['diagnostics'].extend(self.errors)
         self.facts['limits'].extend(['python_path_styles_are_explicit_runtime_candidates',
             'python_file_operations_require_control_flow_options_destination_and_deployment_context',
-            'python_path_directory_enumeration_and_multiple_return_control_flow_not_expanded'])
+            'python_path_multiple_return_and_non_listdir_dynamic_iteration_not_expanded'])
         return self.facts
 
 
