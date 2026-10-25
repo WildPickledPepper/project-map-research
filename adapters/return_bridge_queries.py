@@ -209,9 +209,11 @@ def iframe_links(graph, provider):
 def explain_return_bridge(graph, provider, *, field_path=None, state=None, max_links=100):
     if max_links < 1: raise ValueError('max_links must be positive')
     bridges = iframe_links(graph, provider); sockets = explain_socket_receivers(graph, provider=provider, max_links=100000)
-    routes = explain_response(graph, provider); links = []; used = set()
+    routes = explain_response(graph, provider); links = []; used = set(); frontend_statuses = []
     for bridge in bridges:
         frontend = explain_frontend(graph, api=bridge['api'], field_path=field_path, state=state)
+        frontend_statuses.append({'api': bridge['api'], 'status': frontend['status'],
+            'truncated': frontend['truncated'], 'extraction_truncated': frontend['extraction_truncated'], 'gaps': frontend['gaps']})
         for receiver in sockets['receivers']:
             for delivery in receiver['deliveries']:
                 if delivery['registration']['entry'] != bridge['upstream_boundary']['target'] or delivery['settlement']['mode'] != 'resolve': continue
@@ -263,7 +265,11 @@ def explain_return_bridge(graph, provider, *, field_path=None, state=None, max_l
         'total_bridges': len(bridges), 'total_links': len(links), 'field_path': field_path, 'state': state,
         'truncated': len(bridges) > max_links or len(links) > max_links or sockets['truncated'] or routes['truncated'] or
             any(e['truncated'] for e in graph['return_flow']['entries'] if e['source_symbol'] in entries) or
-            any(g['kind']=='value_description_budget_exceeded' and g['entry'] in entries for g in graph['return_flow']['diagnostics']),
-        'gaps': [g for g in graph['return_flow']['diagnostics'] if g['entry'] in entries],
+            any(g['kind'] in {'value_description_budget_exceeded', 'loop_iteration_budget_exceeded', 'deferred_callback_budget_exceeded',
+                             'call_depth_limit', 'alternative_budget_exceeded'} and g['entry'] in entries for g in graph['return_flow']['diagnostics']) or
+            any(f['truncated'] or f['extraction_truncated'] for f in frontend_statuses),
+        'frontend_statuses': frontend_statuses,
+        'gaps': [g for g in graph['return_flow']['diagnostics'] if g['entry'] in entries] +
+                [{**g, 'analysis_phase': 'frontend'} for f in frontend_statuses for g in f['gaps']],
         'remaining': ['unresolved_encoding_and_queue_branches', 'runtime_connection_lifetime_and_value_assertions'],
         'runtime_delivery': 'unknown', 'limits': graph['return_flow']['limits']}

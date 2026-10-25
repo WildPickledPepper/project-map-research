@@ -1,5 +1,6 @@
 import unittest
-from adapters.return_bridge_queries import project, wire_path, constant_test, evaluate_guard, dependency_path, UNKNOWN
+from unittest.mock import patch
+from adapters.return_bridge_queries import project, wire_path, constant_test, evaluate_guard, dependency_path, explain_return_bridge, UNKNOWN
 
 
 def path(root, selectors, **extra):
@@ -7,6 +8,19 @@ def path(root, selectors, **extra):
 
 
 class ReturnBridgeQueryTests(unittest.TestCase):
+    def test_frontend_loop_budget_is_visible_on_the_composite_return_query(self):
+        graph={'snapshot':'v','source_commit':'v','return_flow':{'entries':[],'diagnostics':[],'limits':[]}}
+        diagnostic={'kind':'loop_iteration_budget_exceeded','entry':'api'}
+        with patch('adapters.return_bridge_queries.iframe_links', return_value=[{'api':'api','reply_send':{'entry':'reply'}}]), \
+             patch('adapters.return_bridge_queries.explain_socket_receivers', return_value={'receivers':[],'truncated':False}), \
+             patch('adapters.return_bridge_queries.explain_response', return_value={'truncated':False}), \
+             patch('adapters.return_bridge_queries.explain_frontend', return_value={'status':'source_frontend_candidates',
+                 'truncated':False,'extraction_truncated':True,'gaps':[diagnostic]}):
+            result=explain_return_bridge(graph,'provider')
+        self.assertTrue(result['truncated'])
+        self.assertTrue(result['frontend_statuses'][0]['extraction_truncated'])
+        self.assertEqual(result['gaps'][0]['kind'],'loop_iteration_budget_exceeded')
+
     def test_whole_object_consumption_cannot_substitute_a_sibling_for_the_requested_field(self):
         self.assertEqual(dependency_path([],['lines']),['lines'])
         self.assertIsNone(dependency_path(['limits'],['lines']))
