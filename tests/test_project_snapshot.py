@@ -93,6 +93,66 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
             self.assertTrue(any(n['kind']=='path_value' and n['value']['relative_path']=='assets/server/worker' for n in graph['nodes']))
             self.assertTrue(any(e['kind']=='PATH_COMPONENT_SOURCE' for e in graph['edges']))
 
+    def test_native_cargo_artifact_to_renamed_distribution_survives_workspace_queries_and_failed_refresh(self):
+        import copy
+        import os
+        from adapters.cargo_native import capture
+        from adapters.rust_project import available
+        from adapters.snapshot_inputs import export_inputs,select_inputs
+        from projectmap.workspace import Workspace
+        from tests import test_cargo_file_api as fixtures
+        if not all(available(n) for n in ('cargo','rustc','rust-analyzer')):self.skipTest('Native Rust tools required')
+        with tempfile.TemporaryDirectory(prefix='cargo production workspace ') as directory:
+            root=Path(directory);source=root/'repository';source.mkdir()
+            files,env,manifest,name=fixtures.fixture_files();suffix='.exe' if os.name=='nt' else ''
+            files['assemble.py']=f'''import os,shutil
+ROOT=os.path.dirname(os.path.realpath(__file__))
+shutil.copyfile(os.path.join(ROOT,'objects','release','{name}{suffix}'),os.path.join(ROOT,'ship','renamed-launcher{suffix}'))
+'''
+            files['view.ts']='export function show(){return 1;}\n'
+            for path,body in files.items():
+                dest=source/path;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_text(body,encoding='utf-8')
+            def git(*args):return subprocess.check_output(['git','-C',str(source),*args],stderr=subprocess.PIPE).decode().strip()
+            git('init','-q');git('config','user.name','fixture');git('config','user.email','fixture@example.invalid')
+            git('config','core.autocrlf','false');git('add','.');git('commit','-qm','authored Cargo production input')
+            revision=git('rev-parse','HEAD')
+            analysis=normalize_config({'version':1,'scope':{'include':['*']},'deployment':{},'storage':'json'})
+            selection=select_inputs(source,revision,analysis);export_inputs(source,selection,root/'export')
+            native,receipt=capture(root/'export',list(files),output=root/'capture',source_commit=revision,expected_commit=revision,
+                context_key='authored-release',manifest=manifest,target_directory='objects',environment=env)
+            self.assertEqual(native['native_context']['status'],'built')
+            analysis['build']={'version':1,'cargo':{'captures':[{'directory':str(root/'capture'),
+                'source_commit':revision,'context_key':'authored-release'}]}}
+            workspace=Workspace.create(root/'workspace',source,typescript=self.ts,analysis=analysis)
+            result=workspace.update(builder=partial(build,typescript=self.ts),version={'rules':'authored-cargo-fixture'})
+            self.assertEqual(result['status'],'ready',result)
+            graph=json.loads(Path(workspace.config['active']['graph']).read_text(encoding='utf-8'))
+            target=next(n for n in graph['nodes'] if n['kind']=='build_target' and n['name']==name)
+            artifact=next(n for n in graph['nodes'] if n['kind']=='build_artifact' and n['native_executable'])
+            shipped=[n for n in graph['nodes'] if n['kind']=='copied_artifact' and n['value']['relative_path']=='ship/renamed-launcher'+suffix]
+            self.assertEqual(len(shipped),1)
+            for direction,start,end in [('out',target['id'],shipped[0]['id']),('in',shipped[0]['id'],target['id'])]:
+                route=workspace.query('path',start=start,target=end,direction=direction,
+                    kinds=['PRODUCES_ARTIFACT','COPIES_ARTIFACT_TO'],depth=3,nodes=40,edges=40)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+                self.assertEqual([e['kind'] for e in route['items']],
+                    ['PRODUCES_ARTIFACT','COPIES_ARTIFACT_TO'] if direction=='out' else ['COPIES_ARTIFACT_TO','PRODUCES_ARTIFACT'])
+                self.assertEqual(route['source_commit'],revision)
+            proof=workspace.query('source',start=target['id']);self.assertEqual(proof['path'],manifest)
+            proof=workspace.query('source',start=shipped[0]['id']);self.assertEqual(proof['path'],'assemble.py')
+            module=next(n for n in graph['nodes'] if n.get('syntax')=='source_file' and n['path']=='code/start.rs')
+            self.assertTrue(workspace.query('path',start=target['id'],target=module['id'],kinds=['CARGO_TARGET_SOURCE'])['found'])
+            self.assertEqual(artifact['materialization'],'reported_by_successful_native_build')
+            self.assertFalse(receipt['product_executable_run']);self.assertEqual(git('status','--porcelain'),'')
+            # A later source commit cannot reuse old native products. Keep the prior active graph queryable.
+            active=copy.deepcopy(workspace.config['active']);(source/'new.py').write_text('value=1\n')
+            git('add','.');git('commit','-qm','advance beyond native capture')
+            failed=workspace.update(builder=partial(build,typescript=self.ts),version={'rules':'authored-cargo-fixture'})
+            self.assertEqual(failed['status'],'failed',failed);self.assertTrue(failed['active_preserved'])
+            self.assertEqual(workspace.status()['active'],active)
+            self.assertTrue(workspace.query('search',text=name,kind='build_target',allow_stale=True)['items'])
+            self.assertEqual(git('status','--porcelain'),'')
+
     def test_python_sources_and_owned_interface_join_enter_the_production_snapshot(self):
         with tempfile.TemporaryDirectory() as tmp:
             root=Path(tmp);source=root/'source';source.mkdir();output=root/'output';output.mkdir()

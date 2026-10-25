@@ -107,11 +107,16 @@ def build(source, request, output, log, *, typescript):
     if cmake_roots(paths):
         print('Extract native CMake targets, artifacts and selected-source membership', file=log, flush=True)
         native=cmake_facts(source,paths,source_commit=revision,output=output/'cmake-native',
-            config=request['config'].get('build'),source_facts=facts,
+            config={k:v for k,v in request['config']['build'].items() if k!='cargo'} if request['config'].get('build') else None,source_facts=facts,
             emit=lambda row:print('CMake '+json.dumps(row),file=log,flush=True))
         for key in ('nodes','edges','diagnostics','limits'):graph[key].extend(native[key])
         graph['native_build']={'projects':native['projects'],'contexts':native['contexts'],'source_coverage':'native_compilation_input_not_execution'}
         graph['extractors']['cmake']=native['components']
+    cargo_captures=request['config'].get('build',{}).get('cargo',{}).get('captures',[])
+    if cargo_captures:
+        print('Import revision-bound Cargo compiler artifacts',file=log,flush=True)
+        from adapters.cargo_artifact_graph import augment as cargo_artifacts
+        graph=cargo_artifacts(graph,root=source,captures=cargo_captures,parser=pack.get_parser('rust'))
     from adapters.artifact_copy_graph import augment as artifact_copies
     graph=artifact_copies(graph)
     graph['extractors']['artifact_copy_flow']=graph['artifact_copy_flow']['adapter']

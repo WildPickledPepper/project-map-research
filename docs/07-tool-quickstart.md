@@ -84,6 +84,50 @@ project-map --workspace WORKSPACE query search --kind build_source
 
 `arguments` 接受原生 `-DNAME=VALUE` 配置值。外部依赖可声明为 `kind: git`，提供 destination、repository、40 位固定 revision；准备好的生成源码可声明为 `kind: file`，提供 destination、path、version、origin。工具将依赖导出/复制到配置副本，保留版本来源，并拒绝覆盖选中源码。配置输入提供环境和依赖来源，目标、产物、入口及新增模块由原生分析发现。
 
+### Cargo 原生构建记录
+
+可选的 `build.cargo.captures` 将成功 Cargo 编译流接入同一图，查询构建目标、实际产物、Rust 根文件及后续 Python 复制关系。默认源码分析保留原有模式；原生捕获通过 Python 接口显式执行，构建脚本/proc macros 会运行，产品可执行文件不启动。详见[捕获接口及验证范围](../experiments/2026-10-25-w1/cargo-native.md)。
+
+从选定 Git 提交导出输入，再捕获到仓库外的新目录：
+
+```python
+from pathlib import Path
+from adapters.snapshot_inputs import select_inputs, export_inputs
+from adapters.cargo_native import capture
+
+selection = select_inputs(Path("SOURCE"), "COMMIT", analysis)
+export_inputs(Path("SOURCE"), selection, Path("NEW_EXPORT"))
+facts, receipt = capture(
+    Path("NEW_EXPORT"), [f["path"] for f in selection["files"]],
+    output=Path("NEW_CAPTURE"),
+    source_commit=selection["source_commit"],
+    expected_commit=selection["source_commit"],
+    context_key="release-host", cwd=".", manifest="Cargo.toml",
+    profile="release", target_directory="target",
+)
+```
+
+`analysis` 为上述 version/scope/deployment/storage 分析配置。外部依赖须满足离线构建条件；捕获使用独立 Cargo home，可在输入中准备 vendor/config。存在 `build.target` 配置时须明确传入 `target`。捕获保留 rustup 工具链选择，隔离继承的 Cargo/Rust 编译设置；额外构建环境通过 `environment` 显式提供并进入收据。
+
+在完整分析配置中加入：
+
+```json
+{
+  "build": {
+    "version": 1,
+    "cargo": {
+      "captures": [{
+        "directory": "ABSOLUTE_CAPTURE_DIRECTORY",
+        "source_commit": "FIXED_40_CHARACTER_COMMIT",
+        "context_key": "release-host"
+      }]
+    }
+  }
+}
+```
+
+使用 `init --analysis ANALYSIS.json` 后运行 `build`。捕获必须对应本次选定源码版本，捕获输入必须包含在分析输入范围内；旧版本、失败或损坏记录使本次构建失败，上一份成功地图继续保留。捕获目录作为不可变输入管理，变更后创建新目录并更新配置。用 `build_target`、`build_artifact`、`copied_artifact` 搜索及 PRODUCES_ARTIFACT、CARGO_TARGET_SOURCE、COPIES_ARTIFACT_TO 遍历；图中分别保留原生构建报告、源码候选和运行状态。
+
 ## skill 入口
 
 skill 的统一整理与打包安排在工具能力和验收稳定之后；以下保留已有分发入口的用法。
