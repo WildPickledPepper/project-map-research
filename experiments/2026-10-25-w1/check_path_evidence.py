@@ -109,3 +109,20 @@ assert not any(copies[k] for k in ('native_semantic_stage_executed_again','nativ
     'default_workspace_rebuild','installed_tool_tested','runtime_execution','original_checkout_modified','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
 assert copies['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 29 real native-to-packaging copy/index checks; runtime materialization and process pairing remain separate.')
+
+mappings=json.loads((Path(__file__).parent/'evidence/python-mapping-paths.json').read_text(encoding='utf-8'))
+assert mappings['schema']=='python-mapping-path-score/1' and mappings['passed']
+assert len(mappings['checks'])==23 and all(c['passed'] for c in mappings['checks'])
+assert mappings['source_commit']==copies['source_commit']
+assert mappings['build_version']['rules_commit']=='bb22a5022aba9c276f3ebdd169b181b8b7c5b6bf'
+assert mappings['index_counts']['input_files']==119 and mappings['index_counts']['nodes']==76648 and mappings['index_counts']['edges']==111276
+assert mappings['windows_copy_paths']=={'source':'platform/target/release/MindStudioInsight.exe','destination':'platform/preview/MindStudio-Insight.exe'}
+assert mappings['linux_default_selection_paths']=={'source':'platform/target/release/MindStudioInsight','destination':'platform/preview/MindStudio-Insight'}
+assert mappings['macos_copy_branch_excluded']
+assert mappings['host_selection']=='explicit_predicate_scoring_context_not_native_cargo_build_or_runtime'
+assert len(mappings['navigation'])==4 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in mappings['navigation'])
+assert mappings['path_adapter_executed_again'] and not mappings['native_semantic_stage_executed_again']
+assert not any(mappings[k] for k in ('default_workspace_rebuild','installed_tool_tested','runtime_execution','original_checkout_modified',
+    'cargo_build_context_connected','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
+assert mappings['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 23 guarded mapping/renaming/index checks; Cargo invocation and executable-root pairing remain separate.')

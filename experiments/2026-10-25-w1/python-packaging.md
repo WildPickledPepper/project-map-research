@@ -70,6 +70,27 @@ PATH_LOOKUP_SOURCE 指向字典定义，PATH_GUARD_SOURCE 指向查询键。每�
 
 语义依据：[Python 3.11 内建映射类型](https://docs.python.org/3.11/library/stdtypes.html#mapping-types-dict)。本项继续服务于 Cargo 启动器打包与 Rust current_exe 基址连接；产物身份和部署根目录按构建及实际复制来源确定。
 
+### Insight 启动器改名复验
+
+源码 d4e8d1c，提取规则 bb22a50，[23 项独立检查通过](evidence/python-mapping-paths.json)。119 个 Python 输入重新导出并计算路径，复用条件未变的原生语义阶段后，当前图有 76,648 个节点、111,276 条关系。
+
+`build/build.py:532` 在 Windows 谓词上下文选择：
+
+```text
+platform/target/release/MindStudioInsight.exe
+  → platform/preview/MindStudio-Insight.exe
+```
+
+四个源候选和四个目标候选分别保留键选择条件。评分检查 Windows 文件名、Linux 键缺失时的默认值，以及 macOS 排除此复制分支；Linux 这项是显式谓词选择检查，实际构建平台与发行结构另行验证。两端路径属于同一次调用，运行返回码等残留条件仍在图中。
+
+PATH_LOOKUP_SOURCE 和 PATH_GUARD_SOURCE 提供字典定义及元组键来源，四项正反向查询、同版本复制源码导航及版本/输入复用检查通过。评分参考与提取输入分离。当前控制没有连接 Cargo 构建配置、Rust 运行根目录或进程实例；这些是下一段所需关系。原 checkout 状态未变，文件哈希未重新核验。
+
+```text
+python experiments/2026-10-25-w1/recheck_python_paths.py --source SOURCE --base-trial PYTHON_NATIVE_BASE_CONTROL --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_python_mapping_paths.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_path_evidence.py
+```
+
 ## 2026-10-26：文件过滤谓词
 
 生产路径适配版本 0.4.0 为外围分支和前序退出条件保存 `predicate_expressions`。每个表达式带源码节点、分支极性及实际求值调用帧；`predicate_complete` 区分完整表达式与尚缺上下文。复制选项的 `option_expressions` 使用相同的有界 DAG。条件表达式和赋值所在分支随路径候选保留。

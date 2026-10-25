@@ -67,7 +67,7 @@ def main():
     for key in ('nodes','edges','diagnostics','coverage'):cpp[key].extend(python[key])
     cpp['limits']=list(dict.fromkeys(cpp['limits']+python['limits']))
     cpp['input_paths']=inputs;cpp=copies(cpp)
-    cpp['extractors']['python']={'components':python['components'],'path_values':'import_bound_paths_predicates_and_execution_positions/0.5.0'}
+    cpp['extractors']['python']={'components':python['components'],'path_values':'import_bound_paths_and_guarded_dictionary_selection/0.6.0'}
     cpp['extractors']['artifact_copy_flow']=cpp['artifact_copy_flow']['adapter']
     snapshot=revision+':artifact-copy-control:'+uuid.uuid4().hex
     version={'rules_commit':current,'packages':packages,'python':py_runtime,'reused_cpp_cmake':cpp_base,'reused_python_semantics':py_base,
