@@ -14,6 +14,8 @@
 
 [启动词与后端解码](process-arguments.md)已进入默认图；690 项完整回归通过，1 项按平台跳过。[固定启动控制](process-arguments.md#insight-windows-releasedefault-控制)通过 41 项检查及六项正反查，端口模板与所选后端的 ParseWsPort 相连，默认预算查询通过。logPath payload 和字面开关缺口单列；继续验证准备后值、选项和监听对象。
 
+[嵌套 C++ 成员类型](cpp-nested-members.md)已修正：选项对象、getter 返回值和标准智能指针中的字段写入按接收对象类型提取；35 项相关检查及 696 项完整回归通过（1 项按平台跳过）。实例/子对象身份及条件成员声明继续展开。
+
 ## 原生组件基线
 
 [实测结果](evidence/native-summary.json)来自原版 CGC `0.6.13` / `93c9685bff9151f50a3121e9913e5ba2d27c1191`，源码为 Insight `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`。全部目标语言文件从 Git blobs 导出到独立目录；上游实现和原始 checkout 均未修改，未重新核验文件哈希。

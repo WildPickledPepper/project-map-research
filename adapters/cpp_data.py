@@ -89,7 +89,11 @@ class DataExtractor:
         if node.type=='field_expression':
             receiver=node.child_by_field_name('argument');name=text(node.child_by_field_name('field'))
             if text(receiver)=='this':return self.field(name,'::'.join(info['scope']))
-            types=self.x.infer(receiver,info['path'],info['scope'],uid)['names']
+            if hasattr(self,'types'):
+                inferred=self.types.infer(receiver,uid,info)
+                if text(node.child_by_field_name('operator'))=='->':inferred=self.types.dereference(inferred)
+                types=inferred.get('names',[])
+            else:types=self.x.infer(receiver,info['path'],info['scope'],uid)['names']
             found=[self.field(name,t) for t in types];found=[f for f in found if f]
             if len(found)==1:return found[0]
         return None
