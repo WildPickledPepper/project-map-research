@@ -102,6 +102,23 @@ class ProjectMapTests(unittest.TestCase):
         self.assertTrue(self.q.walk('api', depth=0)['depth_scope_reached'])
         self.assertEqual(self.q.walk('api', depth=0)['missing_relation_meaning'], 'unknown')
 
+    def test_long_cross_module_paths_keep_forward_reverse_and_budget_semantics(self):
+        self.q.close()
+        self.graph['nodes'].extend({'id':'chain-'+str(i),'kind':'callable','name':'layer '+str(i),'path':'ui/a.ts','line':2} for i in range(25))
+        self.graph['edges'].extend({'source':'chain-'+str(i),'target':'chain-'+str(i+1),'kind':'CROSS_MODULE_CALL',
+            'status':'candidate','evidence':[{'path':'ui/a.ts','line':2}]} for i in range(24))
+        build_index(self.graph,self.discovery,self.path);self.q=ProjectMap(self.path)
+        for direction,start,end in [('out','chain-0','chain-24'),('in','chain-24','chain-0')]:
+            result=self.q.walk(start,target=end,direction=direction,depth=64)
+            self.assertTrue(result['found']);self.assertIsNone(result['stop_reason']);self.assertEqual(len(result['items']),24)
+        short=self.q.walk('chain-0',target='chain-24',depth=16)
+        self.assertFalse(short['found']);self.assertTrue(short['depth_scope_reached'])
+        self.q.budget=Budget(nodes=7)
+        limited=self.q.walk('chain-0',target='chain-24',depth=64)
+        self.assertFalse(limited['found']);self.assertEqual(limited['stop_reason'],'node_budget');self.assertEqual(limited['visited_nodes'],7)
+        for invalid in (-1,65,True):
+            with self.assertRaises(ValueError):self.q.walk('chain-0',depth=invalid)
+
     def test_wall_budget_does_not_become_no_results(self):
         self.q.budget = Budget(seconds=0.000000001)
         r = self.q.search()

@@ -45,6 +45,8 @@ Python 路径条件中的 `predicate_expressions` 保存可计算谓词及源码
 
 查询结果带版本、预算和停止原因。静态候选与源码依赖用于查找可能的关系；实际执行由相同版本与场景的运行记录验证。未解析的调用和导入保留在节点的 `resolution` / `reason` 中，可用 `status` / `detail` 检查；`diagnostics` 汇总解析与其他诊断。源码工作区的未提交修改需要另读 diff。
 
+`query path` / `trace` / `impact` 的深度可指定为 0–64，用于跨多层包装、进程和提供方的链。节点、边、耗时及输出预算同时生效；深度边界、预算耗尽和未找到路径分别报告。长链可配合 `--kinds` 限定关系家族，并用 `--nodes`、`--edges`、`--seconds` 设置本次查询范围。
+
 Rust 原生语义需要 Cargo、rustc、rust-src 和 rust-analyzer；当前验证组合为 Rust 1.94.0 与 rust-analyzer 2026-10-19 发布版。可通过 PATH 或 `PROJECT_MAP_CARGO`、`PROJECT_MAP_RUSTC`、`PROJECT_MAP_RUST_ANALYZER` 指定可执行文件。`doctor` 单列这些检查。分析器使用导出副本与离线 Cargo metadata，禁用构建脚本和 proc-macro；外部依赖须已存在于调用方的 Cargo 缓存。缺少工具或上下文时保留语法事实及必需缺项，不记为完整 Rust 语义覆盖。
 
 `rust_boundary` 保留进程、网络、WebView 的声明身份、参数及待匹配状态；`analysis_contexts` 指出适用的 Cargo 清单、目标和 feature/debug 条件。唯一推断、条件候选和运行证据分别保留。跨配置路径需要核对上下文相容性，完整部署/实例配对继续按 W2 验证。

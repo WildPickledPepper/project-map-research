@@ -398,8 +398,8 @@ class ProjectMap:
 
     @bounded_query
     def walk(self, selector, *, direction='out', depth=4, target=None, kinds=None):
-        if direction not in {'out', 'in'} or type(depth) is not int or not 0 <= depth <= 16:
-            raise ValueError('Use direction out/in and depth 0..16')
+        if direction not in {'out', 'in'} or type(depth) is not int or not 0 <= depth <= 64:
+            raise ValueError('Use direction out/in and depth 0..64')
         self._begin()
         start = self.resolve(selector)
         goal = self.resolve(target) if target else None
