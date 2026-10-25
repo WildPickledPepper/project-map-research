@@ -46,3 +46,22 @@ assert len(production['navigation'])==6 and all(r['found'] and r['stop_reason'] 
 assert production['process_counterpart_status']=='pending_packaging_path_and_runtime_program_identity'
 assert not any(production[k] for k in ('runtime_execution','product_compiled','whole_G02_accepted','whole_G03_accepted'))
 print('OK: 62 fixture, 24 native and 32 production CMake checks; first failure retained; process pairing pending.')
+
+system=json.loads((Path(__file__).parent/'evidence/cmake-system-replay.json').read_text(encoding='utf-8'))
+assert system['schema']=='cmake-system-replay-score/1' and system['passed']
+assert len(system['checks'])==23 and all(c['passed'] for c in system['checks'])
+assert system['source_commit']==production['source_commit']
+assert system['build_version']['rules_commit']=='45a9fdca0bfe98c562d43532e07ec3b6bd8b41ac'
+assert system['build_version']['reused_cpp_facts']['rules_commit']==production['build_version']['rules_commit']
+assert system['index_counts']['input_files']==1336 and system['index_counts']['nodes']==217840 and system['index_counts']['edges']==343093
+assert system['target_system']['name']==system['target_system']['host_name']=='Windows'
+assert system['target_system']['host_path_style']==system['target_system']['target_path_style']=='windows'
+assert system['target_system']['cross_compiling'] is False
+assert system['target_system']['processor_interpretation']=='cmake_system_processor_not_verified_compiler_architecture'
+assert system['native_relocation']['build_root_relocated'] and system['native_relocation']['source_root_relocated']
+assert len(system['navigation'])==4 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in system['navigation'])
+assert system['native_normalizer_executed_again'] and not any(system[k] for k in (
+    'native_configure_executed_again','cpp_extraction_executed_again','default_workspace_rebuild','runtime_execution','original_checkout_modified',
+    'production_copy_edges_emitted','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
+assert system['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 23 current native-system replay/index checks; target and host bound; copy/process propagation pending.')

@@ -1,0 +1,277 @@
+{
+  "schema": "cmake-system-replay-score/1",
+  "origin": "executed_current_native_normalizer_cached_unchanged_cpp_facts_separate_source_reference",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:cmake-system-replay:6eaf98a069a54054b0ce1165868acc06",
+  "scope": "cpp_cmake_control_cached_cpp_current_native_reply_normalization",
+  "build_version": {
+    "rules_commit": "45a9fdca0bfe98c562d43532e07ec3b6bd8b41ac",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0"
+    },
+    "python": "3.11.9",
+    "reused_cpp_facts": {
+      "rules_commit": "07dcab66e14cdc5e94e4e7074320dbb7632388ee",
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:af5130b88f5d476c885b98d6ffb4495e",
+      "component_history_unchanged": true,
+      "component_versions_unchanged": true,
+      "input_selection_unchanged": true,
+      "components": [
+        "adapters/__init__.py",
+        "adapters/callback_graph.py",
+        "adapters/callback_queries.py",
+        "adapters/chain_queries.py",
+        "adapters/correlation_queries.py",
+        "adapters/cpp_control.py",
+        "adapters/cpp_data.py",
+        "adapters/cpp_encoding.py",
+        "adapters/cpp_facts.py",
+        "adapters/cpp_field_flow.py",
+        "adapters/cpp_instances.py",
+        "adapters/cpp_library_types.py",
+        "adapters/cpp_member_effects.py",
+        "adapters/cpp_protocol.py",
+        "adapters/cpp_response_routing.py",
+        "adapters/cpp_serialization.py",
+        "adapters/cpp_socket_origin.py",
+        "adapters/cpp_source_conditions.py",
+        "adapters/cpp_transmission.py",
+        "adapters/cpp_value_types.py",
+        "adapters/data_graph.py",
+        "adapters/data_queries.py",
+        "adapters/discovery_facts.py",
+        "adapters/discovery_ts.cjs",
+        "adapters/ecmascript_modules.cjs",
+        "adapters/ecmascript_sources.cjs",
+        "adapters/fact_queries.py",
+        "adapters/field_queries.py",
+        "adapters/frontend_graph.py",
+        "adapters/frontend_queries.py",
+        "adapters/kuzu_fact_graph.py",
+        "adapters/kuzu_fact_store.py",
+        "adapters/mechanism_inventory.py",
+        "adapters/project_inventory.py",
+        "adapters/project_map.py",
+        "adapters/project_query.py",
+        "adapters/protocol_graph.py",
+        "adapters/repository_discovery.py",
+        "adapters/response_queries.py",
+        "adapters/return_bridge_graph.py",
+        "adapters/return_bridge_queries.py",
+        "adapters/runtime_records.py",
+        "adapters/serialization_queries.py",
+        "adapters/server_channel_graph.py",
+        "adapters/server_channel_queries.py",
+        "adapters/snapshot_inputs.py",
+        "adapters/snapshot_records.py",
+        "adapters/snapshot_refresh.py",
+        "adapters/socket_graph.py",
+        "adapters/socket_queries.py",
+        "adapters/source_languages.py",
+        "adapters/source_scope.py",
+        "adapters/sqlite_fact_graph.py",
+        "adapters/syntax_supplement.py",
+        "adapters/transmission_graph.py",
+        "adapters/transmission_queries.py",
+        "adapters/typescript_analysis_units.cjs",
+        "adapters/typescript_data_flow.cjs",
+        "adapters/typescript_entry_roots.cjs",
+        "adapters/typescript_facts.cjs",
+        "adapters/typescript_protocol_flow.cjs",
+        "adapters/typescript_response_flow.cjs",
+        "adapters/typescript_return_flow.cjs",
+        "adapters/typescript_socket_flow.cjs",
+        "adapters/value_origin_queries.py",
+        "scripts/build_chain_closure_graph.py",
+        "scripts/build_fact_graph.py"
+      ],
+      "counts": {
+        "nodes": 217241,
+        "edges": 337586
+      }
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1336,
+    "modules": 29,
+    "nodes": 217840,
+    "edges": 343093,
+    "entries": 0,
+    "diagnostic_records": 15385,
+    "providers": 125,
+    "module_relation_groups": 53
+  },
+  "native_node_counts": {
+    "build_configuration": 1,
+    "build_target": 33,
+    "build_source": 553,
+    "build_artifact": 12
+  },
+  "target_system": {
+    "status": "available",
+    "name": "Windows",
+    "declared_processor": "AMD64",
+    "host_name": "Windows",
+    "host_processor": "AMD64",
+    "cross_compiling": false,
+    "target_path_style": "windows",
+    "host_path_style": "windows",
+    "processor_interpretation": "cmake_system_processor_not_verified_compiler_architecture",
+    "basis": "cmake_generated_system_literals",
+    "file": "CMakeFiles/3.31.6/CMakeSystem.cmake"
+  },
+  "native_configuration": {
+    "id": "cmake:server%2FRelease:Release",
+    "configuration": "Release",
+    "cmake_version": "3.31.6",
+    "generator": {
+      "multiConfig": false,
+      "name": "Ninja"
+    }
+  },
+  "native_relocation": {
+    "build_root_relocated": true,
+    "source_root_relocated": true,
+    "basis": "caller_recorded_configure_roots_native_reply_checked"
+  },
+  "native_replay_seconds": 1.328,
+  "artifact_location": {
+    "root": "source",
+    "path": "server/output/win_mingw64/bin/profiler_server.exe"
+  },
+  "entry_path": "server/src/entry/server/bin/main.cpp",
+  "navigation": [
+    {
+      "id": "configuration_artifact_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "configuration_artifact_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "target_entry_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "target_entry_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "pinned_source",
+      "passed": true
+    },
+    {
+      "id": "control_input_scope_unchanged",
+      "passed": true
+    },
+    {
+      "id": "single_native_context_replayed",
+      "passed": true
+    },
+    {
+      "id": "native_generator_version",
+      "passed": true
+    },
+    {
+      "id": "native_target_system_windows",
+      "passed": true
+    },
+    {
+      "id": "native_host_filesystem_windows",
+      "passed": true
+    },
+    {
+      "id": "processor_record_not_compiler_architecture_claim",
+      "passed": true
+    },
+    {
+      "id": "generated_system_source_bound",
+      "passed": true
+    },
+    {
+      "id": "system_metadata_identical_across_views",
+      "passed": true
+    },
+    {
+      "id": "published_roots_explicitly_relocated",
+      "passed": true
+    },
+    {
+      "id": "native_artifact_keeps_build_context",
+      "passed": true
+    },
+    {
+      "id": "native_source_membership_and_entry_recomputed",
+      "passed": true
+    },
+    {
+      "id": "no_platform_metadata_gap",
+      "passed": true
+    },
+    {
+      "id": "cached_cpp_components_and_inputs_unchanged",
+      "passed": true
+    },
+    {
+      "id": "replay_execution_scope_explicit",
+      "passed": true
+    },
+    {
+      "id": "navigation_configuration_artifact_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_configuration_artifact_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_target_entry_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_target_entry_in",
+      "passed": true
+    },
+    {
+      "id": "same_source_commit_navigation",
+      "passed": true
+    },
+    {
+      "id": "same_index_rule_version",
+      "passed": true
+    },
+    {
+      "id": "unchanged_original_no_file_hash_verification",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_or_full_acceptance_claim",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "native_configure_executed_again": false,
+  "cpp_extraction_executed_again": false,
+  "native_normalizer_executed_again": true,
+  "default_workspace_rebuild": false,
+  "runtime_execution": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "production_copy_edges_emitted": false,
+  "process_counterpart_connected": false,
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false
+}

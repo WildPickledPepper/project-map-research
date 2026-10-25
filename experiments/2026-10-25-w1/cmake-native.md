@@ -109,3 +109,19 @@ Python 打包操作使用宿主文件系统，程序运行路径使用目标系�
 原生回复重放还支持已发布快照的目录重定位：调用方从成功配置收据提供原构建根和原源码根，适配器核对 File API 中的根目录，再从当前保存位置读取回复及系统文件。两类记录根必须成对提供；缺少、错配或配置失败继续拒绝旧回复。默认原生配置流程直接使用当前根，无需重定位参数。
 
 复制原生构建目录的独立检查先验证未绑定记录根时拒绝，再验证成对绑定后产物完整路径和系统字段保留。连同原生/项目及 Workspace 检查共 22 项通过。重复路径和声明回溯按上下文缓存计算，返回独立记录，减少同一编译组在大量源文件上的重复路径解析。
+
+### Insight 原生系统记录重放
+
+规则 45a9fdc 在原 d4e8d1c 的 C++/CMake 控制范围重放已成功的原生配置记录，[23 项检查通过](evidence/cmake-system-replay.json)。C++ 事实沿用 07dcab6，执行前核对语言/图组件的 Git 变更、解析器/Python 版本及 1,336 个输入选择；原生回复和系统文件由当前适配重读，源码连接重新计算，生成新索引。
+
+目标和宿主均实际记录为 Windows、路径风格为 windows，CMake 交叉编译标志为 FALSE；声明处理器 AMD64 继续保留声明含义。系统字段可随原生配置、目标、完整产物路径及 C++ 入口一起查询。217,840 个节点、343,093 条关系保留，4 个正反向路径与同版本源码导航通过。
+
+首次重读未绑定发布前的临时目录根，适配器拒绝了目录不匹配；原始失败保留。随后按原配置收据成对绑定目录根重放通过。驱动的字节输出解码修正和原日志也在仓库外保留。旧配置目录与原始仓库均未修改，未重新核验文件哈希。
+
+本次未重新运行 C++ 提取、CMake 配置或产品编译/执行。生产复制边及进程对端继续按路径传播阶段验收，既有静态候选含义保持不变。
+
+```text
+python experiments/2026-10-25-w1/replay_cmake_system.py --workspace PREVIOUS_CPP_CMAKE_WORKSPACE --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_cmake_system.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_cmake_evidence.py
+```
