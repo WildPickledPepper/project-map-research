@@ -19,6 +19,31 @@ class FullSnapshotTests(unittest.TestCase):
         except (OSError, subprocess.CalledProcessError):
             raise unittest.SkipTest('Install the pinned TypeScript dependency before the full builder test')
 
+    def test_python_sources_and_owned_interface_join_enter_the_production_snapshot(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp);source=root/'source';source.mkdir();output=root/'output';output.mkdir()
+            files={'start.py':'''from aiohttp import web
+from handlers import serve
+app=web.Application()
+app.router.add_get('/source',serve)
+runner=web.AppRunner(app)
+site=web.TCPSite(runner,'127.0.0.1',9100)
+''','handlers.py':'async def serve(request): return request\n',
+                'view.ts':'export function render(){return 1;}',
+                'service.cpp':'int handle(){return 1;}' }
+            for path,body in files.items():(source/path).write_text(body,encoding='utf-8')
+            request={'source_commit':'synthetic-python-mixed','snapshot':'synthetic-python-mixed',
+                'input_paths':list(files),'config':normalize_config({'version':1,'scope':{'include':['*']},'storage':'json','deployment':{'version':1,'services':[]}}),
+                'build_version':{'rules':'authored-fixture'}}
+            with (output/'build.log').open('w',encoding='utf-8') as log:build(source,request,output,log,typescript=self.ts)
+            graph=json.loads((output/'graph.json').read_text(encoding='utf-8'))
+            self.assertTrue(any(n['name']=='serve' and n.get('language')=='python' for n in graph['nodes']))
+            self.assertTrue(any(e['kind']=='EXPOSES_ROUTE' for e in graph['edges']))
+            self.assertTrue(any(e['kind']=='CAN_DISPATCH_TO' for e in graph['edges']))
+            self.assertEqual({r['path']:r['status'] for r in graph['coverage'] if r['path'].endswith('.py')},
+                             {'start.py':'parsed','handlers.py':'parsed'})
+            self.assertEqual(graph['extractors']['python']['components']['jedi'],'0.19.2')
+
     def test_complete_rebuild_recomputes_cross_file_protocol_matching(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp); source = root/'source'; source.mkdir()

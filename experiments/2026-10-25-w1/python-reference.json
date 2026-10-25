@@ -1,0 +1,23 @@
+{
+  "origin":"manual_source_audit_not_extraction_input",
+  "source_commit":"d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "required_calls":[
+    {"path":"plugins/ProfilerServerProxy/run.py","callee":"start_proxy","target_path":"plugins/ProfilerServerProxy/simple_profiler_server_proxy.py","target_name":"start_proxy"},
+    {"path":"plugins/ProfilerServerProxy/simple_profiler_server_proxy.py","callee":"proxy_server.start","target_path":"plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py","target_name":"MultiplexAIOProxyServer.start"},
+    {"path":"plugins/ProfilerServerProxy/simple_profiler_server_proxy.py","callee":"proxy_server.attach","target_path":"plugins/ProfilerServerProxy/utils/pattern.py","target_name":"Subject.attach"},
+    {"path":"plugins/ProfilerServerProxy/simple_profiler_server_proxy.py","callee":"profiler_server_manager.start","target_path":"plugins/ProfilerServerProxy/core/server/__init__.py","target_name":"BaseServerManager.start"},
+    {"path":"plugins/ProfilerServerProxy/simple_profiler_server_proxy.py","callee":"profiler_server_manager.get_idle_server","target_path":"plugins/ProfilerServerProxy/core/server/__init__.py","target_name":"BaseServerManager.get_idle_server"}
+  ],
+  "boundaries":[
+    {"path":"plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py","name":"web.TCPSite","family":"network_listener"},
+    {"path":"plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py","name":"app.router.add_route","family":"route_registration"},
+    {"path":"plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py","name":"session.ws_connect","family":"network_client"},
+    {"path":"plugins/ProfilerServerProxy/core/server/profiler_server.py","name":"subprocess.Popen","family":"process_start"}
+  ],
+  "path_start":{"path":"plugins/ProfilerServerProxy/simple_profiler_server_proxy.py","name":"start_proxy"},
+  "path_target":{"path":"plugins/ProfilerServerProxy/core/proxy/multi_aio_proxy_server.py","name":"session.ws_connect","family":"network_client"},
+  "path_kinds":["OBSERVES_CALL","STATIC_CALL_TARGET","DECLARES_BOUNDARY","EXPOSES_ROUTE","CAN_DISPATCH_TO"],
+  "handler":"MultiplexAIOProxyServer.default_request_handler",
+  "runtime_execution":false,
+  "backend_counterpart":"requires executable artifact, selected server identity and deployment context in W2"
+}

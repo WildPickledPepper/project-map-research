@@ -107,7 +107,7 @@ class Workspace:
         check('git_source',lambda:commit(self.source,self.config['revision']))
         check('node',lambda:subprocess.check_output(['node','--version'],text=True).strip())
         check('typescript',lambda:subprocess.check_output(['node','-e','process.stdout.write(require(process.argv[1]).version)',str(self.typescript())],text=True).strip())
-        for name in ('tree-sitter','tree-sitter-language-pack','kuzu','mcp'):
+        for name in ('tree-sitter','tree-sitter-language-pack','kuzu','jedi','parso','mcp'):
             check(name,lambda name=name:importlib.metadata.version(name),name!='mcp')
         check('engine_revision',lambda:rules_version())
         if probe_parser:

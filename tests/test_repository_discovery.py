@@ -44,7 +44,8 @@ class DiscoveryTests(FixtureCase):
         self.assertEqual(rows['tests/a.test.ts']['role'],'test')
         self.assertEqual(rows['scripts/codegen.ts']['role'],'build_tool')
         self.assertTrue(rows['src/legacy.js']['eligible'])
-        for name in ('vendor/lib.cpp','generated/a.ts','tools/check.py','platform/main.rs','docs/readme.md'):
+        self.assertTrue(rows['tools/check.py']['eligible'])
+        for name in ('vendor/lib.cpp','generated/a.ts','platform/main.rs','docs/readme.md'):
             self.assertEqual(rows[name]['status'],'excluded')
             self.assertTrue(rows[name]['reason'])
         config = normalize_config(generated_config(d))
@@ -129,6 +130,19 @@ class ExtractionTests(FixtureCase):
         self.assertTrue(self.facts('native/main.cpp')[1]['entries'])
         cmake=self.facts('native/CMakeLists.txt')[1]
         self.assertTrue(any(c['command']=='file' for c in cmake['commands']))
+
+    def test_python_sources_use_the_python_worker_and_keep_main_guard(self):
+        self.save({'unit/pyproject.toml':'[project]\nname="standalone"\nversion="1"',
+            'unit/run.py':'from . import helper\nasync def start(value): return await helper.run(value)\nif __name__ == "__main__":\n start(2)\n',
+            'unit/helper.pyi':'async def run(value:int)->int: ...\n'})
+        result=self.execute();self.assertEqual(result['status'],'complete_with_diagnostics')
+        row,facts=self.facts('unit/run.py')
+        self.assertEqual(row['status'],'parsed');self.assertEqual(facts['language'],'python')
+        self.assertEqual([r['name'] for r in facts['symbols']],['start'])
+        self.assertEqual(facts['entries'][0]['kind'],'python_main_guard')
+        self.assertEqual(row['build_context']['manifests'],['unit/pyproject.toml'])
+        self.assertEqual(row['build_context']['build_membership'],'python_source_context_not_package_install_proof')
+        self.assertEqual(self.facts('unit/helper.pyi')[1]['status'],'parsed')
 
     def test_javascript_variants_are_exported_and_parsed_with_correct_grammar(self):
         self.save({'package.json':'{"name":"mixed-fixture"}',

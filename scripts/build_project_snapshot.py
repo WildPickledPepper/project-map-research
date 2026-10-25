@@ -66,17 +66,27 @@ def build(source, request, output, log, *, typescript):
     extractor = DataExtractor(inputs, pack.get_parser('cpp'))
     cpp = ProtocolExtractor({}, None, extractor=extractor.x, facts=extractor.facts, value_types=extractor.types).build()
     ts = ts_phase('typescript_protocol_flow.cjs'); facts = cpp['facts']
-    covered = {r['path'] for g in (facts, ts) for r in g['coverage']}
+    python={'nodes':[],'edges':[],'diagnostics':[],'coverage':[],'limits':[]}
+    python_paths=[p for p in paths if Path(p).suffix in {'.py','.pyi'}]
+    if python_paths:
+        print('Extract Python declarations, values and Jedi references', file=log, flush=True)
+        from adapters.python_facts import analyze as python_facts
+        from adapters.python_boundaries import augment as python_boundaries
+        python=python_facts(source,paths,emit=lambda row:print('Python '+json.dumps(row),file=log,flush=True))
+        python=python_boundaries(python)
+        write_json(output/'python-facts.json',python)
+    covered = {r['path'] for g in (facts, ts, python) for r in g['coverage']}
     graph = {'schema_version': 1, 'snapshot': revision + ':protocol', 'source_commit': revision,
         'extractors': {'cpp': 'cpp_protocol/0.2.0', 'typescript': 'typescript_protocol_flow/0.2.0',
             'typescript_compiler': ts['compiler_version'], 'tree_sitter': importlib.metadata.version('tree-sitter'),
             'tree_sitter_language_pack': importlib.metadata.version('tree-sitter-language-pack')},
-        'input_paths': paths, 'coverage': facts['coverage'] + ts['coverage'] + remaining_coverage(paths, covered),
-        'nodes': facts['nodes'] + ts['nodes'], 'edges': facts['edges'] + ts['edges'],
-        'diagnostics': facts['diagnostics'] + ts['diagnostics'], 'limits': facts['limits'] + ts['limits'],
+        'input_paths': paths, 'coverage': facts['coverage'] + ts['coverage'] + python['coverage'] + remaining_coverage(paths, covered),
+        'nodes': facts['nodes'] + ts['nodes'] + python['nodes'], 'edges': facts['edges'] + ts['edges'] + python['edges'],
+        'diagnostics': facts['diagnostics'] + ts['diagnostics'] + python['diagnostics'], 'limits': facts['limits'] + ts['limits'] + python['limits'],
         'provenance': {'reference_used_for_extraction': False, 'file_hash_verification': 'not_run_per_user_preference',
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
+    if python_paths:graph['extractors']['python']={'adapter':'python_ast_jedi/0.1.0','components':python['components']}
     graph = protocol(graph, ts['protocol'], cpp['protocol'], request['config']['deployment'])
     write_json(output/'protocol-checkpoint.json', {'stage': 'protocol_only_not_complete_graph',
         'source_commit': revision, 'build_version': request['build_version'],
@@ -136,7 +146,7 @@ def build_version(typescript):
     rules = rules_version(require_clean=True)
     return {'rules_commit': rules, 'python': platform.python_version(),
             'node': subprocess.check_output(['node', '--version'], text=True).strip(), 'typescript': ts,
-            'packages': {name: importlib.metadata.version(name) for name in ['tree-sitter', 'tree-sitter-language-pack', 'kuzu']}}
+            'packages': {name: importlib.metadata.version(name) for name in ['tree-sitter', 'tree-sitter-language-pack', 'kuzu', 'jedi', 'parso']}}
 
 
 if __name__ == '__main__':

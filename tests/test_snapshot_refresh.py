@@ -57,9 +57,10 @@ class RefreshTests(unittest.TestCase):
         self.config['scope'] = {'discovery': {}}
         first = self.runner().run()
         self.write_commit({'new/package.json':'{"name":"new"}', 'new/entry.ts':'export function added(){}',
-                           'vendor/skip.ts':'third party', 'new/help.py':'unsupported'})
+                           'vendor/skip.ts':'third party', 'new/help.py':'def run(): return 1', 'new/later.rs':'fn main(){}'})
         second = self.runner().run()
-        self.assertEqual(self.graph()['input_paths'], ['a.ts','new/entry.ts','new/package.json'])
+        self.assertEqual(self.graph()['input_paths'], ['a.ts','new/entry.ts','new/help.py','new/package.json'])
+        self.assertNotIn('new/later.rs',self.graph()['input_paths'])
         self.assertEqual(first['last_success']['config'], second['last_success']['config'])
         self.git('mv','new/entry.ts','new/renamed.ts');self.git('commit','-qm','rename')
         self.runner().run()

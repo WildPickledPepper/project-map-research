@@ -6,12 +6,12 @@ from pathlib import PurePosixPath
 
 from adapters.snapshot_inputs import commit, git, validate_path
 
-VERSION = 'repository-discovery/2'
+VERSION = 'repository-discovery/3'
 LANGUAGES = {'.ts': 'typescript', '.mts': 'typescript', '.cts': 'typescript', '.tsx': 'tsx', '.cpp': 'cpp', '.cc': 'cpp', '.cxx': 'cpp',
     '.h': 'cpp', '.hpp': 'cpp', '.hh': 'cpp', '.hxx': 'cpp', '.c': 'c',
     '.js': 'javascript', '.jsx': 'javascript', '.mjs': 'javascript', '.cjs': 'javascript',
-    '.py': 'python', '.rs': 'rust', '.sh': 'shell', '.ps1': 'powershell', '.cmake': 'cmake'}
-SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript'}
+    '.py': 'python', '.pyi':'python', '.rs': 'rust', '.sh': 'shell', '.ps1': 'powershell', '.cmake': 'cmake'}
+SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript', 'python'}
 DEFAULT_POLICY = {'version': 1, 'roles': ['product', 'test', 'build_tool'],
                   'exclude': [], 'max_file_bytes': 2 * 1024 * 1024}
 
@@ -99,7 +99,8 @@ def discover(source, revision='HEAD', configuration=None):
             nearest = []
             for ancestor in ancestors:
                 nearest = [p for p in manifests if str(PurePosixPath(p).parent) == ancestor and
-                           (manifest_kind(p) == 'tsconfig' if row['language'] != 'cpp' else PurePosixPath(p).name == 'CMakeLists.txt')]
+                           (PurePosixPath(p).name=='pyproject.toml' if row['language']=='python' else
+                            PurePosixPath(p).name == 'CMakeLists.txt' if row['language']=='cpp' else manifest_kind(p)=='tsconfig')]
                 if nearest: break
             row['build_context'] = {'manifests': nearest, 'status': 'recorded_not_applied' if nearest else 'missing',
                 'analysis_mode': 'source_syntax', 'build_membership': 'not_proven',

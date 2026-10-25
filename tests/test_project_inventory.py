@@ -44,7 +44,7 @@ class ProjectInventoryTests(unittest.TestCase):
         result=self.build();m={row['id']:row for row in result['module-inventory']['modules']}
         for root in ('apps/dashboard','plugins/tunnel','launcher','native/src/network','native/src/modules/metrics'):
             self.assertIn(root,m);self.assertTrue(m[root]['required_runtime_review'])
-        self.assertEqual(m['plugins/tunnel']['semantic_support']['python'],'not_implemented')
+        self.assertEqual(m['plugins/tunnel']['semantic_support']['python'],'preexisting_partial_not_accepted_for_module')
         self.assertFalse(result['coverage-baseline']['semantic_graph_produced'])
         self.assertEqual(result['coverage-baseline']['overall_technical_acceptance'],'not_passed')
         self.assertFalse(m['docs']['required_runtime_review'])

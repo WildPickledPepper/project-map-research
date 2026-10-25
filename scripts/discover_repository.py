@@ -81,7 +81,9 @@ def enrich_context(report, metadata):
     for row in report['files']:
         context = row.get('build_context')
         if not context: continue
-        if row['language'] != 'cpp':
+        if row['language']=='python':
+            context['build_membership']='python_source_context_not_package_install_proof'
+        elif row['language'] != 'cpp':
             parsed = [metadata[p] for p in context['manifests'] if p in metadata]
             context['build_membership'] = ('included_in_config_file_set' if any(row['path'] in p.get('matched_source_files', []) for p in parsed)
                 else 'outside_or_unresolved_config_file_sets')
@@ -138,8 +140,8 @@ def run(source, revision, output, typescript, *, configuration=None, deployment=
 
         def get_worker(kind):
             if kind not in workers:
-                command = ([sys.executable, '-X', 'utf8', str(ROOT/'scripts/discovery_cpp_worker.py'), str(output/'source')]
-                    if kind == 'cpp' else ['node', '--max-old-space-size=256', str(ROOT/'adapters/discovery_ts.cjs'), str(output/'source'), str(typescript)])
+                command = ([sys.executable, '-X', 'utf8', str(ROOT/('scripts/discovery_'+kind+'_worker.py')), str(output/'source')]
+                    if kind in {'cpp','python'} else ['node', '--max-old-space-size=256', str(ROOT/'adapters/discovery_ts.cjs'), str(output/'source'), str(typescript)])
                 workers[kind] = worker_factory(command, stderr)
             return workers[kind]
 
@@ -172,7 +174,7 @@ def run(source, revision, output, typescript, *, configuration=None, deployment=
                         except (ValueError, tomllib.TOMLDecodeError) as error:
                             facts = {'path': row['path'], 'status': 'manifest_error', 'diagnostics': [{'kind': 'manifest_parse_error', 'message': str(error)}]}
                     else:
-                        kind = 'cpp' if row['language'] == 'cpp' and row['task'] == 'source' else 'ts'
+                        kind = row['language'] if row['language'] in {'cpp','python'} and row['task'] == 'source' else 'ts'
                         result = get_worker(kind).request({'path': row['path'], 'task': row['task']},
                             max(0.001, min(file_timeout, deadline-time.monotonic())))
                         if not result['ok']: raise RuntimeError(result['error'])
