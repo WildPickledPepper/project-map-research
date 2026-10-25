@@ -1,0 +1,339 @@
+{
+  "schema": "artifact-copy-control-score/1",
+  "origin": "executed_production_copy_flow_cached_native_and_language_stages_independent_source_reference",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:artifact-copy-control:c2955292171d48e7baa23a334dd09fd9",
+  "scope": "cpp_cmake_and_all_selected_python_control_union",
+  "build_version": {
+    "rules_commit": "50da0d9b0d31ebfb074ddb7856b455a0a5a46fe4",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    },
+    "python": "3.11.9",
+    "reused_cpp_cmake": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:cmake-system-replay:6eaf98a069a54054b0ce1165868acc06",
+      "rules_commit": "45a9fdca0bfe98c562d43532e07ec3b6bd8b41ac",
+      "components": [
+        "adapters/__init__.py",
+        "adapters/callback_graph.py",
+        "adapters/callback_queries.py",
+        "adapters/chain_queries.py",
+        "adapters/correlation_queries.py",
+        "adapters/cpp_control.py",
+        "adapters/cpp_data.py",
+        "adapters/cpp_encoding.py",
+        "adapters/cpp_facts.py",
+        "adapters/cpp_field_flow.py",
+        "adapters/cpp_instances.py",
+        "adapters/cpp_library_types.py",
+        "adapters/cpp_member_effects.py",
+        "adapters/cpp_protocol.py",
+        "adapters/cpp_response_routing.py",
+        "adapters/cpp_serialization.py",
+        "adapters/cpp_socket_origin.py",
+        "adapters/cpp_source_conditions.py",
+        "adapters/cpp_transmission.py",
+        "adapters/cpp_value_types.py",
+        "adapters/data_graph.py",
+        "adapters/data_queries.py",
+        "adapters/discovery_facts.py",
+        "adapters/discovery_ts.cjs",
+        "adapters/ecmascript_modules.cjs",
+        "adapters/ecmascript_sources.cjs",
+        "adapters/fact_queries.py",
+        "adapters/field_queries.py",
+        "adapters/frontend_graph.py",
+        "adapters/frontend_queries.py",
+        "adapters/kuzu_fact_graph.py",
+        "adapters/kuzu_fact_store.py",
+        "adapters/mechanism_inventory.py",
+        "adapters/project_inventory.py",
+        "adapters/project_map.py",
+        "adapters/project_query.py",
+        "adapters/protocol_graph.py",
+        "adapters/repository_discovery.py",
+        "adapters/response_queries.py",
+        "adapters/return_bridge_graph.py",
+        "adapters/return_bridge_queries.py",
+        "adapters/runtime_records.py",
+        "adapters/serialization_queries.py",
+        "adapters/server_channel_graph.py",
+        "adapters/server_channel_queries.py",
+        "adapters/snapshot_inputs.py",
+        "adapters/snapshot_records.py",
+        "adapters/snapshot_refresh.py",
+        "adapters/socket_graph.py",
+        "adapters/socket_queries.py",
+        "adapters/source_languages.py",
+        "adapters/source_scope.py",
+        "adapters/sqlite_fact_graph.py",
+        "adapters/syntax_supplement.py",
+        "adapters/transmission_graph.py",
+        "adapters/transmission_queries.py",
+        "adapters/typescript_analysis_units.cjs",
+        "adapters/typescript_data_flow.cjs",
+        "adapters/typescript_entry_roots.cjs",
+        "adapters/typescript_facts.cjs",
+        "adapters/typescript_protocol_flow.cjs",
+        "adapters/typescript_response_flow.cjs",
+        "adapters/typescript_return_flow.cjs",
+        "adapters/typescript_socket_flow.cjs",
+        "adapters/value_origin_queries.py",
+        "scripts/build_chain_closure_graph.py",
+        "scripts/build_fact_graph.py",
+        "adapters/cmake_file_api.py",
+        "adapters/cmake_project.py"
+      ],
+      "counts": {
+        "nodes": 217840,
+        "edges": 343093
+      }
+    },
+    "reused_python_semantics": {
+      "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:python-path-control:25616103484f48dea770a5dc25e65264:before-path-projection",
+      "rules_commit": "9806c76b26190ad849e5f3d5bab82e2a106f5b78",
+      "components": [
+        "adapters/python_facts.py",
+        "adapters/python_contexts.py",
+        "adapters/python_boundaries.py"
+      ],
+      "counts": {
+        "nodes": 76402,
+        "edges": 105988
+      }
+    },
+    "component_history_unchanged": true,
+    "component_versions_unchanged": true,
+    "input_selection_unchanged": true
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1455,
+    "modules": 29,
+    "nodes": 294500,
+    "edges": 454039,
+    "entries": 0,
+    "diagnostic_records": 15660,
+    "providers": 125,
+    "module_relation_groups": 53
+  },
+  "artifact_flow": {
+    "adapter": "native_artifact_conditional_python_copy/0.1.0",
+    "counts": {
+      "native_seeds": 12,
+      "attempts": 2880,
+      "excluded": 24,
+      "not_matched": 1848,
+      "mapped": 24,
+      "gap": 936
+    },
+    "copied_artifacts": 24,
+    "required_gaps": 174,
+    "budget": {
+      "steps": 8,
+      "derived": 256,
+      "attempts": 100000
+    },
+    "runtime_execution": "not_observed",
+    "scope": "native_source_layout_regular_artifacts_and_import_bound_python_copies"
+  },
+  "native_artifact_location": {
+    "root": "source",
+    "path": "server/output/win_mingw64/bin/profiler_server.exe"
+  },
+  "selected_copy_stages": [
+    {
+      "path": "server/output/build/server/profiler_server.exe",
+      "steps": 1,
+      "source_line": 189
+    },
+    {
+      "path": "plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe",
+      "steps": 2,
+      "source_line": 344
+    },
+    {
+      "path": "platform/preview/resources/profiler/server/profiler_server.exe",
+      "steps": 2,
+      "source_line": 344
+    }
+  ],
+  "flow_gap_counts": {
+    "destructive_file_effect_not_expanded": 6,
+    "copy_path_unresolved": 168
+  },
+  "navigation": [
+    {
+      "id": "platform/preview/resources/profiler/server/profiler_server.exe:out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "platform/preview/resources/profiler/server/profiler_server.exe:in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe:out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe:in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "server/output/build/server/profiler_server.exe:out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    },
+    {
+      "id": "server/output/build/server/profiler_server.exe:in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true
+    }
+  ],
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "control_scope_union",
+      "passed": true
+    },
+    {
+      "id": "native_host_and_target_bound",
+      "passed": true
+    },
+    {
+      "id": "native_primary_entry_preserved",
+      "passed": true
+    },
+    {
+      "id": "three_expected_copy_locations",
+      "passed": true
+    },
+    {
+      "id": "stages_retain_origin_context_and_host",
+      "passed": true
+    },
+    {
+      "id": "copy_depths_and_source_lines",
+      "passed": true
+    },
+    {
+      "id": "production_relations_emitted",
+      "passed": true
+    },
+    {
+      "id": "conditional_execution_and_materialization",
+      "passed": true
+    },
+    {
+      "id": "all_conditions_carried_between_stages",
+      "passed": true
+    },
+    {
+      "id": "runtime_predicates_remain_explicit",
+      "passed": true
+    },
+    {
+      "id": "no_budget_truncation",
+      "passed": true
+    },
+    {
+      "id": "unexpanded_paths_and_moves_remain_required",
+      "passed": true
+    },
+    {
+      "id": "actual_suffix_filter_rejects_archive_negative",
+      "passed": true
+    },
+    {
+      "id": "actual_full_path_rejects_same_name_other_root",
+      "passed": true
+    },
+    {
+      "id": "directory_guard_computed_in_first_stage",
+      "passed": true
+    },
+    {
+      "id": "navigation_platform/preview/resources/profiler/server/profiler_server.exe:out",
+      "passed": true
+    },
+    {
+      "id": "navigation_platform/preview/resources/profiler/server/profiler_server.exe:in",
+      "passed": true
+    },
+    {
+      "id": "navigation_plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe:out",
+      "passed": true
+    },
+    {
+      "id": "navigation_plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe:in",
+      "passed": true
+    },
+    {
+      "id": "navigation_server/output/build/server/profiler_server.exe:out",
+      "passed": true
+    },
+    {
+      "id": "navigation_server/output/build/server/profiler_server.exe:in",
+      "passed": true
+    },
+    {
+      "id": "copy_source_navigation_same_version",
+      "passed": true
+    },
+    {
+      "id": "index_matches_recorded_rules",
+      "passed": true
+    },
+    {
+      "id": "cached_stages_explicit_and_unchanged",
+      "passed": true
+    },
+    {
+      "id": "current_paths_and_flow_executed",
+      "passed": true
+    },
+    {
+      "id": "no_worktree_or_reference_input",
+      "passed": true
+    },
+    {
+      "id": "hash_preference_preserved",
+      "passed": true
+    },
+    {
+      "id": "scope_flags_preserved",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "path_adapter_executed_again": true,
+  "artifact_copy_flow_executed": true,
+  "native_semantic_stage_executed_again": false,
+  "native_configure_executed_again": false,
+  "native_normalizer_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "whole_G02_accepted": false,
+  "whole_G03_accepted": false,
+  "production_copy_edges_emitted": true,
+  "process_counterpart_connected": false
+}

@@ -1,6 +1,6 @@
 # Python 打包路径与文件操作
 
-2026-10-25 开始接入，10-26 发布真实控制结果。基础适配、逐调用参数传播及目录项模式已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项、de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项、5dd130d 的[目录模式与路径对应检查](evidence/python-directory-patterns.json)31 项通过。过滤谓词现已结构化提取并可计算；接下来应用复制契约，连接完整打包链和构建产物。
+2026-10-25 开始接入，10-26 发布真实控制结果。基础适配、逐调用参数传播及目录项模式已接入默认生产建图流程；规则 9806c76 的 [Insight 全部 Python 输入基础控制检查](evidence/python-path-control.json)34 项、de7bc1d 的[调用上下文复验](evidence/python-path-contexts.json)28 项、5dd130d 的[目录模式与路径对应检查](evidence/python-directory-patterns.json)31 项通过。最新规则 50da0d9 已应用过滤谓词和复制契约，将原生产物连接到归一化、桌面与 JupyterLab 位置，[29 项真实图检查通过](evidence/artifact-copy-control.json)。剩余动态路径、移动效果和启动配对继续展开。
 
 ## 自动提取的内容
 
@@ -100,11 +100,38 @@ python -m unittest tests.test_file_copy_contracts tests.test_file_predicates tes
 
 路径适配 0.5.0 还记录执行地址及循环作用域。相同根调用的确定前后位置用于排除逆序内容传播；已展开字面量循环保留下标，区分同一次和后一次迭代。未知目录枚举顺序保留顺序条件。遇到路径循环、重复操作或预算耗尽时报告必需缺项；move/rename 等未展开移动效果可能影响源生命周期时，中止该段派生并给出具体位置。原生 build/external 根目录在尚未绑定部署布局时保持缺项。
 
-8 项图传播检查和原生 CMake/Python 混合 Workspace 检查通过。后者从构建目标正查两次复制后的产物，再反查构建目标，并核对复制位置的同版本源码。两个不同布局夹具验证新增/改名规则，另检验同名异根、后缀、宿主/目标不同、顺序、字面量迭代、移动屏障、环和预算。
+8 项图传播检查和原生 CMake/Python 混合 Workspace 检查通过。后者从构建目标正查两次复制后的产物，再反查构建目标，并核对复制位置的同版本源码。两个不同布局夹具验证目录和名称变化，另检验同名异根、后缀、宿主/目标不同、顺序、字面量迭代、移动屏障、环和预算。
 
 完整 Windows 回归 562 项通过，1 项按平台跳过。随后收紧谓词/选项的库身份检查，条件重绑定到自定义复制函数时保持缺项；最终 90 项相关检查通过。真实控制使用 `run_artifact_copy_control.py`：核对记录阶段的组件 Git 变更、依赖版本和输入选择后，复用原生及语言事实，从重新导出的源码运行当前 Python 路径及产物传播，再建统一索引。
 
-真实 Insight 控制快照、默认多语言全仓更新、独立安装、Rust 进程配对及运行采用分别验收；G02/G03 保持执行中。
+真实 Insight 控制快照结果见下一节。默认多语言全仓更新、独立安装、Rust 进程配对及运行采用分别验收；G02/G03 保持执行中。
+
+## Insight 原生产物到发行目录控制
+
+源码 d4e8d1c，提取规则 50da0d9，[29 项独立检查通过](evidence/artifact-copy-control.json)。自动选择合并既有 C++/CMake 的 1,336 个输入和全部 119 个 Python 输入，共 1,455 个；当前生产 Python 路径及产物传播重新执行，并通过 Workspace.attach 建立统一索引。产物为 294,500 个节点、454,039 条关系，其中 12 个原生预期文件派生 24 个复制产物。
+
+后端可执行文件的自动关系如下：
+
+```text
+CMake 目标 profiler_server
+  → server/output/win_mingw64/bin/profiler_server.exe
+  → server/output/build/server/profiler_server.exe        （build/build.py:189）
+    → platform/preview/resources/profiler/server/profiler_server.exe
+    → plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe
+                                                        （build/build.py:344，不同调用帧）
+```
+
+提取器从原生配置读取 Windows 宿主文件系统，按完整路径、目录变量、条件和复制契约生成关系。独立评分验证三处目的位置、原产物与 C++ 入口、构建上下文、过滤证明、运行条件保留、同名异根/静态库后缀负例，以及六项正反向索引查询和同版本复制源码导航。具体端点参考只存在于评分器中。
+
+本次复用规则 45a9fdc 的 C++/CMake 控制阶段及 9806c76 的 Python 原生语义/接口阶段；按记录组件的 Git 变更、依赖版本和输入选择确认复用条件，再从提交重新导出源码。C++/Jedi、CMake configure 和原生归一化阶段未重跑。当前执行部分是路径、谓词、产物传播与统一索引；原始 checkout 状态未变，文件哈希未重新核验。
+
+174 条产物/上下文缺项记录继续保留：168 条路径未解析、6 条移动效果未展开。该数量按产物和上下文展开，不能视为 174 个独立语言缺陷。预期物化、操作成功、实际分支、目录状态和内容未被中途替换等条件仍在图中。此控制尚未连接 Rust 启动器，也未执行完整默认全仓刷新、独立安装和实际复制/启动；G02/G03 保持执行中。
+
+```text
+python experiments/2026-10-25-w1/run_artifact_copy_control.py --source SOURCE --cpp-trial CPP_CMAKE_CONTROL --python-trial PYTHON_NATIVE_BASE_CONTROL --output NEW_OUTSIDE_DIRECTORY
+python experiments/2026-10-25-w1/score_artifact_copy_control.py --trial NEW_OUTSIDE_DIRECTORY --output NEW_SCORE_FILE
+python experiments/2026-10-25-w1/check_path_evidence.py
+```
 
 ## 目录项模式与完整路径匹配
 

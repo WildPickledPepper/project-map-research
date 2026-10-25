@@ -6,7 +6,9 @@
 
 工具按语言和技术机制工作；新增业务模块应自动发现、连接和更新。模块/接口名称由源码提取，Insight 是当前验收对象。见[项目扩展与自动发现](docs/08-project-independent-discovery.md)。
 
-[CMake 构建产物已接入统一查询](experiments/2026-10-25-w1/cmake-native.md)：真实 C++/CMake 控制快照 32 项检查通过，可查构建目标、完整产物路径、编译输入、依赖和 C++ 入口。继续连接 Python 打包与 Rust 启动路径；多语言全仓、逐模块机制和运行门槛分别验收。
+[CMake 构建产物已接入统一查询](experiments/2026-10-25-w1/cmake-native.md)：真实 C++/CMake 控制快照 32 项检查通过，可查构建目标、完整产物路径、编译输入、依赖和 C++ 入口。Python 打包连接见下项，Rust 启动路径继续展开；多语言全仓、逐模块机制和运行门槛分别验收。
+
+[Python 打包已连接原生构建产物](experiments/2026-10-25-w1/python-packaging.md#insight-原生产物到发行目录控制)：同版本控制的 29 项检查通过，后端可执行文件自动连到归一化、桌面和 JupyterLab 发行目录，六项正反向查询通过。12 个原生预期文件派生 24 个带条件的复制产物；Rust 启动配对、剩余路径/移动效果及实际运行继续验收。
 
 **已有底座：[project-map-assistant skill](skills/project-map-assistant/SKILL.md) 与可独立安装的工具。** 已验证 TS/C++ 的部分关系、自动更新、查询和限定运行场景；见 [使用说明](docs/07-tool-quickstart.md)。先完成全项目技术验收，再比较源码组与源码＋工具组；历史资产第三组独立安排，当前不接入。
 

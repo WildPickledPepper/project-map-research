@@ -88,4 +88,24 @@ assert not any(patterns[k] for k in ('native_semantic_stage_executed_again','ori
     'filter_predicates_applied','copy_contracts_applied','native_platform_automatically_bound','production_artifact_edges_emitted',
     'process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
 assert patterns['file_hash_verification']=='not_run_per_user_preference'
-print('OK: 31 directory-pattern/path-correspondence checks; predicate and artifact propagation stages pending.')
+print('OK: 31 directory-pattern/path-correspondence checks at the recorded pre-predicate rule version.')
+
+copies=json.loads((Path(__file__).parent/'evidence/artifact-copy-control.json').read_text(encoding='utf-8'))
+assert copies['schema']=='artifact-copy-control-score/1' and copies['passed']
+assert len(copies['checks'])==29 and all(c['passed'] for c in copies['checks'])
+assert copies['source_commit']==patterns['source_commit']
+assert copies['build_version']['rules_commit']=='50da0d9b0d31ebfb074ddb7856b455a0a5a46fe4'
+assert copies['index_counts']['input_files']==1455 and copies['index_counts']['nodes']==294500 and copies['index_counts']['edges']==454039
+assert copies['artifact_flow']['counts']['native_seeds']==12 and copies['artifact_flow']['copied_artifacts']==24
+assert copies['artifact_flow']['required_gaps']==174
+assert copies['flow_gap_counts']=={'copy_path_unresolved':168,'destructive_file_effect_not_expanded':6}
+assert {n['path']:n['steps'] for n in copies['selected_copy_stages']}=={
+    'server/output/build/server/profiler_server.exe':1,
+    'platform/preview/resources/profiler/server/profiler_server.exe':2,
+    'plugins/jupyterlab/mindstudio_insight_jupyterlab/resources/profiler/server/profiler_server.exe':2}
+assert len(copies['navigation'])==6 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in copies['navigation'])
+assert all(copies[k] for k in ('path_adapter_executed_again','artifact_copy_flow_executed','production_copy_edges_emitted'))
+assert not any(copies[k] for k in ('native_semantic_stage_executed_again','native_configure_executed_again','native_normalizer_executed_again',
+    'default_workspace_rebuild','installed_tool_tested','runtime_execution','original_checkout_modified','process_counterpart_connected','whole_G02_accepted','whole_G03_accepted'))
+assert copies['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 29 real native-to-packaging copy/index checks; runtime materialization and process pairing remain separate.')
