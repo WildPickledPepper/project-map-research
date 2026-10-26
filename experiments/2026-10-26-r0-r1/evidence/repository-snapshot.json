@@ -1,0 +1,71 @@
+{
+  "schema": "repository-native-integration-receipt/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:a7af70dfabb7462ea58a7da0ed287183",
+  "build_version": {
+    "rules_commit": "faad3e177ef0115ac23f0e9cee7f1f05b4a405a0",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "native_build_tools": {
+      "cmake": "cmake version 3.31.6",
+      "ninja": "1.11.1.git.kitware.jobserver-1"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "status": "ready",
+  "seconds": 1867.61,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 2516,
+    "modules": 29,
+    "nodes": 773936,
+    "edges": 1273399,
+    "entries": 269,
+    "diagnostic_records": 44240,
+    "providers": 125,
+    "module_relation_groups": 701
+  },
+  "required_components": 129,
+  "original_checkout_modified": false,
+  "native_capture_reuse": true,
+  "coverage_summary": {
+    "required_runtime_components": 124,
+    "required_support_components": 5,
+    "review_flag_counts": {
+      "owned_non_test_source_without_base_facts_requires_review": 1,
+      "no_outgoing_intercomponent_facts_requires_review": 8,
+      "no_incoming_intercomponent_facts_requires_review": 5,
+      "owned_non_test_source_not_parsed_requires_review": 12
+    },
+    "owned_non_test_sources_not_parsed": 37,
+    "owned_non_test_sources_without_base_facts": 1
+  },
+  "previous_gap_queue": {
+    "source_snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:d8307de144c240ae8c7b3f820053f399",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "without_base_facts_before": 41,
+    "without_base_facts_after": 1,
+    "previous_gaps_now_have_base_facts": 40,
+    "remaining_paths": [
+      "build/mindstudio_insight_gui_set_environment.sh"
+    ]
+  },
+  "G02": "not_passed",
+  "R1": "partial",
+  "runtime_execution": false,
+  "historical_assets_enabled": false,
+  "hash_verification": "not_run_per_user_preference",
+  "whole_technical_acceptance": false
+}
