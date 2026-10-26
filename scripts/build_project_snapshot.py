@@ -91,14 +91,20 @@ def build(source, request, output, log, *, typescript):
         rust=rust_path_values(source,rust,pack.get_parser('rust'))
         rust=rust_argument_templates(source,rust,pack.get_parser('rust'))
         write_json(output/'rust-facts.json',rust)
-    covered = {r['path'] for g in (facts, ts, python,rust) for r in g['coverage']}
+    shell={'nodes':[],'edges':[],'diagnostics':[],'coverage':[],'limits':[]}
+    shell_paths=[p for p in paths if Path(p).suffix in {'.sh','.bash'}]
+    if shell_paths:
+        from adapters.shell_facts import analyze as shell_facts
+        print('Extract native Bash command syntax',file=log,flush=True)
+        shell=shell_facts(source,shell_paths,pack.get_parser('bash'))
+    covered = {r['path'] for g in (facts, ts, python,rust,shell) for r in g['coverage']}
     graph = {'schema_version': 1, 'snapshot': revision + ':protocol', 'source_commit': revision,
         'extractors': {'cpp': 'cpp_protocol/0.2.0', 'typescript': 'typescript_protocol_flow/0.2.0',
             'typescript_compiler': ts['compiler_version'], 'tree_sitter': importlib.metadata.version('tree-sitter'),
             'tree_sitter_language_pack': importlib.metadata.version('tree-sitter-language-pack')},
-        'input_paths': paths, 'coverage': facts['coverage'] + ts['coverage'] + python['coverage'] + rust['coverage'] + remaining_coverage(paths, covered),
-        'nodes': facts['nodes'] + ts['nodes'] + python['nodes'] + rust['nodes'], 'edges': facts['edges'] + ts['edges'] + python['edges'] + rust['edges'],
-        'diagnostics': facts['diagnostics'] + ts['diagnostics'] + python['diagnostics'] + rust['diagnostics'], 'limits': facts['limits'] + ts['limits'] + python['limits'] + rust['limits'],
+        'input_paths': paths, 'coverage': facts['coverage'] + ts['coverage'] + python['coverage'] + rust['coverage'] + shell['coverage'] + remaining_coverage(paths, covered),
+        'nodes': facts['nodes'] + ts['nodes'] + python['nodes'] + rust['nodes'] + shell['nodes'], 'edges': facts['edges'] + ts['edges'] + python['edges'] + rust['edges'] + shell['edges'],
+        'diagnostics': facts['diagnostics'] + ts['diagnostics'] + python['diagnostics'] + rust['diagnostics'] + shell['diagnostics'], 'limits': facts['limits'] + ts['limits'] + python['limits'] + rust['limits'] + shell['limits'],
         'provenance': {'reference_used_for_extraction': False, 'file_hash_verification': 'not_run_per_user_preference',
             'deployment_scope': 'configured', 'update_mode': 'full_rebuild'}, 'path_configs': ts['path_configs'],
         'analysis_units': ts.get('analysis_units', []), 'typescript_compiler_options_origin': ts['compiler_options_origin']}
@@ -107,6 +113,7 @@ def build(source, request, output, log, *, typescript):
     if rust_paths:graph['extractors']['rust']={'adapter':'rust_tree_sitter_rust_analyzer/0.1.0','components':rust['components'],
         'path_values':'native_bound_positioned_paths/0.1.0','argument_templates':rust_argument_version}
     if rust_paths:graph['rust_argument_templates']=rust['rust_argument_templates']
+    if shell_paths:graph['extractors']['shell']=shell['components']
     from adapters.cmake_project import extract as cmake_facts, roots as cmake_roots
     if cmake_roots(paths):
         print('Extract native CMake targets, artifacts and selected-source membership', file=log, flush=True)

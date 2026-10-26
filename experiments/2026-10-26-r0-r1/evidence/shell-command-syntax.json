@@ -1,0 +1,70 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "components": {
+    "provider": "tree_sitter_bash",
+    "adapter": "bash_native_command_syntax/0.1.0",
+    "tree_sitter_language_pack": "1.20.0"
+  },
+  "files": 8,
+  "call_sites": 340,
+  "coverage": [
+    {
+      "path": "build/ci-build-scripts/ci-build-common.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    },
+    {
+      "path": "build/cpp_coverage.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    },
+    {
+      "path": "build/cpp_coverage_post.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    },
+    {
+      "path": "build/llt_test.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    },
+    {
+      "path": "build/mindstudio_insight_gui_run.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    },
+    {
+      "path": "build/mindstudio_insight_gui_set_environment.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    },
+    {
+      "path": "docker/entrypoint.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    },
+    {
+      "path": "server/build_fuzz/execute_fuzz_test.sh",
+      "status": "parsed",
+      "provider": "tree_sitter_bash",
+      "adapter": "bash_native_command_syntax/0.1.0"
+    }
+  ],
+  "previous_gap_commands": [
+    "npm",
+    "apt-get",
+    "apt-get",
+    "update-alternatives",
+    "apt-get",
+    "python3"
+  ],
+  "command_target_resolution": "not_evaluated",
+  "runtime_execution": false
+}

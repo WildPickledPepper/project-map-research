@@ -13,6 +13,7 @@
 | C++ 声明、引用、原生目标及编译条件 | clangd 23.1.0，经 multilspy `LanguageServer.create`/定义/AST 请求 → `adapters/clangd_provider.py` | 准入；继承 11 项原生检查，新增两个布局/条件配置各 8 项通过。497 项真实编译记录下执行全仓提取；有诊断上下文保留候选 |
 | C++ 编译参数互操作 | CMake File API、Windows CommandLineToArgvW/POSIX shlex → `adapters/compilation_database.py` | 准入；保留参数，优先同版 Clang builtin headers，真实文件由 1 项编译错误降为 0；原始数据库不变 |
 | Shell、容器、环境及进程候选 | CBM 0.12.1 CLI/原生 SQLite → `adapters/cbm_provider.py` | 准入到原生实际输出范围；私有 cache/runtime 修复启动；7 项启动检查、8 项范围/身份检查通过。Shell 包装表达式残余保留 |
+| Shell 命令位置和参数语法 | 已有 tree-sitter-language-pack 1.20.0 的 Bash grammar → `adapters/shell_facts.py` | 限定语法准入；补 CBM 未输出的顶层命令位置，保留展开/进程目标未求值。8 个真实脚本 parsed，340 个命令位置；注释/heredoc 负例与 11 项接入检查通过 |
 | CMake/Cargo 目标和产物 | 已有原生收据；同提交 CMake capture → `adapters/cmake_project.py` | 沿用并增加 capture 接入；拒绝错误提交，实际配置收据复用通过 |
 | SQL AST 与 SELECT 血缘 | SQLGlot 30.24.0 `parse_one`/`lineage` | 限定准入，5 项检查通过；产品宿主参数/数据库实例接合属于 R3 |
 | C++ 数据依赖 | Joern 4.0.665 CPGQL/`reachableByFlows` | 仅准入候选路径；6 项语义题匹配 5 项，直接 const-reference 别名漏报。独立编译执行确认预期；不能替代必需别名能力 |
