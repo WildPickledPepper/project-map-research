@@ -5,7 +5,7 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug]
       compiler-run:
         type: string
         default: ''
@@ -98,7 +98,7 @@ jobs:
           path: ${{ runner.temp }}/svf-replay-output
           retention-days: 7
   rapx:
-    if: inputs.provider == 'all' || inputs.provider == 'rapx'
+    if: inputs.provider == 'all' || inputs.provider == 'rapx' || inputs.provider == 'rapx-linux-debug'
     runs-on: ubuntu-22.04
     timeout-minutes: 35
     env:
@@ -139,6 +139,7 @@ jobs:
             native-tools/rapx/target
           key: rapx-974eb8e-nightly-2026-07-21-linux22-1
       - name: Execute upstream dataflow and alias fixtures
+        if: inputs.provider != 'rapx-linux-debug'
         run: |
           mkdir -p "$RUNNER_TEMP/rapx-output"
           export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
@@ -154,6 +155,7 @@ jobs:
           cargo rapx analyze alias > "$RUNNER_TEMP/rapx-output/alias.log" 2>&1
           rustc --version > "$RUNNER_TEMP/rapx-output/rustc-version.log"
       - name: Execute independent Rust admission cases
+        if: inputs.provider != 'rapx-linux-debug'
         run: |
           export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
           export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
@@ -173,6 +175,7 @@ jobs:
           git init -q "$RUNNER_TEMP/insight"
           git -C "$RUNNER_TEMP/insight" fetch --depth 1 https://gitcode.com/Ascend/msinsight.git d4e8d1cf9f90208bcbe5371c127088f6fd66c688
           git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
+          if [ "${{ inputs.provider }}" = rapx-linux-debug ]; then exit 0; fi
           export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
           export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
           export RAPX_CLEAN=false
@@ -192,8 +195,15 @@ jobs:
           export PROJECT_MAP_SOURCE_COMMIT=d4e8d1cf9f90208bcbe5371c127088f6fd66c688
           export PROJECT_MAP_CONTEXT="platform/linux-desktop-release"
           cd "$RUNNER_TEMP/insight/platform/linux"
+          if [ "${{ inputs.provider }}" = rapx-linux-debug ]; then
+            export PROJECT_MAP_RAPX_EXPORT="$RUNNER_TEMP/rapx-output/insight-linux-desktop-debug"
+            export PROJECT_MAP_CONTEXT="platform/linux-desktop-debug"
+            cargo rapx analyze dataflow > "$RUNNER_TEMP/rapx-output/insight-linux-debug.log" 2>&1
+            exit 0
+          fi
           cargo rapx analyze dataflow -- --release > "$RUNNER_TEMP/rapx-output/insight-linux-desktop.log" 2>&1
       - name: Analyze actual Windows desktop configurations
+        if: inputs.provider != 'rapx-linux-debug'
         run: |
           rustup target add x86_64-pc-windows-gnu
           export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"

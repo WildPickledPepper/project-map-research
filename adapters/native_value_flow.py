@@ -25,6 +25,7 @@ def location(value, root, selected,source_directory=''):
 
 
 def normalize(data, *, provider, paths, source_commit, context):
+    if provider not in {'svf','rapx'}:raise ValueError('Unknown native value-flow provider')
     if data.get('source_commit')!=source_commit:raise ValueError('Native value-flow source revision differs')
     if data.get('context')!=context:raise ValueError('Native value-flow compile context differs')
     selected=set(paths)
@@ -80,6 +81,10 @@ def normalize(data, *, provider, paths, source_commit, context):
             diagnostics.append({'path':'','kind':'svf_python_points_to_binding_unavailable',
                                 'native_cli_capture_required':True})
     else:
+        diagnostics.append({'path':'','kind':'native_provider_capability_limit','provider':'rapx',
+            'capability':'field_write_then_reload_value_dependency',
+            'status':'failed_independent_cases','complement':'compiler_LLVM_output_and_SVF',
+            'evidence':'rust-dataflow.rs: member and borrowed; basic graph 6/8'})
         functions={f['name']:f for f in data['functions']}
         def fnid(name):return prefix+'function:'+quote(name,safe='')
         def localid(name,local):return fnid(name)+':local:'+str(local)
