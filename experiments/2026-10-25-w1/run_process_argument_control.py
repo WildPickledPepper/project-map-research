@@ -43,7 +43,7 @@ def main():
         graph['edges'].extend(relations)
         graph['diagnostics'].extend(d for d in source['diagnostics'] if d['kind'] in {
             'rust_argument_template_unresolved','cpp_string_decoder_unresolved','cpp_argv_origin_unresolved',
-            'cpp_member_declaration_unresolved','cpp_string_switch_unresolved'})
+            'cpp_member_declaration_unresolved','cpp_string_switch_unresolved','cpp_value_type_unresolved'})
         graph[metadata]=source[metadata]
         if label=='cpp_argv':graph['cpp_string_decoders']=source['cpp_string_decoders']
         if enriched:

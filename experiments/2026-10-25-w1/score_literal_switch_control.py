@@ -47,6 +47,8 @@ def main():
         'STRING_BRANCH_MEMBER_WRITE_CANDIDATE','WRITES_SOURCE_MEMBER_CANDIDATE']),
         ('decoder_member',switch['id'],member['id'],['STRING_BRANCH_MEMBER_WRITE_CANDIDATE','WRITES_SOURCE_MEMBER_CANDIDATE'])]
     gaps=[d for d in graph['diagnostics'] if d['kind']=='cpp_string_switch_unresolved' and d['required']]
+    type_gaps=[d for d in graph['diagnostics'] if d['kind']=='cpp_value_type_unresolved' and d['required']]
+    check('bounded_type_gaps_keep_source_locations',all(d.get('path') and d.get('line') and d.get('reason') for d in type_gaps))
     if process:
         paired=[n for n in nodes.values() if n['kind']=='process_argument_binding'];check('three_sourced_words_paired',len(paired)==3 and
             {n['name'] for n in paired}=={'--wsPort=','--logPath=','--notStrict'})
@@ -78,6 +80,7 @@ def main():
         'selected_switch':{'key':switch['key'],'path':switch['path'],'line':switch['line'],'write_line':write['line'],
             'member_path':member['path'],'member_line':member['line'],'member_name':member['name']},
         'required_switch_gap_counts':{reason:sum(d['reason']==reason for d in gaps) for reason in sorted({d['reason'] for d in gaps})},
+        'required_value_type_gap_counts':{reason:sum(d['reason']==reason for d in type_gaps) for reason in sorted({d['reason'] for d in type_gaps})},
         'argv_summary':graph['cpp_argv_origins'],'navigation':navigation}
     args.output.write_text(json.dumps(score,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'passed':score['passed'],'checks':len(checks),'navigation':navigation,'switch_gaps':score['required_switch_gap_counts']}))

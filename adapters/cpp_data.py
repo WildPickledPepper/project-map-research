@@ -75,7 +75,7 @@ class DataExtractor:
             if found:return found
         return None
 
-    def receiver_field(self,node,uid,info):
+    def receiver_field(self,node,uid,info,*,bindings=None,depth=0,seen=None):
         if node is None:return None
         if node.type=='identifier':
             if self.x.variables(text(node),node,info['path'],uid):return None
@@ -84,7 +84,7 @@ class DataExtractor:
             receiver=node.child_by_field_name('argument');name=text(node.child_by_field_name('field'))
             if text(receiver)=='this':return self.field(name,'::'.join(info['scope']),path=info['path'])
             if hasattr(self,'types'):
-                inferred=self.types.infer(receiver,uid,info)
+                inferred=self.types.infer(receiver,uid,info,bindings,depth+1,seen)
                 if text(node.child_by_field_name('operator'))=='->':inferred=self.types.dereference(inferred)
                 types=inferred.get('names',[])
             else:types=self.x.infer(receiver,info['path'],info['scope'],uid)['names']

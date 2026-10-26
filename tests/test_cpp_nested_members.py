@@ -41,5 +41,16 @@ class CppNestedMemberTests(unittest.TestCase):
         source='struct Reader{int endpoint;void assign(int x){auto other=unknown();other.endpoint=x;}};'
         self.assertEqual(self.writes(source),[])
 
+    def test_auto_member_self_update_retains_the_type_inference_cycle_guard(self):
+        from adapters.cpp_data import DataExtractor
+        from adapters.cpp_member_effects import extract_member_effects
+        source='''#include <vector>
+struct Node{std::vector<Node> children;int value;};
+void update(std::vector<Node>& roots){auto current=roots[0];current=current.children[0];current.value=1;}
+'''
+        data=DataExtractor({'src/indirect.cpp':source.encode()},self.parser)
+        extract_member_effects(data)
+        self.assertTrue(any(d.get('reason')=='recursive_initializer' and d['required'] for d in data.diagnostics))
+
 
 if __name__=='__main__':unittest.main()

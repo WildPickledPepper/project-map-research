@@ -1,0 +1,22 @@
+{
+  "schema": "cpp-literal-switch-extraction-failure/1",
+  "origin": "executed_all_cpp_source_control",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "rules_commit": "39621d03f1175270e5eb8701f1cef4cdfb7881d4",
+  "input_count": 1323,
+  "failed_phase": "member_effect_extraction",
+  "exception": "RecursionError",
+  "cause": "receiver_field_reset_type_inference_depth_and_seen_bindings",
+  "graph_and_index_completed": false,
+  "navigation_checked": false,
+  "product_compiled": false,
+  "runtime_execution": false,
+  "whole_G03_accepted": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "independent_reproduction": {
+    "origin": "authored_neutral_cpp_fixture",
+    "test": "tests.test_cpp_nested_members.CppNestedMemberTests.test_auto_member_self_update_retains_the_type_inference_cycle_guard",
+    "before_fix": "RecursionError",
+    "after_fix": "passed_with_required_recursive_initializer_gap"
+  }
+}

@@ -53,6 +53,7 @@ def main():
     if args.argv_origins:
         from adapters.cpp_argv_origins import augment as argv_origins
         graph=argv_origins(graph,data,protocol)
+    graph['diagnostics'].extend(d for d in data.diagnostics if d not in graph['diagnostics'])
     validate_graph(graph)
     with (args.output/'graph.json').open('w',encoding='utf-8') as stream:json.dump(graph,stream)
     workspace=Workspace.create(args.output/'workspace',args.source,revision=selection['source_commit'],analysis=selection['config'])

@@ -344,3 +344,14 @@ assert not any(method_members[k] for k in ('cmake_configure_executed_again','def
     'argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
 assert method_members['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 28 same-source member rechecks; 51 false gaps cleared, 33 callable declarations removed from data catalog and retained as methods.')
+
+switch_failure=json.loads((Path(__file__).parent/'evidence/cpp-literal-switch-first-failure.json').read_text(encoding='utf-8'))
+assert switch_failure['schema']=='cpp-literal-switch-extraction-failure/1'
+assert switch_failure['source_commit']==members['source_commit'] and switch_failure['input_count']==1323
+assert switch_failure['rules_commit']=='39621d03f1175270e5eb8701f1cef4cdfb7881d4'
+assert switch_failure['failed_phase']=='member_effect_extraction' and switch_failure['exception']=='RecursionError'
+assert not any(switch_failure[k] for k in ('graph_and_index_completed','navigation_checked','product_compiled','runtime_execution','whole_G03_accepted'))
+assert switch_failure['independent_reproduction']['before_fix']=='RecursionError'
+assert switch_failure['independent_reproduction']['after_fix']=='passed_with_required_recursive_initializer_gap'
+assert switch_failure['file_hash_verification']=='not_run_per_user_preference'
+print('OK: first all-C++ literal-switch extraction failure retained; independent type-cycle reproduction and required gap documented.')

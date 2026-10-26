@@ -26,7 +26,7 @@ class ValueTypes:
     POINTERS={'std::shared_ptr','std::unique_ptr'}
 
     def __init__(self,data):
-        self.d=data;self.x=data.x;self.templates={};self.cache={};self.in_progress=set()
+        self.d=data;self.x=data.x;self.templates={};self.cache={};self.in_progress=set();self.unresolved_keys=set()
         for path,unit in self.x.units.items():
             for node in walk(unit['tree'].root_node):
                 if node.type not in {'class_specifier','struct_specifier'}:continue
@@ -72,12 +72,21 @@ class ValueTypes:
 
     def variants(self,value):return value.get('variants',[]) if value.get('kind')=='union' else [value]
 
-    def field_type(self,node,uid,info,bindings):
-        field=self.d.receiver_field(node,uid,info)
+    def field_type(self,node,uid,info,bindings,depth,seen):
+        field=self.d.receiver_field(node,uid,info,bindings=bindings,depth=depth,seen=seen)
         return self.type(field['type'],field['path'],field['owner'].split('::'),bindings) if field else None
 
+    def unresolved(self,reason,node,uid,info):
+        key=(reason,uid,node.start_byte,node.end_byte)
+        if key not in self.unresolved_keys:
+            self.unresolved_keys.add(key)
+            self.d.diagnostics.append({'kind':'cpp_value_type_unresolved','reason':reason,'required':True,
+                'source_symbol':uid,**self.d.evidence(info['path'],node)})
+        return self.unknown(reason)
+
     def infer(self,node,uid,info,bindings=None,depth=0,seen=None):
-        if node is None or depth>24:return self.unknown('value_depth_limit_or_missing')
+        if node is None:return self.unknown('value_depth_limit_or_missing')
+        if depth>24:return self.unresolved('value_depth_limit',node,uid,info)
         bindings=bindings or {};seen=set() if seen is None else seen
         infer=lambda n:self.infer(n,uid,info,bindings,depth+1,seen)
         kind=node.type
@@ -87,7 +96,7 @@ class ValueTypes:
             variables=self.x.variables(text(node),node,info['path'],uid)
             if variables:
                 var=variables[0];key=(info['path'],var['node'].start_byte)
-                if key in seen:return self.unknown('recursive_initializer')
+                if key in seen:return self.unresolved('recursive_initializer',node,uid,info)
                 if var['type']!='auto':
                     spelling=parameter_type(var['node'],preserve_space=True) if var['node'].type in {'parameter_declaration','optional_parameter_declaration'} else var['type']
                     return self.type(spelling,info['path'],info['scope'],bindings)
@@ -114,10 +123,10 @@ class ValueTypes:
                     if element.get('kind')!='pair' or len(names)!=2:return self.unknown('structured_range_element_unknown')
                     return element['first' if names.index(text(node))==0 else 'second']
                 return element
-            return self.field_type(node,uid,info,bindings) or self.unknown('unresolved_identifier')
+            return self.field_type(node,uid,info,bindings,depth,seen) or self.unknown('unresolved_identifier')
         if kind=='conditional_expression':return {'kind':'union','variants':[infer(node.child_by_field_name(k)) for k in ['consequence','alternative']]}
         if kind=='field_expression':
-            direct=self.field_type(node,uid,info,bindings)
+            direct=self.field_type(node,uid,info,bindings,depth,seen)
             if direct:return direct
             base=infer(node.child_by_field_name('argument'));field=text(node.child_by_field_name('field'));out=[]
             for value in self.variants(base):
