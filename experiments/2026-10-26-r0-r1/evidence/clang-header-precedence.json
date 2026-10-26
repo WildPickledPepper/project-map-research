@@ -1,0 +1,17 @@
+{
+  "schema": "r0-native-header-precedence/1",
+  "evidence_kind": "executed_clangd_check",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "path": "server/src/modules/timeline/core/database/TextTraceDatabaseStatistics.cpp",
+  "before_errors": 1,
+  "after_errors": 0,
+  "product_source_modified": false,
+  "native_compile_database_modified": false,
+  "adjustment": "prefer_same_clangd_version_builtin_headers_before_query_driver_system_headers",
+  "interop_tests": {
+    "passed": 3,
+    "failed": 0
+  },
+  "passed": true,
+  "whole_G02_accepted": false
+}

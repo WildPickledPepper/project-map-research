@@ -32,6 +32,10 @@ R0 剩余：边界身份负例、C++ 语义补充准入与数据流精度路线�
 
 真实 Insight 编译数据库包含 497 项原生编译记录。静态成员文件 `OperatorGroupConverter.cpp` 通过 clangd 原生检查；include-only 文件 `TextTraceDatabaseStatistics.cpp` 保留一项 `__rdtsc` 本征函数定义兼容诊断。两项结果不代表整个 C++ 范围通过；原生符号/定义身份也不等于运行实例或通用别名分析。
 
+后续已定位并修正该兼容问题：query-driver 导入的 GCC builtin 头文件先于 clangd 自带头文件被找到。[编译数据库适配](../../adapters/compilation_database.py)使用 Windows 原生参数解析函数（其它平台使用标准 shlex），生成 arguments 数组并优先加入同版 clangd 自带的 builtin headers；不执行 command 字符串、不改产品源码或原始 CMake 数据库。[原生复验](evidence/clang-header-precedence.json)中该文件由 1 错误变为 0 错误，3 项互操作检查通过。
+
+全仓收集器使用同版本、成功配置的 CMake 导出，多个独立语言服务分片处理；跨分片定义查找仍以全部选定 C++ 输入为范围。第一次全仓批次在确认共享头文件问题后停止，653 项已处理记录保留；修正后使用新输出目录重新执行，未将首轮部分结果当作全仓通过。
+
 ```text
 python experiments/2026-10-26-r0-r1/probe_clang_provider.py --binary CLANGD --output NEW_OUTPUT
 python experiments/2026-10-26-r0-r1/probe_clang_provider.py --binary CLANGD --output OTHER_OUTPUT --feature-mode 0 --layout alternate

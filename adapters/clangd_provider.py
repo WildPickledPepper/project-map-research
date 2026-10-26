@@ -4,6 +4,7 @@ import importlib.metadata
 import json
 import os
 from pathlib import Path
+import re
 import subprocess
 from urllib.parse import quote
 
@@ -17,13 +18,16 @@ SYMBOL_KINDS = {5: 'type', 6: 'callable', 7: 'value', 8: 'value', 9: 'callable',
 
 async def analyze(root, paths, *, binary, context, source_commit, output,
                   compile_commands=None, query_drivers=(), file_timeout=45,
-                  reference_budget=2000, emit=None):
+                  reference_budget=2000, input_paths=None, emit=None):
     from multilspy.language_servers.clangd_language_server.clangd_language_server import ClangdLanguageServer
     from multilspy.multilspy_config import MultilspyConfig
     from multilspy.multilspy_logger import MultilspyLogger
 
     root, output = Path(root).resolve(), Path(output).resolve()
-    selected = set(paths)
+    analyzed = set(paths)
+    selected = set(input_paths if input_paths is not None else paths)
+    if not analyzed <= selected:
+        raise ValueError('Analyzed files must belong to selected input')
     for path in selected:
         validate_path(path)
     output.mkdir(parents=True, exist_ok=False)
@@ -39,13 +43,22 @@ async def analyze(root, paths, *, binary, context, source_commit, output,
     server = SymbolServer(MultilspyConfig.from_dict({
         'code_language': 'cpp', 'server_binary': str(binary)}), MultilspyLogger(), str(root))
     server.server.process_launch_info.cmd.extend(['--background-index=false', '--pch-storage=memory', '--log=error'])
-    if compile_commands:
-        server.server.process_launch_info.cmd.append('--compile-commands-dir=' + str(Path(compile_commands).resolve()))
-    if query_drivers:
-        server.server.process_launch_info.cmd.append('--query-driver=' + ','.join(map(str, query_drivers)))
     provenance = {'adapter': VERSION, 'provider': 'clangd', 'context': context,
                   'source_commit': source_commit, 'multilspy': importlib.metadata.version('multilspy'),
                   'version': subprocess.check_output([str(binary), '--version'], text=True, timeout=10).splitlines()[0]}
+    if compile_commands:
+        database = Path(compile_commands).resolve()
+        if query_drivers:
+            from adapters.compilation_database import with_builtin_headers
+            major = re.search(r'version (\d+)', provenance['version'])
+            if not major:
+                raise ValueError('Cannot identify clangd builtin header version')
+            headers = Path(binary).resolve().parent.parent / 'lib' / 'clang' / major[1] / 'include'
+            provenance['compile_command_adjustment'] = with_builtin_headers(database, output / 'compile-database', headers)
+            database = output / 'compile-database'
+        server.server.process_launch_info.cmd.append('--compile-commands-dir=' + str(database))
+    if query_drivers:
+        server.server.process_launch_info.cmd.append('--query-driver=' + ','.join(map(str, query_drivers)))
     def uri_key(uri):
         return uri.casefold() if os.name == 'nt' else uri
 
@@ -142,7 +155,7 @@ async def analyze(root, paths, *, binary, context, source_commit, output,
         async def on_diagnostics(params):
             published[uri_key(params['uri'])] = params.get('diagnostics', [])
         server.server.on_notification('textDocument/publishDiagnostics', on_diagnostics)
-        for path in sorted(selected):
+        for path in sorted(analyzed):
             try:
                 await asyncio.wait_for(collect(path), timeout=file_timeout)
             except (asyncio.TimeoutError, OSError, ValueError, RuntimeError) as exc:
