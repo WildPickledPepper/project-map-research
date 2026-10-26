@@ -1,0 +1,1210 @@
+{
+  "schema": "native-repository-provider-observations/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "cbm": {
+    "version": "codebase-memory-mcp 0.12.1",
+    "adapter": "native_cbm_provider/0.1.0",
+    "seconds": 11.921,
+    "input_files": 2516,
+    "scope_policy": "explicit_selected_paths_via_native_cbmignore_negations",
+    "native_counts": {
+      "nodes": 33555,
+      "edges": 141082,
+      "not_indexed_files_count": 0,
+      "skipped_count": 0,
+      "parse_partial_count": 20,
+      "parse_unusable_count": 0
+    },
+    "imported_nodes": 33031,
+    "imported_edges": 135714,
+    "coverage_statuses": {
+      "provider_facts_available": 2464,
+      "provider_not_emitted": 32,
+      "provider_partial": 20
+    },
+    "non_test_shell": [
+      {
+        "path": "build/ci-build-scripts/ci-build-common.sh",
+        "status": "provider_facts_available",
+        "provider": "codebase-memory-mcp",
+        "version": "codebase-memory-mcp 0.12.1",
+        "native_coverage": []
+      },
+      {
+        "path": "build/cpp_coverage.sh",
+        "status": "provider_facts_available",
+        "provider": "codebase-memory-mcp",
+        "version": "codebase-memory-mcp 0.12.1",
+        "native_coverage": []
+      },
+      {
+        "path": "build/cpp_coverage_post.sh",
+        "status": "provider_facts_available",
+        "provider": "codebase-memory-mcp",
+        "version": "codebase-memory-mcp 0.12.1",
+        "native_coverage": []
+      },
+      {
+        "path": "build/llt_test.sh",
+        "status": "provider_facts_available",
+        "provider": "codebase-memory-mcp",
+        "version": "codebase-memory-mcp 0.12.1",
+        "native_coverage": []
+      },
+      {
+        "path": "build/mindstudio_insight_gui_run.sh",
+        "status": "provider_facts_available",
+        "provider": "codebase-memory-mcp",
+        "version": "codebase-memory-mcp 0.12.1",
+        "native_coverage": []
+      },
+      {
+        "path": "build/mindstudio_insight_gui_set_environment.sh",
+        "status": "provider_facts_available",
+        "provider": "codebase-memory-mcp",
+        "version": "codebase-memory-mcp 0.12.1",
+        "native_coverage": []
+      },
+      {
+        "path": "docker/entrypoint.sh",
+        "status": "provider_facts_available",
+        "provider": "codebase-memory-mcp",
+        "version": "codebase-memory-mcp 0.12.1",
+        "native_coverage": []
+      }
+    ],
+    "precision": "inferred_native_relations_remain_candidate"
+  },
+  "clangd": {
+    "components": {
+      "adapter": "clangd_multilspy_provider/0.1.0",
+      "provider": "clangd",
+      "context": "server/Release",
+      "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+      "multilspy": "0.1.1",
+      "version": "clangd version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
+      "precision_policy": "diagnostic_context_candidates/1"
+    },
+    "files": 1323,
+    "nodes": 262218,
+    "edges": 392970,
+    "coverage_statuses": {
+      "parsed": 957,
+      "parsed_with_diagnostics": 366
+    },
+    "non_test_statuses": {
+      "parsed": 933,
+      "parsed_with_diagnostics": 37
+    },
+    "reference_budget_residuals": 0,
+    "retried_budget_files": 12,
+    "retry_seconds": 31.36,
+    "non_test_diagnostics": [
+      {
+        "path": "server/src/modules/base/core/JsonFileProcess.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 3,
+        "examples": [
+          {
+            "message": "No template named 'optional' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 50,
+                "line": 27
+              },
+              "start": {
+                "character": 42,
+                "line": 27
+              }
+            },
+            "code": "no_member_template"
+          },
+          {
+            "message": "Unknown type name 'JsonFormat' (fix available)",
+            "range": {
+              "end": {
+                "character": 24,
+                "line": 40
+              },
+              "start": {
+                "character": 14,
+                "line": 40
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/defs/NumDefs.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 8,
+        "examples": [
+          {
+            "message": "Unknown type name 'uint32_t' (fix available)",
+            "range": {
+              "end": {
+                "character": 21,
+                "line": 24
+              },
+              "start": {
+                "character": 13,
+                "line": 24
+              }
+            },
+            "code": "unknown_typename"
+          },
+          {
+            "message": "Unknown type name 'uint32_t' (fix available)",
+            "range": {
+              "end": {
+                "character": 21,
+                "line": 26
+              },
+              "start": {
+                "character": 13,
+                "line": 26
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorListHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 20,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'VirtualMemoryDataBase' (fix available)",
+            "range": {
+              "end": {
+                "character": 64,
+                "line": 31
+              },
+              "start": {
+                "character": 43,
+                "line": 31
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Use of undeclared identifier 'StaticOperatorItem' (fix available)",
+            "range": {
+              "end": {
+                "character": 38,
+                "line": 32
+              },
+              "start": {
+                "character": 20,
+                "line": 32
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/operator/parser/SummaryDef.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "No template named 'vector' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 15,
+                "line": 49
+              },
+              "start": {
+                "character": 9,
+                "line": 49
+              }
+            },
+            "code": "no_member_template"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 8,
+        "examples": [
+          {
+            "message": "No template named 'vector' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 17,
+                "line": 62
+              },
+              "start": {
+                "character": 11,
+                "line": 62
+              }
+            },
+            "code": "no_member_template"
+          },
+          {
+            "message": "No template named 'vector' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 17,
+                "line": 66
+              },
+              "start": {
+                "character": 11,
+                "line": 66
+              }
+            },
+            "code": "no_member_template"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/TimelinePlugin.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'MODULE_TIMELINE' (fix available)",
+            "range": {
+              "end": {
+                "character": 55,
+                "line": 25
+              },
+              "start": {
+                "character": 40,
+                "line": 25
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/TextAdviceSqlConstant.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 3,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'KERNEL_DETAIL' (fix available)",
+            "range": {
+              "end": {
+                "character": 39,
+                "line": 61
+              },
+              "start": {
+                "character": 26,
+                "line": 61
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Use of undeclared identifier 'SLICE_TABLE' (fix available)",
+            "range": {
+              "end": {
+                "character": 23,
+                "line": 64
+              },
+              "start": {
+                "character": 12,
+                "line": 64
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 20,
+        "examples": [
+          {
+            "message": "Unknown type name 'SystemViewOverallReqParam'",
+            "range": {
+              "end": {
+                "character": 84,
+                "line": 327
+              },
+              "start": {
+                "character": 59,
+                "line": 327
+              }
+            },
+            "code": "unknown_typename"
+          },
+          {
+            "message": "Unknown type name 'SystemViewOverallReqParam'",
+            "range": {
+              "end": {
+                "character": 87,
+                "line": 335
+              },
+              "start": {
+                "character": 62,
+                "line": 335
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/parser/JsonParseMemPool.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 8,
+        "examples": [
+          {
+            "message": "No member named 'thread' in namespace 'std'",
+            "range": {
+              "end": {
+                "character": 76,
+                "line": 39
+              },
+              "start": {
+                "character": 70,
+                "line": 39
+              }
+            },
+            "code": "no_member"
+          },
+          {
+            "message": "No member named 'thread' in namespace 'std'",
+            "range": {
+              "end": {
+                "character": 34,
+                "line": 57
+              },
+              "start": {
+                "character": 28,
+                "line": 57
+              }
+            },
+            "code": "no_member"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 2,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'StringUtil'",
+            "range": {
+              "end": {
+                "character": 23,
+                "line": 100
+              },
+              "start": {
+                "character": 13,
+                "line": 100
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Use of undeclared identifier 'CheckUnsignPageValid' (fix available)",
+            "range": {
+              "end": {
+                "character": 35,
+                "line": 104
+              },
+              "start": {
+                "character": 15,
+                "line": 104
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/msinsight/src/utils/CollectionUtil.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 14,
+        "examples": [
+          {
+            "message": "No template named 'map' in namespace 'std'; did you mean 'max'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 22,
+                "line": 29
+              },
+              "start": {
+                "character": 19,
+                "line": 29
+              }
+            },
+            "code": "no_member_template_suggest"
+          },
+          {
+            "message": "No member named 'string' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 34,
+                "line": 29
+              },
+              "start": {
+                "character": 28,
+                "line": 29
+              }
+            },
+            "code": "no_member"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memory/parser/MemoryDef.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 9,
+        "examples": [
+          {
+            "message": "No template named 'vector' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 17,
+                "line": 106
+              },
+              "start": {
+                "character": 11,
+                "line": 106
+              }
+            },
+            "code": "no_member_template"
+          },
+          {
+            "message": "No template named 'vector' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 17,
+                "line": 107
+              },
+              "start": {
+                "character": 11,
+                "line": 107
+              }
+            },
+            "code": "no_member_template"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 10,
+        "examples": [
+          {
+            "message": "No template named 'set' in namespace 'std'; did you mean 'get'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 21,
+                "line": 52
+              },
+              "start": {
+                "character": 18,
+                "line": 52
+              }
+            },
+            "code": "no_member_template_suggest"
+          },
+          {
+            "message": "A type specifier is required for all declarations",
+            "range": {
+              "end": {
+                "character": 21,
+                "line": 52
+              },
+              "start": {
+                "character": 18,
+                "line": 52
+              }
+            },
+            "code": "missing_type_specifier"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 2,
+        "examples": [
+          {
+            "message": "No member named 'AICpuCheckDataType' in namespace 'Dic::Module::Timeline' (fix available)",
+            "range": {
+              "end": {
+                "character": 64,
+                "line": 495
+              },
+              "start": {
+                "character": 46,
+                "line": 495
+              }
+            },
+            "code": "no_member"
+          },
+          {
+            "message": "No type named 'AICpuCheckDataType' in namespace 'Dic::Module::Timeline' (fix available)",
+            "range": {
+              "end": {
+                "character": 109,
+                "line": 623
+              },
+              "start": {
+                "character": 91,
+                "line": 623
+              }
+            },
+            "code": "typename_nested_not_found"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'TextTraceDatabase' (fix available)",
+            "range": {
+              "end": {
+                "character": 79,
+                "line": 49
+              },
+              "start": {
+                "character": 62,
+                "line": 49
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/table/CollectionTimeService.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 5,
+        "examples": [
+          {
+            "message": "No type named 'mutex' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 14,
+                "line": 77
+              },
+              "start": {
+                "character": 9,
+                "line": 77
+              }
+            },
+            "code": "typename_nested_not_found"
+          },
+          {
+            "message": "No member named 'unique_lock' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 24,
+                "line": 41
+              },
+              "start": {
+                "character": 13,
+                "line": 41
+              }
+            },
+            "code": "no_member"
+          }
+        ]
+      },
+      {
+        "path": "server/msinsight/include/base/RequestContext.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 3,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'Protocol' (fix available)",
+            "range": {
+              "end": {
+                "character": 26,
+                "line": 36
+              },
+              "start": {
+                "character": 18,
+                "line": 36
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Use of undeclared identifier 'Protocol' (fix available)",
+            "range": {
+              "end": {
+                "character": 12,
+                "line": 39
+              },
+              "start": {
+                "character": 4,
+                "line": 39
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/defs/DbSqlDefs.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 20,
+        "examples": [
+          {
+            "message": "No template named 'map' in namespace 'std'; did you mean 'max'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 21,
+                "line": 25
+              },
+              "start": {
+                "character": 18,
+                "line": 25
+              }
+            },
+            "code": "no_member_template_suggest"
+          },
+          {
+            "message": "A type specifier is required for all declarations",
+            "range": {
+              "end": {
+                "character": 21,
+                "line": 25
+              },
+              "start": {
+                "character": 18,
+                "line": 25
+              }
+            },
+            "code": "missing_type_specifier"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/global/GlobalPlugin.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'MODULE_GLOBAL' (fix available)",
+            "range": {
+              "end": {
+                "character": 51,
+                "line": 25
+              },
+              "start": {
+                "character": 38,
+                "line": 25
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memory/handler/QueryMemoryOperatorSizeHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 7,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'VirtualMemoryDataBase' (fix available)",
+            "range": {
+              "end": {
+                "character": 64,
+                "line": 31
+              },
+              "start": {
+                "character": 43,
+                "line": 31
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Unknown type name 'OperatorSize' (fix available)",
+            "range": {
+              "end": {
+                "character": 88,
+                "line": 31
+              },
+              "start": {
+                "character": 76,
+                "line": 31
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorGraphHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 13,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'VirtualMemoryDataBase' (fix available)",
+            "range": {
+              "end": {
+                "character": 64,
+                "line": 32
+              },
+              "start": {
+                "character": 43,
+                "line": 32
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Unknown type name 'StaticOperatorGraphItem' (fix available)",
+            "range": {
+              "end": {
+                "character": 99,
+                "line": 32
+              },
+              "start": {
+                "character": 76,
+                "line": 32
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorSizeHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 7,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'VirtualMemoryDataBase' (fix available)",
+            "range": {
+              "end": {
+                "character": 64,
+                "line": 31
+              },
+              "start": {
+                "character": 43,
+                "line": 31
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Unknown type name 'StaticOperatorSize' (fix available)",
+            "range": {
+              "end": {
+                "character": 94,
+                "line": 31
+              },
+              "start": {
+                "character": 76,
+                "line": 31
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memory/handler/QueryMemoryViewHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 3,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'VirtualMemoryDataBase' (fix available)",
+            "range": {
+              "end": {
+                "character": 64,
+                "line": 34
+              },
+              "start": {
+                "character": 43,
+                "line": 34
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Unknown type name 'MemoryViewRequest'; did you mean 'MemoryViewResponse'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 55,
+                "line": 35
+              },
+              "start": {
+                "character": 38,
+                "line": 35
+              }
+            },
+            "code": "unknown_typename_suggest"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/operator/handler/ExportOpDetailsHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 7,
+        "examples": [
+          {
+            "message": "Unknown type name 'OperatorExportDetailsResponse'; did you mean 'OperatorExportDetailsRequest'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 102,
+                "line": 36
+              },
+              "start": {
+                "character": 73,
+                "line": 36
+              }
+            },
+            "code": "unknown_typename_suggest"
+          },
+          {
+            "message": "Unknown type name 'OperatorExportDetailsResponse'; did you mean 'OperatorExportDetailsRequest'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 76,
+                "line": 38
+              },
+              "start": {
+                "character": 47,
+                "line": 38
+              }
+            },
+            "code": "unknown_typename_suggest"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/servitization/IEPlugin.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'MODULE_IE' (fix available)",
+            "range": {
+              "end": {
+                "character": 43,
+                "line": 26
+              },
+              "start": {
+                "character": 34,
+                "line": 26
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/source/SourcePlugin.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'MODULE_SOURCE' (fix available)",
+            "range": {
+              "end": {
+                "character": 51,
+                "line": 25
+              },
+              "start": {
+                "character": 38,
+                "line": 25
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/source/handler/QueryCachelineRecordHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "No member named 'REQ_RES_CACHELINE_RECORD' in namespace 'Dic::Protocol' (fix available)",
+            "range": {
+              "end": {
+                "character": 80,
+                "line": 28
+              },
+              "start": {
+                "character": 56,
+                "line": 28
+              }
+            },
+            "code": "no_member"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/summary/handler/QueryParallelismArrangementHandler.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Unknown type name 'QueryParallelismArrangementRequest'; did you mean 'QueryParallelismArrangementHandler'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 48,
+                "line": 35
+              },
+              "start": {
+                "character": 14,
+                "line": 35
+              }
+            },
+            "code": "unknown_typename_suggest"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/cache/CacheManager.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "In included file: unknown type name 'SliceQuery'",
+            "range": {
+              "end": {
+                "character": 30,
+                "line": 20
+              },
+              "start": {
+                "character": 9,
+                "line": 20
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 20,
+        "examples": [
+          {
+            "message": "Unknown type name 'SliceQuery' (fix available)",
+            "range": {
+              "end": {
+                "character": 79,
+                "line": 59
+              },
+              "start": {
+                "character": 69,
+                "line": 59
+              }
+            },
+            "code": "unknown_typename"
+          },
+          {
+            "message": "Unknown type name 'SliceQuery' (fix available)",
+            "range": {
+              "end": {
+                "character": 91,
+                "line": 89
+              },
+              "start": {
+                "character": 81,
+                "line": 89
+              }
+            },
+            "code": "unknown_typename"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/advisor/process/AICpuOpAdvisor.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "In included file: no template named 'vector' in namespace 'std'",
+            "range": {
+              "end": {
+                "character": 23,
+                "line": 24
+              },
+              "start": {
+                "character": 9,
+                "line": 24
+              }
+            },
+            "code": "no_member_template"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memory/MemoryPlugin.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'MODULE_MEMORY' (fix available)",
+            "range": {
+              "end": {
+                "character": 51,
+                "line": 25
+              },
+              "start": {
+                "character": 38,
+                "line": 25
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 4,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'BLOCK_TABLE'",
+            "range": {
+              "end": {
+                "character": 45,
+                "line": 76
+              },
+              "start": {
+                "character": 34,
+                "line": 76
+              }
+            },
+            "code": "undeclared_var_use"
+          },
+          {
+            "message": "Use of undeclared identifier 'EVENT_TABLE'",
+            "range": {
+              "end": {
+                "character": 45,
+                "line": 234
+              },
+              "start": {
+                "character": 34,
+                "line": 234
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/operator/OperatorPlugin.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'MODULE_OPERATOR' (fix available)",
+            "range": {
+              "end": {
+                "character": 55,
+                "line": 25
+              },
+              "start": {
+                "character": 40,
+                "line": 25
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/source/SourceDefs.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "No template named 'vector' in namespace 'std' (fix available)",
+            "range": {
+              "end": {
+                "character": 15,
+                "line": 54
+              },
+              "start": {
+                "character": 9,
+                "line": 54
+              }
+            },
+            "code": "no_member_template"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/summary/SummaryPlugin.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 1,
+        "examples": [
+          {
+            "message": "Use of undeclared identifier 'MODULE_SUMMARY' (fix available)",
+            "range": {
+              "end": {
+                "character": 53,
+                "line": 25
+              },
+              "start": {
+                "character": 39,
+                "line": 25
+              }
+            },
+            "code": "undeclared_var_use"
+          }
+        ]
+      },
+      {
+        "path": "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "status": "parsed_with_diagnostics",
+        "errors": 12,
+        "examples": [
+          {
+            "message": "No template named 'unique_lock' in namespace 'std'; did you mean 'unique_copy'? (fixes available)",
+            "range": {
+              "end": {
+                "character": 28,
+                "line": 168
+              },
+              "start": {
+                "character": 17,
+                "line": 168
+              }
+            },
+            "code": "no_member_template_suggest"
+          },
+          {
+            "message": "Expected ';' after expression (fix available)",
+            "range": {
+              "end": {
+                "character": 57,
+                "line": 168
+              },
+              "start": {
+                "character": 48,
+                "line": 168
+              }
+            },
+            "code": "expected_semi_after_expr"
+          }
+        ]
+      }
+    ],
+    "diagnostic_context_precision": "candidate; original_diagnostics_and_native_AST_retained"
+  },
+  "whole_R1_passed": false,
+  "whole_G02_accepted": false,
+  "runtime_execution": false,
+  "historical_assets_enabled": false,
+  "hash_verification": "not_run_per_user_preference"
+}

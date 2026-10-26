@@ -2,7 +2,7 @@
 
 2026-10-26。执行范围为[复用优先计划](../../plans/reuse-first-execution-plan.md)的 R0/R1。沿用已有证据，产品实现已按用户指令恢复；历史资产关闭，原始 Insight checkout 保持只读。新增工具、环境、缓存、临时文件及原始实验数据均放在 D 盘，Git 只保存实现与紧凑报告。
 
-当前：组件准入与单项接入已有实测；正式统一快照及 129 组件后置核查仍在执行，G02 尚未通过。
+当前：[R0 准入决定](../../research/r0-provider-admission-2026-10-26.md)已固定；正式统一快照及 129 组件后置核查仍在执行，G02 尚未通过。
 
 ## 已交付：CBM 隔离启动恢复
 
@@ -24,7 +24,7 @@
 python experiments/2026-10-26-reuse-audit/probe_cbm_boundaries.py --binary CBM_EXE --output NEW_OUTPUT --cache-dir PRIVATE_CACHE --runtime-dir PRIVATE_RUNTIME
 ```
 
-R0 剩余：边界身份负例、C++ 语义补充准入与数据流精度路线。R1 的真实仓库接入和逐组件核验待执行；本项不改变 G02–G08 状态。
+本节为启动恢复时的收据。后续边界身份、C++ 语义与正式接入结果见下文；数据流替代失败由 R0 准入决定持续记录。
 
 ## 已交付：C++ 原生语义提供方
 
@@ -75,3 +75,11 @@ Python 的原生客户端依赖可通过 `requirements-native.txt` 或安装包�
 ```text
 python experiments/2026-10-26-r0-r1/run_repository.py --source INSIGHT --revision COMMIT --output NEW_OUTPUT --typescript TYPESCRIPT_MODULE --cmake-capture CMAKE_CAPTURE --cbm-capture CBM_NATIVE_CAPTURE --clang-capture CLANG_CAPTURE
 ```
+
+## 已交付：全仓原生提供方收据
+
+[原生全范围结果](evidence/native-repository.json)绑定同一产品提交。CBM 按生产选择范围处理 2,516 个输入，耗时 11.921 秒；原生未索引和跳过数均为零，20 项部分解析；归一化后 2,464 项有提供方事实、32 项未产出、20 项部分解析。全部 7 个非测试 Shell 文件进入原生索引，模块存在与语言语义完整性仍分别检查。
+
+clangd 处理 1,323 个 C++ 输入，957 项 parsed、366 项带诊断；其中 970 个非测试文件为 933 项 parsed、37 项带诊断。首个修正版全仓批次约 996 秒，随后仅对 12 个预算耗尽文件复验，耗时 31.36 秒；最终预算残余与提供方失败文件均为零。37 个非测试诊断文件及原始错误摘要逐项公开，主要涉及独立头文件缺少所需包含/宏/类型上下文；相关关系保持候选。完整 AST、数据库和日志留在 D 盘。
+
+Python 完整回归执行 745 项，首轮 1 项失败、2 项平台跳过。失败为旧测试假定多提供方下 `main` 搜索只有一个节点；改为沿原有构建/解码关系选择明确 ID 后，17 项相关回归通过。Node 124 项检查通过。文件和测试数量作为辅助证据，R1 仍需发布统一快照、逐组件结果及遗漏处置。
