@@ -21,7 +21,7 @@ def analyze(receipt_file):
             '--native-points',str(folder/'points-to.txt'),'--output',str(folder/'native.json'),
             '--source-root',receipt['source_root'],'--source-directory',receipt['source_directory'],
             '--source-commit',receipt['source_commit'],'--context',receipt['context'],
-            '--module',receipt['module'],'--language',receipt['language']],
+            '--module',receipt['module'],'--language',receipt['language'],'--compiler-receipt',str(receipt_file)],
             stdout=log,stderr=subprocess.STDOUT,check=True,timeout=600)
     receipt['analysis_executed']=True
     (folder/'analysis-receipt.json').write_text(json.dumps(receipt,indent=2))

@@ -22,6 +22,13 @@ def collect(inputs, *, paths, source_commit, output):
         facts=normalize(data,provider=provider,paths=paths,source_commit=source_commit,context=context)
         groups[provider,context].append(facts)
     if not groups:raise ValueError('Native exports required')
+    for (provider,context),modules in groups.items():
+        reference=groups.get(('rapx',context))
+        if provider=='svf' and reference and any(n['language']=='rust' for f in modules for n in f['nodes']):
+            expected={n['path'] for f in reference for n in f['nodes'] if n['path']}
+            actual={n['path'] for f in modules for n in f['nodes'] if n['path']}
+            if actual-expected:
+                raise ValueError('Native Rust providers selected different cfg sources: '+context+' '+str(sorted(actual-expected)))
     captures=[];reports=[]
     for ordinal,((provider,context),modules) in enumerate(sorted(groups.items())):
         merged={k:[] for k in ('nodes','edges','diagnostics','coverage','limits')}
