@@ -13,6 +13,29 @@ function graph(files) {
 }
 function pairs(g,kind){const nodes=new Map(g.nodes.map(n=>[n.id,n]));return g.edges.filter(e=>e.kind===kind).map(e=>[nodes.get(e.source),nodes.get(e.target),e]);}
 
+test('compiler emits enum members, aliases and exported constant declarations',()=>{
+  const g=graph({'constants.ts':'export enum Mode {First=3,Second} export type Selected=Mode; export const key="mode";'});
+  assert(g.nodes.some(n=>n.kind==='type'&&n.name==='Mode'&&n.declaration_kind==='EnumDeclaration'));
+  assert(g.nodes.some(n=>n.kind==='type'&&n.name==='Selected'&&n.declaration_kind==='TypeAliasDeclaration'));
+  assert(g.nodes.some(n=>n.kind==='value'&&n.name==='key'));
+  assert.equal(g.nodes.find(n=>n.name==='Mode.Second').constant_value,4);
+  assert.equal(pairs(g,'DECLARES_MEMBER').length,2);
+});
+test('ambient asset modules and triple slash dependencies are explicit compiler facts',()=>{
+  const g=graph({'assets.d.ts':'declare module "*.asset" {const data:string;export default data;}',
+    'environment.d.ts':'/// <reference types="external-ui" />\n'});
+  assert(g.nodes.some(n=>n.kind==='type'&&n.declaration_kind==='ModuleDeclaration'&&n.name==='"*.asset"'));
+  const ref=g.nodes.find(n=>n.kind==='module_reference'&&n.syntax==='triple_slash_types');
+  assert.equal(ref.module_specifier,'external-ui');assert.equal(ref.resolution,'recorded_not_loaded');
+  assert(pairs(g,'CONTAINS_IMPORT').some(([,b])=>b.id===ref.id));
+});
+test('namespace and same-named enum member identities remain separate',()=>{
+  const g=graph({'types.ts':'namespace Left {export enum Flag {Ready=1}} namespace Right {export enum Flag {Ready=2}}'});
+  const ready=g.nodes.filter(n=>n.kind==='value'&&n.name.endsWith('.Flag.Ready'));
+  assert.deepEqual(new Set(ready.map(n=>n.name)),new Set(['Left.Flag.Ready','Right.Flag.Ready']));
+  assert.equal(new Set(ready.map(n=>n.id)).size,2);
+});
+
 test('generic override and arrow callback use subclass; super uses base',()=>{
   const g=graph({'a.ts':'abstract class Base { send<T>(x:T){return x;} } class Child extends Base { send<T>(x:T){return super.send(x);} fetch(){const cb=()=>this.send(1);return cb();} }'});
   const p=pairs(g,'STATIC_CALL_TARGET');

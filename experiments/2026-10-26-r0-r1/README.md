@@ -49,3 +49,9 @@ Insight 全部 4,855 个跟踪输入的首轮原生索引耗时约 509 秒，输
 python experiments/2026-10-26-r0-r1/probe_cbm_isolation.py --binary CBM_EXE --output NEW_OUTPUT --cache-dir PRIVATE_CACHE --runtime-dir PRIVATE_RUNTIME
 python experiments/2026-10-26-r0-r1/run_cbm_repository.py --source INSIGHT --revision COMMIT --output NEW_OUTPUT --binary CBM_EXE --cache-dir PRIVATE_CACHE --runtime-dir PRIVATE_RUNTIME
 ```
+
+## 已交付：TypeScript 声明与类型依赖
+
+继续使用 TypeScript 5.9.3 Compiler API，补充其原生枚举/成员常量值、类型别名、ambient module、变量/属性/参数声明，以及三斜线类型/路径/lib 引用。命名空间与枚举成员的限定名保持区分；未加载的外部类型依赖明确记录为 `recorded_not_loaded`。
+
+[真实提取结果](evidence/typescript-declarations.json)：986 个 TS/JS 文件生成 106,571 节点、106,103 边；W0 后置审查列出的 21 个 TypeScript 零基础事实文件全部具有声明或依赖记录。124 项既有与新增 TS/JS/前后端机制检查通过。此结果解决该审查队列，不以非零事实判定所有组件的语义正确性或 G02 通过。

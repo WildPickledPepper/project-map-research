@@ -1,0 +1,196 @@
+{
+  "schema": "r1-typescript-declaration-coverage/1",
+  "evidence_kind": "executed_typescript_compiler",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "compiler_version": "5.9.3",
+  "source_files": 986,
+  "nodes": 106571,
+  "edges": 106103,
+  "previous_zero_fact_queue": [
+    {
+      "path": "modules/cluster/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/compute/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/framework/src/declear/svgType.d.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 1,
+        "value": 3
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/framework/src/utils/enum.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 6,
+        "value": 29
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/leaks/src/leaksWorker/blockWorker/webgl/shaders/glsl.d.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 1,
+        "value": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/leaks/src/leaksWorker/stateWorker/webgl/shaders/glsl.d.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 1,
+        "value": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/leaks/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/lib/src/useDraggableContainer/declear/svgType.d.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 1,
+        "value": 3
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/memory-on-chip/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 2
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/memory/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/numa/src/features/topology/model/constants.ts",
+      "facts": {
+        "code_module": 1,
+        "value": 13
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/numa/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/operator/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/reinforcement-learning/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/statistic/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/timeline/src/components/base/rc-table/types.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 3,
+        "value": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/timeline/src/declear/svgType.d.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 1,
+        "value": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/timeline/src/react-app-env.d.ts",
+      "facts": {
+        "code_module": 1,
+        "module_reference": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "modules/timeline/src/utils/constant.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 1,
+        "value": 1
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "plugins/jupyterlab/src/commands.ts",
+      "facts": {
+        "code_module": 1,
+        "value": 3
+      },
+      "has_declaration_or_dependency": true
+    },
+    {
+      "path": "plugins/jupyterlab/src/svg.d.ts",
+      "facts": {
+        "code_module": 1,
+        "type": 1,
+        "value": 1
+      },
+      "has_declaration_or_dependency": true
+    }
+  ],
+  "all_queue_files_now_have_facts": true,
+  "semantic_correctness_scope": "compiler fixtures and declaration/dependency queue; not whole G02",
+  "whole_G02_accepted": false,
+  "fixture_regression": {
+    "tests": 124,
+    "passed": 124,
+    "failed": 0
+  }
+}

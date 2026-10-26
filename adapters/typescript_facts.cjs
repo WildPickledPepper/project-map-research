@@ -48,7 +48,8 @@ function analyzeUnit(ts, root, relativeFiles, extension=null, roots=relativeFile
   }
   function qualified(n) {
     const parts=[shortName(n)];
-    for(let p=n.parent;p;p=p.parent) if(ts.isClassDeclaration(p)||ts.isInterfaceDeclaration(p)||ts.isFunctionLike(p)) parts.unshift(shortName(p));
+    for(let p=n.parent;p;p=p.parent) if(ts.isClassDeclaration(p)||ts.isInterfaceDeclaration(p)||ts.isFunctionLike(p)||
+      ts.isModuleDeclaration(p)||ts.isEnumDeclaration(p)||ts.isTypeAliasDeclaration(p)) parts.unshift(shortName(p));
     return parts.join('.');
   }
   function node(n,kind) {
@@ -98,13 +99,36 @@ function analyzeUnit(ts, root, relativeFiles, extension=null, roots=relativeFile
         message:ts.flattenDiagnosticMessageText(d.messageText,' ').replaceAll(root,'<source>')});
     }
   }
-  for(const sf of sfList){codeModule(sf);walk(sf,n=>{
+  for(const sf of sfList){codeModule(sf);
+    for(const [syntax,references] of [['types',sf.typeReferenceDirectives],['path',sf.referencedFiles],['lib',sf.libReferenceDirectives]])
+      for(const reference of references){
+        const pos=sf.getLineAndCharacterOfPosition(reference.pos),uid=`ts:directive:${rel(sf.fileName)}:${syntax}:${reference.pos}:${reference.end}`;
+        const location={path:rel(sf.fileName),line:pos.line+1,column:pos.character+1};
+        nodes.set(uid,{id:uid,kind:'module_reference',...location,name:reference.fileName,module_specifier:reference.fileName,
+          syntax:'triple_slash_'+syntax,language:language(sf.fileName),evidence_kind:'typescript_compiler_reference_directive',
+          compiler_version:ts.version,type_only:true,resolution:'recorded_not_loaded',runtime_execution:'not_applicable'});
+        edge(codeModule(sf),uid,'CONTAINS_IMPORT',[location],'source_relation');
+      }
+    walk(sf,n=>{
     if((ts.isImportDeclaration(n)||ts.isExportDeclaration(n))&&n.moduleSpecifier)moduleReference(n,n.moduleSpecifier,ts.isImportDeclaration(n)?'import':'reexport');
     if(ts.isImportEqualsDeclaration(n)&&ts.isExternalModuleReference(n.moduleReference))moduleReference(n,n.moduleReference.expression,'import_equals');
     if(ts.isCallExpression(n)&&ts.isIdentifier(n.expression)&&n.expression.text==='require')moduleReference(n,n.arguments[0],'require');
     if(ts.isCallExpression(n)&&n.expression.kind===ts.SyntaxKind.ImportKeyword)moduleReference(n,n.arguments[0],'dynamic_import');
     if(ts.isFunctionLike(n) && n.parameters)node(n,'callable');
-    if(ts.isClassDeclaration(n)||ts.isInterfaceDeclaration(n))node(n,'type');
+    if(ts.isClassDeclaration(n)||ts.isInterfaceDeclaration(n)||ts.isTypeAliasDeclaration(n)||
+      ts.isEnumDeclaration(n)||ts.isModuleDeclaration(n)){
+      const uid=node(n,'type');Object.assign(nodes.get(uid),{declaration_kind:ts.SyntaxKind[n.kind]});
+      edge(codeModule(sf),uid,'CONTAINS_DECLARATION',[loc(n)],'source_relation');
+    }
+    if(ts.isVariableDeclaration(n)||ts.isPropertyDeclaration(n)||ts.isPropertySignature(n)||
+      ts.isEnumMember(n)||ts.isParameter(n)||ts.isBindingElement(n)){
+      const uid=node(n,ts.isParameter(n)?'parameter':'value');
+      Object.assign(nodes.get(uid),{declaration_kind:ts.SyntaxKind[n.kind],declared_type:n.type?.getText()||null,
+        ...(ts.isEnumMember(n)?{constant_value:checker.getConstantValue(n)??null}:{})});
+      const owner=callableOwner(n);
+      edge(owner?node(owner,'callable'):codeModule(sf),uid,'CONTAINS_DECLARATION',[loc(n)],'source_relation');
+      if(ts.isEnumMember(n))edge(node(n.parent,'type'),uid,'DECLARES_MEMBER',[loc(n)],'source_relation');
+    }
     if(ts.isCallExpression(n)||ts.isNewExpression(n))calls.push(n);
     if(ts.isBinaryExpression(n)&&n.operatorToken.kind===ts.SyntaxKind.EqualsToken &&
       (ts.isPropertyAccessExpression(n.left)||ts.isElementAccessExpression(n.left)))assignments.push(n);
