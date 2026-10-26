@@ -12,7 +12,11 @@
 | RPG / CoderMind | https://github.com/microsoft/RPG-ZeroRepo | `a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885` |
 | RepoGraph | https://github.com/ozyyshr/RepoGraph | `6c3977d87845993bf2c0359b4ac752278d7f3c45` |
 
-论文题目及链接从作者官方仓库 README 追溯：RPG-Encoder、RepoGraph。Code-Craft 的作者版本和官方实现仍需补齐可核实条目，不在这里猜测链接或归属。
+论文题目及链接从作者官方仓库 README 追溯：RPG-Encoder、RepoGraph。2026-10-26 已核对 [Code-Craft 作者论文 2504.08975v1](https://arxiv.org/html/2504.08975v1)，其官方完整可执行实现仍未核实；论文证据和开源实测分别记录。
+
+## AI 上下文需求：2026-10-26 补充
+
+[专项调研](ai-context-requirements-2026-10-26.md)逐项记录 9 篇论文和 3 个工具官方文档的所读版本、实验范围、结果与限制，比较工程事实、语义说明、源码、运行和验证信息的作用。其中 AGENTS.md 采用 2026-09-29 的 v3，RPG-Encoder 采用 v2，Debug2Fix 采用 v2；本地没有复现其模型实验。对 Insight 的信息清单与交互方案明确标为设计推断，既有技术验收状态保持不变。
 
 ## 新候选的具体源码证据
 
