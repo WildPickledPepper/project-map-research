@@ -2,6 +2,8 @@
 
 日期：2026-10-26。范围：[计划 4.2](../../plans/semantic-impact-execution-plan.md)唯一新增候选的 45 分钟准入窗口。候选为 Infer `v1.3.0`，下载源码提交 `410a6d9394b9c9794bf9469ee0e1aa8d3ae91031`，本地源码位于 D 盘工具区；运行采用上游 Linux 二进制。此处先固定检查，结果另行提交。
 
+**首次执行**：研究提交 `47a4d2d` 的 [CI run 40341615457](https://github.com/WildPickledPepper/project-map-research/actions/runs/40341615457) 成功导出两个布局各 14 个过程的原生摘要。检查发现 `after_copy` 含跳过的头文件隐式构造与 `unknown_values=true`，不能用返回值暂时不相等来认定复制隔离通过。原始结果保留，唯一复验改为上游 `capture --headers`，保持 fixture 与期望不变。
+
 源码已检查：[摘要 JSON 开关](https://github.com/facebook/infer/blob/410a6d9394b9c9794bf9469ee0e1aa8d3ae91031/infer/src/base/Config.ml)、[debug 导出实现](https://github.com/facebook/infer/blob/410a6d9394b9c9794bf9469ee0e1aa8d3ae91031/infer/src/integration/InferCommandImplementation.ml)、[Pulse 摘要结构](https://github.com/facebook/infer/blob/410a6d9394b9c9794bf9469ee0e1aa8d3ae91031/infer/src/pulse/PulseSummary.ml)。采用现成 `capture`、`analyze` 和 `debug --procedures --procedures-summary-json --dump-json-summaries`，不读取 OCaml 内部二进制或编写摘要求解器。
 
 冻结 fixture 包含两个编译单元及头文件，分别放进两个独立布局，检查参数返回、字段写读、引用返回、值复制、全局读写、条件选择、跨文件组合和回调。预期：`composed` 返回 input，`isolated` 和 `after_copy` 返回初始 0，`through_global` 返回 input，`conditional` 依 enabled 分支；回调目标未解析时保留未知。摘要需保留原生对象/条件身份，能力逐项判断。

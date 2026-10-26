@@ -39,6 +39,7 @@ def inspect_summaries(filename):
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--infer',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--headers',action='store_true')
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=False)
     infer=str(args.infer.resolve());results=[]
     def execute(command,folder):
@@ -60,7 +61,8 @@ def main():
                   for name in ('effects.cpp','client.cpp')]
         database=workspace/'compile_commands.json';database.write_text(json.dumps(commands,indent=2))
         captured=folder/'infer-out'
-        execute([infer,'capture','--results-dir',str(captured),'--compilation-database',str(database),'--jobs','1'],folder/'capture')
+        execute([infer,'capture','--results-dir',str(captured),'--compilation-database',str(database),'--jobs','1',
+                 *(['--headers'] if args.headers else [])],folder/'capture')
         execute([infer,'analyze','--results-dir',str(captured),'--pulse-only','--jobs','1'],folder/'analyze')
         execute([infer,'debug','--results-dir',str(captured),'--procedures','--procedures-summary-json','--dump-json-summaries'],folder/'export')
         result=inspect_summaries(captured/'all_summaries.json');result['layout']=layout

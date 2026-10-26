@@ -33,7 +33,10 @@ jobs:
       - name: Execute native summaries across independent layouts
         run: |
           infer="$RUNNER_TEMP/infer-tools/infer-linux-x86_64-v1.3.0/bin/infer"
-          python experiments/2026-10-26-infer-summary/probe.py --infer "$infer" --output "$RUNNER_TEMP/infer-summary-output"
+          python experiments/2026-10-26-infer-summary/probe.py --infer "$infer" --output "$RUNNER_TEMP/infer-summary-output" --headers
+          for layout in separated nested; do
+            python experiments/2026-10-26-infer-summary/score.py --input "$RUNNER_TEMP/infer-summary-output/$layout/infer-out/all_summaries.json" --output "$RUNNER_TEMP/infer-summary-output/$layout/effect-checks.json"
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -41,6 +44,7 @@ jobs:
           path: |
             ${{ runner.temp }}/infer-summary-output/result.json
             ${{ runner.temp }}/infer-summary-output/**/schema-result.json
+            ${{ runner.temp }}/infer-summary-output/**/effect-checks.json
             ${{ runner.temp }}/infer-summary-output/**/resources.json
             ${{ runner.temp }}/infer-summary-output/**/analysis.log
             ${{ runner.temp }}/infer-summary-output/**/all_summaries.json
