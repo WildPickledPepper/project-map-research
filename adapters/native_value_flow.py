@@ -62,7 +62,13 @@ def normalize(data, *, provider, paths, source_commit, context):
         raw_nodes=[n for n in data['nodes'] if n['id'] in retained]
         raw_edges=[e for e in data['edges'] if e['source'] in retained and e['target'] in retained]
         values={n['value'] for n in raw_nodes if n.get('value') is not None}
-        raw_points=[e for e in data.get('points_to',[]) if e['source'] in values]
+        points_verified=data.get('points_to_identity_status')=='same_process_native_ids'
+        raw_points=[e for e in data.get('points_to',[]) if e['source'] in values] if points_verified else []
+        if not points_verified:
+            diagnostics.append({'path':'','kind':'native_points_to_identity_not_verified',
+                'raw_points_preserved':True,'normalized_points_to_edges':0,
+                'value_flow':'unchanged_same_process_native_SVFG',
+                'reason':'CLI_and_binding_native_node_identity_requires_independent_validation'})
         values.update(e['target'] for e in raw_points)
         raw_variables=[v for v in data.get('variables',[]) if v['id'] in values]
         diagnostics.append({'path':'','kind':'external_native_bodies_not_in_project_projection',

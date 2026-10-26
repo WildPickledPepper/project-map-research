@@ -13,6 +13,7 @@ class NativeValueFlowTests(unittest.TestCase):
     def native(self,**changes):
         return {'schema':'svf-native-export/1','source_commit':'a'*40,'context':'linux/release',
             'source_root':'/native/root','module':'one','package_version':'1.0.0.50',
+            'points_to_identity_status':'same_process_native_ids',
             'nodes':[{'id':1,'kind':'FormalParmVFGNode','text':'native value','function':'f',
                       'source_location':{'fl':'/native/root/lib/a.cpp','ln':4,'cl':2},
                       'function_location':{'fl':'/native/root/lib/a.cpp','ln':3},'value':2}],
@@ -44,6 +45,11 @@ class NativeValueFlowTests(unittest.TestCase):
         self.assertEqual(sum(e['kind']=='SVF_VALUE_FLOW' for e in facts['edges']),1)
         self.assertTrue(next(n for n in facts['nodes'] if n.get('native_id')==4)['external_boundary_value'])
         self.assertEqual(facts['diagnostics'][0]['native_counts']['nodes'],3)
+
+    def test_cross_process_points_ids_are_not_assumed_equal(self):
+        facts=self.normalize(self.native(points_to_identity_status='unverified_cross_process_ids'))
+        self.assertFalse(any(e['kind']=='SVF_POINTS_TO' for e in facts['edges']))
+        self.assertTrue(any(d['kind']=='native_points_to_identity_not_verified' for d in facts['diagnostics']))
 
     def test_native_module_identity_and_candidate_precision_survive_import(self):
         with tempfile.TemporaryDirectory() as temporary:

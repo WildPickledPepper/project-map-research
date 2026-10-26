@@ -41,13 +41,12 @@ def export(bitcode,native_points=None):
             source=int(match[1])
             for item in match[2].replace(',',' ').split():
                 target=int(item);points.append({'source':source,'target':target})
-                for uid in (source,target):
-                    if uid not in variables:variables[uid]=pag.getGNode(uid)
     return {'schema':'svf-native-export/1','package_version':importlib.metadata.version('pysvf'),
         'nodes':nodes,'edges':edges,'points_to':points,
         'variables':[{'id':uid,'name':v.getName(),'kind':type(v).__name__,'text':str(v)}
                      for uid,v in variables.items()],
         'python_points_to_binding_available':points_method is not None,
+        'points_to_identity_status':'unverified_cross_process_ids' if native_points else 'same_process_native_ids',
         'points_to_backend':'same_distribution_native_wpa_cli' if native_points else 'native_python_binding' if points_method else 'unavailable',
         'native_pta_interface':dir(pta),
         'precision':'native_static_candidate','analysis':'SVF Andersen and full SVFG'}

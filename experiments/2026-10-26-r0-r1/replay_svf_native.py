@@ -19,8 +19,8 @@ def bounded_native(command,folder,name,timeout):
             if status.exists():
                 values=dict(line.split(':',1) for line in status.read_text().splitlines() if ':' in line)
                 peak=max(peak,int(values.get('VmRSS','0 kB').split()[0]))
-            if peak>8*1024*1024 or time.monotonic()-started>timeout:
-                reason='8_GiB_native_process_budget' if peak>8*1024*1024 else 'native_wall_time_budget'
+            if peak>13*1024*1024 or time.monotonic()-started>timeout:
+                reason='13_GiB_native_process_budget' if peak>13*1024*1024 else 'native_wall_time_budget'
                 process.terminate()
                 try:process.wait(timeout=10)
                 except subprocess.TimeoutExpired:process.kill();process.wait()
