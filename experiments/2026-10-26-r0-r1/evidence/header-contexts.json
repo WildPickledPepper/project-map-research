@@ -1,0 +1,469 @@
+{
+  "schema": "native-header-context-review/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "configuration": "Release",
+  "context": "server/Release",
+  "origin": "actual_configured_compiler_syntax_check_and_include_trace",
+  "seconds": 59.172,
+  "compiler": "gcc.exe (MinGW-W64 x86_64-msvcrt-posix-seh, built by Brecht Sanders) 11.5.0",
+  "required_header_count": 37,
+  "checks": [
+    {
+      "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+      "exit_code": 0,
+      "seconds": 11.5,
+      "candidate_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/handler/QueryMemoryOperatorSizeHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryStaticOperatorGraphHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryStaticOperatorListHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryStaticOperatorSizeHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryViewHandler.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/handler/QueryMemoryOperatorSizeHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryStaticOperatorGraphHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryStaticOperatorListHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryStaticOperatorSizeHandler.h",
+        "server/src/modules/memory/handler/QueryMemoryViewHandler.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 155,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/Plugins.cpp",
+      "exit_code": 0,
+      "seconds": 8.109,
+      "candidate_headers": [
+        "server/src/modules/global/GlobalPlugin.h",
+        "server/src/modules/memory/MemoryPlugin.h",
+        "server/src/modules/operator/OperatorPlugin.h",
+        "server/src/modules/servitization/IEPlugin.h",
+        "server/src/modules/source/SourcePlugin.h",
+        "server/src/modules/summary/SummaryPlugin.h",
+        "server/src/modules/timeline/TimelinePlugin.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/global/GlobalPlugin.h",
+        "server/src/modules/memory/MemoryPlugin.h",
+        "server/src/modules/operator/OperatorPlugin.h",
+        "server/src/modules/servitization/IEPlugin.h",
+        "server/src/modules/source/SourcePlugin.h",
+        "server/src/modules/summary/SummaryPlugin.h",
+        "server/src/modules/timeline/TimelinePlugin.h"
+      ],
+      "native_project_includes": 87,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+      "exit_code": 0,
+      "seconds": 9.094,
+      "candidate_headers": [
+        "server/src/modules/base/core/JsonFileProcess.h",
+        "server/src/modules/source/SourceDefs.h",
+        "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/base/core/JsonFileProcess.h",
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/source/SourceDefs.h",
+        "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 151,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+      "exit_code": 0,
+      "seconds": 10.14,
+      "candidate_headers": [
+        "server/src/modules/defs/DbSqlDefs.h",
+        "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+        "server/src/modules/timeline/core/table/CollectionTimeService.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/DbSqlDefs.h",
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+        "server/src/modules/timeline/core/table/CollectionTimeService.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 150,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+      "exit_code": 0,
+      "seconds": 9.0,
+      "candidate_headers": [
+        "server/src/modules/timeline/core/cache/CacheManager.h",
+        "server/src/modules/timeline/core/parser/TraceFileSimulationParser.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/base/core/JsonFileProcess.h",
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/cache/CacheManager.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/core/parser/TraceFileSimulationParser.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 142,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+      "exit_code": 0,
+      "seconds": 3.891,
+      "candidate_headers": [
+        "server/msinsight/include/base/RequestContext.h"
+      ],
+      "observed_required_headers": [
+        "server/msinsight/include/base/RequestContext.h"
+      ],
+      "native_project_includes": 46,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+      "exit_code": 0,
+      "seconds": 9.265,
+      "candidate_headers": [
+        "server/src/modules/timeline/core/database/TextAdviceSqlConstant.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/DbSqlDefs.h",
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextAdviceSqlConstant.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 146,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/timeline/core/parser/EventParser.cpp",
+      "exit_code": 0,
+      "seconds": 7.469,
+      "candidate_headers": [
+        "server/src/modules/timeline/core/parser/JsonParseMemPool.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/core/parser/JsonParseMemPool.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 94,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+      "exit_code": 0,
+      "seconds": 9.0,
+      "candidate_headers": [
+        "server/src/modules/summary/handler/QueryParallelismArrangementHandler.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h",
+        "server/src/modules/summary/handler/QueryParallelismArrangementHandler.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 152,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/summary/core/ExpertHotspotManager.cpp",
+      "exit_code": 0,
+      "seconds": 8.844,
+      "candidate_headers": [
+        "server/msinsight/src/utils/CollectionUtil.h"
+      ],
+      "observed_required_headers": [
+        "server/msinsight/src/utils/CollectionUtil.h",
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 139,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/operator/OperatorModule.cpp",
+      "exit_code": 0,
+      "seconds": 5.688,
+      "candidate_headers": [
+        "server/src/modules/operator/handler/ExportOpDetailsHandler.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/operator/handler/ExportOpDetailsHandler.h"
+      ],
+      "native_project_includes": 58,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+      "exit_code": 0,
+      "seconds": 9.031,
+      "candidate_headers": [
+        "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/memory/parser/MemoryDef.h",
+        "server/src/modules/memscope/database/MemScopeTableColumn.h",
+        "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/core/database/TextSqlConstant.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 143,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/source/SourceModule.cpp",
+      "exit_code": 0,
+      "seconds": 5.875,
+      "candidate_headers": [
+        "server/src/modules/source/handler/QueryCachelineRecordHandler.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/source/SourceDefs.h",
+        "server/src/modules/source/handler/QueryCachelineRecordHandler.h"
+      ],
+      "native_project_includes": 58,
+      "status": "syntax_checked"
+    },
+    {
+      "translation_unit": "server/src/modules/advisor/handler/QueryAiCpuOpAdviceHandler.cpp",
+      "exit_code": 0,
+      "seconds": 6.469,
+      "candidate_headers": [
+        "server/src/modules/advisor/process/AICpuOpAdvisor.h"
+      ],
+      "observed_required_headers": [
+        "server/src/modules/advisor/process/AICpuOpAdvisor.h",
+        "server/src/modules/defs/NumDefs.h",
+        "server/src/modules/operator/parser/SummaryDef.h",
+        "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+      ],
+      "native_project_includes": 78,
+      "status": "syntax_checked"
+    }
+  ],
+  "context_validated_headers": [
+    "server/msinsight/include/base/RequestContext.h",
+    "server/msinsight/src/utils/CollectionUtil.h",
+    "server/src/modules/advisor/process/AICpuOpAdvisor.h",
+    "server/src/modules/base/core/JsonFileProcess.h",
+    "server/src/modules/defs/DbSqlDefs.h",
+    "server/src/modules/defs/NumDefs.h",
+    "server/src/modules/global/GlobalPlugin.h",
+    "server/src/modules/memory/MemoryPlugin.h",
+    "server/src/modules/memory/handler/QueryMemoryOperatorSizeHandler.h",
+    "server/src/modules/memory/handler/QueryMemoryStaticOperatorGraphHandler.h",
+    "server/src/modules/memory/handler/QueryMemoryStaticOperatorListHandler.h",
+    "server/src/modules/memory/handler/QueryMemoryStaticOperatorSizeHandler.h",
+    "server/src/modules/memory/handler/QueryMemoryViewHandler.h",
+    "server/src/modules/memory/parser/MemoryDef.h",
+    "server/src/modules/memscope/database/MemScopeTableColumn.h",
+    "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h",
+    "server/src/modules/operator/OperatorPlugin.h",
+    "server/src/modules/operator/handler/ExportOpDetailsHandler.h",
+    "server/src/modules/operator/parser/SummaryDef.h",
+    "server/src/modules/servitization/IEPlugin.h",
+    "server/src/modules/source/SourceDefs.h",
+    "server/src/modules/source/SourcePlugin.h",
+    "server/src/modules/source/handler/QueryCachelineRecordHandler.h",
+    "server/src/modules/summary/SummaryPlugin.h",
+    "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h",
+    "server/src/modules/summary/handler/QueryParallelismArrangementHandler.h",
+    "server/src/modules/timeline/TimelinePlugin.h",
+    "server/src/modules/timeline/core/cache/CacheManager.h",
+    "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+    "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+    "server/src/modules/timeline/core/database/TextAdviceSqlConstant.h",
+    "server/src/modules/timeline/core/database/TextSqlConstant.h",
+    "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+    "server/src/modules/timeline/core/parser/JsonParseMemPool.h",
+    "server/src/modules/timeline/core/parser/TraceFileSimulationParser.h",
+    "server/src/modules/timeline/core/table/CollectionTimeService.h",
+    "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+  ],
+  "remaining_headers": [],
+  "standalone_clangd_diagnostics_preserved": true,
+  "interpretation": "header_compiles_in_observed_TU_context; not_complete_header_reference_recovery",
+  "runtime_execution": false,
+  "whole_G02_accepted": false,
+  "selection_plan": {
+    "selected": [
+      [
+        "server/src/modules/memory/MemoryModule.cpp",
+        [
+          "server/src/modules/defs/NumDefs.h",
+          "server/src/modules/memory/handler/QueryMemoryOperatorSizeHandler.h",
+          "server/src/modules/memory/handler/QueryMemoryStaticOperatorGraphHandler.h",
+          "server/src/modules/memory/handler/QueryMemoryStaticOperatorListHandler.h",
+          "server/src/modules/memory/handler/QueryMemoryStaticOperatorSizeHandler.h",
+          "server/src/modules/memory/handler/QueryMemoryViewHandler.h",
+          "server/src/modules/memory/parser/MemoryDef.h",
+          "server/src/modules/memscope/database/MemScopeTableColumn.h",
+          "server/src/modules/operator/parser/SummaryDef.h",
+          "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+          "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+          "server/src/modules/timeline/core/database/TextSqlConstant.h",
+          "server/src/modules/timeline/protocol/TimelineParamStrcut.h"
+        ]
+      ],
+      [
+        "server/src/modules/Plugins.cpp",
+        [
+          "server/src/modules/global/GlobalPlugin.h",
+          "server/src/modules/memory/MemoryPlugin.h",
+          "server/src/modules/operator/OperatorPlugin.h",
+          "server/src/modules/servitization/IEPlugin.h",
+          "server/src/modules/source/SourcePlugin.h",
+          "server/src/modules/summary/SummaryPlugin.h",
+          "server/src/modules/timeline/TimelinePlugin.h"
+        ]
+      ],
+      [
+        "server/src/modules/global/core/BaselineManagerService.cpp",
+        [
+          "server/src/modules/base/core/JsonFileProcess.h",
+          "server/src/modules/source/SourceDefs.h",
+          "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h"
+        ]
+      ],
+      [
+        "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+        [
+          "server/src/modules/defs/DbSqlDefs.h",
+          "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+          "server/src/modules/timeline/core/table/CollectionTimeService.h"
+        ]
+      ],
+      [
+        "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+        [
+          "server/src/modules/timeline/core/cache/CacheManager.h",
+          "server/src/modules/timeline/core/parser/TraceFileSimulationParser.h"
+        ]
+      ],
+      [
+        "server/msinsight/src/base/ModuleRequestHandler.cpp",
+        [
+          "server/msinsight/include/base/RequestContext.h"
+        ]
+      ],
+      [
+        "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+        [
+          "server/src/modules/timeline/core/database/TextAdviceSqlConstant.h"
+        ]
+      ],
+      [
+        "server/src/modules/timeline/core/parser/EventParser.cpp",
+        [
+          "server/src/modules/timeline/core/parser/JsonParseMemPool.h"
+        ]
+      ],
+      [
+        "server/src/modules/summary/SummaryModule.cpp",
+        [
+          "server/src/modules/summary/handler/QueryParallelismArrangementHandler.h"
+        ]
+      ],
+      [
+        "server/src/modules/summary/core/ExpertHotspotManager.cpp",
+        [
+          "server/msinsight/src/utils/CollectionUtil.h"
+        ]
+      ],
+      [
+        "server/src/modules/operator/OperatorModule.cpp",
+        [
+          "server/src/modules/operator/handler/ExportOpDetailsHandler.h"
+        ]
+      ],
+      [
+        "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+        [
+          "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h"
+        ]
+      ],
+      [
+        "server/src/modules/source/SourceModule.cpp",
+        [
+          "server/src/modules/source/handler/QueryCachelineRecordHandler.h"
+        ]
+      ],
+      [
+        "server/src/modules/advisor/handler/QueryAiCpuOpAdviceHandler.cpp",
+        [
+          "server/src/modules/advisor/process/AICpuOpAdvisor.h"
+        ]
+      ]
+    ],
+    "unmapped": []
+  }
+}
