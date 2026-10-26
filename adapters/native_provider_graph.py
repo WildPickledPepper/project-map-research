@@ -7,12 +7,12 @@ import shutil
 
 from adapters.snapshot_inputs import validate_path
 
-PROVIDERS = {'cbm', 'clangd'}
+PROVIDERS = {'cbm', 'clangd', 'libclang'}
 
 
 def configuration(value):
     data = json.loads(json.dumps(value))
-    if not isinstance(data, dict) or set(data) - {'cbm', 'clangd', 'captures'}:
+    if not isinstance(data, dict) or set(data) - (PROVIDERS | {'captures'}):
         raise ValueError('Unknown native provider configuration')
     for provider in PROVIDERS:
         options = data.setdefault(provider, {'enabled': True})
@@ -52,18 +52,22 @@ def read_capture(capture, *, paths, source_commit):
                            source_commit=source_commit, provider_version=receipt['version'])
     facts = json.loads((root / 'facts.json').read_text(encoding='utf-8'))
     components = facts.get('components', {})
-    if components.get('source_commit') != source_commit or components.get('provider') != 'clangd':
-        raise ValueError('Clangd capture is stale or has the wrong provider')
+    provider = capture['provider']
+    if components.get('source_commit') != source_commit or components.get('provider') != provider:
+        raise ValueError('Native capture is stale or has the wrong provider')
     if components.get('context') != capture['context_key']:
-        raise ValueError('Clangd capture belongs to another compile context')
+        raise ValueError('Native capture belongs to another compile context')
     selected = set(paths)
     nodes = [n for n in facts['nodes'] if not n['path'] or n['path'] in selected]
     ids = {n['id'] for n in nodes}
-    from adapters.clangd_provider import diagnostic_precision
-    return diagnostic_precision({**facts, 'nodes': nodes,
+    result = {**facts, 'nodes': nodes,
             'edges': [e for e in facts['edges'] if e['source'] in ids and e['target'] in ids],
             'coverage': [r for r in facts['coverage'] if r['path'] in selected],
-            'diagnostics': [r for r in facts['diagnostics'] if not r.get('path') or r['path'] in selected]})
+            'diagnostics': [r for r in facts['diagnostics'] if not r.get('path') or r['path'] in selected]}
+    if provider == 'clangd':
+        from adapters.clangd_provider import diagnostic_precision
+        return diagnostic_precision(result)
+    return result
 
 
 def merge(graph, facts, *, provider, context):
@@ -88,8 +92,11 @@ def merge(graph, facts, *, provider, context):
             current = {'path': row['path'], 'status': 'provider_required'}
             graph['coverage'].append(current); by_path[row['path']] = current
         current.setdefault('providers', []).append(row)
-        if provider == 'clangd':
+        if provider in {'clangd', 'libclang'}:
             current.setdefault('source_parser_status', current['status'])
+            if provider == 'libclang':
+                current.setdefault('standalone_native_semantic_status', current.get('native_semantic_status'))
+                current['translation_unit_semantics'] = row
             current['native_semantic_status'] = row['status']
             current['status'] = row['status']
         elif current['status'] in {'unsupported_extension', 'provider_required'}:
@@ -142,4 +149,30 @@ def augment(graph, *, root, output, config=None, emit=None):
         if not contexts:
             graph['diagnostics'].append({'kind': 'native_provider_context_unavailable', 'provider': 'clangd',
                                          'required_for': 'compiler_bound_cpp_semantics'})
+    if options['libclang']['enabled'] and 'libclang' not in already and cpp:
+        from adapters.repository_discovery import role
+        required = {r['path'] for r in graph['coverage'] if r.get('native_semantic_status')=='parsed_with_diagnostics'
+                    and Path(r['path']).suffix.lower() in {'.h','.hpp','.hh','.hxx'}
+                    and role(r['path'])[0] != 'test'}
+        if required:
+            import importlib.util
+            builtin = os.environ.get('PROJECT_MAP_CLANG_BUILTIN_HEADERS')
+            if importlib.util.find_spec('clang') and builtin:
+                from adapters.libclang_provider import analyze
+                node_paths = {n['id']:n['path'] for n in graph['nodes']}
+                imports = [(node_paths[e['source']],node_paths[e['target']]) for e in graph['edges']
+                           if e['kind']=='CBM_IMPORTS']
+                for receipt_file in sorted((output/'cmake-native').glob('*/*/receipt.json')):
+                    receipt = json.loads(receipt_file.read_text(encoding='utf-8'))
+                    if receipt.get('source_commit')!=source_commit or receipt.get('status')!='configured': continue
+                    directory = receipt_file.parent
+                    facts = analyze(Path(receipt.get('native_source_root',directory/'source')),cpp,
+                        compile_commands=Path(receipt.get('native_build_root',directory/'build')),
+                        required_headers=required,context=receipt['context_key'],source_commit=source_commit,
+                        output=directory/'libclang-native',import_pairs=imports,builtin_headers=builtin,
+                        query_drivers=[v for v in (os.environ.get('CC'),os.environ.get('CXX')) if v],emit=emit)
+                    merge(graph,facts,provider='libclang',context=receipt['context_key'])
+            else:
+                graph['diagnostics'].append({'kind':'native_provider_unavailable','provider':'libclang',
+                    'required_for':'translation_unit_header_semantics','affected_paths':sorted(required)})
     return graph

@@ -2,7 +2,7 @@
 
 2026-10-26。执行范围为[复用优先计划](../../plans/reuse-first-execution-plan.md)的 R0/R1。沿用已有证据，产品实现已按用户指令恢复；历史资产关闭，原始 Insight checkout 保持只读。新增工具、环境、缓存、临时文件及原始实验数据均放在 D 盘，Git 只保存实现与紧凑报告。
 
-当前：[R0 准入决定](../../research/r0-provider-admission-2026-10-26.md)已固定，本轮实现与全仓复核结束。[最终报告](completion.md)、[最终 129 组件事实账](module-facts-final.md)、[450 项声明/查询检查](evidence/source-contract-review-final.json)和 [11 项集成检查](evidence/final-integration-checks.json)已发布。无基础事实文件从 41 个降至 0；严格 R0/R1 验收为 partial，G02 尚未通过。以下各节保留逐项交付及首轮结果。
+当前：[三项原生组件补齐](reuse-followup.md)已继续实施；37 个头文件的 Clang 原生提取和逐文件查询通过，SVF/RAPx 正在接入。严格 R0/R1 验收保持未通过，三项接入后统一复验。此前[交付报告](completion.md)、[129 组件事实账](module-facts-final.md)、[450 项声明/查询检查](evidence/source-contract-review-final.json)和 [11 项集成检查](evidence/final-integration-checks.json)保留原版本结果。以下各节保留逐项交付及首轮结果。
 
 ## 已交付：CBM 隔离启动恢复
 

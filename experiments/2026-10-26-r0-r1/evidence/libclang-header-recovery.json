@@ -1,0 +1,2127 @@
+{
+  "schema": "libclang-header-recovery/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "context": "server/Release",
+  "components": {
+    "provider": "libclang",
+    "adapter": "libclang_translation_units/2",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "context": "server/Release",
+    "libclang_package": "18.1.1"
+  },
+  "required_headers": 37,
+  "recovered_headers": 37,
+  "remaining_headers": [],
+  "nodes": 44728,
+  "edges": 65930,
+  "seconds": 321.407,
+  "coverage": [
+    {
+      "path": "server/msinsight/include/base/RequestContext.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/advisor/process/AICpuOpAdvisor.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/advisor/handler/QueryAiCpuOpAdviceHandler.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/base/core/JsonFileProcess.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/defs/DbSqlDefs.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/defs/NumDefs.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/advisor/handler/QueryAiCpuOpAdviceHandler.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/operator/OperatorModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/source/SourceModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/global/GlobalPlugin.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memory/MemoryPlugin.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryOperatorSizeHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorGraphHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorListHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorSizeHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryViewHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memory/parser/MemoryDef.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memscope/database/MemScopeTableColumn.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/operator/OperatorPlugin.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/operator/handler/ExportOpDetailsHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/operator/OperatorModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/operator/parser/SummaryDef.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/advisor/handler/QueryAiCpuOpAdviceHandler.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/servitization/IEPlugin.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/source/SourceDefs.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/source/SourceModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/source/SourcePlugin.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/source/handler/QueryCachelineRecordHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/source/SourceModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/summary/SummaryPlugin.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/summary/handler/QueryParallelismArrangementHandler.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/TimelinePlugin.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/Plugins.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/cache/CacheManager.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/advisor/handler/QueryAiCpuOpAdviceHandler.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextAdviceSqlConstant.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextSqlConstant.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/parser/JsonParseMemPool.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/table/CollectionTimeService.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+      "provider": "libclang",
+      "context": "server/Release",
+      "status": "parsed",
+      "translation_units": [
+        {
+          "translation_unit": "server/src/modules/memory/MemoryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/global/core/BaselineManagerService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/DbTraceDataBase.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/advisor/handler/QueryAiCpuOpAdviceHandler.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/communication/core/ClusterService.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/PaserFactory.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/full_db/ProjectParse/ProjectParserMemScope.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/summary/SummaryModule.cpp",
+          "status": "parsed",
+          "errors": 0
+        },
+        {
+          "translation_unit": "server/src/modules/timeline/core/database/TextTraceDatabaseAdvice.cpp",
+          "status": "parsed",
+          "errors": 0
+        }
+      ],
+      "standalone_diagnostics_superseded_only_in_observed_TU": true
+    }
+  ],
+  "whole_G02_accepted": false,
+  "historical_assets_enabled": false,
+  "query_checks": [
+    {
+      "path": "server/msinsight/include/base/RequestContext.h",
+      "native_nodes": 39,
+      "native_references": 22,
+      "reference": {
+        "name": "class Dic::Server::RequestContext",
+        "line": 30,
+        "column": 12
+      },
+      "target": {
+        "name": "RequestContext",
+        "path": "server/msinsight/include/base/RequestContext.h",
+        "line": 27,
+        "native_usr": "c:@N@Dic@N@Server@S@RequestContext"
+      },
+      "source": [
+        {
+          "line": 30,
+          "text": "    static RequestContext &GetInstance() {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "native_nodes": 211,
+      "native_references": 169,
+      "reference": {
+        "name": "T",
+        "line": 29,
+        "column": 19
+      },
+      "target": {
+        "name": "T",
+        "path": "server/msinsight/src/utils/CollectionUtil.h",
+        "line": 28,
+        "native_usr": "c:CollectionUtil.h@956"
+      },
+      "source": [
+        {
+          "line": 29,
+          "text": "    static inline T FindValueByKey("
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/advisor/process/AICpuOpAdvisor.h",
+      "native_nodes": 99,
+      "native_references": 88,
+      "reference": {
+        "name": "uint64_t",
+        "line": 31,
+        "column": 7
+      },
+      "target": {
+        "name": "uint64_t",
+        "path": "",
+        "line": 42,
+        "native_usr": "c:@T@uint64_t"
+      },
+      "source": [
+        {
+          "line": 31,
+          "text": "const uint64_t AICPU_OP_DURATION_THRESHOLD = Timeline::AICPU_OP_DURATION_THRESHOLD; // 20us"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/base/core/JsonFileProcess.h",
+      "native_nodes": 233,
+      "native_references": 156,
+      "reference": {
+        "name": "std",
+        "line": 27,
+        "column": 12
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 71,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 27,
+          "text": "    static std::vector<std::pair<int64_t, int64_t>> SplitFile("
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/defs/DbSqlDefs.h",
+      "native_nodes": 960,
+      "native_references": 826,
+      "reference": {
+        "name": "std",
+        "line": 26,
+        "column": 14
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 37,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 26,
+          "text": "const static std::map<std::string, std::string> FULL_DB_TABLE_MAP = {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/defs/NumDefs.h",
+      "native_nodes": 273,
+      "native_references": 104,
+      "reference": {
+        "name": "uint32_t",
+        "line": 25,
+        "column": 14
+      },
+      "target": {
+        "name": "uint32_t",
+        "path": "",
+        "line": 40,
+        "native_usr": "c:@T@uint32_t"
+      },
+      "source": [
+        {
+          "line": 25,
+          "text": "const static uint32_t TABLE_CACHE_SIZE = 1000;"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/global/GlobalPlugin.h",
+      "native_nodes": 31,
+      "native_references": 24,
+      "reference": {
+        "name": "Core::BasePlugin",
+        "line": 24,
+        "column": 29
+      },
+      "target": {
+        "name": "BasePlugin",
+        "path": "server/msinsight/include/BasePlugin.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Core@S@BasePlugin"
+      },
+      "source": [
+        {
+          "line": 24,
+          "text": "class GlobalPlugin : public Core::BasePlugin {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memory/MemoryPlugin.h",
+      "native_nodes": 29,
+      "native_references": 24,
+      "reference": {
+        "name": "Core::BasePlugin",
+        "line": 24,
+        "column": 29
+      },
+      "target": {
+        "name": "BasePlugin",
+        "path": "server/msinsight/include/BasePlugin.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Core@S@BasePlugin"
+      },
+      "source": [
+        {
+          "line": 24,
+          "text": "class MemoryPlugin : public Core::BasePlugin {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryOperatorSizeHandler.h",
+      "native_nodes": 37,
+      "native_references": 22,
+      "reference": {
+        "name": "MemoryRequestHandler",
+        "line": 27,
+        "column": 47
+      },
+      "target": {
+        "name": "MemoryRequestHandler",
+        "path": "server/src/modules/memory/handler/MemoryRequestHandler.h",
+        "line": 30,
+        "native_usr": "c:@N@Dic@N@Module@N@Memory@S@MemoryRequestHandler"
+      },
+      "source": [
+        {
+          "line": 27,
+          "text": "class QueryMemoryOperatorSizeHandler : public MemoryRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorGraphHandler.h",
+      "native_nodes": 57,
+      "native_references": 34,
+      "reference": {
+        "name": "MemoryRequestHandler",
+        "line": 28,
+        "column": 54
+      },
+      "target": {
+        "name": "MemoryRequestHandler",
+        "path": "server/src/modules/memory/handler/MemoryRequestHandler.h",
+        "line": 30,
+        "native_usr": "c:@N@Dic@N@Module@N@Memory@S@MemoryRequestHandler"
+      },
+      "source": [
+        {
+          "line": 28,
+          "text": "class QueryMemoryStaticOperatorGraphHandler : public MemoryRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorListHandler.h",
+      "native_nodes": 105,
+      "native_references": 63,
+      "reference": {
+        "name": "MemoryRequestHandler",
+        "line": 27,
+        "column": 53
+      },
+      "target": {
+        "name": "MemoryRequestHandler",
+        "path": "server/src/modules/memory/handler/MemoryRequestHandler.h",
+        "line": 30,
+        "native_usr": "c:@N@Dic@N@Module@N@Memory@S@MemoryRequestHandler"
+      },
+      "source": [
+        {
+          "line": 27,
+          "text": "class QueryMemoryStaticOperatorListHandler : public MemoryRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryStaticOperatorSizeHandler.h",
+      "native_nodes": 37,
+      "native_references": 22,
+      "reference": {
+        "name": "MemoryRequestHandler",
+        "line": 27,
+        "column": 53
+      },
+      "target": {
+        "name": "MemoryRequestHandler",
+        "path": "server/src/modules/memory/handler/MemoryRequestHandler.h",
+        "line": 30,
+        "native_usr": "c:@N@Dic@N@Module@N@Memory@S@MemoryRequestHandler"
+      },
+      "source": [
+        {
+          "line": 27,
+          "text": "class QueryMemoryStaticOperatorSizeHandler : public MemoryRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memory/handler/QueryMemoryViewHandler.h",
+      "native_nodes": 78,
+      "native_references": 45,
+      "reference": {
+        "name": "MemoryRequestHandler",
+        "line": 27,
+        "column": 39
+      },
+      "target": {
+        "name": "MemoryRequestHandler",
+        "path": "server/src/modules/memory/handler/MemoryRequestHandler.h",
+        "line": 30,
+        "native_usr": "c:@N@Dic@N@Module@N@Memory@S@MemoryRequestHandler"
+      },
+      "source": [
+        {
+          "line": 27,
+          "text": "class QueryMemoryViewHandler : public MemoryRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memory/parser/MemoryDef.h",
+      "native_nodes": 3034,
+      "native_references": 2250,
+      "reference": {
+        "name": "std",
+        "line": 29,
+        "column": 5
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 71,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 29,
+          "text": "    std::set<std::string> operatorFiles;"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memscope/database/MemScopeTableColumn.h",
+      "native_nodes": 2421,
+      "native_references": 1935,
+      "reference": {
+        "name": "std",
+        "line": 26,
+        "column": 11
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 71,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 26,
+          "text": "constexpr std::string_view ID = \"ID\";"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/memscope/protocol/MemScopeProtocolResponse.h",
+      "native_nodes": 1072,
+      "native_references": 966,
+      "reference": {
+        "name": "Dic",
+        "line": 31,
+        "column": 17
+      },
+      "target": {
+        "name": "Dic",
+        "path": "server/src/modules/defs/NumDefs.h",
+        "line": 22,
+        "native_usr": "c:@N@Dic"
+      },
+      "source": [
+        {
+          "line": 31,
+          "text": "using namespace Dic::Module;"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/operator/OperatorPlugin.h",
+      "native_nodes": 29,
+      "native_references": 24,
+      "reference": {
+        "name": "Core::BasePlugin",
+        "line": 24,
+        "column": 31
+      },
+      "target": {
+        "name": "BasePlugin",
+        "path": "server/msinsight/include/BasePlugin.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Core@S@BasePlugin"
+      },
+      "source": [
+        {
+          "line": 24,
+          "text": "class OperatorPlugin : public Core::BasePlugin {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/operator/handler/ExportOpDetailsHandler.h",
+      "native_nodes": 66,
+      "native_references": 31,
+      "reference": {
+        "name": "OperatorRequestHandler",
+        "line": 28,
+        "column": 39
+      },
+      "target": {
+        "name": "OperatorRequestHandler",
+        "path": "server/src/modules/operator/handler/OperatorRequestHandler.h",
+        "line": 30,
+        "native_usr": "c:@N@Dic@N@Module@N@Operator@S@OperatorRequestHandler"
+      },
+      "source": [
+        {
+          "line": 28,
+          "text": "class ExportOpDetailsHandler : public OperatorRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/operator/parser/SummaryDef.h",
+      "native_nodes": 561,
+      "native_references": 350,
+      "reference": {
+        "name": "std",
+        "line": 30,
+        "column": 7
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 71,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 30,
+          "text": "const std::string PMU_HEADER_WHITE_LIST_REG = R\"(^(?!.*--)[a-zA-Z0-9\\s\\-_]+$)\";"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/servitization/IEPlugin.h",
+      "native_nodes": 29,
+      "native_references": 24,
+      "reference": {
+        "name": "Core::BasePlugin",
+        "line": 25,
+        "column": 25
+      },
+      "target": {
+        "name": "BasePlugin",
+        "path": "server/msinsight/include/BasePlugin.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Core@S@BasePlugin"
+      },
+      "source": [
+        {
+          "line": 25,
+          "text": "class IEPlugin : public Core::BasePlugin {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/source/SourceDefs.h",
+      "native_nodes": 101,
+      "native_references": 34,
+      "reference": {
+        "name": "enum Dic::Module::Source::GRPStatus",
+        "line": 39,
+        "column": 8
+      },
+      "target": {
+        "name": "GRPStatus",
+        "path": "server/src/modules/source/SourceDefs.h",
+        "line": 37,
+        "native_usr": "c:@N@Dic@N@Module@N@Source@E@GRPStatus"
+      },
+      "source": [
+        {
+          "line": 39,
+          "text": "inline GRPStatus GetGRPStatus(int status) { return static_cast<GRPStatus>(status); }"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/source/SourcePlugin.h",
+      "native_nodes": 29,
+      "native_references": 24,
+      "reference": {
+        "name": "Core::BasePlugin",
+        "line": 24,
+        "column": 29
+      },
+      "target": {
+        "name": "BasePlugin",
+        "path": "server/msinsight/include/BasePlugin.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Core@S@BasePlugin"
+      },
+      "source": [
+        {
+          "line": 24,
+          "text": "class SourcePlugin : public Core::BasePlugin {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/source/handler/QueryCachelineRecordHandler.h",
+      "native_nodes": 23,
+      "native_references": 15,
+      "reference": {
+        "name": "ModuleRequestHandler",
+        "line": 27,
+        "column": 44
+      },
+      "target": {
+        "name": "ModuleRequestHandler",
+        "path": "server/msinsight/include/base/ModuleRequestHandler.h",
+        "line": 24,
+        "native_usr": "c:@N@Dic@N@Module@S@ModuleRequestHandler"
+      },
+      "source": [
+        {
+          "line": 27,
+          "text": "class QueryCachelineRecordHandler : public ModuleRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/summary/SummaryPlugin.h",
+      "native_nodes": 29,
+      "native_references": 24,
+      "reference": {
+        "name": "Core::BasePlugin",
+        "line": 24,
+        "column": 30
+      },
+      "target": {
+        "name": "BasePlugin",
+        "path": "server/msinsight/include/BasePlugin.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Core@S@BasePlugin"
+      },
+      "source": [
+        {
+          "line": 24,
+          "text": "class SummaryPlugin : public Core::BasePlugin {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/summary/core/ParallelStrategyAlgorithmDef.h",
+      "native_nodes": 408,
+      "native_references": 316,
+      "reference": {
+        "name": "std",
+        "line": 26,
+        "column": 7
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 71,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 26,
+          "text": "const std::string DP_GROUP = \"dp\";"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/summary/handler/QueryParallelismArrangementHandler.h",
+      "native_nodes": 28,
+      "native_references": 18,
+      "reference": {
+        "name": "SummaryRequestHandler",
+        "line": 25,
+        "column": 51
+      },
+      "target": {
+        "name": "SummaryRequestHandler",
+        "path": "server/src/modules/summary/handler/SummaryRequestHandler.h",
+        "line": 29,
+        "native_usr": "c:@N@Dic@N@Module@N@Summary@S@SummaryRequestHandler"
+      },
+      "source": [
+        {
+          "line": 25,
+          "text": "class QueryParallelismArrangementHandler : public SummaryRequestHandler {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/TimelinePlugin.h",
+      "native_nodes": 29,
+      "native_references": 24,
+      "reference": {
+        "name": "Core::BasePlugin",
+        "line": 24,
+        "column": 31
+      },
+      "target": {
+        "name": "BasePlugin",
+        "path": "server/msinsight/include/BasePlugin.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Core@S@BasePlugin"
+      },
+      "source": [
+        {
+          "line": 24,
+          "text": "class TimelinePlugin : public Core::BasePlugin {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/cache/CacheManager.h",
+      "native_nodes": 58,
+      "native_references": 38,
+      "reference": {
+        "name": "class Dic::Module::Timeline::CacheManager",
+        "line": 28,
+        "column": 12
+      },
+      "target": {
+        "name": "CacheManager",
+        "path": "server/src/modules/timeline/core/cache/CacheManager.h",
+        "line": 26,
+        "native_usr": "c:@N@Dic@N@Module@N@Timeline@S@CacheManager"
+      },
+      "source": [
+        {
+          "line": 28,
+          "text": "    static CacheManager &Instance() {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/cache/SliceCacheManager.h",
+      "native_nodes": 5949,
+      "native_references": 5076,
+      "reference": {
+        "name": "uint64_t",
+        "line": 32,
+        "column": 18
+      },
+      "target": {
+        "name": "uint64_t",
+        "path": "",
+        "line": 42,
+        "native_usr": "c:@T@uint64_t"
+      },
+      "source": [
+        {
+          "line": 32,
+          "text": "static constexpr uint64_t MINUTE_NS = 60ULL * 1000ULL * 1000ULL * 1000ULL;"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+      "native_nodes": 8042,
+      "native_references": 6670,
+      "reference": {
+        "name": "enum Dic::Module::Timeline::SliceTableType",
+        "line": 52,
+        "column": 5
+      },
+      "target": {
+        "name": "SliceTableType",
+        "path": "server/src/modules/timeline/core/database/SearchSliceCacheManager.h",
+        "line": 39,
+        "native_usr": "c:@N@Dic@N@Module@N@Timeline@E@SliceTableType"
+      },
+      "source": [
+        {
+          "line": 52,
+          "text": "    SliceTableType tableType;"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextAdviceSqlConstant.h",
+      "native_nodes": 228,
+      "native_references": 203,
+      "reference": {
+        "name": "std",
+        "line": 35,
+        "column": 12
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 37,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 35,
+          "text": "    static std::string GenerateFusibleOpFilterTextSql("
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextSqlConstant.h",
+      "native_nodes": 14697,
+      "native_references": 12960,
+      "reference": {
+        "name": "std",
+        "line": 32,
+        "column": 7
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 71,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 32,
+          "text": "const std::string SLICE_TABLE = \"slice\";"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TraceDatabaseSqlConst.h",
+      "native_nodes": 1121,
+      "native_references": 992,
+      "reference": {
+        "name": "std",
+        "line": 26,
+        "column": 7
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 37,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 26,
+          "text": "const std::string TEMP_FWDBWD_FLOW_TABLE = \"tmpFwdbwdFlow\";"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/parser/JsonParseMemPool.h",
+      "native_nodes": 80,
+      "native_references": 65,
+      "reference": {
+        "name": "class Dic::Module::JsonParseMemPool",
+        "line": 30,
+        "column": 12
+      },
+      "target": {
+        "name": "JsonParseMemPool",
+        "path": "server/src/modules/timeline/core/parser/JsonParseMemPool.h",
+        "line": 28,
+        "native_usr": "c:@N@Dic@N@Module@S@JsonParseMemPool"
+      },
+      "source": [
+        {
+          "line": 30,
+          "text": "    static JsonParseMemPool &Instance() {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/parser/TraceFileSimulationParser.h",
+      "native_nodes": 149,
+      "native_references": 101,
+      "reference": {
+        "name": "FileParser",
+        "line": 33,
+        "column": 42
+      },
+      "target": {
+        "name": "FileParser",
+        "path": "server/src/modules/base/core/FileParser.h",
+        "line": 63,
+        "native_usr": "c:@N@Dic@N@Module@S@FileParser"
+      },
+      "source": [
+        {
+          "line": 33,
+          "text": "class TraceFileSimulationParser : public FileParser, protected JsonFileProcess {"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/core/table/CollectionTimeService.h",
+      "native_nodes": 154,
+      "native_references": 117,
+      "reference": {
+        "name": "std",
+        "line": 24,
+        "column": 5
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 37,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 24,
+          "text": "    std::string hostWithOutMark;"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    },
+    {
+      "path": "server/src/modules/timeline/protocol/TimelineParamStrcut.h",
+      "native_nodes": 1519,
+      "native_references": 1020,
+      "reference": {
+        "name": "std",
+        "line": 28,
+        "column": 5
+      },
+      "target": {
+        "name": "std",
+        "path": "",
+        "line": 71,
+        "native_usr": "c:@N@std"
+      },
+      "source": [
+        {
+          "line": 28,
+          "text": "    std::string col;"
+        }
+      ],
+      "forward": true,
+      "reverse": true,
+      "passed": true
+    }
+  ],
+  "query_passed": true,
+  "external_native_targets": 1993,
+  "unresolved_native_references": [
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 31,
+      "column": 19,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 31,
+      "column": 19,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 32,
+      "column": 13,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 32,
+      "column": 19,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 32,
+      "column": 19,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 35,
+      "column": 16,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 52,
+      "column": 26,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 52,
+      "column": 26,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 52,
+      "column": 49,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 52,
+      "column": 49,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 58,
+      "column": 17,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 58,
+      "column": 17,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 58,
+      "column": 39,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 58,
+      "column": 39,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 59,
+      "column": 17,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 59,
+      "column": 17,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 68,
+      "column": 36,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 68,
+      "column": 36,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 68,
+      "column": 50,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 68,
+      "column": 50,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 72,
+      "column": 17,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 72,
+      "column": 17,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 73,
+      "column": 17,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 73,
+      "column": 17,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 74,
+      "column": 17,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 74,
+      "column": 17,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 83,
+      "column": 41,
+      "native_kind": "DECL_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 83,
+      "column": 63,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 83,
+      "column": 84,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 86,
+      "column": 62,
+      "native_kind": "DECL_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 89,
+      "column": 13,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 89,
+      "column": 13,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 89,
+      "column": 28,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 89,
+      "column": 28,
+      "native_kind": "MEMBER_REF_EXPR",
+      "native_type": "<dependent type>"
+    },
+    {
+      "path": "server/msinsight/src/utils/CollectionUtil.h",
+      "line": 99,
+      "column": 17,
+      "native_kind": "CALL_EXPR",
+      "native_type": "<dependent type>"
+    }
+  ],
+  "focused_python_tests": {
+    "run": 14,
+    "failed": 0
+  },
+  "first_attempts": [
+    {
+      "attempt": "libclang18_with_clang23_builtin_headers",
+      "result": "compiler_builtin_mismatch_and_gcc_codegen_option_rejected",
+      "fixed": "matching_18.1.1_builtin_headers_and_explicit_nonsemantic_argument_omission"
+    },
+    {
+      "attempt": "query_source_response",
+      "result": "checker_assumed_optional_stop_reason_field",
+      "fixed": "use_existing_optional_response_contract"
+    },
+    {
+      "attempt": "first_header_queries",
+      "headers": 37,
+      "failed": 2,
+      "reason": "external_library_targets_not_preserved",
+      "fixed": "native_external_declaration_entities_with_usr_and_header_identity"
+    }
+  ],
+  "unified_snapshot_recheck": "pending_joint_rebuild_after_three_provider_integrations",
+  "runtime_execution": false,
+  "whole_R0_R1_accepted": false
+}

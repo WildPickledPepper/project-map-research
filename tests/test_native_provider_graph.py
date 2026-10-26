@@ -57,6 +57,26 @@ class NativeProviderGraphTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'identity collision'):
             merge(graph, facts, provider='clangd', context='release')
 
+    def test_native_header_capture_preserves_standalone_diagnostics_and_rejects_wrong_provider(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory); facts=self.facts();facts['components']['provider']='libclang'
+            facts['nodes'][0]['id']='libclang:header:1'
+            facts['coverage'][0]['translation_units']=[{'translation_unit':'consumer.cpp','status':'parsed','errors':0}]
+            (root/'facts.json').write_text(json.dumps(facts))
+            capture={'provider':'libclang','directory':str(root),'source_commit':'c'*40,'context_key':'release'}
+            result=read_capture(capture,paths=['model.hpp'],source_commit='c'*40)
+            graph={'input_paths':['model.hpp'],'nodes':[],'edges':[],'limits':[],'diagnostics':[],
+                   'coverage':[{'path':'model.hpp','status':'parsed_with_diagnostics',
+                     'native_semantic_status':'parsed_with_diagnostics','providers':[{'provider':'clangd','status':'parsed_with_diagnostics'}]}]}
+            merge(graph,result,provider='libclang',context='release')
+            row=graph['coverage'][0]
+            self.assertEqual(row['status'],'parsed')
+            self.assertEqual(row['standalone_native_semantic_status'],'parsed_with_diagnostics')
+            self.assertEqual(row['providers'][0]['status'],'parsed_with_diagnostics')
+            self.assertEqual(row['translation_unit_semantics']['translation_units'][0]['errors'],0)
+            with self.assertRaisesRegex(ValueError,'wrong provider'):
+                read_capture({**capture,'provider':'clangd'},paths=['model.hpp'],source_commit='c'*40)
+
     def test_outside_source_is_not_accepted_by_merge(self):
         graph = {'input_paths': ['other.hpp'], 'nodes': [], 'edges': [], 'limits': [], 'diagnostics': [], 'coverage': []}
         with self.assertRaisesRegex(ValueError, 'escaped'):

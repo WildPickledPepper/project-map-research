@@ -15,6 +15,7 @@ def main():
     for name in ('source','output','typescript','cmake-capture','cbm-capture','clang-capture'):
         ap.add_argument('--'+name,type=Path,required=True)
     ap.add_argument('--revision',required=True)
+    ap.add_argument('--header-capture',type=Path)
     args=ap.parse_args()
     if args.output.exists():ap.error('Use a new output')
     before=git(args.source,'status','--porcelain','--untracked-files=normal')
@@ -24,6 +25,9 @@ def main():
         'source_commit':args.revision}]},'providers':{'captures':[
         {'provider':'cbm','directory':str(args.cbm_capture.resolve()),'source_commit':args.revision,'context_key':'selected_repository'},
         {'provider':'clangd','directory':str(args.clang_capture.resolve()),'source_commit':args.revision,'context_key':context}]}}
+    if args.header_capture:
+        analysis['build']['providers']['captures'].append({'provider':'libclang',
+            'directory':str(args.header_capture.resolve()),'source_commit':args.revision,'context_key':context})
     workspace=Workspace.create(args.output/'workspace',args.source,revision=args.revision,
                                 typescript=args.typescript,analysis=analysis)
     started=time.monotonic()

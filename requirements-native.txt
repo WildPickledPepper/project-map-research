@@ -1,2 +1,3 @@
 -r requirements-store.txt
 multilspy @ https://github.com/microsoft/multilspy/archive/62acb3cf2d7a0746992ca08767d8a4fded402ebb.zip
+libclang==18.1.1
