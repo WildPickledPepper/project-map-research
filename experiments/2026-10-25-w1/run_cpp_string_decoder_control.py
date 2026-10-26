@@ -20,6 +20,7 @@ def main():
     for name in ('source','parser-cache','output'):ap.add_argument('--'+name,type=Path,required=True)
     ap.add_argument('--revision',required=True);ap.add_argument('--argv-origins',action='store_true')
     ap.add_argument('--member-declarations',action='store_true')
+    ap.add_argument('--literal-switches',action='store_true')
     args=ap.parse_args();rules=rules_version(require_clean=True)
     if args.output.exists() or args.output.resolve().is_relative_to(args.source.resolve()):ap.error('Choose a new output outside source')
     config={'version':1,'scope':{'discovery':{},'include':['*.h','*.hpp','*.cpp','*.cc','*.cxx']},'deployment':{},'storage':'json'}
@@ -37,11 +38,18 @@ def main():
     graph['provenance']={'input_kind':'git_committed_blob_export','working_tree_included':False,'reference_used_for_extraction':False,
         'update_mode':'cpp_source_facts_and_string_decoder_control','file_hash_verification':'not_run_per_user_preference'}
     graph=augment(graph,data,protocol)
-    if args.member_declarations:
+    if args.member_declarations or args.literal_switches:
         from adapters.cpp_member_declarations import project as project_members
         members=project_members(list(data.fields.values()))
         graph['nodes'].extend(members['nodes']);graph['edges'].extend(members['edges']);graph['diagnostics'].extend(data.diagnostics)
         graph['cpp_member_declarations']=members['summary']
+    if args.literal_switches:
+        from adapters.cpp_member_effects import extract_member_effects,project as project_effects
+        from adapters.cpp_string_switches import augment as switches
+        records=extract_member_effects(data);effects=project_effects(records)
+        graph['nodes'].extend(effects['nodes']);graph['edges'].extend(effects['edges']);graph['cpp_member_effects']=effects['summary']
+        graph['data']={'member_declarations':list(data.fields.values()),'member_effects':records}
+        graph=switches(graph,data,protocol)
     if args.argv_origins:
         from adapters.cpp_argv_origins import augment as argv_origins
         graph=argv_origins(graph,data,protocol)
@@ -63,6 +71,10 @@ def main():
     if args.member_declarations:
         trial.update(schema='cpp-member-declaration-control/1',origin='current_cpp_source_facts_with_member_declaration_alternatives',
             member_summary=graph['cpp_member_declarations'])
+    if args.literal_switches:
+        trial.update(schema='cpp-literal-switch-control/1',origin='current_cpp_source_member_effects_switches_and_argv',
+            member_summary=graph['cpp_member_declarations'],member_effect_summary=graph['cpp_member_effects'],
+            switch_summary=graph['cpp_string_switches'])
     if rules_version(require_clean=True)!=rules:raise ValueError('Rules changed during control')
     for name,value in [('trial.json',trial),('selection.json',selection)]:
         (args.output/name).write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')

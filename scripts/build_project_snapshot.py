@@ -144,6 +144,9 @@ def build(source, request, output, log, *, typescript):
     from adapters.cpp_string_decoders import augment as string_decoders
     graph = string_decoders(graph,extractor,protocol_engine)
     graph['extractors']['cpp_string_decoders']=graph['cpp_string_decoders']['adapter']
+    from adapters.cpp_string_switches import augment as string_switches
+    graph=string_switches(graph,extractor,protocol_engine)
+    graph['extractors']['cpp_string_switches']=graph['cpp_string_switches']['adapter']
     from adapters.cpp_argv_origins import augment as argv_origins
     graph = argv_origins(graph,extractor,protocol_engine)
     graph['extractors']['cpp_argv_origins']=graph['cpp_argv_origins']['adapter']

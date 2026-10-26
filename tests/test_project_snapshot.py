@@ -33,15 +33,16 @@ class FullSnapshotTests(unittest.TestCase):
  let image=std::env::current_exe().unwrap();
  let child=image.parent().unwrap().join("assets").join("service").join("worker{suffix}");
  let chosen=std::env::var("CHANNEL").unwrap().parse::<u16>().unwrap();
- let _child=std::process::Command::new(child).arg(format!("--channel={{chosen}}")).spawn();
+ let _child=std::process::Command::new(child).arg(format!("--channel={{chosen}}")).arg("--free-mode").spawn();
  let _client=std::net::TcpStream::connect(format!("127.0.0.1:{{chosen}}"));
 }}
 ''', 'compile/CMakeLists.txt':'cmake_minimum_required(VERSION 3.16)\nproject(Worker LANGUAGES CXX)\nadd_executable(worker_engine ../server/main.cpp)\nset_target_properties(worker_engine PROPERTIES OUTPUT_NAME "worker" RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../native")\n',
                 'server/main.cpp':'''#include <string>
 const std::string key="--channel=";
+struct Settings {bool strict=true;};
 bool receive(const std::string& value){return !value.empty();}
-bool decode(const std::string& text){auto position=text.find(key);if(position!=std::string::npos){return receive(text.substr(position+key.size()));}return false;}
-int main(int count,char **words){decode(std::string(words[1]));return 0;}
+bool decode(const std::string& text){Settings settings;auto position=text.find(key);if(position!=std::string::npos){return receive(text.substr(position+key.size()));}if(text=="--free-mode"){settings.strict=false;return true;}return false;}
+int main(int count,char **words){for(int index=1;index<count;index++){decode(std::string(words[index]));}return 0;}
 ''', 'view.ts':'export function show(){return 1;}\n',
                 'assemble.py':f'''import os,subprocess,shutil
 ROOT=os.path.dirname(os.path.realpath(__file__))
@@ -79,7 +80,7 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
             self.assertTrue(templates);self.assertTrue(all(t['complete'] for t in templates))
             contextual_slots=[]
             for context in {t['analysis_context'] for t in templates}:
-                group=[t for t in templates if t['analysis_context']==context];self.assertEqual(len(group),2)
+                group=[t for t in templates if t['analysis_context']==context and any('slot' in p for p in t['parts'])];self.assertEqual(len(group),2)
                 slots=[next(p['slot'] for p in t['parts'] if 'slot' in p) for t in group]
                 self.assertEqual(slots[0],slots[1]);contextual_slots.append(slots[0])
                 for template in group:
@@ -89,7 +90,8 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
                         self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
             self.assertEqual(len(contextual_slots),len(set(contextual_slots)))
             argument_matches=[n for n in graph['nodes'] if n['kind']=='process_argument_binding']
-            self.assertEqual(len(argument_matches),1);argument_match=argument_matches[0]
+            self.assertEqual(len(argument_matches),2)
+            argument_match=next(m for m in argument_matches if m['name']=='--channel=')
             self.assertEqual(argument_match['name'],'--channel=');self.assertEqual(argument_match['provider'],provider['id'])
             self.assertEqual(argument_match['payload_equivalence'],'not_established')
             receive=next(n for n in graph['nodes'] if n['kind']=='callable' and n['path']=='server/main.cpp' and n['name']=='receive')
@@ -97,6 +99,15 @@ shutil.copyfile(os.path.join(ROOT,'native','worker{suffix}'),os.path.join(ROOT,'
             for direction,start,end in [('out',argument_match['template'],receive['id']),('in',receive['id'],argument_match['template'])]:
                 route=workspace.query('path',start=start,target=end,direction=direction,kinds=kinds,depth=5,nodes=60,edges=80,output_bytes=524288)
                 self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+            switch_match=next(m for m in argument_matches if m['name']=='--free-mode')
+            self.assertEqual(switch_match['word_match_basis'],'full_source_word')
+            member=next(n for n in graph['nodes'] if n['kind']=='source_member_storage' and n['name']=='Settings::strict')
+            switch_kinds=['BIND_PROCESS_ARGUMENT','MATCHES_ARGV_DECODER_CANDIDATE','BINDS_ARGV_DECODER_CANDIDATE',
+                'STRING_BRANCH_MEMBER_WRITE_CANDIDATE','WRITES_SOURCE_MEMBER_CANDIDATE']
+            for direction,start,end in [('out',switch_match['template'],member['id']),('in',member['id'],switch_match['template'])]:
+                route=workspace.query('path',start=start,target=end,direction=direction,kinds=switch_kinds,depth=6,nodes=80,edges=100,output_bytes=1048576)
+                self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
+            self.assertEqual(workspace.query('source',start=member['id'])['path'],'server/main.cpp')
             self.assertEqual(git('status','--porcelain'),'')
 
     def test_native_cmake_target_and_entry_survive_workspace_build_and_bidirectional_query(self):

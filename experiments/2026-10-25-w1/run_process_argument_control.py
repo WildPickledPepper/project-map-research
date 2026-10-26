@@ -22,24 +22,36 @@ def main():
     if graph.get('process_argument_bindings'):raise ValueError('Use a startup graph preceding argument binding')
     selection=select_inputs(args.source,args.revision,graph['version']['config']);paths=[r['path'] for r in selection['files']]
     if graph['source_commit']!=selection['source_commit'] or set(graph['input_paths'])!=set(paths):raise ValueError('Startup source revision/scope differs')
-    versions={'startup':graph['version']['build_version']};known={n['id'] for n in graph['nodes']};counts={};imported={}
+    versions={'startup':graph['version']['build_version']};known={n['id']:n for n in graph['nodes']};counts={};imported={}
     for label,directory,predicate,metadata in [
         ('rust_arguments',args.rust_argument_trial,lambda n:n['id'].startswith('rust-value:'),'rust_argument_templates'),
         ('cpp_argv',args.cpp_argv_trial,lambda n:n['kind'] in {'string_key_decoder','cpp_entry_argv','cpp_argv_decoder_binding'},'cpp_argv_origins')]:
         source=json.loads((directory/'graph.json').read_text(encoding='utf-8'))
         if source['source_commit']!=graph['source_commit'] or not set(source['input_paths'])<=set(paths):raise ValueError('Argument source revision/scope differs')
-        selected=[n for n in source['nodes'] if predicate(n)];ids={n['id'] for n in selected}
-        if ids&known:raise ValueError('Argument projection nodes already exist in startup graph')
-        graph['nodes'].extend(selected);known.update(ids)
+        enriched=label=='cpp_argv' and 'cpp_string_switches' in source
+        member_kinds={'source_member_storage','cpp_member_declaration','source_member_effect'} if enriched else set()
+        selected=[n for n in source['nodes'] if predicate(n) or n['kind'] in member_kinds];ids={n['id'] for n in selected}
+        if any(n['id'] in known and n['kind']!='source_member_storage' for n in selected):raise ValueError('Argument projection nodes already exist in startup graph')
+        overlaid=0;added=0
+        for node in selected:
+            if node['id'] in known:
+                if known[node['id']]['kind']!='storage_member':raise ValueError('Unexpected cached member node kind')
+                kind=known[node['id']]['kind'];known[node['id']].update(node);known[node['id']]['kind']=kind;overlaid+=1
+            else:graph['nodes'].append(node);known[node['id']]=node;added+=1
         relations=[e for e in source['edges'] if e['source'] in ids or e['target'] in ids]
         if any(e['source'] not in known or e['target'] not in known for e in relations):raise ValueError('Versioned argument relation has no startup source target')
         graph['edges'].extend(relations)
         graph['diagnostics'].extend(d for d in source['diagnostics'] if d['kind'] in {
-            'rust_argument_template_unresolved','cpp_string_decoder_unresolved','cpp_argv_origin_unresolved'})
+            'rust_argument_template_unresolved','cpp_string_decoder_unresolved','cpp_argv_origin_unresolved',
+            'cpp_member_declaration_unresolved','cpp_string_switch_unresolved'})
         graph[metadata]=source[metadata]
         if label=='cpp_argv':graph['cpp_string_decoders']=source['cpp_string_decoders']
+        if enriched:
+            for field in ('cpp_member_declarations','cpp_member_effects','cpp_string_switches'):graph[field]=source[field]
+            graph.setdefault('data',{}).update(source['data'])
         versions[label]=source['version']['build_version'];counts[label]=len(source['input_paths'])
         imported[label]={'nodes':len(selected),'edges':len(relations)}
+        if enriched:imported[label].update(added_nodes=added,overlaid_member_nodes=overlaid)
         del source
     graph['snapshot']=graph['source_commit']+':process-argument-control:'+uuid.uuid4().hex
     version={'rules_commit':rules,'python':sys.version.split()[0],'cached_build_versions':versions}
@@ -58,6 +70,9 @@ def main():
         'installed_tool_tested':False,'product_compiled':False,'runtime_execution':False,'payload_value_equivalence_established':False,
         'backend_listener_connected':False,'whole_G03_accepted':False,'original_checkout_modified':git(args.source,'status','--porcelain')!=before,
         'file_hash_verification':'not_run_per_user_preference'}
+    if 'cpp_string_switches' in graph:
+        trial.update(schema='process-literal-switch-control/1',switch_summary=graph['cpp_string_switches'],
+            member_summary=graph['cpp_member_declarations'],member_effect_summary=graph['cpp_member_effects'])
     if rules_version(require_clean=True)!=rules:raise ValueError('Rules changed during control')
     for name,value in [('trial.json',trial),('selection.json',selection)]:
         (args.output/name).write_text(json.dumps(value,indent=2)+'\n',encoding='utf-8')

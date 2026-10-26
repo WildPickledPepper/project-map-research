@@ -45,6 +45,10 @@ def augment(base,cpp,paths):
     members=project_members(data.get('member_declarations',[]))
     by_id.update({n['id']:n for n in members['nodes']});edges.extend(members['edges'])
     graph['cpp_member_declarations']=members['summary']
+    from adapters.cpp_member_effects import project as project_member_effects
+    effects=project_member_effects(data.get('member_effects',{'members':[],'effects':[]}))
+    by_id.update({n['id']:n for n in effects['nodes']});edges.extend(effects['edges'])
+    graph['cpp_member_effects']=effects['summary']
     for storage in data['storages']:node(storage,'storage_member',storage['owner']+'::'+storage['name'])
     for access in data['accesses']:
         node(access,'storage_access',access['operation'])
@@ -156,6 +160,7 @@ def augment(base,cpp,paths):
     graph['coverage']=[coverage[p] for p in paths]
     graph['data']=data;graph['extractors']['cpp_data']='cpp_data/0.6.0';graph['extractors']['cpp_value_types']='cpp_value_types/0.1.0'
     graph['extractors']['cpp_member_declarations']=members['summary']['adapter']
+    graph['extractors']['cpp_member_effects']=effects['summary']['adapter']
     graph['extractors']['cpp_field_flow']='cpp_field_flow/0.2.0'
     graph['extractors']['cpp_serialization']='cpp_serialization/0.1.0'
     graph['extractors']['cpp_response_routing']='cpp_response_routing/0.1.0'

@@ -35,3 +35,23 @@ def extract_member_effects(data):
     return {'version':'0.1','members':[f for f in data.fields.values() if f['id'] in used], 'effects':effects,
         'limits':['class_member_identity_is_not_object_identity','receiver_use_may_read_or_write',
                   'compound_assignment_also_reads','lifetime_lock_order_and_runtime_occupancy_not_proved']}
+
+
+def project(result):
+    members={m['id']:m for m in result['members']};nodes=[];edges=[]
+    for effect in result['effects']:
+        location=effect['evidence'][0];member=members[effect['member']]
+        nodes.append({**effect,'kind':'source_member_effect','name':member['owner']+'::'+member['name']+' '+effect['role'],
+            'path':location['path'],'line':location['line'],'runtime_execution':'not_observed'})
+        links=[(effect['source_symbol'],effect['id'],'OBSERVES_MEMBER_'+effect['role'].upper())]
+        if effect['role']=='write':links.append((effect['id'],effect['member'],'WRITES_SOURCE_MEMBER_CANDIDATE'))
+        elif effect['role']=='read':links.extend([(effect['member'],effect['id'],'SOURCE_MEMBER_READ_BY'),
+            (effect['id'],effect['source_symbol'],'AFFECTS_MEMBER_READER')])
+        else:links.append((effect['id'],effect['member'],'MEMBER_RECEIVER_CANDIDATE'))
+        for source,target,kind in links:
+            edges.append({'source':source,'target':target,'kind':kind,'status':'source_member_effect_candidate',
+                'evidence':effect['evidence'],'conditions':effect['conditions']+[
+                    {'kind':'member_declaration_identity_does_not_select_object_instance'}],
+                'instance_identity':effect['instance_identity'],'runtime_execution':'not_observed'})
+    return {'nodes':nodes,'edges':edges,'summary':{'adapter':'cpp_source_member_effect_graph/0.1.0',
+        'effects':len(nodes),'object_instances_selected':False}}

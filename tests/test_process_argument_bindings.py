@@ -137,5 +137,35 @@ class ProcessArgumentBindingTests(unittest.TestCase):
         g=augment(fixture())
         with self.assertRaisesRegex(ValueError,'already present'):augment(g)
 
+    def test_equality_switch_requires_the_entire_known_source_word(self):
+        g=fixture();self.node(g,'decoder').update(match_mode='string_equality',key='--relaxed',targets=[])
+        self.node(g,'template')['parts']=[{'literal':'--relaxed'}]
+        augment(g);row,=self.matches(g);self.assertEqual(row['word_match_basis'],'full_source_word')
+        self.assertEqual(row['payload_equivalence'],'not_established')
+        self.assertIn('prepared_input_equals_literal_switch_key',{c['kind'] for c in row['conditions']})
+        for parts in ([{'literal':'--relaxed=1'}],[{'literal':'before--relaxed'}],[{'literal':'--relaxed'},{'slot':'value','format_spec':''}]):
+            g=fixture();self.node(g,'decoder').update(match_mode='string_equality',key='--relaxed',targets=[])
+            self.node(g,'template')['parts']=parts;augment(g);self.assertEqual(self.matches(g),[])
+
+    def test_known_literal_capture_can_supply_the_whole_switch_word(self):
+        g=fixture();self.node(g,'decoder').update(match_mode='string_equality',key='--changed',targets=[])
+        self.node(g,'value')['literal']='--changed';self.node(g,'template')['parts']=[{'slot':'value','format_spec':''}]
+        augment(g);self.assertEqual(len(self.matches(g)),1)
+
+    def test_equality_unknown_suffix_keeps_a_specific_required_gap(self):
+        g=fixture();self.node(g,'decoder').update(match_mode='string_equality',key='--relaxed',targets=[])
+        self.node(g,'template').update(parts=[{'literal':'--relaxed'},{'slot':'value','format_spec':''}],complete=False,gaps=['dynamic_suffix'])
+        augment(g);self.assertEqual(self.matches(g),[])
+        self.assertIn('argument_equality_word_value_unresolved',self.reasons(g))
+
+    def test_equality_rejects_a_proven_nonempty_unconditional_append(self):
+        for literal,conditions,expected in [('=',[],0),('',[],1),('=',[{'kind':'branch','when':True}],1)]:
+            g=fixture();self.node(g,'decoder').update(match_mode='string_equality',key='--relaxed',targets=[])
+            self.node(g,'template')['parts']=[{'literal':'--relaxed'}]
+            self.node(g,'input')['value']['steps'].append({'kind':'standard_string_append','source_symbol':'parse',
+                'operand':{'literal':literal},'conditions':conditions,'preserves_existing_prefix':True})
+            augment(g);self.assertEqual(len(self.matches(g)),expected)
+            if not expected:self.assertIn('literal_switch_changed_by_unconditional_append',self.reasons(g))
+
 
 if __name__=='__main__':unittest.main()

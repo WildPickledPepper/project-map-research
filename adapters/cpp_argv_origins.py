@@ -18,7 +18,7 @@ from adapters.syntax_supplement import identity,parents,text,walk
 from adapters.cpp_control import predicates
 
 
-ADAPTER_VERSION='cpp_contextual_entry_argv_provenance/0.1.0'
+ADAPTER_VERSION='cpp_contextual_entry_argv_provenance/0.2.0'
 
 
 def uid(*parts):return 'cpp-argv:'+':'.join(quote(str(p),safe='') for p in parts)
@@ -278,11 +278,16 @@ class Origins(Decoders):
             edges.append({'source':entry,'target':source,'kind':'CPP_ENTRY_ARGV','status':'source_candidate','runtime_execution':'not_observed',
                 'evidence':[self.d.evidence(symbol['path'],parameter)],'conditions':[{'kind':'recorded_narrow_main_signature_is_process_entry'}]})
         for decoder in [n for n in graph['nodes'] if n['kind']=='string_key_decoder']:
-            variable=decoder['input_storage'];node=self.ast.get((variable['path'],variable['start_byte'],variable['end_byte']))
-            if node is None:raise ValueError('Decoder input declaration is missing from source')
-            owner=decoder['source_symbol'];search=next((n for n in walk(self.functions[owner]['container']) if
-                n.type=='call_expression' and 'cpp:'+identity(variable['path'],'call_site',n)==decoder['search_call']),None)
-            reference=search.child_by_field_name('function').child_by_field_name('argument') if search is not None else None
+            owner=decoder['source_symbol'];location=decoder.get('input_reference')
+            if location:
+                reference=self.ast.get((location['path'],location['start_byte'],location['end_byte']))
+                if reference is None:raise ValueError('Decoder input reference is missing from source')
+            else:
+                variable=decoder['input_storage'];node=self.ast.get((variable['path'],variable['start_byte'],variable['end_byte']))
+                if node is None:raise ValueError('Decoder input declaration is missing from source')
+                search=next((n for n in walk(self.functions[owner]['container']) if
+                    n.type=='call_expression' and 'cpp:'+identity(variable['path'],'call_site',n)==decoder['search_call']),None)
+                reference=search.child_by_field_name('function').child_by_field_name('argument') if search is not None else None
             rows=[]
             for frame in self.frames(owner):
                 value=self.evaluate(reference,frame);value['gaps']=sorted(set(value['gaps']))

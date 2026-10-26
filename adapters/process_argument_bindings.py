@@ -8,7 +8,7 @@ import json
 from urllib.parse import quote
 
 
-ADAPTER_VERSION='deployed_target_command_word_argv_binding/0.1.0'
+ADAPTER_VERSION='deployed_target_command_word_argv_binding/0.2.0'
 LINK_COMMANDS={'target_link_libraries','target_sources','link_libraries'}
 CODE_TARGETS={'STATIC_LIBRARY','SHARED_LIBRARY','OBJECT_LIBRARY','INTERFACE_LIBRARY'}
 WORD_STEPS={'argv_index','collection_index','collection_at','standard_string_from_argv_word','standard_vector_append_word',
@@ -19,13 +19,17 @@ def identity(*parts):return 'process-argument:'+':'.join(quote(str(p),safe='') f
 
 
 def known_prefix(template,nodes):
+    return word_literal(template,nodes)[0]
+
+
+def word_literal(template,nodes):
     parts=[]
     for part in template['parts']:
         if isinstance(part.get('literal'),str):parts.append(part['literal']);continue
         value=nodes.get(part.get('slot'),{})
         if part.get('format_spec')=='' and isinstance(value.get('literal'),str):parts.append(value['literal']);continue
-        break
-    return ''.join(parts)
+        return ''.join(parts),False
+    return ''.join(parts),bool(template['complete'])
 
 
 def nested_rows(value):
@@ -83,7 +87,7 @@ def augment(graph,*,visibility=None,max_bindings=2048,max_scope_targets=4096):
         if not programs:
             counts['words_without_bound_program']+=1
             gap('command_provider_not_bound_in_this_graph',template,required=False);continue
-        counts['words_with_bound_program']+=1;prefix=known_prefix(template,nodes);matches=[]
+        counts['words_with_bound_program']+=1;prefix,complete_word=word_literal(template,nodes);matches=[]
         if template['role']!='process_argument':gap('argument_sequence_not_expanded',template);continue
         if not prefix:gap('argument_literal_prefix_unavailable',template);continue
         for path,match in programs:
@@ -94,7 +98,14 @@ def augment(graph,*,visibility=None,max_bindings=2048,max_scope_targets=4096):
             if not candidates:gap('provider_argv_decoder_entry_unavailable',template,provider=provider['id']);continue
             for binding in candidates:
                 decoder=nodes[binding['decoder']]
-                if decoder.get('match_mode')!='substring_search' or not decoder.get('key') or decoder['key'] not in prefix:continue
+                mode=decoder.get('match_mode');key=decoder.get('key')
+                if not key:continue
+                if mode=='string_equality':
+                    if not complete_word:
+                        if key.startswith(prefix):gap('argument_equality_word_value_unresolved',template,decoder=decoder['id'])
+                        continue
+                    if key!=prefix:continue
+                elif mode!='substring_search' or key not in prefix:continue
                 if not binding['origin_complete'] or binding['value']['gaps']:
                     gap('decoder_argv_origin_incomplete',template,argv_binding=binding['id']);continue
                 if not binding['value']['origins'] or any(o['entry']!=binding['entry'] for o in binding['value']['origins']):
@@ -102,6 +113,10 @@ def augment(graph,*,visibility=None,max_bindings=2048,max_scope_targets=4096):
                 preparations=[r for r in nested_rows(binding['value']) if 'kind' in r and 'source_symbol' in r]
                 if any(r['kind'] not in WORD_STEPS or r['kind']=='standard_string_append' and not r.get('preserves_existing_prefix') for r in preparations):
                     gap('decoder_preparation_not_word_preserving',template,argv_binding=binding['id']);continue
+                if mode=='string_equality' and any(r['kind']=='standard_string_append' and
+                    isinstance(r.get('operand',{}).get('literal'),str) and r['operand']['literal'] and
+                    not any(c.get('kind') in {'branch','preprocessor','switch_label'} for c in r.get('conditions',[])) for r in preparations):
+                    gap('literal_switch_changed_by_unconditional_append',template,argv_binding=binding['id']);continue
                 symbols=[binding['entry'],decoder['source_symbol'],*binding['call_stack'],*decoder.get('targets',[]),
                     *(r['source_symbol'] for r in preparations)]
                 footprint={nodes[s]['path'] for s in symbols if s in nodes}
@@ -118,10 +133,12 @@ def augment(graph,*,visibility=None,max_bindings=2048,max_scope_targets=4096):
                     {'kind':'configured_cpp_preprocessor_and_source_type_context_applies','build_context':provider['build_context']},
                     {'kind':'recorded_native_link_dependencies_supply_decoder_code'},
                     {'kind':'decoder_branch_reached_for_selected_prepared_word'}]
+                if mode=='string_equality':conditions.append({'kind':'prepared_input_equals_literal_switch_key','key':key})
                 row={'id':uid,'kind':'process_argument_binding','name':decoder['key'],'path':template['path'],'line':template['line'],
                     'template':template['id'],'consumer':template['consumer'],'command':path['consumer'],'deployment_path':path['id'],
                     'provider':provider['id'],'provider_context':provider['build_context'],'argv_binding':binding['id'],'decoder':decoder['id'],
                     'analysis_context':context,'literal_prefix':prefix,'payload_source_complete':template['complete'],
+                    'word_match_basis':'full_source_word' if mode=='string_equality' else 'known_literal_prefix',
                     'payload_source_gaps':template['gaps'],'prepared_value_relation':'argument_word_may_contribute_to_decoded_input',
                     'payload_equivalence':'not_established','source_scope':{p:sorted(scope['paths'][p]) for p in sorted(footprint)},
                     'conditions':conditions,'status':'conditional_source_candidate','runtime_execution':'not_observed'}
