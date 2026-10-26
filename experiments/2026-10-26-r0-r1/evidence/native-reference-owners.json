@@ -1,0 +1,130 @@
+{
+  "schema": "native-reference-owner-query-probe/1",
+  "origin": "retained_native_compiler_captures",
+  "cases": [
+    {
+      "context": "feature-on",
+      "components": {
+        "adapter": "clangd_multilspy_provider/0.1.0",
+        "provider": "clangd",
+        "context": "feature-on",
+        "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "multilspy": "0.1.1",
+        "version": "clangd version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
+        "reference_owner_policy": "native_lexical_ranges/1",
+        "precision_policy": "diagnostic_context_candidates/1"
+      },
+      "derived_edges": 11,
+      "checks": [
+        {
+          "name": "action",
+          "direction": "out",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE",
+            "CLANGD_REFERS_TO_DECLARATION"
+          ]
+        },
+        {
+          "name": "action",
+          "direction": "in",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_REFERS_TO_DECLARATION",
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE"
+          ]
+        },
+        {
+          "name": "identity",
+          "direction": "out",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE",
+            "CLANGD_REFERS_TO_DECLARATION"
+          ]
+        },
+        {
+          "name": "identity",
+          "direction": "in",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_REFERS_TO_DECLARATION",
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE"
+          ]
+        },
+        {
+          "name": "native_ids_and_existing_edges_preserved",
+          "passed": true
+        },
+        {
+          "name": "lexical_owners_have_the_same_source_path",
+          "passed": true
+        }
+      ]
+    },
+    {
+      "context": "feature-0",
+      "components": {
+        "adapter": "clangd_multilspy_provider/0.1.0",
+        "provider": "clangd",
+        "context": "feature-0",
+        "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "multilspy": "0.1.1",
+        "version": "clangd version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)",
+        "reference_owner_policy": "native_lexical_ranges/1",
+        "precision_policy": "diagnostic_context_candidates/1"
+      },
+      "derived_edges": 11,
+      "checks": [
+        {
+          "name": "action",
+          "direction": "out",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE",
+            "CLANGD_REFERS_TO_DECLARATION"
+          ]
+        },
+        {
+          "name": "action",
+          "direction": "in",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_REFERS_TO_DECLARATION",
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE"
+          ]
+        },
+        {
+          "name": "identity",
+          "direction": "out",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE",
+            "CLANGD_REFERS_TO_DECLARATION"
+          ]
+        },
+        {
+          "name": "identity",
+          "direction": "in",
+          "passed": true,
+          "path_kinds": [
+            "CLANGD_REFERS_TO_DECLARATION",
+            "CLANGD_LEXICALLY_CONTAINS_REFERENCE"
+          ]
+        },
+        {
+          "name": "native_ids_and_existing_edges_preserved",
+          "passed": true
+        },
+        {
+          "name": "lexical_owners_have_the_same_source_path",
+          "passed": true
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "new_native_compilation_executed": false,
+  "runtime_execution": false,
+  "whole_G02_accepted": false
+}

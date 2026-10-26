@@ -1,5 +1,6 @@
 """Translate native clangd replies through multilspy; no C++ semantic solver."""
 import asyncio
+from collections import defaultdict
 import importlib.metadata
 import json
 import os
@@ -16,8 +17,52 @@ SYMBOL_KINDS = {5: 'type', 6: 'callable', 7: 'value', 8: 'value', 9: 'callable',
                 22: 'value', 23: 'type', 26: 'type', 3: 'namespace'}
 
 
+def reference_owners(facts):
+    """Connect native lexical ranges while retaining provider/context identities."""
+    def position(value):
+        return value['line'], value['character']
+    def scope(node):
+        return node['path'], node.get('provenance', {}).get('context', facts['components'].get('context'))
+    declarations = defaultdict(list)
+    for node in facts['nodes']:
+        if node['kind'] == 'callable' and node.get('native_range'):
+            declarations[scope(node)].append(node)
+    existing = {(e['source'], e['target']) for e in facts['edges']
+                if e['kind'] == 'CLANGD_LEXICALLY_CONTAINS_REFERENCE'}
+    for reference in facts['nodes']:
+        bounds = reference.get('native_range')
+        if reference['kind'] != 'symbol_reference' or not bounds:
+            continue
+        candidates = [n for n in declarations[scope(reference)]
+                      if position(n['native_range']['start']) <= position(bounds['start'])
+                      and position(bounds['end']) <= position(n['native_range']['end'])]
+        # An innermost native range must be contained by every enclosing range.
+        owners = [n for n in candidates if all(
+            position(other['native_range']['start']) <= position(n['native_range']['start'])
+            and position(n['native_range']['end']) <= position(other['native_range']['end'])
+            for other in candidates)]
+        if len(owners) != 1:
+            reference['native_owner_status'] = 'ambiguous' if owners or candidates else 'outside_callable_range'
+            continue
+        owner = owners[0]
+        reference['enclosing_native_symbol'] = owner['id']
+        reference['native_owner_status'] = 'native_lexical_range'
+        if (owner['id'], reference['id']) not in existing:
+            facts['edges'].append({'source': owner['id'], 'target': reference['id'],
+                'kind': 'CLANGD_LEXICALLY_CONTAINS_REFERENCE', 'status': 'static_declaration',
+                'evidence': [{'path': reference['path'], 'line': reference['line'],
+                              'column': reference['column']}],
+                'basis': 'native_symbol_range_contains_reference_range_not_execution_or_call_dispatch',
+                'provenance': {'provider': 'clangd', 'adapter': 'clangd_reference_owner/0.1.0',
+                               'context': scope(reference)[1]}, 'runtime_execution': 'not_observed'})
+            existing.add((owner['id'], reference['id']))
+    facts['components']['reference_owner_policy'] = 'native_lexical_ranges/1'
+    return facts
+
+
 def diagnostic_precision(facts):
     """Keep declaration lookups from error-bearing contexts as candidates."""
+    reference_owners(facts)
     states = {r['path']: r['status'] for r in facts['coverage'] if r['status'] != 'parsed'}
     by_id = {n['id']: n for n in facts['nodes']}
     for item in facts['nodes']:
