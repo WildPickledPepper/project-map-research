@@ -4,9 +4,9 @@
 
 目标应用是多语言、跨进程、强交互、数据密集型的桌面/Web 分析软件，首个验收对象为 MindStudio Insight。当前[执行计划 R0–R5](plans/reuse-first-execution-plan.md)已与最新组件实测对齐：优先集成现成实现，逐阶段交付并按全仓范围验收。
 
-**2026-10-26：复用优先重排。** 已停止继续功能开发并完成[复用评估](research/reuse-assessment-2026-10-26.md)，继承 CGC/CBM/CodeGraph/code-map/RepoGraph/RPG 的既有调查，按[六阶段执行计划](plans/reuse-first-execution-plan.md)先落实已测组件和未启用扩展，再为明确缺口验证专门引擎；地图、查询和版本管理保留。当前准入结果见下项，整体门槛不因计划更新而推进。
+**2026-10-26：R0/R1 已启动实施。** [实施记录](experiments/2026-10-26-r0-r1/README.md)已交付 CBM 隔离启动、原生 C++ 语义、TypeScript 声明/依赖及正式提供方接入结果。正在按[复用优先计划](plans/reuse-first-execution-plan.md)构建同版本全仓快照并核查 129 个组件。历史资产关闭，原始 Insight checkout 保持只读，新增工具与数据均放 D 盘。
 
-同日已进一步完成[源码接口与复用决定](research/reuse-source-contracts-2026-10-26.md)和[原生组件审计](experiments/2026-10-26-reuse-audit/README.md)：Clang/multilspy、SQLGlot、Python OTel 接口可用；SCIP 投影误差、Joern 别名/Rust、CBM 隔离启动问题明确保留。CBM 已有进程/Shell/容器/环境/路由组件优先复用。R0 整体准入尚未通过，产品功能开发保持停止。
+前期[源码接口与复用决定](research/reuse-source-contracts-2026-10-26.md)和[原生组件审计](experiments/2026-10-26-reuse-audit/README.md)记录首次结果；CBM 启动问题已在本轮恢复。SCIP 投影误差、Joern 别名/Rust 及编译诊断仍按实际范围保留，不据此宣称全项目技术验收通过。
 
 **整体状态：Insight 全项目关系覆盖尚未通过验收。** 当前按[全项目实施计划](plans/project-wide-completion-plan.md)补齐全部自有运行模块、Python/JavaScript/Rust、跨模块边界、数据/状态与运行证据；完成条件见[整体验收矩阵](plans/project-wide-acceptance.md)。[W0 完成，G01 通过](experiments/2026-10-25-w0/completion.md)：已冻结 129 个必需组件、19 项独立边界/接口参考和 85 项运行模式义务。[W1 执行中](experiments/2026-10-25-w1/README.md)，已保存 185 个 JS/Python/Rust 文件的上游原生输出，[JS 混合模块](experiments/2026-10-25-w1/javascript.md)和 [Python 基础事实、代理接口](experiments/2026-10-25-w1/python.md)已接入全仓图并验证自动更新；[Rust 已接入生产图并通过启动/加载查询与独立安装验证](experiments/2026-10-25-w1/rust.md)，[同一默认全仓快照复验已通过](experiments/2026-10-25-w1/repository-recheck.md)，G02 尚未通过，W2–W7 继续按计划展开。
 

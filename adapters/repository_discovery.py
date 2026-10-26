@@ -7,9 +7,9 @@ from pathlib import PurePosixPath
 from adapters.snapshot_inputs import commit, git, validate_path
 from adapters.source_languages import SOURCE_LANGUAGES
 
-VERSION = 'repository-discovery/5'
+VERSION = 'repository-discovery/6'
 LANGUAGES=SOURCE_LANGUAGES
-SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript', 'python','rust'}
+SUPPORTED = {'cpp', 'typescript', 'tsx', 'javascript', 'python','rust','shell'}
 DEFAULT_POLICY = {'version': 1, 'roles': ['product', 'test', 'build_tool'],
                   'exclude': [], 'max_file_bytes': 2 * 1024 * 1024}
 
@@ -37,6 +37,10 @@ def manifest_kind(path):
     if name in {'Cargo.toml','Cargo.lock','rust-toolchain.toml','pyproject.toml'}: return 'toml'
     if '.cargo' in PurePosixPath(path).parts and name in {'config','config.toml'}:return 'toml'
     if name.startswith('requirements') and name.endswith('.txt'): return 'requirements'
+    if name == 'Dockerfile' or name.startswith('Dockerfile.') or name.endswith('.Dockerfile'):
+        return 'native_boundary'
+    if PurePosixPath(path).suffix.lower() in {'.yaml', '.yml'}:
+        return 'native_boundary'
     return None
 
 

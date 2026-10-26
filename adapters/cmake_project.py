@@ -14,7 +14,7 @@ def configuration(value=None):
     if not isinstance(value, dict) or value.get('version') != 1 or set(value) - {'version', 'cmake'}:
         raise ValueError('Expected build configuration version 1')
     cmake = value.setdefault('cmake', {})
-    if not isinstance(cmake, dict) or set(cmake) - {'enabled', 'generator', 'configurations', 'arguments', 'dependencies', 'timeout_seconds'}:
+    if not isinstance(cmake, dict) or set(cmake) - {'enabled', 'generator', 'configurations', 'arguments', 'dependencies', 'timeout_seconds', 'captures'}:
         raise ValueError('Unknown CMake build configuration field')
     if type(cmake.setdefault('enabled', True)) is not bool: raise ValueError('cmake.enabled must be boolean')
     if not isinstance(cmake.setdefault('generator', 'Ninja'), str) or not cmake['generator']:
@@ -30,6 +30,18 @@ def configuration(value=None):
         raise ValueError('Use dedicated generator/configuration fields for the native context')
     timeout = cmake.setdefault('timeout_seconds', 180)
     if type(timeout) is not int or not 1 <= timeout <= 1800: raise ValueError('Invalid CMake timeout')
+    captures = cmake.get('captures', [])
+    if not isinstance(captures, list): raise ValueError('CMake captures must be an array')
+    capture_directories = set()
+    for capture in captures:
+        if (not isinstance(capture, dict) or set(capture) != {'directory', 'source_commit'}
+                or not isinstance(capture['directory'], str) or not Path(capture['directory']).is_absolute()):
+            raise ValueError('CMake captures require absolute directory and fixed source_commit')
+        revision = capture['source_commit']
+        if not isinstance(revision, str) or len(revision) != 40 or any(c not in '0123456789abcdef' for c in revision):
+            raise ValueError('CMake capture source revision must be fixed')
+        if capture['directory'] in capture_directories: raise ValueError('Duplicate CMake capture directory')
+        capture_directories.add(capture['directory'])
     dependencies = cmake.setdefault('dependencies', []); seen = set()
     if not isinstance(dependencies, list): raise ValueError('CMake dependencies must be a list')
     for dependency in dependencies:
@@ -89,6 +101,7 @@ def _dependencies(source, rows):
 
 
 def extract(source, paths, *, source_commit, output, config=None, source_facts=None, emit=None):
+    from adapters.snapshot_inputs import validate_path
     source = Path(source).resolve(); output = Path(output).resolve(); options = configuration(config)['cmake']
     result = {'nodes': [], 'edges': [], 'diagnostics': [], 'coverage': [], 'limits': [], 'contexts': [],
               'components': {'adapter': 'native_cmake_file_api_system_context/0.2.0', 'tools': tool_versions()}}
@@ -98,7 +111,7 @@ def extract(source, paths, *, source_commit, output, config=None, source_facts=N
     def gap(project, reason):
         result['diagnostics'].append({'kind': 'cmake_project_context_unavailable',
             'path': (PurePosixPath(project) / 'CMakeLists.txt').as_posix(), 'reason': reason, 'required': True})
-    if not options['enabled'] or not result['components']['tools']['cmake']:
+    if not options['enabled'] or (not result['components']['tools']['cmake'] and not options.get('captures')):
         reason = 'native_CMake_disabled' if not options['enabled'] else 'native_CMake_tool_missing'
         for project in discovered:
             gap(project, reason)
@@ -106,6 +119,19 @@ def extract(source, paths, *, source_commit, output, config=None, source_facts=N
                 result['contexts'].append({'key': project + '/' + name, 'source_commit': source_commit,
                     'status': 'unavailable', 'project': project, 'configuration': name, 'reason': reason})
         return result
+    captures = {}
+    for spec in options.get('captures', []):
+        capture = Path(spec['directory']).resolve()
+        metadata = json.loads((capture / 'result.json').read_text(encoding='utf-8'))
+        if metadata['source_commit'] != source_commit or spec['source_commit'] != source_commit:
+            raise ValueError('CMake capture belongs to another source revision')
+        attempt = metadata['attempts'][-1]
+        if not attempt['configured']: raise ValueError('CMake capture did not configure successfully')
+        key = metadata['subdir'], metadata['configuration']
+        if key in captures or key[0] not in discovered or key[1] not in options['configurations']:
+            raise ValueError('CMake capture has duplicate or inapplicable project/configuration')
+        attempt_id = validate_path(attempt['id'])
+        captures[key] = capture, metadata, capture / attempt_id
     for ordinal, project in enumerate(discovered):
         for config_ordinal, name in enumerate(options['configurations']):
             context_key = (project if project != '.' else '@repository') + '/' + name
@@ -113,6 +139,26 @@ def extract(source, paths, *, source_commit, output, config=None, source_facts=N
             copied = directory / 'source'; build = directory / 'build'
             receipt = {'source_commit': source_commit, 'context_key': context_key, 'project': project,
                        'configuration': name, 'status': 'preparing', 'dependencies': []}
+            if (project, name) in captures:
+                capture, metadata, captured_build = captures[(project, name)]
+                dependencies = metadata.get('dependencies', [])
+                facts = analyze(captured_build, capture / 'source', context_key=context_key,
+                    source_commit=source_commit, expected_commit=source_commit, selected_paths=paths,
+                    configure_returncode=0, dependency_prefixes=[r['destination'] for r in dependencies])
+                if facts['native_context']['status'] != 'configured':
+                    raise ValueError('Captured CMake reply could not be replayed')
+                for key in ('nodes', 'edges', 'diagnostics', 'limits'): result[key].extend(facts[key])
+                if source_facts: result['edges'].extend(link_source_symbols(facts, source_facts))
+                result['contexts'].append({**facts['native_context'], 'project': project,
+                    'configuration': name, 'dependencies': dependencies, 'configure_returncode': 0,
+                    'compile_commands_available': (captured_build / 'compile_commands.json').is_file(),
+                    'capture_reused': True})
+                receipt.update(status='configured', returncode=0, dependencies=dependencies,
+                    capture_reused=True, native_source_root=str(capture / 'source'),
+                    native_build_root=str(captured_build))
+                _write(directory / 'receipt.json', receipt)
+                if emit: emit({'context': context_key, 'status': 'configured', 'capture_reused': True})
+                continue
             try:
                 # Copy only fixed selected inputs; configure never writes the graph's immutable export.
                 copied.mkdir()

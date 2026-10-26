@@ -2,6 +2,8 @@
 
 2026-10-26。执行范围为[复用优先计划](../../plans/reuse-first-execution-plan.md)的 R0/R1。沿用已有证据，产品实现已按用户指令恢复；历史资产关闭，原始 Insight checkout 保持只读。新增工具、环境、缓存、临时文件及原始实验数据均放在 D 盘，Git 只保存实现与紧凑报告。
 
+当前：组件准入与单项接入已有实测；正式统一快照及 129 组件后置核查仍在执行，G02 尚未通过。
+
 ## 已交付：CBM 隔离启动恢复
 
 执行发布包 `codebase-memory-mcp 0.12.1`，使用此前的四文件 Python/Shell/Docker/Compose 夹具。[结果](evidence/cbm-startup.json)保存原生输出投影和逐项检查。二进制与先前试验相同，没有重算文件哈希。
@@ -59,3 +61,17 @@ python experiments/2026-10-26-r0-r1/run_cbm_repository.py --source INSIGHT --rev
 继续使用 TypeScript 5.9.3 Compiler API，补充其原生枚举/成员常量值、类型别名、ambient module、变量/属性/参数声明，以及三斜线类型/路径/lib 引用。命名空间与枚举成员的限定名保持区分；未加载的外部类型依赖明确记录为 `recorded_not_loaded`。
 
 [真实提取结果](evidence/typescript-declarations.json)：986 个 TS/JS 文件生成 106,571 节点、106,103 边；W0 后置审查列出的 21 个 TypeScript 零基础事实文件全部具有声明或依赖记录。124 项既有与新增 TS/JS/前后端机制检查通过。此结果解决该审查队列，不以非零事实判定所有组件的语义正确性或 G02 通过。
+
+## 已接入正式建图流程
+
+新增 Shell、Dockerfile 和 YAML 输入自动发现；原生提供方默认从环境取得可执行文件，或通过 `build.providers.captures` 导入同源码提交、同编译上下文的固定结果。错误提交、错误编译上下文、范围外事实和重复身份均拒绝。Cpp include-only 文件复用现有 Tree-sitter include 记录生成依赖声明，目标尚未解析时保持 `recorded_not_resolved`。
+
+正式 Workspace 夹具验证 Shell → 脚本启动关系、Docker/环境事实与 TS 枚举进入同一生产图，并成功发布快照。首轮发现 CBM 短暂子进程占用 staging 工作目录，导致 Windows 原子发布失败；将 CLI 工作目录设为持久缓存后复验通过。原生解析/排除状态保留；有编译诊断的 clangd 关系保持候选，不升级为精确关系。
+
+CMake 同样复用已有 File API：`build.cmake.captures` 绑定固定源码与成功的原生配置，避免重复执行配置和生成时间相关宏。已在通用夹具和实际 Insight 497 项编译记录的捕获上复验；错误源码提交被拒绝。原 CMake 数据库、原始源码均未改动。
+
+Python 的原生客户端依赖可通过 `requirements-native.txt` 或安装包的 `native` extra 安装；CBM/clangd 二进制与编译依赖由操作者提供。`PROJECT_MAP_CBM`、`CBM_CACHE_DIR`、`CBM_RUNTIME_DIR`、`PROJECT_MAP_CLANGD`、`CC`、`CXX` 指定原生组件及私有缓存。首次运行父目录需满足上游权限规则。skill 在 R5 最后整理。
+
+```text
+python experiments/2026-10-26-r0-r1/run_repository.py --source INSIGHT --revision COMMIT --output NEW_OUTPUT --typescript TYPESCRIPT_MODULE --cmake-capture CMAKE_CAPTURE --cbm-capture CBM_NATIVE_CAPTURE --clang-capture CLANG_CAPTURE
+```

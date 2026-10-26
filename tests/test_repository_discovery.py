@@ -31,6 +31,14 @@ class FixtureCase(unittest.TestCase):
         return self.git('rev-parse', 'HEAD').decode().strip()
 
 class DiscoveryTests(FixtureCase):
+    def test_shell_and_container_inputs_are_selected_for_native_provider(self):
+        self.save({'tools/launch.sh':'#!/bin/sh\nsh next.sh\n',
+                   'deploy/Dockerfile':'FROM scratch\n', 'configs/services.yml':'services: {}\n'})
+        files={r['path']:r for r in discover(self.repo)['files']}
+        self.assertTrue(all(r['eligible'] for r in files.values()))
+        self.assertEqual(files['tools/launch.sh']['language'],'shell')
+        self.assertEqual(files['deploy/Dockerfile']['manifest_kind'],'native_boundary')
+
     def test_tracked_cmake_dependency_manifests_survive_third_party_directory_policy(self):
         self.save({'native/CMakeLists.txt':'project(Neutral)\nadd_subdirectory(vendor)\n',
             'native/vendor/CMakeLists.txt':'add_subdirectory(component)\n',

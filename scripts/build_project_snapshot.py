@@ -111,7 +111,7 @@ def build(source, request, output, log, *, typescript):
     if cmake_roots(paths):
         print('Extract native CMake targets, artifacts and selected-source membership', file=log, flush=True)
         native=cmake_facts(source,paths,source_commit=revision,output=output/'cmake-native',
-            config={k:v for k,v in request['config']['build'].items() if k!='cargo'} if request['config'].get('build') else None,source_facts=facts,
+            config={k:v for k,v in request['config']['build'].items() if k not in {'cargo','providers'}} if request['config'].get('build') else None,source_facts=facts,
             emit=lambda row:print('CMake '+json.dumps(row),file=log,flush=True))
         for key in ('nodes','edges','diagnostics','limits'):graph[key].extend(native[key])
         graph['native_build']={'projects':native['projects'],'contexts':native['contexts'],'source_coverage':'native_compilation_input_not_execution'}
@@ -172,6 +172,11 @@ def build(source, request, output, log, *, typescript):
     write_json(output/'return-checkpoint.json', {'stage': 'pre_closure_unvalidated_not_published', 'request': request, 'graph': graph})
     print('Finalize and validate source graph', file=log, flush=True)
     graph = closure(graph, extractor, transmission, extract_conditions(extractor))
+    from adapters.native_provider_graph import augment as native_providers
+    print('Import native provider declarations, references and boundary facts', file=log, flush=True)
+    graph = native_providers(graph, root=source, output=output,
+        config=request['config'].get('build', {}).get('providers'),
+        emit=lambda row:print('Native '+json.dumps(row), file=log, flush=True))
     graph['snapshot'] = request['snapshot']
     graph['version'] = {k: request[k] for k in ['source_commit', 'snapshot', 'config', 'build_version']}
     graph['provenance']['input_kind'] = 'git_committed_blob_export'

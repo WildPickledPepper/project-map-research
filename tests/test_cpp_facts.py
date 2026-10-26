@@ -10,6 +10,14 @@ if os.environ.get('PROJECT_MAP_PARSER_CACHE'):
 
 
 class CppFactsTests(unittest.TestCase):
+    def test_include_only_header_keeps_dependency_facts_without_inventing_function(self):
+        graph=self.graph({'headers.h':'#include <vector>\n#include "local.h"\n','local.h':'#pragma once\n'})
+        references=[n for n in graph['nodes'] if n['kind']=='module_reference']
+        self.assertEqual({n['module_specifier'] for n in references},{'vector','local.h'})
+        self.assertTrue(all(n['resolution']=='recorded_not_resolved' for n in references))
+        self.assertEqual(len(self.relations(graph,'CONTAINS_IMPORT')),2)
+        self.assertFalse(any(n['kind']=='callable' for n in graph['nodes']))
+
     def test_transitive_namespace_imports_cross_headers_without_leaking_other_namespaces(self):
         g=self.graph({'a.h':'namespace implementation { struct Worker { void act(); }; } '
             'namespace facade {using namespace implementation;} namespace gateway {using namespace facade;}',

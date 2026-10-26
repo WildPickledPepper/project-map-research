@@ -20,6 +20,35 @@ class FullSnapshotTests(unittest.TestCase):
         except (OSError, subprocess.CalledProcessError):
             raise unittest.SkipTest('Install the pinned TypeScript dependency before the full builder test')
 
+    def test_native_shell_container_facts_enter_the_production_workspace(self):
+        import os
+        from projectmap.workspace import Workspace
+        if not os.environ.get('PROJECT_MAP_CBM'):
+            self.skipTest('Native CBM executable and private cache/runtime required')
+        with tempfile.TemporaryDirectory(prefix='native provider ') as directory:
+            root=Path(directory); source=root/'repository'; source.mkdir()
+            files={'view.ts':'export enum Mode {Ready=1}; export const title="view";',
+                'app.py':'import os\ndef read_port():\n    return os.getenv("APP_PORT")\n',
+                'Dockerfile':'FROM python:3.11\nWORKDIR /app\nCOPY app.py /app/app.py\nENV APP_PORT=8000\nCMD ["python", "/app/app.py"]\n',
+                'build/launch.sh':'#!/bin/sh\nsh ../scripts/task.sh\n',
+                'scripts/task.sh':'#!/bin/sh\n./worker\n'}
+            for path,content in files.items():
+                target=source/path;target.parent.mkdir(parents=True,exist_ok=True);target.write_text(content,encoding='utf-8')
+            def git(*args):return subprocess.check_output(['git','-C',str(source),*args],stderr=subprocess.PIPE).decode().strip()
+            git('init','-q');git('config','user.name','fixture');git('config','user.email','fixture@example.invalid')
+            git('add','.');git('commit','-qm','authored native provider fixture')
+            workspace=Workspace.create(root/'workspace',source,typescript=self.ts)
+            result=workspace.update(builder=partial(build,typescript=self.ts),version={'rules':'authored-native-provider'})
+            self.assertEqual(result['status'],'ready',result)
+            workspace.reload();graph=json.loads(Path(workspace.config['active']['graph']).read_text())
+            by_id={n['id']:n for n in graph['nodes']}
+            self.assertTrue(any(n.get('declaration_kind')=='EnumDeclaration' for n in by_id.values()))
+            self.assertTrue(any(e['kind']=='CBM_SPAWNS' and by_id[e['source']]['path']=='build/launch.sh'
+                and by_id[e['target']]['path']=='scripts/task.sh' for e in graph['edges']))
+            self.assertEqual(next(r for r in graph['coverage'] if r['path']=='build/launch.sh')['status'],'parsed')
+            self.assertTrue(any(r['provider']=='cbm' for r in graph['native_providers']))
+            self.assertTrue((root/'workspace').is_dir())
+
     def test_default_rust_current_exe_chain_reaches_cmake_backend_entry(self):
         import os
         from adapters.rust_project import available

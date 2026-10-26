@@ -1,4 +1,5 @@
 import os
+import json
 from pathlib import Path
 import subprocess
 import tempfile
@@ -45,14 +46,31 @@ add_executable(first ../programs/entry.cpp)
     def write(self, name, text):
         path = self.source / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_text(text, encoding='utf-8')
 
-    def facts(self, *, config=None):
+    def facts(self, *, config=None, source_commit='fixture'):
         paths = sorted(p.relative_to(self.source).as_posix() for p in self.source.rglob('*') if p.is_file())
         cpp = cpp_facts({p: (self.source / p).read_bytes() for p in paths if p.endswith('.cpp')}, self.parser)
         self.sequence += 1
-        graph = extract(self.source, paths, source_commit='fixture', output=self.base / ('analysis-' + str(self.sequence)),
+        graph = extract(self.source, paths, source_commit=source_commit, output=self.base / ('analysis-' + str(self.sequence)),
                         config=config, source_facts=cpp)
         validate_graph({'snapshot': 'fixture', 'nodes': graph['nodes'] + cpp['nodes'], 'edges': graph['edges'] + cpp['edges']})
         return graph
+
+    def test_successful_native_capture_replays_without_reconfiguring_source(self):
+        revision='a'*40
+        original=self.facts(source_commit=revision)
+        capture=self.base/'analysis-1/0/0'
+        (capture/'result.json').write_text(json.dumps({'source_commit':revision,'subdir':'recipes',
+            'configuration':'Release','dependencies':[],'attempts':[{'id':'build','configured':True}]}))
+        replay=self.facts(source_commit=revision,config={'version':1,'cmake':{
+            'captures':[{'directory':str(capture),'source_commit':revision}]}})
+        self.assertTrue(replay['contexts'][0]['capture_reused'])
+        self.assertEqual({n['name'] for n in original['nodes'] if n['kind']=='build_target'},
+                         {n['name'] for n in replay['nodes'] if n['kind']=='build_target'})
+        self.assertFalse((self.base/'analysis-2/0/0/build').exists())
+        self.assertFalse((self.base/'analysis-2/0/0/source').exists())
+        with self.assertRaisesRegex(ValueError,'another source revision'):
+            self.facts(source_commit='b'*40,config={'version':1,'cmake':{
+                'captures':[{'directory':str(capture),'source_commit':revision}]}})
 
     def test_native_configuration_is_in_a_copy_and_entry_join_survives(self):
         graph = self.facts()

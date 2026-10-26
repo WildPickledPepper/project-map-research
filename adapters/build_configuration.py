@@ -6,9 +6,13 @@ from adapters.cmake_project import configuration as cmake_configuration
 
 def configuration(value=None):
     data=json.loads(json.dumps(value if value is not None else {'version':1,'cmake':{}}))
-    if not isinstance(data,dict) or data.get('version')!=1 or set(data)-{'version','cmake','cargo'}:
+    if not isinstance(data,dict) or data.get('version')!=1 or set(data)-{'version','cmake','cargo','providers'}:
         raise ValueError('Expected build configuration version 1')
+    providers=data.pop('providers',None)
     cargo=data.pop('cargo',None);result=cmake_configuration(data)
+    if providers is not None:
+        from adapters.native_provider_graph import configuration as provider_configuration
+        result['providers']=provider_configuration(providers)
     if cargo is None:return result
     if not isinstance(cargo,dict) or set(cargo)!={'captures'} or not isinstance(cargo['captures'],list):
         raise ValueError('Expected cargo.captures list')

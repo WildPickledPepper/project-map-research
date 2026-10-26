@@ -91,6 +91,18 @@ class Extractor:
                 elif n.type=='preproc_include':
                     include = text(n.child_by_field_name('path'))
                     unit['includes'].append((include.strip('"<>'),include.startswith('"'),n.start_point[0]+1))
+                    module_id = 'cpp-source-module:' + path
+                    self.nodes.setdefault(module_id, {'id':module_id,'kind':'code_module','path':path,
+                        'line':1,'name':path,'language':'cpp','evidence_kind':'source_syntax'})
+                    include_id = 'cpp:' + identity(path,'module_reference',n)
+                    self.nodes[include_id] = {'id':include_id,'kind':'module_reference','path':path,
+                        'line':n.start_point[0]+1,'column':n.start_point[1]+1,'name':include,
+                        'module_specifier':include.strip('"<>'),'syntax':'cpp_preprocessor_include',
+                        'resolution':'recorded_not_resolved','conditions':self.conditions(n),
+                        'evidence_kind':'existing_tree_sitter_include_directive','language':'cpp'}
+                    self.edges.append({'source':module_id,'target':include_id,'kind':'CONTAINS_IMPORT',
+                        'status':'source_relation','evidence':[{'path':path,'line':n.start_point[0]+1}],
+                        'runtime_execution':'not_observed'})
                 elif n.type=='function_declarator':
                     rec = cpp_callable(n)
                     if rec is None:continue

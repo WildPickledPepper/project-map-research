@@ -15,11 +15,15 @@ def main():
     for name in ('source', 'output', 'binary', 'cache-dir', 'runtime-dir'):
         parser.add_argument('--' + name, type=Path, required=True)
     parser.add_argument('--revision', required=True)
+    parser.add_argument('--scope', choices=('selected', 'all'), default='selected')
     args = parser.parse_args()
     if args.output.exists():
         parser.error('Use a new output')
+    scope = {'include': ['*'], 'exclude': []}
+    if args.scope == 'selected':
+        scope['discovery'] = {}
     selection = select_inputs(args.source, args.revision, {'version': 1,
-        'scope': {'include': ['*'], 'exclude': []}, 'deployment': {}, 'storage': 'json'})
+        'scope': scope, 'deployment': {}, 'storage': 'json'})
     args.output.mkdir(parents=True)
     (args.output / 'selection.json').write_text(json.dumps(selection), encoding='utf-8')
     export_inputs(args.source, selection, args.output / 'source')

@@ -74,7 +74,9 @@ def read_native(database, *, project, paths, source_commit, provider_version):
                       'native_properties': properties, 'provenance': provenance,
                       'basis': 'native_cbm_relation_not_runtime_or_compiler_identity',
                       'runtime_execution': 'not_observed'})
-    covered = {n['path'] for n in nodes if n['kind'] == 'code_module'}
+    covered = {n['path'] for n in nodes if n['kind'] in {
+        'code_module', 'callable', 'type', 'value', 'parameter', 'macro',
+        'environment_variable', 'deployment_resource', 'interface_endpoint'}}
     coverage = []
     for path in sorted(selected):
         problems = [r for r in native_coverage if r['rel_path'] == path or
@@ -135,7 +137,9 @@ def index(source, output, *, paths, source_commit, binary=None, cache_dir=None,
                '--name', project, '--mode', 'full', '--persistence', 'false', '--doc-candidates', 'false']
     started = time.monotonic()
     try:
-        process = subprocess.run(command, cwd=provider_source, env=env, capture_output=True,
+        # The short-lived supervisor may outlive the CLI return. Its working
+        # directory must not hold the staging tree open during atomic publish.
+        process = subprocess.run(command, cwd=cache_dir, env=env, capture_output=True,
                                  text=True, encoding='utf-8', errors='replace', timeout=timeout)
         (output / 'stdout.json').write_text(process.stdout, encoding='utf-8')
         (output / 'stderr.log').write_text(process.stderr, encoding='utf-8')

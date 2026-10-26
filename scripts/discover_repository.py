@@ -171,7 +171,11 @@ def run(source, revision, output, typescript, *, configuration=None, deployment=
                     if b'\0' in raw:
                         row.update(status='binary_input', reason='nul_byte_in_source'); processed += 1; continue
                     body = raw.decode('utf-8-sig')
-                    if row['task'] == 'manifest' and row['manifest_kind'] not in {'package', 'tsconfig'}:
+                    if row['language'] == 'shell' or row['manifest_kind'] == 'native_boundary':
+                        facts = {'path': row['path'], 'status': 'provider_required',
+                                 'provider': 'codebase-memory-mcp',
+                                 'limits': ['whole_repository_native_provider_required_not_file_local_ts_parsing']}
+                    elif row['task'] == 'manifest' and row['manifest_kind'] not in {'package', 'tsconfig'}:
                         try: facts = simple_manifest(row['path'], row['manifest_kind'], body)
                         except (ValueError, tomllib.TOMLDecodeError) as error:
                             facts = {'path': row['path'], 'status': 'manifest_error', 'diagnostics': [{'kind': 'manifest_parse_error', 'message': str(error)}]}

@@ -16,9 +16,25 @@ SYMBOL_KINDS = {5: 'type', 6: 'callable', 7: 'value', 8: 'value', 9: 'callable',
                 22: 'value', 23: 'type', 26: 'type', 3: 'namespace'}
 
 
+def diagnostic_precision(facts):
+    """Keep declaration lookups from error-bearing contexts as candidates."""
+    states = {r['path']: r['status'] for r in facts['coverage'] if r['status'] != 'parsed'}
+    by_id = {n['id']: n for n in facts['nodes']}
+    for item in facts['nodes']:
+        if item['path'] in states:
+            item['semantic_context_status'] = states[item['path']]
+    for edge in facts['edges']:
+        source = by_id.get(edge['source'])
+        if source and source['path'] in states and edge['status'] == 'static_declaration':
+            edge['status'] = 'candidate'
+            edge['precision_reason'] = 'native_context_has_diagnostics_or_analysis_failure'
+    facts['components']['precision_policy'] = 'diagnostic_context_candidates/1'
+    return facts
+
+
 async def analyze(root, paths, *, binary, context, source_commit, output,
-                  compile_commands=None, query_drivers=(), file_timeout=45,
-                  reference_budget=2000, input_paths=None, emit=None):
+                  compile_commands=None, query_drivers=(), file_timeout=120,
+                  reference_budget=10000, input_paths=None, emit=None):
     from multilspy.language_servers.clangd_language_server.clangd_language_server import ClangdLanguageServer
     from multilspy.multilspy_config import MultilspyConfig
     from multilspy.multilspy_logger import MultilspyLogger
@@ -163,8 +179,44 @@ async def analyze(root, paths, *, binary, context, source_commit, output,
                 coverage.append({'path': path, 'status': 'provider_failed', 'provider': 'clangd', 'context': context})
             if emit:
                 emit({'path': path, 'status': coverage[-1]['status'], 'nodes': len(nodes), 'edges': len(edges)})
-    return {'nodes': list(nodes.values()), 'edges': edges, 'diagnostics': diagnostics,
+    return diagnostic_precision({'nodes': list(nodes.values()), 'edges': edges, 'diagnostics': diagnostics,
             'coverage': coverage, 'components': provenance,
             'limits': ['compiler_declaration_identity_not_runtime_object_or_dispatch',
                        'native_inferred_header_commands_are_not_explicit_build_membership',
-                       'reference_query_residuals_and_diagnostics_remain_visible']}
+                       'reference_query_residuals_and_diagnostics_remain_visible']})
+
+
+def analyze_batch(root, paths, *, output, workers=4, input_paths=None, emit=None, **options):
+    """Run independent native clients while retaining project-wide target scope."""
+    from concurrent.futures import ThreadPoolExecutor
+    import threading
+    if type(workers) is not int or workers < 1 or workers > 8:
+        raise ValueError('Use between one and eight native clients')
+    paths = sorted(set(paths))
+    selected = sorted(set(input_paths if input_paths is not None else paths))
+    if not paths:
+        raise ValueError('C++ input is empty')
+    output = Path(output)
+    output.mkdir(parents=True, exist_ok=False)
+    workers = min(workers, len(paths)); lock = threading.Lock()
+    def report(row):
+        if emit:
+            with lock:
+                emit(row)
+    def collect(ordinal):
+        facts = asyncio.run(analyze(root, paths[ordinal::workers], output=output / str(ordinal),
+                                   input_paths=selected, emit=report, **options))
+        (output / (str(ordinal) + '-facts.json')).write_text(json.dumps(facts), encoding='utf-8')
+        return facts
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        results = list(pool.map(collect, range(workers)))
+    nodes = {}
+    for result in results:
+        for item in result['nodes']:
+            if item['id'] not in nodes or item['kind'] != 'declaration':
+                nodes[item['id']] = item
+    combined = {key: [v for result in results for v in result[key]]
+                for key in ('edges', 'coverage', 'diagnostics')}
+    combined.update(nodes=list(nodes.values()), components=results[0]['components'],
+                    limits=sorted({v for result in results for v in result['limits']}))
+    return combined

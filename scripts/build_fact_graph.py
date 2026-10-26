@@ -16,10 +16,12 @@ def write(path,value):
 
 
 def remaining_coverage(paths,covered):
+    from adapters.repository_discovery import manifest_kind
     records=[]
     for p in paths:
         if p in covered:continue
-        if p.endswith('package.json'):status='workspace_package_metadata'
+        if p.endswith('.sh') or manifest_kind(p)=='native_boundary':status='provider_required'
+        elif p.endswith('package.json'):status='workspace_package_metadata'
         elif p.endswith('.json'):status='configuration_recorded_not_applied'
         else:status='unsupported_extension'
         records.append({'path':p,'status':status})
