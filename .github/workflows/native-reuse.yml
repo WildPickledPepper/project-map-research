@@ -1,0 +1,101 @@
+name: Native dataflow providers
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  svf:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install existing native tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y clang-16 graphviz
+          python -m pip install pysvf==1.0.0.50
+      - name: Capture native distribution and smoke input
+        run: |
+          mkdir -p "$RUNNER_TEMP/svf-output"
+          python - <<'PY'
+          import pathlib, pysvf, json, os, inspect
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'svf-output'
+          root=pathlib.Path(pysvf.__file__).parent
+          (out/'distribution.json').write_text(json.dumps({'module':str(root),'symbols':dir(pysvf)},indent=2))
+          print(root)
+          print(dir(pysvf))
+          PY
+          clang++-16 -g -O0 -Xclang -disable-O0-optnone -emit-llvm -c experiments/2026-10-26-reuse-audit/joern-probe.cpp -o "$RUNNER_TEMP/svf-output/probe.bc"
+          python - <<'PY'
+          import pathlib,pysvf,os,subprocess,json
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'svf-output'
+          root=pathlib.Path(pysvf.__file__).parent
+          binaries=list(root.rglob('wpa'))
+          results=[]
+          for p in binaries:
+              for args in [['-help'],['-ander','-svfg','-dump-svfg','-dump-pag',str(out/'probe.bc')]]:
+                  r=subprocess.run([str(p),*args],cwd=out,capture_output=True,text=True,timeout=180)
+                  (out/('help.log' if args[0]=='-help' else 'analysis.log')).write_text(r.stdout+'\n'+r.stderr)
+                  results.append({'arguments':args,'exit_code':r.returncode})
+          (out/'native-cli.json').write_text(json.dumps({'binaries':[str(p) for p in binaries],'results':results},indent=2))
+          print(json.dumps(results))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: svf-native-output
+          path: ${{ runner.temp }}/svf-output
+          retention-days: 7
+  rapx:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    env:
+      RUSTUP_TOOLCHAIN: nightly-2026-07-21
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@v4
+        with:
+          repository: safer-rust/RAPx
+          ref: 974eb8e7f91e186720daffdfdf1125c3daf6c8cb
+          path: native-tools/rapx
+          persist-credentials: false
+      - name: Install upstream compiler and solver requirements
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libz3-dev graphviz
+          rustup toolchain install "$RUSTUP_TOOLCHAIN" --profile minimal --component rustc-dev,rust-src,llvm-tools-preview
+          rustc --version
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            native-tools/rapx/target
+          key: rapx-974eb8e-nightly-2026-07-21-linux-1
+      - name: Build existing analysis engine
+        working-directory: native-tools/rapx
+        run: cargo build --release --package rapx --locked
+      - name: Execute upstream dataflow and alias fixtures
+        run: |
+          mkdir -p "$RUNNER_TEMP/rapx-output"
+          export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
+          export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
+          export RAPX_CLEAN=false
+          cargo rapx --help > "$RUNNER_TEMP/rapx-output/help.log"
+          cd native-tools/rapx/rapx/tests/alias/alias_01
+          cargo rapx analyze dataflow --debug > "$RUNNER_TEMP/rapx-output/dataflow.log" 2>&1
+          cargo rapx analyze alias > "$RUNNER_TEMP/rapx-output/alias.log" 2>&1
+          rustc --version > "$RUNNER_TEMP/rapx-output/rustc-version.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rapx-native-output
+          path: ${{ runner.temp }}/rapx-output
+          retention-days: 7
