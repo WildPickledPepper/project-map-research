@@ -36,3 +36,16 @@ R0 剩余：边界身份负例、C++ 语义补充准入与数据流精度路线�
 python experiments/2026-10-26-r0-r1/probe_clang_provider.py --binary CLANGD --output NEW_OUTPUT
 python experiments/2026-10-26-r0-r1/probe_clang_provider.py --binary CLANGD --output OTHER_OUTPUT --feature-mode 0 --layout alternate
 ```
+
+## 已交付：CBM 原生事实导入与范围/身份控制
+
+[提供方](../../adapters/cbm_provider.py)直接调用 CBM CLI，再用 SQLite 的只读连接与 backup API 保存一致的原生数据库，导入节点、关系、原生 ID/属性和覆盖记录。原生推断边保留 candidate；不把高 confidence 当作编译器精确身份或运行证据。[6 项互操作检查](../../tests/test_cbm_provider.py)验证同名身份、跨项目/范围过滤、无源资源、错误路径和原生解析/排除状态。
+
+Insight 全部 4,855 个跟踪输入的首轮原生索引耗时约 509 秒，输出 41,987 节点、149,605 边；按输入范围过滤后导入 41,355 节点、143,954 边。[首轮覆盖记录](evidence/cbm-repository-first.json)保留 1,921 项文件排除、36 项部分解析、10 项不可用解析及 6 个目录排除；这些包含非产品源码，不能直接当作产品缺失数。原生忽略目录影响了第一方脚本，因此首轮不能作为完整事实覆盖通过。
+
+适配采用 CBM 现成的 `.cbmignore` 否定规则，在提供方的独立输入副本中按已选择路径生成范围策略；不修改原始 checkout 或调用方的固定源码导出。[原生隔离检查](evidence/cbm-isolation.json)8 项通过：`build` 目录内脚本进入索引、Shell 启动连到脚本、两个容器同环境键分别连到自身程序、同名读者不合并，原输入不变。该策略须在真实仓库后续重建中核查，不以夹具通过代替全仓结果。
+
+```text
+python experiments/2026-10-26-r0-r1/probe_cbm_isolation.py --binary CBM_EXE --output NEW_OUTPUT --cache-dir PRIVATE_CACHE --runtime-dir PRIVATE_RUNTIME
+python experiments/2026-10-26-r0-r1/run_cbm_repository.py --source INSIGHT --revision COMMIT --output NEW_OUTPUT --binary CBM_EXE --cache-dir PRIVATE_CACHE --runtime-dir PRIVATE_RUNTIME
+```

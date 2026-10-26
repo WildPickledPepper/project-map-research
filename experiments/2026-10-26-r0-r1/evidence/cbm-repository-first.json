@@ -1,0 +1,127 @@
+{
+  "schema": "r1-native-cbm-first/1",
+  "evidence_kind": "executed_native_component",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "version": "codebase-memory-mcp 0.12.1",
+  "seconds": 508.891,
+  "input_files": 4855,
+  "native_result": {
+    "project": "project-map-d4e8d1cf9f90",
+    "excluded": {
+      "dirs": [
+        "build",
+        "server/build",
+        "server/third_party/sqlite",
+        "platform/.cargo",
+        "modules/build"
+      ],
+      "count": 6,
+      "truncated": true
+    },
+    "not_indexed_files_count": 1921,
+    "not_indexed_files": {
+      "files": [
+        {
+          "path": "package-lock.json",
+          "reason": "gitignore"
+        },
+        {
+          "path": "test/st/level2/rank_3_ascend_pt/ASCEND_PROFILER_OUTPUT/analysis.db",
+          "reason": "ignored-suffix"
+        },
+        {
+          "path": "test/st/level2/rank_3_ascend_pt/ASCEND_PROFILER_OUTPUT/ascend_pytorch_profiler_3.db",
+          "reason": "ignored-suffix"
+        },
+        {
+          "path": "test/st/level2/rank_2_ascend_pt/ASCEND_PROFILER_OUTPUT/analysis.db",
+          "reason": "ignored-suffix"
+        },
+        {
+          "path": "test/st/level2/rank_2_ascend_pt/ASCEND_PROFILER_OUTPUT/ascend_pytorch_profiler_2.db",
+          "reason": "ignored-suffix"
+        }
+      ],
+      "count": 1921,
+      "truncated": true,
+      "note": "Excluded by design (gitignore/.cbmignore/skip-lists); examples only — full list in 'logfile'."
+    },
+    "skipped_count": 0,
+    "parse_partial_count": 36,
+    "parse_partial": {
+      "files": [
+        {
+          "path": "docs/en/development_guide/design/Timeline.md",
+          "error_ranges": "1277-1284,1302-1309,1325-1332"
+        },
+        {
+          "path": "docs/en/user_guide/system_tuning.md",
+          "error_ranges": "2514-2514,2516-2516,2517-2517,2518-2518,2519-2519,2520-2520,2521-2521,2522-2522,2523-2523"
+        },
+        {
+          "path": "docs/zh/development_guide/design/Timeline.md",
+          "error_ranges": "1246-1253,1271-1278,1294-1301"
+        },
+        {
+          "path": "docs/zh/development_guide/design/numa_analysis.md",
+          "error_ranges": "10-10,18-18,38-38,87-87"
+        },
+        {
+          "path": "docs/zh/user_guide/system_tuning.md",
+          "error_ranges": "178-178,197-197,217-217,2785-2785,2789-2789"
+        }
+      ],
+      "count": 36,
+      "truncated": true,
+      "note": "Indexed, but constructs in these line ranges may be missing (best-effort signal); examples only — full list via index_status or 'logfile'."
+    },
+    "parse_unusable_count": 10,
+    "parse_unusable": {
+      "files": [
+        {
+          "path": "docker/nginx-http.conf",
+          "whole_file": true,
+          "range_end": 51
+        },
+        {
+          "path": "docker/nginx.conf",
+          "whole_file": true,
+          "range_end": 83
+        },
+        {
+          "path": "docker/ws-map.conf",
+          "whole_file": true,
+          "range_end": 5
+        },
+        {
+          "path": "scripts/MemSnapDump/test/test-data/snapshot_1768383987920985470.pkl",
+          "whole_file": true,
+          "range_end": 10242
+        },
+        {
+          "path": "scripts/MemSnapDump/test/test-data/snapshot_expandable.pkl",
+          "whole_file": true,
+          "range_end": 8455
+        }
+      ],
+      "count": 10,
+      "truncated": true,
+      "note": "Indexed, but the parse failed across nearly the whole file, so line ranges are not useful here — read the source directly."
+    },
+    "nodes": 41987,
+    "edges": 149605,
+    "expected_nodes": 41987,
+    "expected_edges": 149605,
+    "adr_present": false,
+    "artifact_present": false,
+    "status": "indexed"
+  },
+  "imported_counts": {
+    "nodes": 41355,
+    "edges": 143954
+  },
+  "whole_R1_passed": false,
+  "whole_G02_accepted": false,
+  "scope_policy": "first_run_native_defaults_before_explicit_scope_adaptation",
+  "next": "verify_selected_scope_policy_on_actual_repository"
+}

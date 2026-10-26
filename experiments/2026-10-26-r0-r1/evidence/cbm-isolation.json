@@ -1,0 +1,97 @@
+{
+  "schema": "r0-cbm-isolation/1",
+  "evidence_kind": "executed_native_component",
+  "checks": [
+    {
+      "id": "selected_build_directory_not_silently_skipped",
+      "passed": true
+    },
+    {
+      "id": "shell_script_to_script_spawn",
+      "passed": true
+    },
+    {
+      "id": "left_container_env_reaches_own_reader",
+      "passed": true
+    },
+    {
+      "id": "right_container_env_reaches_own_reader",
+      "passed": true
+    },
+    {
+      "id": "same_key_env_does_not_cross_services",
+      "passed": true
+    },
+    {
+      "id": "two_same_named_readers_keep_distinct_ids",
+      "passed": true
+    },
+    {
+      "id": "input_export_unchanged",
+      "passed": true
+    },
+    {
+      "id": "imported_edges_keep_candidate_precision",
+      "passed": true
+    }
+  ],
+  "coverage": [
+    {
+      "path": "build/launch.sh",
+      "status": "provider_facts_available",
+      "provider": "codebase-memory-mcp",
+      "version": "codebase-memory-mcp 0.12.1",
+      "native_coverage": []
+    },
+    {
+      "path": "compose.yaml",
+      "status": "provider_facts_available",
+      "provider": "codebase-memory-mcp",
+      "version": "codebase-memory-mcp 0.12.1",
+      "native_coverage": []
+    },
+    {
+      "path": "left/Dockerfile",
+      "status": "provider_facts_available",
+      "provider": "codebase-memory-mcp",
+      "version": "codebase-memory-mcp 0.12.1",
+      "native_coverage": []
+    },
+    {
+      "path": "left/app.py",
+      "status": "provider_facts_available",
+      "provider": "codebase-memory-mcp",
+      "version": "codebase-memory-mcp 0.12.1",
+      "native_coverage": []
+    },
+    {
+      "path": "right/Dockerfile",
+      "status": "provider_facts_available",
+      "provider": "codebase-memory-mcp",
+      "version": "codebase-memory-mcp 0.12.1",
+      "native_coverage": []
+    },
+    {
+      "path": "right/app.py",
+      "status": "provider_facts_available",
+      "provider": "codebase-memory-mcp",
+      "version": "codebase-memory-mcp 0.12.1",
+      "native_coverage": []
+    },
+    {
+      "path": "scripts/task.sh",
+      "status": "provider_facts_available",
+      "provider": "codebase-memory-mcp",
+      "version": "codebase-memory-mcp 0.12.1",
+      "native_coverage": []
+    }
+  ],
+  "components": {
+    "provider": "codebase-memory-mcp",
+    "version": "codebase-memory-mcp 0.12.1",
+    "source_commit": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "adapter": "native_cbm_provider/0.1.0"
+  },
+  "passed": true,
+  "whole_G02_accepted": false
+}
