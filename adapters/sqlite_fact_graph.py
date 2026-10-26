@@ -105,6 +105,7 @@ def _prepare(graph,*,materialize=True):
     if not isinstance(nodes, list) or not isinstance(edges, list):
         raise ValueError("nodes and edges must be lists")
     node_rows, edge_rows, node_ids = [], [], set()
+    streaming=getattr(graph,'streaming_arrays',False)
     for index, node in enumerate(nodes):
         if not isinstance(node, dict):
             raise ValueError(f"nodes[{index}] must be a dictionary")
@@ -124,6 +125,7 @@ def _prepare(graph,*,materialize=True):
         if materialize:
             node_rows.append((snapshot, node_id, node["kind"], node["path"], line,
                               node["name"], _json(node)))
+        elif streaming:_validate_json(node)
     for index, edge in enumerate(edges):
         if not isinstance(edge, dict):
             raise ValueError(f"edges[{index}] must be a dictionary")
@@ -136,8 +138,9 @@ def _prepare(graph,*,materialize=True):
         if materialize:
             edge_rows.append((snapshot, index, edge["source"], edge["target"],
                               edge["kind"], edge["status"], _json(edge)))
+        elif streaming:_validate_json(edge)
     if not materialize:
-        _validate_json(graph)
+        _validate_json({k:v for k,v in graph.items() if k not in ('nodes','edges')} if streaming else graph)
         return
     metadata = {key: value for key, value in graph.items() if key not in ("nodes", "edges")}
     return snapshot, _json(metadata), node_rows, edge_rows

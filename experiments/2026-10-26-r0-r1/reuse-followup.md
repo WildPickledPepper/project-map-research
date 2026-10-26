@@ -5,8 +5,8 @@
 | 项目 | 当前结果 | 后置验收 |
 |---|---|---|
 | Clang 头文件语义 | 原生提取与逐头文件查询通过，提供方已接入 | 三项集成后统一快照复验 |
-| SVF C++ 别名和值流 | 固定 PySVF 1.0.0.50，原生工具已运行，正在导出与准入 | 原六项语义题、不同布局与对象负例、真实源码、统一查询 |
-| RAPx Rust 数据流 | 固定上游 `974eb8e`，nightly-2026-07-21 下已编译，正在接原生图导出 | 值传递、借用/复制/字段、跨函数与隔离负例、真实源码、统一查询 |
+| SVF C++ 别名和值流 | 六项固定语义题全部通过；真实全程序分析超过 13 GiB 进程预算 | 保留原生输入与资源收据，真实全仓值流未完成 |
+| RAPx + 编译器/SVF Rust 数据流 | RAPx 提供 MIR 与借用摘要；SVF 补字段值流，六项固定题通过 | 已接入五种 MIR 配置、四种 LLVM 配置；统一快照复核中 |
 
 ## 头文件引用恢复：原生提取与查询通过
 
@@ -30,3 +30,37 @@ python experiments/2026-10-26-r0-r1/verify_header_queries.py --capture NEW_CAPTU
 正式全仓建图支持 `--header-capture NEW_CAPTURE`。实时模式从编译诊断自动选择需恢复的非测试头文件；固定捕获模式复用同源码/配置结果。三项接入完成后发布一个最终统一快照，独立检查 R0/R1，当前保持未通过。
 
 原生 API 与编译数据库的行为见 [Clang CIndex](https://clang.llvm.org/docs/LibClang.html)、[Clang 编译数据库](https://clang.llvm.org/docs/JSONCompilationDatabase.html)和 [clangd 头文件编译命令](https://clangd.llvm.org/design/compile-commands)。
+
+## C++：准入通过，全程序资源阻塞
+
+复用 PySVF `1.0.0.50` 的 Andersen 与完整 SVFG。适配器只导出原生节点、边、调用位置、函数及上下文；[六项固定题](evidence/svf-cpp-six-cases.json)全部通过，包括此前 Joern 漏掉的 const-reference 别名，以及独立对象、先复制后修改的隔离负例。LLVM 原生优化后的同六项题也通过，预期保持不变。
+
+真实源码按 CMake File API 的目标依赖收集第一方编译单元，全部所选单元生成 LLVM 输入。首次全程序求解在 900 秒上限退出；去除非行号调试信息后一次 runner 提前关闭。随后复用已有 bitcode，使用 LLVM 原生 O1 预处理和进程资源监控：8 GiB、13 GiB 两次预算均触发停止，后者实际观察到 `13,734,240 KiB` RSS，运行 `91.256` 秒。该分析没有生成完整真实后端值流图，不能计为 R1/G02 通过。已完成的源码编译、固定用例和失败记录分别保留。
+
+Python 分发包的 points-to 方法未暴露，CLI 输出和 Python 图来自不同原生进程。其节点身份尚未独立校验，因此保留 CLI 原始结果，统一图不生成这部分 `SVF_POINTS_TO` 边。六项值流查询使用同一进程构造的原生 SVFG，不依赖跨进程编号配对。
+
+## Rust：复用两种现成分析能力
+
+RAPx 固定 `974eb8e7f91e186720daffdfdf1125c3daf6c8cb`，使用其要求的 `nightly-2026-07-21`。新增 Rust 代码是在现有分析完成后序列化 MIR 图、调用及 MFP 借用摘要，没有修改上游传递规则。[首次独立检查](evidence/rapx-independent-first.json)为 6/8：成员字段写入后读取、借用修改后读取两项漏边，原始预期保留。两项返回借用摘要通过。
+
+字段值流改用 Rust 编译器输出 LLVM bitcode，再交给同一个 SVF 分析；[六项原始配置检查](evidence/rust-svf-six-cases.json)及[优化配置复验](evidence/rust-svf-optimized.json)均通过。包含跨函数传递、字段写读，以及独立对象、复制、忽略参数三种负例。独立 Rust 执行还核对 16 项值/指针身份断言。
+
+真实源码已采集 HTTP、Linux 桌面 Release/Debug、Windows 桌面 Release/Debug 五种 RAPx 配置；SVF 已采集其中 HTTP、Linux Release、Windows Release/Debug 四种。Linux Debug 当前保留 RAPx 原生基本图及其字段能力限制，未据此宣称全配置字段数据流完整。[37 项逐文件查询](evidence/rust-native-query-checks.json)通过固定提交源码、搜索与正反查复核；它验证导入和查询，数据流精度由独立题另行检验。
+
+发现并保留了三类配置失败：
+
+1. `-Copt-level=0` 会影响默认 `debug_assertions`，曾把 Release 标签配到 Debug 模块；[首次分支对照](evidence/rust-cfg-first-failure.json)保留失败。现在先读取 Cargo 的原生 cfg，再显式保留该开关；同上下文的 RAPx/SVF 若选中冲突源码，导入拒绝。
+2. Windows Release 的 O1 输入触发上游 `CallBase::getArgOperand` 断言；保持原生 Release cfg，改用 O0 后执行成功。
+3. 优化后的独立库曾不生成四个可内联公共函数的 LLVM 本体，查询检查失败。启用编译器的 `-Clink-dead-code=yes` 后，六项题全部通过；没有改动 fixture 或预期。
+
+项目图保留自有源码位置及相邻原生边界端口，范围外库的完整内部图留在原始捕获中。省略部分和位置未映射部分都有诊断，边界端口没有被推导为相互独立；全部静态关系保持候选精度，运行状态为未观察。
+
+## 正式接入与统一发布
+
+[导出归一化](../../adapters/native_value_flow.py)、[分组导入](../../scripts/collect_native_value_flow.py)及[提供方接入](../../adapters/native_provider_graph.py)绑定源码提交、模块与编译上下文，拒绝错版本、重复身份和配置冲突。Rust SVF 捕获不能掩盖 C++ 捕获缺失。原生采集入口为 `scripts/capture_cargo_value_flow.py`；全仓入口支持 `--value-flow-captures`。
+
+统一图复用同产品提交、提取代码未变化的已有基础事实，追加上述原生捕获。4,042,589,813 字节的图已生成，首次发布校验遇到 `MemoryError`，旧成功快照保持完好。现在复用 [ijson](https://github.com/ICRAR/ijson) `3.4.0` 流式读取，沿用原有 SQLite schema、校验与原子发布；大整数、浮点、重复 ID、缺失端点及文件变更均有对照检查。最终发布和组件核查结果后续写入本节。
+
+[755 项 Python 回归](evidence/native-provider-regression.json)在该次记录的规则版本通过，含 2 项平台跳过；后续原生配置和流式读取修改另做定向检查及最终复验。没有把早期回归记录改为当前版本结果。
+
+当前严格 R0/R1 总状态仍保持 partial；C++ 全程序值流及上述明确配置缺口继续阻止整体通过。R2、历史资产及 skill 整理均未启动。

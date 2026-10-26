@@ -16,6 +16,7 @@ import uuid
 
 from adapters.snapshot_inputs import commit, export_inputs, normalize_config, select_inputs
 from adapters.sqlite_fact_graph import validate_graph
+from adapters.graph_document import read_graph
 
 
 def now():
@@ -152,7 +153,7 @@ class Refresher:
         self.event(state['status'], attempt_id=attempt['id'] if attempt else None, error=info)
 
     def validate(self, directory, request, result):
-        graph = json.loads((directory/'graph.json').read_text(encoding='utf-8'))
+        graph = read_graph(directory/'graph.json')
         validate_graph(graph)
         expected = {key: request[key] for key in ['snapshot', 'source_commit', 'config', 'build_version']}
         if graph.get('version') != expected or graph['snapshot'] != request['snapshot']:

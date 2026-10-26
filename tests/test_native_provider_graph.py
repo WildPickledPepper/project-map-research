@@ -4,7 +4,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from adapters.native_provider_graph import configuration, merge, read_capture
+from adapters.native_provider_graph import augment, configuration, merge, read_capture
 from adapters.repository_discovery import manifest_kind
 from adapters.build_configuration import configuration as build_configuration
 
@@ -89,6 +89,20 @@ class NativeProviderGraphTests(unittest.TestCase):
             configuration({'cbm': {'enabled': 'true'}})
         with self.assertRaises(ValueError):
             configuration({'captures': [{'provider': 'unknown'}]})
+
+    def test_rust_svf_capture_does_not_hide_missing_cpp_native_values(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);facts=self.facts();facts['components']['provider']='svf'
+            facts['nodes'][0].update(path='app.rs',language='rust');facts['coverage'][0]['path']='app.rs'
+            (root/'facts.json').write_text(json.dumps(facts))
+            graph={'input_paths':['app.rs','model.cpp'],'source_commit':'c'*40,'nodes':[],
+                'edges':[],'limits':[],'diagnostics':[],'coverage':[]}
+            augment(graph,root=root,output=root/'output',config={
+                'cbm':{'enabled':False},'clangd':{'enabled':False},'libclang':{'enabled':False},
+                'rapx':{'enabled':False},'captures':[{'provider':'svf','directory':str(root.resolve()),
+                'source_commit':'c'*40,'context_key':'release'}]})
+            self.assertTrue(any(d.get('provider')=='svf' and d.get('language')=='cpp'
+                                and d['affected_paths']==['model.cpp'] for d in graph['diagnostics']))
 
     def test_standard_container_and_yaml_names_are_project_independent(self):
         for name in ('ops/Dockerfile', 'bundle/Dockerfile.debug', 'service.custom.Dockerfile',

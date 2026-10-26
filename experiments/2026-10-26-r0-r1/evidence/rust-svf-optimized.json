@@ -1,0 +1,91 @@
+{
+  "schema": "rust-svf-independent-admission/1",
+  "source_generator_commit": "80007ff87dbbfb934fee614f29d2c7f6da168cbd",
+  "input_kind": "authored_fixture_copied_by_pinned_workflow",
+  "input_reference": "rust-dataflow.rs",
+  "provider": {
+    "provider": "svf",
+    "adapter": "native_value_flow/1",
+    "context": "fixture/independent",
+    "source_commit": "80007ff87dbbfb934fee614f29d2c7f6da168cbd",
+    "native_version": "1.0.0.50",
+    "precision": "native_static_candidate"
+  },
+  "checks": [
+    {
+      "case": "regular",
+      "expected_input_dependency": true,
+      "native_functions": 1,
+      "native_source_nodes": 1,
+      "native_return_nodes": 1,
+      "query_found": true,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "member",
+      "expected_input_dependency": true,
+      "native_functions": 1,
+      "native_source_nodes": 1,
+      "native_return_nodes": 1,
+      "query_found": true,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "isolated",
+      "expected_input_dependency": false,
+      "native_functions": 1,
+      "native_source_nodes": 1,
+      "native_return_nodes": 1,
+      "query_found": false,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "after_copy",
+      "expected_input_dependency": false,
+      "native_functions": 1,
+      "native_source_nodes": 1,
+      "native_return_nodes": 1,
+      "query_found": false,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "borrowed",
+      "expected_input_dependency": true,
+      "native_functions": 1,
+      "native_source_nodes": 1,
+      "native_return_nodes": 1,
+      "query_found": true,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "through_ignored",
+      "expected_input_dependency": false,
+      "native_functions": 1,
+      "native_source_nodes": 1,
+      "native_return_nodes": 1,
+      "query_found": false,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "whole_R0_R1_accepted": false,
+  "runtime_execution": "independent_fixture_tests_only"
+}

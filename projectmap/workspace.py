@@ -13,6 +13,7 @@ import sys
 import uuid
 
 from adapters.project_map import Budget, ProjectMap, build_index, encoded
+from adapters.graph_document import read_graph
 from adapters.repository_discovery import discover
 from adapters.snapshot_inputs import commit, normalize_config, git
 from adapters.snapshot_refresh import Refresher, atomic_json, read_json, read_snapshot, read_state, writer_lock
@@ -149,7 +150,7 @@ class Workspace:
             'historical_assets':{'enabled':False},'missing_relation_meaning':'unknown'}
 
     def _publish_index(self,graph_path,*,store=None,snapshot_id=None):
-        initial=read(self.file);graph=read(graph_path)
+        initial=read(self.file);graph=read_graph(graph_path)
         if commit(self.source,graph['source_commit'])!=graph['source_commit']:raise ValueError('Graph source commit is unavailable')
         if graph.get('version',{}).get('source_commit')!=graph['source_commit']:raise ValueError('Graph version/source mismatch')
         if graph.get('provenance',{}).get('working_tree_included') is not False:raise ValueError('Require an immutable committed-source extraction')
