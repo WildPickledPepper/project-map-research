@@ -30,7 +30,20 @@ class NativeValueFlowTests(unittest.TestCase):
             normalize(self.native(),provider='svf',paths=['../escaped.cpp'],source_commit='a'*40,context='linux/release')
         raw=self.native();raw['nodes'][0]['source_location']={'fl':'/other/project/lib/a.cpp','ln':9}
         raw['nodes'][0]['function_location']=None
-        self.assertEqual(self.normalize(raw)['nodes'][0]['path'],'')
+        facts=self.normalize(raw)
+        self.assertFalse(any(n['path'] for n in facts['nodes']))
+        self.assertEqual(facts['diagnostics'][0]['project_and_boundary_value_nodes'],0)
+
+    def test_project_projection_preserves_native_boundary_ports_and_reports_omitted_bodies(self):
+        raw=self.native();first=raw['nodes'][0]
+        for uid in (4,5):
+            raw['nodes'].append({**first,'id':uid,'source_location':None,'function_location':None,'value':None})
+        raw['edges']=[{'source':1,'target':4},{'source':4,'target':5}]
+        facts=self.normalize(raw);ids={n['native_id'] for n in facts['nodes'] if n['kind']=='value'}
+        self.assertEqual(ids,{1,4})
+        self.assertEqual(sum(e['kind']=='SVF_VALUE_FLOW' for e in facts['edges']),1)
+        self.assertTrue(next(n for n in facts['nodes'] if n.get('native_id')==4)['external_boundary_value'])
+        self.assertEqual(facts['diagnostics'][0]['native_counts']['nodes'],3)
 
     def test_native_module_identity_and_candidate_precision_survive_import(self):
         with tempfile.TemporaryDirectory() as temporary:

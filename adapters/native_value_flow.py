@@ -48,17 +48,39 @@ def normalize(data, *, provider, paths, source_commit, context):
         edges.append({'source':source,'target':target,'kind':kind,'status':'candidate',
                       'evidence':evidence,'provenance':provenance,'runtime_execution':'not_observed',**extra})
     if provider=='svf':
-        positions={}
+        native_counts={k:len(data.get(k,[])) for k in ('nodes','edges','variables','points_to')}
+        node_locations={}
         for raw in data['nodes']:
             pos=location(raw.get('source_location'),root,selected,data.get('source_directory',''))
             fallback=not pos['path']
             if fallback:pos=location(raw.get('function_location'),root,selected,data.get('source_directory',''))
+            node_locations[raw['id']]=(pos,fallback)
+        owned={uid for uid,(pos,_) in node_locations.items() if pos['path']}
+        retained=set(owned)
+        for e in data['edges']:
+            if e['source'] in owned or e['target'] in owned:retained.update((e['source'],e['target']))
+        raw_nodes=[n for n in data['nodes'] if n['id'] in retained]
+        raw_edges=[e for e in data['edges'] if e['source'] in retained and e['target'] in retained]
+        values={n['value'] for n in raw_nodes if n.get('value') is not None}
+        raw_points=[e for e in data.get('points_to',[]) if e['source'] in values]
+        values.update(e['target'] for e in raw_points)
+        raw_variables=[v for v in data.get('variables',[]) if v['id'] in values]
+        diagnostics.append({'path':'','kind':'external_native_bodies_not_in_project_projection',
+            'native_counts':native_counts,'project_and_boundary_value_nodes':len(raw_nodes),
+            'retained_native_edges':len(raw_edges),'retained_points_to':len(raw_points),
+            'projection':'repository_locations_and_adjacent_native_boundary_ports',
+            'external_body_query':'full_graph_retained_in_original_native_capture',
+            'missing_external_paths_mean':'external_or_unmapped; not_independence'})
+        positions={}
+        for raw in raw_nodes:
+            pos,fallback=node_locations[raw['id']]
             uid=prefix+'flow:'+str(raw['id'])
             node(uid,'value',raw['kind']+' '+str(raw['id']),pos,native_id=raw['id'],native_kind=raw['kind'],
                  native_description=raw['text'],native_function=raw.get('function'),
+                 external_boundary_value=not bool(pos['path']),
                  source_location_kind='function_fallback' if fallback else 'native_instruction')
             if raw.get('value') is not None:positions[raw['value']]=pos
-        for raw in data['nodes']:
+        for raw in raw_nodes:
             if not raw.get('function'):continue
             uid=prefix+'function:'+quote(raw['function'],safe='')
             if uid not in nodes:
@@ -66,16 +88,16 @@ def normalize(data, *, provider, paths, source_commit, context):
                 name=data.get('function_display_names',{}).get(raw['function'],raw['function'])
                 node(uid,'callable',name,pos,native_function=raw['function'],native_function_display=name)
             edge(uid,prefix+'flow:'+str(raw['id']),'SVF_CONTAINS_VALUE')
-        for raw in data['edges']:
+        for raw in raw_edges:
             edge(prefix+'flow:'+str(raw['source']),prefix+'flow:'+str(raw['target']),'SVF_VALUE_FLOW',native=raw)
-        for raw in data.get('variables',[]):
+        for raw in raw_variables:
             node(prefix+'variable:'+str(raw['id']),'object_binding',raw['name'] or raw['kind']+' '+str(raw['id']),
                  positions.get(raw['id'],{'path':'','line':0,'column':0}),native_id=raw['id'],native_kind=raw['kind'],
                  native_description=raw['text'])
-        for raw in data['nodes']:
+        for raw in raw_nodes:
             if raw.get('value') is not None:
                 edge(prefix+'flow:'+str(raw['id']),prefix+'variable:'+str(raw['value']),'SVF_HAS_NATIVE_VALUE')
-        for raw in data.get('points_to',[]):
+        for raw in raw_points:
             edge(prefix+'variable:'+str(raw['source']),prefix+'variable:'+str(raw['target']),'SVF_POINTS_TO')
         if data.get('points_to_backend')=='unavailable' or (data.get('python_points_to_binding_available') is False and not data.get('points_to_backend')):
             diagnostics.append({'path':'','kind':'svf_python_points_to_binding_unavailable',

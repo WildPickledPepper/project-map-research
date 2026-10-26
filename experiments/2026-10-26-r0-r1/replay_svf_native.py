@@ -1,11 +1,35 @@
 """Bounded SVF retry reusing native LLVM passes and the existing bitcode capture."""
 import argparse
 import json
+import os
 from pathlib import Path
 import subprocess
 import sys
+import time
 
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
+
+
+def bounded_native(command,folder,name,timeout):
+    started=time.monotonic();peak=0;reason=None
+    with (folder/(name+'.log')).open('w') as log:
+        process=subprocess.Popen(command,stdout=log,stderr=subprocess.STDOUT)
+        while process.poll() is None:
+            status=Path('/proc')/str(process.pid)/'status'
+            if status.exists():
+                values=dict(line.split(':',1) for line in status.read_text().splitlines() if ':' in line)
+                peak=max(peak,int(values.get('VmRSS','0 kB').split()[0]))
+            if peak>8*1024*1024 or time.monotonic()-started>timeout:
+                reason='8_GiB_native_process_budget' if peak>8*1024*1024 else 'native_wall_time_budget'
+                process.terminate()
+                try:process.wait(timeout=10)
+                except subprocess.TimeoutExpired:process.kill();process.wait()
+                break
+            time.sleep(.25)
+        receipt={'exit_code':process.returncode,'stop_reason':reason,'peak_rss_kib':peak,
+                 'seconds':round(time.monotonic()-started,3)}
+        (folder/(name+'-resources.json')).write_text(json.dumps(receipt,indent=2))
+        if process.returncode:raise RuntimeError(name+' failed: '+json.dumps(receipt))
 
 
 def main():
@@ -20,16 +44,14 @@ def main():
     reports=[]
     for name,original,context,module,commit,source in programs:
         folder=args.output/name;folder.mkdir();bitcode=folder/'program.bc'
-        passes='strip-nonlinetable-debuginfo'
+        passes='strip-nonlinetable-debuginfo,default<O1>'
         subprocess.run(['opt-16','-passes='+passes,str(original),'-o',str(bitcode)],check=True,timeout=180)
-        with (folder/'analysis.log').open('w') as log:
-            subprocess.run([str(wpa),'-ander','-svfg','-write-ander='+str(folder/'points-to.txt'),str(bitcode)],
-                           stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
-        with (folder/'export.log').open('w') as log:
-            subprocess.run([sys.executable,'-m','adapters.svf_export','--bitcode',str(bitcode),
+        bounded_native([str(wpa),'-ander','-svfg','-write-ander='+str(folder/'points-to.txt'),str(bitcode)],
+                       folder,'analysis',600)
+        bounded_native([sys.executable,'-m','adapters.svf_export','--bitcode',str(bitcode),
                 '--native-points',str(folder/'points-to.txt'),'--output',str(folder/'native.json'),
                 '--source-root',source,'--source-commit',commit,'--context',context,'--module',module],
-                stdout=log,stderr=subprocess.STDOUT,check=True,timeout=300)
+                folder,'export',600)
         if name=='probe':
             subprocess.run([sys.executable,str(Path(__file__).with_name('score_svf_admission.py')),
                 '--native',str(folder/'native.json'),'--output',str(folder/'admission')],check=True,timeout=60)
