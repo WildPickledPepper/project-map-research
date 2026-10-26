@@ -51,6 +51,20 @@ class NativeValueFlowTests(unittest.TestCase):
         self.assertFalse(any(e['kind']=='SVF_POINTS_TO' for e in facts['edges']))
         self.assertTrue(any(d['kind']=='native_points_to_identity_not_verified' for d in facts['diagnostics']))
 
+    def test_different_native_cfg_source_branches_cannot_share_a_context(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root=Path(temporary);svf=self.native(language='rust')
+            svf['nodes'][0].update(source_location={'fl':'/native/root/src/main.rs','ln':1},function_location=None)
+            rapx={'schema':'rapx-native-export/1','source_commit':'a'*40,'context':'linux/release',
+                'crate':'app','source_root':'/native/root','functions':[{'name':'f','native_id':'DefId(1)',
+                'location':{'file':'/native/root/src/other.rs','line':1},'arguments':0,'locals':[],
+                'edges':[],'calls':[],'alias_summary':[]}]}
+            inputs=[]
+            for i,data in enumerate((svf,rapx)):
+                filename=root/f'{i}.json';filename.write_text(json.dumps(data));inputs.append(filename)
+            with self.assertRaisesRegex(ValueError,'different cfg sources'):
+                collect(inputs,paths=['src/main.rs','src/other.rs'],source_commit='a'*40,output=root/'capture')
+
     def test_native_module_identity_and_candidate_precision_survive_import(self):
         with tempfile.TemporaryDirectory() as temporary:
             root=Path(temporary);inputs=[]

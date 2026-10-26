@@ -1,0 +1,87 @@
+{
+  "schema": "rapx-independent-admission/1",
+  "source_generator_commit": "96b2db353b996cff96affca8fd35f15c444e8982",
+  "input_kind": "authored_fixture_copied_by_pinned_workflow",
+  "input_reference": "rust-dataflow.rs",
+  "provider": {
+    "provider": "rapx",
+    "adapter": "native_value_flow/1",
+    "context": "fixture/independent",
+    "source_commit": "96b2db353b996cff96affca8fd35f15c444e8982",
+    "native_version": "974eb8e7f91e186720daffdfdf1125c3daf6c8cb",
+    "precision": "native_static_candidate"
+  },
+  "checks": [
+    {
+      "case": "regular",
+      "expected_input_dependency": true,
+      "query_found": true,
+      "stop_reason": null,
+      "passed": true
+    },
+    {
+      "case": "member",
+      "expected_input_dependency": true,
+      "query_found": false,
+      "stop_reason": null,
+      "passed": false
+    },
+    {
+      "case": "isolated",
+      "expected_input_dependency": false,
+      "query_found": false,
+      "stop_reason": null,
+      "passed": true
+    },
+    {
+      "case": "after_copy",
+      "expected_input_dependency": false,
+      "query_found": false,
+      "stop_reason": null,
+      "passed": true
+    },
+    {
+      "case": "borrowed",
+      "expected_input_dependency": true,
+      "query_found": false,
+      "stop_reason": null,
+      "passed": false
+    },
+    {
+      "case": "through_ignored",
+      "expected_input_dependency": false,
+      "query_found": false,
+      "stop_reason": null,
+      "passed": true
+    },
+    {
+      "case": "borrow_field",
+      "native_argument_return_aliases": [
+        {
+          "left": 0,
+          "left_fields": [],
+          "right": 1,
+          "right_fields": [
+            0
+          ]
+        }
+      ],
+      "passed": true
+    },
+    {
+      "case": "borrow_identity",
+      "native_argument_return_aliases": [
+        {
+          "left": 0,
+          "left_fields": [],
+          "right": 1,
+          "right_fields": []
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "passed": false,
+  "whole_R0_R1_accepted": false,
+  "runtime_execution": "independent_fixture_tests_only"
+}

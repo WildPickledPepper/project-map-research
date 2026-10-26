@@ -34,7 +34,7 @@ def main():
     debug_assertions='debug_assertions' in native_cfg.splitlines()
     optimization=args.analysis_optimization or ('1' if args.release else '0')
     command+=['--','-Zno-link','--emit=llvm-bc','-Cdebuginfo=2','-Cembed-bitcode=yes','-Ccodegen-units=1',
-              '-Copt-level='+optimization,'-Cdebug-assertions='+('yes' if debug_assertions else 'no')]
+              '-Copt-level='+optimization,'-Clink-dead-code=yes','-Cdebug-assertions='+('yes' if debug_assertions else 'no')]
     with (output/'compile.log').open('w') as log:
         subprocess.run(command,cwd=manifest.parent,env=environment,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
     crate=package['name'].replace('-','_')

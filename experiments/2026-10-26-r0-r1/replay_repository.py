@@ -10,7 +10,7 @@ import sys
 import time
 
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT))
-from adapters.native_provider_graph import merge,read_capture
+from adapters.native_provider_graph import augment
 from adapters.snapshot_inputs import git
 from projectmap.workspace import Workspace
 from scripts.build_project_snapshot import build_version,write_json
@@ -54,9 +54,8 @@ def main():
             'original_build_version':graph['version']['build_version'],
             'unchanged_core_verified_by_git_paths':True,'changed_native_adapter_paths':changed,
             'original_source_facts_reextracted':False}
-        for capture in captures:
-            facts=read_capture(capture,paths=request['input_paths'],source_commit=request['source_commit'])
-            merge(graph,facts,provider=capture['provider'],context=capture['context_key'])
+        graph=augment(graph,root=source,output=output/'native-replay',config={
+            'cbm':{'enabled':False},'clangd':{'enabled':False},'captures':captures})
         graph['snapshot']=request['snapshot']
         graph['version']={k:request[k] for k in ('snapshot','source_commit','config','build_version')}
         graph['provenance']['update_mode']='reuse_unchanged_source_facts_and_append_native_captures'

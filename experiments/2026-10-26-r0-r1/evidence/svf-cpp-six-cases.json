@@ -1,0 +1,82 @@
+{
+  "schema": "svf-frozen-admission/1",
+  "source_commit": "96b2db353b996cff96affca8fd35f15c444e8982",
+  "provider": {
+    "provider": "svf",
+    "adapter": "native_value_flow/1",
+    "context": "fixture/release",
+    "source_commit": "96b2db353b996cff96affca8fd35f15c444e8982",
+    "native_version": "1.0.0.50",
+    "precision": "native_static_candidate"
+  },
+  "checks": [
+    {
+      "case": "regular",
+      "expected_input_dependency": true,
+      "native_source_nodes": 1,
+      "native_sink_nodes": 1,
+      "query_found": true,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "member",
+      "expected_input_dependency": true,
+      "native_source_nodes": 1,
+      "native_sink_nodes": 1,
+      "query_found": true,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "isolated",
+      "expected_input_dependency": false,
+      "native_source_nodes": 1,
+      "native_sink_nodes": 1,
+      "query_found": false,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "after_copy",
+      "expected_input_dependency": false,
+      "native_source_nodes": 1,
+      "native_sink_nodes": 1,
+      "query_found": false,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "borrowed",
+      "expected_input_dependency": true,
+      "native_source_nodes": 1,
+      "native_sink_nodes": 1,
+      "query_found": true,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    },
+    {
+      "case": "getter",
+      "expected_input_dependency": true,
+      "native_source_nodes": 1,
+      "native_sink_nodes": 1,
+      "query_found": true,
+      "stop_reasons": [
+        null
+      ],
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "whole_R0_R1_accepted": false
+}

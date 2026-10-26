@@ -1,0 +1,10 @@
+{
+  "exit_code": 0,
+  "seconds": 371.484,
+  "command": "python -m unittest discover -s tests",
+  "tests": 755,
+  "skipped": 2,
+  "rules_commit": "2092b459c556237e525c328399a27fb90653e844",
+  "scope": "whole_python_suite_before_later_native_projection_and_cfg_updates",
+  "later_native_changes_require_targeted_checks": true
+}

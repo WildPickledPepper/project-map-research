@@ -111,10 +111,12 @@ def augment(graph, *, root, output, config=None, emit=None):
     root, output = Path(root), Path(output)
     paths = graph['input_paths']; source_commit = graph['source_commit']
     captures = options['captures']
+    captured_languages={}
     for capture in captures:
         if not options[capture['provider']]['enabled']:
             raise ValueError('Capture supplied for disabled provider')
         facts = read_capture(capture, paths=paths, source_commit=source_commit)
+        captured_languages.setdefault(capture['provider'],set()).update(n.get('language') for n in facts['nodes'])
         merge(graph, facts, provider=capture['provider'], context=capture['context_key'])
     already = {r['provider'] for r in captures}
     cbm = os.environ.get('PROJECT_MAP_CBM') or shutil.which('codebase-memory-mcp')
@@ -176,8 +178,10 @@ def augment(graph, *, root, output, config=None, emit=None):
                 graph['diagnostics'].append({'kind':'native_provider_unavailable','provider':'libclang',
                     'required_for':'translation_unit_header_semantics','affected_paths':sorted(required)})
     for provider, applicable in (('svf', cpp), ('rapx', [p for p in paths if p.endswith('.rs')])):
-        if options[provider]['enabled'] and provider not in already and applicable:
+        missing=provider not in already or (provider=='svf' and 'cpp' not in captured_languages.get('svf',set()))
+        if options[provider]['enabled'] and missing and applicable:
             graph['diagnostics'].append({'kind':'native_provider_capture_required','provider':provider,
+                'language':'cpp' if provider=='svf' else 'rust',
                 'required_for':'compiler_bound_native_value_flow','affected_paths':applicable,
                 'capture_contract':'same_source_revision_and_explicit_native_compile_context'})
     return graph

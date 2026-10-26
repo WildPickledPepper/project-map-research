@@ -5,7 +5,7 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release, rust-admission]
       compiler-run:
         type: string
         default: ''
@@ -310,4 +310,31 @@ jobs:
         with:
           name: rust-svf-native-output
           path: ${{ runner.temp }}/rust-svf-output
+          retention-days: 7
+  rust-admission:
+    if: inputs.provider == 'rust-admission'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Execute native optimized admission without dropping source items
+        run: |
+          python -m pip install pysvf==1.0.0.50
+          rustup toolchain install 1.94.0 --profile minimal
+          cargo +1.94.0 install rustfilt --locked
+          mkdir -p "$RUNNER_TEMP/rust-flow/src"
+          cp experiments/2026-10-26-r0-r1/rust-dataflow.rs "$RUNNER_TEMP/rust-flow/src/lib.rs"
+          printf '[package]\nname="neutral_flow"\nversion="0.1.0"\nedition="2021"\n[workspace]\n' > "$RUNNER_TEMP/rust-flow/Cargo.toml"
+          python scripts/capture_cargo_value_flow.py --manifest "$RUNNER_TEMP/rust-flow/Cargo.toml" --source-root "$RUNNER_TEMP/rust-flow" --output "$RUNNER_TEMP/admission-output" --source-commit "$GITHUB_SHA" --context fixture/independent --release
+          python experiments/2026-10-26-r0-r1/score_rust_svf_admission.py --native "$RUNNER_TEMP/admission-output/native.json" --output "$RUNNER_TEMP/admission-output/checks"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rust-admission-output
+          path: ${{ runner.temp }}/admission-output
           retention-days: 7

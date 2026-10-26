@@ -1,0 +1,30 @@
+{
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "checks": [
+    {
+      "context": "platform/linux-desktop-release",
+      "unexpected_cfg_sources": [
+        "platform/src/dev_legacy.rs"
+      ],
+      "passed": false
+    },
+    {
+      "context": "platform/linux-http",
+      "unexpected_cfg_sources": [],
+      "passed": true
+    },
+    {
+      "context": "platform/windows-desktop-debug",
+      "unexpected_cfg_sources": [],
+      "passed": true
+    },
+    {
+      "context": "platform/windows-desktop-release",
+      "unexpected_cfg_sources": [
+        "platform/src/dev.rs"
+      ],
+      "passed": false
+    }
+  ],
+  "passed": false
+}
