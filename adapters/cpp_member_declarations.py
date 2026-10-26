@@ -4,7 +4,7 @@ from collections import defaultdict
 from adapters.syntax_supplement import cpp_scope,identity,parents,text,walk
 
 
-ADAPTER_VERSION='cpp_source_member_declaration_alternatives/0.1.0'
+ADAPTER_VERSION='cpp_source_member_declaration_alternatives/0.1.1'
 
 
 def preprocessor_conditions(node):
@@ -45,12 +45,28 @@ def project(members):
         'conditional_members':conditional,'configuration_selection':'not_performed'}}
 
 
+def declarator_child(node):
+    return node.child_by_field_name('declarator') or next((c for c in node.named_children if c.type in {
+        'identifier','field_identifier','pointer_declarator','reference_declarator','array_declarator',
+        'parenthesized_declarator','function_declarator'}),None)
+
+
+def method_declaration(node):
+    current=node
+    while current is not None:
+        if current.type=='function_declarator':
+            inner=current.child_by_field_name('declarator')
+            return inner is None or inner.type!='parenthesized_declarator' or any(n.type=='function_declarator' for n in walk(inner))
+        if current.type in {'identifier','field_identifier'}:return False
+        current=declarator_child(current)
+    return False
+
+
 def declarator_name(node):
     current=node
     while current is not None:
         if current.type in {'identifier','field_identifier'}:return current
-        current=current.child_by_field_name('declarator') or next((c for c in current.named_children if c.type in {
-            'identifier','field_identifier','pointer_declarator','reference_declarator','array_declarator','parenthesized_declarator'}),None)
+        current=declarator_child(current)
     return None
 
 
@@ -77,9 +93,7 @@ def discover(data):
                 for declaration in declarators:
                     # Function prototypes are callable declarations. Parenthesized
                     # pointer declarators are data members with callable types.
-                    if declaration.type=='function_declarator':
-                        inner=declaration.child_by_field_name('declarator')
-                        if inner is None or inner.type!='parenthesized_declarator' or any(n.type=='function_declarator' for n in walk(inner)):continue
+                    if method_declaration(declaration):continue
                     named=declarator_name(declaration)
                     if named is None:
                         data.diagnostics.append({'kind':'cpp_member_declaration_unresolved','reason':'member_declarator_not_expanded',

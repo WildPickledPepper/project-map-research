@@ -22,6 +22,12 @@
 
 本次全量提取另报 51 项 `member_declarator_not_expanded`。源码检查表明这些位置都是返回引用的方法声明，如 `static ParamsParser &Instance()` 和 `const ParamsOption &GetOption()`，属于成员目录的错误缺口分类，后续需在声明分类中修正。目标字段导航通过与这一错误分别记录，G02/G03/G04 保持未通过。其余解码器的 strlen 表达式缺口继续保留。
 
+## 引用返回方法的声明分类修正
+
+提取器 0.1.1 沿声明符向内检查函数声明，处理方法返回指针、左值引用及右值引用时的外层声明符。方法不再进入数据成员的未解析分支；函数指针、函数引用，以及返回指针的函数指针字段仍保留为数据成员。判断依据是语法结构，不匹配方法名。
+
+新增独立反例和原成员/类型/数据机制共 34 项检查通过；完整回归运行 710 项，通过，1 项按平台跳过。全 C++ 控制复验待执行。原规则的 51 项错误记录保留在上述证据中。
+
 ```text
 python -m unittest tests.test_cpp_member_declarations tests.test_cpp_nested_members tests.test_cpp_data -v
 python -m unittest tests.test_project_snapshot -v

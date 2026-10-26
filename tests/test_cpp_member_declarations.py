@@ -82,6 +82,13 @@ Target value;
         data=self.extractor('struct Options{void (*callback)(int);void (*get())(int);};')
         self.assertIsNotNone(self.field(data,'callback'));self.assertIsNone(self.field(data,'get'))
 
+    def test_reference_and_pointer_returning_methods_do_not_report_unexpanded_data_members(self):
+        data=self.extractor('''struct Options{static Options &Instance();int *ptr();int &ref();int &&move();
+void (*callback)(int);void (&borrowed)(int);int *(*complex)(int);};''')
+        for name in ('Instance','ptr','ref','move'):self.assertIsNone(self.field(data,name))
+        for name in ('callback','borrowed','complex'):self.assertIsNotNone(self.field(data,name))
+        self.assertEqual(data.diagnostics,[])
+
     def test_same_named_classes_in_separate_translation_units_keep_their_members(self):
         files={'left.cpp':'struct Options{int field;};void left(){Options x;x.field=1;}',
             'right.cpp':'struct Options{bool field;};void right(){Options x;x.field=false;}'}

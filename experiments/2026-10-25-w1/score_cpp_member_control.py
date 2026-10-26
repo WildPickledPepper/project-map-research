@@ -49,6 +49,7 @@ def main():
         check('versioned_source_variant_'+str(index),proof['source_commit']==trial['source_commit'] and proof['path']==path and not proof['working_tree_read'])
     required=[d for d in graph['diagnostics'] if d['kind']=='cpp_member_declaration_unresolved' and d['required']]
     check('unsupported_member_shapes_remain_visible',all(d.get('path') and d.get('reason') for d in required))
+    check('no_remaining_required_member_declaration_gaps_in_pinned_source',not required)
     check('no_native_configuration_runtime_or_whole_gate_claim',not any(trial[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild',
         'installed_tool_tested','runtime_execution','argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified')))
     check('source_extraction_no_hash_verification',trial['cpp_source_extraction_executed_again'] and trial['file_hash_verification']=='not_run_per_user_preference')
