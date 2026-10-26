@@ -2,6 +2,8 @@
 
 [下载 24 条测试样本表（Excel）](msinsight-24-test-candidates.xlsx)
 
+2026-10-26：[全体样例的修改影响信息分析](../../research/regression-context-gaps-2026-10-26.md)逐项检查原 24 条及 7 条补充候选暴露的身份、条件、状态、时序和资源依赖。本轮为已见归因讨论，未新增运行评分或调整工具规则；现有集合划分保持不变。
+
 新增：[历史遗留分类中的改动回归候选说明](historical-change-regressions.md)及[候选表（Excel）](historical-change-regression-candidates.xlsx)。筛查 33 条历史遗留记录，源码复核其中 7 条关联改动；单独登记，原 24 条及其集合划分保持不变。
 
 后续用途按[样本划分 v1](split.md)执行：8 条开发、4 条关联回归、12 条验证候选。本轮用户推进 A4，已按[冻结协议](../../experiments/2026-10-24-a4/protocol.md)启动验证候选的源码与静态覆盖评价；规则保持冻结，运行复现另记。
