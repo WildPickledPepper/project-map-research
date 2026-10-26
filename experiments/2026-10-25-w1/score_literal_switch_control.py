@@ -72,6 +72,13 @@ def main():
             row={'id':label+'_'+direction,'found':proof['found'],'stop_reason':proof.get('stop_reason'),
                 'snapshot_matches':proof['snapshot']==graph['snapshot'],'witness_edges':len(proof['items'])}
             navigation.append(row);check('navigation_'+row['id'],row['found'] and row['stop_reason'] is None and row['snapshot_matches'])
+    default_navigation={}
+    if process:
+        proof=workspace.query('path',start=template['id'],target=member['id'],kinds=kinds,depth=10)
+        default_navigation={'found':proof['found'],'stop_reason':proof.get('stop_reason'),'witness_edges':len(proof['items']),
+            'output_bytes':len(json.dumps(proof,ensure_ascii=False).encode('utf-8')),'snapshot_matches':proof['snapshot']==graph['snapshot']}
+        check('template_member_with_default_output_budget',default_navigation['found'] and default_navigation['stop_reason'] is None and
+            default_navigation['snapshot_matches'] and default_navigation['output_bytes']<=131072)
     for label,node in [('switch',switch),('write',write),('member',member)]:
         proof=workspace.query('source',start=node['id'])
         check('versioned_source_'+label,proof['path']==node['path'] and proof['source_commit']==trial['source_commit'] and not proof['working_tree_read'])
@@ -84,7 +91,7 @@ def main():
         'required_value_type_gap_counts':{reason:sum(d['reason']==reason for d in type_gaps) for reason in sorted({d['reason'] for d in type_gaps})},
         'required_gap_counts_by_kind':{kind:dict(Counter(d.get('reason','unclassified') for d in graph['diagnostics']
             if d.get('required') and d['kind']==kind)) for kind in sorted({d['kind'] for d in graph['diagnostics'] if d.get('required')})},
-        'argv_summary':graph['cpp_argv_origins'],'navigation':navigation}
+        'argv_summary':graph['cpp_argv_origins'],'navigation':navigation,**({'default_navigation':default_navigation} if process else {})}
     args.output.write_text(json.dumps(score,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'passed':score['passed'],'checks':len(checks),'navigation':navigation,'switch_gaps':score['required_switch_gap_counts']}))
     if not score['passed']:raise SystemExit('Literal-switch source control failed; inspect saved score')

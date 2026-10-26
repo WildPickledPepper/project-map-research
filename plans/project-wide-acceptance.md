@@ -107,7 +107,7 @@ G09 完成表示对照实验已执行并可复核；是否提高正确率由实�
 |---|---|---|
 | G01 | 通过 | 已冻结模块、机制、边界参考、模式及依赖义务；388 项范围检查和 7 个冻结控制通过，见 [W0 报告](../experiments/2026-10-25-w0/completion.md) |
 | G02 | 执行中，已有明确缺口 | [185 个文件原生组件已实测](../experiments/2026-10-25-w1/README.md)；[JS 混合模块及安装更新](../experiments/2026-10-25-w1/javascript.md)、[Python 119 文件及代理接口](../experiments/2026-10-25-w1/python.md)、[Rust 13 文件生产图、启动/加载查询与独立安装](../experiments/2026-10-25-w1/rust.md)有已执行证据；[默认全仓重建已有通过记录](../experiments/2026-10-25-w1/repository-recheck.md)，[条件成员声明及分类修正已有全 C++ 复验](../experiments/2026-10-25-w1/cpp-member-declarations.md)。保留未解析位置，逐模块语义事实仍待整体验收 |
-| G03–G04 | 执行中，已有明确缺口 | [构建/发行文件到程序入口](../experiments/2026-10-25-w1/executable-deployment.md)、[启动参数到 argv 解码](../experiments/2026-10-25-w1/process-arguments.md)已有限定控制。选项实例/监听端及其余进程、插件等边界和全模块连接继续按账本展开 |
+| G03–G04 | 执行中，已有明确缺口 | [构建/发行文件到程序入口](../experiments/2026-10-25-w1/executable-deployment.md)、[启动参数到 argv 解码](../experiments/2026-10-25-w1/process-arguments.md)和[字面开关到字段写入](../experiments/2026-10-25-w1/cpp-literal-switches.md)已有限定控制。选项实例/监听端及其余进程、插件等边界和全模块连接继续按账本展开 |
 | G05 | 未执行，已有底座证据 | 数据/字段底座及条件声明有局部证据；全模块数据、状态、时序和 18 类机制尚未按本矩阵验收 |
 | G06 | 未执行，已有部分运行证据 | 旧 P5/A5 仅覆盖规定场景 |
 | G07–G08 | 未执行，已有底座证据 | 自动更新、查询和安装已验证，新增语言及全模块范围未验收 |

@@ -382,3 +382,32 @@ assert not any(literal[k] for k in ('cmake_configure_executed_again','default_wo
     'rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
 assert literal['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 30 all-C++ literal-switch checks, four paths; other condition/call/member/type gaps and first extraction/scoring failures preserved.')
+
+process_literal=json.loads((Path(__file__).parent/'evidence/process-literal-switch-control.json').read_text(encoding='utf-8'))
+assert process_literal['schema']=='process-literal-switch-control-score/1' and process_literal['passed']
+assert len(process_literal['checks'])==42 and all(c['passed'] for c in process_literal['checks'])
+assert process_literal['source_commit']==literal['source_commit'] and process_literal['input_count']==1471
+assert process_literal['build_version']['rules_commit']=='0ab74ef6c18e2b579b5129365f1fa85edbd8f531'
+assert {k:v['rules_commit'] for k,v in process_literal['build_version']['cached_build_versions'].items()}=={
+    'startup':'91f16b8169e46baabb878a5dc890802039757d7c','rust_arguments':'2390be16d4be33664355933fa95a4f2a24e2b3d2',
+    'cpp_argv':'0ab74ef6c18e2b579b5129365f1fa85edbd8f531'}
+assert process_literal['cached_argument_input_counts']=={'rust_arguments':16,'cpp_argv':1323}
+assert process_literal['imported_argument_facts']['cpp_argv']=={'nodes':51855,'edges':118751,'added_nodes':51108,'overlaid_member_nodes':747}
+assert process_literal['index_counts']['nodes']==351586 and process_literal['index_counts']['edges']==586049
+assert process_literal['argument_binding_summary']['counts']=={'words_without_bound_program':7,'words_with_bound_program':3,'matches':3}
+assert process_literal['argument_binding_summary']['required_gaps']==1 and process_literal['argument_binding_summary']['payload_equivalence']=='not_established'
+assert process_literal['selected_switch']==literal['selected_switch'] and process_literal['member_effect_summary']==literal['member_effect_summary']
+assert process_literal['required_switch_gap_counts']==literal['required_switch_gap_counts']
+assert process_literal['required_value_type_gap_counts']==literal['required_value_type_gap_counts']
+assert process_literal['required_gap_counts_by_kind']['process_argument_binding_unresolved']=={'argument_payload_source_unresolved':1}
+assert len(process_literal['navigation'])==8 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in process_literal['navigation'])
+assert {n['id']:n['witness_edges'] for n in process_literal['navigation']}=={
+    'entry_member_out':5,'entry_member_in':5,'decoder_member_out':2,'decoder_member_in':2,
+    'template_member_out':5,'template_member_in':5,'spawn_member_out':6,'spawn_member_in':6}
+default=process_literal['default_navigation']
+assert default['found'] and default['snapshot_matches'] and default['stop_reason'] is None and default['witness_edges']==5 and default['output_bytes']==28363
+assert process_literal['current_argument_binding_executed_again'] and not process_literal['language_semantics_executed_again']
+assert not any(process_literal[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested','product_compiled','runtime_execution',
+    'payload_value_equivalence_established','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert process_literal['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 42 deployed-program/literal-word/member checks; eight paths and default output budget; payload/object/listener work remains explicit.')

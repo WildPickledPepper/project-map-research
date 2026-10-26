@@ -1,0 +1,432 @@
+{
+  "schema": "process-literal-switch-control-score/1",
+  "origin": "current_argument_binding_on_versioned_startup_and_argument_facts",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:process-argument-control:b243271e44f74bd3ae6d93b72d96b003",
+  "build_version": {
+    "rules_commit": "0ab74ef6c18e2b579b5129365f1fa85edbd8f531",
+    "python": "3.11.9",
+    "cached_build_versions": {
+      "startup": {
+        "rules_commit": "91f16b8169e46baabb878a5dc890802039757d7c",
+        "python": "3.11.9",
+        "cached_rule_versions": {
+          "cpp": "45a9fdca0bfe98c562d43532e07ec3b6bd8b41ac",
+          "python": "a487ce3c8af7eec95d4dc43274cbdbab34f47aa0",
+          "rust": "6038f946134f23a4a52828a1fdf9cf8a653f073c"
+        }
+      },
+      "rust_arguments": {
+        "rules_commit": "2390be16d4be33664355933fa95a4f2a24e2b3d2",
+        "python": "3.11.9",
+        "base_facts": {
+          "rules_commit": "6038f946134f23a4a52828a1fdf9cf8a653f073c",
+          "rust_tools": {
+            "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+            "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+            "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+          },
+          "packages": {
+            "tree-sitter": "0.25.2",
+            "tree-sitter-language-pack": "1.20.0"
+          }
+        }
+      },
+      "cpp_argv": {
+        "rules_commit": "0ab74ef6c18e2b579b5129365f1fa85edbd8f531",
+        "python": "3.11.9",
+        "packages": {
+          "tree-sitter": "0.25.2",
+          "tree-sitter-language-pack": "1.20.0"
+        }
+      }
+    }
+  },
+  "scope": "cpp_cmake_python_rust_startup_argument_control",
+  "input_count": 1471,
+  "cached_argument_input_counts": {
+    "rust_arguments": 16,
+    "cpp_argv": 1323
+  },
+  "imported_argument_facts": {
+    "rust_arguments": {
+      "nodes": 32,
+      "edges": 56
+    },
+    "cpp_argv": {
+      "nodes": 51855,
+      "edges": 118751,
+      "added_nodes": 51108,
+      "overlaid_member_nodes": 747
+    }
+  },
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1471,
+    "modules": 29,
+    "nodes": 351586,
+    "edges": 586049,
+    "entries": 0,
+    "diagnostic_records": 16358,
+    "providers": 125,
+    "module_relation_groups": 70
+  },
+  "argument_binding_summary": {
+    "adapter": "deployed_target_command_word_argv_binding/0.2.0",
+    "counts": {
+      "words_without_bound_program": 7,
+      "words_with_bound_program": 3,
+      "matches": 3
+    },
+    "required_gaps": 1,
+    "runtime_execution": "not_observed",
+    "payload_equivalence": "not_established",
+    "scope": "bound_command_deployment_target_entry_and_native_source_dependencies"
+  },
+  "current_argument_binding_executed_again": true,
+  "language_semantics_executed_again": false,
+  "cmake_configure_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "product_compiled": false,
+  "runtime_execution": false,
+  "payload_value_equivalence_established": false,
+  "backend_listener_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "switch_summary": {
+    "adapter": "cpp_typed_string_equality_branches/0.1.0",
+    "counts": {
+      "decoders": 273,
+      "controlled_member_writes": 84
+    },
+    "required_gaps": 261,
+    "object_instances_selected": false,
+    "runtime_execution": "not_observed"
+  },
+  "member_summary": {
+    "adapter": "cpp_source_member_declaration_alternatives/0.1.1",
+    "members": 4934,
+    "declarations": 4936,
+    "conditional_members": 4417,
+    "configuration_selection": "not_performed"
+  },
+  "member_effect_summary": {
+    "adapter": "cpp_source_member_effect_graph/0.1.0",
+    "effects": 41696,
+    "object_instances_selected": false
+  },
+  "passed": true,
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "expected_input_scope",
+      "passed": true
+    },
+    {
+      "id": "one_source_literal_switch",
+      "passed": true
+    },
+    {
+      "id": "equality_operator_and_branch",
+      "passed": true
+    },
+    {
+      "id": "source_comparison_location",
+      "passed": true
+    },
+    {
+      "id": "no_invented_decoded_value_target",
+      "passed": true
+    },
+    {
+      "id": "one_controlled_assignment",
+      "passed": true
+    },
+    {
+      "id": "write_is_false_assignment",
+      "passed": true
+    },
+    {
+      "id": "write_source_location",
+      "passed": true
+    },
+    {
+      "id": "member_declaration_identity",
+      "passed": true
+    },
+    {
+      "id": "member_source_location",
+      "passed": true
+    },
+    {
+      "id": "object_instance_remains_unselected",
+      "passed": true
+    },
+    {
+      "id": "comparison_condition_preserved",
+      "passed": true
+    },
+    {
+      "id": "one_entry_argument_binding",
+      "passed": true
+    },
+    {
+      "id": "cpp_main_identity",
+      "passed": true
+    },
+    {
+      "id": "argv_origin_complete",
+      "passed": true
+    },
+    {
+      "id": "same_entry_for_all_origins",
+      "passed": true
+    },
+    {
+      "id": "two_source_call_frames",
+      "passed": true
+    },
+    {
+      "id": "conditional_preparation_preserved",
+      "passed": true
+    },
+    {
+      "id": "source_member_effect_count_matches",
+      "passed": true
+    },
+    {
+      "id": "bounded_type_gaps_keep_source_locations",
+      "passed": true
+    },
+    {
+      "id": "three_sourced_words_paired",
+      "passed": true
+    },
+    {
+      "id": "literal_switch_template_location",
+      "passed": true
+    },
+    {
+      "id": "whole_word_matching",
+      "passed": true
+    },
+    {
+      "id": "same_cpp_switch_and_argv",
+      "passed": true
+    },
+    {
+      "id": "selected_native_provider",
+      "passed": true
+    },
+    {
+      "id": "prepared_value_equality_not_assumed",
+      "passed": true
+    },
+    {
+      "id": "only_log_payload_gap_remains_in_word_pairing",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_member_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_member_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_decoder_member_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_decoder_member_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_template_member_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_template_member_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_spawn_member_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_spawn_member_in",
+      "passed": true
+    },
+    {
+      "id": "template_member_with_default_output_budget",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_switch",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_write",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_member",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_listener_or_whole_gate_claim",
+      "passed": true
+    },
+    {
+      "id": "no_file_hash_verification",
+      "passed": true
+    }
+  ],
+  "selected_switch": {
+    "key": "--notStrict",
+    "path": "server/msinsight/src/base/ParamsParser.cpp",
+    "line": 66,
+    "write_line": 67,
+    "member_path": "server/msinsight/src/base/ParamsParser.h",
+    "member_line": 41,
+    "member_name": "Dic::Server::ParamsOption::strictMode"
+  },
+  "required_switch_gap_counts": {
+    "compound_string_condition_not_expanded": 162,
+    "equality_branch_has_no_explicit_body": 17,
+    "string_equality_input_or_key_unresolved": 82
+  },
+  "required_value_type_gap_counts": {
+    "recursive_initializer": 8
+  },
+  "required_gap_counts_by_kind": {
+    "artifact_copy_flow_gap": {
+      "destructive_file_effect_not_expanded": 6,
+      "copy_path_unresolved": 169
+    },
+    "cargo_declared_artifact_gap": {
+      "build_script_outputs_require_native_build_evidence": 1,
+      "cargo_manifest_without_selected_build_context": 1
+    },
+    "cargo_source_request_unresolved": {
+      "unclassified": 1
+    },
+    "cpp_argv_origin_unresolved": {
+      "caller_recursion_or_depth_budget": 10
+    },
+    "cpp_member_declaration_unresolved": {
+      "member_owner_definition_not_selected": 4
+    },
+    "cpp_string_decoder_unresolved": {
+      "slice_offset_not_proven_as_find_plus_key_length": 1
+    },
+    "cpp_string_switch_unresolved": {
+      "compound_string_condition_not_expanded": 162,
+      "string_equality_input_or_key_unresolved": 82,
+      "equality_branch_has_no_explicit_body": 17
+    },
+    "cpp_value_type_unresolved": {
+      "recursive_initializer": 8
+    },
+    "process_argument_binding_unresolved": {
+      "argument_payload_source_unresolved": 1
+    },
+    "python_path_value_unresolved": {
+      "unclassified": 88
+    },
+    "python_process_context_unresolved": {
+      "unclassified": 54
+    },
+    "python_process_value_unresolved": {
+      "unclassified": 336
+    },
+    "rust_argument_template_unresolved": {
+      "unclassified": 6
+    },
+    "rust_path_value_unresolved": {
+      "unclassified": 1
+    }
+  },
+  "argv_summary": {
+    "adapter": "cpp_contextual_entry_argv_provenance/0.2.0",
+    "entry_candidates": 1,
+    "counts": {
+      "bindings": 8,
+      "complete_origins": 8,
+      "unbound_decoders": 272
+    },
+    "required_gaps": 10,
+    "runtime_execution": "not_observed"
+  },
+  "navigation": [
+    {
+      "id": "entry_member_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "entry_member_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "decoder_member_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "decoder_member_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "template_member_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "template_member_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "spawn_member_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 6
+    },
+    {
+      "id": "spawn_member_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 6
+    }
+  ],
+  "default_navigation": {
+    "found": true,
+    "stop_reason": null,
+    "witness_edges": 5,
+    "output_bytes": 28363,
+    "snapshot_matches": true
+  }
+}

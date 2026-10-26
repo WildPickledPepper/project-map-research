@@ -53,4 +53,6 @@ default.rs:176 的 --wsPort=参数模板
 
 索引有 300,492 节点和 467,344 边。模板→ParseWsPort 为 4 条边，spawn→ParseWsPort 为 5 条边，绑定→原生目标为 1 条边，六个正反查全部通过。模板路径在默认查询预算下也通过，结果约 28 KB；三处固定版本源码导航通过。
 
-当前配对保留两项必需缺口：default.rs:177 的 logPath payload 来源尚未展开；:178 的 --notStrict 是字面开关，尚缺对应解码规则。其余七个词保留为本图中未绑定程序的记录。C++ 准备后的 payload 是否等于 Rust 值、数值转换、选项对象和监听端继续验证。原始 checkout 未修改，未重新核验文件哈希；G03 保持未通过。
+该版配对保留两项必需缺口：default.rs:177 的 logPath payload 来源尚未展开；:178 的 --notStrict 是字面开关，当版缺少对应解码规则。其余七个词保留为本图中未绑定程序的记录。C++ 准备后的 payload 是否等于 Rust 值、数值转换、选项对象和监听端继续验证。原始 checkout 未修改，未重新核验文件哈希；G03 保持未通过。
+
+[字面开关跨语言控制](cpp-literal-switches.md#insight-启动词到字段的跨语言控制)现已通过 42 项检查：三个后端启动词均配对，--notStrict 可正反查到 strictMode 写入及声明，默认输出预算通过。该阶段的启动词配对仅剩 logPath payload 来源缺口；选项实例与监听端继续展开，旧控制记录保留原版本。
