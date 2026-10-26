@@ -2,7 +2,7 @@
 
 日期：2026-10-26。状态：用户已启动 R0/R1 实施。CBM 启动、C++ 原生语义、TS 声明补充及正式提供方接入已有实测；全仓统一快照与逐组件核查正在执行。实际交付见[实施记录](../experiments/2026-10-26-r0-r1/README.md)。R0/R1 整体门槛尚未判定通过，原 G01–G09 范围不变。
 
-**同日组件审计更新**：[源码接口与决定](../research/reuse-source-contracts-2026-10-26.md)、[原生实测](../experiments/2026-10-26-reuse-audit/README.md)已交付。R0 中 Clang/multilspy、SQLGlot、Python OTel 的限定接口已实测；Joern C++ 5/6，Rust 目录输入零方法；CBM 新隔离启动失败。CBM 的进程、Shell、Docker、环境和路由组件列为优先复用项。下文采用这些实际结果，不再把本轮已经执行的组件试验列为未执行。
+**同日实施更新**：[R0 准入决定](../research/r0-provider-admission-2026-10-26.md)已固定复用入口与失败出口。Clang/multilspy、SQLGlot、Python OTel 的限定接口已实测；CBM 隔离启动已修复并进入正式建图。Joern C++ 5/6、Rust 零方法的失败继续保留，R0 严格准入为 partial；R1 的全仓接入与后置核查独立继续。
 
 本计划替换[W0–W7 总计划](project-wide-completion-plan.md)的后续执行顺序和投入方式；目标、全项目分母及 [G01–G09 验收](project-wide-acceptance.md)保持不变。W0 已通过，W1/W2 部分完成。**当前整体技术验收未通过。** 历史资产继续独立，skill 最后整理。
 
