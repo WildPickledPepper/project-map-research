@@ -9,7 +9,8 @@ from projectmap.workspace import Workspace
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
-    ap.add_argument('--trial',type=Path,required=True);ap.add_argument('--output',type=Path,required=True);args=ap.parse_args()
+    ap.add_argument('--trial',type=Path,required=True);ap.add_argument('--output',type=Path,required=True)
+    ap.add_argument('--previous-trial',type=Path);args=ap.parse_args()
     if args.output.exists():ap.error('Choose a new score file')
     trial=json.loads((args.trial/'trial.json').read_text(encoding='utf-8'))
     graph=json.loads((args.trial/'graph.json').read_text(encoding='utf-8'));nodes={n['id']:n for n in graph['nodes']};checks=[]
@@ -53,11 +54,25 @@ def main():
     check('no_native_configuration_runtime_or_whole_gate_claim',not any(trial[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild',
         'installed_tool_tested','runtime_execution','argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified')))
     check('source_extraction_no_hash_verification',trial['cpp_source_extraction_executed_again'] and trial['file_hash_verification']=='not_run_per_user_preference')
+    delta={}
+    if args.previous_trial:
+        previous=json.loads((args.previous_trial/'graph.json').read_text(encoding='utf-8'))
+        check('previous_control_has_same_source',previous['source_commit']==graph['source_commit'])
+        removed=[n for n in previous['nodes'] if n['kind']=='source_member_storage' and n['id'] not in nodes]
+        methods={(n['path'],n['line'],n['name']) for n in nodes.values() if n['kind']=='callable'}
+        still_methods=sum((n['path'],n['line'],n['name']) in methods for n in removed)
+        check('removed_member_entries_remain_source_methods',bool(removed) and still_methods==len(removed))
+        check('ordinary_facts_were_not_removed',all(n['id'] in nodes for n in previous['nodes']
+            if n['kind'] not in {'source_member_storage','cpp_member_declaration'}))
+        previous_members={n['id'] for n in previous['nodes'] if n['kind']=='source_member_storage'}
+        delta={'previous_snapshot':previous['snapshot'],'previous_build_version':previous['version']['build_version'],
+            'removed_member_entries':len(removed),'removed_entries_still_method_nodes':still_methods,
+            'added_member_entries':sum(n['id'] not in previous_members for n in members)}
     score={**trial,'schema':'cpp-member-declaration-control-score/1','passed':all(c['passed'] for c in checks),'checks':checks,
         'selected_member':{'owner':'Dic::Server::ParamsOption','name':'logPath','path':path,'type':member['type'],
             'variants':[{k:d[k] for k in ('line','default_expression','conditions')} for d in variants]},
         'required_member_gap_counts':{reason:sum(d['reason']==reason for d in required) for reason in sorted({d['reason'] for d in required})},
-        'navigation':navigation}
+        'navigation':navigation,**({'member_catalog_delta':delta} if delta else {})}
     args.output.write_text(json.dumps(score,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'passed':score['passed'],'checks':len(checks),'summary':trial['member_summary'],'required_member_gap_counts':score['required_member_gap_counts'],'navigation':navigation}))
     if not score['passed']:raise SystemExit('C++ member declaration control failed; inspect saved score')

@@ -325,3 +325,22 @@ assert not any(members[k] for k in ('cmake_configure_executed_again','default_wo
     'argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
 assert members['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 24 conditional-member checks and four paths; first score preserved; 51 reference-return method classification gaps pending.')
+
+method_members=json.loads((Path(__file__).parent/'evidence/cpp-member-method-control.json').read_text(encoding='utf-8'))
+assert method_members['schema']=='cpp-member-declaration-control-score/1' and method_members['passed']
+assert len(method_members['checks'])==28 and all(c['passed'] for c in method_members['checks'])
+assert method_members['source_commit']==members['source_commit'] and method_members['input_count']==1323
+assert method_members['build_version']['rules_commit']=='5f63b56032cad783ffb39273406192cf8d34302d'
+assert method_members['index_counts']['nodes']==103509 and method_members['index_counts']['edges']==125454
+assert method_members['member_summary']=={'adapter':'cpp_source_member_declaration_alternatives/0.1.1','members':4934,
+    'declarations':4936,'conditional_members':4417,'configuration_selection':'not_performed'}
+assert method_members['required_member_gap_counts']=={} and method_members['selected_member']==members['selected_member']
+delta=method_members['member_catalog_delta']
+assert delta['previous_snapshot']==members['snapshot'] and delta['previous_build_version']==members['build_version']
+assert delta['removed_member_entries']==delta['removed_entries_still_method_nodes']==33 and delta['added_member_entries']==0
+assert len(method_members['navigation'])==4 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None and n['witness_edges']==2 for n in method_members['navigation'])
+assert method_members['cpp_source_extraction_executed_again'] and method_members['decoder_summary']['required_gaps']==1
+assert not any(method_members[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert method_members['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 28 same-source member rechecks; 51 false gaps cleared, 33 callable declarations removed from data catalog and retained as methods.')

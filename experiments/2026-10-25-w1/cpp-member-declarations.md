@@ -20,13 +20,17 @@
 
 [首轮结果](evidence/cpp-member-control-first-score.json)保留 23/24 通过：评分参考遗漏头文件 guard。修正参考后对同一提取产物重新评分，未改提取结果。
 
-本次全量提取另报 51 项 `member_declarator_not_expanded`。源码检查表明这些位置都是返回引用的方法声明，如 `static ParamsParser &Instance()` 和 `const ParamsOption &GetOption()`，属于成员目录的错误缺口分类，后续需在声明分类中修正。目标字段导航通过与这一错误分别记录，G02/G03/G04 保持未通过。其余解码器的 strlen 表达式缺口继续保留。
+本次全量提取另报 51 项 `member_declarator_not_expanded`。源码检查表明这些位置都是返回引用的方法声明，如 `static ParamsParser &Instance()` 和 `const ParamsOption &GetOption()`，属于成员目录的错误缺口分类。该错误由下述声明分类修正并复验。目标字段导航通过与这一错误分别记录，G02/G03/G04 保持未通过。其余解码器的 strlen 表达式缺口继续保留。
 
 ## 引用返回方法的声明分类修正
 
 提取器 0.1.1 沿声明符向内检查函数声明，处理方法返回指针、左值引用及右值引用时的外层声明符。方法不再进入数据成员的未解析分支；函数指针、函数引用，以及返回指针的函数指针字段仍保留为数据成员。判断依据是语法结构，不匹配方法名。
 
-新增独立反例和原成员/类型/数据机制共 34 项检查通过；完整回归运行 710 项，通过，1 项按平台跳过。全 C++ 控制复验待执行。原规则的 51 项错误记录保留在上述证据中。
+新增独立反例和原成员/类型/数据机制共 34 项检查通过；完整回归运行 710 项，通过，1 项按平台跳过。
+
+[同源全 C++ 复验](evidence/cpp-member-method-control.json)使用规则 `5f63b56032cad783ffb39273406192cf8d34302d` 重新提取全部 1,323 个输入，28 项检查通过。51 项错误缺口归零；同时从成员目录移除 33 个误列为字段的返回指针方法。评分器核对这 33 处仍有相同源码位置及限定名称的方法节点，原有非成员目录事实均保留。原规则的错误记录继续保存。
+
+修正后的目录包含 4,934 个逻辑成员、4,936 处声明；4,417 个成员带预处理条件，其中包含 include guard。统一控制图为 103,509 个节点、125,454 条关系。logPath 的两分支及四项正反查询保持通过。当前没有剩余的成员声明形态缺口；其它语言/边界/数据机制、活动配置和运行实例仍分别按整体账本验收。
 
 ```text
 python -m unittest tests.test_cpp_member_declarations tests.test_cpp_nested_members tests.test_cpp_data -v
@@ -39,4 +43,5 @@ python -m unittest discover -s tests -v
 ```text
 python experiments/2026-10-25-w1/run_cpp_string_decoder_control.py --member-declarations --source SOURCE --revision d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --parser-cache CACHE --output OUTPUT
 python experiments/2026-10-25-w1/score_cpp_member_control.py --trial OUTPUT --output SCORE.json
+python experiments/2026-10-25-w1/score_cpp_member_control.py --trial OUTPUT --previous-trial PREVIOUS_OUTPUT --output DELTA_SCORE.json
 ```
