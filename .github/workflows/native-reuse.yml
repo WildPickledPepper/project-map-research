@@ -46,7 +46,7 @@ jobs:
           print(json.dumps(results))
           assert binaries and all(r['exit_code']==0 for r in results)
           PY
-          python -m adapters.svf_export --bitcode "$RUNNER_TEMP/svf-output/probe.bc" --output "$RUNNER_TEMP/svf-output/native.json" --source-root "$GITHUB_WORKSPACE" --source-commit "$GITHUB_SHA" --context fixture/release --module native-probe
+          python -m adapters.svf_export --bitcode "$RUNNER_TEMP/svf-output/probe.bc" --native-points "$RUNNER_TEMP/svf-output/points-to.txt" --output "$RUNNER_TEMP/svf-output/native.json" --source-root "$GITHUB_WORKSPACE" --source-commit "$GITHUB_SHA" --context fixture/release --module native-probe
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -54,7 +54,7 @@ jobs:
           path: ${{ runner.temp }}/svf-output
           retention-days: 7
   rapx:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     timeout-minutes: 35
     env:
       RUSTUP_TOOLCHAIN: nightly-2026-07-21
@@ -71,7 +71,7 @@ jobs:
       - name: Install upstream compiler and solver requirements
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y libz3-dev graphviz
+          sudo apt-get install -y libz3-dev graphviz libwebkit2gtk-4.0-dev libgtk-3-dev libayatana-appindicator3-dev
           rustup toolchain install "$RUSTUP_TOOLCHAIN" --profile minimal --component rustc-dev,rust-src,llvm-tools-preview
           rustc --version
       - uses: actions/cache@v4
@@ -80,7 +80,7 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             native-tools/rapx/target
-          key: rapx-974eb8e-nightly-2026-07-21-linux-1
+          key: rapx-974eb8e-nightly-2026-07-21-linux22-1
       - name: Build existing analysis engine
         run: |
           python scripts/prepare_rapx_export.py --checkout native-tools/rapx
@@ -92,7 +92,7 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             native-tools/rapx/target
-          key: rapx-974eb8e-nightly-2026-07-21-linux-1
+          key: rapx-974eb8e-nightly-2026-07-21-linux22-1
       - name: Execute upstream dataflow and alias fixtures
         run: |
           mkdir -p "$RUNNER_TEMP/rapx-output"
@@ -108,6 +108,46 @@ jobs:
           cargo rapx analyze dataflow --debug > "$RUNNER_TEMP/rapx-output/dataflow.log" 2>&1
           cargo rapx analyze alias > "$RUNNER_TEMP/rapx-output/alias.log" 2>&1
           rustc --version > "$RUNNER_TEMP/rapx-output/rustc-version.log"
+      - name: Execute independent Rust admission cases
+        run: |
+          export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
+          export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
+          export RAPX_CLEAN=false
+          mkdir -p "$RUNNER_TEMP/rust-flow/src"
+          cp experiments/2026-10-26-r0-r1/rust-dataflow.rs "$RUNNER_TEMP/rust-flow/src/lib.rs"
+          printf '[package]\nname="neutral_flow"\nversion="0.1.0"\nedition="2021"\n[workspace]\n' > "$RUNNER_TEMP/rust-flow/Cargo.toml"
+          export PROJECT_MAP_RAPX_EXPORT="$RUNNER_TEMP/rapx-output/admission"
+          export PROJECT_MAP_SOURCE_ROOT="$RUNNER_TEMP/rust-flow"
+          export PROJECT_MAP_SOURCE_COMMIT="$GITHUB_SHA"
+          export PROJECT_MAP_CONTEXT="fixture/independent"
+          cd "$RUNNER_TEMP/rust-flow"
+          cargo test > "$RUNNER_TEMP/rapx-output/independent-execution.log" 2>&1
+          cargo rapx analyze dataflow > "$RUNNER_TEMP/rapx-output/independent-analysis.log" 2>&1
+      - name: Read pinned Insight source and analyze HTTP mode
+        run: |
+          git init -q "$RUNNER_TEMP/insight"
+          git -C "$RUNNER_TEMP/insight" fetch --depth 1 https://gitcode.com/Ascend/msinsight.git d4e8d1cf9f90208bcbe5371c127088f6fd66c688
+          git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
+          export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
+          export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
+          export RAPX_CLEAN=false
+          export PROJECT_MAP_RAPX_EXPORT="$RUNNER_TEMP/rapx-output/insight-http"
+          export PROJECT_MAP_SOURCE_ROOT="$RUNNER_TEMP/insight"
+          export PROJECT_MAP_SOURCE_COMMIT=d4e8d1cf9f90208bcbe5371c127088f6fd66c688
+          export PROJECT_MAP_CONTEXT="platform/linux-http"
+          cd "$RUNNER_TEMP/insight/platform"
+          cargo rapx analyze dataflow -- --no-default-features --features http > "$RUNNER_TEMP/rapx-output/insight-http.log" 2>&1
+      - name: Analyze actual Linux desktop mode
+        run: |
+          export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
+          export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
+          export RAPX_CLEAN=false
+          export PROJECT_MAP_RAPX_EXPORT="$RUNNER_TEMP/rapx-output/insight-linux-desktop"
+          export PROJECT_MAP_SOURCE_ROOT="$RUNNER_TEMP/insight"
+          export PROJECT_MAP_SOURCE_COMMIT=d4e8d1cf9f90208bcbe5371c127088f6fd66c688
+          export PROJECT_MAP_CONTEXT="platform/linux-desktop-release"
+          cd "$RUNNER_TEMP/insight/platform/linux"
+          cargo rapx analyze dataflow -- --release > "$RUNNER_TEMP/rapx-output/insight-linux-desktop.log" 2>&1
       - uses: actions/upload-artifact@v4
         if: always()
         with:

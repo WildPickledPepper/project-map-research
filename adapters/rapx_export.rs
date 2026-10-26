@@ -9,7 +9,7 @@ use crate::analysis::{Analysis,alias::{AliasAnalysis,mfp::MfpAliasAnalyzer}};
 fn location(tcx: TyCtxt<'_>, span: Span) -> Value {
     if span.is_dummy() {return Value::Null;}
     let p=tcx.sess.source_map().lookup_char_pos(span.lo());
-    let file=match &p.file.name {FileName::Real(real)=>real.local_path().map(|p|p.to_string_lossy().into_owned()),_=>None};
+    let file=match &p.file.name {FileName::Real(real)=>real.local_path().map(|p|p.canonicalize().unwrap_or_else(|_|p.to_path_buf()).to_string_lossy().into_owned()),_=>None};
     json!({"file":file,"line":p.line,"column":p.col_display+1})
 }
 
@@ -39,12 +39,18 @@ pub fn write(analyzer: &DataflowAnalyzer<'_>) {
                     if let TyKind::FnDef(id,_)=ty.kind() {Some(tcx.def_path_str(*id))} else {None}
                 } else {None}
             } else {None};
-            let actuals:Vec<_>=args.iter().map(|a|match &a.node {
+            let native_arguments:Vec<_>=graph.edges.iter().filter(|e|e.block==block.as_usize()
+                && e.statement_index==data.statements.len() && e.dst==destination.local).collect();
+            let actuals:Vec<_>=args.iter().enumerate().map(|(idx,a)| {
+              let mut result=match &a.node {
                 Operand::Copy(p)|Operand::Move(p)=>json!({"local":p.local.as_usize(),"projection":format!("{:?}",p.projection)}),
                 Operand::Constant(c)=>json!({"constant":format!("{:?}",c.const_)}),
                 _=>json!({"unresolved_operand":format!("{:?}",a.node)})
+              };
+              result["native_value"]=if native_arguments.len()==args.len(){json!(native_arguments[idx].src.as_usize())}else{Value::Null};
+              result
             }).collect();
-            calls.push(json!({"callee":callee,"block":block.as_usize(),"arguments":actuals,
+            calls.push(json!({"callee":callee,"block":block.as_usize(),"statement":data.statements.len(),"arguments":actuals,
                 "destination":destination.local.as_usize(),"destination_projection":format!("{:?}",destination.projection),
                 "location":location(tcx,term.source_info.span)}));
         }
