@@ -1,6 +1,6 @@
 # MindStudio Insight 整体验收矩阵
 
-日期：2026-10-25。状态：G01 通过，G02 执行中，其余门槛尚未执行；整体技术验收未通过。实施顺序见 [全项目实施计划](project-wide-completion-plan.md)。
+日期：2026-10-25，状态说明更新于 2026-10-26。G01 通过，G02–G04 执行中，G05–G09 尚未按本矩阵验收；整体技术验收未通过。工作包见[全项目实施计划](project-wide-completion-plan.md)，后续执行采用[复用优先重排](reuse-first-execution-plan.md)，本矩阵门槛保持不变。
 
 本矩阵判断 Insight 全项目范围的完成情况。既有 P/A、skill 安装及功能回归继续作为各自范围的证据，不自动继承为下列门槛通过。
 

@@ -1,5 +1,7 @@
 # 研究与实施计划 v0.1
 
+**2026-10-26 执行重排**：[复用优先执行计划 R0–R5](reuse-first-execution-plan.md)和[复用评估](../research/reuse-assessment-2026-10-26.md)规定后续工具准入、迁移、横向批次、交付和时间上限。停止扩展自有语言/数据流求解器，整体范围和 G01–G09 验收保持不变。
+
 **2026-10-25 当前安排**：执行[全项目关系覆盖实施计划 W0–W7](project-wide-completion-plan.md)，按[整体验收矩阵 G01–G09](project-wide-acceptance.md)判定。当前整体技术验收未通过；先补齐全模块、多语言和跨边界覆盖，再开展 issue 对照。P6 历史资产暂缓，保留为后续第三组。下文是原 P/A 阶段设计及限定范围记录，不能替代当前整体验收。
 
 日期：2026-10-24。设计依据：[设计基线 v0.1](../docs/05-design-baseline.md)，基线提交 `547269e`。**P1–P5 已完成；P7 独立交付范围已完成；P6 历史资产接入待办。** 当前范围见 [P7 报告](../experiments/2026-10-24-p7/completion.md)和[能力覆盖矩阵](../docs/06-capability-coverage.md)。主底座选用 CGC/Kuzu，见 [P1 完成证据与决策](../experiments/2026-10-23-p1-completion/README.md)。
