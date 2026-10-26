@@ -1,5 +1,6 @@
 """Post-extraction source and navigation checks for Insight's literal switch."""
 import argparse
+from collections import Counter
 import json
 from pathlib import Path
 import sys
@@ -22,12 +23,12 @@ def main():
     check('one_source_literal_switch',len(matches)==1)
     if len(matches)!=1:raise ValueError('Independent source reference expects one literal switch')
     switch=matches[0];check('equality_operator_and_branch',switch['match_mode']=='string_equality' and switch['comparison_operator']=='==' and switch['equality_branch']=='consequence')
-    check('source_comparison_location',switch['line']==67 and nodes[switch['source_symbol']]['name']=='Dic::Server::ParamsParser::ParseField')
+    check('source_comparison_location',switch['line']==66 and nodes[switch['source_symbol']]['name']=='Dic::Server::ParamsParser::ParseField')
     check('no_invented_decoded_value_target',switch['targets']==[])
     check('one_controlled_assignment',len(switch['controlled_member_effects'])==1)
     write=nodes[switch['controlled_member_effects'][0]];member=nodes[write['member']]
     check('write_is_false_assignment',write['role']=='write' and write['operation']=='=' and write['value']['expression']=='false')
-    check('write_source_location',write['path']==switch['path'] and write['line']==68 and write['source_symbol']==switch['source_symbol'])
+    check('write_source_location',write['path']==switch['path'] and write['line']==67 and write['source_symbol']==switch['source_symbol'])
     check('member_declaration_identity',member['owner']=='Dic::Server::ParamsOption' and member['name']=='Dic::Server::ParamsOption::strictMode' and member['type']=='bool')
     check('member_source_location',member['path']=='server/msinsight/src/base/ParamsParser.h' and member['line']==41)
     check('object_instance_remains_unselected',write['instance_identity']=='unresolved' and not trial['member_effect_summary']['object_instances_selected'])
@@ -81,6 +82,8 @@ def main():
             'member_path':member['path'],'member_line':member['line'],'member_name':member['name']},
         'required_switch_gap_counts':{reason:sum(d['reason']==reason for d in gaps) for reason in sorted({d['reason'] for d in gaps})},
         'required_value_type_gap_counts':{reason:sum(d['reason']==reason for d in type_gaps) for reason in sorted({d['reason'] for d in type_gaps})},
+        'required_gap_counts_by_kind':{kind:dict(Counter(d.get('reason','unclassified') for d in graph['diagnostics']
+            if d.get('required') and d['kind']==kind)) for kind in sorted({d['kind'] for d in graph['diagnostics'] if d.get('required')})},
         'argv_summary':graph['cpp_argv_origins'],'navigation':navigation}
     args.output.write_text(json.dumps(score,indent=2)+'\n',encoding='utf-8')
     print(json.dumps({'passed':score['passed'],'checks':len(checks),'navigation':navigation,'switch_gaps':score['required_switch_gap_counts']}))

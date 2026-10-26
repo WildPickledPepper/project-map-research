@@ -355,3 +355,30 @@ assert switch_failure['independent_reproduction']['before_fix']=='RecursionError
 assert switch_failure['independent_reproduction']['after_fix']=='passed_with_required_recursive_initializer_gap'
 assert switch_failure['file_hash_verification']=='not_run_per_user_preference'
 print('OK: first all-C++ literal-switch extraction failure retained; independent type-cycle reproduction and required gap documented.')
+
+literal=json.loads((Path(__file__).parent/'evidence/cpp-literal-switch-control.json').read_text(encoding='utf-8'))
+first_literal=json.loads((Path(__file__).parent/'evidence/cpp-literal-switch-first-score.json').read_text(encoding='utf-8'))
+assert literal['schema']=='cpp-literal-switch-control-score/1' and literal['passed']
+assert len(literal['checks'])==30 and all(c['passed'] for c in literal['checks'])
+assert not first_literal['passed'] and {c['id'] for c in first_literal['checks'] if not c['passed']}=={'source_comparison_location','write_source_location'}
+assert first_literal['snapshot']==literal['snapshot'] and first_literal['build_version']==literal['build_version']
+assert literal['source_commit']==members['source_commit'] and literal['input_count']==1323
+assert literal['build_version']['rules_commit']=='0ab74ef6c18e2b579b5129365f1fa85edbd8f531'
+assert literal['index_counts']['nodes']==145487 and literal['index_counts']['edges']==234300
+assert literal['switch_summary']['counts']=={'decoders':273,'controlled_member_writes':84} and literal['switch_summary']['required_gaps']==261
+assert literal['member_effect_summary']['effects']==41696 and not literal['member_effect_summary']['object_instances_selected']
+assert literal['argv_summary']['counts']=={'bindings':8,'complete_origins':8,'unbound_decoders':272} and literal['argv_summary']['required_gaps']==10
+assert literal['selected_switch']=={'key':'--notStrict','path':'server/msinsight/src/base/ParamsParser.cpp','line':66,'write_line':67,
+    'member_path':'server/msinsight/src/base/ParamsParser.h','member_line':41,'member_name':'Dic::Server::ParamsOption::strictMode'}
+assert literal['required_gap_counts_by_kind']=={'cpp_argv_origin_unresolved':{'caller_recursion_or_depth_budget':10},
+    'cpp_member_declaration_unresolved':{'member_owner_definition_not_selected':4},
+    'cpp_string_decoder_unresolved':{'slice_offset_not_proven_as_find_plus_key_length':1},
+    'cpp_string_switch_unresolved':{'compound_string_condition_not_expanded':162,'string_equality_input_or_key_unresolved':82,'equality_branch_has_no_explicit_body':17},
+    'cpp_value_type_unresolved':{'recursive_initializer':8}}
+assert len(literal['navigation'])==4 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None for n in literal['navigation'])
+assert {n['id']:n['witness_edges'] for n in literal['navigation']}=={'entry_member_out':5,'entry_member_in':5,'decoder_member_out':2,'decoder_member_in':2}
+assert literal['cpp_source_extraction_executed_again'] and literal['argv_origin_connected']
+assert not any(literal[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert literal['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 30 all-C++ literal-switch checks, four paths; other condition/call/member/type gaps and first extraction/scoring failures preserved.')

@@ -1,0 +1,248 @@
+{
+  "schema": "cpp-literal-switch-control-score/1",
+  "origin": "current_cpp_source_member_effects_switches_and_argv",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:cpp-string-decoder:cb4966f6a5a0421c8c5783dbe414b0b2",
+  "build_version": {
+    "rules_commit": "0ab74ef6c18e2b579b5129365f1fa85edbd8f531",
+    "python": "3.11.9",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0"
+    }
+  },
+  "scope": "all_selected_cpp_source_no_cmake_context",
+  "input_count": 1323,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1323,
+    "modules": 29,
+    "nodes": 145487,
+    "edges": 234300,
+    "entries": 0,
+    "diagnostic_records": 569,
+    "providers": 0,
+    "module_relation_groups": 25
+  },
+  "decoder_summary": {
+    "adapter": "cpp_typed_string_key_slice_dispatch/0.1.0",
+    "counts": {
+      "decoders": 7
+    },
+    "required_gaps": 1
+  },
+  "cpp_source_extraction_executed_again": true,
+  "cmake_configure_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "argv_origin_connected": true,
+  "rust_argument_paired": false,
+  "backend_listener_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "argv_summary": {
+    "adapter": "cpp_contextual_entry_argv_provenance/0.2.0",
+    "entry_candidates": 1,
+    "counts": {
+      "bindings": 8,
+      "complete_origins": 8,
+      "unbound_decoders": 272
+    },
+    "required_gaps": 10,
+    "runtime_execution": "not_observed"
+  },
+  "member_summary": {
+    "adapter": "cpp_source_member_declaration_alternatives/0.1.1",
+    "members": 4934,
+    "declarations": 4936,
+    "conditional_members": 4417,
+    "configuration_selection": "not_performed"
+  },
+  "member_effect_summary": {
+    "adapter": "cpp_source_member_effect_graph/0.1.0",
+    "effects": 41696,
+    "object_instances_selected": false
+  },
+  "switch_summary": {
+    "adapter": "cpp_typed_string_equality_branches/0.1.0",
+    "counts": {
+      "decoders": 273,
+      "controlled_member_writes": 84
+    },
+    "required_gaps": 261,
+    "object_instances_selected": false,
+    "runtime_execution": "not_observed"
+  },
+  "passed": false,
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "expected_input_scope",
+      "passed": true
+    },
+    {
+      "id": "one_source_literal_switch",
+      "passed": true
+    },
+    {
+      "id": "equality_operator_and_branch",
+      "passed": true
+    },
+    {
+      "id": "source_comparison_location",
+      "passed": false
+    },
+    {
+      "id": "no_invented_decoded_value_target",
+      "passed": true
+    },
+    {
+      "id": "one_controlled_assignment",
+      "passed": true
+    },
+    {
+      "id": "write_is_false_assignment",
+      "passed": true
+    },
+    {
+      "id": "write_source_location",
+      "passed": false
+    },
+    {
+      "id": "member_declaration_identity",
+      "passed": true
+    },
+    {
+      "id": "member_source_location",
+      "passed": true
+    },
+    {
+      "id": "object_instance_remains_unselected",
+      "passed": true
+    },
+    {
+      "id": "comparison_condition_preserved",
+      "passed": true
+    },
+    {
+      "id": "one_entry_argument_binding",
+      "passed": true
+    },
+    {
+      "id": "cpp_main_identity",
+      "passed": true
+    },
+    {
+      "id": "argv_origin_complete",
+      "passed": true
+    },
+    {
+      "id": "same_entry_for_all_origins",
+      "passed": true
+    },
+    {
+      "id": "two_source_call_frames",
+      "passed": true
+    },
+    {
+      "id": "conditional_preparation_preserved",
+      "passed": true
+    },
+    {
+      "id": "source_member_effect_count_matches",
+      "passed": true
+    },
+    {
+      "id": "bounded_type_gaps_keep_source_locations",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_member_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_entry_member_in",
+      "passed": true
+    },
+    {
+      "id": "navigation_decoder_member_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_decoder_member_in",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_switch",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_write",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_member",
+      "passed": true
+    },
+    {
+      "id": "no_runtime_listener_or_whole_gate_claim",
+      "passed": true
+    },
+    {
+      "id": "no_file_hash_verification",
+      "passed": true
+    }
+  ],
+  "selected_switch": {
+    "key": "--notStrict",
+    "path": "server/msinsight/src/base/ParamsParser.cpp",
+    "line": 66,
+    "write_line": 67,
+    "member_path": "server/msinsight/src/base/ParamsParser.h",
+    "member_line": 41,
+    "member_name": "Dic::Server::ParamsOption::strictMode"
+  },
+  "required_switch_gap_counts": {
+    "compound_string_condition_not_expanded": 162,
+    "equality_branch_has_no_explicit_body": 17,
+    "string_equality_input_or_key_unresolved": 82
+  },
+  "required_value_type_gap_counts": {
+    "recursive_initializer": 8
+  },
+  "navigation": [
+    {
+      "id": "entry_member_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "entry_member_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 5
+    },
+    {
+      "id": "decoder_member_out",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    },
+    {
+      "id": "decoder_member_in",
+      "found": true,
+      "stop_reason": null,
+      "snapshot_matches": true,
+      "witness_edges": 2
+    }
+  ]
+}
