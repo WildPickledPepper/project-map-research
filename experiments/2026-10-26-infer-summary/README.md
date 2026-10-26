@@ -1,6 +1,6 @@
 # Infer 可组合效果准入检查
 
-日期：2026-10-26。范围：[计划 4.2](../../plans/semantic-impact-execution-plan.md)唯一新增候选的 45 分钟准入窗口。候选为 Infer `v1.3.0`，下载源码提交 `410a6d9394b9c9794bf9469ee0e1aa8d3ae91031`，本地源码位于 D 盘工具区；运行采用上游 Linux 二进制。此处先固定检查，结果另行提交。
+日期：2026-10-26。范围：[计划 4.2](../../plans/semantic-impact-execution-plan.md)唯一新增候选的 45 分钟准入窗口。候选为 Infer `v1.3.0`，下载源码提交 `410a6d9394b9c9794bf9469ee0e1aa8d3ae91031`，本地源码位于 D 盘工具区；运行采用上游 Linux 二进制。[限定准入完成](completion.md)：唯一复验后两个布局各 10 项效果检查通过，通用 SVF 替代资格与真实项目成本保持待验。
 
 **首次执行**：研究提交 `47a4d2d` 的 [CI run 40341615457](https://github.com/WildPickledPepper/project-map-research/actions/runs/40341615457) 成功导出两个布局各 14 个过程的原生摘要。检查发现 `after_copy` 含跳过的头文件隐式构造与 `unknown_values=true`，不能用返回值暂时不相等来认定复制隔离通过。原始结果保留，唯一复验改为上游 `capture --headers`，保持 fixture 与期望不变。
 

@@ -1,5 +1,7 @@
 # Project Map Research
 
+**2026-10-26 效果复用路线**：[Infer 原生摘要限定准入](experiments/2026-10-26-infer-summary/completion.md)在两种跨文件布局各通过 10 项参数/字段/引用/全局/条件与未知副作用检查，头文件选项复验修复复制检查。真实 Insight 成本与通用值流替代资格尚未验收，R0/R1 总体仍为 partial。
+
 **2026-10-26 原生预算第一批**：[同进程导出通过，PAG 前置成本已定位](experiments/2026-10-26-native-budget/completion.md)。固定包实际通过六项值流、三项对象身份检查；真实 C++ 在 PAG 构建阶段触及 13 GiB，PTA/SVFG 未启动。后续按计划核查效果复用路线，R0/R1 严格验收仍为 partial。
 
 **2026-10-26 下一轮实施计划**：[按有限批次推进原生成本、全模块连接和 AI 任务上下文](plans/semantic-impact-execution-plan.md)。沿用 R0–R5 与 G01–G09，每批明确复用、交付、验收、资源预算和停止条件；历史资产关闭，R0/R1 严格验收仍为 partial。

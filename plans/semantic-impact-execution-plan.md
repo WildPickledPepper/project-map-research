@@ -4,6 +4,8 @@
 
 **执行更新**：[4.1 诊断批已交付](../experiments/2026-10-26-native-budget/completion.md)。单次求解的同进程导出通过六项值流和三项对象身份检查；真实 C++ 的 PySVF 路径在 PAG 前置触及预算，后续 PTA/SVFG 跳过。下一批按 4.2 核查效果复用路线；G02 保持未通过。下文保留初始计划与验收要求。
 
+**4.2 组件决定**：[Infer 效果摘要限定准入](../experiments/2026-10-26-infer-summary/completion.md)在两个布局各通过 10 项检查，复用上游组合和 JSON 导出；首次头文件复制失败及唯一复验均保留。真实 Insight 成本、通用值流等价、Rust 配置与逐模块语义缺口继续待验。
+
 本计划规定下一轮的执行顺序、资源预算和交付方式，承接[复用优先计划 R0–R5](reuse-first-execution-plan.md)。[全项目范围](project-wide-completion-plan.md)与[整体验收 G01–G09](project-wide-acceptance.md)继续有效。历史资产关闭，skill 在技术验收收口时整理。
 
 ## 1. 目标与使用方式

@@ -54,9 +54,14 @@ def score(filename):
                                     for const,value in state['path_condition']['phi']['term_eqs'])
     for name in ('isolated','after_copy'):check(name,zero_return)
     selected=states('select')
+    def guarded_selection(state):
+        takes_first=read(state,'post','return')==read(state,'pre','first')
+        expected=['NotEqual' if takes_first else 'Equal',['Var',read(state,'pre','use_first')],
+                  ['Const',{'num':'0','den':'1'}]]
+        return any(atom==expected for atom,_ in state['path_condition']['conditions'])
     checks.append({'case':'select','passed':len(selected)==2 and
         {read(s,'post','return')==read(s,'pre','first') for s in selected}=={False,True} and
-        all(clean(s) and s['path_condition']['conditions'] and
+        all(clean(s) and guarded_selection(s) and
             read(s,'post','return') in {read(s,'pre','first'),read(s,'pre','second')} for s in selected),
         'states':len(selected)})
     callback=states('through_callback')
