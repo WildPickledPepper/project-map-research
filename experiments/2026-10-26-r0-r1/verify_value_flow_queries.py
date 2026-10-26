@@ -19,6 +19,7 @@ from adapters.snapshot_inputs import git
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for name in ('manifest','repository','output'):p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--workspace',type=Path)
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=False)
     manifest=json.loads(args.manifest.read_text());revision=manifest['source_commit']
     discovery=discover(args.repository,revision);paths=[r['path'] for r in discovery['files'] if r['eligible']]
@@ -32,8 +33,14 @@ def main():
     # Freeze source content before opening the navigation index.
     source={path:git(args.repository,'show',revision+':'+path).decode('utf-8',errors='replace').splitlines()
             for path in sorted(callable_paths)}
-    build_index(graph,discovery,args.output/'navigation.sqlite')
-    q=ProjectMap(args.output/'navigation.sqlite',budget=Budget(15,2000,5000,1048576))
+    index=args.output/'navigation.sqlite';snapshot=None
+    if args.workspace:
+        from projectmap.workspace import Workspace
+        workspace=Workspace(args.workspace);active=workspace.config['active']
+        if active['source_commit']!=revision:raise ValueError('Published source differs from value-flow capture')
+        index=workspace.directory/active['index'];snapshot=active['snapshot']
+    else:build_index(graph,discovery,index)
+    q=ProjectMap(index,budget=Budget(15,2000,5000,1048576),expected_snapshot=snapshot)
     groups={}
     for n in graph['nodes']:
         if n['kind']=='callable' and n['path'] and n['line']>0:
@@ -61,6 +68,7 @@ def main():
                 'source_commit':proof['source_commit'],'scope':'native_interchange_and_public_queries'})
     finally:q.close()
     result={'schema':'native-value-flow-query-checks/1','source_commit':revision,'checks':checks,
+        'snapshot':snapshot,'scope':'published_unified_snapshot' if args.workspace else 'native_capture_index',
         'passed':bool(checks) and all(r['passed'] for r in checks),'checks_count':len(checks),
         'contexts':dict(Counter(r['context'] for r in checks)),
         'whole_G02_accepted':False,'historical_assets_enabled':False}

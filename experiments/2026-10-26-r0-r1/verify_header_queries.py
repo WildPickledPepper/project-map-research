@@ -14,6 +14,7 @@ from adapters.native_provider_graph import read_capture,merge
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ('capture','repository','output'):p.add_argument('--'+key,type=Path,required=True)
+    p.add_argument('--workspace',type=Path)
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=False)
     receipt=json.loads((args.capture/'result.json').read_text())
     discovery=discover(args.repository,receipt['source_commit'])
@@ -24,11 +25,17 @@ def main():
     graph={'nodes':[],'edges':[],'coverage':[],'limits':[],'diagnostics':[],
            'snapshot':'header-query-'+receipt['source_commit'],'source_commit':receipt['source_commit'],'input_paths':paths}
     merge(graph,facts,provider='libclang',context=receipt['context'])
-    build_index(graph,discovery,args.output/'navigation.sqlite')
+    index=args.output/'navigation.sqlite';snapshot=None
+    if args.workspace:
+        from projectmap.workspace import Workspace
+        workspace=Workspace(args.workspace);active=workspace.config['active']
+        if active['source_commit']!=receipt['source_commit']:raise ValueError('Published source differs from header capture')
+        index=workspace.directory/active['index'];snapshot=active['snapshot']
+    else:build_index(graph,discovery,index)
     nodes={n['id']:n for n in facts['nodes']};out=defaultdict(list)
     for e in facts['edges']:out[e['source']].append(e)
     counts=Counter(n['path'] for n in facts['nodes']);checks=[]
-    q=ProjectMap(args.output/'navigation.sqlite',budget=Budget(15,1000,2000,1048576))
+    q=ProjectMap(index,budget=Budget(15,1000,2000,1048576),expected_snapshot=snapshot)
     try:
         for row in facts['coverage']:
             path=row['path']
@@ -51,7 +58,8 @@ def main():
     finally:q.close()
     report={'schema':'header-public-query-review/1','source_commit':receipt['source_commit'],
         'provider':facts['components'],'headers':len(checks),'checks':checks,'passed':all(r['passed'] for r in checks),
-        'scope':'recovered_header_capture_and_public_index; final_unified_snapshot_checked_separately',
+        'scope':'published_unified_snapshot' if args.workspace else 'recovered_header_capture_and_public_index',
+        'snapshot':snapshot,
         'whole_G02_accepted':False,'runtime_execution':False,'historical_assets_enabled':False}
     (args.output/'result.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
     print(json.dumps({'headers':len(checks),'failed':sum(not r['passed'] for r in checks)}))
