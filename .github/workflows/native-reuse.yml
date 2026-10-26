@@ -5,7 +5,7 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release, rust-admission]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release, rust-admission, svf-diagnose]
       compiler-run:
         type: string
         default: ''
@@ -13,6 +13,63 @@ permissions:
   contents: read
   actions: read
 jobs:
+  svf-diagnose:
+    if: inputs.provider == 'svf-diagnose'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install fixed native distribution and resource sampler
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y clang-16
+          python -m pip install pysvf==1.0.0.50 psutil==7.2.2
+      - uses: actions/download-artifact@v4
+        with:
+          name: svf-replay-output
+          run-id: ${{ inputs.compiler-run || '40297126824' }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/prior-native
+      - name: Verify installed API, single analysis export and frozen identity cases
+        run: |
+          out="$RUNNER_TEMP/svf-diagnostic"
+          python experiments/2026-10-26-native-budget/diagnose.py --mode api --output "$out/api" --seconds 60
+          clang++-16 -g -O0 -Xclang -disable-O0-optnone -emit-llvm -c experiments/2026-10-26-reuse-audit/joern-probe.cpp -o "$RUNNER_TEMP/probe.bc"
+          python experiments/2026-10-26-native-budget/diagnose.py --mode pta --bitcode "$RUNNER_TEMP/probe.bc" --output "$out/probe-pta" --seconds 60
+          python experiments/2026-10-26-native-budget/diagnose.py --mode export --bitcode "$RUNNER_TEMP/probe.bc" --output "$out/probe-export" --source-commit "$GITHUB_SHA" --seconds 60
+          python experiments/2026-10-26-r0-r1/score_svf_admission.py --native "$out/probe-export/native.json" --output "$out/probe-six-cases"
+          clang++-16 -g -O0 -Xclang -disable-O0-optnone -emit-llvm -c experiments/2026-10-26-native-budget/identity.cpp -o "$RUNNER_TEMP/identity.bc"
+          python experiments/2026-10-26-native-budget/diagnose.py --mode export --bitcode "$RUNNER_TEMP/identity.bc" --output "$out/identity-export" --source-commit "$GITHUB_SHA" --seconds 60
+          python - <<'PY'
+          import importlib.util,json,os,pathlib
+          p=pathlib.Path('experiments/2026-10-26-native-budget/diagnose.py')
+          spec=importlib.util.spec_from_file_location('native_diagnostic',p)
+          module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+          out=pathlib.Path(os.environ['RUNNER_TEMP'])/'svf-diagnostic'
+          result=module.identity(out/'identity-export/native.json')
+          (out/'identity-result.json').write_text(json.dumps(result,indent=2))
+          print(json.dumps(result));assert result['passed']
+          PY
+      - name: Diagnose existing real bitcode without recompiling
+        run: |
+          out="$RUNNER_TEMP/svf-diagnostic"
+          bitcode="$RUNNER_TEMP/prior-native/profiler_server/program.bc"
+          if python experiments/2026-10-26-native-budget/diagnose.py --mode pta --bitcode "$bitcode" --output "$out/real-pta"; then
+            python experiments/2026-10-26-native-budget/diagnose.py --mode full --bitcode "$bitcode" --output "$out/real-full"
+          else
+            echo 'PTA did not finish within budget; full SVFG was not started.'
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: svf-diagnostic-output
+          path: ${{ runner.temp }}/svf-diagnostic
+          retention-days: 7
   svf:
     if: inputs.provider == 'all' || inputs.provider == 'svf'
     runs-on: ubuntu-24.04
