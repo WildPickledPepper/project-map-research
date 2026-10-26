@@ -7,7 +7,7 @@ from urllib.parse import quote
 from adapters.snapshot_inputs import validate_path
 
 
-def location(value, root, selected):
+def location(value, root, selected,source_directory=''):
     if isinstance(value,str):
         try:value=json.loads(value[value.index('{'):] if '{' in value else value)
         except (ValueError,TypeError):value={}
@@ -17,6 +17,8 @@ def location(value, root, selected):
     if filename.casefold().startswith(prefix.casefold()):path=filename[len(prefix):]
     elif filename and not filename.startswith('/') and ':' not in filename:path=filename
     else:path=''
+    if path not in selected and filename and not filename.startswith('/') and ':' not in filename:
+        path=posixpath.normpath(source_directory+'/'+filename)
     path=path if path in selected else ''
     return {'path':path,'line':int(value.get('line') or value.get('ln') or 0),
             'column':int(value.get('column') or value.get('cl') or 0)}
@@ -37,7 +39,7 @@ def normalize(data, *, provider, paths, source_commit, context):
         'precision':'native_static_candidate'}
     nodes={};edges=[];diagnostics=[];root=data.get('source_root')
     def node(uid,kind,name,pos,**extra):
-        nodes[uid]={'id':uid,'kind':kind,'name':name,**pos,'language':'cpp' if provider=='svf' else 'rust',
+        nodes[uid]={'id':uid,'kind':kind,'name':name,**pos,'language':data.get('language','cpp') if provider=='svf' else 'rust',
             'provenance':provenance,'evidence_kind':provider+'_native_output','runtime_execution':'not_observed',**extra}
         return uid
     def edge(source,target,kind,**extra):
@@ -47,14 +49,22 @@ def normalize(data, *, provider, paths, source_commit, context):
     if provider=='svf':
         positions={}
         for raw in data['nodes']:
-            pos=location(raw.get('source_location'),root,selected)
+            pos=location(raw.get('source_location'),root,selected,data.get('source_directory',''))
             fallback=not pos['path']
-            if fallback:pos=location(raw.get('function_location'),root,selected)
+            if fallback:pos=location(raw.get('function_location'),root,selected,data.get('source_directory',''))
             uid=prefix+'flow:'+str(raw['id'])
             node(uid,'value',raw['kind']+' '+str(raw['id']),pos,native_id=raw['id'],native_kind=raw['kind'],
                  native_description=raw['text'],native_function=raw.get('function'),
                  source_location_kind='function_fallback' if fallback else 'native_instruction')
             if raw.get('value') is not None:positions[raw['value']]=pos
+        for raw in data['nodes']:
+            if not raw.get('function'):continue
+            uid=prefix+'function:'+quote(raw['function'],safe='')
+            if uid not in nodes:
+                pos=location(raw.get('function_location'),root,selected,data.get('source_directory',''))
+                name=data.get('function_display_names',{}).get(raw['function'],raw['function'])
+                node(uid,'callable',name,pos,native_function=raw['function'],native_function_display=name)
+            edge(uid,prefix+'flow:'+str(raw['id']),'SVF_CONTAINS_VALUE')
         for raw in data['edges']:
             edge(prefix+'flow:'+str(raw['source']),prefix+'flow:'+str(raw['target']),'SVF_VALUE_FLOW',native=raw)
         for raw in data.get('variables',[]):

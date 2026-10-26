@@ -1,10 +1,16 @@
 name: Native dataflow providers
 on:
   workflow_dispatch:
+    inputs:
+      provider:
+        type: choice
+        default: all
+        options: [all, svf, rapx, rust-svf]
 permissions:
   contents: read
 jobs:
   svf:
+    if: inputs.provider == 'all' || inputs.provider == 'svf'
     runs-on: ubuntu-24.04
     timeout-minutes: 50
     steps:
@@ -58,6 +64,7 @@ jobs:
           path: ${{ runner.temp }}/svf-output
           retention-days: 7
   rapx:
+    if: inputs.provider == 'all' || inputs.provider == 'rapx'
     runs-on: ubuntu-22.04
     timeout-minutes: 35
     env:
@@ -172,4 +179,52 @@ jobs:
         with:
           name: rapx-native-output
           path: ${{ runner.temp }}/rapx-output
+          retention-days: 7
+  rust-svf:
+    if: inputs.provider == 'all' || inputs.provider == 'rust-svf'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install existing LLVM-compatible compiler and analysis
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libwebkit2gtk-4.0-dev libgtk-3-dev libayatana-appindicator3-dev
+          python -m pip install pysvf==1.0.0.50
+          rustup toolchain install 1.94.0 --profile minimal
+          rustup target add --toolchain 1.94.0 x86_64-pc-windows-gnu
+          cargo +1.94.0 install rustfilt --locked
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+          key: rust-svf-1.94.0-linux22-1
+      - name: Execute independent Rust compiler value-flow cases
+        run: |
+          mkdir -p "$RUNNER_TEMP/rust-flow/src"
+          cp experiments/2026-10-26-r0-r1/rust-dataflow.rs "$RUNNER_TEMP/rust-flow/src/lib.rs"
+          printf '[package]\nname="neutral_flow"\nversion="0.1.0"\nedition="2021"\n[workspace]\n' > "$RUNNER_TEMP/rust-flow/Cargo.toml"
+          python scripts/capture_cargo_value_flow.py --manifest "$RUNNER_TEMP/rust-flow/Cargo.toml" --source-root "$RUNNER_TEMP/rust-flow" --output "$RUNNER_TEMP/rust-svf-output/admission" --source-commit "$GITHUB_SHA" --context fixture/independent
+      - name: Read pinned product source
+        run: |
+          git init -q "$RUNNER_TEMP/insight"
+          git -C "$RUNNER_TEMP/insight" fetch --depth 1 https://gitcode.com/Ascend/msinsight.git d4e8d1cf9f90208bcbe5371c127088f6fd66c688
+          git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
+      - name: Analyze native Rust application configurations
+        run: |
+          python scripts/capture_cargo_value_flow.py --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-http" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-http --no-default-features --features http
+          python scripts/capture_cargo_value_flow.py --manifest "$RUNNER_TEMP/insight/platform/linux/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-linux-desktop" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-desktop-release --release
+          python scripts/capture_cargo_value_flow.py --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-release" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-release --target x86_64-pc-windows-gnu --release
+          python scripts/capture_cargo_value_flow.py --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-debug" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-debug --target x86_64-pc-windows-gnu
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rust-svf-native-output
+          path: ${{ runner.temp }}/rust-svf-output
           retention-days: 7

@@ -4,6 +4,8 @@ import importlib.metadata
 import json
 from pathlib import Path
 import re
+import shutil
+import subprocess
 
 
 def export(bitcode,native_points=None):
@@ -57,10 +59,17 @@ def main():
     p.add_argument('--source-root',required=True);p.add_argument('--source-commit',required=True)
     p.add_argument('--context',required=True);p.add_argument('--module',required=True)
     p.add_argument('--native-points',type=Path)
+    p.add_argument('--language',choices=['cpp','rust'],default='cpp')
+    p.add_argument('--source-directory',default='')
     args=p.parse_args()
     if args.output.exists():p.error('Use a new native output')
     data=export(args.bitcode,args.native_points)
     data.update(source_root=args.source_root,source_commit=args.source_commit,context=args.context,module=args.module)
+    data.update(language=args.language,source_directory=args.source_directory)
+    if args.language=='rust' and shutil.which('rustfilt'):
+        names=sorted({n['function'] for n in data['nodes'] if n.get('function')})
+        result=subprocess.run(['rustfilt'],input='\n'.join(names)+'\n',capture_output=True,text=True,check=True,timeout=30)
+        data['function_display_names']=dict(zip(names,result.stdout.splitlines()))
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(data,separators=(',',':')),encoding='utf-8')
     print(json.dumps({'nodes':len(data['nodes']),'edges':len(data['edges']),'points_to':len(data['points_to'])}))
