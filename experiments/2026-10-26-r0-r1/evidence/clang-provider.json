@@ -1,0 +1,208 @@
+{
+  "schema": "r0-clang-admission/1",
+  "evidence_kind": "executed_native_component",
+  "cases": [
+    {
+      "schema": "r0-clang-provider/1",
+      "evidence_kind": "executed_native_component",
+      "checks": [
+        {
+          "id": "native_ast_for_both_files",
+          "passed": true
+        },
+        {
+          "id": "inherited_method_target",
+          "passed": true
+        },
+        {
+          "id": "template_call_target",
+          "passed": true
+        },
+        {
+          "id": "active_preprocessor_branch",
+          "passed": true
+        },
+        {
+          "id": "inactive_branch_absent",
+          "passed": true
+        },
+        {
+          "id": "same_name_field_targets_isolated",
+          "passed": true
+        },
+        {
+          "id": "member_and_receiver_reference_identities_distinct",
+          "passed": true
+        },
+        {
+          "id": "native_alias_declaration_present",
+          "passed": true
+        }
+      ],
+      "components": {
+        "adapter": "clangd_multilspy_provider/0.1.0",
+        "provider": "clangd",
+        "context": "feature-on",
+        "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "multilspy": "0.1.1",
+        "version": "clangd version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)"
+      },
+      "coverage": [
+        {
+          "path": "api/types.hpp",
+          "status": "parsed",
+          "provider": "clangd",
+          "context": "feature-on",
+          "native_ast_kind": "TranslationUnit",
+          "references": 1,
+          "resolved_input_references": 1,
+          "reference_budget_exhausted": false,
+          "compile_command": "native_database_or_clangd_inference"
+        },
+        {
+          "path": "runner/main.cpp",
+          "status": "parsed",
+          "provider": "clangd",
+          "context": "feature-on",
+          "native_ast_kind": "TranslationUnit",
+          "references": 10,
+          "resolved_input_references": 10,
+          "reference_budget_exhausted": false,
+          "compile_command": "native_database_or_clangd_inference"
+        }
+      ],
+      "passed": true,
+      "whole_G02_accepted": false
+    },
+    {
+      "schema": "r0-clang-provider/1",
+      "evidence_kind": "executed_native_component",
+      "checks": [
+        {
+          "id": "native_ast_for_both_files",
+          "passed": true
+        },
+        {
+          "id": "inherited_method_target",
+          "passed": true
+        },
+        {
+          "id": "template_call_target",
+          "passed": true
+        },
+        {
+          "id": "active_preprocessor_branch",
+          "passed": true
+        },
+        {
+          "id": "inactive_branch_absent",
+          "passed": true
+        },
+        {
+          "id": "same_name_field_targets_isolated",
+          "passed": true
+        },
+        {
+          "id": "member_and_receiver_reference_identities_distinct",
+          "passed": true
+        },
+        {
+          "id": "native_alias_declaration_present",
+          "passed": true
+        }
+      ],
+      "components": {
+        "adapter": "clangd_multilspy_provider/0.1.0",
+        "provider": "clangd",
+        "context": "feature-0",
+        "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "multilspy": "0.1.1",
+        "version": "clangd version 23.1.0 (https://github.com/llvm/llvm-project ea7d852a70e8bdfaf601d6626a760f9771b2c4b4)"
+      },
+      "coverage": [
+        {
+          "path": "app/launch.cpp",
+          "status": "parsed",
+          "provider": "clangd",
+          "context": "feature-0",
+          "native_ast_kind": "TranslationUnit",
+          "references": 10,
+          "resolved_input_references": 10,
+          "reference_budget_exhausted": false,
+          "compile_command": "native_database_or_clangd_inference"
+        },
+        {
+          "path": "lib/model.hpp",
+          "status": "parsed",
+          "provider": "clangd",
+          "context": "feature-0",
+          "native_ast_kind": "TranslationUnit",
+          "references": 1,
+          "resolved_input_references": 1,
+          "reference_budget_exhausted": false,
+          "compile_command": "native_database_or_clangd_inference"
+        }
+      ],
+      "passed": true,
+      "whole_G02_accepted": false
+    }
+  ],
+  "first_failure": [
+    {
+      "id": "native_ast_for_both_files",
+      "passed": true
+    },
+    {
+      "id": "inherited_method_target",
+      "passed": true
+    },
+    {
+      "id": "template_call_target",
+      "passed": true
+    },
+    {
+      "id": "active_preprocessor_branch",
+      "passed": false
+    },
+    {
+      "id": "inactive_branch_absent",
+      "passed": true
+    },
+    {
+      "id": "same_name_field_targets_isolated",
+      "passed": true
+    },
+    {
+      "id": "member_and_receiver_reference_identities_distinct",
+      "passed": true
+    },
+    {
+      "id": "native_alias_declaration_present",
+      "passed": false
+    }
+  ],
+  "product_context": [
+    {
+      "path": "server/src/modules/operator/protocol/OperatorGroupConverter.cpp",
+      "compile_database_applied": true,
+      "errors": 0,
+      "diagnostics": []
+    },
+    {
+      "path": "server/src/modules/timeline/core/database/TextTraceDatabaseStatistics.cpp",
+      "compile_database_applied": true,
+      "errors": 1,
+      "diagnostics": [
+        {
+          "code": "builtin_definition",
+          "line": 20,
+          "message": "in included file: definition of builtin function '__rdtsc'"
+        }
+      ]
+    }
+  ],
+  "passed": true,
+  "whole_cpp_semantics_accepted": false,
+  "whole_R0_passed": false,
+  "whole_G02_accepted": false
+}

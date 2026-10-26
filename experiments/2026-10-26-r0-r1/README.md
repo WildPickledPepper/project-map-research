@@ -23,3 +23,16 @@ python experiments/2026-10-26-reuse-audit/probe_cbm_boundaries.py --binary CBM_E
 ```
 
 R0 剩余：边界身份负例、C++ 语义补充准入与数据流精度路线。R1 的真实仓库接入和逐组件核验待执行；本项不改变 G02–G08 状态。
+
+## 已交付：C++ 原生语义提供方
+
+[clangd 提供方](../../adapters/clangd_provider.py)复用固定版本的 multilspy 客户端和 clangd 23.1.0，导入原生文档符号、AST 和定义跳转；初始化时开启 LSP 的层级文档符号能力。引用/接收对象的节点按原生范围区分，编译配置进入身份，未解析目标及预算残余保留。
+
+[准入结果](evidence/clang-provider.json)记录两个通用布局、feature 开/关各 8 项检查：继承方法、模板调用、类型别名、活动/非活动预处理分支、两个命名空间同名字段、成员和接收对象的引用身份。首次运行因客户端未声明层级符号能力，导致适配器漏导入声明；该首轮失败保留，修正能力声明后通过。此前 getter 值/引用/指针及重载检查直接继承原审计，不重复执行。
+
+真实 Insight 编译数据库包含 497 项原生编译记录。静态成员文件 `OperatorGroupConverter.cpp` 通过 clangd 原生检查；include-only 文件 `TextTraceDatabaseStatistics.cpp` 保留一项 `__rdtsc` 本征函数定义兼容诊断。两项结果不代表整个 C++ 范围通过；原生符号/定义身份也不等于运行实例或通用别名分析。
+
+```text
+python experiments/2026-10-26-r0-r1/probe_clang_provider.py --binary CLANGD --output NEW_OUTPUT
+python experiments/2026-10-26-r0-r1/probe_clang_provider.py --binary CLANGD --output OTHER_OUTPUT --feature-mode 0 --layout alternate
+```

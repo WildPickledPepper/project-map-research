@@ -1,0 +1,157 @@
+"""Translate native clangd replies through multilspy; no C++ semantic solver."""
+import asyncio
+import importlib.metadata
+import json
+import os
+from pathlib import Path
+import subprocess
+from urllib.parse import quote
+
+from adapters.snapshot_inputs import validate_path
+
+VERSION = 'clangd_multilspy_provider/0.1.0'
+SYMBOL_KINDS = {5: 'type', 6: 'callable', 7: 'value', 8: 'value', 9: 'callable',
+                10: 'type', 11: 'type', 12: 'callable', 13: 'value', 14: 'value',
+                22: 'value', 23: 'type', 26: 'type', 3: 'namespace'}
+
+
+async def analyze(root, paths, *, binary, context, source_commit, output,
+                  compile_commands=None, query_drivers=(), file_timeout=45,
+                  reference_budget=2000, emit=None):
+    from multilspy.language_servers.clangd_language_server.clangd_language_server import ClangdLanguageServer
+    from multilspy.multilspy_config import MultilspyConfig
+    from multilspy.multilspy_logger import MultilspyLogger
+
+    root, output = Path(root).resolve(), Path(output).resolve()
+    selected = set(paths)
+    for path in selected:
+        validate_path(path)
+    output.mkdir(parents=True, exist_ok=False)
+    prefix = 'clangd:' + quote(context, safe='') + ':'
+    nodes, edges, diagnostics, coverage = {}, [], [], []
+    published = {}
+    class SymbolServer(ClangdLanguageServer):
+        def _get_initialize_params(self, repository_absolute_path):
+            params = super()._get_initialize_params(repository_absolute_path)
+            params['capabilities']['textDocument'].setdefault('documentSymbol', {})[
+                'hierarchicalDocumentSymbolSupport'] = True
+            return params
+    server = SymbolServer(MultilspyConfig.from_dict({
+        'code_language': 'cpp', 'server_binary': str(binary)}), MultilspyLogger(), str(root))
+    server.server.process_launch_info.cmd.extend(['--background-index=false', '--pch-storage=memory', '--log=error'])
+    if compile_commands:
+        server.server.process_launch_info.cmd.append('--compile-commands-dir=' + str(Path(compile_commands).resolve()))
+    if query_drivers:
+        server.server.process_launch_info.cmd.append('--query-driver=' + ','.join(map(str, query_drivers)))
+    provenance = {'adapter': VERSION, 'provider': 'clangd', 'context': context,
+                  'source_commit': source_commit, 'multilspy': importlib.metadata.version('multilspy'),
+                  'version': subprocess.check_output([str(binary), '--version'], text=True, timeout=10).splitlines()[0]}
+    def uri_key(uri):
+        return uri.casefold() if os.name == 'nt' else uri
+
+    def identifier(path, position, category='declaration'):
+        return prefix + quote(path, safe='/') + ':' + category + ':' + str(position['line']) + ':' + str(position['character'])
+
+    def node(path, position, category, name, **extra):
+        uid = identifier(path, position, 'module' if category == 'code_module' else
+                         'reference' if category == 'symbol_reference' else 'declaration')
+        if category == 'symbol_reference':
+            end = extra['native_range']['end']
+            uid += ':' + extra['native_kind'] + ':' + str(end['line']) + ':' + str(end['character'])
+        record = {'id': uid, 'kind': category, 'path': path, 'line': position['line'] + 1,
+                  'column': position['character'] + 1, 'name': name, 'language': 'cpp',
+                  'evidence_kind': 'clangd_native_reply', 'provenance': provenance,
+                  'runtime_execution': 'not_observed', **extra}
+        previous = nodes.get(uid)
+        if previous and category == 'declaration':
+            return uid
+        nodes[uid] = record
+        return uid
+
+    def relation(source, target, kind, path, position, **extra):
+        edges.append({'source': source, 'target': target, 'kind': kind, 'status': 'static_declaration',
+                      'evidence': [{'path': path, 'line': position['line'] + 1,
+                                    'column': position['character'] + 1}],
+                      'provenance': provenance, 'runtime_execution': 'not_observed', **extra})
+
+    async def collect(path):
+        uri = (root / path).as_uri()
+        module = node(path, {'line': 0, 'character': 0}, 'code_module', path)
+        with server.open_file(path):
+            symbols = await server.server.send_request('textDocument/documentSymbol', {'textDocument': {'uri': uri}})
+            ast = await server.server.send_request('textDocument/ast', {'textDocument': {'uri': uri}})
+            if not ast or ast.get('kind') != 'TranslationUnit':
+                raise ValueError('Native translation-unit AST unavailable')
+            (output / (quote(path, safe='') + '.json')).write_text(
+                json.dumps({'symbols': symbols, 'ast': ast}), encoding='utf-8')
+
+            def declarations(items, parents=()):
+                for item in items or []:
+                    position = item.get('selectionRange', item.get('range', {})).get('start')
+                    if position:
+                        name = '::'.join((*parents, item['name']))
+                        uid = node(path, position, SYMBOL_KINDS.get(item['kind'], 'declaration'), name,
+                                   native_kind=item['kind'], detail=item.get('detail'),
+                                   native_range=item.get('range'), native_selection_range=item.get('selectionRange'))
+                        relation(module, uid, 'CLANGD_DECLARES', path, position)
+                    declarations(item.get('children'), (*parents, item['name']))
+            declarations(symbols)
+
+            references = []
+            def visit(item):
+                if not item:
+                    return
+                if item.get('kind') in {'DeclRef', 'Member'} and item.get('range'):
+                    references.append(item)
+                for child in item.get('children', []):
+                    visit(child)
+            visit(ast)
+            resolved = 0
+            for ordinal, item in enumerate(references):
+                start, end = item['range']['start'], item['range']['end']
+                uid = node(path, start, 'symbol_reference', item.get('detail', item['kind']),
+                           native_kind=item['kind'], native_range=item['range'],
+                           resolution='unresolved', reason='native_definition_not_returned')
+                relation(module, uid, 'CLANGD_CONTAINS_REFERENCE', path, start)
+                if ordinal >= reference_budget:
+                    nodes[uid]['reason'] = 'reference_query_budget'
+                    continue
+                targets = await server.request_definition(path, end['line'], max(0, end['character'] - 1))
+                internal = [t for t in targets if t.get('relativePath', '').replace('\\', '/') in selected]
+                if internal:
+                    nodes[uid].update(resolution='native_declaration_target', reason=None)
+                    resolved += 1
+                elif targets:
+                    nodes[uid]['reason'] = 'native_target_outside_selected_input'
+                for target in internal:
+                    target_path = target['relativePath'].replace('\\', '/')
+                    position = target['range']['start']
+                    target_uid = node(target_path, position, 'declaration', item.get('detail', ''),
+                                      native_target_range=target['range'])
+                    relation(uid, target_uid, 'CLANGD_REFERS_TO_DECLARATION', path, start,
+                             target_selection='native_definition_at_reference_range_end')
+            errors = [d for d in published.get(uri_key(uri), []) if d.get('severity') == 1]
+            diagnostics.extend({'path': path, 'kind': 'clangd_diagnostic', 'native': d} for d in published.get(uri_key(uri), []))
+            coverage.append({'path': path, 'status': 'parsed_with_diagnostics' if errors else 'parsed',
+                             'provider': 'clangd', 'context': context, 'native_ast_kind': (ast or {}).get('kind'),
+                             'references': len(references), 'resolved_input_references': resolved,
+                             'reference_budget_exhausted': len(references) > reference_budget,
+                             'compile_command': 'native_database_or_clangd_inference' if compile_commands else 'fallback'})
+
+    async with server.start_server():
+        async def on_diagnostics(params):
+            published[uri_key(params['uri'])] = params.get('diagnostics', [])
+        server.server.on_notification('textDocument/publishDiagnostics', on_diagnostics)
+        for path in sorted(selected):
+            try:
+                await asyncio.wait_for(collect(path), timeout=file_timeout)
+            except (asyncio.TimeoutError, OSError, ValueError, RuntimeError) as exc:
+                diagnostics.append({'path': path, 'kind': 'clangd_file_failed', 'error': str(exc)})
+                coverage.append({'path': path, 'status': 'provider_failed', 'provider': 'clangd', 'context': context})
+            if emit:
+                emit({'path': path, 'status': coverage[-1]['status'], 'nodes': len(nodes), 'edges': len(edges)})
+    return {'nodes': list(nodes.values()), 'edges': edges, 'diagnostics': diagnostics,
+            'coverage': coverage, 'components': provenance,
+            'limits': ['compiler_declaration_identity_not_runtime_object_or_dispatch',
+                       'native_inferred_header_commands_are_not_explicit_build_membership',
+                       'reference_query_residuals_and_diagnostics_remain_visible']}
