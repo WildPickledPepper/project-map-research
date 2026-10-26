@@ -37,18 +37,23 @@ CMD ["python", "/app/app.py"]
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     for name in ('binary','output'):ap.add_argument('--'+name,type=Path,required=True)
+    ap.add_argument('--cache-dir',type=Path)
+    ap.add_argument('--runtime-dir',type=Path)
     args=ap.parse_args()
     if args.output.exists():raise ValueError('Choose a new audit output')
     source=args.output/'source';source.mkdir(parents=True)
-    (args.output/'cache').mkdir()
+    cache=args.cache_dir or args.output/'cache'
+    cache.mkdir(parents=True,exist_ok=True)
+    if args.runtime_dir:args.runtime_dir.mkdir(parents=True,exist_ok=True)
     for path,content in FILES.items():(source/path).write_text(content,encoding='utf-8')
-    env={**os.environ,'CBM_CACHE_DIR':str(args.output/'cache')}
+    env={**os.environ,'CBM_CACHE_DIR':str(cache)}
+    if args.runtime_dir:env['CBM_RUNTIME_DIR']=str(args.runtime_dir)
     started=time.perf_counter()
     p=subprocess.run([str(args.binary),'cli','--json','index_repository','--repo-path',str(source),'--name','reuse-audit',
         '--mode','full','--persistence','false','--doc-candidates','false'],env=env,cwd=source,capture_output=True,
         text=True,encoding='utf-8',errors='replace',timeout=90)
     (args.output/'index.log').write_text(p.stdout+p.stderr,encoding='utf-8')
-    schema={};rows={};databases=list((args.output/'cache').rglob('*.db'))
+    schema={};rows={};databases=list(cache.rglob('*.db'))
     for path in databases:
         with sqlite3.connect(path.as_uri()+'?mode=ro',uri=True) as db:
             db.row_factory=sqlite3.Row
@@ -68,6 +73,7 @@ def main():
         for row in rows.get(name,[]):
             value=row.get(column,'unknown');result[key][value]=result[key].get(value,0)+1
     (args.output/'result.json').write_text(json.dumps(result,indent=2),encoding='utf-8');print(json.dumps(result))
+    if p.returncode:raise SystemExit(p.returncode)
 
 
 if __name__=='__main__':main()

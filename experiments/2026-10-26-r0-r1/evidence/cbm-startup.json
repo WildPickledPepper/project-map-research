@@ -1,0 +1,295 @@
+{
+  "schema": "r0-cbm-startup-recovery/1",
+  "evidence_kind": "executed_native_component",
+  "version": "0.12.1",
+  "source_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "native_counts": {
+    "files": 4,
+    "nodes": 33,
+    "edges": 38
+  },
+  "first_failures": [
+    "untrusted_cache_ancestor",
+    "runtime_parent_did_not_exist"
+  ],
+  "checks": [
+    {
+      "id": "native_index_exit_success",
+      "passed": true
+    },
+    {
+      "id": "all_four_fixture_files_indexed",
+      "passed": true
+    },
+    {
+      "id": "docker_command_targets_python_module",
+      "passed": true
+    },
+    {
+      "id": "python_spawn_has_process_target",
+      "passed": true
+    },
+    {
+      "id": "docker_image_env_reaches_reader",
+      "passed": true
+    },
+    {
+      "id": "compose_container_env_reaches_reader",
+      "passed": true
+    },
+    {
+      "id": "source_call_is_native_not_manually_linked",
+      "passed": true
+    }
+  ],
+  "relations": [
+    {
+      "source": {
+        "id": 8,
+        "label": "Function",
+        "name": "read_port",
+        "qualified_name": "reuse-audit.app.read_port",
+        "file_path": "app.py",
+        "start_line": 3
+      },
+      "target": {
+        "id": 28,
+        "label": "EnvVar",
+        "name": "APP_PORT",
+        "qualified_name": "__env__APP_PORT",
+        "file_path": "",
+        "start_line": 0
+      },
+      "kind": "CONFIGURES",
+      "properties": {
+        "strategy": "env_access"
+      }
+    },
+    {
+      "source": {
+        "id": 24,
+        "label": "Module",
+        "name": "Dockerfile",
+        "qualified_name": "reuse-audit.Dockerfile",
+        "file_path": "Dockerfile",
+        "start_line": 1
+      },
+      "target": {
+        "id": 29,
+        "label": "Image",
+        "name": "python",
+        "qualified_name": "__image__python",
+        "file_path": "",
+        "start_line": 0
+      },
+      "kind": "DEPENDS_ON",
+      "properties": {
+        "via": "from",
+        "image": "python:3.11",
+        "stage": 0,
+        "line": 1
+      }
+    },
+    {
+      "source": {
+        "id": 24,
+        "label": "Module",
+        "name": "Dockerfile",
+        "qualified_name": "reuse-audit.Dockerfile",
+        "file_path": "Dockerfile",
+        "start_line": 1
+      },
+      "target": {
+        "id": 7,
+        "label": "Module",
+        "name": "app.py",
+        "qualified_name": "reuse-audit.app",
+        "file_path": "app.py",
+        "start_line": 1
+      },
+      "kind": "SPAWNS",
+      "properties": {
+        "api": "dockerfile",
+        "instruction": "CMD",
+        "program": "python",
+        "line": 5,
+        "confidence": 1.0
+      }
+    },
+    {
+      "source": {
+        "id": 24,
+        "label": "Module",
+        "name": "Dockerfile",
+        "qualified_name": "reuse-audit.Dockerfile",
+        "file_path": "Dockerfile",
+        "start_line": 1
+      },
+      "target": {
+        "id": 30,
+        "label": "EnvVar",
+        "name": "APP_PORT",
+        "qualified_name": "reuse-audit.Dockerfile#env/-/APP_PORT",
+        "file_path": "Dockerfile",
+        "start_line": 4
+      },
+      "kind": "CONFIGURES",
+      "properties": {
+        "strategy": "env_set",
+        "scope": "image",
+        "source": "dockerfile",
+        "line": 4
+      }
+    },
+    {
+      "source": {
+        "id": 31,
+        "label": "Resource",
+        "name": "Service/frontend",
+        "qualified_name": "reuse-audit.compose::compose/Service/-/frontend",
+        "file_path": "compose.yaml",
+        "start_line": 3
+      },
+      "target": {
+        "id": 32,
+        "label": "EnvVar",
+        "name": "APP_PORT",
+        "qualified_name": "reuse-audit.compose::compose/Service/-/frontend#env/frontend/APP_PORT",
+        "file_path": "compose.yaml",
+        "start_line": 5
+      },
+      "kind": "CONFIGURES",
+      "properties": {
+        "strategy": "env_set",
+        "scope": "container",
+        "container": "frontend",
+        "source": "compose",
+        "line": 5
+      }
+    },
+    {
+      "source": {
+        "id": 31,
+        "label": "Resource",
+        "name": "Service/frontend",
+        "qualified_name": "reuse-audit.compose::compose/Service/-/frontend",
+        "file_path": "compose.yaml",
+        "start_line": 3
+      },
+      "target": {
+        "id": 24,
+        "label": "Module",
+        "name": "Dockerfile",
+        "qualified_name": "reuse-audit.Dockerfile",
+        "file_path": "Dockerfile",
+        "start_line": 1
+      },
+      "kind": "DEPENDS_ON",
+      "properties": {
+        "via": "build",
+        "tool": "compose"
+      }
+    },
+    {
+      "source": {
+        "id": 30,
+        "label": "EnvVar",
+        "name": "APP_PORT",
+        "qualified_name": "reuse-audit.Dockerfile#env/-/APP_PORT",
+        "file_path": "Dockerfile",
+        "start_line": 4
+      },
+      "target": {
+        "id": 8,
+        "label": "Function",
+        "name": "read_port",
+        "qualified_name": "reuse-audit.app.read_port",
+        "file_path": "app.py",
+        "start_line": 3
+      },
+      "kind": "CONFIGURES",
+      "properties": {
+        "strategy": "env_read",
+        "dockerfile": "Dockerfile"
+      }
+    },
+    {
+      "source": {
+        "id": 32,
+        "label": "EnvVar",
+        "name": "APP_PORT",
+        "qualified_name": "reuse-audit.compose::compose/Service/-/frontend#env/frontend/APP_PORT",
+        "file_path": "compose.yaml",
+        "start_line": 5
+      },
+      "target": {
+        "id": 8,
+        "label": "Function",
+        "name": "read_port",
+        "qualified_name": "reuse-audit.app.read_port",
+        "file_path": "app.py",
+        "start_line": 3
+      },
+      "kind": "CONFIGURES",
+      "properties": {
+        "strategy": "env_read",
+        "dockerfile": "Dockerfile"
+      }
+    },
+    {
+      "source": {
+        "id": 9,
+        "label": "Function",
+        "name": "launch",
+        "qualified_name": "reuse-audit.app.launch",
+        "file_path": "app.py",
+        "start_line": 5
+      },
+      "target": {
+        "id": 33,
+        "label": "Process",
+        "name": "backend",
+        "qualified_name": "__process__backend",
+        "file_path": "",
+        "start_line": 0
+      },
+      "kind": "SPAWNS",
+      "properties": {
+        "api": "subprocess.Popen",
+        "program": "backend",
+        "line": 6,
+        "confidence": 1.0
+      }
+    },
+    {
+      "source": {
+        "id": 9,
+        "label": "Function",
+        "name": "launch",
+        "qualified_name": "reuse-audit.app.launch",
+        "file_path": "app.py",
+        "start_line": 5
+      },
+      "target": {
+        "id": 8,
+        "label": "Function",
+        "name": "read_port",
+        "qualified_name": "reuse-audit.app.read_port",
+        "file_path": "app.py",
+        "start_line": 3
+      },
+      "kind": "CALLS",
+      "properties": {
+        "callee": "read_port",
+        "confidence": 0.95,
+        "strategy": "lsp_direct",
+        "candidates": 1,
+        "line": 6
+      }
+    }
+  ],
+  "passed": true,
+  "whole_R0_passed": false,
+  "whole_G02_accepted": false
+}

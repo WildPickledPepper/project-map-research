@@ -16,4 +16,5 @@
 - Run `python scripts/check_research.py` before committing research changes.
 - Commit each completed and verified item separately, then push it to the research repository; do not wait for the entire phase to finish.
 - User preference: do not re-verify file hashes. Track Git revisions/tool versions and run behavior tests; preserve historical hash records without recomputing them.
+- On the current Windows workstation, put all newly created third-party tools, environments, caches, temporary files and experiment data on drive D. Existing C-drive inputs may be read; keep generated artifacts outside Git. Preserve the existing results-directory junction after migration.
 - Keep the upstream GitCode repository and the original downloaded Insight checkout unchanged. Source mutations and runtime instrumentation belong in separate local experimental copies; publish this project's tools and reports only to the research GitHub repository.
