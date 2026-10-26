@@ -1,0 +1,500 @@
+{
+  "schema": "reuse-component-audit/1",
+  "date": "2026-10-26",
+  "origin": "native_component_probes_and_retained_source_audit",
+  "product_analysis_or_acceptance_executed": false,
+  "whole_G02_G08_accepted": false,
+  "scip_imports": {
+    "schema": "reuse-scip-component-audit/1",
+    "input_origin": "authored_scip_index_not_compiler_output",
+    "source_fixture": "int target(int value) { return value; }\ntemplate<class T> T generic(T value) { return value; }\nvoid plain() { target(1); }\nvoid spaced() { target (1); }\nvoid callback() { auto saved = &target; }\nvoid templated() { generic<int>(1); }\nstruct Box { int field; };\nvoid reads() { Box box; int result = box.field; }\n",
+    "cgc_revision": "93c9685bff9151f50a3121e9913e5ba2d27c1191",
+    "codegraph_revision": "7bac941c1916d34fae0e93dd0ffeaef360d741fb",
+    "codegraph_exit_code": 0,
+    "codegraph_seconds": 0.119,
+    "checks": [
+      {
+        "caller": "plain",
+        "target": "target",
+        "source_line": 3,
+        "expected_direct_call": true,
+        "cgc_direct_call": true,
+        "codegraph_scip_relations": [
+          [
+            "plain",
+            "target",
+            "Calls"
+          ]
+        ]
+      },
+      {
+        "caller": "spaced",
+        "target": "target",
+        "source_line": 4,
+        "expected_direct_call": true,
+        "cgc_direct_call": false,
+        "codegraph_scip_relations": [
+          [
+            "spaced",
+            "target",
+            "Calls"
+          ]
+        ]
+      },
+      {
+        "caller": "callback",
+        "target": "target",
+        "source_line": 5,
+        "expected_direct_call": false,
+        "cgc_direct_call": false,
+        "codegraph_scip_relations": [
+          [
+            "callback",
+            "target",
+            "Calls"
+          ]
+        ]
+      },
+      {
+        "caller": "templated",
+        "target": "generic",
+        "source_line": 6,
+        "expected_direct_call": true,
+        "cgc_direct_call": false,
+        "codegraph_scip_relations": [
+          [
+            "templated",
+            "generic",
+            "Calls"
+          ]
+        ]
+      },
+      {
+        "caller": "reads",
+        "target": "field",
+        "source_line": 8,
+        "expected_direct_call": false,
+        "cgc_direct_call": false,
+        "codegraph_scip_relations": []
+      }
+    ],
+    "cgc_field_definition_retained": true,
+    "cgc_field_read_reference_in_projected_calls": false,
+    "cgc_retains_symbol_table": true,
+    "scope": "SCIP_component_import_only_no_product_or_native_cpp_indexer_execution",
+    "file_hash_verification": "not_run_per_user_preference"
+  },
+  "code_map": {
+    "exit_code": 0,
+    "result": {
+      "non_api_path": null,
+      "normalized": "/api/items",
+      "parameter_paths_match": true,
+      "same_path_different_modules_have_distinct_ids": false,
+      "node_count": 1
+    },
+    "stderr": ""
+  },
+  "sqlglot": {
+    "version": "30.24.0",
+    "checks": [
+      {
+        "case": "alias",
+        "sql": "SELECT a.value AS result FROM readings a",
+        "expected": [
+          "readings.value"
+        ],
+        "actual": [
+          "readings.value"
+        ],
+        "native_leaves": [
+          {
+            "name": "a.value",
+            "expression": "readings AS a",
+            "kind": "Table"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "cte",
+        "sql": "WITH b AS (SELECT value FROM readings) SELECT b.value AS result FROM b",
+        "expected": [
+          "readings.value"
+        ],
+        "actual": [
+          "readings.value"
+        ],
+        "native_leaves": [
+          {
+            "name": "readings.value",
+            "expression": "readings AS readings",
+            "kind": "Table"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "join",
+        "sql": "SELECT a.value + b.extra AS result FROM readings a JOIN adjustments b ON a.id=b.id",
+        "expected": [
+          "adjustments.extra",
+          "readings.value"
+        ],
+        "actual": [
+          "adjustments.extra",
+          "readings.value"
+        ],
+        "native_leaves": [
+          {
+            "name": "a.value",
+            "expression": "readings AS a",
+            "kind": "Table"
+          },
+          {
+            "name": "b.extra",
+            "expression": "adjustments AS b",
+            "kind": "Table"
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "parameter_ast",
+        "expected": 1,
+        "actual": 1,
+        "passed": true
+      },
+      {
+        "case": "update_not_misrepresented_as_select_lineage",
+        "passed": true
+      }
+    ],
+    "host_connection_identity_and_dynamic_sql_not_supplied": true
+  },
+  "clangd_multilspy": {
+    "clangd_version": "23.1.0",
+    "multilspy_version": "0.1.1",
+    "multilspy_revision": "62acb3cf2d7a0746992ca08767d8a4fded402ebb",
+    "checks": [
+      {
+        "case": "copy",
+        "expected_header_line_zero_based": 3,
+        "actual": [
+          {
+            "path": "objects.h",
+            "line": 3
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "borrow",
+        "expected_header_line_zero_based": 4,
+        "actual": [
+          {
+            "path": "objects.h",
+            "line": 4
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "address",
+        "expected_header_line_zero_based": 5,
+        "actual": [
+          {
+            "path": "objects.h",
+            "line": 5
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "int_overload",
+        "expected_header_line_zero_based": 6,
+        "actual": [
+          {
+            "path": "objects.h",
+            "line": 6
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "double_overload",
+        "expected_header_line_zero_based": 7,
+        "actual": [
+          {
+            "path": "objects.h",
+            "line": 7
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "left_scope",
+        "expected_header_line_zero_based": 9,
+        "actual": [
+          {
+            "path": "objects.h",
+            "line": 9
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "right_scope",
+        "expected_header_line_zero_based": 10,
+        "actual": [
+          {
+            "path": "objects.h",
+            "line": 10
+          }
+        ],
+        "passed": true
+      },
+      {
+        "case": "hover_copy",
+        "expected_signature_fragment": "State copy()",
+        "passed": true
+      },
+      {
+        "case": "hover_borrow",
+        "expected_signature_fragment": "State &borrow()",
+        "passed": true
+      },
+      {
+        "case": "hover_address",
+        "expected_signature_fragment": "State *address()",
+        "passed": true
+      },
+      {
+        "case": "semantic_ast",
+        "passed": true
+      }
+    ],
+    "native_hovers": {
+      "copy": "instance-method copy\n\n→ State\n\n// In Box\npublic: State copy() const",
+      "borrow": "instance-method borrow\n\n→ const State &\n\nTrivial accessor for `state`.\n\n// In Box\npublic: const State &borrow() const",
+      "address": "instance-method address\n\n→ State *\n\n// In Box\npublic: State *address()"
+    },
+    "native_ast_root_kind": "TranslationUnit",
+    "object_instance_analysis_executed": false
+  },
+  "joern_cpp": {
+    "version": "4.0.665",
+    "revision": "d7a5615a30cbce12986f7a0dae9a938a5b99985e",
+    "overlays": [
+      "base",
+      "controlflow",
+      "typerel",
+      "callgraph",
+      "dataflowOss"
+    ],
+    "checks": [
+      {
+        "case": "regular",
+        "expected_input_dependency": true,
+        "native_path_count": 1,
+        "matches_expected": true
+      },
+      {
+        "case": "member",
+        "expected_input_dependency": true,
+        "native_path_count": 1,
+        "matches_expected": true
+      },
+      {
+        "case": "isolated",
+        "expected_input_dependency": false,
+        "native_path_count": 0,
+        "matches_expected": true
+      },
+      {
+        "case": "after_copy",
+        "expected_input_dependency": false,
+        "native_path_count": 0,
+        "matches_expected": true
+      },
+      {
+        "case": "borrowed",
+        "expected_input_dependency": true,
+        "native_path_count": 0,
+        "matches_expected": false
+      },
+      {
+        "case": "getter",
+        "expected_input_dependency": true,
+        "native_path_count": 1,
+        "matches_expected": true
+      }
+    ],
+    "independent_compiled_fixture_oracle": [
+      {
+        "case": "regular",
+        "input": 17,
+        "expected": 17,
+        "actual": 17
+      },
+      {
+        "case": "regular",
+        "input": 83,
+        "expected": 83,
+        "actual": 83
+      },
+      {
+        "case": "member",
+        "input": 17,
+        "expected": 17,
+        "actual": 17
+      },
+      {
+        "case": "member",
+        "input": 83,
+        "expected": 83,
+        "actual": 83
+      },
+      {
+        "case": "isolated",
+        "input": 17,
+        "expected": 0,
+        "actual": 0
+      },
+      {
+        "case": "isolated",
+        "input": 83,
+        "expected": 0,
+        "actual": 0
+      },
+      {
+        "case": "after_copy",
+        "input": 17,
+        "expected": 0,
+        "actual": 0
+      },
+      {
+        "case": "after_copy",
+        "input": 83,
+        "expected": 0,
+        "actual": 0
+      },
+      {
+        "case": "borrowed",
+        "input": 17,
+        "expected": 17,
+        "actual": 17
+      },
+      {
+        "case": "borrowed",
+        "input": 83,
+        "expected": 83,
+        "actual": 83
+      },
+      {
+        "case": "getter",
+        "input": 17,
+        "expected": 17,
+        "actual": 17
+      },
+      {
+        "case": "getter",
+        "input": 83,
+        "expected": 83,
+        "actual": 83
+      }
+    ],
+    "default_engine_max_call_depth_source": 4,
+    "default_engine_depth_is_not_unbounded": true
+  },
+  "joern_rust": {
+    "version": "4.0.665",
+    "file_input_method_count": null,
+    "file_input_required_case_found": false,
+    "directory_input_method_count": 0,
+    "required_case": "regular",
+    "case_found": false,
+    "ready_to_replace_rust_analyzer": false,
+    "cause_not_determined": true
+  },
+  "opentelemetry_python": {
+    "schema": "reuse-otel-sdk-audit/1",
+    "version": "1.45.1",
+    "input_origin": "authored_python_sdk_program",
+    "checks": [
+      {
+        "case": "child_parent",
+        "passed": true
+      },
+      {
+        "case": "explicit_thread_parent",
+        "passed": true
+      },
+      {
+        "case": "thread_without_propagation_is_not_joined",
+        "passed": true
+      },
+      {
+        "case": "state_event_attributes",
+        "passed": true
+      }
+    ],
+    "product_instrumentation": false,
+    "cpp_browser_rust_network_export_and_metrics_not_executed": true
+  },
+  "cbm_current_probe": {
+    "schema": "reuse-cbm-boundary-audit/1",
+    "binary_version": "0.12.1",
+    "binary_release_commit": "a7158ac2f48ca646b4527341b76f930f2aeff87e",
+    "inspected_source_commit": "10ab613de30dfd573d0b251cd0ad648e1c7e5204",
+    "input_origin": "authored_container_python_shell_source",
+    "exit_code": 1,
+    "seconds": 0.021,
+    "database_count": 0,
+    "node_count": 0,
+    "edge_count": 0,
+    "label_counts": {},
+    "relation_counts": {},
+    "file_hash_verification": "not_run_per_user_preference"
+  },
+  "prior_successes_retained": {
+    "cbm": "research/experiments/2026-10-23.md",
+    "rpg_codemind": "research/experiments/2026-10-23.md",
+    "codegraph_code_map": "experiments/2026-10-23-unit-flows/README.md",
+    "all_p1": "experiments/2026-10-23-p1-completion/README.md"
+  },
+  "first_attempts": [
+    {
+      "component": "SCIP audit driver",
+      "issue": "Windows GBK decode failed on native CLI UTF-8 output",
+      "correction": "Explicit UTF-8 decoding; first output directory retained"
+    },
+    {
+      "component": "SQL audit driver",
+      "issue": "Leaf name contains SQL alias; first expected physical names mismatched two cases",
+      "correction": "Read physical Table AST and parse Column with SQLGlot; native leaves retained"
+    },
+    {
+      "component": "Joern audit driver",
+      "issue": "Windows launcher parameter passing failed; Scala overlay flatten produced Char values",
+      "correction": "Use environment parameters and native overlay string list; first launch/compile logs retained"
+    },
+    {
+      "component": "Joern C++ fixture",
+      "issue": "Initial negative case read an uninitialized field",
+      "correction": "Value-initialize objects; re-extract and verify all six fixtures with a compiled oracle"
+    },
+    {
+      "component": "Joern Rust",
+      "issue": "Successful file parse had no tested method",
+      "correction": "Retried directory input once; still zero methods; stopped"
+    },
+    {
+      "component": "CBM",
+      "issue": "Fresh isolated cache failed loading saved runtime settings",
+      "correction": "Retried pre-created cache directory once; same error; stopped"
+    }
+  ],
+  "file_hash_verification": "not_run_per_user_preference",
+  "sealed_issue_material_used": false
+}

@@ -4,6 +4,8 @@
 
 2026-10-26 追加[复用评估与取舍](reuse-assessment-2026-10-26.md)：重新核对 clangd/SCIP、Joern、SQLGlot 和 OpenTelemetry，后续按原生提供方准入及分批迁移推进。下文保留此前实测版本及结果，新增候选没有继承实测通过状态。
 
+同日[源码接口清单](reuse-source-contracts-2026-10-26.md)和[组件实测](../experiments/2026-10-26-reuse-audit/README.md)进一步核实原生入口与限制，补测 SCIP 导入、Clang/multilspy、SQLGlot、Joern、Python OTel 及 code-map helper。CBM 边界组件有源码依据，新隔离启动失败；其源码与执行发布包提交已明确区分。后续采用该清单的复用决定。
+
 2026-10-24 更新：P1 已选定 CGC/Kuzu，后续增加独立机制适配；[P7 报告](../experiments/2026-10-24-p7/completion.md)记录当前地图与查询，[能力矩阵](../docs/06-capability-coverage.md)说明各工具对应的系统部分。下列原版试验保留其固定版本和当时范围。
 
 ## 已执行或审计的工具
