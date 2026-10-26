@@ -178,8 +178,16 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
             built=workspace.update(builder=partial(build,typescript=self.ts),version={'rules':'authored-native-fixture'})
             self.assertEqual(built['status'],'ready')
             targets=workspace.query('search',text='service_app',kind='build_target')['items']
-            entries=workspace.query('search',text='main',kind='callable')['items']
-            self.assertEqual(len(targets),1);self.assertEqual(len(entries),1)
+            entry_candidates=workspace.query('search',text='main',kind='callable')['items']
+            self.assertEqual(len(targets),1)
+            # Native providers retain their own identities. Follow the build
+            # relation to select its entry rather than choosing a same-name hit.
+            entries=[r['node'] for r in workspace.query('neighbors',start=targets[0]['id'],
+                kinds=['EXECUTABLE_ENTRY_CANDIDATE'])['items']]
+            self.assertEqual(len(entries),1)
+            self.assertIn(entries[0]['id'],{r['id'] for r in entry_candidates})
+            self.assertEqual(len({r['id'] for r in entry_candidates}),len(entry_candidates))
+            self.assertTrue(all(r['path']=='src/entry.cpp' for r in entry_candidates))
             for direction,start,target in [('out',targets[0],entries[0]),('in',entries[0],targets[0])]:
                 path=workspace.query('path',start=start['id'],target=target['id'],direction=direction,
                     kinds=['EXECUTABLE_ENTRY_CANDIDATE'],depth=3,nodes=30,edges=30)
@@ -189,7 +197,9 @@ shutil.copytree(os.path.join(ROOT,'stage'),os.path.join(ROOT,'ship'))
             self.assertEqual(src['source_commit'],revision);self.assertEqual(src['path'],'src/entry.cpp')
             decoders=workspace.query('search',text='--socket-renamed=',kind='string_key_decoder')['items']
             self.assertEqual(len(decoders),1)
-            receiver=next(n for n in workspace.query('search',text='receive',kind='callable')['items'] if n['name']=='receive')
+            receiver,=[r['node'] for r in workspace.query('neighbors',start=decoders[0]['id'],
+                kinds=['DECODED_VALUE_TARGET_CANDIDATE'])['items']]
+            self.assertEqual(receiver['name'],'receive')
             for direction,start,end in [('out',decoders[0]['id'],receiver['id']),('in',receiver['id'],decoders[0]['id'])]:
                 route=workspace.query('path',start=start,target=end,direction=direction,kinds=['DECODED_VALUE_TARGET_CANDIDATE'],depth=2,nodes=20,edges=20)
                 self.assertTrue(route['found']);self.assertIsNone(route['stop_reason'])
