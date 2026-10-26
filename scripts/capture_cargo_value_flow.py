@@ -27,7 +27,13 @@ def main():
     if args.release:command+=['--release']
     if args.no_default_features:command+=['--no-default-features']
     if args.features:command+=['--features',args.features]
-    command+=['--','-Zno-link','--emit=llvm-bc','-Cdebuginfo=2','-Cembed-bitcode=yes','-Ccodegen-units=1','-Copt-level=0']
+    native_cfg=subprocess.check_output([*command,'--','--print=cfg'],cwd=manifest.parent,
+        env=environment,text=True,stderr=subprocess.PIPE,timeout=900)
+    (output/'native-cfg.txt').write_text(native_cfg)
+    debug_assertions='debug_assertions' in native_cfg.splitlines()
+    optimization='1' if args.release else '0'
+    command+=['--','-Zno-link','--emit=llvm-bc','-Cdebuginfo=2','-Cembed-bitcode=yes','-Ccodegen-units=1',
+              '-Copt-level='+optimization,'-Cdebug-assertions='+('yes' if debug_assertions else 'no')]
     with (output/'compile.log').open('w') as log:
         subprocess.run(command,cwd=manifest.parent,env=environment,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
     crate=package['name'].replace('-','_')
@@ -40,6 +46,7 @@ def main():
         'target':args.target,'release':args.release,'no_default_features':args.no_default_features,
         'features':args.features,'native_link_executed':False,'product_executed':False,
         'source_root':str(source),'source_directory':relative,'module':'cargo:'+package['name'],
+        'native_cfg':native_cfg.splitlines(),'debug_assertions':debug_assertions,'analysis_optimization':optimization,
         'language':'rust','bitcode':'program.bc','compile_command':command,'analysis_executed':False}
     (output/'receipt.json').write_text(json.dumps(receipt,indent=2))
     if not args.compile_only:

@@ -5,7 +5,7 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release]
       compiler-run:
         type: string
         default: ''
@@ -226,7 +226,7 @@ jobs:
           path: ${{ runner.temp }}/rapx-output
           retention-days: 7
   rust-svf:
-    if: inputs.provider == 'all' || inputs.provider == 'rust-svf'
+    if: inputs.provider == 'all' || inputs.provider == 'rust-svf' || inputs.provider == 'rust-release'
     runs-on: ubuntu-22.04
     timeout-minutes: 35
     steps:
@@ -253,7 +253,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/rust-flow/src"
           cp experiments/2026-10-26-r0-r1/rust-dataflow.rs "$RUNNER_TEMP/rust-flow/src/lib.rs"
           printf '[package]\nname="neutral_flow"\nversion="0.1.0"\nedition="2021"\n[workspace]\n' > "$RUNNER_TEMP/rust-flow/Cargo.toml"
-          python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/rust-flow/Cargo.toml" --source-root "$RUNNER_TEMP/rust-flow" --output "$RUNNER_TEMP/rust-svf-output/admission" --source-commit "$GITHUB_SHA" --context fixture/independent
+          python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/rust-flow/Cargo.toml" --source-root "$RUNNER_TEMP/rust-flow" --output "$RUNNER_TEMP/rust-svf-output/admission" --source-commit "$GITHUB_SHA" --context fixture/independent --release
       - name: Read pinned product source
         run: |
           git init -q "$RUNNER_TEMP/insight"
@@ -261,10 +261,14 @@ jobs:
           git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
       - name: Analyze native Rust application configurations
         run: |
-          python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-http" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-http --no-default-features --features http
+          if [ "${{ inputs.provider }}" != rust-release ]; then
+            python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-http" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-http --no-default-features --features http
+          fi
           python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/linux/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-linux-desktop" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-desktop-release --release
           python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-release" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-release --target x86_64-pc-windows-gnu --release
-          python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-debug" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-debug --target x86_64-pc-windows-gnu
+          if [ "${{ inputs.provider }}" != rust-release ]; then
+            python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-debug" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-debug --target x86_64-pc-windows-gnu
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -273,6 +277,7 @@ jobs:
             ${{ runner.temp }}/rust-svf-output/*/program.bc
             ${{ runner.temp }}/rust-svf-output/*/receipt.json
             ${{ runner.temp }}/rust-svf-output/*/compile.log
+            ${{ runner.temp }}/rust-svf-output/*/native-cfg.txt
           retention-days: 7
   rust-svf-analysis:
     if: always() && (needs.rust-svf.result != 'skipped' || inputs.provider == 'rust-analyze')
