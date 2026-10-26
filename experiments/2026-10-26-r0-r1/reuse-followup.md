@@ -59,8 +59,24 @@ RAPx 固定 `974eb8e7f91e186720daffdfdf1125c3daf6c8cb`，使用其要求的 `nig
 
 [导出归一化](../../adapters/native_value_flow.py)、[分组导入](../../scripts/collect_native_value_flow.py)及[提供方接入](../../adapters/native_provider_graph.py)绑定源码提交、模块与编译上下文，拒绝错版本、重复身份和配置冲突。Rust SVF 捕获不能掩盖 C++ 捕获缺失。原生采集入口为 `scripts/capture_cargo_value_flow.py`；全仓入口支持 `--value-flow-captures`。
 
-统一图复用同产品提交、提取代码未变化的已有基础事实，追加上述原生捕获。4,042,589,813 字节的图已生成，首次发布校验遇到 `MemoryError`，旧成功快照保持完好。现在复用 [ijson](https://github.com/ICRAR/ijson) `3.4.0` 流式读取，沿用原有 SQLite schema、校验与原子发布；大整数、浮点、重复 ID、缺失端点及文件变更均有对照检查。最终发布和组件核查结果后续写入本节。
+统一图复用同产品提交、提取代码未变化的已有基础事实，追加上述原生捕获。4,042,589,813 字节的图首次发布校验遇到 `MemoryError`，旧成功快照保持完好。复用 [ijson](https://github.com/ICRAR/ijson) `3.4.0` 流式读取后，已通过现有 Workspace 接口发布；SQLite schema、校验及原子发布流程保持同源。大整数、浮点、重复 ID、缺失端点及文件变更均有对照检查。
 
 [755 项 Python 回归](evidence/native-provider-regression.json)在该次记录的规则版本通过，含 2 项平台跳过；后续原生配置和流式读取修改另做定向检查及最终复验。没有把早期回归记录改为当前版本结果。
+
+### 同一快照最终复核
+
+[统一交付收据](evidence/native-unified-delivery.json)绑定产品提交 `d4e8d1c`、事实生成规则 `80007ff` 和最终读取/检查规则 `1d91f0b`，保留基础事实复用的原快照及其版本。最终快照为 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:7237870b4dbb4e228adc3901f1ad9a01`，包含全部 4,855 个跟踪文件、2,516 个选定输入。1,283,596 节点和 2,884,314 关系是存储规模，不作为通过门槛。
+
+| 复核 | 结果 | 证据 |
+|---|---|---|
+| 129 个组件的归属与事实账 | 6 项账本检查通过；无基础事实、未正常解析的自有程序源码均为 0 | [组件账本](evidence/native-unified-module-audit.json) |
+| 独立源码与查询 | 129 组件的 450 项代表性检查通过 | [逐项结果](evidence/native-unified-source-contracts.json) |
+| 头文件在统一快照中的导航 | 37/37 通过 | [头文件检查](evidence/native-unified-headers.json) |
+| Rust 原生事实在统一快照中的导航 | 37 项通过 | [原生查询](evidence/native-unified-rust.json) |
+| 原有全仓集成约束 | 11 项通过 | [集成结果](evidence/native-unified-integration.json) |
+| 缺口、版本与精度保护 | 5 项通过；C++ 原生值流缺失仍可见，未验证的跨进程 points-to 边为 0 | [保护检查](evidence/native-unified-guards.json) |
+| 最终 Python 回归 | 执行 762 项，结果通过，含 2 项平台跳过 | [回归及版本](evidence/native-unified-delivery.json) |
+
+8 个无跨组件出边、5 个无入边的审查标记继续属于 R2；450 项代表性声明检查没有被提升为全模块数据语义召回证明。[C++ 原生资源记录](evidence/svf-real-resource.json)保存 411 个编译单元零编译失败、固定题通过及全程序停止的不同结果。后续在能承载该分析的 Linux 环境复用已有 bitcode，实际所需完整峰值尚未测出；本轮停止继续调大预算重试。
 
 当前严格 R0/R1 总状态仍保持 partial；C++ 全程序值流及上述明确配置缺口继续阻止整体通过。R2、历史资产及 skill 整理均未启动。

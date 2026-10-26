@@ -1,0 +1,76 @@
+{
+  "schema": "native-unified-delivery/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:7237870b4dbb4e228adc3901f1ad9a01",
+  "counts": {
+    "tracked_files": 4855,
+    "input_files": 2516,
+    "modules": 29,
+    "nodes": 1283596,
+    "edges": 2884314,
+    "entries": 269,
+    "diagnostic_records": 44356,
+    "providers": 125,
+    "module_relation_groups": 702
+  },
+  "extraction_build_version": {
+    "rules_commit": "80007ff87dbbfb934fee614f29d2c7f6da168cbd",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "native_build_tools": {
+      "cmake": "cmake version 3.31.6",
+      "ninja": "1.11.1.git.kitware.jobserver-1"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "reader_rules_commit": "1d91f0b3497b4026597a7ccd6e5e24fa38ef12ef",
+  "historical_assets_enabled": false,
+  "original_checkout_modified": false,
+  "original_facts_reextracted": false,
+  "base_fact_reuse": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:4c2b04f0c3d14586b8805d8b238678c1",
+  "publication_seconds": 306.657,
+  "final_navigation_republish_seconds": 397.875,
+  "graph_document_bytes": 4042589813,
+  "first_publication_failure": "MemoryError; old_success_preserved",
+  "streaming_reader": {
+    "dependency": "ijson",
+    "version": "3.4.0",
+    "same_SQLite_schema": true
+  },
+  "regression": {
+    "exit_code": 0,
+    "rules_commit": "1d91f0b3497b4026597a7ccd6e5e24fa38ef12ef",
+    "seconds": 398.094,
+    "command": "python -m unittest discover -s tests",
+    "tests": 762,
+    "skipped": 2,
+    "unittest_seconds": 393.592
+  },
+  "header_checks": 37,
+  "rust_query_checks": 37,
+  "source_contract_checks": 450,
+  "required_components": 129,
+  "integration_checks": 11,
+  "publication_guard_checks": 5,
+  "strict_R0": "partial",
+  "strict_R1": "partial",
+  "whole_G02_accepted": false,
+  "remaining": [
+    "real_CPP_full_program_SVF_analysis_exceeds_13_GiB_budget",
+    "Linux_debug_SVF_complement_not_executed; RAPx_basic_graph_field_limit_retained",
+    "cross_process_points_to_ID_correspondence_unverified; edges_not_materialized",
+    "all_module_semantic_gate_is_not_replaced_by_representative_declaration_checks"
+  ]
+}

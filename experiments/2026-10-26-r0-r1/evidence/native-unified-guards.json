@@ -1,0 +1,15 @@
+{
+  "schema": "native-publication-guard-checks/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:7237870b4dbb4e228adc3901f1ad9a01",
+  "checks": {
+    "cpp_native_gap_visible": true,
+    "cross_process_points_not_materialized": true,
+    "same_active_snapshot": true,
+    "original_checkout_clean": true,
+    "history_disabled": true
+  },
+  "passed": true,
+  "whole_G02_accepted": false,
+  "public_projection": "external_artifact_paths_redacted; raw_receipts_remain_outside_git"
+}

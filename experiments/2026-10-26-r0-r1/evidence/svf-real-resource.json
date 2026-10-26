@@ -1,0 +1,103 @@
+{
+  "schema": "svf-real-cpp-resource-check/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "provider": "pysvf",
+  "package_version": "1.0.0.50",
+  "first_party_compilation_units": 411,
+  "compilation_failures": 0,
+  "native_fixture": {
+    "schema": "svf-frozen-admission/1",
+    "source_commit": "638a7395518533e92101f1251303ac5f94e127cd",
+    "provider": {
+      "provider": "svf",
+      "adapter": "native_value_flow/1",
+      "context": "fixture/release",
+      "source_commit": "638a7395518533e92101f1251303ac5f94e127cd",
+      "native_version": "1.0.0.50",
+      "precision": "native_static_candidate"
+    },
+    "checks": [
+      {
+        "case": "regular",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "member",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "isolated",
+        "expected_input_dependency": false,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": false,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "after_copy",
+        "expected_input_dependency": false,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": false,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "borrowed",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "getter",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "whole_R0_R1_accepted": false
+  },
+  "real_backend_analysis": {
+    "exit_code": -15,
+    "stop_reason": "13_GiB_native_process_budget",
+    "peak_rss_kib": 13734240,
+    "seconds": 91.256
+  },
+  "analysis_bitcode_bytes": 163765192,
+  "llvm_passes": "strip-nonlinetable-debuginfo,default<O1>",
+  "full_real_value_flow_export_available": false,
+  "whole_R1_accepted": false,
+  "hash_verification": "not_run_per_user_preference",
+  "workflow_run": "https://github.com/WildPickledPepper/project-map-research/actions/runs/40297126824",
+  "public_projection": "external_artifact_paths_redacted; raw_receipts_remain_outside_git"
+}

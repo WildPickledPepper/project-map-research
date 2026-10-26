@@ -1,0 +1,196 @@
+{
+  "schema": "final-repository-integration-checks/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:7237870b4dbb4e228adc3901f1ad9a01",
+  "build_version": {
+    "rules_commit": "80007ff87dbbfb934fee614f29d2c7f6da168cbd",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "native_build_tools": {
+      "cmake": "cmake version 3.31.6",
+      "ninja": "1.11.1.git.kitware.jobserver-1"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "counts": {
+    "tracked_files": 4855,
+    "input_files": 2516,
+    "modules": 29,
+    "nodes": 1283596,
+    "edges": 2884314,
+    "entries": 269,
+    "diagnostic_records": 44356,
+    "providers": 125,
+    "module_relation_groups": 702
+  },
+  "checks": [
+    {
+      "id": "same_published_source_snapshot_and_rules",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_frozen_components_and_files_accounted",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "previous_zero_base_fact_queue_empty",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "all_representative_source_contracts_pass",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "native_provider_id_and_edge_counts_preserved",
+      "passed": true,
+      "detail": {
+        "cbm_nodes": 33031,
+        "clangd_nodes": 262218,
+        "original_clangd_edges": 392970,
+        "native_lexical_reference_edges": 200526,
+        "bash_command_sites": 340
+      }
+    },
+    {
+      "id": "native_reference_owners_and_bash_sites_present",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "native_lexical_links_keep_file_and_entity_kind",
+      "passed": true,
+      "detail": 0
+    },
+    {
+      "id": "cbm_inferred_relations_retain_candidate_precision",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "command_only_source_is_queryable",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "id": "native_callable_reference_target_bidirectional_queries",
+      "passed": true,
+      "detail": [
+        {
+          "path": "server/msinsight/src/PluginsManager.cpp",
+          "caller": "Dic::Core::PluginRegister::PluginRegister",
+          "target": "Dic::Core::PluginsManager::RegisterPlugin",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        },
+        {
+          "path": "server/msinsight/src/WsSessionManager.cpp",
+          "caller": "Dic::Server::WsSessionManager::AddSession",
+          "target": "Dic::Server::WsSession::Start",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        },
+        {
+          "path": "server/msinsight/src/base/ModuleRequestHandler.cpp",
+          "caller": "Dic::Module::ModuleRequestHandler::SetResponseErrorFromRequestContext",
+          "target": "Dic::Server::RequestContext::GetError",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        },
+        {
+          "path": "server/msinsight/src/base/ProtocolUtil.cpp",
+          "caller": "Dic::Protocol::ProtocolUtil::Register",
+          "target": "Dic::Protocol::ProtocolUtil::RegisterJsonToRequestFuncs",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        },
+        {
+          "path": "server/msinsight/src/utils/FileUtil.cpp",
+          "caller": "Dic::FileUtil::ModifyFilePermissions",
+          "target": "Dic::FileUtil::IsFilePathExist",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        },
+        {
+          "path": "server/msinsight/src/utils/ServerLog.cpp",
+          "caller": "Dic::Server::ServerLog::RecordImpl",
+          "target": "Dic::LogUtil::LogT",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        },
+        {
+          "path": "server/msinsight/src/utils/ThreadPool.cpp",
+          "caller": "Dic::ThreadPool::ThreadPool",
+          "target": "Dic::ThreadPool::ThreadFunc",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        },
+        {
+          "path": "server/msinsight/src/utils/UtilErrorManager.cpp",
+          "caller": "Dic::Common::SetCommonError",
+          "target": "Dic::Module::ModuleRequestHandler::SetRequestContextError",
+          "forward": true,
+          "reverse": true,
+          "stop_reasons": [
+            null,
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "original_checkout_unchanged_and_history_disabled",
+      "passed": true,
+      "detail": null
+    }
+  ],
+  "passed": true,
+  "whole_G02_accepted": false,
+  "runtime_execution": false,
+  "historical_assets_enabled": false,
+  "interpretation": "integration_and_representative_query_checks; semantic_gates_are_separate",
+  "public_projection": "external_artifact_paths_redacted; raw_receipts_remain_outside_git"
+}
