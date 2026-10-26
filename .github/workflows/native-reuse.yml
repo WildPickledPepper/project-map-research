@@ -5,7 +5,7 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release]
       compiler-run:
         type: string
         default: ''
@@ -226,7 +226,7 @@ jobs:
           path: ${{ runner.temp }}/rapx-output
           retention-days: 7
   rust-svf:
-    if: inputs.provider == 'all' || inputs.provider == 'rust-svf' || inputs.provider == 'rust-release'
+    if: inputs.provider == 'all' || inputs.provider == 'rust-svf' || inputs.provider == 'rust-release' || inputs.provider == 'rust-windows-release'
     runs-on: ubuntu-22.04
     timeout-minutes: 35
     steps:
@@ -261,12 +261,14 @@ jobs:
           git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
       - name: Analyze native Rust application configurations
         run: |
-          if [ "${{ inputs.provider }}" != rust-release ]; then
+          if [ "${{ inputs.provider }}" != rust-release ] && [ "${{ inputs.provider }}" != rust-windows-release ]; then
             python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-http" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-http --no-default-features --features http
           fi
-          python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/linux/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-linux-desktop" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-desktop-release --release
-          python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-release" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-release --target x86_64-pc-windows-gnu --release
-          if [ "${{ inputs.provider }}" != rust-release ]; then
+          if [ "${{ inputs.provider }}" != rust-windows-release ]; then
+            python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/linux/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-linux-desktop" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-desktop-release --release
+          fi
+          python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-release" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-release --target x86_64-pc-windows-gnu --release --analysis-optimization 0
+          if [ "${{ inputs.provider }}" != rust-release ] && [ "${{ inputs.provider }}" != rust-windows-release ]; then
             python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-windows-debug" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/windows-desktop-debug --target x86_64-pc-windows-gnu
           fi
       - uses: actions/upload-artifact@v4

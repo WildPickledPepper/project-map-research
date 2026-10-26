@@ -19,7 +19,16 @@ def collect(inputs, *, paths, source_commit, output):
         if data.get('schema') not in schemas:raise ValueError('Unrecognized native export')
         provider=schemas[data['schema']];context=data.get('context')
         if not context:raise ValueError('Native compilation context required')
+        compiler_file=Path(filename).parent/'receipt.json'
+        if provider=='svf' and data.get('language')=='rust' and compiler_file.is_file():
+            compiler=json.loads(compiler_file.read_text())
+            if compiler.get('schema')=='cargo-svf-capture/1':
+                if compiler['source_commit']!=source_commit or compiler['context']!=context or compiler['module']!=data['module']:
+                    raise ValueError('Native compiler receipt source/context/module differs')
+                data['compiler_context']={k:compiler[k] for k in ('compiler','target','release','native_cfg',
+                    'debug_assertions','analysis_optimization') if k in compiler}
         facts=normalize(data,provider=provider,paths=paths,source_commit=source_commit,context=context)
+        facts['components']={**facts['components'],'compiler_context':data.get('compiler_context')}
         groups[provider,context].append(facts)
     if not groups:raise ValueError('Native exports required')
     for (provider,context),modules in groups.items():

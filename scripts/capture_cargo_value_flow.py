@@ -13,6 +13,7 @@ def main():
     for key in ('manifest','source-root','output'):p.add_argument('--'+key,type=Path,required=True)
     p.add_argument('--source-commit',required=True);p.add_argument('--context',required=True)
     p.add_argument('--toolchain',default='1.94.0');p.add_argument('--target')
+    p.add_argument('--analysis-optimization',choices=['0','1','2','3'])
     p.add_argument('--release',action='store_true');p.add_argument('--no-default-features',action='store_true')
     p.add_argument('--features');p.add_argument('--compile-only',action='store_true')
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=False)
@@ -31,7 +32,7 @@ def main():
         env=environment,text=True,stderr=subprocess.PIPE,timeout=900)
     (output/'native-cfg.txt').write_text(native_cfg)
     debug_assertions='debug_assertions' in native_cfg.splitlines()
-    optimization='1' if args.release else '0'
+    optimization=args.analysis_optimization or ('1' if args.release else '0')
     command+=['--','-Zno-link','--emit=llvm-bc','-Cdebuginfo=2','-Cembed-bitcode=yes','-Ccodegen-units=1',
               '-Copt-level='+optimization,'-Cdebug-assertions='+('yes' if debug_assertions else 'no')]
     with (output/'compile.log').open('w') as log:
