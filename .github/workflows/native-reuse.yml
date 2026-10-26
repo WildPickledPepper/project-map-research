@@ -5,7 +5,7 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release, rust-admission, svf-diagnose, infer-summary]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release, rust-admission, svf-diagnose, infer-summary, rust-linux-debug]
       compiler-run:
         type: string
         default: ''
@@ -320,7 +320,7 @@ jobs:
           path: ${{ runner.temp }}/rapx-output
           retention-days: 7
   rust-svf:
-    if: inputs.provider == 'all' || inputs.provider == 'rust-svf' || inputs.provider == 'rust-release' || inputs.provider == 'rust-windows-release'
+    if: inputs.provider == 'all' || inputs.provider == 'rust-svf' || inputs.provider == 'rust-release' || inputs.provider == 'rust-windows-release' || inputs.provider == 'rust-linux-debug'
     runs-on: ubuntu-22.04
     timeout-minutes: 35
     steps:
@@ -354,7 +354,12 @@ jobs:
           git -C "$RUNNER_TEMP/insight" fetch --depth 1 https://gitcode.com/Ascend/msinsight.git d4e8d1cf9f90208bcbe5371c127088f6fd66c688
           git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
       - name: Analyze native Rust application configurations
+        timeout-minutes: 10
         run: |
+          if [ "${{ inputs.provider }}" = rust-linux-debug ]; then
+            python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/linux/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-linux-debug" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-desktop-debug --analysis-optimization 1
+            exit 0
+          fi
           if [ "${{ inputs.provider }}" != rust-release ] && [ "${{ inputs.provider }}" != rust-windows-release ]; then
             python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-http" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-http --no-default-features --features http
           fi
@@ -389,7 +394,7 @@ jobs:
           python-version: '3.11'
       - name: Install existing SVF and Rust symbol formatter
         run: |
-          python -m pip install pysvf==1.0.0.50
+          python -m pip install pysvf==1.0.0.50 psutil==7.2.2
           cargo install rustfilt --locked
       - uses: actions/download-artifact@v4
         with:
@@ -398,7 +403,10 @@ jobs:
           run-id: ${{ inputs.compiler-run || github.run_id }}
           github-token: ${{ github.token }}
       - name: Analyze native compiler outputs
-        run: python scripts/analyze_svf_captures.py --input "$RUNNER_TEMP/rust-svf-output"
+        run: python scripts/analyze_svf_captures.py --input "$RUNNER_TEMP/rust-svf-output" --bounded
+      - name: Verify original Rust admission through the single-analysis path
+        if: inputs.provider == 'rust-linux-debug'
+        run: python experiments/2026-10-26-r0-r1/score_rust_svf_admission.py --native "$RUNNER_TEMP/rust-svf-output/admission/native.json" --output "$RUNNER_TEMP/rust-svf-output/admission/checks"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
