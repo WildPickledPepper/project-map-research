@@ -2,7 +2,7 @@
 
 2026-10-26。执行范围为[复用优先计划](../../plans/reuse-first-execution-plan.md)的 R0/R1。沿用已有证据，产品实现已按用户指令恢复；历史资产关闭，原始 Insight checkout 保持只读。新增工具、环境、缓存、临时文件及原始实验数据均放在 D 盘，Git 只保存实现与紧凑报告。
 
-当前：[R0 准入决定](../../research/r0-provider-admission-2026-10-26.md)已固定；正式统一快照已发布，[129 组件事实账](module-facts.md)核对完成。[450 项声明/查询样本](evidence/source-contract-review.json)全部通过，剩余接入项与编译诊断继续处理，R1/G02 尚未通过。
+当前：[R0 准入决定](../../research/r0-provider-admission-2026-10-26.md)已固定，本轮实现与全仓复核结束。[最终报告](completion.md)、[最终 129 组件事实账](module-facts-final.md)、[450 项声明/查询检查](evidence/source-contract-review-final.json)和 [11 项集成检查](evidence/final-integration-checks.json)已发布。无基础事实文件从 41 个降至 0；严格 R0/R1 验收为 partial，G02 尚未通过。以下各节保留逐项交付及首轮结果。
 
 ## 已交付：CBM 隔离启动恢复
 
@@ -82,9 +82,9 @@ python experiments/2026-10-26-r0-r1/run_repository.py --source INSIGHT --revisio
 
 clangd 处理 1,323 个 C++ 输入，957 项 parsed、366 项带诊断；其中 970 个非测试文件为 933 项 parsed、37 项带诊断。首个修正版全仓批次约 996 秒，随后仅对 12 个预算耗尽文件复验，耗时 31.36 秒；最终预算残余与提供方失败文件均为零。37 个非测试诊断文件及原始错误摘要逐项公开，主要涉及独立头文件缺少所需包含/宏/类型上下文；相关关系保持候选。完整 AST、数据库和日志留在 D 盘。
 
-Python 完整回归执行 745 项，首轮 1 项失败、2 项平台跳过。失败为旧测试假定多提供方下 `main` 搜索只有一个节点；改为沿原有构建/解码关系选择明确 ID 后，17 项相关回归通过。Node 124 项检查通过。文件和测试数量作为辅助证据，R1 仍需发布统一快照、逐组件结果及遗漏处置。
+Python 首轮完整回归执行 745 项，1 项失败、2 项平台跳过。失败为旧测试假定多提供方下 `main` 搜索只有一个节点；改为沿原有构建/解码关系选择明确 ID 后，17 项相关回归通过。Node 124 项检查通过。最终版本的完整回归和统一快照见[最终报告](completion.md)。
 
-## 已交付：统一快照与 129 组件事实账
+## 首轮：统一快照与 129 组件事实账
 
 [正式发布收据](evidence/repository-snapshot.json)来自默认 Workspace 建图流程，复用同提交 CBM、clangd 与 CMake 原生捕获；TS/JS、Python/Jedi、Rust/RA 及既有模型重新执行。全程约 1,868 秒，原始 Insight checkout 状态未改变。全部 4,855 个跟踪文件进入地图，2,516 个选定输入进入统一图与 SQLite 查询。
 
@@ -98,13 +98,13 @@ Python 完整回归执行 745 项，首轮 1 项失败、2 项平台跳过。失
 
 ## 已补充：Shell 原生命令语法
 
-复用已安装的 Bash grammar，将原生 `command` 节点和参数语法映射为调用位置。CBM 继续提供其函数/变量/进程/容器关系；该补充只记录语法位置及未解析状态。[实际源码结果](evidence/shell-command-syntax.json)：8 个脚本 parsed，340 个命令位置；原安装脚本的 npm、apt-get、update-alternatives、python3 六处命令全部记录。注释与 heredoc 字面内容不会产生伪命令，动态命令保持未解析，未增加展开或进程求解器。11 项语法/提供方/正式 Workspace 接入检查通过，下一版全仓快照继续复验。
+复用已安装的 Bash grammar，将原生 `command` 节点和参数语法映射为调用位置。CBM 继续提供其函数/变量/进程/容器关系；该补充只记录语法位置及未解析状态。[实际源码结果](evidence/shell-command-syntax.json)：8 个脚本 parsed，340 个命令位置；原安装脚本的 npm、apt-get、update-alternatives、python3 六处命令全部记录。注释与 heredoc 字面内容不会产生伪命令，动态命令保持未解析，未增加展开或进程求解器。11 项语法/提供方/正式 Workspace 接入检查通过；[最终全仓查询](evidence/final-integration-checks.json)确认 340 个位置及原安装脚本六处命令进入正式索引。
 
 ## 已补充：原生函数到内部引用的导航
 
 导入 clangd 已返回的文档符号/引用范围，将最内层函数范围连接到其词法引用，再沿原生 definition 关系查询声明。原生 ID、路径、编译配置保持分离；重叠范围有歧义时保留歧义，带诊断上下文仍保留候选。关系名明确记录 lexical/reference，执行与分派继续使用各自的证据。
 
-[保留的两个编译器 fixture](evidence/native-reference-owners.json)直接复用先前原生输出，在统一查询索引上通过 12 项检查：继承方法/模板目标的正反向两步查询、原始 ID/边保留、归属不跨文件。另有 9 项范围/配置/诊断/导入检查通过。该补充无需重新运行已通过的同版本编译试验，下一版全仓导入按相同规则处理。
+[保留的两个编译器 fixture](evidence/native-reference-owners.json)直接复用先前原生输出，在统一查询索引上通过 12 项检查：继承方法/模板目标的正反向两步查询、原始 ID/边保留、归属不跨文件。另有 9 项范围/配置/诊断/导入检查通过。[最终全仓查询](evidence/final-integration-checks.json)确认 200,526 条词法归属边进入正式索引，原生节点与旧边数保持，8 个真实 C++ 文件的函数→引用→声明正反向查询全部通过。
 
 ## 已交付：37 个头文件的实际编译上下文核查
 
@@ -116,4 +116,4 @@ Python 完整回归执行 745 项，首轮 1 项失败、2 项平台跳过。失
 python experiments/2026-10-26-r0-r1/review_header_contexts.py --capture CMAKE_CAPTURE --plan experiments/2026-10-26-r0-r1/evidence/header-contexts.json --output NEW_OUTPUT
 ```
 
-最终版本 Python 完整回归执行 749 项，通过，2 项因平台条件跳过。最终统一快照正在重建，后置文件/组件与查询检查将绑定最终快照单独发布。
+最终版本 Python 完整回归执行 749 项，结果通过，含 2 项平台条件跳过。最终统一快照已发布，后置文件/组件与查询检查均绑定该快照，见[最终报告](completion.md)。

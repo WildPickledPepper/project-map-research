@@ -1,0 +1,107 @@
+{
+  "schema": "repository-native-integration-receipt/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:4c2b04f0c3d14586b8805d8b238678c1",
+  "build_version": {
+    "rules_commit": "cd6992b9346e5ac4d75c1d81c23c9c6747219b7a",
+    "python": "3.11.9",
+    "rust_tools": {
+      "cargo": "cargo 1.94.0 (85eff7c80 2026-01-15)",
+      "rustc": "rustc 1.94.0 (4a4ef493e 2026-03-02)",
+      "rust-analyzer": "rust-analyzer 0.3.3089-standalone (5ec20d044d 2026-10-18)"
+    },
+    "native_build_tools": {
+      "cmake": "cmake version 3.31.6",
+      "ninja": "1.11.1.git.kitware.jobserver-1"
+    },
+    "node": "v22.23.3",
+    "typescript": "5.9.3",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0",
+      "kuzu": "0.11.3",
+      "jedi": "0.19.2",
+      "parso": "0.8.5"
+    }
+  },
+  "status": "ready",
+  "seconds": 1925.312,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 2516,
+    "modules": 29,
+    "nodes": 774284,
+    "edges": 1474265,
+    "entries": 269,
+    "diagnostic_records": 44241,
+    "providers": 125,
+    "module_relation_groups": 701
+  },
+  "required_components": 129,
+  "original_checkout_modified": false,
+  "native_capture_reuse": true,
+  "coverage_summary": {
+    "required_runtime_components": 124,
+    "required_support_components": 5,
+    "review_flag_counts": {
+      "no_outgoing_intercomponent_facts_requires_review": 8,
+      "no_incoming_intercomponent_facts_requires_review": 5,
+      "owned_non_test_source_not_parsed_requires_review": 12
+    },
+    "owned_non_test_sources_not_parsed": 37,
+    "owned_non_test_sources_without_base_facts": 0
+  },
+  "previous_gap_queue": {
+    "source_snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:d8307de144c240ae8c7b3f820053f399",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "without_base_facts_before": 41,
+    "without_base_facts_after": 0,
+    "previous_gaps_now_have_base_facts": 41,
+    "remaining_paths": []
+  },
+  "delta_from_first_native_snapshot": {
+    "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:a7af70dfabb7462ea58a7da0ed287183",
+    "nodes": 348,
+    "edges": 200866,
+    "bash_command_sites": 340,
+    "bash_file_modules": 8,
+    "native_lexical_reference_edges": 200526
+  },
+  "source_query_review": {
+    "required_components": 129,
+    "checks": 450,
+    "failed_checks": 0
+  },
+  "integration_checks": {
+    "checks": 11,
+    "passed": true,
+    "old_snapshot_expected_failures": 4
+  },
+  "python_regression": {
+    "tests_run": 749,
+    "skipped": 2,
+    "failed": 0,
+    "seconds": 315.51,
+    "rules_commit": "cd6992b9346e5ac4d75c1d81c23c9c6747219b7a"
+  },
+  "typescript_regression": {
+    "tests_run": 124,
+    "failed": 0,
+    "evidence": "typescript-declarations.json",
+    "reuse": "unchanged_typescript_implementation"
+  },
+  "header_native_compilation": {
+    "headers": 37,
+    "translation_units": 14,
+    "failed": 0,
+    "evidence": "header-contexts.json",
+    "standalone_header_diagnostics_retained": true
+  },
+  "G02": "not_passed",
+  "R0": "partial",
+  "R1": "partial",
+  "runtime_execution": false,
+  "historical_assets_enabled": false,
+  "hash_verification": "not_run_per_user_preference",
+  "whole_technical_acceptance": false
+}

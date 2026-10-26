@@ -4,7 +4,7 @@
 
 目标应用是多语言、跨进程、强交互、数据密集型的桌面/Web 分析软件，首个验收对象为 MindStudio Insight。当前[执行计划 R0–R5](plans/reuse-first-execution-plan.md)已与最新组件实测对齐：优先集成现成实现，逐阶段交付并按全仓范围验收。
 
-**2026-10-26：R0/R1 已启动实施。** [实施记录](experiments/2026-10-26-r0-r1/README.md)已交付 CBM 隔离启动、原生 C++ 语义、TypeScript 声明/依赖及正式提供方接入结果。正在按[复用优先计划](plans/reuse-first-execution-plan.md)构建同版本全仓快照并核查 129 个组件。历史资产关闭，原始 Insight checkout 保持只读，新增工具与数据均放 D 盘。
+**2026-10-26：R0/R1 本轮实现与全仓复核已交付。** [最终报告](experiments/2026-10-26-r0-r1/completion.md)记录同版本统一快照、129 个组件的逐项事实账、450 项声明/查询检查及 11 项集成检查；无基础事实文件由 41 个降至 0。R0 与 R1 的严格验收仍为 partial：Joern 数据流替代缺口、C++ 头文件语义恢复及组件连接审查继续列账。当前未进入 R2。历史资产关闭，原始 Insight checkout 保持只读，新增工具与数据均放 D 盘。
 
 前期[源码接口与复用决定](research/reuse-source-contracts-2026-10-26.md)和[原生组件审计](experiments/2026-10-26-reuse-audit/README.md)记录首次结果；CBM 启动问题已在本轮恢复。SCIP 投影误差、Joern 别名/Rust 及编译诊断仍按实际范围保留，不据此宣称全项目技术验收通过。
 
