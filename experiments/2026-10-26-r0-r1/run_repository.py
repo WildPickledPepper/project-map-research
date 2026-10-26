@@ -16,6 +16,8 @@ def main():
         ap.add_argument('--'+name,type=Path,required=True)
     ap.add_argument('--revision',required=True)
     ap.add_argument('--header-capture',type=Path)
+    ap.add_argument('--value-flow-captures',type=Path,
+                    help='Manifest emitted by scripts/collect_native_value_flow.py')
     args=ap.parse_args()
     if args.output.exists():ap.error('Use a new output')
     before=git(args.source,'status','--porcelain','--untracked-files=normal')
@@ -28,6 +30,14 @@ def main():
     if args.header_capture:
         analysis['build']['providers']['captures'].append({'provider':'libclang',
             'directory':str(args.header_capture.resolve()),'source_commit':args.revision,'context_key':context})
+    if args.value_flow_captures:
+        manifest=json.loads(args.value_flow_captures.read_text(encoding='utf-8'))
+        if manifest['source_commit']!=args.revision:raise ValueError('Value-flow captures have another revision')
+        for capture in manifest['captures']:
+            directory=(args.value_flow_captures.parent/capture['directory']).resolve()
+            if not directory.is_relative_to(args.value_flow_captures.parent.resolve()):
+                raise ValueError('Capture directory escaped manifest')
+            analysis['build']['providers']['captures'].append({**capture,'directory':str(directory)})
     workspace=Workspace.create(args.output/'workspace',args.source,revision=args.revision,
                                 typescript=args.typescript,analysis=analysis)
     started=time.monotonic()

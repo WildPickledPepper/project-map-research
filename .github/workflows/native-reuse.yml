@@ -5,9 +5,10 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf]
+        options: [all, svf, rapx, rust-svf, svf-replay]
 permissions:
   contents: read
+  actions: read
 jobs:
   svf:
     if: inputs.provider == 'all' || inputs.provider == 'svf'
@@ -62,6 +63,36 @@ jobs:
         with:
           name: svf-native-output
           path: ${{ runner.temp }}/svf-output
+          retention-days: 7
+  svf-replay:
+    if: inputs.provider == 'svf-replay'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install existing LLVM and SVF
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y clang-16
+          python -m pip install pysvf==1.0.0.50
+      - uses: actions/download-artifact@v4
+        with:
+          name: svf-native-output
+          run-id: 40289634814
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/compiled
+      - name: Reuse native compiler output with LLVM preprocessing
+        run: python experiments/2026-10-26-r0-r1/replay_svf_native.py --input "$RUNNER_TEMP/compiled" --output "$RUNNER_TEMP/svf-replay-output"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: svf-replay-output
+          path: ${{ runner.temp }}/svf-replay-output
           retention-days: 7
   rapx:
     if: inputs.provider == 'all' || inputs.provider == 'rapx'
@@ -194,7 +225,7 @@ jobs:
       - name: Install existing LLVM-compatible compiler and analysis
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y libwebkit2gtk-4.0-dev libgtk-3-dev libayatana-appindicator3-dev
+          sudo apt-get install -y libwebkit2gtk-4.0-dev libgtk-3-dev libayatana-appindicator3-dev binutils-mingw-w64-x86-64
           rustup toolchain install 1.94.0 --profile minimal
           rustup target add --toolchain 1.94.0 x86_64-pc-windows-gnu
       - uses: actions/cache@v4
@@ -230,6 +261,7 @@ jobs:
             ${{ runner.temp }}/rust-svf-output/*/compile.log
           retention-days: 7
   rust-svf-analysis:
+    if: always() && needs.rust-svf.result != 'skipped'
     needs: rust-svf
     runs-on: ubuntu-24.04
     timeout-minutes: 35

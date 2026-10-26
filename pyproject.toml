@@ -12,6 +12,7 @@ requires-python = ">=3.11"
 extract = ["tree-sitter==0.25.2", "tree-sitter-language-pack==1.20.0", "kuzu==0.11.3", "jedi==0.19.2", "parso==0.8.5"]
 mcp = ["mcp==2.3.0"]
 native = ["multilspy @ https://github.com/microsoft/multilspy/archive/62acb3cf2d7a0746992ca08767d8a4fded402ebb.zip", "libclang==18.1.1"]
+valueflow = ["pysvf==1.0.0.50; sys_platform == 'linux'"]
 all = ["tree-sitter==0.25.2", "tree-sitter-language-pack==1.20.0", "kuzu==0.11.3", "jedi==0.19.2", "parso==0.8.5", "mcp==2.3.0"]
 
 [project.scripts]
@@ -22,5 +23,5 @@ packages = ["projectmap", "adapters", "scripts"]
 include-package-data = false
 
 [tool.setuptools.package-data]
-adapters = ["*.cjs"]
+adapters = ["*.cjs", "rapx_export.rs"]
 projectmap = ["_build_info.json"]

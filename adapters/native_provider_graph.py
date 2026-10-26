@@ -7,7 +7,7 @@ import shutil
 
 from adapters.snapshot_inputs import validate_path
 
-PROVIDERS = {'cbm', 'clangd', 'libclang'}
+PROVIDERS = {'cbm', 'clangd', 'libclang', 'svf', 'rapx'}
 
 
 def configuration(value):
@@ -175,4 +175,9 @@ def augment(graph, *, root, output, config=None, emit=None):
             else:
                 graph['diagnostics'].append({'kind':'native_provider_unavailable','provider':'libclang',
                     'required_for':'translation_unit_header_semantics','affected_paths':sorted(required)})
+    for provider, applicable in (('svf', cpp), ('rapx', [p for p in paths if p.endswith('.rs')])):
+        if options[provider]['enabled'] and provider not in already and applicable:
+            graph['diagnostics'].append({'kind':'native_provider_capture_required','provider':provider,
+                'required_for':'compiler_bound_native_value_flow','affected_paths':applicable,
+                'capture_contract':'same_source_revision_and_explicit_native_compile_context'})
     return graph
