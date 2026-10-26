@@ -46,6 +46,7 @@ jobs:
           print(json.dumps(results))
           assert binaries and all(r['exit_code']==0 for r in results)
           PY
+          python -m adapters.svf_export --bitcode "$RUNNER_TEMP/svf-output/probe.bc" --output "$RUNNER_TEMP/svf-output/native.json" --source-root "$GITHUB_WORKSPACE" --source-commit "$GITHUB_SHA" --context fixture/release --module native-probe
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -81,8 +82,10 @@ jobs:
             native-tools/rapx/target
           key: rapx-974eb8e-nightly-2026-07-21-linux-1
       - name: Build existing analysis engine
-        working-directory: native-tools/rapx
-        run: cargo build --release --package rapx --locked
+        run: |
+          python scripts/prepare_rapx_export.py --checkout native-tools/rapx
+          cd native-tools/rapx
+          cargo build --release --package rapx --locked
       - uses: actions/cache/save@v4
         with:
           path: |
@@ -96,6 +99,10 @@ jobs:
           export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
           export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
           export RAPX_CLEAN=false
+          export PROJECT_MAP_RAPX_EXPORT="$RUNNER_TEMP/rapx-output/native"
+          export PROJECT_MAP_SOURCE_ROOT="$GITHUB_WORKSPACE/native-tools/rapx/rapx/tests/analyze/alias_1"
+          export PROJECT_MAP_SOURCE_COMMIT="$GITHUB_SHA"
+          export PROJECT_MAP_CONTEXT="fixture/release"
           cargo rapx --help > "$RUNNER_TEMP/rapx-output/help.log"
           cd native-tools/rapx/rapx/tests/analyze/alias_1
           cargo rapx analyze dataflow --debug > "$RUNNER_TEMP/rapx-output/dataflow.log" 2>&1
