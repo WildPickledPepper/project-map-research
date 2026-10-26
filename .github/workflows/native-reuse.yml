@@ -5,7 +5,10 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze]
+      compiler-run:
+        type: string
+        default: ''
 permissions:
   contents: read
   actions: read
@@ -261,7 +264,7 @@ jobs:
             ${{ runner.temp }}/rust-svf-output/*/compile.log
           retention-days: 7
   rust-svf-analysis:
-    if: always() && needs.rust-svf.result != 'skipped'
+    if: always() && (needs.rust-svf.result != 'skipped' || inputs.provider == 'rust-analyze')
     needs: rust-svf
     runs-on: ubuntu-24.04
     timeout-minutes: 35
@@ -280,6 +283,8 @@ jobs:
         with:
           name: rust-compiler-output
           path: ${{ runner.temp }}/rust-svf-output
+          run-id: ${{ inputs.compiler-run || github.run_id }}
+          github-token: ${{ github.token }}
       - name: Analyze native compiler outputs
         run: python scripts/analyze_svf_captures.py --input "$RUNNER_TEMP/rust-svf-output"
       - uses: actions/upload-artifact@v4

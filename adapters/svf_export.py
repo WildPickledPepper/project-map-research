@@ -10,9 +10,7 @@ import subprocess
 
 def export(bitcode,native_points=None):
     import pysvf
-    options=['-svfg']
-    if native_points:options.append('-read-ander='+str(Path(native_points).resolve()))
-    pysvf.buildSVFModule([*options,str(Path(bitcode).resolve())])
+    pysvf.buildSVFModule(['-svfg',str(Path(bitcode).resolve())])
     graph=pysvf.getSVFG(); pag=pysvf.getPAG(); pta=pysvf.get_pta()
     if graph is None: raise RuntimeError('SVF did not construct its native value-flow graph')
     nodes=[]; edges=[]; variables={}; points=[]

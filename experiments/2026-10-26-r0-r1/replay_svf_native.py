@@ -20,7 +20,7 @@ def main():
     reports=[]
     for name,original,context,module,commit,source in programs:
         folder=args.output/name;folder.mkdir();bitcode=folder/'program.bc'
-        passes='strip-nonlinetable-debuginfo,mem2reg,sroa,instcombine,simplifycfg'
+        passes='strip-nonlinetable-debuginfo'
         subprocess.run(['opt-16','-passes='+passes,str(original),'-o',str(bitcode)],check=True,timeout=180)
         with (folder/'analysis.log').open('w') as log:
             subprocess.run([str(wpa),'-ander','-svfg','-write-ander='+str(folder/'points-to.txt'),str(bitcode)],
