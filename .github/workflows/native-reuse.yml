@@ -38,12 +38,13 @@ jobs:
           binaries=list(root.rglob('wpa'))
           results=[]
           for p in binaries:
-              for args in [['-help'],['-ander','-svfg','-dump-svfg','-dump-pag',str(out/'probe.bc')]]:
+              for args in [['-help'],['-ander','-svfg','-dump-vfg','-dump-pag',str(out/'probe.bc')]]:
                   r=subprocess.run([str(p),*args],cwd=out,capture_output=True,text=True,timeout=180)
                   (out/('help.log' if args[0]=='-help' else 'analysis.log')).write_text(r.stdout+'\n'+r.stderr)
                   results.append({'arguments':args,'exit_code':r.returncode})
           (out/'native-cli.json').write_text(json.dumps({'binaries':[str(p) for p in binaries],'results':results},indent=2))
           print(json.dumps(results))
+          assert binaries and all(r['exit_code']==0 for r in results)
           PY
       - uses: actions/upload-artifact@v4
         if: always()
@@ -82,6 +83,13 @@ jobs:
       - name: Build existing analysis engine
         working-directory: native-tools/rapx
         run: cargo build --release --package rapx --locked
+      - uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            native-tools/rapx/target
+          key: rapx-974eb8e-nightly-2026-07-21-linux-1
       - name: Execute upstream dataflow and alias fixtures
         run: |
           mkdir -p "$RUNNER_TEMP/rapx-output"
@@ -89,7 +97,7 @@ jobs:
           export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
           export RAPX_CLEAN=false
           cargo rapx --help > "$RUNNER_TEMP/rapx-output/help.log"
-          cd native-tools/rapx/rapx/tests/alias/alias_01
+          cd native-tools/rapx/rapx/tests/analyze/alias_1
           cargo rapx analyze dataflow --debug > "$RUNNER_TEMP/rapx-output/dataflow.log" 2>&1
           cargo rapx analyze alias > "$RUNNER_TEMP/rapx-output/alias.log" 2>&1
           rustc --version > "$RUNNER_TEMP/rapx-output/rustc-version.log"
