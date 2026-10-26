@@ -303,3 +303,25 @@ assert not any(process[k] for k in ('cmake_configure_executed_again','default_wo
     'payload_value_equivalence_established','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
 assert process['file_hash_verification']=='not_run_per_user_preference'
 print('OK: 41 deployed-program/word/argv checks; six paths and default-budget query; payload, literal-switch and listener work retained.')
+
+members=json.loads((Path(__file__).parent/'evidence/cpp-member-control.json').read_text(encoding='utf-8'))
+first_members=json.loads((Path(__file__).parent/'evidence/cpp-member-control-first-score.json').read_text(encoding='utf-8'))
+assert members['schema']=='cpp-member-declaration-control-score/1' and members['passed']
+assert len(members['checks'])==24 and all(c['passed'] for c in members['checks'])
+assert not first_members['passed'] and [c['id'] for c in first_members['checks'] if not c['passed']]==['opposite_win32_guards']
+assert first_members['snapshot']==members['snapshot'] and first_members['member_summary']==members['member_summary']
+assert members['source_commit']==argv['source_commit'] and members['input_count']==1323
+assert members['build_version']['rules_commit']=='66f3a2fd3ff074f8d323cdd8c80da100b096846b'
+assert members['index_counts']['nodes']==103575 and members['index_counts']['edges']==125520
+assert members['member_summary']=={'adapter':'cpp_source_member_declaration_alternatives/0.1.0','members':4967,
+    'declarations':4969,'conditional_members':4449,'configuration_selection':'not_performed'}
+assert members['required_member_gap_counts']=={'member_declarator_not_expanded':51}
+assert members['selected_member']['path']=='server/msinsight/src/base/ParamsParser.h'
+assert [v['line'] for v in members['selected_member']['variants']]==[35,37]
+assert [v['default_expression'] for v in members['selected_member']['variants']]==['""','"./"']
+assert len(members['navigation'])==4 and all(n['found'] and n['snapshot_matches'] and n['stop_reason'] is None and n['witness_edges']==2 for n in members['navigation'])
+assert members['cpp_source_extraction_executed_again']
+assert not any(members[k] for k in ('cmake_configure_executed_again','default_workspace_rebuild','installed_tool_tested','runtime_execution',
+    'argv_origin_connected','rust_argument_paired','backend_listener_connected','whole_G03_accepted','original_checkout_modified'))
+assert members['file_hash_verification']=='not_run_per_user_preference'
+print('OK: 24 conditional-member checks and four paths; first score preserved; 51 reference-return method classification gaps pending.')

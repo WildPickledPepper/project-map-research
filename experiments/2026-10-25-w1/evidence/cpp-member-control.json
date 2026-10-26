@@ -1,0 +1,228 @@
+{
+  "schema": "cpp-member-declaration-control-score/1",
+  "origin": "current_cpp_source_facts_with_member_declaration_alternatives",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:cpp-string-decoder:05b951c8f66f4e35924721a19ad92d27",
+  "build_version": {
+    "rules_commit": "66f3a2fd3ff074f8d323cdd8c80da100b096846b",
+    "python": "3.11.9",
+    "packages": {
+      "tree-sitter": "0.25.2",
+      "tree-sitter-language-pack": "1.20.0"
+    }
+  },
+  "scope": "all_selected_cpp_source_no_cmake_context",
+  "input_count": 1323,
+  "index_counts": {
+    "tracked_files": 4855,
+    "input_files": 1323,
+    "modules": 29,
+    "nodes": 103575,
+    "edges": 125520,
+    "entries": 0,
+    "diagnostic_records": 333,
+    "providers": 0,
+    "module_relation_groups": 14
+  },
+  "decoder_summary": {
+    "adapter": "cpp_typed_string_key_slice_dispatch/0.1.0",
+    "counts": {
+      "decoders": 7
+    },
+    "required_gaps": 1
+  },
+  "cpp_source_extraction_executed_again": true,
+  "cmake_configure_executed_again": false,
+  "default_workspace_rebuild": false,
+  "installed_tool_tested": false,
+  "runtime_execution": false,
+  "argv_origin_connected": false,
+  "rust_argument_paired": false,
+  "backend_listener_connected": false,
+  "whole_G03_accepted": false,
+  "original_checkout_modified": false,
+  "file_hash_verification": "not_run_per_user_preference",
+  "member_summary": {
+    "adapter": "cpp_source_member_declaration_alternatives/0.1.0",
+    "members": 4967,
+    "declarations": 4969,
+    "conditional_members": 4449,
+    "configuration_selection": "not_performed"
+  },
+  "passed": true,
+  "checks": [
+    {
+      "id": "same_pinned_source",
+      "passed": true
+    },
+    {
+      "id": "all_cpp_inputs",
+      "passed": true
+    },
+    {
+      "id": "member_summary_matches_nodes",
+      "passed": true
+    },
+    {
+      "id": "one_conditional_log_path_member",
+      "passed": true
+    },
+    {
+      "id": "member_declared_in_expected_header",
+      "passed": true
+    },
+    {
+      "id": "two_source_variants",
+      "passed": true
+    },
+    {
+      "id": "same_declared_source_type",
+      "passed": true
+    },
+    {
+      "id": "header_guard_and_opposite_win32_guards",
+      "passed": true
+    },
+    {
+      "id": "both_initializer_expressions_preserved",
+      "passed": true
+    },
+    {
+      "id": "type_does_not_select_an_initializer",
+      "passed": true
+    },
+    {
+      "id": "owner_is_an_extracted_cpp_type",
+      "passed": true
+    },
+    {
+      "id": "member_instance_not_invented",
+      "passed": true
+    },
+    {
+      "id": "both_declarations_have_graph_nodes",
+      "passed": true
+    },
+    {
+      "id": "all_member_class_links_exist",
+      "passed": true
+    },
+    {
+      "id": "full_declaration_count_preserved",
+      "passed": true
+    },
+    {
+      "id": "navigation_owner_variant_0_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_owner_variant_0_in",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_variant_0",
+      "passed": true
+    },
+    {
+      "id": "navigation_owner_variant_1_out",
+      "passed": true
+    },
+    {
+      "id": "navigation_owner_variant_1_in",
+      "passed": true
+    },
+    {
+      "id": "versioned_source_variant_1",
+      "passed": true
+    },
+    {
+      "id": "unsupported_member_shapes_remain_visible",
+      "passed": true
+    },
+    {
+      "id": "no_native_configuration_runtime_or_whole_gate_claim",
+      "passed": true
+    },
+    {
+      "id": "source_extraction_no_hash_verification",
+      "passed": true
+    }
+  ],
+  "selected_member": {
+    "owner": "Dic::Server::ParamsOption",
+    "name": "logPath",
+    "path": "server/msinsight/src/base/ParamsParser.h",
+    "type": "string",
+    "variants": [
+      {
+        "line": 35,
+        "default_expression": "\"\"",
+        "conditions": [
+          {
+            "kind": "preprocessor",
+            "expression": "defined(DATA_INSIGHT_CORE_PARAMS_PARSER_H)",
+            "when": false,
+            "line": 19
+          },
+          {
+            "kind": "preprocessor",
+            "expression": "defined(_WIN32)",
+            "when": true,
+            "line": 34
+          }
+        ]
+      },
+      {
+        "line": 37,
+        "default_expression": "\"./\"",
+        "conditions": [
+          {
+            "kind": "preprocessor",
+            "expression": "defined(DATA_INSIGHT_CORE_PARAMS_PARSER_H)",
+            "when": false,
+            "line": 19
+          },
+          {
+            "kind": "preprocessor",
+            "expression": "defined(_WIN32)",
+            "when": false,
+            "line": 34
+          }
+        ]
+      }
+    ]
+  },
+  "required_member_gap_counts": {
+    "member_declarator_not_expanded": 51
+  },
+  "navigation": [
+    {
+      "id": "owner_variant_0_out",
+      "found": true,
+      "stop_reason": null,
+      "witness_edges": 2,
+      "snapshot_matches": true
+    },
+    {
+      "id": "owner_variant_0_in",
+      "found": true,
+      "stop_reason": null,
+      "witness_edges": 2,
+      "snapshot_matches": true
+    },
+    {
+      "id": "owner_variant_1_out",
+      "found": true,
+      "stop_reason": null,
+      "witness_edges": 2,
+      "snapshot_matches": true
+    },
+    {
+      "id": "owner_variant_1_in",
+      "found": true,
+      "stop_reason": null,
+      "witness_edges": 2,
+      "snapshot_matches": true
+    }
+  ]
+}

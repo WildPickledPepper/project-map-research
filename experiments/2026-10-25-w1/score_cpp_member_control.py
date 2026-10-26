@@ -26,8 +26,9 @@ def main():
     check('member_declared_in_expected_header',member['path']==path)
     check('two_source_variants',len(variants)==2)
     check('same_declared_source_type',member['type']=='string' and member['type_status']=='same_source_type_across_declarations')
-    check('opposite_win32_guards',[[(g['expression'],g['when']) for g in d['conditions']] for d in variants]==
-        [[('defined(_WIN32)',True)],[('defined(_WIN32)',False)]])
+    check('header_guard_and_opposite_win32_guards',[[(g['expression'],g['when']) for g in d['conditions']] for d in variants]==
+        [[('defined(DATA_INSIGHT_CORE_PARAMS_PARSER_H)',False),('defined(_WIN32)',True)],
+         [('defined(DATA_INSIGHT_CORE_PARAMS_PARSER_H)',False),('defined(_WIN32)',False)]])
     check('both_initializer_expressions_preserved',[d['default_expression'] for d in variants]==['""','"./"'])
     check('type_does_not_select_an_initializer',trial['member_summary']['configuration_selection']=='not_performed')
     check('owner_is_an_extracted_cpp_type',nodes[member['class_source']]['kind']=='type' and nodes[member['class_source']]['name']=='Dic::Server::ParamsOption')

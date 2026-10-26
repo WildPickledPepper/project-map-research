@@ -10,7 +10,17 @@
 
 统一图现在包含所有已识别成员及物理声明，类经 `DECLARES_SOURCE_MEMBER` 到成员，再经 `HAS_MEMBER_DECLARATION` 到各声明。已有读写效果引用同一成员并保留声明条件，未发生读写的字段也能查询。默认建图、正反向路径和固定版本源码导航已有独立夹具验证。
 
-13 项机制检查通过；完整回归运行 709 项，通过，1 项按平台跳过。最后的投影重构后，33 项成员/类型/数据检查和 6 项默认生产建图检查通过。真实 Insight 的全 C++ 输入控制待执行，运行实例、活动构建配置及监听端配对继续单独验证。
+13 项机制检查通过；完整回归运行 709 项，通过，1 项按平台跳过。最后的投影重构后，33 项成员/类型/数据检查和 6 项默认生产建图检查通过。运行实例、活动构建配置及监听端配对继续单独验证。
+
+## Insight 全 C++ 输入控制
+
+固定源码 `d4e8d1cf9f90208bcbe5371c127088f6fd66c688`，提取规则 `66f3a2fd3ff074f8d323cdd8c80da100b096846b`，Tree-sitter 0.25.2、language-pack 1.20.0。全部 1,323 个 C++/头文件重新提取并建立导航索引，得到 4,967 个逻辑成员、4,969 处物理声明。4,449 个成员带预处理条件，其中包含头文件的 include guard；该数量不表示平台分支数。
+
+[24 项检查通过](evidence/cpp-member-control.json)：logPath 在 ParamsParser.h 的第 35/37 行保留 `""` 与 `"./"` 初始表达式，以及共同的头文件 guard、相反的 `_WIN32` 条件。四项正反路径及两项版本化源码查询通过。未选择构建配置，也未运行产品。
+
+[首轮结果](evidence/cpp-member-control-first-score.json)保留 23/24 通过：评分参考遗漏头文件 guard。修正参考后对同一提取产物重新评分，未改提取结果。
+
+本次全量提取另报 51 项 `member_declarator_not_expanded`。源码检查表明这些位置都是返回引用的方法声明，如 `static ParamsParser &Instance()` 和 `const ParamsOption &GetOption()`，属于成员目录的错误缺口分类，后续需在声明分类中修正。目标字段导航通过与这一错误分别记录，G02/G03/G04 保持未通过。其余解码器的 strlen 表达式缺口继续保留。
 
 ```text
 python -m unittest tests.test_cpp_member_declarations tests.test_cpp_nested_members tests.test_cpp_data -v
