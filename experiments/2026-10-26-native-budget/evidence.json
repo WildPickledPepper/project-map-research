@@ -1,0 +1,395 @@
+{
+  "schema": "svf-stage-identity-evidence/1",
+  "research_commit": "49d28a2c9f8c3aa13883430d09e44d5dc68d7043",
+  "product_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "ci_run": 40339369105,
+  "api": {
+    "schema": "svf-runtime-api/1",
+    "package_version": "1.0.0.50",
+    "module_interfaces": {
+      "buildSVFModule": true,
+      "get_svfir": true,
+      "run_pta": true,
+      "get_pta": true,
+      "getPAG": true,
+      "getSVFG": true
+    },
+    "pta_type": "AndersenWaveDiff",
+    "pta_interfaces": [
+      "__class__",
+      "__delattr__",
+      "__dir__",
+      "__doc__",
+      "__eq__",
+      "__format__",
+      "__ge__",
+      "__getattribute__",
+      "__getstate__",
+      "__gt__",
+      "__hash__",
+      "__init__",
+      "__init_subclass__",
+      "__le__",
+      "__lt__",
+      "__module__",
+      "__ne__",
+      "__new__",
+      "__reduce__",
+      "__reduce_ex__",
+      "__repr__",
+      "__setattr__",
+      "__sizeof__",
+      "__str__",
+      "__subclasshook__",
+      "_pybind11_conduit_v1_",
+      "analyze"
+    ],
+    "pag_variables": 179
+  },
+  "resources": {
+    "api": {
+      "schema": "svf-bounded-diagnostic/1",
+      "exit_code": 0,
+      "stop_reason": null,
+      "seconds": 0.103,
+      "peak_tree_rss_bytes": 7843840,
+      "sample_interval_seconds": 0.1,
+      "samples": 1,
+      "events": [
+        {
+          "phase": "import_complete",
+          "elapsed": 0.000218,
+          "self_peak_rss_kib": 40780
+        }
+      ],
+      "phase_sample_peak_bytes": {
+        "startup": 7843840
+      },
+      "limits": {
+        "seconds": 60.0,
+        "memory_gib": 13
+      },
+      "phase_scope": "events bracket PAG and PTA; full native build combines PTA/MemorySSA/SVFG",
+      "command_scope": {
+        "mode": "api",
+        "input": "frozen_fixture_or_reused_411_TU_O1_bitcode",
+        "no_product_recompile": true
+      }
+    },
+    "identity-export": {
+      "schema": "svf-bounded-diagnostic/1",
+      "exit_code": 0,
+      "stop_reason": null,
+      "seconds": 0.103,
+      "peak_tree_rss_bytes": 7868416,
+      "sample_interval_seconds": 0.1,
+      "samples": 1,
+      "events": [
+        {
+          "phase": "import_complete",
+          "elapsed": 0.00021,
+          "self_peak_rss_kib": 40732
+        },
+        {
+          "phase": "native_analysis_start",
+          "elapsed": 0.001732,
+          "self_peak_rss_kib": 40860
+        },
+        {
+          "phase": "native_analysis_complete",
+          "elapsed": 0.006855,
+          "self_peak_rss_kib": 47980
+        },
+        {
+          "phase": "serialization_complete",
+          "elapsed": 0.00749,
+          "self_peak_rss_kib": 48548
+        },
+        {
+          "phase": "output_complete",
+          "elapsed": 0.007735,
+          "self_peak_rss_kib": 48676
+        }
+      ],
+      "phase_sample_peak_bytes": {
+        "startup": 7868416
+      },
+      "limits": {
+        "seconds": 60.0,
+        "memory_gib": 13
+      },
+      "phase_scope": "events bracket PAG and PTA; full native build combines PTA/MemorySSA/SVFG",
+      "command_scope": {
+        "mode": "identity-export",
+        "input": "frozen_fixture_or_reused_411_TU_O1_bitcode",
+        "no_product_recompile": true
+      }
+    },
+    "probe-export": {
+      "schema": "svf-bounded-diagnostic/1",
+      "exit_code": 0,
+      "stop_reason": null,
+      "seconds": 0.103,
+      "peak_tree_rss_bytes": 7766016,
+      "sample_interval_seconds": 0.1,
+      "samples": 1,
+      "events": [
+        {
+          "phase": "import_complete",
+          "elapsed": 0.000228,
+          "self_peak_rss_kib": 40548
+        },
+        {
+          "phase": "native_analysis_start",
+          "elapsed": 0.003231,
+          "self_peak_rss_kib": 41316
+        },
+        {
+          "phase": "native_analysis_complete",
+          "elapsed": 0.010137,
+          "self_peak_rss_kib": 49332
+        },
+        {
+          "phase": "serialization_complete",
+          "elapsed": 0.012247,
+          "self_peak_rss_kib": 50128
+        },
+        {
+          "phase": "output_complete",
+          "elapsed": 0.013227,
+          "self_peak_rss_kib": 50896
+        }
+      ],
+      "phase_sample_peak_bytes": {
+        "startup": 7766016
+      },
+      "limits": {
+        "seconds": 60.0,
+        "memory_gib": 13
+      },
+      "phase_scope": "events bracket PAG and PTA; full native build combines PTA/MemorySSA/SVFG",
+      "command_scope": {
+        "mode": "probe-export",
+        "input": "frozen_fixture_or_reused_411_TU_O1_bitcode",
+        "no_product_recompile": true
+      }
+    },
+    "probe-pta": {
+      "schema": "svf-bounded-diagnostic/1",
+      "exit_code": 0,
+      "stop_reason": null,
+      "seconds": 0.103,
+      "peak_tree_rss_bytes": 7766016,
+      "sample_interval_seconds": 0.1,
+      "samples": 1,
+      "events": [
+        {
+          "phase": "import_complete",
+          "elapsed": 0.000242,
+          "self_peak_rss_kib": 40424
+        },
+        {
+          "phase": "pag_start",
+          "elapsed": 0.001336,
+          "self_peak_rss_kib": 40552
+        },
+        {
+          "phase": "pag_complete",
+          "elapsed": 0.007267,
+          "self_peak_rss_kib": 47416
+        },
+        {
+          "phase": "pta_start",
+          "elapsed": 0.007313,
+          "self_peak_rss_kib": 47416
+        },
+        {
+          "phase": "pta_complete",
+          "elapsed": 0.007876,
+          "self_peak_rss_kib": 48696
+        }
+      ],
+      "phase_sample_peak_bytes": {
+        "startup": 7766016
+      },
+      "limits": {
+        "seconds": 60.0,
+        "memory_gib": 13
+      },
+      "phase_scope": "events bracket PAG and PTA; full native build combines PTA/MemorySSA/SVFG",
+      "command_scope": {
+        "mode": "probe-pta",
+        "input": "frozen_fixture_or_reused_411_TU_O1_bitcode",
+        "no_product_recompile": true
+      }
+    },
+    "real-pta": {
+      "schema": "svf-bounded-diagnostic/1",
+      "exit_code": -15,
+      "stop_reason": "process_tree_memory_budget",
+      "seconds": 68.026,
+      "peak_tree_rss_bytes": 13961203712,
+      "sample_interval_seconds": 0.1,
+      "samples": 655,
+      "events": [
+        {
+          "phase": "import_complete",
+          "elapsed": 0.000223,
+          "self_peak_rss_kib": 40688
+        },
+        {
+          "phase": "pag_start",
+          "elapsed": 0.001262,
+          "self_peak_rss_kib": 40816
+        }
+      ],
+      "phase_sample_peak_bytes": {
+        "startup": 7692288,
+        "pag_start": 13961203712
+      },
+      "limits": {
+        "seconds": 600,
+        "memory_gib": 13
+      },
+      "phase_scope": "events bracket PAG and PTA; full native build combines PTA/MemorySSA/SVFG",
+      "command_scope": {
+        "mode": "real-pta",
+        "input": "frozen_fixture_or_reused_411_TU_O1_bitcode",
+        "no_product_recompile": true
+      }
+    }
+  },
+  "six_value_flow_cases": {
+    "schema": "svf-frozen-admission/1",
+    "source_commit": "49d28a2c9f8c3aa13883430d09e44d5dc68d7043",
+    "provider": {
+      "provider": "svf",
+      "adapter": "native_value_flow/1",
+      "context": "fixture/release",
+      "source_commit": "49d28a2c9f8c3aa13883430d09e44d5dc68d7043",
+      "native_version": "1.0.0.50",
+      "precision": "native_static_candidate"
+    },
+    "checks": [
+      {
+        "case": "regular",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "member",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "isolated",
+        "expected_input_dependency": false,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": false,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "after_copy",
+        "expected_input_dependency": false,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": false,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "borrowed",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "getter",
+        "expected_input_dependency": true,
+        "native_source_nodes": 1,
+        "native_sink_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "whole_R0_R1_accepted": false
+  },
+  "independent_identity": {
+    "schema": "svf-independent-identity/1",
+    "checks": [
+      {
+        "name": "first_alias",
+        "expected": [
+          "first_object"
+        ],
+        "actual": [
+          "first_object"
+        ],
+        "passed": true
+      },
+      {
+        "name": "second_alias",
+        "expected": [
+          "first_object"
+        ],
+        "actual": [
+          "first_object"
+        ],
+        "passed": true
+      },
+      {
+        "name": "isolated_alias",
+        "expected": [
+          "second_object"
+        ],
+        "actual": [
+          "second_object"
+        ],
+        "passed": true
+      }
+    ],
+    "all_endpoints_in_current_pag": true,
+    "passed": true
+  },
+  "native_export": {
+    "points_to_backend": "same_process_upstream_text",
+    "points_to_identity_status": "same_process_native_ids",
+    "same_process_endpoints_checked": true,
+    "export_native_analysis_runs": 1
+  },
+  "raw_counts": {
+    "nodes": 177,
+    "edges": 155,
+    "variables": 143,
+    "points_to": 59
+  },
+  "real_full_graph_executed": false,
+  "whole_R0_R1_accepted": false
+}

@@ -36,8 +36,6 @@ def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--input',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
     args=p.parse_args();args.output.mkdir(parents=True,exist_ok=False)
-    import pysvf
-    wpa=next(Path(pysvf.__file__).parent.rglob('wpa'))
     programs=[('probe',args.input/'probe.bc','fixture/release','native-probe',subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),str(ROOT)),
               ('profiler_server',args.input/'insight/profiler_server/program.bc','server/linux-Release','profiler_server',
                'd4e8d1cf9f90208bcbe5371c127088f6fd66c688','/home/runner/work/_temp/insight-native/cmake/source')]
@@ -46,16 +44,15 @@ def main():
         folder=args.output/name;folder.mkdir();bitcode=folder/'program.bc'
         passes='strip-nonlinetable-debuginfo,default<O1>'
         subprocess.run(['opt-16','-passes='+passes,str(original),'-o',str(bitcode)],check=True,timeout=180)
-        bounded_native([str(wpa),'-ander','-svfg','-write-ander='+str(folder/'points-to.txt'),str(bitcode)],
-                       folder,'analysis',600)
         bounded_native([sys.executable,'-m','adapters.svf_export','--bitcode',str(bitcode),
-                '--native-points',str(folder/'points-to.txt'),'--output',str(folder/'native.json'),
+                '--single-process-points','--output',str(folder/'native.json'),
                 '--source-root',source,'--source-commit',commit,'--context',context,'--module',module],
                 folder,'export',600)
         if name=='probe':
             subprocess.run([sys.executable,str(Path(__file__).with_name('score_svf_admission.py')),
                 '--native',str(folder/'native.json'),'--output',str(folder/'admission')],check=True,timeout=60)
         reports.append({'target':name,'source_commit':commit,'context':context,'llvm_passes':passes,
+            'native_analysis_runs':1,'points_to_identity_status':'same_process_native_ids',
             'original_bitcode_bytes':original.stat().st_size,'analysis_bitcode_bytes':bitcode.stat().st_size})
         (args.output/'result.json').write_text(json.dumps(reports,indent=2))
         print(json.dumps(reports[-1]),flush=True)

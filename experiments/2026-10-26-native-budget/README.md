@@ -1,6 +1,6 @@
 # 原生分析成本与同进程身份诊断
 
-日期：2026-10-26。范围：[实施计划 4.1](../../plans/semantic-impact-execution-plan.md)的一批交付，承接研究提交 `61dfc40`。本目录先提交可执行诊断和本地验证；原生执行结果在 CI 完成后补充，当前不宣称成本或身份准入通过。
+日期：2026-10-26。范围：[实施计划 4.1](../../plans/semantic-impact-execution-plan.md)的一批交付，承接研究提交 `61dfc40`。诊断脚本提交 `49d28a2` 已在 [CI run 40339369105](https://github.com/WildPickledPepper/project-map-research/actions/runs/40339369105) 执行；结果见[完成报告](completion.md)。单次求解/同进程身份路径通过独立检查，真实 C++ 在 PAG 阶段触及预算，R0/R1 总体仍为 partial。
 
 复用 PySVF `1.0.0.50`、既有 C++ 六项独立题，以及此前 411 个编译单元生成并经 LLVM O1 处理的 bitcode。资源采样复用 psutil `7.2.2`，覆盖被测进程树，每 0.1 秒采样；阶段事件另存内核自身峰值。输出与第三方环境在实验目录之外保存。
 

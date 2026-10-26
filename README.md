@@ -1,5 +1,7 @@
 # Project Map Research
 
+**2026-10-26 原生预算第一批**：[同进程导出通过，PAG 前置成本已定位](experiments/2026-10-26-native-budget/completion.md)。固定包实际通过六项值流、三项对象身份检查；真实 C++ 在 PAG 构建阶段触及 13 GiB，PTA/SVFG 未启动。后续按计划核查效果复用路线，R0/R1 严格验收仍为 partial。
+
 **2026-10-26 下一轮实施计划**：[按有限批次推进原生成本、全模块连接和 AI 任务上下文](plans/semantic-impact-execution-plan.md)。沿用 R0–R5 与 G01–G09，每批明确复用、交付、验收、资源预算和停止条件；历史资产关闭，R0/R1 严格验收仍为 partial。
 
 **2026-10-26 AI 上下文需求调研**：[核读 9 篇论文与 3 个工具官方文档](research/ai-context-requirements-2026-10-26.md)，区分工程关系、语义说明、源码、运行与验证信息，提出分层查询及对照评测方案。论文结果、官方文档和设计推断分别标注；本轮研究不改变 R0/R1 验收状态。

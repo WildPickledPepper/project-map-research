@@ -50,8 +50,6 @@ def main():
     (args.output/'compilations.json').write_text(json.dumps(compilations,indent=2))
     failures=[r for r in compilations if r['exit_code']]
     if failures:print(json.dumps({'compiler_failures':failures}));raise SystemExit(1)
-    import pysvf
-    wpa=next((Path(pysvf.__file__).parent).rglob('wpa'))
     reports=[]
     for target in targets.values():
         if target['type']!='EXECUTABLE':continue
@@ -65,15 +63,13 @@ def main():
         merged=folder/'program.bc'
         subprocess.run([str(args.llvm_link),*[str(args.output/f'unit-{i}.bc') for i in sorted(units)],'-o',str(merged)],check=True,timeout=180)
         context=receipt['subdir']+'/linux-'+receipt['configuration']
-        with (folder/'analysis.log').open('w') as log:
-            subprocess.run([str(wpa),'-ander','-svfg','-write-ander='+str(folder/'points-to.txt'),str(merged)],
-                           stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
         with (folder/'export.log').open('w') as log:
             subprocess.run([sys.executable,'-m','adapters.svf_export','--bitcode',str(merged),
-                '--native-points',str(folder/'points-to.txt'),'--output',str(folder/'native.json'),
+                '--single-process-points','--output',str(folder/'native.json'),
                 '--source-root',str(source),'--source-commit',receipt['source_commit'],
-                '--context',context,'--module',target['id']],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
-        reports.append({'target':target['name'],'native_target_id':target['id'],'translation_units':len(units),'context':context})
+                '--context',context,'--module',target['id']],cwd=ROOT,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=600)
+        reports.append({'target':target['name'],'native_target_id':target['id'],'translation_units':len(units),
+                        'context':context,'native_analysis_runs':1,'points_to_identity_status':'same_process_native_ids'})
         print(json.dumps(reports[-1]),flush=True)
     if not reports:raise ValueError('No native executable target was analyzed')
     result={'schema':'svf-cmake-native-run/1','source_commit':receipt['source_commit'],
