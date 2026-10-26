@@ -6,7 +6,7 @@ permissions:
 jobs:
   svf:
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
         with:
@@ -18,7 +18,7 @@ jobs:
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y clang-16 graphviz
-          python -m pip install pysvf==1.0.0.50
+          python -m pip install pysvf==1.0.0.50 cmake==3.31.6 ninja==1.11.1.4
       - name: Capture native distribution and smoke input
         run: |
           mkdir -p "$RUNNER_TEMP/svf-output"
@@ -47,6 +47,10 @@ jobs:
           assert binaries and all(r['exit_code']==0 for r in results)
           PY
           python -m adapters.svf_export --bitcode "$RUNNER_TEMP/svf-output/probe.bc" --native-points "$RUNNER_TEMP/svf-output/points-to.txt" --output "$RUNNER_TEMP/svf-output/native.json" --source-root "$GITHUB_WORKSPACE" --source-commit "$GITHUB_SHA" --context fixture/release --module native-probe
+      - name: Prepare real native CMake context
+        run: python experiments/2026-10-26-r0-r1/prepare_insight_linux.py --output "$RUNNER_TEMP/insight-native"
+      - name: Analyze native first-party executable inputs
+        run: python experiments/2026-10-26-r0-r1/run_svf_compilation.py --repository "$RUNNER_TEMP/insight-native/repository" --cmake-capture "$RUNNER_TEMP/insight-native/cmake" --output "$RUNNER_TEMP/svf-output/insight" --clang /usr/bin/clang++-16 --llvm-link /usr/bin/llvm-link-16
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -148,6 +152,21 @@ jobs:
           export PROJECT_MAP_CONTEXT="platform/linux-desktop-release"
           cd "$RUNNER_TEMP/insight/platform/linux"
           cargo rapx analyze dataflow -- --release > "$RUNNER_TEMP/rapx-output/insight-linux-desktop.log" 2>&1
+      - name: Analyze actual Windows desktop configurations
+        run: |
+          rustup target add x86_64-pc-windows-gnu
+          export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
+          export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
+          export RAPX_CLEAN=false
+          export PROJECT_MAP_SOURCE_ROOT="$RUNNER_TEMP/insight"
+          export PROJECT_MAP_SOURCE_COMMIT=d4e8d1cf9f90208bcbe5371c127088f6fd66c688
+          cd "$RUNNER_TEMP/insight/platform"
+          export PROJECT_MAP_RAPX_EXPORT="$RUNNER_TEMP/rapx-output/insight-windows-desktop-release"
+          export PROJECT_MAP_CONTEXT="platform/windows-desktop-release"
+          cargo rapx analyze dataflow -- --target x86_64-pc-windows-gnu --release > "$RUNNER_TEMP/rapx-output/insight-windows-release.log" 2>&1
+          export PROJECT_MAP_RAPX_EXPORT="$RUNNER_TEMP/rapx-output/insight-windows-desktop-debug"
+          export PROJECT_MAP_CONTEXT="platform/windows-desktop-debug"
+          cargo rapx analyze dataflow -- --target x86_64-pc-windows-gnu > "$RUNNER_TEMP/rapx-output/insight-windows-debug.log" 2>&1
       - uses: actions/upload-artifact@v4
         if: always()
         with:
