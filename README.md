@@ -1,12 +1,14 @@
 # Project Map Research
 
+**2026-10-26 下一轮实施计划**：[按有限批次推进原生成本、全模块连接和 AI 任务上下文](plans/semantic-impact-execution-plan.md)。沿用 R0–R5 与 G01–G09，每批明确复用、交付、验收、资源预算和停止条件；历史资产关闭，R0/R1 严格验收仍为 partial。
+
 **2026-10-26 AI 上下文需求调研**：[核读 9 篇论文与 3 个工具官方文档](research/ai-context-requirements-2026-10-26.md)，区分工程关系、语义说明、源码、运行与验证信息，提出分层查询及对照评测方案。论文结果、官方文档和设计推断分别标注；本轮研究不改变 R0/R1 验收状态。
 
 **2026-10-26 原生补充**：[统一图已发布并复核](experiments/2026-10-26-r0-r1/reuse-followup.md)，37 个头文件、Rust 的 MIR/值流捕获已接入；同一快照通过 129 组件事实账、450 项源码检查、两组各 37 项原生查询及 11 项集成检查，最终 Python 回归执行 762 项、含 2 项跳过。C++ 六项 SVF 题通过，真实全程序分析超过 13 GiB 预算；Linux Debug 的 SVF 补图等缺口保留，严格 R0/R1 总状态仍为 partial。新增工具及原始数据均在 D 盘。
 
 研究如何为 AI 协作开发自动维护一份可查询、可追溯、与代码版本对应的项目模型。
 
-目标应用是多语言、跨进程、强交互、数据密集型的桌面/Web 分析软件，首个验收对象为 MindStudio Insight。当前[执行计划 R0–R5](plans/reuse-first-execution-plan.md)已与最新组件实测对齐：优先集成现成实现，逐阶段交付并按全仓范围验收。
+目标应用是多语言、跨进程、强交互、数据密集型的桌面/Web 分析软件，首个验收对象为 MindStudio Insight。当前[执行安排](plans/semantic-impact-execution-plan.md)承接[复用优先 R0–R5](plans/reuse-first-execution-plan.md)：优先集成现成实现，逐阶段交付并按全仓范围验收。
 
 **2026-10-26：R0/R1 本轮实现与全仓复核已交付。** [最终报告](experiments/2026-10-26-r0-r1/completion.md)记录同版本统一快照、129 个组件的逐项事实账、450 项声明/查询检查及 11 项集成检查；无基础事实文件由 41 个降至 0。R0 与 R1 的严格验收仍为 partial：Joern 数据流替代缺口、C++ 头文件语义恢复及组件连接审查继续列账。当前未进入 R2。历史资产关闭，原始 Insight checkout 保持只读，新增工具与数据均放 D 盘。
 
