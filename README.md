@@ -2,6 +2,8 @@
 
 研究如何为 AI 协作开发自动维护一份可查询、可追溯、与代码版本对应的项目模型。
 
+目标应用是多语言、跨进程、强交互、数据密集型的桌面/Web 分析软件，首个验收对象为 MindStudio Insight。当前[执行计划 R0–R5](plans/reuse-first-execution-plan.md)已与最新组件实测对齐：优先集成现成实现，逐阶段交付并按全仓范围验收。
+
 **2026-10-26：复用优先重排。** 已停止继续功能开发并完成[复用评估](research/reuse-assessment-2026-10-26.md)，继承 CGC/CBM/CodeGraph/code-map/RepoGraph/RPG 的既有调查，按[六阶段执行计划](plans/reuse-first-execution-plan.md)先落实已测组件和未启用扩展，再为明确缺口验证专门引擎；地图、查询和版本管理保留。当前准入结果见下项，整体门槛不因计划更新而推进。
 
 同日已进一步完成[源码接口与复用决定](research/reuse-source-contracts-2026-10-26.md)和[原生组件审计](experiments/2026-10-26-reuse-audit/README.md)：Clang/multilspy、SQLGlot、Python OTel 接口可用；SCIP 投影误差、Joern 别名/Rust、CBM 隔离启动问题明确保留。CBM 已有进程/Shell/容器/环境/路由组件优先复用。R0 整体准入尚未通过，产品功能开发保持停止。
