@@ -175,6 +175,7 @@ jobs:
           git init -q "$RUNNER_TEMP/insight"
           git -C "$RUNNER_TEMP/insight" fetch --depth 1 https://gitcode.com/Ascend/msinsight.git d4e8d1cf9f90208bcbe5371c127088f6fd66c688
           git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
+          mkdir -p "$RUNNER_TEMP/rapx-output"
           if [ "${{ inputs.provider }}" = rapx-linux-debug ]; then exit 0; fi
           export PATH="$GITHUB_WORKSPACE/native-tools/rapx/target/release:$PATH"
           export LD_LIBRARY_PATH="$(rustc --print sysroot)/lib:${LD_LIBRARY_PATH:-}"
