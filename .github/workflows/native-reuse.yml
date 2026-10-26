@@ -38,7 +38,7 @@ jobs:
           binaries=list(root.rglob('wpa'))
           results=[]
           for p in binaries:
-              for args in [['-help'],['-ander','-svfg','-dump-vfg','-dump-pag',str(out/'probe.bc')]]:
+              for args in [['-help'],['-ander','-svfg','-dump-vfg','-dump-pag','-write-ander=points-to.txt',str(out/'probe.bc')]]:
                   r=subprocess.run([str(p),*args],cwd=out,capture_output=True,text=True,timeout=180)
                   (out/('help.log' if args[0]=='-help' else 'analysis.log')).write_text(r.stdout+'\n'+r.stderr)
                   results.append({'arguments':args,'exit_code':r.returncode})

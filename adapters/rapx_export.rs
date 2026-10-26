@@ -2,14 +2,15 @@
 use std::{fs, path::Path};
 use serde_json::{json,Value};
 use rustc_middle::{mir::{Operand,TerminatorKind,Const},ty::{TyCtxt,TyKind}};
-use rustc_span::{Span,def_id::LOCAL_CRATE};
+use rustc_span::{Span,FileName,def_id::LOCAL_CRATE};
 use super::default::DataflowAnalyzer;
 use crate::analysis::{Analysis,alias::{AliasAnalysis,mfp::MfpAliasAnalyzer}};
 
 fn location(tcx: TyCtxt<'_>, span: Span) -> Value {
     if span.is_dummy() {return Value::Null;}
     let p=tcx.sess.source_map().lookup_char_pos(span.lo());
-    json!({"file":p.file.name.prefer_local().to_string(),"line":p.line,"column":p.col_display+1})
+    let file=match &p.file.name {FileName::Real(real)=>real.local_path().map(|p|p.to_string_lossy().into_owned()),_=>None};
+    json!({"file":file,"line":p.line,"column":p.col_display+1})
 }
 
 pub fn write(analyzer: &DataflowAnalyzer<'_>) {

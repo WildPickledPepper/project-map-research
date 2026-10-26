@@ -27,15 +27,18 @@ def export(bitcode):
                 'kind':type(edge).__name__,'direct':edge.isDirectVFGEdge(),
                 'indirect':edge.isIndirectVFGEdge(),'call':edge.isCallVFGEdge(),'return':edge.isRetVFGEdge(),
                 'callsite':edge.getCallSiteId() if hasattr(edge,'getCallSiteId') else None})
-    for uid,value in list(variables.items()):
+    points_method=getattr(pta,'getPts',None) or getattr(pta,'get_pts',None)
+    for uid,value in list(variables.items()) if points_method else []:
         if not value.isPointer(): continue
-        for target in pta.getPts(uid):
+        for target in points_method(uid):
             target=int(target); points.append({'source':uid,'target':target})
             variables.setdefault(target,pag.getGNode(target))
     return {'schema':'svf-native-export/1','package_version':importlib.metadata.version('pysvf'),
         'nodes':nodes,'edges':edges,'points_to':points,
         'variables':[{'id':uid,'name':v.getName(),'kind':type(v).__name__,'text':str(v)}
                      for uid,v in variables.items()],
+        'python_points_to_binding_available':points_method is not None,
+        'native_pta_interface':dir(pta),
         'precision':'native_static_candidate','analysis':'SVF Andersen and full SVFG'}
 
 
