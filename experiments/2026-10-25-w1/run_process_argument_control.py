@@ -35,7 +35,9 @@ def main():
         overlaid=0;added=0
         for node in selected:
             if node['id'] in known:
-                if known[node['id']]['kind']!='storage_member':raise ValueError('Unexpected cached member node kind')
+                previous=known[node['id']]
+                if previous['kind'] not in {'storage_member','source_member_storage'}:raise ValueError('Unexpected cached member node kind')
+                if any(previous.get(key)!=node.get(key) for key in ('owner','path','line')):raise ValueError('Cached member source identity differs')
                 kind=known[node['id']]['kind'];known[node['id']].update(node);known[node['id']]['kind']=kind;overlaid+=1
             else:graph['nodes'].append(node);known[node['id']]=node;added+=1
         relations=[e for e in source['edges'] if e['source'] in ids or e['target'] in ids]
