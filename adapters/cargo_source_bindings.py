@@ -11,7 +11,7 @@ from adapters.cargo_file_api import identity
 from adapters.python_process_values import resolve,environment_value
 
 
-ADAPTER_VERSION='source_cargo_native_context_binding/0.1.0'
+ADAPTER_VERSION='source_cargo_native_context_binding/0.2.0'
 VALUE_OPTIONS={'--profile':'profile','--manifest-path':'manifest','--target-dir':'target_directory',
     '--target':'target','--features':'features','-F':'features'}
 IGNORED_FLAGS={'--offline','--locked','--frozen','--quiet','-q','--verbose','-v','-vv','--ignore-rust-version'}
@@ -64,14 +64,30 @@ def interpret(invocation,effects,*,host_system,input_paths):
     selected=resolve(invocation,host_system)
     if selected['status'] in {'inactive_path_style','excluded'}:return None
     argv=[words[0]['text'] if len(words)==1 else None for words in selected['argv']]
-    spec=parse_build(argv)
+    cwd=selected['cwd'];source_cwd=None
+    if invocation['working_directory_mode']=='explicit' and len(cwd)==1:
+        source_cwd=source_location(cwd[0]['path_value'])
+    parsed_argv=list(argv);path_bindings=[]
+    if source_cwd is not None:
+        for index,words in enumerate(selected['argv']):
+            if (not index or argv[index] is not None or len(words)!=1 or
+                    VALUE_OPTIONS.get(argv[index-1]) not in {'manifest','target_directory'}):continue
+            location=source_location(words[0]['path_value'],source_cwd)
+            if location is None:continue
+            relative=posixpath.relpath(location,source_cwd)
+            if relative.startswith('-'):relative='./'+relative
+            parsed_argv[index]=relative
+            path_bindings.append({'index':index,'source_location':location,'relative_to_cwd':relative,
+                                  'basis':'existing_typed_path_and_bound_source_working_directory'})
+    spec=parse_build(parsed_argv)
     if spec is None:return None
+    spec['argv']=argv;spec['argv_path_bindings']=path_bindings
     spec['gaps'].extend(selected['gaps']);spec['conditions']=list(invocation['conditions'])
     spec['conditions'].append({'kind':'source_process_invocation_reached_and_succeeds'})
     spec['conditions'].append({'kind':'source_executable_resolves_to_recorded_cargo'})
     for words in selected['argv']:
         for word in words:spec['conditions'].extend(word['conditions'])
-    cwd=selected['cwd'];spec['cwd']=None
+    spec['cwd']=None
     if invocation['working_directory_mode']=='explicit' and len(cwd)==1:
         spec['cwd']=source_location(cwd[0]['path_value']);spec['conditions'].extend(cwd[0]['conditions'])
     if spec['cwd'] is None:spec['gaps'].append('cargo_working_directory_not_bound_to_source')
@@ -146,6 +162,7 @@ def augment(graph):
             if key not in cache:cache[key]=interpret(invocation,effects,host_system=host,input_paths=graph['input_paths'])
             spec=cache[key]
             if spec is None:continue
+            if len(spec['argv'])>1 and spec['argv'][1]=='fetch':continue
             uid=identity('source-build',config['id'],invocation['id']);evidence=[{'path':invocation['path'],'line':invocation['line']}]
             added.append({'id':uid,'kind':'cargo_build_request','name':'Cargo build request','path':invocation['path'],'line':invocation['line'],
                 'source_commit':graph['source_commit'],'language':'cargo','source_invocation':invocation['id'],

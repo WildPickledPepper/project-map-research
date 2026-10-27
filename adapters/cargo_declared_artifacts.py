@@ -20,7 +20,7 @@ from adapters.rust_project import binary
 from adapters.snapshot_inputs import validate_path
 
 
-ADAPTER_VERSION='source_cargo_declared_binary_projection/0.1.0'
+ADAPTER_VERSION='source_cargo_declared_binary_projection/0.2.0'
 PROBE='__project_map_binary_name_probe'
 
 
@@ -107,7 +107,21 @@ def augment(graph,*,root,paths,output,parser,cargo=None,rustc=None,timeout=45):
         if not host:raise ValueError('Native compiler host not reported')
         host_cfg=query('host-cfg',[rustc,'--print','cfg','--target',host]).splitlines();host_system=system(host_cfg)
     except (ValueError,OSError,subprocess.SubprocessError) as error:gap(str(error));return graph
-    host_selection={'name':host_system['name'],'path_style':host_system['path_style']}
+    query_host=host
+    hosts={host:(host_cfg,host_system)}
+    for analysis in graph['nodes']:
+        if (analysis['kind']!='analysis_context' or analysis.get('language')!='rust' or
+                analysis.get('basis')!='rustc_target_cfg_and_enumerated_package_features'):continue
+        target=analysis.get('target')
+        if target in hosts:continue
+        try:
+            if not isinstance(target,str) or not target:raise ValueError('Source host target unavailable')
+            selected_system=system(analysis['cfg'])
+            if not selected_system['path_style']:raise ValueError('Source host path style unavailable')
+            hosts[target]=(analysis['cfg'],selected_system)
+        except (KeyError,ValueError) as error:gap('source_host_context_unavailable',analysis['id'],detail=str(error))
+    result['source_host_targets']=list(hosts)
+    result['native_query_host_target']=query_host
     effects=[n for n in graph['nodes'] if n['kind']=='python_environment_effect'];cached_targets={};metadata_cache={};covered=set()
     native_configs=[n for n in graph['nodes'] if n['kind']=='build_configuration' and n.get('language')=='cargo' and n.get('state')=='native_build_succeeded']
     from adapters.cargo_source_bindings import mismatches
@@ -115,11 +129,21 @@ def augment(graph,*,root,paths,output,parser,cargo=None,rustc=None,timeout=45):
         value=Path(path).resolve()
         if not value.is_relative_to(copy):raise ValueError('Cargo query path outside selected source copy')
         return {'root':'source','path':value.relative_to(copy).as_posix()}
-    for invocation in [n for n in graph['nodes'] if n['kind']=='python_process_invocation']:
+    invocations=[n for n in graph['nodes'] if n['kind']=='python_process_invocation']
+    work=[(n,t,cfg,sys) for t,(cfg,sys) in hosts.items() for n in invocations]
+    for invocation,host,host_cfg,host_system in work:
+        host_selection={'name':host_system['name'],'path_style':host_system['path_style']}
         spec=interpret(invocation,effects,host_system=host_selection,input_paths=paths)
-        if spec is None or len(spec['argv'])>1 and spec['argv'][1]!='build':continue
-        if spec['gaps']:gap('source_build_request_unresolved',invocation['id'],reasons=spec['gaps']);continue
-        if any(not mismatches(spec,c) for c in native_configs if c.get('source_request')):
+        if spec is None:continue
+        if len(spec['argv'])>1 and spec['argv'][1]!='build':
+            result.setdefault('unprojected_subcommands',[]).append({'source':invocation['id'],
+                'command':spec['argv'][1],'source_host_target':host})
+            if spec['argv'][1]!='fetch':gap('cargo_subcommand_output_requires_native_capture',invocation['id'],
+                command=spec['argv'][1],source_host_target=host)
+            continue
+        if spec['gaps']:gap('source_build_request_unresolved',invocation['id'],reasons=spec['gaps'],source_host_target=host);continue
+        if any(not mismatches(spec,c) for c in native_configs if c.get('source_request') and
+               c['target_system']['host_target']==host):
             covered.add(spec['manifest']);continue
         number=len(result['contexts']);request_env=dict(env);cwd=copy/spec['cwd'];conditions=list(spec['conditions'])
         try:
@@ -156,14 +180,16 @@ def augment(graph,*,root,paths,output,parser,cargo=None,rustc=None,timeout=45):
                     if len(filenames)!=1 or filenames[0].count(PROBE)!=1 or '/' in filenames[0] or '\\' in filenames[0]:raise ValueError('Native binary filename template unavailable')
                     cached_targets[target]=(system(cfg),filenames[0].split(PROBE))
                 target_system,template=cached_targets[target]
-                context=identity('source-projection',invocation['id'],target,spec['profile'])
+                context=identity('source-projection',invocation['id'],host,target,spec['profile'])
                 constraints=conditions+[{'kind':'source_build_target_selection_equals_projection','target':target,'target_mode':target_mode},
+                    {'kind':'source_build_host_toolchain_matches_projection','host_target':host,'native_query_host_target':query_host},
                     {'kind':'source_compiler_flags_preserve_cargo_binary_output_contract'},
                     {'kind':'source_profile_environment_and_build_script_cfg_match_declared_plan'}]
                 system_info={'status':'available','name':target_system['name'],'host_name':host_system['name'],
                     'host_path_style':host_system['path_style'],'target_path_style':target_system['path_style'],
                     'target_arch':target_system['arch'],'host_arch':host_system['arch'],'target':target,'host_target':host,
-                    'cross_compiling':host!=target,'basis':'native_rustc_query_with_source_configuration_conditions'}
+                    'cross_compiling':host!=target,'basis':'native_rustc_query_with_source_configuration_conditions',
+                    'source_host_execution':'not_observed','native_query_host_target':query_host}
                 row={'id':context,'kind':'build_configuration','name':'Cargo source build '+spec['profile'],'language':'cargo',
                     'path':spec['manifest'],'line':1,'source_commit':graph['source_commit'],'target_system':system_info,
                     'target_directory':directory,'state':'declared_output_plan','conditions':constraints,

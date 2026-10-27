@@ -1,6 +1,7 @@
 import copy
 import json
 import os
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -85,6 +86,29 @@ shutil.copyfile(os.path.join(ROOT,'{directory}','{profile}','{name}{suffix}'),os
         self.assertIn('source_compiler_flags_preserve_cargo_binary_output_contract',kinds)
         self.assertIn('canonical_source_layout_required',kinds)
         self.assertTrue(any(e['kind']=='SOURCE_BUILD_REQUEST' for e in graph['edges']))
+
+    def test_native_cfg_contexts_expand_source_build_hosts_without_compiling_cross_targets(self):
+        from adapters.rust_project import binary
+        from adapters.cargo_file_api import system
+        source,files,_,receipt,_=self.cases[0]
+        other='x86_64-unknown-linux-gnu' if receipt['host_target'].split('-')[2]=='windows' else 'x86_64-pc-windows-gnu'
+        cfg=subprocess.check_output([binary('rustc'),'--print','cfg','--target',other],text=True).splitlines()
+        graph=self.graph(files)
+        graph['nodes'].append({'id':'authored-source-cfg','kind':'analysis_context','name':'other native cfg',
+            'path':'Cargo.toml','line':1,'language':'rust','target':other,'cfg':cfg,
+            'basis':'rustc_target_cfg_and_enumerated_package_features'})
+        graph=self.project(source,files,self.root/'cross-hosts',graph=graph)
+        configs=[n for n in graph['nodes'] if n['kind']=='build_configuration']
+        self.assertEqual({n['target_system']['host_target'] for n in configs},{receipt['host_target'],other})
+        self.assertEqual({n['target_system']['name'] for n in configs},
+                         {system(receipt['host_cfg'])['name'],system(cfg)['name']})
+        self.assertEqual(len({n['id'] for n in graph['nodes']}),len(graph['nodes']))
+        self.assertTrue(all(n['state']=='declared_output_plan' for n in configs))
+        self.assertTrue(all(any(c['kind']=='source_build_host_toolchain_matches_projection'
+                               for c in n['conditions']) for n in configs))
+        self.assertFalse(graph['cargo_declared_artifacts']['product_compiled'])
+        for artifact in (n for n in graph['nodes'] if n['kind']=='build_artifact'):
+            self.assertFalse((self.root/'cross-hosts/source'/artifact['location']['path']).exists())
 
     def test_matching_native_capture_prevents_duplicate_expected_artifacts(self):
         source,files,native,receipt,_=self.cases[0];g=self.graph(files)

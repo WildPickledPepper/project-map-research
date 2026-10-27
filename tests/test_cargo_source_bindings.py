@@ -39,6 +39,29 @@ class CargoSourceBindingTests(unittest.TestCase):
             with self.subTest(argv=argv):self.assertTrue(parse_build(argv)['gaps'])
         self.assertIsNone(parse_build(['unrelated','build']))
 
+    def test_typed_path_options_preserve_source_identity_and_unknown_argument_bytes(self):
+        for script,base in [('make.py',''),('automation/package.py','automation/')]:
+            for host in (self.host,{'name':'Windows','path_style':'windows'}):
+                body=self.source(argv="['cargo','build','--manifest-path',os.path.join(ROOT,'inner','Cargo.toml'),'--target-dir',os.path.join(ROOT,'objects')]")
+                graph=self.graph(body,script=script,manifest=base+'inner/Cargo.toml')
+                spec=self.spec(graph,host=host)
+                self.assertFalse(spec['gaps'],spec['gaps'])
+                self.assertEqual(spec['manifest'],base+'inner/Cargo.toml')
+                self.assertEqual(spec['target_directory'],base+'objects')
+                self.assertEqual({r['index'] for r in spec['argv_path_bindings']},{3,5})
+                self.assertIsNone(spec['argv'][3])
+                self.assertIsNone(spec['argv'][5])
+        unknown=self.graph(self.source(argv="['cargo','build','--manifest-path',unknown_value]"))
+        spec=self.spec(unknown)
+        self.assertTrue(spec['gaps'])
+        self.assertEqual(spec['argv_path_bindings'],[])
+
+    def test_dependency_fetch_does_not_become_a_failed_build_request(self):
+        graph=self.graph(self.source(argv="['cargo','fetch']"));graph['nodes'].append(self.config())
+        graph=augment(graph)
+        self.assertEqual(graph['cargo_source_bindings']['source_request_records'],0)
+        self.assertFalse(any(d['kind']=='cargo_source_request_unresolved' for d in graph['diagnostics']))
+
     def test_two_source_layouts_preserve_manifest_cwd_and_environment_provenance(self):
         for script,folder in [('make.py','engine'),('automation/package.py','modules/renamed')]:
             extra="os.putenv('CARGO_TARGET_DIR',os.path.join(ROOT,'objects'))"

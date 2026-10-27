@@ -65,3 +65,15 @@ python experiments/2026-10-27-r2-startup/audit_signals.py --inventory FROZEN_BOU
 独立原生检查覆盖两个配置变体的不同输出、删除变体无残留、重复未标识上下文拒绝和搬迁后入口仍可查；现有 File API 的同名异目录、配置隔离、旧回复拒绝、系统来源及源码归属检查继续通过。首轮新增断言误将 Windows PDB 辅助产物计作主要可执行文件，按原生 `artifact_role=primary` 修正统计；独立期待的两个主要输出保持。
 
 Cargo 的其它构建主机上下文、WebView 资源闭环和全部启动对端继续推进。Linux 原生构建可复用与 Infer 语义捕获失败分别记录，后者见[实际结果](../2026-10-26-infer-summary/README.md)。
+
+## Cargo 构建主机与带类型的路径参数
+
+[既有 Cargo 推导器](../../adapters/cargo_declared_artifacts.py)原先只按分析机器的系统选择源码构建分支。本次复用 Rust 分析已保存的原生 cfg 上下文，展开各个源码构建主机候选；每项保存所假定主机、目标、实际查询主机及配置条件。相同输出目标在不同构建主机下具有独立身份。这里只执行 Cargo metadata 与 rustc print，不编译跨平台产品，不执行 build scripts/proc macros。
+
+Linux 构建分支还暴露了一个接口丢失：已有路径事实能表示源码根下的清单文件，但原命令适配只接受字面字符串，丢弃了该参数。[命令绑定适配](../../adapters/cargo_source_bindings.py)现在对 `--manifest-path`、`--target-dir` 复用原 typed path 与已绑定 cwd，求出源码位置，再交给原选项解析器。原始未知字节仍是 None；新增 `argv_path_bindings` 说明坐标转换，保留来源与条件。未知路径、外部绝对路径及有歧义参数继续阻止匹配。`cargo fetch` 保留原进程事实，但不再误生成失败的编译请求。
+
+真实源码自动发现 Windows、Linux、Darwin 三种主机 cfg；Windows 与 Linux 的构建清单、目标、预期输出和 Rust main 正反查询通过，最终重放 2.656 秒。Darwin 源码使用 `cargo bundle`，已单列未投影子命令及必需原生捕获缺口，没有按普通 Cargo build 假装生成 macOS 包。Windows build.rs 的动态输出也继续要求原生构建证据。见[完整收据](cargo-host-evidence.json)及[复现器](replay_cargo_hosts.py)。
+
+19 项定向检查和原有默认生产 Rust→CMake→C++ 入口夹具通过。新增检查包含两个布局与两种路径风格的清单/产物目录参数、保留未知参数字节、未知值拒绝、原生 cfg 跨主机候选、不同身份和未实际产出二进制；既有模块增删改名、原生实际输出对照和复制条件检查继续通过。首轮新增测试的两条旧断言因插入位置进入新测试，恢复至原测试后全部通过；真实 Linux 清单参数修复前后的重放均保留在 Git 外。
+
+本项已进入默认构图适配，但默认大快照尚未更新；后续统一发布和安装由 R5 验收。WebView 资源和其余启动对端继续列账，按计划推进其余边界家族。

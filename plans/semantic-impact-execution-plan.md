@@ -8,6 +8,8 @@
 
 **2026-10-27 批次收口**：[Rust Linux Debug 捕获及同源查询已交付](../experiments/2026-10-26-native-budget/rust-debug-completion.md)，六项原准入及六项实际捕获查询通过。4.2 按限额形成组件采用决定与剩余项；默认全图更新、其它配置的身份接入及全模块语义保持待验。后续推进独立的 R2 横向边界批次，G02 总状态仍为 partial。
 
+**R2 A 已执行增量**：[启动/部署记录](../experiments/2026-10-27-r2-startup/README.md)保存 640 个冻结信号与 11 个原生新增候选的处理账、52 个原生进程位置接入、Windows/Linux CMake 多上下文及 Cargo 两种主机产物查询。真实 Infer 捕获在标准库 AtomicExpr 翻译失败，唯一头文件选择复验仍失败，保留为精细分析依赖；继续独立边界项。partial 只记进度，不能作为停止已授权工作的理由，原必需范围和验收分母不变。
+
 本计划规定下一轮的执行顺序、资源预算和交付方式，承接[复用优先计划 R0–R5](reuse-first-execution-plan.md)。[全项目范围](project-wide-completion-plan.md)与[整体验收 G01–G09](project-wide-acceptance.md)继续有效。历史资产关闭，skill 在技术验收收口时整理。
 
 ## 1. 目标与使用方式

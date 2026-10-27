@@ -1,0 +1,116 @@
+{
+  "schema": "source-cargo-host-replay/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "query_summary": {
+    "adapter": "source_cargo_declared_binary_projection/0.2.0",
+    "contexts": [
+      {
+        "key": "cargo:source-projection:py%3Abuild%2Fbuild.py%3Acall_site%3A644%3A10%3A644%3A69%3Apython_process_invocation%3Apy%3Apath-context%3A%255B%2522py%253Abuild%252Fbuild.py%253Acallable%253A366%253A1%253A407%253A77%2522%252C%2522py%253Abuild%252Fbuild.py%253Acallable%253A642%253A1%253A650%253A30%2522%252C%255B%2522py%253Abuild%252Fbuild.py%253Acall_site%253A404%253A14%253A404%253A71%2522%255D%252C%255B%255D%255D%3Awindows%3A2:x86_64-pc-windows-msvc:x86_64-pc-windows-msvc:release",
+        "source_invocation": "py:build/build.py:call_site:644:10:644:69:python_process_invocation:py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A366%3A1%3A407%3A77%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A642%3A1%3A650%3A30%22%2C%5B%22py%3Abuild%2Fbuild.py%3Acall_site%3A404%3A14%3A404%3A71%22%5D%2C%5B%5D%5D:windows:2",
+        "target": "x86_64-pc-windows-msvc",
+        "target_mode": "default",
+        "status": "declared_output_plan"
+      },
+      {
+        "key": "cargo:source-projection:py%3Abuild%2Fbuild.py%3Acall_site%3A644%3A10%3A644%3A69%3Apython_process_invocation%3Apy%3Apath-context%3A%255B%2522py%253Abuild%252Fbuild.py%253Acallable%253A366%253A1%253A407%253A77%2522%252C%2522py%253Abuild%252Fbuild.py%253Acallable%253A642%253A1%253A650%253A30%2522%252C%255B%2522py%253Abuild%252Fbuild.py%253Acall_site%253A404%253A14%253A404%253A71%2522%255D%252C%255B%255D%255D%3Aposix%3A1:x86_64-unknown-linux-gnu:x86_64-unknown-linux-gnu:release",
+        "source_invocation": "py:build/build.py:call_site:644:10:644:69:python_process_invocation:py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A366%3A1%3A407%3A77%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A642%3A1%3A650%3A30%22%2C%5B%22py%3Abuild%2Fbuild.py%3Acall_site%3A404%3A14%3A404%3A71%22%5D%2C%5B%5D%5D:posix:1",
+        "target": "x86_64-unknown-linux-gnu",
+        "target_mode": "default",
+        "status": "declared_output_plan"
+      }
+    ],
+    "product_compiled": false,
+    "build_scripts_executed": false,
+    "proc_macros_executed": false,
+    "source_host_targets": [
+      "x86_64-pc-windows-msvc",
+      "x86_64-unknown-linux-gnu",
+      "x86_64-apple-darwin"
+    ],
+    "native_query_host_target": "x86_64-pc-windows-msvc",
+    "unprojected_subcommands": [
+      {
+        "source": "py:build/build.py:call_site:147:14:147:88:python_process_invocation:py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A137%3A1%3A152%3A21%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A137%3A1%3A152%3A21%22%2C%5B%5D%2C%5B%5D%5D:windows:0",
+        "command": "fetch",
+        "source_host_target": "x86_64-pc-windows-msvc"
+      },
+      {
+        "source": "py:build/build.py:call_site:147:14:147:88:python_process_invocation:py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A137%3A1%3A152%3A21%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A137%3A1%3A152%3A21%22%2C%5B%5D%2C%5B%5D%5D:posix:0",
+        "command": "fetch",
+        "source_host_target": "x86_64-unknown-linux-gnu"
+      },
+      {
+        "source": "py:build/build.py:call_site:644:10:644:69:python_process_invocation:py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A366%3A1%3A407%3A77%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A642%3A1%3A650%3A30%22%2C%5B%22py%3Abuild%2Fbuild.py%3Acall_site%3A404%3A14%3A404%3A71%22%5D%2C%5B%5D%5D:posix:0",
+        "command": "bundle",
+        "source_host_target": "x86_64-apple-darwin"
+      },
+      {
+        "source": "py:build/build.py:call_site:147:14:147:88:python_process_invocation:py:path-context:%5B%22py%3Abuild%2Fbuild.py%3Acallable%3A137%3A1%3A152%3A21%22%2C%22py%3Abuild%2Fbuild.py%3Acallable%3A137%3A1%3A152%3A21%22%2C%5B%5D%2C%5B%5D%5D:posix:0",
+        "command": "fetch",
+        "source_host_target": "x86_64-apple-darwin"
+      }
+    ]
+  },
+  "contexts": [
+    {
+      "id": "cargo:source-projection:py%3Abuild%2Fbuild.py%3Acall_site%3A644%3A10%3A644%3A69%3Apython_process_invocation%3Apy%3Apath-context%3A%255B%2522py%253Abuild%252Fbuild.py%253Acallable%253A366%253A1%253A407%253A77%2522%252C%2522py%253Abuild%252Fbuild.py%253Acallable%253A642%253A1%253A650%253A30%2522%252C%255B%2522py%253Abuild%252Fbuild.py%253Acall_site%253A404%253A14%253A404%253A71%2522%255D%252C%255B%255D%255D%3Awindows%3A2:x86_64-pc-windows-msvc:x86_64-pc-windows-msvc:release",
+      "manifest": "platform/Cargo.toml",
+      "target_system": {
+        "status": "available",
+        "name": "Windows",
+        "host_name": "Windows",
+        "host_path_style": "windows",
+        "target_path_style": "windows",
+        "target_arch": "x86_64",
+        "host_arch": "x86_64",
+        "target": "x86_64-pc-windows-msvc",
+        "host_target": "x86_64-pc-windows-msvc",
+        "cross_compiling": false,
+        "basis": "native_rustc_query_with_source_configuration_conditions",
+        "source_host_execution": "not_observed",
+        "native_query_host_target": "x86_64-pc-windows-msvc"
+      },
+      "state": "declared_output_plan"
+    },
+    {
+      "id": "cargo:source-projection:py%3Abuild%2Fbuild.py%3Acall_site%3A644%3A10%3A644%3A69%3Apython_process_invocation%3Apy%3Apath-context%3A%255B%2522py%253Abuild%252Fbuild.py%253Acallable%253A366%253A1%253A407%253A77%2522%252C%2522py%253Abuild%252Fbuild.py%253Acallable%253A642%253A1%253A650%253A30%2522%252C%255B%2522py%253Abuild%252Fbuild.py%253Acall_site%253A404%253A14%253A404%253A71%2522%255D%252C%255B%255D%255D%3Aposix%3A1:x86_64-unknown-linux-gnu:x86_64-unknown-linux-gnu:release",
+      "manifest": "platform/linux/Cargo.toml",
+      "target_system": {
+        "status": "available",
+        "name": "Linux",
+        "host_name": "Linux",
+        "host_path_style": "posix",
+        "target_path_style": "posix",
+        "target_arch": "x86_64",
+        "host_arch": "x86_64",
+        "target": "x86_64-unknown-linux-gnu",
+        "host_target": "x86_64-unknown-linux-gnu",
+        "cross_compiling": false,
+        "basis": "native_rustc_query_with_source_configuration_conditions",
+        "source_host_execution": "not_observed",
+        "native_query_host_target": "x86_64-pc-windows-msvc"
+      },
+      "state": "declared_output_plan"
+    }
+  ],
+  "gaps_by_reason": {
+    "build_script_outputs_require_native_build_evidence": 1,
+    "cargo_subcommand_output_requires_native_capture": 1
+  },
+  "checks": [
+    {
+      "case": "cargo_entry_bidirectional",
+      "context": "cargo:source-projection:py%3Abuild%2Fbuild.py%3Acall_site%3A644%3A10%3A644%3A69%3Apython_process_invocation%3Apy%3Apath-context%3A%255B%2522py%253Abuild%252Fbuild.py%253Acallable%253A366%253A1%253A407%253A77%2522%252C%2522py%253Abuild%252Fbuild.py%253Acallable%253A642%253A1%253A650%253A30%2522%252C%255B%2522py%253Abuild%252Fbuild.py%253Acall_site%253A404%253A14%253A404%253A71%2522%255D%252C%255B%255D%255D%3Awindows%3A2:x86_64-pc-windows-msvc:x86_64-pc-windows-msvc:release",
+      "passed": true
+    },
+    {
+      "case": "cargo_entry_bidirectional",
+      "context": "cargo:source-projection:py%3Abuild%2Fbuild.py%3Acall_site%3A644%3A10%3A644%3A69%3Apython_process_invocation%3Apy%3Apath-context%3A%255B%2522py%253Abuild%252Fbuild.py%253Acallable%253A366%253A1%253A407%253A77%2522%252C%2522py%253Abuild%252Fbuild.py%253Acallable%253A642%253A1%253A650%253A30%2522%252C%255B%2522py%253Abuild%252Fbuild.py%253Acall_site%253A404%253A14%253A404%253A71%2522%255D%252C%255B%255D%255D%3Aposix%3A1:x86_64-unknown-linux-gnu:x86_64-unknown-linux-gnu:release",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "seconds": 2.656,
+  "default_whole_map_updated": false,
+  "G03_G04_accepted": false
+}
