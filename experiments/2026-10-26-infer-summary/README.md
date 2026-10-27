@@ -1,5 +1,7 @@
 # Infer 可组合效果准入检查
 
+**2026-10-27 真实输入验证工作单**：复用已成功执行的 Linux CMake 配置流程，按提交导出清单选择原生 compilation database 中的自有源码，执行 [insight_probe.py](insight_probe.py)。只使用已限定准入的 Infer 1.3.0，不增加引擎；capture/analyze/export 分阶段最多 600 秒、进程树 4 GiB，任一阶段失败即保留收据。同步保存 Linux CMake File API 与编译配置供 R2 部署连接复用。原生数据库只读取公开表的计数，不解析 OCaml 二进制；命令成功、摘要数量和语义验收分别记录。该工作单执行期间继续 R2 独立边界项，实际结果另附。
+
 日期：2026-10-26。范围：[计划 4.2](../../plans/semantic-impact-execution-plan.md)唯一新增候选的 45 分钟准入窗口。候选为 Infer `v1.3.0`，下载源码提交 `410a6d9394b9c9794bf9469ee0e1aa8d3ae91031`，本地源码位于 D 盘工具区；运行采用上游 Linux 二进制。[限定准入完成](completion.md)：唯一复验后两个布局各 10 项效果检查通过，通用 SVF 替代资格与真实项目成本保持待验。
 
 **首次执行**：研究提交 `47a4d2d` 的 [CI run 40341615457](https://github.com/WildPickledPepper/project-map-research/actions/runs/40341615457) 成功导出两个布局各 14 个过程的原生摘要。检查发现 `after_copy` 含跳过的头文件隐式构造与 `unknown_values=true`，不能用返回值暂时不相等来认定复制隔离通过。原始结果保留，唯一复验改为上游 `capture --headers`，保持 fixture 与期望不变。

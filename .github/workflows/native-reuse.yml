@@ -5,7 +5,7 @@ on:
       provider:
         type: choice
         default: all
-        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release, rust-admission, svf-diagnose, infer-summary, rust-linux-debug]
+        options: [all, svf, rapx, rust-svf, svf-replay, rust-analyze, rapx-linux-debug, rust-release, rust-windows-release, rust-admission, svf-diagnose, infer-summary, rust-linux-debug, infer-insight]
       compiler-run:
         type: string
         default: ''
@@ -13,6 +13,49 @@ permissions:
   contents: read
   actions: read
 jobs:
+  infer-insight:
+    if: inputs.provider == 'infer-insight'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install the admitted upstream native tools
+        run: |
+          python -m pip install cmake==3.31.6 ninja==1.11.1.4 psutil==7.2.2
+          curl -L --fail --retry 1 https://github.com/facebook/infer/releases/download/v1.3.0/infer-linux-x86_64-v1.3.0.tar.xz -o "$RUNNER_TEMP/infer.tar.xz"
+          mkdir "$RUNNER_TEMP/infer-tools"
+          tar -xJf "$RUNNER_TEMP/infer.tar.xz" -C "$RUNNER_TEMP/infer-tools"
+      - name: Reuse native Linux CMake preparation
+        run: python experiments/2026-10-26-r0-r1/prepare_insight_linux.py --output "$RUNNER_TEMP/insight-native"
+      - name: Measure actual source capture and compositional analysis
+        run: |
+          infer="$RUNNER_TEMP/infer-tools/infer-linux-x86_64-v1.3.0/bin/infer"
+          python experiments/2026-10-26-infer-summary/insight_probe.py --infer "$infer" --cmake-capture "$RUNNER_TEMP/insight-native/cmake" --output "$RUNNER_TEMP/infer-insight-output"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: infer-insight-output
+          include-hidden-files: true
+          path: |
+            ${{ runner.temp }}/infer-insight-output/result.json
+            ${{ runner.temp }}/infer-insight-output/**/resources.json
+            ${{ runner.temp }}/infer-insight-output/**/analysis.log
+            ${{ runner.temp }}/infer-insight-output/infer-out/all_summaries.json
+            ${{ runner.temp }}/infer-insight-output/infer-out/capture.db
+            ${{ runner.temp }}/infer-insight-output/infer-out/results.db
+            ${{ runner.temp }}/infer-insight-output/infer-out/report.json
+            ${{ runner.temp }}/insight-native/cmake/result.json
+            ${{ runner.temp }}/insight-native/cmake/selection.json
+            ${{ runner.temp }}/insight-native/cmake/prepared-dependencies/.cmake/api/v1/reply
+            ${{ runner.temp }}/insight-native/cmake/prepared-dependencies/CMakeFiles/**/CMakeSystem.cmake
+            ${{ runner.temp }}/insight-native/cmake/prepared-dependencies/compile_commands.json
+            ${{ runner.temp }}/insight-native/cmake/prepared-dependencies/command.json
+          retention-days: 7
   infer-summary:
     if: inputs.provider == 'infer-summary'
     runs-on: ubuntu-24.04
