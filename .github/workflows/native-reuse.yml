@@ -354,7 +354,7 @@ jobs:
           git -C "$RUNNER_TEMP/insight" fetch --depth 1 https://gitcode.com/Ascend/msinsight.git d4e8d1cf9f90208bcbe5371c127088f6fd66c688
           git -C "$RUNNER_TEMP/insight" checkout --detach -q FETCH_HEAD
       - name: Analyze native Rust application configurations
-        timeout-minutes: 10
+        timeout-minutes: ${{ inputs.provider == 'rust-linux-debug' && 10 || 30 }}
         run: |
           if [ "${{ inputs.provider }}" = rust-linux-debug ]; then
             python scripts/capture_cargo_value_flow.py --compile-only --manifest "$RUNNER_TEMP/insight/platform/linux/Cargo.toml" --source-root "$RUNNER_TEMP/insight" --output "$RUNNER_TEMP/rust-svf-output/insight-linux-debug" --source-commit d4e8d1cf9f90208bcbe5371c127088f6fd66c688 --context platform/linux-desktop-debug --analysis-optimization 1

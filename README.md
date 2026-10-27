@@ -1,5 +1,7 @@
 # Project Map Research
 
+**2026-10-27 原生配置补充**：[Rust Linux Debug 捕获与查询已交付](experiments/2026-10-26-native-budget/rust-debug-completion.md)，实际 Debug cfg、单次原生分析/导出约 131 秒、采样峰值约 2.67 GiB，原准入与实际捕获查询各 6 项通过。新提供方已归一化；默认全图尚未更新，R0/R1 总体仍为 partial，下一项为 R2 启动/部署边界。
+
 **2026-10-26 效果复用路线**：[Infer 原生摘要限定准入](experiments/2026-10-26-infer-summary/completion.md)在两种跨文件布局各通过 10 项参数/字段/引用/全局/条件与未知副作用检查，头文件选项复验修复复制检查。真实 Insight 成本与通用值流替代资格尚未验收，R0/R1 总体仍为 partial。
 
 **2026-10-26 原生预算第一批**：[同进程导出通过，PAG 前置成本已定位](experiments/2026-10-26-native-budget/completion.md)。固定包实际通过六项值流、三项对象身份检查；真实 C++ 在 PAG 构建阶段触及 13 GiB，PTA/SVFG 未启动。后续按计划核查效果复用路线，R0/R1 严格验收仍为 partial。

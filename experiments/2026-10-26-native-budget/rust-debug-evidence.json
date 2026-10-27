@@ -1,0 +1,310 @@
+{
+  "schema": "rust-debug-native-delivery/1",
+  "date": "2026-10-27",
+  "research_commit": "57339dde752b192e9260f1c09107ac480e4b307e",
+  "ci_run": 40343222170,
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "context": "platform/linux-desktop-debug",
+  "compiler": {
+    "compiler": "rustc 1.94.0 (4a4ef493e 2026-03-02)\nbinary: rustc\ncommit-hash: 4a4ef493e3a1488c6e321570238084b38948f6db\ncommit-date: 2026-03-02\nhost: x86_64-unknown-linux-gnu\nrelease: 1.94.0\nLLVM version: 21.1.8\n",
+    "release": false,
+    "debug_assertions": true,
+    "analysis_optimization": "1",
+    "native_cfg": [
+      "debug_assertions",
+      "emscripten_wasm_eh",
+      "feature=\"default\"",
+      "feature=\"wry024\"",
+      "fmt_debug=\"full\"",
+      "overflow_checks",
+      "panic=\"unwind\"",
+      "relocation_model=\"pic\"",
+      "target_abi=\"\"",
+      "target_arch=\"x86_64\"",
+      "target_endian=\"little\"",
+      "target_env=\"gnu\"",
+      "target_family=\"unix\"",
+      "target_feature=\"fxsr\"",
+      "target_feature=\"sse\"",
+      "target_feature=\"sse2\"",
+      "target_feature=\"x87\"",
+      "target_has_atomic",
+      "target_has_atomic=\"16\"",
+      "target_has_atomic=\"32\"",
+      "target_has_atomic=\"64\"",
+      "target_has_atomic=\"8\"",
+      "target_has_atomic=\"ptr\"",
+      "target_has_atomic_equal_alignment=\"16\"",
+      "target_has_atomic_equal_alignment=\"32\"",
+      "target_has_atomic_equal_alignment=\"64\"",
+      "target_has_atomic_equal_alignment=\"8\"",
+      "target_has_atomic_equal_alignment=\"ptr\"",
+      "target_has_atomic_load_store",
+      "target_has_atomic_load_store=\"16\"",
+      "target_has_atomic_load_store=\"32\"",
+      "target_has_atomic_load_store=\"64\"",
+      "target_has_atomic_load_store=\"8\"",
+      "target_has_atomic_load_store=\"ptr\"",
+      "target_has_reliable_f128",
+      "target_has_reliable_f16",
+      "target_has_reliable_f16_math",
+      "target_os=\"linux\"",
+      "target_pointer_width=\"64\"",
+      "target_thread_local",
+      "target_vendor=\"unknown\"",
+      "ub_checks",
+      "unix"
+    ]
+  },
+  "native_resource": {
+    "schema": "svf-bounded-diagnostic/1",
+    "exit_code": 0,
+    "stop_reason": null,
+    "seconds": 131.303,
+    "peak_tree_rss_bytes": 2870558720,
+    "sample_interval_seconds": 0.1,
+    "samples": 1268,
+    "events": [],
+    "phase_sample_peak_bytes": {
+      "startup": 2870558720
+    },
+    "limits": {
+      "seconds": 600,
+      "memory_gib": 13
+    },
+    "phase_scope": "events bracket PAG and PTA; full native build combines PTA/MemorySSA/SVFG"
+  },
+  "normalization_resource": {
+    "schema": "svf-bounded-diagnostic/1",
+    "exit_code": 0,
+    "stop_reason": null,
+    "seconds": 5.969,
+    "peak_tree_rss_bytes": 1239797760,
+    "sample_interval_seconds": 0.1,
+    "samples": 55,
+    "events": [],
+    "phase_sample_peak_bytes": {
+      "startup": 1239797760
+    },
+    "limits": {
+      "seconds": 300,
+      "memory_gib": 4
+    },
+    "phase_scope": "events bracket PAG and PTA; full native build combines PTA/MemorySSA/SVFG"
+  },
+  "six_cases": {
+    "schema": "rust-svf-independent-admission/1",
+    "source_generator_commit": "57339dde752b192e9260f1c09107ac480e4b307e",
+    "input_kind": "authored_fixture_copied_by_pinned_workflow",
+    "input_reference": "rust-dataflow.rs",
+    "provider": {
+      "provider": "svf",
+      "adapter": "native_value_flow/1",
+      "context": "fixture/independent",
+      "source_commit": "57339dde752b192e9260f1c09107ac480e4b307e",
+      "native_version": "1.0.0.50",
+      "precision": "native_static_candidate"
+    },
+    "checks": [
+      {
+        "case": "regular",
+        "expected_input_dependency": true,
+        "native_functions": 1,
+        "native_source_nodes": 1,
+        "native_return_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "member",
+        "expected_input_dependency": true,
+        "native_functions": 1,
+        "native_source_nodes": 1,
+        "native_return_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "isolated",
+        "expected_input_dependency": false,
+        "native_functions": 1,
+        "native_source_nodes": 1,
+        "native_return_nodes": 1,
+        "query_found": false,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "after_copy",
+        "expected_input_dependency": false,
+        "native_functions": 1,
+        "native_source_nodes": 1,
+        "native_return_nodes": 1,
+        "query_found": false,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "borrowed",
+        "expected_input_dependency": true,
+        "native_functions": 1,
+        "native_source_nodes": 1,
+        "native_return_nodes": 1,
+        "query_found": true,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      },
+      {
+        "case": "through_ignored",
+        "expected_input_dependency": false,
+        "native_functions": 1,
+        "native_source_nodes": 1,
+        "native_return_nodes": 1,
+        "query_found": false,
+        "stop_reasons": [
+          null
+        ],
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "whole_R0_R1_accepted": false,
+    "runtime_execution": "independent_fixture_tests_only"
+  },
+  "capture_manifest": {
+    "schema": "native-value-flow-captures/1",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "captures": [
+      {
+        "provider": "svf",
+        "context_key": "platform/linux-desktop-debug",
+        "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+        "directory": "0-svf"
+      }
+    ],
+    "results": [
+      {
+        "provider": "svf",
+        "context": "platform/linux-desktop-debug",
+        "modules": 1,
+        "nodes": 20695,
+        "edges": {
+          "SVF_CONTAINS_VALUE": 19974,
+          "SVF_VALUE_FLOW": 29182,
+          "SVF_HAS_NATIVE_VALUE": 5297,
+          "SVF_POINTS_TO": 445
+        },
+        "source_paths": [
+          "platform/src/dev_legacy.rs",
+          "platform/src/main.rs"
+        ],
+        "diagnostics": 1,
+        "semantic_completeness": "requires_independent_checks"
+      }
+    ],
+    "runtime_execution": "not_observed",
+    "whole_R0_R1_accepted": false
+  },
+  "query_checks": {
+    "schema": "native-context-query-checks/1",
+    "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+    "context": "platform/linux-desktop-debug",
+    "capture_only_index": true,
+    "published_whole_map_updated": false,
+    "counts": {
+      "nodes": 20695,
+      "edges": {
+        "SVF_CONTAINS_VALUE": 19974,
+        "SVF_VALUE_FLOW": 29182,
+        "SVF_HAS_NATIVE_VALUE": 5297,
+        "SVF_POINTS_TO": 445
+      }
+    },
+    "source_paths": [
+      "platform/src/dev_legacy.rs",
+      "platform/src/main.rs"
+    ],
+    "checks": [
+      {
+        "path": "platform/src/dev_legacy.rs",
+        "kind": "SVF_VALUE_FLOW",
+        "source_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:flow:2814",
+        "target_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:flow:40837",
+        "passed": true
+      },
+      {
+        "path": "platform/src/dev_legacy.rs",
+        "kind": "SVF_POINTS_TO",
+        "source_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:variable:164",
+        "target_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:variable:165",
+        "passed": true
+      },
+      {
+        "path": "platform/src/main.rs",
+        "kind": "SVF_VALUE_FLOW",
+        "source_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:flow:3354",
+        "target_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:flow:57021",
+        "passed": true
+      },
+      {
+        "path": "platform/src/main.rs",
+        "kind": "SVF_POINTS_TO",
+        "source_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:variable:161",
+        "target_id": "svf:platform%2Flinux-desktop-debug:cargo%3AMindStudioInsight:variable:162",
+        "passed": true
+      },
+      {
+        "case": "source_commit_mismatch",
+        "passed": true
+      },
+      {
+        "case": "context_key_mismatch",
+        "passed": true
+      }
+    ],
+    "passed": true,
+    "whole_G02_accepted": false
+  },
+  "cfg_source_check": {
+    "existing_rapx_paths": [
+      "platform/src/dev_legacy.rs",
+      "platform/src/main.rs"
+    ],
+    "new_svf_paths": [
+      "platform/src/dev_legacy.rs",
+      "platform/src/main.rs"
+    ],
+    "passed": true
+  },
+  "ci_timings": [
+    {
+      "id": 121643190377,
+      "name": "rust-svf",
+      "started_at": "2026-10-26T14:49:18Z",
+      "completed_at": "2026-10-26T14:52:31Z",
+      "conclusion": "success"
+    },
+    {
+      "id": 121645023075,
+      "name": "rust-svf-analysis",
+      "started_at": "2026-10-26T14:52:35Z",
+      "completed_at": "2026-10-26T14:55:21Z",
+      "conclusion": "success"
+    }
+  ],
+  "same_process_endpoints_checked": true,
+  "published_whole_map_updated": false,
+  "whole_R0_R1_accepted": false
+}
