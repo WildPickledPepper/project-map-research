@@ -31,3 +31,25 @@ python experiments/2026-10-27-r2-startup/run_process_bridge.py --index EXISTING_
 ```
 
 下一项：对照全量启动/终止/WebView/容器/构建信号，区分已有两端、提供方未提取、身份未解析及源码缺失；沿用全项目分母推进，继续复用原生事实。
+
+## 全家族信号处理账
+
+[信号核查器](audit_signals.py)将 W0 冻结的启动、终止和 WebView 三类共 640 个信号逐项对照既有语义事实，见[完整处理账](signal-audit-evidence.json)。全部原始信号保留；行号或调用范围重叠只表示观察到相关事实，不升级为调用身份和对端验收。
+
+| 家族 | 信号 | 观察到相应语义边界 | 仅观察到非进程 API | 尚无相应语义边界观察 |
+|---|---:|---:|---:|---:|
+| 启动 | 65 | 61 | 0 | 4 |
+| 终止/等待 | 563 | 7 | 265 | 291 |
+| WebView | 12 | 8 | 0 | 4 |
+
+W0 的终止/等待正则也匹配 `.join()`；265 个位置的既有 Jedi 外部 API 事实只指向 `os.path.join` 等路径/字符串 API。它们仍留在处理账，状态不能用来证明同一源码行没有其它边界。另有线程等待、字符串/数组拼接及尚未解析位置，继续按实际机制核查。
+
+启动的四个无边界观察位置分别是 Shell 内嵌 Python 的两个 `check_output`，以及 Rust 两个位置；后两者的编译/测试条件还需配对。WebView 四个位置均为导入语句，仍保留原始词法信号。多行 Rust 链式调用按既有调用范围对照，避免把表达式起始行和方法所在行不同直接判作漏提取。
+
+CBM 另发现 11 个不在这三类词法信号位置中的候选，包括两个容器入口、Shell→脚本和 C++/JS 启动 API。它们另列进入发现账，不能把 W0 640 个信号当作全部实际边界。构建产物、资源加载和发行布局继续沿用原事实及独立参考核查。
+
+实际核查耗时 0.171 秒；640 个 ID 无重复、无遗漏，四个独立源码位置的状态核对通过。该账展示缺口分布，G03/G04 仍未通过；继续跨家族连接和剩余必需项。
+
+```text
+python experiments/2026-10-27-r2-startup/audit_signals.py --inventory FROZEN_BOUNDARY_INVENTORY.json --index EXISTING_NAVIGATION.sqlite --process-replay PROCESS_BRIDGE_OUTPUT --output NEW_OUTPUT
+```
