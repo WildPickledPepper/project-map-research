@@ -3,6 +3,7 @@ import argparse
 import importlib.util
 import json
 from pathlib import Path
+import shlex
 import sqlite3
 import subprocess
 import sys
@@ -37,6 +38,7 @@ def main():
     p.add_argument('--infer', type=Path, required=True)
     p.add_argument('--cmake-capture', type=Path, required=True)
     p.add_argument('--output', type=Path, required=True)
+    p.add_argument('--match-native-gcc-headers', action='store_true')
     args = p.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
     metadata = json.loads((args.cmake_capture / 'result.json').read_text(encoding='utf-8'))
@@ -48,13 +50,24 @@ def main():
     source = (args.cmake_capture / 'source').resolve()
     commands = json.loads((args.cmake_capture / metadata['attempts'][-1]['id'] / 'compile_commands.json').read_text(encoding='utf-8'))
     selected = {r['path'] for r in selection['files']}
-    owned, owned_paths = [], set()
+    owned, owned_paths, gcc_selections = [], set(), {}
     for row in commands:
         file = Path(row['file'])
         if not file.is_absolute():
             file = Path(row['directory']) / file
         file = file.resolve()
         if file.is_relative_to(source) and file.relative_to(source).as_posix() in selected:
+            if args.match_native_gcc_headers:
+                arguments = list(row['arguments']) if 'arguments' in row else shlex.split(row['command'])
+                compiler = arguments[0]
+                if compiler not in gcc_selections:
+                    library = subprocess.check_output([compiler, '-print-libgcc-file-name'], text=True, timeout=15).strip()
+                    install = Path(library).resolve().parent
+                    if not Path(library).is_file() or install.name == '':
+                        raise ValueError('Native GCC installation could not be identified')
+                    gcc_selections[compiler] = str(install)
+                row = {key: value for key, value in row.items() if key != 'command'}
+                row['arguments'] = [arguments[0], '--gcc-install-dir=' + gcc_selections[compiler], *arguments[1:]]
             owned.append(row)
             owned_paths.add(file.relative_to(source).as_posix())
     if not owned:
@@ -68,6 +81,8 @@ def main():
               'native_context': {'project': metadata['subdir'], 'configuration': metadata['configuration'],
                                  'cmake': metadata['cmake'], 'compiler': metadata['cxx']},
               'compilation_units': len(owned), 'original_compilation_units': len(commands),
+              'capture_gcc_installations': gcc_selections,
+              'capture_argument_adjustment': 'match_configured_gcc_headers' if args.match_native_gcc_headers else 'none',
               'stages': [], 'semantic_equivalence_accepted': False, 'whole_R0_R1_accepted': False}
     try:
         stages = [

@@ -35,7 +35,7 @@ jobs:
       - name: Measure actual source capture and compositional analysis
         run: |
           infer="$RUNNER_TEMP/infer-tools/infer-linux-x86_64-v1.3.0/bin/infer"
-          python experiments/2026-10-26-infer-summary/insight_probe.py --infer "$infer" --cmake-capture "$RUNNER_TEMP/insight-native/cmake" --output "$RUNNER_TEMP/infer-insight-output"
+          python experiments/2026-10-26-infer-summary/insight_probe.py --infer "$infer" --cmake-capture "$RUNNER_TEMP/insight-native/cmake" --output "$RUNNER_TEMP/infer-insight-output" --match-native-gcc-headers
       - uses: actions/upload-artifact@v4
         if: always()
         with:
