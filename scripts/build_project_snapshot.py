@@ -184,6 +184,8 @@ def build(source, request, output, log, *, typescript):
     graph = native_providers(graph, root=source, output=output,
         config=request['config'].get('build', {}).get('providers'),
         emit=lambda row:print('Native '+json.dumps(row), file=log, flush=True))
+    from adapters.native_process_sites import augment as native_process_sites
+    graph = native_process_sites(graph)
     graph['snapshot'] = request['snapshot']
     graph['version'] = {k: request[k] for k in ['source_commit', 'snapshot', 'config', 'build_version']}
     graph['provenance']['input_kind'] = 'git_committed_blob_export'

@@ -1,5 +1,7 @@
 # 研究与实施计划 v0.1
 
+**2026-10-27 R2 A 执行中**：[启动与部署记录](../experiments/2026-10-27-r2-startup/README.md)已接入 CBM 原生进程证据与主图调用位置；52 个原生候选逐项处理，40 个唯一调用关联，3 个仓内目标及正反查询通过。继续全量启动信号与其它边界家族；该增量不代表 G03/G04 通过，partial 仅作为进度检查点。
+
 **2026-10-27 执行收口**：新计划前两批交付[原生成本与身份诊断](../experiments/2026-10-26-native-budget/completion.md)、[Infer 效果摘要限定准入](../experiments/2026-10-26-infer-summary/completion.md)及 [Rust Linux Debug 捕获/查询](../experiments/2026-10-26-native-budget/rust-debug-completion.md)。R0/R1 严格验收保持 partial；默认全图接入和语义缺口继续列账，下一项为 R2 A 批启动/部署横向连接。
 
 **2026-10-26 当前执行入口**：[面向 AI 修改任务的实施计划](semantic-impact-execution-plan.md)细化下一轮 R0–R5：限时诊断原生成本、验证效果复用路线、横向连接全模块、形成 issue/diff 上下文，再完成运行与更新验收。每批规定交付、验收、资源上限和失败出口；全项目范围与 G01–G09 保持不变，R0/R1 严格验收仍为 partial。

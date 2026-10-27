@@ -45,6 +45,11 @@ class FullSnapshotTests(unittest.TestCase):
             self.assertTrue(any(n.get('declaration_kind')=='EnumDeclaration' for n in by_id.values()))
             self.assertTrue(any(e['kind']=='CBM_SPAWNS' and by_id[e['source']]['path']=='build/launch.sh'
                 and by_id[e['target']]['path']=='scripts/task.sh' for e in graph['edges']))
+            sites={n['id'] for n in by_id.values() if n['kind']=='native_process_site'
+                and n['path']=='build/launch.sh' and n['anchor_status']=='matched_source_call'}
+            self.assertTrue(sites)
+            self.assertTrue(any(e['kind']=='MAY_EXECUTE_SOURCE_MODULE' and e['source'] in sites
+                and by_id[e['target']]['path']=='scripts/task.sh' for e in graph['edges']))
             self.assertEqual(next(r for r in graph['coverage'] if r['path']=='build/launch.sh')['status'],'parsed')
             self.assertTrue(any(r['provider']=='cbm' for r in graph['native_providers']))
             self.assertTrue((root/'workspace').is_dir())

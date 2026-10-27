@@ -1,0 +1,78 @@
+{
+  "schema": "native-process-bridge-replay/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "baseline_snapshot": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688:full:7237870b4dbb4e228adc3901f1ad9a01",
+  "summary": {
+    "adapter": "native_process_site_bridge/0.1.0",
+    "counts": {
+      "sites": 52,
+      "process_start_candidate": 48,
+      "no_source_api_anchor": 12,
+      "native_source_target_candidate": 3,
+      "matched_source_call": 40,
+      "unresolved_dynamic_program": 33,
+      "external_or_unbound_program": 16,
+      "command_construction": 4
+    },
+    "limits": [
+      "native_candidates_are_not_execution_evidence",
+      "shared_program_descriptions_are_not_process_instances",
+      "unmatched_native_sites_do_not_establish_boundary_completeness"
+    ]
+  },
+  "selected_counts": {
+    "nodes": 555,
+    "edges": 147
+  },
+  "sites_by_structural_module": {
+    ".": 34,
+    "server": 5,
+    "modules": 3,
+    "server/msinsight": 2,
+    "server/src/test": 3,
+    "plugins/jupyterlab": 1,
+    "platform": 4
+  },
+  "seconds": 5.797,
+  "checks": [
+    {
+      "case": "native_source_counterpart_bidirectional",
+      "source": "native-process-site:cbm%3Aproject-map-d4e8d1cf9f90%3A32023:cbm%3Aproject-map-d4e8d1cf9f90%3A19947:136862",
+      "target": "cbm:project-map-d4e8d1cf9f90:19947",
+      "passed": true
+    },
+    {
+      "case": "native_source_counterpart_bidirectional",
+      "source": "native-process-site:cbm%3Aproject-map-d4e8d1cf9f90%3A29647:cbm%3Aproject-map-d4e8d1cf9f90%3A19947:136865",
+      "target": "cbm:project-map-d4e8d1cf9f90:19947",
+      "passed": true
+    },
+    {
+      "case": "native_source_counterpart_bidirectional",
+      "source": "native-process-site:cbm%3Aproject-map-d4e8d1cf9f90%3A26357:cbm%3Aproject-map-d4e8d1cf9f90%3A30516:136860",
+      "target": "cbm:project-map-d4e8d1cf9f90:30516",
+      "passed": true
+    },
+    {
+      "case": "source_call_to_native_target_bidirectional",
+      "source": "bash:d6490ee5204a510334842750",
+      "target": "cbm:project-map-d4e8d1cf9f90:30516",
+      "passed": true
+    },
+    {
+      "case": "every_supplied_native_spawn_accounted",
+      "passed": true
+    },
+    {
+      "case": "no_new_instance_edge_to_shared_program_descriptions",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "default_whole_map_updated": false,
+  "G03_G04_accepted": false,
+  "limits": [
+    "native_spawn_count_is_not_all_boundary_signal_coverage",
+    "legacy_native_edges_still_include_shared_program_description_targets"
+  ]
+}
