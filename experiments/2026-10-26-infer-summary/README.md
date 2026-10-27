@@ -6,6 +6,10 @@
 
 唯一复验显式使用原生编译器 `-print-libgcc-file-name` 取得安装目录，向分析编译参数加入 Clang `--gcc-install-dir`，使标准库头文件选择与配置编译器一致。其余源码、411 个输入和头文件捕获要求保持；调整与实际目录写入新收据，不使用 `--keep-going` 将失败输入跳过后冒充完成。Linux CMake 原始回复已下载并可独立复用，Infer 失败不取消该构建证据。
 
+**真实输入复验结果**：[CI 40436218934](https://github.com/WildPickledPepper/project-map-research/actions/runs/40436218934)，提交 `b6c58b0`，[完整收据](insight-retry-evidence.json)。确已选择 GCC 13 安装目录及 `/usr/include/c++/13`，同一 `atomic_flag::test_and_set` 的 `AtomicExpr` 翻译断言再次触发。capture 5.563 秒、峰值 871,235,584 字节，exit 1；未到达 analyze/export，没有有效完成的 source_files。由此确认标准库选择差异不足以修复当前前端兼容问题，不能将首轮失败仅归因于 GCC 14。
+
+该次限定复验结束，不重复同一全输入。小题的效果摘要准入继续保留，真实 Insight 的 Infer 路线尚未准入；此结果没有证明内存目标或通用 SVF 替代。继续使用已可用语言/构建事实推进 R2，其它精细语义缺口保留。两次 CMake 原生回复均成功，与 Infer 结果分别判定。
+
 日期：2026-10-26。范围：[计划 4.2](../../plans/semantic-impact-execution-plan.md)唯一新增候选的 45 分钟准入窗口。候选为 Infer `v1.3.0`，下载源码提交 `410a6d9394b9c9794bf9469ee0e1aa8d3ae91031`，本地源码位于 D 盘工具区；运行采用上游 Linux 二进制。[限定准入完成](completion.md)：唯一复验后两个布局各 10 项效果检查通过，通用 SVF 替代资格与真实项目成本保持待验。
 
 **首次执行**：研究提交 `47a4d2d` 的 [CI run 40341615457](https://github.com/WildPickledPepper/project-map-research/actions/runs/40341615457) 成功导出两个布局各 14 个过程的原生摘要。检查发现 `after_copy` 含跳过的头文件隐式构造与 `unknown_values=true`，不能用返回值暂时不相等来认定复制隔离通过。原始结果保留，唯一复验改为上游 `capture --headers`，保持 fixture 与期望不变。
