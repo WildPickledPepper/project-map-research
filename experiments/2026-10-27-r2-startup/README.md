@@ -53,3 +53,15 @@ CBM 另发现 11 个不在这三类词法信号位置中的候选，包括两个
 ```text
 python experiments/2026-10-27-r2-startup/audit_signals.py --inventory FROZEN_BOUNDARY_INVENTORY.json --index EXISTING_NAVIGATION.sqlite --process-replay PROCESS_BRIDGE_OUTPUT --output NEW_OUTPUT
 ```
+
+## 多配置构建与可搬迁捕获
+
+原 CMake 导入按项目/Release 名称只允许一个捕获，不能同时保留 Windows 与 Linux 的 Release 图。现有 [CMake 提供方](../../adapters/cmake_project.py)增加可选捕获 `context_key`：每个变体独立配置/目标/产物身份；无标签旧配置继续复用原入口，同项目同配置的重复未标识输入拒绝导入。捕获的原生系统、路径风格、编译配置继续来自 CMake File API，不根据标签推断。
+
+已搬迁或从 CI 下载的捕获通过原 `command.json` 记录取得源/构建根，调用现有 File API 的 recorded-root 校验；无需复制原构建目录到原机路径，也无需重新配置产品。收据分别记录原生根与本次读取位置。原生回复、源码提交和所选项目不符仍拒绝。
+
+真实控制同时读取原 Windows Release 与本次成功的 Linux Release 原生回复，复用既有 C++ main 声明，形成 2 个配置、66 个目标、1,108 个构建输入、17 个产物，两个目标→C++ 入口正反查与两项身份/输入核查全部通过，耗时 2.578 秒，见[收据](build-context-evidence.json)及[复现器](replay_build_contexts.py)。这次只重放构建事实，没有重新编译/运行产品，也未更新默认全图。
+
+独立原生检查覆盖两个配置变体的不同输出、删除变体无残留、重复未标识上下文拒绝和搬迁后入口仍可查；现有 File API 的同名异目录、配置隔离、旧回复拒绝、系统来源及源码归属检查继续通过。首轮新增断言误将 Windows PDB 辅助产物计作主要可执行文件，按原生 `artifact_role=primary` 修正统计；独立期待的两个主要输出保持。
+
+Cargo 的其它构建主机上下文、WebView 资源闭环和全部启动对端继续推进。Linux 原生构建可复用与 Infer 语义捕获失败分别记录，后者见[实际结果](../2026-10-26-infer-summary/README.md)。

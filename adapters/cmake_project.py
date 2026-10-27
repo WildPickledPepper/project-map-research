@@ -34,9 +34,13 @@ def configuration(value=None):
     if not isinstance(captures, list): raise ValueError('CMake captures must be an array')
     capture_directories = set()
     for capture in captures:
-        if (not isinstance(capture, dict) or set(capture) != {'directory', 'source_commit'}
+        if (not isinstance(capture, dict) or set(capture) not in (
+                {'directory', 'source_commit'}, {'directory', 'source_commit', 'context_key'})
                 or not isinstance(capture['directory'], str) or not Path(capture['directory']).is_absolute()):
             raise ValueError('CMake captures require absolute directory and fixed source_commit')
+        if 'context_key' in capture and (not isinstance(capture['context_key'], str) or
+                not 1 <= len(capture['context_key']) <= 256 or any(ord(c)<32 for c in capture['context_key'])):
+            raise ValueError('CMake capture context_key must be nonempty printable text')
         revision = capture['source_commit']
         if not isinstance(revision, str) or len(revision) != 40 or any(c not in '0123456789abcdef' for c in revision):
             raise ValueError('CMake capture source revision must be fixed')
@@ -119,7 +123,7 @@ def extract(source, paths, *, source_commit, output, config=None, source_facts=N
                 result['contexts'].append({'key': project + '/' + name, 'source_commit': source_commit,
                     'status': 'unavailable', 'project': project, 'configuration': name, 'reason': reason})
         return result
-    captures = {}
+    captures = {}; capture_contexts = set()
     for spec in options.get('captures', []):
         capture = Path(spec['directory']).resolve()
         metadata = json.loads((capture / 'result.json').read_text(encoding='utf-8'))
@@ -128,23 +132,39 @@ def extract(source, paths, *, source_commit, output, config=None, source_facts=N
         attempt = metadata['attempts'][-1]
         if not attempt['configured']: raise ValueError('CMake capture did not configure successfully')
         key = metadata['subdir'], metadata['configuration']
-        if key in captures or key[0] not in discovered or key[1] not in options['configurations']:
+        variant_key = (*key, spec.get('context_key'))
+        if variant_key in capture_contexts or key[0] not in discovered or key[1] not in options['configurations']:
             raise ValueError('CMake capture has duplicate or inapplicable project/configuration')
+        capture_contexts.add(variant_key)
         attempt_id = validate_path(attempt['id'])
-        captures[key] = capture, metadata, capture / attempt_id
+        captures.setdefault(key, []).append((capture, metadata, capture / attempt_id, spec.get('context_key')))
     for ordinal, project in enumerate(discovered):
-        for config_ordinal, name in enumerate(options['configurations']):
+        variants = [(i, name, j, row) for i, name in enumerate(options['configurations'])
+                    for j, row in enumerate(captures.get((project, name), [None]))]
+        for config_ordinal, name, variant, captured in variants:
             context_key = (project if project != '.' else '@repository') + '/' + name
-            directory = output / str(ordinal) / str(config_ordinal); directory.mkdir(parents=True)
+            if captured and captured[3]: context_key += '@' + captured[3]
+            slot = str(config_ordinal) + ('-' + str(variant) if variant else '')
+            directory = output / str(ordinal) / slot; directory.mkdir(parents=True)
             copied = directory / 'source'; build = directory / 'build'
             receipt = {'source_commit': source_commit, 'context_key': context_key, 'project': project,
                        'configuration': name, 'status': 'preparing', 'dependencies': []}
-            if (project, name) in captures:
-                capture, metadata, captured_build = captures[(project, name)]
+            if captured:
+                capture, metadata, captured_build, _ = captured
                 dependencies = metadata.get('dependencies', [])
-                facts = analyze(captured_build, capture / 'source', context_key=context_key,
+                recorded = {}
+                command_file = captured_build / 'command.json'
+                if command_file.is_file():
+                    command = json.loads(command_file.read_text(encoding='utf-8'))
+                    native_project = Path(command[command.index('-S') + 1]).resolve()
+                    native_repository = native_project
+                    for _ in PurePosixPath(project).parts if project != '.' else ():
+                        native_repository = native_repository.parent
+                    recorded = {'recorded_build_root': Path(command[command.index('-B') + 1]),
+                                'recorded_repository_root': native_repository}
+                facts = analyze(captured_build, source if recorded else capture / 'source', context_key=context_key,
                     source_commit=source_commit, expected_commit=source_commit, selected_paths=paths,
-                    configure_returncode=0, dependency_prefixes=[r['destination'] for r in dependencies])
+                    configure_returncode=0, dependency_prefixes=[r['destination'] for r in dependencies], **recorded)
                 if facts['native_context']['status'] != 'configured':
                     raise ValueError('Captured CMake reply could not be replayed')
                 for key in ('nodes', 'edges', 'diagnostics', 'limits'): result[key].extend(facts[key])
@@ -154,8 +174,11 @@ def extract(source, paths, *, source_commit, output, config=None, source_facts=N
                     'compile_commands_available': (captured_build / 'compile_commands.json').is_file(),
                     'capture_reused': True})
                 receipt.update(status='configured', returncode=0, dependencies=dependencies,
-                    capture_reused=True, native_source_root=str(capture / 'source'),
-                    native_build_root=str(captured_build))
+                    capture_reused=True,
+                    native_source_root=str(recorded.get('recorded_repository_root', capture / 'source')),
+                    native_build_root=str(recorded.get('recorded_build_root', captured_build)),
+                    replay_source_root=str(source if recorded else capture / 'source'),
+                    replay_build_root=str(captured_build))
                 _write(directory / 'receipt.json', receipt)
                 if emit: emit({'context': context_key, 'status': 'configured', 'capture_reused': True})
                 continue

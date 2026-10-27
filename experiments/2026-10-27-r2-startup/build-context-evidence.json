@@ -1,0 +1,83 @@
+{
+  "schema": "native-build-context-replay/1",
+  "source_commit": "d4e8d1cf9f90208bcbe5371c127088f6fd66c688",
+  "contexts": [
+    {
+      "key": "server/Release@windows-release",
+      "target_system": {
+        "status": "available",
+        "name": "Windows",
+        "declared_processor": "AMD64",
+        "host_name": "Windows",
+        "host_processor": "AMD64",
+        "cross_compiling": false,
+        "target_path_style": "windows",
+        "host_path_style": "windows",
+        "processor_interpretation": "cmake_system_processor_not_verified_compiler_architecture",
+        "basis": "cmake_generated_system_literals",
+        "file": "CMakeFiles/3.31.6/CMakeSystem.cmake"
+      },
+      "configurations": [
+        "Release"
+      ],
+      "capture_reused": true
+    },
+    {
+      "key": "server/Release@linux-release",
+      "target_system": {
+        "status": "available",
+        "name": "Linux",
+        "declared_processor": "x86_64",
+        "host_name": "Linux",
+        "host_processor": "x86_64",
+        "cross_compiling": false,
+        "target_path_style": "posix",
+        "host_path_style": "posix",
+        "processor_interpretation": "cmake_system_processor_not_verified_compiler_architecture",
+        "basis": "cmake_generated_system_literals",
+        "file": "CMakeFiles/3.31.6/CMakeSystem.cmake"
+      },
+      "configurations": [
+        "Release"
+      ],
+      "capture_reused": true
+    }
+  ],
+  "node_kinds": {
+    "build_configuration": 2,
+    "build_target": 66,
+    "build_source": 1108,
+    "build_artifact": 17,
+    "callable": 1
+  },
+  "checks": [
+    {
+      "case": "native_executable_entry_bidirectional",
+      "target": "profiler_server",
+      "entry_path": "server/src/entry/server/bin/main.cpp",
+      "context": "cmake:server%2FRelease%40windows-release:Release",
+      "passed": true
+    },
+    {
+      "case": "native_executable_entry_bidirectional",
+      "target": "profiler_server",
+      "entry_path": "server/src/entry/server/bin/main.cpp",
+      "context": "cmake:server%2FRelease%40linux-release:Release",
+      "passed": true
+    },
+    {
+      "case": "every_supplied_context_replayed",
+      "passed": true
+    },
+    {
+      "case": "native_ids_unique_across_contexts",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "seconds": 2.578,
+  "default_whole_map_updated": false,
+  "G03_G04_accepted": false,
+  "source_symbols": "reused_existing_cpp_entry_declarations_only",
+  "product_compiled_or_executed_in_replay": false
+}
