@@ -1,0 +1,33 @@
+{
+  "participant": "issue655_independent",
+  "original_issue": 655,
+  "source_before": "207a0928b5ff8d10aaca6bb4a492750508099e94",
+  "participant_commit": "67b25fae80461cc6231316e805f6e6ce10634d77",
+  "reported_checks_verified_against_logs": {
+    "cpp_passed": 23,
+    "frontend_passed": 28,
+    "test_files": "Worker tmp/integration-tests.log and tmp/final-frontend-tests.log"
+  },
+  "acceptance_clock_probe": {
+    "commit": "67b25fae80461cc6231316e805f6e6ce10634d77",
+    "scope": "Actual candidate FreeAttributionService.cpp translation unit; normal compiler arguments versus standard filesystem header wrapper changing last_write_time duration rep to __int128. This is a type-width probe, not native macOS SDK compilation.",
+    "results": [
+      {
+        "kind": "native-clock",
+        "returncode": 0,
+        "seconds": 11.09,
+        "ambiguous_stream_insertion": false
+      },
+      {
+        "kind": "clock128",
+        "returncode": 1,
+        "seconds": 9.42,
+        "ambiguous_stream_insertion": true
+      }
+    ]
+  },
+  "verdict": "Cannot count as completed original requirement plus avoided target regression. Functional self-tests pass, but the actual candidate translation unit fails the controlled 128-bit filesystem-clock compilation probe. Direct insertion of the clock count into ostringstream reproduces the same unsupported-width overload ambiguity through operator<<. No native macOS SDK build performed.",
+  "additional_limitations": "Default MinGW application link still needs an environment workaround; full desktop/real-data and target-platform acceptance remain unverified.",
+  "participant_received_grader_feedback": false,
+  "outputs": "Local commits only; no push/remote PR."
+}

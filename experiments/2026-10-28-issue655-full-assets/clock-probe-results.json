@@ -1,0 +1,18 @@
+{
+  "commit": "67b25fae80461cc6231316e805f6e6ce10634d77",
+  "scope": "Actual candidate FreeAttributionService.cpp translation unit; normal compiler arguments versus standard filesystem header wrapper changing last_write_time duration rep to __int128. This is a type-width probe, not native macOS SDK compilation.",
+  "results": [
+    {
+      "kind": "native-clock",
+      "returncode": 0,
+      "seconds": 11.09,
+      "ambiguous_stream_insertion": false
+    },
+    {
+      "kind": "clock128",
+      "returncode": 1,
+      "seconds": 9.42,
+      "ambiguous_stream_insertion": true
+    }
+  ]
+}
