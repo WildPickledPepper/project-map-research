@@ -1,5 +1,19 @@
 # 研究与实施计划 v0.1
 
+**2026-10-28 当前状态：实施和实验暂停，整理设计复盘。** [本轮复盘](../docs/09-design-review-2026-10-28.md)记录了修改依赖、成立条件和验证证据未成为实际交付主线的问题，以及已有成果、未提交草稿和待讨论事项。当前尚未通过整体验收；本次文档整理不启动后续批次或 AI 验证，也不改变 G01–G09 门槛。
+
+## 计划如何阅读
+
+| 文档 | 当前用途 |
+|---|---|
+| [2026-10-28 设计复盘](../docs/09-design-review-2026-10-28.md) | 当前讨论入口；恢复实施前先核对信息要求与已有输出 |
+| [全项目范围 W0–W7](project-wide-completion-plan.md)及[整体验收 G01–G09](project-wide-acceptance.md) | 继续保存全模块、语言、机制范围与完成判定 |
+| [面向 AI 修改任务的 R0–R5 执行计划](semantic-impact-execution-plan.md) | 保存已执行批次、资源上限及原先安排；目前暂停，后续顺序待复盘核对 |
+| [复用优先 R0–R5](reuse-first-execution-plan.md) | 保存现成工具分工、复用路线和历史实施记录 |
+| 下方 P/A 计划与里程碑 | 保存当时限定范围的计划及证据；按日期与输入解释 |
+
+## 历史安排与进展
+
 **2026-10-27 R2 A 执行中**：[启动与部署记录](../experiments/2026-10-27-r2-startup/README.md)已接入 CBM 原生进程证据与主图调用位置；52 个原生候选逐项处理，40 个唯一调用关联，3 个仓内目标及正反查询通过。继续全量启动信号与其它边界家族；该增量不代表 G03/G04 通过，partial 仅作为进度检查点。
 
 **2026-10-27 执行收口**：新计划前两批交付[原生成本与身份诊断](../experiments/2026-10-26-native-budget/completion.md)、[Infer 效果摘要限定准入](../experiments/2026-10-26-infer-summary/completion.md)及 [Rust Linux Debug 捕获/查询](../experiments/2026-10-26-native-budget/rust-debug-completion.md)。R0/R1 严格验收保持 partial；默认全图接入和语义缺口继续列账，下一项为 R2 A 批启动/部署横向连接。
